@@ -13,6 +13,7 @@ import seedu.todolist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todolist.commons.util.FxViewUtil;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.logic.commands.*;
+import seedu.todolist.storage.Storage;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -27,7 +28,7 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
-    private Config config;
+    private Storage storage;
     private StatusBarFooter statusBarFooter;
 
     @FXML
@@ -35,17 +36,17 @@ public class CommandBox extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic, Config config, StatusBarFooter statusBarFooter) {
+            ResultDisplay resultDisplay, Logic logic, Storage storage, StatusBarFooter statusBarFooter) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic, config, statusBarFooter);
+        commandBox.configure(resultDisplay, logic, storage, statusBarFooter);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic, Config config, StatusBarFooter statusBarFooter) {
+    public void configure(ResultDisplay resultDisplay, Logic logic, Storage storage, StatusBarFooter statusBarFooter) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
-        this.config = config;
+        this.storage = storage;
         this.statusBarFooter = statusBarFooter;
         registerAsAnEventHandler(this);
     }
@@ -89,7 +90,7 @@ public class CommandBox extends UiPart {
         String[] CommandTestArray = previousCommandTest.split(" ");
         String storageCommand = "setstorage";
         if(CommandTestArray[0].equals(storageCommand)){
-        	statusBarFooter.setSaveLocation(config.getToDoListFilePath());
+        	statusBarFooter.setSaveLocation(storage.getToDoListFilePath());
             String lastUpdated = (new Date()).toString();
             statusBarFooter.setSyncStatus("Last Updated: " + lastUpdated);
         }

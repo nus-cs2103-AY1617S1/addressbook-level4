@@ -28,7 +28,6 @@ public class SetstorageCommand extends Command{
     	if(file.exists()){
     		file.delete();
     	}
-    	config.setToDoListFilePath(filepath + "/todolist.xml");
     	storage.setFilePath(filepath);
     	return new CommandResult(MESSAGE_SUCCESS);
 	}

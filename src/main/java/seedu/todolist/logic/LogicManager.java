@@ -21,12 +21,11 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final CommandParser parser;
     private final Storage storage;
-    private final Config config;
+  
     //@@author A0158963M
-    public LogicManager(Model model, Storage storage, Config config) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.config = config;
         this.parser = new CommandParser();
     }
     
@@ -37,7 +36,6 @@ public class LogicManager extends ComponentManager implements Logic {
         Command command = parser.parseCommand(commandText);
         command.setData(model);
         command.setStorage(storage);
-        command.setConfig(config);
         return command.execute();
     }
 
