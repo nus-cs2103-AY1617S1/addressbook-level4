@@ -62,7 +62,6 @@ public class StringUtil {
 		searchKey.set(keyYear + 1900, keyMonth, keyDate);
 		Calendar end = Calendar.getInstance();
 		end.set(taskEnd.m_year + 1900, taskEnd.m_month, taskEnd.m_day);
-		System.out.println("TEST! " + start.equals(searchKey));
 		return (start.compareTo(searchKey) <= 0 && end.compareTo(searchKey) >= 0);
 	}
 }

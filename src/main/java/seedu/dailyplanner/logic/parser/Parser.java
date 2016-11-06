@@ -171,8 +171,12 @@ public class Parser {
 		}
 		if (mapArgs.containsKey("start")) {
 			String startString = mapArgs.get("start");
+			// if field is empty, delete start
+			if (startString.equals("")) {
+				formattedStart = new DateTime(new Date(""), new Time(""));
+			}
 			// if start time is given
-			if (startString.contains("am") || startString.contains("pm")) {
+			else if (startString.contains("am") || startString.contains("pm")) {
 				start = natty.parse(startString);
 				Date startDate = new Date(start.split(" ")[0]);
 				Time startTime = new Time(start.split(" ")[1]);
@@ -185,8 +189,13 @@ public class Parser {
 		}
 		if (mapArgs.containsKey("end")) {
 			String endString = mapArgs.get("end");
+			// if field is empty, delete end
+			if (endString.equals("")) {
+				formattedEnd = new DateTime(new Date(""), new Time(""));
+			}
 			// if end time is given
-			if (endString.contains("am") || endString.contains("pm")) {
+			else if (endString.contains("am") || endString.contains("pm")) {
+				// if end date is given
 				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
 					end = natty.parse(endString);
 					Date endDate = new Date(end.split(" ")[0]);
@@ -195,7 +204,7 @@ public class Parser {
 				} else {
 					Date endDate;
 					if (!mapArgs.containsKey("start")) {
-						endDate = new Date(natty.parse("today"));
+						endDate = new Date(natty.parseDate("today"));
 					} else {
 						endDate = new Date(start.split(" ")[0]);
 					}
@@ -209,8 +218,13 @@ public class Parser {
 			}
 		}
 		if (mapArgs.containsKey("tags")) {
-			String[] tagArray = mapArgs.get("tags").split(" ");
-			tags = new HashSet<String>(Arrays.asList(tagArray));
+			// if field is empty, delete tags
+			if (mapArgs.get("tags").equals("")) {
+				tags = new HashSet<String>();
+			} else {
+				String[] tagArray = mapArgs.get("tags").split(" ");
+				tags = new HashSet<String>(Arrays.asList(tagArray));
+			}
 		}
 
 		try {
