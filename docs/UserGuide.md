@@ -204,7 +204,7 @@ Adds an event to Jimi.<br>
 Format: `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]` 
 
 > * If the event is more than a day long, you may include the end date_time. <br>
-> * You may define the end time of the event if you wish. If you do not, however, Jimi will assume your event lasts a day long.
+> * You may define the end time of the event if you wish. If you do not, however, Jimi will assume your event lasts till midnight of the start day.
 
 Examples:
 * `add "Attend Timmy's orchestra" on 5th July t/Timmy`
