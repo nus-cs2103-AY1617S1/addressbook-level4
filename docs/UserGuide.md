@@ -308,6 +308,7 @@ Examples:
 #### <a id="undo"></a>Undoing previous action: `undo`
 Undoes the previous action done in Jimi. <br>
 Format: `undo`
+Only actions that make changes to the data of Jimi are undo-able. i.e. `add`, `delete`, `edit`, `clear`
 
 <br><br>
 
@@ -315,18 +316,19 @@ Format: `undo`
 #### <a id="redo"></a>Redoing previously undone action: `redo`
 Redoes the previously undone action done in the task manager. <br>
 Format: `redo`
+Only actions that make changes to the data of Jimi are redo-able. i.e. `add`, `delete`, `edit`, `clear`
 
 <br><br>
 
 #### <a id="find"></a>Finding all tasks relevant to keywords you input: `find`
 Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find "KEYWORD [MORE_KEYWORDS]"`
 
 > * The keywords must be specified in quotes.
 > * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
-> * Only the task details are searched.
-> * All tasks/events whose name matches the keyword will be included in the search list. eg. `find "ess"` will match `Essay`
-> * Tasks with details matching at least one keyword will be returned (i.e. `OR` search).
+> * Task details, tags and priorities can be search. e.g. `find "high"` will cover high priority tasks too.
+> * Searching takes into account typos too, to a certain extent. e.g. `find "apolet"` will match `apple`.
+> * Tasks with details/tags/priorities matching at least one keyword will be returned.
     e.g. `Writing` will match `Writing essay`
 
 Examples: 
@@ -338,7 +340,7 @@ Examples:
 <!-- @@author A0138915X -->
 #### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
 Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
-Format: `find from DATE to DATE`
+Format: `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME to DATE_TIME` or `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME`
 
 > * You can also input just a single date to search for tasks and events relevant to that day.
 > * You can search the tasks and events by dates along with keywords as well.
@@ -349,6 +351,7 @@ Examples:
 * `find "attend" from tomorrow to next month`
 
 > <img src="images/FindDate.PNG" width="800">
+
 <br><br>
 <!-- @@author A0138915X -->
 
