@@ -1,5 +1,6 @@
 # User Guide
 
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Adding a Task: `add`](#adding-a-task-add)
@@ -21,6 +22,18 @@
 * [Command Summary](#command-summary)
 * [Keyboard Shortcuts](#keyboard-shortcuts)
 
+<!-- @@author A0147619W -->
+## Introduction
+
+In the fast-paced world of today, people are burdened with innumerable tasks at hand. But how can you keep track of all th etasks you have to do easily and efficiently? Well, ForgetMeNot can show you how!
+
+ForgetMeNot is a task manager application that helps you to manage all your tasks at one place. Be it planning a birthday party for your friend, remembering to finish an assignment or adding a recurring task simply to jog everyday, ForgetMeNot manages it all!
+
+This user guide aims to allow any user to seamlessly use the product, as intended to. Just follow the instructions as stated and you will get the results you desire.
+
+Eager and excited? Let's go!
+
+[Back To Top](#user-guide)
 <!-- @@author A0139671X -->
 ## Quick Start
 
@@ -40,6 +53,7 @@
 6. Refer to the [Command Summary](#command-summary) section below for a summary of commands. <br>
 <!-- @@author -->
 
+[Back To Top](#user-guide)
 <!-- @@author A0147619W -->
 ## Features
 
@@ -69,6 +83,7 @@
 > * a range of holidays is also accepted. You can check the entire list of accepted holidays [here](https://github.com/joestelmach/natty/blob/master/src/main/java/com/joestelmach/natty/Holiday.java)
 <!-- @@author -->
 
+[Back To Top](#user-guide)
 <!-- @@author A0139671X -->
 #### Finding more information about various commands: `help`
 Displays the list of commands(along with their formats) to assist the user in using ForgetMeNot.<br>
@@ -159,6 +174,8 @@ Examples:
 
 	Add 2 instances of the task with 3 months in between the instances.
 
+[Back To Top](#user-guide)
+
 #### Editing a Task: `edit`
 Allows the user to edit a particular task. Once a task is given a time, it can only be modified and not removed. If you wish to remove a time from a task, you may delete the task and re-add it without the time. Edit is supported for multiple fields at once. <br>
 Format: `edit <task index> <new detail(s)>`
@@ -208,6 +225,7 @@ Example:
 
 	Finds all task with the word homework or assignment in the name.
 	
+[Back To Top](#user-guide)
 
 #### Mark as done: `done`
 Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
@@ -256,6 +274,7 @@ Format `show floating`
 Displays all the done tasks. <br>
 Format: `show done`
 
+[Back To Top](#user-guide)
 #### Clearing the display: `clear`
 Clears all the tasks in the task manager <br>
 Format: `clear`
@@ -304,7 +323,7 @@ Example:
 Allows the user to exit the application. <br>
 Format: `exit`
 
-
+[Back To Top](#user-guide)
 #### Saving the data 
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
@@ -324,6 +343,7 @@ A: No, only the selected instance gets edited. Our design philosophy is that rec
    separate instances so that the other recurring tasks would not be affected if you were to make changes to one of 
    them due to some circumstances.
 
+[Back To Top](#user-guide)
 ## Command Summary
 
 Following is the list of all commands:
@@ -357,6 +377,7 @@ Following is the list of all commands:
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             										   |
 |`exit`       | `exit`                                             | Exits ForgetMeNot                              										   |
 
+[Back To Top](#user-guide)
 ## Keyboard Shortcuts
 
 Following is the list of keyboard shortcuts that ForgetMeNot has to offer:
