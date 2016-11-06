@@ -15,7 +15,7 @@ public class ParserMemoryMain {
     private static final String STRING_BY = "by";
     private static final String STRING_DEADLINE = "deadline";
     
-  //Commands for start date
+    //Commands for start date
     protected static final int BETWEEN = 13;
     protected static final int ON = 12;
     protected static final int FROM = 11;
@@ -112,7 +112,7 @@ public class ParserMemoryMain {
         setProper = sp;
     }
     
-    //@@author A014338Y
+    //@@author A0143378Y
     /*
      * Set date to a calendar object setEvent
      * If set, return true.
