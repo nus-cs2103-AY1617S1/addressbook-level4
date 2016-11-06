@@ -9,7 +9,7 @@ import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.CalendarItemFilter;
-import seedu.todo.controllers.concerns.DateParser;
+import seedu.todo.controllers.concerns.Disambiguator;
 import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.Event;
@@ -29,17 +29,17 @@ public class ClearController extends Controller {
     private static final String COMMAND_SYNTAX = "clear [task/event] [on date]";
     private static final String COMMAND_KEYWORD = "clear";
     
-    private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items found!";
+    private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items matched your query!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s %s and %s %s deleted!\n" + "To undo, type \"undo\".";
+    private static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
+    private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
+            + "Note that only tasks can be \"complete\"/\"incomplete\", "
+            + "while only events can be \"past\", \"over\" or \"future\".";
+    private static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
+    
     private static final String CLEAR_TEMPLATE = "clear [name \"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     private static final String CLEAR_TASKS_TEMPLATE = "clear tasks [name \"%s\"] [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     private static final String CLEAR_EVENTS_TEMPLATE = "clear events [name \"%s\"] [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
-    private static final String NAME_FIELD = "<name>";
-    private static final String TASK_STATUS_FIELD = "<task status>";
-    private static final String EVENT_STATUS_FIELD = "<event status>";
-    private static final String START_TIME_FIELD = "<start>";
-    private static final String END_TIME_FIELD = "<end>";
-    private static final String TAG_FIELD = "<tag>";
     
 
     private static CommandDefinition commandDefinition =
@@ -56,12 +56,19 @@ public class ClearController extends Controller {
         Map<String, String[]> parsedResult =
                 Tokenizer.tokenize(CalendarItemFilter.getFilterTokenDefinitions(), input);
         
+        // Check if there are any unknown tokens.
+        if (Disambiguator.getUnknownTokenString(parsedResult) != null) {
+            String errorMessage = String.format(MESSAGE_UNKNOWN_TOKENS, Disambiguator.getUnknownTokenString(parsedResult));
+            renderDisambiguation(parsedResult, true, true, errorMessage);
+            return;
+        }
+        
         // Decide if task/event/both
         boolean[] isTaskEvent = null;
         try {
             isTaskEvent = CalendarItemFilter.parseIsTaskEvent(parsedResult);
         } catch (AmbiguousEventTypeException e) {
-            renderDisambiguation(parsedResult, true, true);
+            renderDisambiguation(parsedResult, true, true, MESSAGE_AMBIGUOUS_TYPE);
             return;
         }
         
@@ -78,7 +85,7 @@ public class ClearController extends Controller {
                 clearEvents = CalendarItemFilter.filterEvents(parsedResult);
             }
         } catch (InvalidNaturalDateException e) {
-            renderDisambiguation(parsedResult, filterTask, filterEvent);
+            renderDisambiguation(parsedResult, filterTask, filterEvent, MESSAGE_INVALID_DATE);
             return;
         }
         
@@ -101,34 +108,21 @@ public class ClearController extends Controller {
         Renderer.renderIndex(db, consoleMessage);
     }
     
-    private void renderDisambiguation(Map<String, String[]> parsedResult, boolean filterTask, boolean filterEvent) {
-        String name = (parsedResult.get("name") == null) ? null : parsedResult.get("name")[1];
-        name = StringUtil.replaceEmpty(name, NAME_FIELD);
+    private void renderDisambiguation(Map<String, String[]> parsedResult, boolean filterTask, boolean filterEvent, String errorMessage) {
+        Map<String, String> extractedTokens = Disambiguator.extractParsedTokens(parsedResult);
+        String consoleCommand;
         
-        String taskStatus = (parsedResult.get("taskStatus") == null) ? null : parsedResult.get("taskStatus")[0];
-        taskStatus = StringUtil.replaceEmpty(taskStatus, TASK_STATUS_FIELD);
-        
-        String eventStatus = (parsedResult.get("eventStatus") == null) ? null : parsedResult.get("eventStatus")[0];
-        eventStatus = StringUtil.replaceEmpty(eventStatus, EVENT_STATUS_FIELD);
-        
-        String[] datePair = DateParser.extractDatePair(parsedResult);
-        String timeStartNatural = datePair[0];
-        String timeEndNatural = datePair[1];
-        timeStartNatural = StringUtil.replaceEmpty(timeStartNatural, START_TIME_FIELD);
-        timeEndNatural = StringUtil.replaceEmpty(timeEndNatural, END_TIME_FIELD);
-        
-        String tag = (parsedResult.get("tag") == null) ? null : parsedResult.get("tag")[1];
-        tag = StringUtil.replaceEmpty(tag, TAG_FIELD);
-        
-        String consoleCommand = null;
         if ((filterTask && filterEvent) || (!filterTask && !filterEvent)) {
-            consoleCommand = String.format(CLEAR_TEMPLATE, name, timeStartNatural, timeEndNatural, tag);
+            consoleCommand = String.format(CLEAR_TEMPLATE, extractedTokens.get("name"), extractedTokens.get("startTime"), 
+                    extractedTokens.get("endTime"), extractedTokens.get("tag"));
         } else if (filterTask) {
-            consoleCommand = String.format(CLEAR_TASKS_TEMPLATE, name, taskStatus, timeStartNatural, timeEndNatural, tag);
+            consoleCommand = String.format(CLEAR_TASKS_TEMPLATE, extractedTokens.get("name"), extractedTokens.get("taskStatus"), 
+                    extractedTokens.get("startTime"), extractedTokens.get("endTime"), extractedTokens.get("tag"));
         } else {
-            consoleCommand = String.format(CLEAR_EVENTS_TEMPLATE, name, eventStatus, timeStartNatural, timeEndNatural, tag);
+            consoleCommand = String.format(CLEAR_EVENTS_TEMPLATE, extractedTokens.get("name"), extractedTokens.get("eventStatus"), 
+                    extractedTokens.get("startTime"), extractedTokens.get("endTime"), extractedTokens.get("tag"));
         }
         
-        Renderer.renderDisambiguation(consoleCommand, "");
+        Renderer.renderDisambiguation(consoleCommand, errorMessage);
     }
 }
