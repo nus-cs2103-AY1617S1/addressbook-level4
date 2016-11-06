@@ -73,7 +73,7 @@ This guide describes the design and implementation of Jimi. It will help you und
 <br>
 ## Design
 
-/* @@author A0140133B */
+<!--- @@author A0140133B -->
 
 ### Architecture
 
@@ -127,7 +127,7 @@ The sections below give more details of each component.
 
 <br><br>
 
-/* @@author A0140133B */
+<!--- @@author A0140133B -->
 
 ### UI component
 <br>
@@ -152,7 +152,7 @@ The `UI` component:
 
 <br>
 
-/* @@author A0140133B */
+<!--- @@author A0140133B -->
 
 ### Logic component
 <br>
@@ -172,7 +172,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <br>
 
-/* @@author A0140133B */
+<!--- @@author A0140133B -->
 
 ### Model component
 
@@ -190,7 +190,7 @@ The `Model` component:
 
 <br>
 
-/* @@author A0140133B */
+ <!--- @@author A0140133B -->
 
 ### Storage component
 
@@ -333,7 +333,7 @@ is better than the above alternatives.<br>
 <br>
 <br>
 
-/* @@author A0138915X */
+<!--- @@author A0138915X -->
 <a id="app-a"></a>
 ## Appendix A : User Stories 
 
@@ -366,7 +366,7 @@ Priority | As a ... | I want to ... | So that I can...
 <br>
 <br>
 
-/* @@author A0143471L */
+<!--- @@author A0143471L -->
 <a id="app-b"></a>
 ## Appendix B : Use Cases 
 
@@ -639,7 +639,7 @@ Use case ends.
 
 <br>
 <br>
-/* @@author A0138915X */
+<!--- @@author A0138915X -->
 <a id="app-c"></a>
 ## Appendix C : Non Functional Requirements 
 
@@ -689,7 +689,7 @@ Other requirements can be found in the project constraints section of our team's
 
 <br>
 <br>
-/* @@author A0143471L */
+<!--- @@author A0143471L -->
 <a id="app-e"></a>
 ## Appendix E : Product Survey 
 
