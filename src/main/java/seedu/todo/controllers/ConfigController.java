@@ -27,7 +27,7 @@ public class ConfigController extends Controller {
     private static final String MESSAGE_FAILURE = "Could not update settings: %s";
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
     private static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
-    private static final String TEMPLATE_SET_CONFIG = "config <setting> <value>";
+    public static final String TEMPLATE_SET_CONFIG = "config <setting> <value>";
     
     private static final String STRING_SPACE = " ";
     private static final int ARGS_LENGTH = 2;
