@@ -1,6 +1,7 @@
 package seedu.taskitty.model;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 
 import org.junit.Before;
@@ -10,7 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import java.util.*;
 
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 import static seedu.taskitty.testutil.TestUtil.assertThrows;
 
 public class UnmodifiableObservableListTest {
@@ -20,12 +21,14 @@ public class UnmodifiableObservableListTest {
 
     private List<Integer> backing;
     private UnmodifiableObservableList<Integer> list;
+    private Collection<Integer> col;
 
     @Before
     public void setup() {
         backing = new ArrayList<>();
         backing.add(10);
         list = new UnmodifiableObservableList<>(FXCollections.observableList(backing));
+        col = new ArrayList<Integer>();
     }
 
     @Test
@@ -50,7 +53,8 @@ public class UnmodifiableObservableListTest {
 
         assertThrows(ex, () -> list.setAll(new ArrayList<Number>()));
         assertThrows(ex, () -> list.setAll(1, 2));
-
+        
+        assertThrows(ex, () -> list.setAll(col));
         assertThrows(ex, () -> list.remove(0, 1));
         assertThrows(ex, () -> list.remove(null));
         assertThrows(ex, () -> list.remove(0));
@@ -77,5 +81,34 @@ public class UnmodifiableObservableListTest {
         assertThrows(ex, () -> liter.add(5));
         assertThrows(ex, () -> liter.set(3));
         assertThrows(ex, () -> list.removeIf(i -> true));
+    }
+    
+    //@@author A0130853L
+    @Test
+    public void hasNullBackingList_ExceptionThrown() throws NullPointerException {
+        thrown.expect(NullPointerException.class);
+        List<Integer> backingList = null;
+        UnmodifiableObservableList newlist = new UnmodifiableObservableList((ObservableList)backingList);
+    }
+    
+    @Test
+    public void unmodifiableObservableList_containsObject_returnsTrue() {
+        assertTrue(list.contains(10));
+    }
+    
+    @Test
+    public void unmodifiableObservableList_containsAll_returnsTrue() {
+        col.add(10);
+        assertTrue(list.containsAll(col));
+    }
+    
+    @Test
+    public void indexOfObject_returnsTrue() {
+        assertEquals(list.indexOf(10), 0);
+    }
+    
+    @Test
+    public void lastIndexOfObject_returnsTrue() {
+        assertEquals(list.lastIndexOf(10), 0);
     }
 }
