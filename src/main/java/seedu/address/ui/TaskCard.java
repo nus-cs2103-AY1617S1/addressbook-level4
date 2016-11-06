@@ -77,12 +77,12 @@ public class TaskCard extends UiPart {
 
     
     private void initializeDate() {
-        if (!dateComponent.getStartDate().isValid()) {
+        if (!dateComponent.getStartDate().isPresent()) {
             startDate.setText("");
         } else {
             startDate.setText(dateComponent.getStartDate().getFormattedDate());
         }
-        if (!dateComponent.getEndDate().isValid()) {
+        if (!dateComponent.getEndDate().isPresent()) {
             endDate.setText("");
         } else {
             endDate.setText(dateComponent.getEndDate().getFormattedDate());

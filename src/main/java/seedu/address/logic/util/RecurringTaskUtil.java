@@ -270,7 +270,7 @@ public class RecurringTaskUtil {
      * @return null if there is no start date in target
      */
     public static Calendar getStartCalendar(TaskOccurrence target) {
-        if (!target.getStartDate().isValid()) {
+        if (!target.getStartDate().isPresent()) {
             return null;
         }
         Calendar startDate = new GregorianCalendar();

@@ -73,14 +73,14 @@ public class TaskOccurrence {
      * Returns true if it is a valid time slot
      */
     public boolean isSlot(){
-        return startDate.isValid() && endDate.isValid();
+        return startDate.isPresent() && endDate.isPresent();
     }
     
     /**
      * Returns true if it is a deadline
      */
     public boolean isDeadline(){
-        return !startDate.isValid() && endDate.isValid();
+        return !startDate.isPresent() && endDate.isPresent();
     }
     
     /** Returns true if this slot overlaps with the given one. */
