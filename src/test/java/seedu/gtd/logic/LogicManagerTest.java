@@ -189,13 +189,54 @@ public class LogicManagerTest {
                 "add Valid Name d/12345 a/valid, address p/5 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
+    
+    //@@author A0130677A
+    
+    @Test
+    public void execute_add_invalidStartEndDate() throws Exception {
+        assertCommandBehavior(
+                "add complete tutorial s/tomorrow d/yesterday a/valid, address p/1", START_END_DATE_INVALID_COMMAND_FORMAT);
+    }
+    
+    @Test
+    public void execute_add_floatingTask() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.floatingTask();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addTask(toBeAdded);
 
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddFloatingTask(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_flexibleTaskData() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.fullTask();
+        Task dateChanged = helper.fullTaskChanged();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addTask(dateChanged);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandInRandomOrder(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, dateChanged),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    //@@author addressbook-level4
+    
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        Task dateChanged = helper.adamChanged();
+        Task toBeAdded = helper.fullTask();
+        Task dateChanged = helper.fullTaskChanged();
         AddressBook expectedAB = new AddressBook();
         expectedAB.addTask(dateChanged);
 
@@ -207,6 +248,7 @@ public class LogicManagerTest {
 
     }
     
+    //@@author A0130677A
     @Test
     public void execute_add_optional_successful() throws Exception {
     	
@@ -222,13 +264,15 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
-
+    
+    //@@author addressbook-level4
+    
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        Task changedDate = helper.adamChanged();
+        Task toBeAdded = helper.fullTask();
+        Task changedDate = helper.fullTaskChanged();
         AddressBook expectedAB = new AddressBook();
         expectedAB.addTask(changedDate);
 
@@ -277,6 +321,45 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    //@@author A0130677A
+    
+    @Test
+    public void execute_done_task() throws Exception {
+    	// setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task taskDone = helper.fullTaskDone();
+        List<Task> expectedTasks = helper.generateTaskList(taskDone);
+        AddressBook expectedAB = helper.generateAddressBook(expectedTasks);
+        model.addTask(taskDone);
+
+        // execute command and verify result
+        assertCommandBehavior("done 1",
+        		String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskDone),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+//    @Test
+//    public void execute_list_done_showsDoneTasks() throws Exception {
+//        // prepare expectations
+//        TestDataHelper helper = new TestDataHelper();
+//        Task toBeDone = helper.fullTask();
+//        Task taskDone = helper.fullTaskDone();
+//        List<Task> expectedTasks = helper.generateTaskList(taskDone);
+//        AddressBook expectedAB = helper.generateAddressBook(expectedTasks);
+//        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+//
+//        // prepare address book state
+//        model.addTask(taskDone);
+//
+//        assertCommandBehavior("list done",
+//                ListCommand.MESSAGE_SUCCESS_LIST_DONE,
+//                expectedAB,
+//                expectedList);
+//    }
+//    
+    //@@author generated
 
 
     /**
@@ -432,6 +515,29 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author A0130677A
+    
+    @Test
+    public void execute_find_by_attributes() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task pTarget = helper.fullTask();
+        Task p = helper.floatingTask();
+
+        List<Task> twoTasks = helper.generateTaskList(pTarget, p);
+        AddressBook expectedAB = helper.generateAddressBook(twoTasks);
+        List<Task> expectedList = helper.generateTaskList(pTarget);
+        helper.addToModel(model, twoTasks);
+    	
+        assertCommandBehavior("find p/4",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    
+    
+    //@@author generated
+    
     class TestFindHelper{
     	
     	String generateCorrectResultIfExactPhraseNotFound(String keywords, int expectedListSize) {	
@@ -441,23 +547,25 @@ public class LogicManagerTest {
     	}
     }
 
+    //@@author A0130677A
 
     /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        Task fullTask() throws Exception {
             Name name = new Name("Pick up laundry");
             DueDate startDate = new DueDate("morning");
             DueDate privateDueDate = new DueDate("noon");
             Address address = new Address("111, alpha street");
-            Priority privatePriority = new Priority("1");
+            Priority privatePriority = new Priority("4");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
         }
-        Task adamChanged() throws Exception {
+        
+        Task fullTaskChanged() throws Exception {
         	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
         	String formattedDate = nlpTest.formatString("noon");
         	String formattedStartDate = nlpTest.formatString("morning");
@@ -465,13 +573,38 @@ public class LogicManagerTest {
         	DueDate startDate = new DueDate(formattedStartDate);
             DueDate privateDueDate = new DueDate(formattedDate);
             Address address = new Address("111, alpha street");
-            Priority privatePriority = new Priority("1");
+            Priority privatePriority = new Priority("4");
+            boolean isDone = false;
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags, isDone);
         }
         
+        Task fullTaskDone() throws Exception {
+        	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
+        	String formattedDate = nlpTest.formatString("noon");
+        	String formattedStartDate = nlpTest.formatString("morning");
+        	Name name = new Name("Pick up laundry");
+        	DueDate startDate = new DueDate(formattedStartDate);
+            DueDate privateDueDate = new DueDate(formattedDate);
+            Address address = new Address("111, alpha street");
+            Priority privatePriority = new Priority("4");
+            boolean isDone = true;
+            Tag tag1 = new Tag("tag1");
+            UniqueTagList tags = new UniqueTagList(tag1);
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags, isDone);
+        }
         
+        Task floatingTask() throws Exception {
+            Name name = new Name("Pick up laundry");
+            DueDate startDate = new DueDate("nil");
+            DueDate privateDueDate = new DueDate("nil");
+            Address address = new Address("nil");
+            Priority privatePriority = new Priority("1");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(name, startDate, privateDueDate, address, privatePriority, tags);
+        }
+
         Task optionalAddressDateChanged() throws Exception {
         	NaturalLanguageProcessor nlpTest = new DateNaturalLanguageProcessor();
         	String formattedDate = nlpTest.formatString("noon");
@@ -524,6 +657,35 @@ public class LogicManagerTest {
             return cmd.toString();
         }
         
+        String generateAddCommandInRandomOrder(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+
+            cmd.append(p.getName().toString());
+            cmd.append(" p/").append(p.getPriority());
+            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" s/").append(p.getStartDate());
+            cmd.append(" d/").append(p.getDueDate());
+
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" t/").append(t.tagName);
+            }
+
+            return cmd.toString();
+        }
+        
+        String generateAddFloatingTask(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+            cmd.append(p.getName().toString());
+            return cmd.toString();
+        }
+        
+        //@@author A0146130W
+        
         /** Generates the correct add command based on the task given */
         String generateEditCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -533,7 +695,7 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
-
+        //@@author generated
         /**
          * Generates an AddressBook with auto-generated tasks.
          */

@@ -7,7 +7,6 @@ import static seedu.gtd.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.text.SimpleDateFormat;
 
 import seedu.gtd.commons.exceptions.IllegalValueException;
 import seedu.gtd.commons.util.StringUtil;
@@ -56,9 +55,6 @@ public class Parser {
     
     private static final Pattern TAGS_TASK_DATA_ARGS_FORMAT =
             Pattern.compile(".* t/(?<tagArguments>[^/]+) (s|d|a|p|z)/.*");
-    
-    private static final Pattern SELECT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>\\S+) (?<panelType>.*)");
     
   //@@author addressbook-level4
     
