@@ -17,6 +17,11 @@ public class Alias implements Copiable<Alias> {
 		this.sentence = sentence;
 	}
 
+	public Alias(Alias alias) {
+		this.shortcut = alias.getShortcut();
+		this.sentence = alias.getSentence();
+	}
+
 	public String getShortcut() {
 		return shortcut;
 	}	

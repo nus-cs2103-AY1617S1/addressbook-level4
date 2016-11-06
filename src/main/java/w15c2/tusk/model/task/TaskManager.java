@@ -1,5 +1,6 @@
 package w15c2.tusk.model.task;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -35,7 +36,6 @@ import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.ModelHistory;
-import w15c2.tusk.model.UserPrefs;
 
 /**
  * Manages a list of tasks & aliases and acts as a gateway for Commands to perform CRUD operations on the list
@@ -48,10 +48,10 @@ public class TaskManager extends ComponentManager implements Model {
 	private final ModelHistory modelHistory; // Stores tasks & aliases to support undo & redo commands
 
 	public TaskManager() {
-		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
+		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>());		
 	}
 	
-	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases, UserPrefs userPrefs) {
+	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases) {
 		this.tasks = tasks;
 		this.aliases = aliases;
 		this.modelHistory = new ModelHistory();
@@ -63,6 +63,11 @@ public class TaskManager extends ComponentManager implements Model {
 	@Override
 	public UniqueItemCollection<Task> getTasks(){
 		return tasks;
+	}
+	
+	@Override
+	public UniqueItemCollection<Alias> getAliasCollection(){
+		return aliases;
 	}
 	
 	@Override
@@ -429,5 +434,52 @@ public class TaskManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+    	if(obj == this){
+    		return true;
+    	}
+    	if(!(obj instanceof TaskManager)){
+    		return false;
+    	}
+    	TaskManager other = (TaskManager)obj;
+    	Iterator<Task> itr = tasks.iterator();
+    	boolean contains;
+		while(itr.hasNext()){
+			contains = false;
+			Task task = itr.next();
+			Iterator<Task> itr2 = other.getTasks().iterator();
+			while(itr2.hasNext()){
+				Task task2 = itr2.next();
+				if(task2.getDescription().toString().equals(task.getDescription().toString())){
+				TODO: //if(task2.equals(task)){
+					contains = true;
+					break;
+				}
+	    	}
+			if(!contains){
+				return false;
+			}
+		}
+		
+		Iterator<Alias> aliasItr = aliases.iterator();
+		while(aliasItr.hasNext()){
+			contains = false;
+			Alias alias = aliasItr.next();
+			Iterator<Alias> aliasItr2 = other.getAliasCollection().iterator();
+			while(aliasItr2.hasNext()){
+				Alias alias2 = aliasItr2.next();
+				if(alias2.toString().equals(alias.toString())){
+					contains = true;
+					break;
+				}
+	    	}
+			if(!contains){
+				return false;
+			}
+		}
+		return true;
     }
 }

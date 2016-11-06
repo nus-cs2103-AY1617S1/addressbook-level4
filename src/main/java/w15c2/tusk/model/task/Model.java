@@ -20,6 +20,11 @@ public interface Model {
 	UniqueItemCollection<Task> getTasks();
 	
 	/*
+	 * Gets collection of aliases
+	 */
+	UniqueItemCollection<Alias> getAliasCollection();
+	
+	/*
 	 * Adds a task to the current in-memory representation of the Task List
 	 */
 	void addTask(Task toAdd) throws DuplicateItemException;

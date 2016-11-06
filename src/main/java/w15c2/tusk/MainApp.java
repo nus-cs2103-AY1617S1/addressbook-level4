@@ -107,7 +107,7 @@ public class MainApp extends Application {
         }
 
         // TODO: Actually pass in data to use
-        return new TaskManager(initialData, initialAliasData, userPrefs);
+        return new TaskManager(initialData, initialAliasData);
     }
 
     private void initLogging(TaskConfig config) {
