@@ -22,6 +22,11 @@ public class LogsCenter {
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
+    
+    private static final String LOG_MESSAGE_ERROR_ADDING_FILE =
+            "Error adding file handler for logger.";
+    private static final String LOG_EVENT_HANDLED =
+            "---[Event handled][%1$s]%2$s";
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object) Loggers obtained
@@ -67,7 +72,7 @@ public class LogsCenter {
                 fileHandler = createFileHandler();
             logger.addHandler(fileHandler);
         } catch (IOException e) {
-            logger.warning("Error adding file handler for logger.");
+            logger.warning(LOG_MESSAGE_ERROR_ADDING_FILE);
         }
     }
 
@@ -100,8 +105,7 @@ public class LogsCenter {
      */
     public static String getEventHandlingLogMessage(BaseEvent e,
             String message) {
-        return "---[Event handled]" + StringUtil.STRING_SQUARE_BRACKET_OPEN + e
-                + StringUtil.STRING_SQUARE_BRACKET_CLOSE + message;
+        return String.format(LOG_EVENT_HANDLED, e, message);
     }
 
     /**

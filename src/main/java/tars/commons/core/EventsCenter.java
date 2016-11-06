@@ -3,7 +3,6 @@ package tars.commons.core;
 import com.google.common.eventbus.EventBus;
 
 import tars.commons.events.BaseEvent;
-import tars.commons.util.StringUtil;
 
 import java.util.logging.Logger;
 
@@ -11,8 +10,9 @@ import java.util.logging.Logger;
  * Manages the event dispatching of the app.
  */
 public class EventsCenter {
-    private static final Logger logger =
-            LogsCenter.getLogger(EventsCenter.class);
+    private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
+    private static final String LOG_EVENT_POSTED =
+            "------[Event Posted] %1$s: %2$s";
     private final EventBus eventBus;
     private static EventsCenter instance;
 
@@ -40,11 +40,11 @@ public class EventsCenter {
      * Posts an event to the event bus.
      */
     public <E extends BaseEvent> EventsCenter post(E event) {
-        logger.info(
-                "------[Event Posted] " + event.getClass().getCanonicalName()
-                        + StringUtil.STRING_COLON + event.toString());
+        logger.info(String.format(LOG_EVENT_POSTED,
+                event.getClass().getCanonicalName(), event.toString()));
         eventBus.post(event);
         return this;
     }
 
+    
 }
