@@ -44,5 +44,16 @@ public class UpcomingListPanel extends ListPanel {
 		upcomingActivitiesListPanel.configure(upcomingActivitiesList);
 		return upcomingActivitiesListPanel;
 	}
+	
+	//@@author A0125284H
+    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
+        activityListView.setItems(personList);
+        activityListView.setCellFactory(listView -> new DashboardListViewCell());
+    }
+	
+	@Override
+	public void setPlaceholder(AnchorPane pane) {
+		this.placeHolderPane = pane;
+	}
 
 }

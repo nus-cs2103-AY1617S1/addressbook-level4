@@ -125,7 +125,8 @@ public class MainWindow extends UiPart {
 
         //fill dash board
         overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());
-        upcomingListPanel = UpcomingListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUpcomingList());
+        upcomingListPanel = UpcomingListPanel.load(primaryStage, getUpcomingListPlaceholder(), logic.getFilteredUpcomingList());
+    
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
@@ -151,11 +152,11 @@ public class MainWindow extends UiPart {
     public AnchorPane getOverdueListPlaceholder() {
     	return overdueListDisplayPlaceHolder;
     }
-/*    
+    
     public AnchorPane getUpcomingListPlaceholder() {
     	return upcomingListPanelPlaceholder;
     }
-*/
+
     public void hide() {
         primaryStage.hide();
     }

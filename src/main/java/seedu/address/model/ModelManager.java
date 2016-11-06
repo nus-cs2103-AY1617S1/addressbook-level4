@@ -169,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredList.setPredicate(p->
 		(p.getClass().getSimpleName().equalsIgnoreCase("Event") && ((Event) p).isUpcoming())
 		|| ( p.getClass().getSimpleName().equalsIgnoreCase("Task") && ((Task) p).isDueDateApproaching()));
-				 		
+		
 		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
 	}
 

@@ -43,7 +43,7 @@
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5299539170506913" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
                 <padding>
@@ -53,11 +53,16 @@
                   <AnchorPane fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <VBox fx:id="dashboardDisplay" minWidth="300.0" prefWidth="300.0">
+            <VBox fx:id="dashboardDisplay" minWidth="300.0" prefHeight="600.0" prefWidth="301.0">
                <children>
                   <VBox fx:id="overdueTaskList" minWidth="300.0" prefWidth="300.0" VBox.vgrow="ALWAYS">
                      <children>
                         <AnchorPane fx:id="overdueListDisplayPlaceHolder" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="upcomingList" layoutX="20.0" layoutY="20.0" minWidth="300.0" prefWidth="300.0">
+                     <children>
+                        <AnchorPane fx:id="upcomingListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </children>

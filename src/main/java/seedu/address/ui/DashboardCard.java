@@ -30,7 +30,7 @@ public abstract class DashboardCard extends UiPart {
 	/**
 	 * Function to load activity attributes onto a UI Dashboard card.
 	 * @param event or tasks only.
-	 * @return UI DashboardCard containing details of Activity
+	 * @return UI DashboardCard containing details of activity.
 	 */
 
 	public static DashboardCard load(ReadOnlyActivity activity) {
