@@ -9,7 +9,6 @@ import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.testutil.TestTask;
 
 /**
  * JAXB-friendly version of the Task.
@@ -81,7 +80,7 @@ public class XmlAdaptedTask {
     	Task taskToReturn = null;
     	
     	// Set dates
-    	if (taskType == FloatingTask.class || taskType == TestTask.class) {
+    	if (taskType == FloatingTask.class) {
     		taskToReturn =  new FloatingTask(description);
     	} else if (taskType == DeadlineTask.class) {
     		taskToReturn =  new DeadlineTask(description, endDate);

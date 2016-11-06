@@ -14,7 +14,6 @@ import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.storage.alias.XmlAliasStorage;
 import w15c2.tusk.storage.task.XmlTaskManagerStorage;
-import w15c2.tusk.testutil.TestTask;
 import w15c2.tusk.testutil.TypicalTestTasks;
 
 /**
@@ -83,8 +82,8 @@ public class XmlTaskManagerStorageTest {
         assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new TestTask(TypicalTestTasks.extraTask1));
-        original.deleteTask(new TestTask(TypicalTestTasks.task2));
+        original.addTask(TypicalTestTasks.extraTask1.copy());
+        original.deleteTask(TypicalTestTasks.task2.copy());
         original.addAlias(new Alias(TypicalTestTasks.extraAlias));
         original.deleteAlias(new Alias(TypicalTestTasks.alias1));
 
@@ -96,7 +95,7 @@ public class XmlTaskManagerStorageTest {
         assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
 
         //Save and read without specifying file path
-        original.addTask(new TestTask(TypicalTestTasks.extraTask2));
+        original.addTask(TypicalTestTasks.extraTask2.copy());
         xmlTaskManagerStorage.saveTaskManager(original.getTasks()); //file path not specified
         taskReadBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
