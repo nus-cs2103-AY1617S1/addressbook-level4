@@ -520,7 +520,15 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(Object task) {
-            return false;
+            if (isFloatingTask(task)) {
+               return run((ReadOnlyFloatingTask) task);
+            }
+            else if (isDeadline(task)) {
+                return run((ReadOnlyDeadline) task);
+            } else {
+                return run((ReadOnlyEvent) task);
+            }
+            
         }
     }
 
