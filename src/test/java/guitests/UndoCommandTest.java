@@ -23,28 +23,31 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertUndoDeleteResult(index,currentList);
     }
     
-    @Test
-    public void undo_doneCommand() {
-        TestActivity[] currentList = td.getTypicalActivities();
-        int index = 4;
-        assertUndoDoneResult(index,currentList);
-    }
+
 
     @Test
     public void undo_editActivity() {
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
        
-        
         assertUndoEditActivityResult(index,currentList);
     }
     
+    @Test
+    public void undo_doneCommand() {
+        TestActivity[] currentList = td.getTypicalActivities();
+        int index = 4;
+        assertUndoDoneResult(index,currentList);
+    }
     
+    @Test
+    public void undo_noPreviousCommand() {  
+        assertUndoNoPreviousCommand();
+    }
     
-    
-    
-    
-    private void assertUndoEditActivityResult(int index, TestActivity[] currentList) {
+
+
+	private void assertUndoEditActivityResult(int index, TestActivity[] currentList) {
     	 String newName = "new name";
          String newReminder = "29-12-2021 2200";
          TestActivity activityBeforeEdit = new TestActivity(currentList[index-1]);
@@ -54,7 +57,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
          String editCommand = "edit " + index + " n/" + newName + " r/" + newReminder;
     	
     	assertUndoEditResult(editCommand,activityBeforeEdit,activityAfterEdit,currentList);
-		
 	}
 
 	private void assertUndoEditResult(String command, TestActivity activityAfterUndo, TestActivity activityBeforeUndo, TestActivity[] currentList) {
@@ -93,5 +95,10 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertTrue(activityListPanel.isListMatching(currentList));
         
     }
+    
+    private void assertUndoNoPreviousCommand() {
+        commandBox.runCommand("undo"); 
+        assertResultMessage("There is no more commands to undo");
+	}
     
 }
