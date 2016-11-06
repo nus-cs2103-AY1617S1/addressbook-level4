@@ -284,8 +284,8 @@ Format: `exit`
 Command | Format  | Example
 --------| --------| ------------------------
 Add     | `add TASK`  | add buy fruits from ntuc
-        | `add TASK, [DATE] [TIME] -[PRORITY] |  add buy milk by tomorrow morning -low
-        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY] | add go overseas from 20 Dec 10pm to 2 Jab 2017 3pm -high
+        | `add TASK, [DATE] [TIME] -[PRORITY]` |  add buy milk by tomorrow morning -low
+        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jab 2017 3pm -high
 List    | `list DATE`
 Search  | `search KEYWORD`
 Delete  | `delete INDEX`
