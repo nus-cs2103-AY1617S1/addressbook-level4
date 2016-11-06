@@ -109,5 +109,18 @@ public class CompleteUncompleteTaskTest extends GuiTest {
         String consoleMessage = UncompleteTaskController.MESSAGE_ALREADY_INCOMPLETE;
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
-
+    
+    @Test
+    public void complete_wrongIndex_error() {
+        console.runCommand("complete 10");
+        String consoleMessage = CompleteTaskController.MESSAGE_INVALID_ITEM;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void uncomplete_wrongIndex_error() {
+        console.runCommand("uncomplete 10");
+        String consoleMessage = UncompleteTaskController.MESSAGE_INVALID_ITEM;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
 }
