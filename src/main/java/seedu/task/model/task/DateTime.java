@@ -153,7 +153,7 @@ public class DateTime implements Comparable<DateTime> {
     
     /**
      * Compares between two DateTime instances using Comparable.
-     * Empty DateTimes are considered smaller than all possible DateTimes.
+     * Empty DateTimes are ordered behind all possible non-empty DateTimes.
      */
     @Override
     public int compareTo(DateTime o) {
@@ -163,9 +163,9 @@ public class DateTime implements Comparable<DateTime> {
         if (!time.isPresent() && !otherTime.isPresent()) {
             return 0;
         } else if (!time.isPresent()) {
-            return -1;
-        } else if (!otherTime.isPresent()) {
             return 1;
+        } else if (!otherTime.isPresent()) {
+            return -1;
         } else {
             return time.get().compareTo(otherTime.get());
         }
