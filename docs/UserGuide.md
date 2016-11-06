@@ -260,7 +260,7 @@ Format: `edit INDEX NEW_DETAILS`
 * Although all fields are optional, they can't all be empty!
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when editting: <br>
 
-Editting A | What to Type for `NEW_DETAILS` | Examples | What Jimi Will Do
+Editting a | What to Type for `NEW_DETAILS` | Examples | What Jimi Will Do
 -------- | :-------- | :-------- | :--------
 Dateless Task | ["NEW_TASK_DETAILS"] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "finish this user guide" | Edit just the name of task t1.
 Deadine Task | ["NEW_TASK_DETAILS"] [due NEW_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t4 t/bobz | Edit just the tag of task t4.
@@ -271,9 +271,11 @@ Event | ["NEW_TASK_DETAILS"] [on NEW_START_DATETIME] [to NEW_END_DATETIME] [t/NE
 * Using edit, you may also convert between item types. That is, you may freely convert between floating tasks (dateless tasks), events, and deadline tasks. <br>
 * Below is the format of `NEW_DETAILS` that Jimi recognizes when converting: <br>
 
-Converting To | What to Type for `NEW_DETAILS`| Examples
+Converting to | What to Type for `NEW_DETAILS`| Examples
 -------- | :-------- | :--------
 Dateless Task | float | edit e1 float
+Tagless item | tagless | edit t1 tagless
+No priority item | p/none | edit t4 none
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | edit e3 due tomorrow [p/HIGH]
 Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
 
