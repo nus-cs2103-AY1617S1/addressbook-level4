@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.GregorianCalendar; 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 /**
@@ -165,7 +165,6 @@ public class TaskTime {
      * @return true if the userInput time is valid, else false
      */
     public boolean isValidTime(String reqTime) {
-
         if (reqTime == null) {
             return true;
         } else {
@@ -263,6 +262,7 @@ public class TaskTime {
             time = reqTime;
             return true;
         }
+        
     }
 
     /**

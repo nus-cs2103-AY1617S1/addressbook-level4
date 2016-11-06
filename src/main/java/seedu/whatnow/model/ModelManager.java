@@ -56,7 +56,6 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String DEFAULT_DATE = "01/01/2001";
     private static final String DEFAULT_TIME = "12:00am";
     
-    
     private final WhatNow whatNow;
     private final FilteredList<Task> filteredTasks;
     private FilteredList<Task> filteredSchedules;
