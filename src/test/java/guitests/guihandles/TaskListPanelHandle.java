@@ -135,7 +135,6 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        // TODO: check if having this to not be a new Task(..) etc is dangerous
         return getTaskCardHandle(getListView().getItems().get(index));
     }
 
