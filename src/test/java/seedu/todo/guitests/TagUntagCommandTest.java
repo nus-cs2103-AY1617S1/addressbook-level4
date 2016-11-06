@@ -128,4 +128,27 @@ public class TagUntagCommandTest extends GuiTest {
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
     
+    @Test
+    public void tag_taskWithinLimit_success() {
+        for (int i = 0; i < Task.MAX_TAG_LIST_SIZE; i++) {
+            String tag = String.format("zz%s", i + 1);
+            console.runCommand(String.format("tag 1 %s", tag));
+            task1.addTag(tag);
+        }
+        assertTaskVisible(task1);
+        assertEquals(TagController.MESSAGE_TAG_SUCCESS, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void tag_taskExceedLimit_fail() {
+        for (int i = 0; i < Task.MAX_TAG_LIST_SIZE + 1; i++) {
+            String tag = String.format("zz%s", i + 1);
+            console.runCommand(String.format("tag 1 %s", tag));
+            task1.addTag(tag);
+        }
+        assertTaskVisible(task1);
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_EXCEED_TAG_SIZE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
 }
