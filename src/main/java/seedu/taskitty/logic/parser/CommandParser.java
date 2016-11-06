@@ -126,11 +126,11 @@ public class CommandParser {
             return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_MISSING_FILEPATH,
                     PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (args.length() < FILE_EXTENSION_LENGTH) {
-            return new IncorrectCommand(
-                    String.format(PathCommand.MESSAGE_INVALID_FILEPATH, PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         } else if (!isValidFileXmlExtension(args)) {
-            return new IncorrectCommand(
-                    String.format(PathCommand.MESSAGE_INVALID_FILEPATH, PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
+            return new IncorrectCommand(String.format(PathCommand.MESSAGE_INVALID_FILEPATH, 
+                    PathCommand.MESSAGE_VALID_FILEPATH_USAGE));
         }
         return new PathCommand(args);
     }
@@ -166,7 +166,8 @@ public class CommandParser {
         }
         return Optional.of(extension);
     }
-
+    //@@author
+    
     // @@author A0130853L
     /**
      * Parses arguments in the context of the view command.
@@ -175,6 +176,7 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareView(String arguments) {
+        String messageParameter = Command.getViewCommandMessageParameter();
         if (arguments.trim().isEmpty()) {
             return new ViewCommand(); // view all upcoming uncompleted tasks, events and deadlines
         }
@@ -186,8 +188,7 @@ public class CommandParser {
         }
         String[] details = extractTaskDetailsUsingNatty(arguments);
         if (details.length != 3) { // no date was successfully extracted
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + ViewCommand.MESSAGE_PARAMETER));
+            return createNewIncorrectCommand(messageParameter);
         } else {
             assert details[1] != null; // contains date
             return new ViewCommand(details[1]);
@@ -203,10 +204,10 @@ public class CommandParser {
      */
     private Command prepareAdd(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        String messageParameter = Command.getAddCommandMessageParameter();
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + AddCommand.MESSAGE_PARAMETER));
+            return createNewIncorrectCommand(messageParameter);
         }
         try {
             String arguments = matcher.group("arguments");
@@ -465,14 +466,14 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareDone(String args) {        
-        String dataArgs = args.trim();                
+        String dataArgs = args.trim();            
+        String messageParameter = Command.getDoneCommandMessageParameter();
         String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);        
         ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
         
-        if (listOfIndexes.contains(null)) { // if any of the index is null, there was an error in the indexes provided
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
+        // if any of the index is null, there was an error in the indexes provided
+        if (listOfIndexes.contains(null)) { 
+            return createNewIncorrectCommand(messageParameter);
         }
 
         return new DoneCommand(listOfIndexes, args);
@@ -563,32 +564,67 @@ public class CommandParser {
      */
     private Command prepareEdit(String args) {
         String[] splitArgs = args.trim().split(WHITE_SPACE_REGEX_STRING);
+        String messageParameter = Command.getEditCommandMessageParameter();
         if (splitArgs.length < 2) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
+            return createNewIncorrectCommand(messageParameter);
         }
 
         Pair<Integer, Integer> categoryAndIndexPair = getCategoryAndIndex(splitArgs[0]);
 
         if (categoryAndIndexPair == null) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
+            return createNewIncorrectCommand(messageParameter);
         }
 
         try {
-            String arguments = EMPTY_STRING;
-            for (int i = 1; i < splitArgs.length; i++) {
-                arguments = arguments + splitArgs[i] + " ";
-            }
+            String arguments = formatArguments(splitArgs);
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
-            return new EditCommand(extractTaskDetailsUsingNatty(taskDetailArguments), getTagsFromArgs(tagArguments),
-                    categoryAndIndexPair.getValue(), categoryAndIndexPair.getKey(), args);
+            return createNewEditCommand(args, categoryAndIndexPair, taskDetailArguments, tagArguments);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
+    /**
+     * Formats arguments before being passed to command
+     * @param splitArgs
+     * @param arguments
+     * @return formatted argument
+     */
+    private String formatArguments(String[] splitArgs) {
+        String formattedArgument = EMPTY_STRING;
+        for (int i = 1; i < splitArgs.length; i++) {
+            formattedArgument = formattedArgument + splitArgs[i] + " ";
+        }
+        return formattedArgument;
+    }
+
+    /**
+     * Creates a new incorrect command.
+     * @return new Incorrect Command
+     */
+    private IncorrectCommand createNewIncorrectCommand(String messageParameter) {
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + messageParameter));
+    }
+    
+    /**
+     * Creates a new Edit Command
+     * @param args
+     * @param categoryAndIndexPair
+     * @param taskDetailArguments
+     * @param tagArguments
+     * @return new Edit Command
+     * @throws IllegalValueException
+     */
+    private EditCommand createNewEditCommand(String args, Pair<Integer, Integer> categoryAndIndexPair,
+            String taskDetailArguments, String tagArguments) throws IllegalValueException {
+        
+        return new EditCommand(extractTaskDetailsUsingNatty(taskDetailArguments), getTagsFromArgs(tagArguments),
+                categoryAndIndexPair.getValue(), categoryAndIndexPair.getKey(), args);
+    }
+    
     // @@author
 
     // @@author A0139052L
@@ -654,9 +690,10 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
+        String messageParameter = Command.getFindCommandMessageParameter();
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            return createNewIncorrectCommand(messageParameter);
         }
 
         // keywords delimited by whitespace

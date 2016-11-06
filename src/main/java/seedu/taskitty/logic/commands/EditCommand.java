@@ -5,7 +5,9 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
@@ -27,6 +29,9 @@ import seedu.taskitty.model.task.UniqueTaskList;
  */
 
 public class EditCommand extends Command {
+    
+    private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
+
 
     public static final String COMMAND_WORD = "edit";
 
@@ -56,7 +61,7 @@ public class EditCommand extends Command {
      *             if any of the raw values are invalid
      */
     public EditCommand(String[] data, Set<String> tags, int targetIndex, int categoryIndex, 
-                       String commandText) throws IllegalValueException {
+            String commandText) throws IllegalValueException {
 
         assert categoryIndex >= 0 && categoryIndex < 3;
 
@@ -83,12 +88,14 @@ public class EditCommand extends Command {
         }
 
         taskToEdit = lastShownList.get(targetIndex - 1);
+        logger.info("Task to be edited: " + taskToEdit.getAsText());
 
         try {
             Optional<CommandResult> result = updateToEditVariable();
-            if (result.isPresent()) {
+            if (isInvalidResult(result)) {
                 return result.get();
             }
+            logger.info("New edited task: " + toEdit.getAsText());
             model.editTask(taskToEdit, toEdit);
             model.storeCommandInfo(COMMAND_WORD, commandText, toEdit, taskToEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -97,8 +104,8 @@ public class EditCommand extends Command {
             return new CommandResult(ive.getMessage());
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex,
-                                 toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex] + targetIndex, 
+                toEdit));
     }
 
     /**
@@ -115,7 +122,7 @@ public class EditCommand extends Command {
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             setTaskNameToExistingTaskNameIfTaskNameNotEdited();
             Optional<CommandResult> invalidResult = setDeadlineEndTimeToExistingEndTimeIfEndTimeNotEdited();
-            if (invalidResult.isPresent()) {
+            if (isInvalidResult(invalidResult)) {
                 return invalidResult;
             };
             createNewEditedDeadline();
@@ -123,7 +130,7 @@ public class EditCommand extends Command {
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             setTaskNameToExistingTaskNameIfTaskNameNotEdited();
             Optional<CommandResult> invalidResult = setEventStartTimeToExistingStartTimeIfStartTimeNotEdited();
-            if (invalidResult.isPresent()) {
+            if (isInvalidResult(invalidResult)) {
                 return invalidResult;
             };
             setEventEndTimeToExistingEndTimeIfEndTimeNotEdited();
@@ -131,6 +138,15 @@ public class EditCommand extends Command {
         }
         markAsDoneIfTaskToEditIsDone();
         return emptyOptional();
+    }
+
+    /**
+     * Checks if the Optional parameter is an invalid result
+     * @param invalidResult
+     * @return true if Optional is an invalid result (ie Optional is not empty)
+     */
+    private boolean isInvalidResult(Optional<CommandResult> invalidResult) {
+        return invalidResult.isPresent();
     }
 
     // ================ Setter methods ==============================
@@ -146,7 +162,7 @@ public class EditCommand extends Command {
         if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
             if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
                 return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                                                   MESSAGE_USAGE)));
+                        Command.MESSAGE_FORMAT + MESSAGE_PARAMETER)));
             }
             data[Task.EVENT_COMPONENT_INDEX_START_TIME] = taskToEdit.getPeriod().getStartTime().toString();
         }
@@ -164,7 +180,7 @@ public class EditCommand extends Command {
         if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
             if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
                 return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                                                   MESSAGE_USAGE)));
+                        Command.MESSAGE_FORMAT + MESSAGE_PARAMETER)));
             }
             data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
         }
