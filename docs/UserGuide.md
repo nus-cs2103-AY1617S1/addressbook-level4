@@ -67,7 +67,7 @@ Example: add go swimming #fitness
 <br>
 ####1.2 Add a deadline
 
-Perhaps after adding a todo, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
+Perhaps after adding a to-do, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
 
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
@@ -140,7 +140,7 @@ If you wish, you can also remove the date of a task by following this format.
 
 >Format: **edit** &lt;index&gt; **date** no date; 
 
-Doing so will change an event into a todo. Removing the date from a deadline will also change it into a to-do.
+Doing so will change an event into a to-do. Removing the date from a deadline will also change it into a to-do.
 
 <br>
 ####2.3 Edit task start time 
