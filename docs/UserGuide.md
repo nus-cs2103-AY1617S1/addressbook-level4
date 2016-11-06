@@ -162,14 +162,14 @@ If you wish to add events which have a specific date, start time and end time, y
 
 ## 3. Delete Command : `delete`
 
-If your task or event has been cancelled, you can simply delete the task or event by typing the command as shown below. The index refers to the index of the task you wish to delete.<br>
-#### Format: `delete <Task Index>`
-   
+If your task or event has been cancelled, you can simply delete the tasks or events by typing the command as shown below. You can delete random number of tasks by the first format and you can delete a list of successive tasks by the second format.<br>
+#### Format: `delete <TaskIndex1 TaskIndex2 TaskIndex3...>` 
+#### Format: `delete <TaskIndex1-TaskIndex2>` 
    Examples : <br>
-   delete 1 <br>
-   delete 4 <br>
+   delete 1 2 3 <br>
+   delete 1-3 <br>
    
-Upon entering the command, the task list panel will be automatically updated and the task would be deleted from the list. 
+Upon entering the command, the task list panel will be automatically updated and the tasks chose would be deleted from the list. 
 
 <br>
 <br>
