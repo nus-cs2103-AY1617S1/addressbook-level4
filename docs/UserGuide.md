@@ -56,7 +56,7 @@ There are three variations to the add command. You are able to choose a task to 
 <br><br>
 ####1.1 Add a to-do
 
-To start things off, let us add a simple task with no date or time, just a simple task to be done sometime and someday.
+To start things off, let us add a simple task with no date or time, just a simple task to be done anytime and anyday.
 
 >Format: **add** &lt;to-do description&gt; &lt;#tag&gt;
 
@@ -181,7 +181,7 @@ Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 <br>
 ###4 Marking tasks as done 
 
-Remember that report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course, if you want to, then we will show you how in the later part of this user guide. 
+Remember the report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course, if you want to, then we will show you how in the later part of this user guide. 
 
 > Format: Done &lt;index&gt;
 
@@ -258,7 +258,7 @@ Example: Undo 2
 <br>
 ###8 Redo the Most Recent Undone Commands
 
-If after undoing and after more thought, you find that the command that you had just undone was actually done correctly, you can simply use the following redo command.
+If after using the undo command, you realise that the command you just undid is correct. Simply, type the following command to redo it.
 
 > Format: Redo &lt;number of operations&gt;
 
@@ -269,7 +269,7 @@ Example: Redo 2
 <br>
 ###9 Clearing the program
 
-If you wish to start off on a clean slate and remove all tasks in Simply, simply use the following command.
+If you wish to remove all tasks in Simply and start off on a clean slate, simply use the following command.
 
 >Format: clear
 
