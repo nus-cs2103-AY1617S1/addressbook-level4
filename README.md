@@ -8,7 +8,7 @@
 
 Introducing *DearJim* - a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is targeted at users who prefer to type and users who are more comfortable with keyboard based commands.
 
-*DearJim* functions purely through keyboard inputs - no more fumbling around trying to look for the right button to press, simply enter a command and press <kbd>Enter</kbd>! *DearJim* also supports different types of tasks, such as tasks with deadlines, tasks without deadlines, tasks with start and end time, recurring tasks, and can even block dates to support tasks without a confirmed date. 
+*DearJim* functions purely through keyboard inputs - no more fumbling around trying to look for the right button to press, simply enter a command and press <kbd>Enter</kbd>! *DearJim* also supports different types of tasks, such as tasks with deadlines, tasks without deadlines, tasks with start and end time and even recurring tasks. 
 
   
 #### Site Map
