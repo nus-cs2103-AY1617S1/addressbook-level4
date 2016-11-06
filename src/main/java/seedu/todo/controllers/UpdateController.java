@@ -186,7 +186,7 @@ public class UpdateController extends Controller {
             Task task = (Task) record;
             if (dateFrom != null) {
                 task.setDueDate(dateFrom);
-            } else if (naturalFrom.trim().equals(STRING_NULL)) {
+            } else if (naturalFrom != null && naturalFrom.trim().equals(STRING_NULL)) {
                 task.setDueDate(null);
             }
         } else {
