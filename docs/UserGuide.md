@@ -261,8 +261,10 @@ Example:
   
   After:<br>
   <img src="images/UIdoneAfter.png" width="900"><br>
+  
 <!-- @@author A0139052L --> 
- * `view all`<br>
+
+* `view all`<br>
   `done t1 t2 t3`<br>
   Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
   
