@@ -28,18 +28,18 @@ public class UpdateController extends Controller {
     private static final String COMMAND_SYNTAX = "update <index> <task> by <deadline>";
     private static final String COMMAND_KEYWORD = "update";
 
-    private static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
+    public static final String MESSAGE_UPDATE_SUCCESS = "Item successfully updated!";
     public static final String MESSAGE_INVALID_ITEM_OR_PARAM = "Please specify a valid index and parameter to update!";
     public static final String MESSAGE_CANNOT_PARSE_DATE = "We could not parse the date in your previous command, please correct it.";
     
-    private static final String STRING_NULL = "null";
-    private static final String UPDATE_EVENT_TEMPLATE = "update %s [name \"%s\"] [from \"%s\" to \"%s\"]";
-    private static final String UPDATE_TASK_TEMPLATE = "update %s [name \"%s\"] [by \"%s\"]";
-    private static final String START_TIME_FIELD = "<start time>";
-    private static final String END_TIME_FIELD = "<end time>";
-    private static final String DEADLINE_FIELD = "<deadline / null>";
-    private static final String NAME_FIELD = "<name>";
-    private static final String INDEX_FIELD = "<index>";
+    public static final String STRING_NULL = "null";
+    public static final String UPDATE_EVENT_TEMPLATE = "update %s [name \"%s\"] [from \"%s\" to \"%s\"]";
+    public static final String UPDATE_TASK_TEMPLATE = "update %s [name \"%s\"] [by \"%s\"]";
+    public static final String START_TIME_FIELD = "<start time>";
+    public static final String END_TIME_FIELD = "<end time>";
+    public static final String DEADLINE_FIELD = "<deadline / null>";
+    public static final String NAME_FIELD = "<name>";
+    public static final String INDEX_FIELD = "<index>";
 
     private static CommandDefinition commandDefinition = new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD);
 
