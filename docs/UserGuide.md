@@ -393,6 +393,16 @@ Figure 5: Hints for delete command
 </p>
 <br>
 
+* Entering the inputs for `add` command generates the details of what has been typed into each field
+<p align="center">
+<img src="images/instantParser.PNG" width="550">
+</p>
+
+<p align="center">
+Figure 6: Instant parsing for add command
+</p>
+<br>
+
 ### Saving the data 
 Data in DearJim is automatically saved on the hard disk after any command that changes the data is executed.<br>
 There is no need to save manually.

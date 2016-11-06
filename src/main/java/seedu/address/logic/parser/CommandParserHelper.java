@@ -682,8 +682,8 @@ public class CommandParserHelper {
     /**
      * Returns priority based on input.
      * 
-     * @return priority based on input. If user did not specify a priority,
-     * return null
+     * @return Priority based on input. If user did not specify a priority,
+     *         return null
      */
     private String generatePriorityEdit(Matcher matcher) {
         String priority;
@@ -723,8 +723,8 @@ public class CommandParserHelper {
     /**
      * Assigns values into Task's parameters.
      * 
-     *@param   task  OptionalStringTask object that contains String values to be converted to 
-     * an actual Task object.
+     * @param task  OptionalStringTask object that contains String values to be converted to 
+     *              an actual Task object.
      */
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
         assert task != null;
