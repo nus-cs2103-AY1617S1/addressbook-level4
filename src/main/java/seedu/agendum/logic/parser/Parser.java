@@ -41,11 +41,15 @@ public class Parser {
     private static final Pattern UNALIAS_ARGS_FORMAT = Pattern.compile("(?<shorthand>[\\p{Alnum}]+)");
 
     //@@author A0003878Y
+    private static final Pattern QUOTATION_FORMAT = Pattern.compile("\'([^\']*)\'");
     private static final Pattern ADD_SCHEDULE_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:(?i)by|from|to)\\s|$)))+?");
 
     private static final String ARGS_FROM = "from";
     private static final String ARGS_BY = "by";
     private static final String ARGS_TO = "to";
+    private static final String FILLER_WORD = "FILLER ";
+    private static final String SINGLE_QUOTE = "\'";
+
     private static final String[] TIME_TOKENS = new String[] { ARGS_FROM, ARGS_TO, ARGS_BY };
 
     private CommandLibrary commandLibrary;
@@ -145,7 +149,21 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
+
+        // Create title and dateTimeMap
+        StringBuilder titleBuilder = new StringBuilder();
+        HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
+
+        // Check for quotation in args. If so, they're set as title
+        Optional<String> quotationCheck = checkForQuotation(args);
+        if (quotationCheck.isPresent()) {
+            titleBuilder.append(quotationCheck.get().replace(SINGLE_QUOTE,""));
+            args = FILLER_WORD + args.replace(quotationCheck.get(),""); // This will get removed later by regex
+        }
+
+        // Start parsing for datetime in args
         Matcher matcher = ADD_SCHEDULE_ARGS_FORMAT.matcher(args.trim());
+
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -153,8 +171,9 @@ public class Parser {
         try {
             matcher.reset();
             matcher.find();
-            StringBuilder titleBuilder = new StringBuilder(matcher.group(0));
-            HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
+            if (titleBuilder.length() == 0) {
+                titleBuilder.append(matcher.group(0));
+            }
 
             // Run this function on all matched groups
             BiConsumer<String, String> consumer = (matchedGroup, token) -> {
@@ -165,21 +184,31 @@ public class Parser {
                     titleBuilder.append(matchedGroup);
                 }
             };
-            scheduleMatcherOnConsumer(matcher, consumer);
+            executeOnEveryMatcherToken(matcher, consumer);
 
             String title = titleBuilder.toString();
 
-            if (dateTimeMap.containsKey(ARGS_BY)) {
-                return new AddCommand(title, dateTimeMap.get(ARGS_BY));
-            } else if (dateTimeMap.containsKey(ARGS_FROM) && dateTimeMap.containsKey(ARGS_TO)) {
-                return new AddCommand(title, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
-            } else if (!dateTimeMap.containsKey(ARGS_FROM) && !dateTimeMap.containsKey(ARGS_TO)
-                    && !dateTimeMap.containsKey(ARGS_BY)) {
-                return new AddCommand(title);
-            } else {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddCommand.MESSAGE_USAGE));
+            if (title.length() == 0) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
+
+            boolean hasDeadlineKeyword = dateTimeMap.containsKey(ARGS_BY);
+            boolean hasStartTimeKeyword = dateTimeMap.containsKey(ARGS_FROM);
+            boolean hasEndTimeKeyword = dateTimeMap.containsKey(ARGS_TO);
+
+            if (hasDeadlineKeyword && !hasStartTimeKeyword && !hasEndTimeKeyword) {
+                return new AddCommand(title, dateTimeMap.get(ARGS_BY));
+            }
+
+            if (!hasDeadlineKeyword && hasStartTimeKeyword && hasEndTimeKeyword) {
+                return new AddCommand(title, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
+            }
+
+            if (!hasDeadlineKeyword && !hasStartTimeKeyword && !hasEndTimeKeyword) {
+                return new AddCommand(title);
+            }
+
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -218,19 +247,38 @@ public class Parser {
                 dateTimeMap.put(token, DateTimeUtils.parseNaturalLanguageDateTimeString(time));
             }
         };
-        scheduleMatcherOnConsumer(matcher, consumer);
+        executeOnEveryMatcherToken(matcher, consumer);
 
-        if (dateTimeMap.containsKey(ARGS_BY)) {
+        boolean hasDeadlineKeyword = dateTimeMap.containsKey(ARGS_BY);
+        boolean hasStartTimeKeyword = dateTimeMap.containsKey(ARGS_FROM);
+        boolean hasEndTimeKeyword = dateTimeMap.containsKey(ARGS_TO);
+
+        if (hasDeadlineKeyword && !hasStartTimeKeyword && !hasEndTimeKeyword) {
             return new ScheduleCommand(index, Optional.empty(), dateTimeMap.get(ARGS_BY));
-        } else if (dateTimeMap.containsKey(ARGS_FROM) && dateTimeMap.containsKey(ARGS_TO)) {
-            return new ScheduleCommand(index, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
-        } else if (!dateTimeMap.containsKey(ARGS_FROM) && !dateTimeMap.containsKey(ARGS_TO)
-                && !dateTimeMap.containsKey(ARGS_BY)) {
-            return  new ScheduleCommand(index, Optional.empty(), Optional.empty());
-        } else {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
         }
+
+        if (!hasDeadlineKeyword && hasStartTimeKeyword && hasEndTimeKeyword) {
+            return new ScheduleCommand(index, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));}
+
+        if (!hasDeadlineKeyword && !hasStartTimeKeyword && !hasEndTimeKeyword) {
+            return new ScheduleCommand(index, Optional.empty(), Optional.empty());
+        }
+
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * Checks if there are any quotation marks in the given string
+     *
+     * @param str
+     * @return returns the string inside the quote.
+     */
+    private Optional<String> checkForQuotation(String str) {
+        Matcher matcher = QUOTATION_FORMAT.matcher(str.trim());
+        if (!matcher.find()) {
+            return Optional.empty();
+        }
+        return Optional.of(matcher.group(0));
     }
 
     /**
@@ -240,7 +288,7 @@ public class Parser {
      * @param matcher matcher for current command context
      * @param consumer <String, String> closure to execute on
      */
-    private void scheduleMatcherOnConsumer(Matcher matcher, BiConsumer<String, String> consumer) {
+    private void executeOnEveryMatcherToken(Matcher matcher, BiConsumer<String, String> consumer) {
         while (matcher.find()) {
             for (String token : TIME_TOKENS) {
                 String matchedGroup = matcher.group(0).toLowerCase();

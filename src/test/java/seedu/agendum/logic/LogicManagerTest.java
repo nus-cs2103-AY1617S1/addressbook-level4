@@ -202,6 +202,21 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_addEscapeDateTimeParsing() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTaskWithName("drop from 21 to 1");
+        ToDoList expectedTDL = new ToDoList();
+        expectedTDL.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior("add 'drop from 21 to 1'",
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedTDL,
+                expectedTDL.getTaskList());
+    }
+    
+
+    @Test
     public void executeAddDuplicateNotAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
