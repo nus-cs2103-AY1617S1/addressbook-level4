@@ -356,3 +356,4 @@ This application makes use of the [addressbook-level4](https://github.com/se-edu
 
 Libraries used: <br>
 [prettytime](https://github.com/ocpsoft/prettytime)
+[commons-lang](http://commons.apache.org/proper/commons-lang/download_lang.cgi)
