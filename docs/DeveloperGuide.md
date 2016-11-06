@@ -187,6 +187,40 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
+### Model implementation
+
+The model componenet model the data of the application.
+
+#### The `ModelManager` class
+
+The `ModelManager` class implements the `Model` interface, and provides access to data in model while hiding the internal complexity of its various classes. All external components can only interact with the model data via this class.
+
+#### The `TaskManager` class
+
+The `TaskManager` class stores the list of `UniqueTaskList`. It is an internal class of the Model component. The external componenet can only access its data through the `ReadOnlyTaskManager` or `Model` interface.
+
+#### The `ReadOnlyTaskManager` class
+
+The `ReadOnlyTaskManager` interface provides a read-only view to the `TaskManager` object.
+
+#### The `Config` class
+
+The `Config` class stores the configuration settings.
+
+### Storage implementation
+
+The storage component uses [Jackson](https://github.com/FasterXML/jackson) to
+serialize/deserialize model data to/from JSON files.
+
+#### The Storage interfaces
+
+The storage package defines two storage interfaces, `UserPrefsStorage` and
+`TaskManagerStorage`. These interfaces contain methods for saving/loading `ReadOnlyTaskManager`.
+
+The storage package also defines a facade `Storage` interface, which combines
+together the aforementioned `UserPrefsStorage` and `TaskManagerStorage` interfaces
+into a single interface.
+
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
@@ -576,15 +610,14 @@ Day:
 
 #### Weakness
 
-1. Does not have done function
-2. Not keyboard friendly
-3. Requires a google account
-4. Does not support floating task
-5. Steep learning curve
-6. Does not support categaries
-7. Reorganising of task is not user friendly
+1. Does not have done function.<br>
+2. Not keyboard friendly.<br>
+3. Requires a google account.<br>
+4. Does not support floating task.<br>
+5. Steep learning curve.<br>
+6. Does not support categaries.<br>
 
-1. **Fantastical**
+### Fantastical
 
 1a. It has a good and clean UI, really simple to use. <br>
 1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
