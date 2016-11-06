@@ -1,5 +1,7 @@
 package seedu.todo.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -60,6 +62,11 @@ public class TaskCard extends UiPart{
         initRecurrence();
         initPriority();
         tags.setText(task.tagsString());
+        
+        if(task.getByDate().getDate() != null && task.getByDate().getTime() != null && 
+        		task.getByDate().getDate().atTime(task.getByDate().getTime()).isBefore(LocalDateTime.now())) {
+        	styleForOverdue();
+        } 
         
         if(task.getCompletion().isCompleted()) {
             styleForCompletion();
@@ -137,5 +144,20 @@ public class TaskCard extends UiPart{
         priorityLevel.setFill(Color.WHITE);
         priorityLevel.setStroke(Color.WHITE);
 
+    }
+    
+    private void styleForOverdue() {
+    	name.setFill(Color.RED);
+        name.setOpacity(50);
+        
+        details.setFill(Color.RED);
+        onDate.setFill(Color.RED);
+        byDate.setFill(Color.RED);
+        recurrence.setFill(Color.RED);
+        tags.setFill(Color.RED);
+
+        priorityLevel.setFill(Color.WHITE);
+        priorityLevel.setStroke(Color.WHITE);
+    	
     }
 }
