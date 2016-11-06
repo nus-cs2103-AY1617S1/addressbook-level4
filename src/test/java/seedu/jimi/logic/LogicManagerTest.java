@@ -32,6 +32,7 @@ import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CommandResult;
+import seedu.jimi.logic.commands.CompleteCommand;
 import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
@@ -153,8 +154,24 @@ public class LogicManagerTest {
         assertEquals(expectedTaskBook, model.getTaskBook());
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
-
-
+    
+    private void assertCommandBehavior(String inputCommand, String expectedMessage, ReadOnlyTaskBook expectedTaskBook,
+            List<? extends ReadOnlyTask> expectedShownTaskList, List<? extends ReadOnlyTask> expectedShownEventList,
+            List<? extends ReadOnlyTask> actualShownTaskList, List<? extends ReadOnlyTask> actualShownEventList)
+            throws Exception {
+        //Execute the command
+        CommandResult result = logic.execute(inputCommand);
+        
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownTaskList, actualShownTaskList);
+        assertEquals(expectedShownEventList, actualShownEventList);
+        
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskBook, model.getTaskBook());
+        assertEquals(expectedTaskBook, latestSavedTaskBook);
+    }
+    
     // @@author A0140133B
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -566,7 +583,57 @@ public class LogicManagerTest {
     }
 
     */
+    
+    @Test 
+    public void execute_completeInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE);
+        for (int i = 1; i <= CompleteCommand.COMMAND_WORD.length(); i++) {
+            assertIncorrectIndexFormatBehaviorForCommand(CompleteCommand.COMMAND_WORD.substring(0, i), expectedMessage);
+        }
+    }
+    
+    @Test
+    public void execute_completeIndexNotFound_errorMessageShown() throws Exception {
+        for (int i = 1; i <= CompleteCommand.COMMAND_WORD.length(); i++) {
+            assertIndexNotFoundBehaviorForCommand(CompleteCommand.COMMAND_WORD.substring(0, i));
+        }
+    }
+    
+    // @@author A0140133B
+    @Test
+    public void execute_completeCorrectly() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatingTask index0 = helper.generateFloatingTaskWithName("first");
+        FloatingTask index1 = helper.generateFloatingTaskWithName("second");
+        FloatingTask index2 = helper.generateFloatingTaskWithName("third");
+        
+        List<FloatingTask> threeFloatingTasks = helper.generateFloatingTaskList(index0, index1, index2);
+        List<FloatingTask> expectedList = helper.generateFloatingTaskList(index1);
+        TaskBook expectedTB = helper.generateFloatingTaskBook(threeFloatingTasks);
 
+        helper.addToModel(model, threeFloatingTasks);
+        // execute command and verify result     
+        assertCommandBehavior("complete t2",
+                String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
+                expectedTB,
+                expectedList,
+                Collections.emptyList(),
+                model.getFilteredCompletedTaskList(),
+                Collections.emptyList());
+        assertTrue(threeFloatingTasks.get(1).isCompleted());
+        
+        // already completed
+        assertCommandBehavior("complete t1",
+                CompleteCommand.MESSAGE_INVALID_COMPLETION,
+                expectedTB,
+                expectedList,
+                Collections.emptyList(),
+                model.getFilteredCompletedTaskList(),
+                Collections.emptyList());
+        assertTrue(threeFloatingTasks.get(1).isCompleted());
+    }
+    // @@author
+    
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -588,7 +655,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("delet");
     }
 
-    //@Test
+    @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -604,7 +671,7 @@ public class LogicManagerTest {
         
         // execute command and verify result     
         assertCommandBehavior("delete t2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeFloatingTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, "1. " + threeFloatingTasks.get(1)),
                 expectedTB,
                 expectedTB.getTaskList(),
                 Collections.emptyList());
