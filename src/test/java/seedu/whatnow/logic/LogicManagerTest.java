@@ -107,13 +107,14 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage, ReadOnlyWhatNow expectedWhatNow, List<? extends ReadOnlyTask> expectedShownList) throws Exception {       
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
-        
+        System.out.println("inputcommand is : "+ inputCommand);
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        
+
         if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) 
-                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD))
+                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD)) {
             assertEquals(expectedShownList, model.getAllTaskTypeList());
+        }
 
         // Confirm the state of data (saved and in-memory) is as expected
         if (!inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD)) {
@@ -216,12 +217,12 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateModifiedWhatNow(1);
         List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
-        
-        
+
+
         //prepare WhatNow state
         helper.addToModel(model, 1);
         helper.doneToModel(model, 1);
-        
+
         assertCommandBehavior("list done", ListCommand.COMPLETE_MESSAGE_SUCCESS, expectedA, expectedList);
     }
     //@@author A0139128A
@@ -230,14 +231,41 @@ public class LogicManagerTest {
         //prepare expectations
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateModifiedWhatNow(2);
-        
+
         List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
-        
+
         //prepare WhatNow state
         helper.addToModel(model, 2);
         helper.doneToModel(model, 1);
-        
+
         assertCommandBehavior("list all", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
+    }
+
+    //@@author A0139128A
+    @Test
+    public void execute_undoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
+    }
+    
+
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
+    }
+    
+
+    //@@author A0139128A
+    @Test
+    public void execute_RedoCommand_UndoCommandDoesNotExist_ErrorMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedList = helper.generateTaskList(1);
+        
+        WhatNow expectedAB = helper.generateWhatNow(expectedList);
+        
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
     }
     
     /**
@@ -909,7 +937,7 @@ public class LogicManagerTest {
             addToWhatNow(whatNow, numGenerated);
             return whatNow;
         }
-        
+
         /**
          * Generates an WhatNow with 1 completed task 
          */
@@ -946,7 +974,7 @@ public class LogicManagerTest {
                 whatNow.addTask(p);
             }
         }
-       
+
         /**
          * Adds auto-generated Task objects to the given model
          * 
