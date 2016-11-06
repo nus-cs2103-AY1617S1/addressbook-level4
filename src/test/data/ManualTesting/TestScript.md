@@ -28,7 +28,6 @@ Type `add “buy cheezels” ` into the command box
 
 
 <br>
-<br>
 
 
 Type `add “Sam’s wedding” on 23 dec` into the command box
@@ -37,7 +36,6 @@ Type `add “Sam’s wedding” on 23 dec` into the command box
 > * Task view jumps to the task that has just been added.
 
 
-<br>
 <br>
 
 
@@ -48,7 +46,6 @@ Type `add “buy christmas present for christmas party” by 25/12/2016, 3pm #presen
 
 
 <br>
-<br>
 
 
 Type `add “Christmas wonderland @ gardens by the bay” from 13-12, 1600 to 13-12, 1900` into the command box
@@ -57,7 +54,6 @@ Type `add “Christmas wonderland @ gardens by the bay” from 13-12, 1600 to 13-12,
 > * Task view jumps to the task that has just been added
 
 
-<br>
 <br>
 
 
@@ -70,7 +66,6 @@ Type `add “Christmas wonderland @ gardens by the bay” from 13 Dec 16, 4:00pm to 
 <br>
 
 
-<br>
 ## Edit Command
 
 
@@ -81,7 +76,6 @@ Type `edit 2 “Surprise Anniversary date with darling”`
 
 
 <br>
-<br>
 
 
 Type `edit 3 from 12 nov, 11am to 12 nov, 12pm` 
@@ -90,7 +84,6 @@ Type `edit 3 from 12 nov, 11am to 12 nov, 12pm`
 > * Task view jumps to the task that has been edited
 
 
-<br>
 <br>
 
 
@@ -104,7 +97,6 @@ Type `edit 5 by 08/11/2016, 5.20pm`
 <br>
 
 
-<br>
 ## Tag Edit Command
 
 
@@ -115,14 +107,12 @@ Type `tag add 4 #impt` into the command box
 
 
 <br>
-<br>
 
 
 Type `tag add 4 #today` into the command box
 > * Output console will display `The tag you have entered is one of our reserved words and is not allowed. Please use another word. Our list of reserved words are: [today, tomorrow, thisweek, nextweek, thismonth, nextmonth, completed]`
 
 
-<br>
 <br>
 
 
@@ -133,14 +123,12 @@ Type `tag delete 4 #impt` into the command box
 
 
 <br>
-<br>
 
 
 Type `tag delete 1 #friends` into the command box
 > * Output console will display `Tag does not exist in the indicated task!`
 
 
-<br>
 <br>
 
 
@@ -149,11 +137,10 @@ Type `tag clear 1` into the command box
 
 
 <br>
-<br>
 
 
-Type `tag add 2 #Anniversary` <br> into the command box
-Type `tag add 2 #Date` <br> into command box
+Type `tag add 2 #Anniversary` into the command box <br> 
+Type `tag add 2 #Date` into command box<br> 
 Type `tag clear 2` into the command box
 > * Output console will display `Edited task: 2` <br>
 > * Task with index 2 will have all its tags cleared <br>
@@ -164,7 +151,6 @@ Type `tag clear 2` into the command box
 <br>
 
 
-<br>
 ## Delete Command
 
 
@@ -173,7 +159,6 @@ Type `delete 5` into the command box
 > * Task with index 5 will be deleted
 
 
-<br>
 <br>
 
 
@@ -185,7 +170,6 @@ Type `delete 55` into the command box
 <br>
 
 
-<br>
 ## Completed Command
 
 
@@ -195,14 +179,12 @@ Type `completed 3` into the command box
 
 
 <br>
-<br>
 
 
 Type `completed 3` again into the command box
 > * Output console will display `This task is already completed`
 
 
-<br>
 <br>
 
 
@@ -214,7 +196,6 @@ Type `completed 55` again into the command box
 <br>
 
 
-<br>
 ## Clear Command
 
 
@@ -227,7 +208,6 @@ Type `clear` into the command box
 <br>
 
 
-<br>
 ## Undo Command
 
 
@@ -236,7 +216,6 @@ Type `undo` into the command box
 > * The clear command will be reversed
 
 
-<br>
 <br>
 
 
@@ -247,7 +226,6 @@ Type `undo` into the command box
 
 
 <br>
-<br>
 
 
 Type `edit 3 “undo this edit”` into the command box <br>
@@ -256,7 +234,6 @@ Type `undo` into the command box
 > * The edit command will be reversed
 
 
-<br>
 <br>
 
 
@@ -267,7 +244,6 @@ Type `undo` into the command box
 
 
 <br>
-<br>
 
 
 Type `completed 4` into the command box <br>
@@ -276,7 +252,6 @@ Type `undo` into the command box
 > * The completed command will be reversed
 
 
-<br>
 <br>
 
 
@@ -290,9 +265,7 @@ Type `undo` into the command box
 <br>
 
 
-<br>
 ## List Command
-<br>
 
 
 Task to be added with a date to be defined by the tester.
@@ -305,6 +278,8 @@ Task to be added with a date to be defined by the tester.
 7. Type `Completed 55`
 8. Type `Completed 56`
 9. Type `Completed 57`
+
+
 <br>
 
 
@@ -314,7 +289,6 @@ Type `list` into the command box
 > * There will be 52 tasks listed in total
 
 
-<br>
 <br>
 
 
@@ -326,7 +300,6 @@ Type `list friends` into the command box
 
 
 <br>
-<br>
 
 
 Type `list today` into the command box
@@ -335,7 +308,6 @@ Type `list today` into the command box
 > * The tasks you created would not appear.
 
 
-<br>
 <br>
 
 
@@ -346,7 +318,6 @@ Type `list tomorrow` into the command box
 
 
 <br>
-<br>
 
 
 Type `list thisweek` into the command box
@@ -355,7 +326,6 @@ Type `list thisweek` into the command box
 > * The tasks you created would not appear.
 
 
-<br>
 <br>
 
 
@@ -366,7 +336,6 @@ Type `list nextweek` into the command box
 
 
 <br>
-<br>
 
 
 Type `list thismonth` into the command box
@@ -375,7 +344,6 @@ Type `list thismonth` into the command box
 > * The tasks you created would not appear.
 
 
-<br>
 <br>
 
 
@@ -390,7 +358,6 @@ Type `list nextmonth` into the command box
 
 
 ## ListAll Command
-<br>
 
 
 Type `listall` into the command box
@@ -399,7 +366,6 @@ Type `listall` into the command box
 > * There will be 57 tasks listed in total
 
 
-<br>
 <br>
 
 
@@ -411,7 +377,6 @@ Type `listall friends` into the command box
 
 
 <br>
-<br>
 
 
 Type `listall today` into the command box
@@ -421,7 +386,6 @@ Type `listall today` into the command box
 
 
 <br>
-<br>
 
 
 Type `listall tomorrow` into the command box
@@ -430,7 +394,6 @@ Type `listall tomorrow` into the command box
 > * The task with description “tomorrow’s task” will appear.
 
 
-<br>
 <br>
 
 
@@ -443,7 +406,6 @@ Type `listall thisweek` into the command box
 
 
 <br>
-<br>
 
 
 Type `listall nextweek` into the command box
@@ -455,7 +417,6 @@ Type `listall nextweek` into the command box
 
 
 <br>
-<br>
 
 
 Type `listall thismonth` into the command box
@@ -466,7 +427,6 @@ Type `listall thismonth` into the command box
 > * Whether the other 2 tasks you created will appear, depends on what is the date you have input.
 
 
-<br>
 <br>
 
 
@@ -491,7 +451,6 @@ Type `find task` into the command box
 
 
 <br>
-<br>
 
 
 Type `find interview` into the command box
@@ -500,14 +459,11 @@ Type `find interview` into the command box
 
 
 <br>
-<br>
 
 
 Type `find task interview` into the command box
 > * Output console will display `5 tasks listed!` <br>
 > * All uncompleted tasks with `interview` or `task` in its description will be listed.
-
-
 <br>
 <br>
 
@@ -520,7 +476,6 @@ Type `findall task` into the command box
 > * All tasks (both completed and uncompleted) with `task` in its description will be listed.
 
 
-<br>
 <br>
 
 
@@ -539,7 +494,8 @@ Type `findall task interview` into the command box
 Type `help` into the command box
 > * Output console will not remain unchanged <br>
 > * A help window will appear which directs the user to our online User Guide in Github.
-< br>
+
+
 <br>
 
 
@@ -559,39 +515,37 @@ Press <kbd>alt</kbd> + <kbd>F4</kbd>
 
 Type `saveto ./newFolder/` into the command box
 > * Output console will display `Save location changed to ./newFolder/emeraldo.xml` <br>
-> * Status bar at the bottom showing the save location will show the new path ./newFolder/emeraldo.xml
-<br>
+> * Status bar at the bottom showing the save location will show the new path `./newFolder/emeraldo.xml`
+
+
 <br>
 
 
 Type `add “test data”` into the command box
-> * New emeraldo.xml will be created at ./newFolder/ when a change is made <br>
+> * New emeraldo.xml will be created at `./newFolder/` when a change is made <br>
 > * Confirm the creation of a folder named `newFolder` and the presence of a file named `emeraldo.xml` by going to the folder where emeraldo.jar was placed.
 
 
-<br>
 <br>
 
 
 Type `saveto default` into the command box
 > * Output console will display `Save location changed to ./data/emeraldo.xml` <br>
-> * Status bar at the bottom showing the save location will show the new path ./data/emeraldo.xml
+> * Status bar at the bottom showing the save location will show the new path `./data/emeraldo.xml`
 
 
-<br>
 <br>
 
 
 Close the program and relaunch emeraldo.jar <br>
-> * Task data stored in ./data/emeraldo will be loaded <br>
-> * The task with description “test data” will not be in the task view as it is saved in ./newFolder/emeraldo.xml.
+> * Task data stored in `./data/emeraldo` will be loaded <br>
+> * The task with description “test data” will not be in the task view as it is saved in `./newFolder/emeraldo.xml`
 
 
 <br>
 <br>
 
 
-<br>
 ## MotivateMe Command
 
 
@@ -599,7 +553,6 @@ Type `motivateme` into the command box
 > * Output console will display a motivational quote generated at random
 
 
-<br>
 <br>
 
 
