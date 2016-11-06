@@ -65,4 +65,55 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
+    //@@author A0135793W
+    // ================ Message Parameter getter methods ==============================
+
+    /**
+     * Get 'Add' command message parameter
+     * @return 'Add' command message parameter
+     */
+    public static String getAddCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[0];
+    }
+    
+    /**
+     * Get 'View' command message parameter
+     * @return 'View' command message parameter
+     */
+    public static String getViewCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[1];
+    }
+    
+    /**
+     * Get 'Find' command message parameter
+     * @return 'Find' command message parameter
+     */
+    public static String getFindCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[2];
+    }
+    
+    /**
+     * Get 'Edit' command message parameter
+     * @return 'Edit' command message parameter
+     */
+    public static String getEditCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[3];
+    }
+    
+    /**
+     * Get 'Delete' command message parameter
+     * @return 'Delete' command message parameter
+     */
+    public static String getDeleteCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[4];
+    }
+    
+    /**
+     * Get 'Done' command message parameter
+     * @return 'Done' command message parameter
+     */
+    public static String getDoneCommandMessageParameter() {
+        return ALL_COMMAND_MESSAGE_PARAMETER[5];
+    }
 }
