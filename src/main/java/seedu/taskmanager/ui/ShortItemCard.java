@@ -98,14 +98,14 @@ public class ShortItemCard extends UiPart{
     //@@author A0143641M
     private void setColour() {
         if (item.getDone()) {
-            id.setStyle("-fx-text-fill: #2E8B57");
-            name.setStyle("-fx-text-fill: #2E8B57");
-            tags.setStyle("-fx-text-fill: #2E8B57");
+            id.setStyle("-fx-text-fill: #009309");
+            name.setStyle("-fx-text-fill: #009309");
+            tags.setStyle("-fx-text-fill: #009309");
         } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
             if (item.isNearDeadline()) { // 24 Hours Before End Date
-                id.setStyle("-fx-text-fill: #E67E00");
-                name.setStyle("-fx-text-fill: #E67E00");
-                tags.setStyle("-fx-text-fill: #E67E00");
+                id.setStyle("-fx-text-fill: #ff8300");
+                name.setStyle("-fx-text-fill: #ff8300");
+                tags.setStyle("-fx-text-fill: #ff8300");
             }
             if (item.isPastDeadline()) { // Past End Date
                 id.setStyle("-fx-text-fill: #FF0000");

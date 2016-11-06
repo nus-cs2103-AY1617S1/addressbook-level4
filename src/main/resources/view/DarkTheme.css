@@ -1,6 +1,6 @@
 /*@@author A0143641M */
 .root {
-	main-bg-color: #F5F5F5;
+	main-bg-color: white;
 }
 /*@@author */
 
@@ -45,9 +45,9 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: white;
+    -fx-control-inner-background: white;
+    -fx-background-color: white;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -83,7 +83,7 @@
 
 /*@@author A0143641M */ 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(white, 30%);
     -fx-background-color: main-bg-color;
 }
 /*@@author */
@@ -91,23 +91,26 @@
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(white, 20%);
 }
 
 .list-cell {
+    -fx-background-color: white;	
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
 
-/*@@author A0143641M */
-.list-cell:focused {
-	-fx-background-color: derive(#F0E68E, 10%);
+.list-cell:focused:selected {
+	-fx-background-color: derive(#F0E68E, 100%);
 }
+
+/*@@author A0143641M */
+
 .list-cell .label {
 	-fx-font-family: Palatino;
 	-fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: derive(black, 35%);
     -fx-text-overrun: word-ellipsis ;
 }
 
@@ -117,39 +120,34 @@
 
 #itemsPane {
 	-fx-background-color: main-bg-color;
-	-fx-border-color: derive(#1d1d1d, 60%);
+	-fx-border-color: derive(white, 60%);
 	-fx-border-width: 1px;
 }
 
 /*@@author A0140060A*/
 .cell_big_label {
-	-fx-font-family: Palatino;
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+	-fx-text-fill: derive(black, 35%);
+    -fx-font-size: 24px;
     -fx-max-width: 300;
     -fx-wrap-text: true;
 }
 
-.cell_small_label_itemType {
-    -fx-font-size: 11px;
-    -fx-text-fill: #00BFFF;
-}
 
 /*@@author */
 
 .cell_small_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+	-fx-text-fill: derive(black, 35%);
+    -fx-font-size: 16px;
 }
 
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(white, 20%);
 }
 
 .anchor-pane-with-border {
      -fx-background-color: main-bg-color;
-     -fx-border-color: derive(#1d1d1d, 100%);
+     -fx-border-color: derive(white, 100%);
      -fx-border-width: 1px;
 }
 
@@ -158,23 +156,23 @@
 }
 
 .result-display .label {
-    -fx-text-fill: black !important;
+    -fx-text-fill: derive(black, 40%) !important;
 }
 
 /*@@author A0143641M */
 .status-bar {
     -fx-background-color: main-bg-color;
-    -fx-text-fill: black;
+    -fx-text-fill: derive(black, 35%);
 }
 
 /*@@author */
 .status-bar .label {
-    -fx-text-fill: #1d1d1d;
+    -fx-text-fill: white;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(white, 30%);
+    -fx-border-color: derive(white, 25%);
     -fx-border-width: 1px;
 }
 
@@ -183,13 +181,13 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 60%);
+    -fx-background-color: derive(white, 30%);
+    -fx-border-color: derive(white, 60%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(white, 30%);
 }
 /*@@author A0143641M */
 .context-menu {
@@ -202,7 +200,7 @@
 
 .menu-bar {
     -fx-background-color: main-bg-color;
-    -fx-border-color: derive(#1d1d1d, 100%);
+    -fx-border-color: derive(white, 100%);
     -fx-border-width: 1px;
 }
 /*@@author */
@@ -223,7 +221,7 @@
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: Palatino;
-    -fx-text-fill: black;
+    -fx-text-fill: derive(black, 40%);
     -fx-opacity: 0.9;
 }
 
@@ -244,7 +242,7 @@
     -fx-background-color: #0098f7;
     -fx-font-family: Palatino;
     -fx-font-size: 11pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: white;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
 }
 
@@ -253,8 +251,8 @@
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+  -fx-background-color: #2daeff;
+  -fx-text-fill: white;
 }
 
 .button:focused {
@@ -267,7 +265,7 @@
 
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: white;
     -fx-text-fill: white;
 }
 
@@ -281,11 +279,11 @@
 }
 
 .dialog-pane {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: white;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: white;
 }
 
 .dialog-pane > *.label.content {
@@ -295,7 +293,7 @@
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(white, 25%);
 }
 
 .dialog-pane:header *.header-panel *.label {
@@ -306,7 +304,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#0099ff, 80%);
     -fx-background-insets: 3;
 }
 

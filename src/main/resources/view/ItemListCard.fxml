@@ -28,28 +28,32 @@
                                 <HBox>
                                 	<!-- @@author A0140060A -->
                                     <TextFlow>
-                                   		<Text fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                   		<Text fx:id="name" text="\$first">
+                                   			<font>
+                								<Font name="Palatino" size="24.0" />
+           									</font>
+           								</Text>
                                     </TextFlow>
                                     <!-- @@author -->
                                 </HBox>
                             </children>
                         </HBox>
                         <HBox spacing="5" alignment="CENTER_LEFT">
-                        	<Label fx:id="itemType" styleClass="cell_small_label_itemType" text="\$itemType"/>
-                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                        	<Label fx:id="itemType" text="\$itemType"/>
+                        	<Label fx:id="tags" text="\$tags" />
                         </HBox>
                         <HBox>
-                            <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-                            <Label fx:id="startDateSpace" styleClass="cell_small_label" text=" " />
-                            <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+                            <Label fx:id="startDate" text="\$startDate" />
+                            <Label fx:id="startDateSpace" text=" " />
+                            <Label fx:id="startTime" text="\$startTime" />
                         </HBox>
                         <HBox>
-                            <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
-                            <Label fx:id="endDateSpace" styleClass="cell_small_label" text=" " />
-                            <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
+                            <Label fx:id="endDate" text="\$endDate" />
+                            <Label fx:id="endDateSpace" text=" " />
+                            <Label fx:id="endTime" text="\$endTime" />
                         </HBox>
                         <HBox>
-                            <Label fx:id="endFromNow" styleClass="cell_small_label" text="\$endFromNow" />
+                            <Label fx:id="endFromNow" text="\$endFromNow" />
                         </HBox>
                         <HBox>
                             <Button fx:id="doneButton" text="Not Done" onAction="#doneButtonAction"/>

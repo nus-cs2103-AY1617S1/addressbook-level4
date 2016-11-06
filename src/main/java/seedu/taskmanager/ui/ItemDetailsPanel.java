@@ -116,6 +116,8 @@ public class ItemDetailsPanel extends UiPart {
 		itemList.add(item);
 		itemIndex.add(newIdx+1);
 	    itemListView.setItems(itemList);
+	    //itemListView.setMouseTransparent( true );
+	    itemListView.setFocusTraversable( false );
         itemListView.setCellFactory(listView -> new ItemListViewCell(itemIndex));
 	}
 
