@@ -35,8 +35,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Storage] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/docs/DeveloperGuide.md)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-	* List persons
-	* Delete person
+	* Add task
+	* Delete task
 	* Undo command
 * Code written: 
 [[functional code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139342H.md)]
