@@ -138,9 +138,10 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
         if (type.equals("empty")) {
             tasksToMark.add(lastShownList.get(targetIndex - 1));
-            model.markTask(tasksToMark.get(0));
-            if (tasksToMark.get(0).isRecur()) {
-                model.addNextTask(tasksToMark.get(0));
+            Task taskToMark = tasksToMark.get(0); 
+            model.markTask(taskToMark);
+            if (taskToMark.isRecur()) {
+                model.addNextTask(taskToMark);
             }
         } else if (type.equals("due")){
             model.updateFilteredListToShowUpcoming(new Date().getTime(),type);

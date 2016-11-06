@@ -210,13 +210,13 @@ public class Parser {
     private AddCommand buildAddCommand(final String name, final Optional<String> dates, final Optional<String> recur, final Set<String> tagSet) throws IllegalValueException, InvalidEventDateException {
         AddCommandBuilder addCommandBuilder = new AddCommandBuilder(name);
         addCommandBuilder.withTags(tagSet);
-        recur.ifPresent(recurVal -> addCommandBuilder.asRecurring(recurVal));
         
         if(dates.isPresent()){
             PrettyTimeParser ptp = new PrettyTimeParser();
             List<DateGroup> parsedDates = ptp.parseSyntax(dates.get());
             
             if(!parsedDates.isEmpty()){
+                recur.ifPresent(recurVal -> addCommandBuilder.asRecurring(recurVal));
                 List<Date> startEndDates = parsedDates.get(0).getDates();
                 
                 /*
