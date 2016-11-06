@@ -34,7 +34,7 @@ public class RelocateCommand extends Command {
     
     public static final String COMMAND_DESCRIPTION = "Change your data's save location";
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + " <File Path>";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <file_path>";
 
     public static final String MESSAGE_SUCCESS = "Relocated save location to %1$s";
     public static final String MESSAGE_INVALID_INPUT = "%1$s is not valid.";
