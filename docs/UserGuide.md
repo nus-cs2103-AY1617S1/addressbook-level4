@@ -19,6 +19,7 @@
 * [Saving the data](#saving-the-data)
 * [Frequently asked questions](#frequently-asked-questions)
 * [Command Summary](#command-summary)
+* [Keyboard Shortcuts](#keyboard-shortcuts)
 
 <!-- @@author A0139671X -->
 ## Quick Start
@@ -355,3 +356,13 @@ Following is the list of all commands:
 | `select`    | `select` `<index>`                                 | Goes to the particular task at that index   										   |
 |`setstorage` | `setstorage` `<folder name>`                       | Set storage to a particular folder             										   |
 |`exit`       | `exit`                                             | Exits ForgetMeNot                              										   |
+
+## Keyboard Shortcuts
+
+Following is the list of keyboard shortcuts that ForgetMeNot has to offer:
+
+| Key  			  | Function                             |
+|-----------------|--------------------------------------|
+| <kbd>TAB</kbd>  | Autocompletes any unfinished command |
+| <kbd>UP</kbd>   | Displays the last older command      |
+| <kbd>DOWN</kbd> | Display the last newer command       |

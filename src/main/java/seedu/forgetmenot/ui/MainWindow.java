@@ -6,7 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -115,7 +117,6 @@ public class MainWindow extends UiPart {
 
     //@@author A0139211R
     void fillInnerParts() {
-    	// @@author A0139211R
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskListForFloating().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -221,10 +222,8 @@ public class MainWindow extends UiPart {
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
+
     //@@author A0139198N
-    /**
-     * 
-     */
     public Predicate<ReadOnlyTask> isFloating() {
     	return t -> t.isFloatingTask() && t.isDone() == false;
     }

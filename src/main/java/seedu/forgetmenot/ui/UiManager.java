@@ -125,10 +125,4 @@ public class UiManager extends ComponentManager implements Ui {
     	mainWindow.rerenderStatusBarFooter();
     }
     
-/*    @Subscribe
-    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadTaskPage(event.getNewSelection());
-    }
-*/
 }
