@@ -24,9 +24,6 @@ public class TaskDate {
 
     public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
     
-    public static final String TODAY_ARG = "today";
-    public static final String TMR_ARG = "tomorrow";
-    
     private static final Pattern DAYS_MONDAY = Pattern.compile("((?:monday|mon))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_TUESDAY = Pattern.compile("((?:tuesday|tue|tues))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_WEDNESDAY = Pattern.compile("((?:wednesday|wed))", Pattern.CASE_INSENSITIVE);
