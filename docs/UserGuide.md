@@ -288,9 +288,11 @@ No priority item | p/none | `edit t4 p/none`
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | `edit e3 due tomorrow p/HIGH`
 Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | `edit t1 "skip CS2103 lecture" on 29 oct t/IMPT`
 
+> * If you ever make a mistake, don't be afraid to use the [`undo`](#undo) command. <br>
+
 > <img src="images/Edit.png" width="800">
 
-> * If you ever make a mistake, don't be afraid to use the [`undo`](#undo) command.
+
 
 <!--- @@author -->
 <br><br>
