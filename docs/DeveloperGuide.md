@@ -487,6 +487,12 @@ More non functional requirements and project constraints can be found [here](htt
 
 > Windows, Linux, Unix, OS-X
 
+##### Application Component Names
+
+> command box, results panel, item list panel, item details panel refer to the following components of Ivory Tasks
+
+> <img src="images/app_component_names.png" width="600">
+
 [comment]: # (@@author)
 
 [comment]: # (@@author A0135792X)
