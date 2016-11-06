@@ -112,7 +112,7 @@ command `delete 3`.
 
 Figure 3 shows how the `EventsCenter` reacts to the event (`delete 3`). This process eventually results in saving the updates to the hard disk, and updating the status bar of the UI to reflect the 'Last Updated' time.<br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDforAddTaskEventHandling.png" width="800">
 >**_Figure 3_**: EventsCentre Diagram - shows how EventsCentre reacts to the event (`delete 3`)
 
 > Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
