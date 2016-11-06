@@ -36,28 +36,28 @@ public class TaskCard extends UiPart{
     private static final String OVERDUE_FIRSTDATE_CSS = OVERDUE_SECONDDATE_CSS;
     private static final String OVERDUE_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
     private static final String OVERDUE_DESCRIPTION_CSS = OVERDUE_ID_CSS;
-    private static final String  OVERDUE_COLORTAG_CSS = "-fx-background-color: #DC143C";
+    private static final String OVERDUE_COLORTAG_CSS = "-fx-background-color: #DC143C";
     
     private static final String FAVORITE_CARDPANE_CSS = "-fx-background-color: rgba(255, 255, 9, 0.75);";
     private static final String FAVORITE_SECONDDATE_CSS = "-fx-text-fill: rgba(0, 0, 0, 0.7);";
     private static final String FAVORITE_FIRSTDATE_CSS = FAVORITE_SECONDDATE_CSS;
     private static final String FAVORITE_ID_CSS = "-fx-text-fill: rgba(0, 102, 0, 1.0);";
     private static final String FAVORITE_DESCRIPTION_CSS = FAVORITE_ID_CSS;
-    private static final String  FAVORITE_COLORTAG_CSS = "-fx-background-color: rgb(242, 232, 121)";
+    private static final String FAVORITE_COLORTAG_CSS = "-fx-background-color: rgb(242, 232, 121)";
     
     private static final String COMPLETED_CARDPANE_CSS = "-fx-background-color: rgba(129, 224, 74, 1.0);";
     private static final String COMPLETED_SECONDDATE_CSS = "-fx-text-fill: white;";
     private static final String COMPLETED_FIRSTDATE_CSS = COMPLETED_SECONDDATE_CSS;
     private static final String COMPLETED_ID_CSS = "-fx-text-fill: white;";
     private static final String COMPLETED_DESCRIPTION_CSS = COMPLETED_ID_CSS;
-    private static final String  COMPLETED_COLORTAG_CSS = "-fx-background-color: rgb(153, 247, 98)";
+    private static final String COMPLETED_COLORTAG_CSS = "-fx-background-color: rgb(153, 247, 98)";
     
     private static final String NORMAL_CARDPANE_CSS = "-fx-background-color: rgba(211, 174, 141, 0.5);";
     private static final String NORMAL_SECONDDATE_CSS = "-fx-text-fill: rgba(247, 246, 239, 0.7);";
     private static final String NORMAL_FIRSTDATE_CSS = NORMAL_SECONDDATE_CSS;
     private static final String NORMAL_ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
     private static final String NORMAL_DESCRIPTION_CSS = NORMAL_ID_CSS;
-    private static final String  NORMAL_COLORTAG_CSS = "-fx-background-color: rgb(186, 143, 106)";
+    private static final String NORMAL_COLORTAG_CSS = "-fx-background-color: rgb(186, 143, 106)";
     
     private static final String FXML = "TaskListCard.fxml";
     

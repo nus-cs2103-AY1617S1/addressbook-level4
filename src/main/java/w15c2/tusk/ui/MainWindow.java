@@ -28,7 +28,7 @@ public class MainWindow extends UiPart {
     private static final String INACTIVE_CSS = "-fx-background-color: #633914;";
     private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;";
     private static final String ICON = "/images/TuskLogo.png";
-    private static final String FXML = "MainWindow_Task.fxml";
+    private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 700;
     public static final int MIN_WIDTH = 1000;
 
