@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="cardPane" minHeight="40.0" prefHeight="72.0" prefWidth="630.0" style="-fx-border-color: #eceff1; -fx-border-width: 0 0 1 0; -fx-border: ;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="72.0" prefWidth="630.0" style="-fx-border-color: #eceff1; -fx-border-width: 0 0 1 0; -fx-border: ;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
@@ -46,7 +46,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="\$name" translateX="10.0" wrappingWidth="1900.0" GridPane.columnIndex="1">
+                  <Text fx:id="name" strokeType="OUTSIDE" strokeWidth="0.0" text="\$name" translateX="15.0" wrappingWidth="1900.0" GridPane.columnIndex="1">
                      <font>
                         <Font size="20.0" />
                      </font>

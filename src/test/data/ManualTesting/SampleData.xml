@@ -1,0 +1,913 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ToDoList>
+    <tasks>
+        <name>eat ice cream with friends</name>
+        <detail></detail>
+        <onDate>09 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>print color version of project manual</name>
+        <detail></detail>
+        <onDate>08 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2101</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>go for a run</name>
+        <detail></detail>
+        <onDate>10 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>collect ewp welfare pack</name>
+        <detail></detail>
+        <onDate>03 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>welfare</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>buy 4D 1234</name>
+        <detail></detail>
+        <onDate>08 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>panel discussion</name>
+        <detail></detail>
+        <onDate>25 Oct 2016 04:00 PM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103 v0.4</name>
+        <detail></detail>
+        <onDate>20 Oct 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103 v0.5</name>
+        <detail></detail>
+        <onDate>02 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>think of ways to come up with 50 sample data</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>do ewp survey for welfare pack</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>welfare</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>buy stomach meds</name>
+        <detail></detail>
+        <onDate>08 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>medicine</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>code refactoring</name>
+        <detail></detail>
+        <onDate>07 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>random</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch video on neural networks on youtube</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>knowledge</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>do laundry</name>
+        <detail></detail>
+        <onDate>07 Nov 2016 01:00 PM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>DAY</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>look for new games in the app store</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>fun</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>games</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>change phone wallpaper</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>buy new shirts</name>
+        <detail></detail>
+        <onDate>01 Dec 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>shopping</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>buy new jeans</name>
+        <detail></detail>
+        <onDate>01 Dec 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>shopping</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>do room booking for student events</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>project manual for CS2103</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate>08 Nov 2016 11:59 PM</byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>buy groceries</name>
+        <detail></detail>
+        <onDate>08 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>personal</tagName>
+            <taskCount>10</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>urgent</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>food</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>supper with friends</name>
+        <detail></detail>
+        <onDate>12 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>supper with friends</name>
+        <detail></detail>
+        <onDate>19 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>supper with friends next sat</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>catch on webcast for ST2132</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>ST2132</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>do sample data for CS2103</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>do project retrospective for CS2103</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>project</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>visit sentosa Universal studios</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>fun</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>travel</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>visit the zoo someday</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>fun</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>friends</tagName>
+            <taskCount>6</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>travel</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>dinner with family</name>
+        <detail></detail>
+        <onDate>12 Nov 2016 08:00 PM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>family</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>food</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>plan overseas trip to krabi</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>travel</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>read Lord of the RIngs</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>book</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>readings</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>read up on body language and effective communication</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>book</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>readings</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>study for GET1006 wildcards</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>prepare for software demo</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>consultation with TA for ST2132</name>
+        <detail></detail>
+        <onDate>17 Nov 2016 03:00 PM</onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>ST2132</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch documentary on ShenZhen</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>video</tagName>
+            <taskCount>5</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>show</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>read this month NatGeo</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>readings</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>read up on blockchain</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>readings</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch donald trump funny videos on youtube</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>video</tagName>
+            <taskCount>5</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>fun</tagName>
+            <taskCount>4</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>dance class</name>
+        <detail></detail>
+        <onDate>10 Nov 2016 08:00 PM</onDate>
+        <byDate>10 Nov 2016 09:00 PM</byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>WEEK</recurrence>
+        <tagged>
+            <tagName>dance</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch Big Bang Theory `on Sunday</name>
+        <detail></detail>
+        <onDate>13 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>video</tagName>
+            <taskCount>5</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>show</tagName>
+            <taskCount>2</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>drama</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch Game of Thrones</name>
+        <detail></detail>
+        <onDate>13 Nov 2016 12:00 AM</onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>WEEK</recurrence>
+        <tagged>
+            <tagName>video</tagName>
+            <taskCount>5</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>drama</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>christmas party</name>
+        <detail></detail>
+        <onDate>25 Dec 2016 06:00 PM</onDate>
+        <byDate>25 Dec 2016 07:00 PM</byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>party</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>revise for CS2103 finals</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>finals</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>watch doctor strange with friends</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>low</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>video</tagName>
+            <taskCount>5</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>drama</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>CS3244 homework 3 held out data</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate>07 Nov 2016 11:59 PM</byDate>
+        <priority>high</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>school</tagName>
+            <taskCount>13</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>assignment</tagName>
+            <taskCount>1</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>complete manual word document</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>complete AboutUs.md</name>
+        <detail></detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2103</tagName>
+            <taskCount>9</taskCount>
+        </tagged>
+        <tagged>
+            <tagName>CS2101</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tasks>
+        <name>complete userguide for CS2101</name>
+        <detail>proof reading</detail>
+        <onDate> </onDate>
+        <byDate> </byDate>
+        <priority>mid</priority>
+        <completion>false</completion>
+        <recurrence>NONE</recurrence>
+        <tagged>
+            <tagName>CS2101</tagName>
+            <taskCount>3</taskCount>
+        </tagged>
+    </tasks>
+    <tags>
+        <tagName>friends</tagName>
+        <taskCount>6</taskCount>
+    </tags>
+    <tags>
+        <tagName>CS2101</tagName>
+        <taskCount>3</taskCount>
+    </tags>
+    <tags>
+        <tagName>personal</tagName>
+        <taskCount>10</taskCount>
+    </tags>
+    <tags>
+        <tagName>welfare</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>school</tagName>
+        <taskCount>13</taskCount>
+    </tags>
+    <tags>
+        <tagName>CS2103</tagName>
+        <taskCount>9</taskCount>
+    </tags>
+    <tags>
+        <tagName>project</tagName>
+        <taskCount>6</taskCount>
+    </tags>
+    <tags>
+        <tagName>medicine</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>random</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>knowledge</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>fun</tagName>
+        <taskCount>4</taskCount>
+    </tags>
+    <tags>
+        <tagName>games</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>shopping</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>urgent</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>food</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>ST2132</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>travel</tagName>
+        <taskCount>3</taskCount>
+    </tags>
+    <tags>
+        <tagName>family</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>book</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>readings</tagName>
+        <taskCount>4</taskCount>
+    </tags>
+    <tags>
+        <tagName>video</tagName>
+        <taskCount>5</taskCount>
+    </tags>
+    <tags>
+        <tagName>show</tagName>
+        <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>dance</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>drama</tagName>
+        <taskCount>3</taskCount>
+    </tags>
+    <tags>
+        <tagName>party</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>finals</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+    <tags>
+        <tagName>assignment</tagName>
+        <taskCount>1</taskCount>
+    </tags>
+</ToDoList>
