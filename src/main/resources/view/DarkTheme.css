@@ -96,6 +96,11 @@
     -fx-text-fill: #010504;
 }
 
+.cell_priority_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+}
+
 .cell_big_label {
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
@@ -106,6 +111,10 @@
     -fx-text-fill: #010504;
 }
 
+.cell_check_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: #010504;
+}
 
 .cell_small_label {
     -fx-font-size: 12px;
