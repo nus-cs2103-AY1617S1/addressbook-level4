@@ -31,24 +31,22 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 
 6. Refer to the [Features](#features) section below for details of each command.<br>
-<br><br>
 
 ## Features
 
 ###1 Add Command
 There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the secStion below.
-
-
+<br><br>
 ####1.1 Add a to-do
 
 To start things off, let us add a simple task with no date or time, just a simple task to be done sometime and someday.
 
 >Format: **add** &lt;to-do description&gt; &lt;#tag&gt;
 
-Example: add go swimming #YOLO
+Example: add go swimming #fitness
 
 >Note: tags are optional and multiple tags can be added to all tasks.
-
+<br><br>
 ####1.2 Add a deadline
 
 Perhaps after adding a todo, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
@@ -58,8 +56,7 @@ Perhaps after adding a todo, now you want to add a task with a deadline. Let's s
 Example: add complete report; 120916; 1900 #YOLO 
 
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
-
-
+<br><br>
 ####1.3 Add an event
 
 Let's say you have to attend a friend's birthday party on the weekend. You know the date, the time it starts, as well as the time it ends.
@@ -73,7 +70,7 @@ Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPres
 >Note: Date format accepted: 20/12/2016, 20/12/16, 201216
 
 >Important: The square brackets are compulsory when adding an event.
-
+<br><br>
 ####1.4 Add a tag / multiple tags to existing tasks
 
 Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added.
@@ -81,7 +78,7 @@ Now, that report due on Monday has become a very important task that you absolut
 >Format: **add** &lt;index&gt; #tag1 #tag2
 
 Example: Add D1 #VeryImportant #omg  
-
+<br><br>
 
 ###2 Edit a task
 
@@ -100,7 +97,7 @@ When you accidentally enter the wrong details on any of your tasks, worry not. T
 >Note: Removing start time from events will automatically convert them into deadlines.
 
 >Note: Removing end time from deadlines will automatically set the end time of the deadline to 2359. 
- 
+ <br><br>
 ####2.1 Edit task description
 
 Remember that birthday party previously entered? Perhaps now instead of entering Sam's birthday party, you want to change the description to Samantha's birthdday party. To do so, simply follow the command format below.
@@ -108,7 +105,7 @@ Remember that birthday party previously entered? Perhaps now instead of entering
 >Format: **edit** &lt;index&gt; **des** &lt;description&gt;
 
 Example: edit E1 des Sam's birthday party
-
+<br><br>
 ####2.2 Edit task date
 
 Now, maybe the date of the birthday party you previously entered is also wrong and should be one day later instead. 
@@ -118,7 +115,7 @@ Now, maybe the date of the birthday party you previously entered is also wrong a
 Example: Edit E1 date 21/12/16
 
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
-
+<br><br>
 ####2.3 Edit task start time 
 
 Samantha's birthday party is tomorrow and she has called to inform you that her party is starting two hours earlier at 5pm instead. To change the start time, simply type the following command.
@@ -128,7 +125,7 @@ Samantha's birthday party is tomorrow and she has called to inform you that her 
 Example: edit E1 start 5pm
 
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
-
+<br><br>
 ####2.4 Edit task end time 
 
 Samantha has also informed her friends that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following.
@@ -138,7 +135,7 @@ Samantha has also informed her friends that the party is scheduled to end at 11p
 Example: edit E1 end 2300
 
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
-
+<br><br>
 ####2.5 Edit a specific tag
 
 You have been very busy and forgot to buy Samantha's present so you want to remind yourself that you absolutely have to buy that present tomorrow for her. You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag.
@@ -146,7 +143,7 @@ You have been very busy and forgot to buy Samantha's present so you want to remi
 >Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; ***>*** &lt;new_tag&gt;
 
 Example: edit E1 #rememberToBuyPresent > #AbsolutelyRememberToBuyPresent
-
+<br><br>
  
 ###3 Find Task by Keyword
 
