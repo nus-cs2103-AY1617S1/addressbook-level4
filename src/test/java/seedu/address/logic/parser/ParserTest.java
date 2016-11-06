@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class ParserTest {
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser(new ModelManager());
 		incorrectCommand = new IncorrectCommand("test");
-		addCommand = new AddCommand("test adding someday");
+		addCommand = new AddCommand("test adding someday", "someday", Optional.empty(), Optional.empty(), new HashSet<String>());
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");

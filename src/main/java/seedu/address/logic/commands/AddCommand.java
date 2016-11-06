@@ -60,55 +60,6 @@ public class AddCommand extends Command {
          );
     }
     
-    /**
-     * Convenience constructor for event task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    // TODO allow tag list as params
-    public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException {
-       	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("event"),
-        		new Status("pending"), 
-        		Optional.of(startDate), 
-        		Optional.of(endDate),
-        		new UniqueTagList()
-                );
-    }
-    
-    /**
-     * Convenience constructor for deadline task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, LocalDateTime endDate) throws IllegalValueException {
-    	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("deadline"),
-        		new Status("pending"), 
-        		Optional.empty(), 
-        		Optional.of(endDate),
-        		new UniqueTagList()
-                );
-    	System.out.println("deadline added: " + toAdd);
-    }
-    
-    /**
-     * Convenience constructor for someday task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name) throws IllegalValueException {
-    	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("someday"),
-        		new Status("pending"), 
-        		Optional.empty(), 
-        		Optional.empty(),
-        		new UniqueTagList()
-                );
-    }
     
     /**
      * Copy constructor.

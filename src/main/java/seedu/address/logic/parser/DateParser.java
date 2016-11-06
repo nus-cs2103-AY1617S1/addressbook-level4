@@ -8,8 +8,12 @@ import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.commons.core.LogsCenter;
 
 //@@author A0141019U
 public class DateParser {
@@ -33,15 +37,15 @@ public class DateParser {
 			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s*(?<day>[a-zA-Z\\s]+)?") // 2pm tomorrow
 	};
 
+	private static final Logger logger = LogsCenter.getLogger(DateParser.class);
+	
 	
 	/**
-	 * @return LocalDateTime if valid date format
+	 * @return LocalDateTime if date format is valid
 	 * @throws ParseException if unable to parse
 	 */
 	public static LocalDateTime parse(String dateString) throws ParseException {
 		dateString = dateString.trim().toLowerCase();
-		
-		System.out.println(dateString);
 		
 		LocalDateTime dateTime = parseNaturalLanguage(dateString);
 		if (dateTime == null) {
@@ -52,12 +56,18 @@ public class DateParser {
 			throw new ParseException("Failed to parse date and time.", -1);
 		}
 		else {
-			System.out.println("date parser result: " + dateTime);
+			logger.log(Level.INFO, "Date parser result: " + dateTime);
 			return dateTime;
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * @param dateString
+	 *            a string that may contain a date. eg. `31-10-16`, `today`
+	 * @return true if a date is present, false otherwise. If only a time is
+	 *         given, false is returned.
+	 */
 	public static boolean containsDate(String dateString) {
 		dateString = dateString.trim().toLowerCase();
 		LocalDateTime dateTime;
@@ -74,8 +84,8 @@ public class DateParser {
 				.withMinute(dateTime.getMinute())
 				.truncatedTo(ChronoUnit.MINUTES);
 		
-		// If date was inferred to be today and string does not contain explicit identifiers
-		// for today ("today" or standard date format symbol "-", date was inferred
+		// If string does not contain explicit identifiers
+		// for today ("today" or standard date format symbol "-"), date was inferred
 		if (dateTime.equals(nowWithHhmmReplaced)
 				&& !(dateString.contains("today") || dateString.contains("-"))) {
 			return false;
@@ -85,7 +95,13 @@ public class DateParser {
 		}
 	}
 	
-
+	
+	/**
+	 * 
+	 * @param dateString a string that uses natural language words like `today` and `tomorrow` to describe the date.
+	 * @return a LocalDateTime
+	 * @throws ParseException
+	 */
 	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		for (int i=0; i<NATURAL_LANGUAGE.length; i++) {
@@ -112,8 +128,18 @@ public class DateParser {
 		// if matcher did not match
 		return null;
 	}
-	
 
+	/**
+	 * 
+	 * @param dateString
+	 *            a string that identifies a date in the dd-mm-yy, dd-MMM-yy,
+	 *            yyyy-mm-dd, dd-mm-yyyy and dd-MMM-yyyy formats and time in the
+	 *            HH:mm, hh:mm am/pm format. The hyphens in the date may be
+	 *            replaced by forward slashes an the colon in the time format
+	 *            may be omitted.
+	 * @return a LocalDateTime
+	 * @throws ParseException
+	 */
 	private static LocalDateTime parseStandardFormat(String dateString) throws ParseException {
 		ArrayList<Matcher> matchers = new ArrayList<>();
 		for (int i=0; i<STANDARD_DATE_FORMATS.length; i++) {
@@ -299,15 +325,6 @@ public class DateParser {
 	}
 	
 	public static void main(String[] args) {
-		try {
-			LocalDateTime date1 = DateParser.parse("12-12-12 05:00");
-			System.out.println(date1.toString());
-			LocalDateTime date2 = DateParser.parse("12-12-12 05:00");
-			System.out.println(date2.toString());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }
