@@ -23,6 +23,7 @@ import seedu.todo.commons.util.DateUtil;
 import seedu.todo.guitests.guihandles.AliasViewHandle;
 import seedu.todo.guitests.guihandles.ConfigViewHandle;
 import seedu.todo.guitests.guihandles.ConsoleHandle;
+import seedu.todo.guitests.guihandles.HeaderHandle;
 import seedu.todo.guitests.guihandles.HelpViewHandle;
 import seedu.todo.guitests.guihandles.MainGuiHandle;
 import seedu.todo.guitests.guihandles.TagListHandle;
@@ -46,6 +47,7 @@ public abstract class GuiTest {
     // Handles to GUI elements present at the start up are created in advance for easy access from child classes.
     protected MainGuiHandle mainGui;
     protected ConsoleHandle console;
+    protected HeaderHandle header;
     protected TaskListHandle taskList;
     protected TagListHandle tagList;
     protected AliasViewHandle aliasView;
@@ -69,6 +71,7 @@ public abstract class GuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             console = mainGui.getConsole();
+            header = mainGui.getHeader();
             taskList = mainGui.getTaskList();
             tagList = mainGui.getTagList();
             aliasView = mainGui.getAliasView();
