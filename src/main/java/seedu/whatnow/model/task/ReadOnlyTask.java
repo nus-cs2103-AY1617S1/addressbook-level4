@@ -129,42 +129,47 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-
-        //complex two date two time
-        if (getStartDate() != null && getEndDate() != null && getStartTime() !=null && getEndTime() !=null ){
-            builder.append(" from " + getStartDate() + " " + getStartTime() + " to " + getEndDate() + " " + getEndTime());
-        } else {
-            if (getTaskDate() != null) {
-                builder.append(" on " + getTaskDate());
+        builder.append("\n" + getName());
+        
+        if (getTaskDate() != null) {
+            builder.append(" on " + getTaskDate());
+            if(getTaskTime() != null ){
+                builder.append(" at " + getTaskTime());
+            } else { 
+                if (getStartTime() != null) {
+                    builder.append(" from " + getStartTime());
+                }
+                if (getEndTime() != null) {
+                    builder.append(" to " + getEndTime());
+                }
             }
+        } else { 
             if (getStartDate() != null) {
-                builder.append(" from " + getStartDate());
+                builder.append("\nfrom " + getStartDate());
+            } 
+            if (getStartTime() != null) {
+                builder.append(" " + getStartTime());
             }
             if (getEndDate() != null) {
-                builder.append(" to " + getEndDate());
-            }
-            if (getTaskTime() != null) {
-                builder.append(" at " + getTaskTime());
-            }
-            if (getStartTime() != null) {
-                builder.append(" from " + getStartTime());
+                builder.append("\nto " + getEndDate());
             }
             if (getEndTime() != null) {
-                builder.append(" to " + getEndTime());
-            }
-            if (getPeriod() != null) {
-                builder.append(" every " + getPeriod());
-            }
-            if (getEndPeriod() != null) {
-                builder.append(" till " + getEndPeriod());
-            }
-            if (getStatus() != null) {
-                builder.append(" " + getStatus());
+                builder.append(" " + getEndTime());
             }
         }
-        builder.append(" Tags: ");
-        getTags().forEach(builder::append);
+        if (getPeriod() != null) {
+            builder.append("\nevery " + getPeriod());
+        }
+        if (getEndPeriod() != null) {
+            builder.append(" till " + getEndPeriod());
+        }
+        if (getTags().size() > 0) {
+            builder.append("\nTags: ");
+            getTags().forEach(builder::append);
+        }
+        if (getStatus() != null) {
+            builder.append("\nStatus: " + getStatus());
+        }
         return builder.toString();
     }
 
