@@ -24,7 +24,8 @@ public class AddEventCommandTest extends GuiTest {
         event.setName("Presentation in the Future");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysFromNowIsoString)));
-        assertEventVisibleAfterCmd(command, event);
+        console.runCommand(command);
+        assertEventVisible(event);
     }
     
     @Test
@@ -42,7 +43,8 @@ public class AddEventCommandTest extends GuiTest {
         event.setName("Presentation in the Past");
         event.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysBeforeNowIsoString)));
         event.setEndDate(DateUtil.parseDateTime(String.format("%s 19:00:00", twoDaysBeforeNowIsoString)));
-        assertEventNotVisibleAfterCmd(command, event);
+        console.runCommand(command);
+        assertEventNotVisible(event);
     }
     
     @Test

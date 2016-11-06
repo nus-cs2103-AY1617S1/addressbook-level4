@@ -60,12 +60,14 @@ public class DestroyCommandTest extends GuiTest {
     
     @Test
     public void destroy_task_hide() {
-        assertTaskNotVisibleAfterCmd("destroy 1", task1);
+        console.runCommand("destroy 1");
+        assertTaskNotVisible(task1);
     }
     
     @Test
     public void destroy_event_hide() {
-        assertEventNotVisibleAfterCmd("destroy 3", event3);
+        console.runCommand("destroy 3");
+        assertEventNotVisible(event3);
     }
     
     @Test

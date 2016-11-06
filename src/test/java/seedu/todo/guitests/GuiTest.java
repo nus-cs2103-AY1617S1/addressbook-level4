@@ -120,10 +120,7 @@ public abstract class GuiTest {
      * 
      * Assumption: No two events can have the same name in this test.
      */
-    protected void assertTaskVisibleAfterCmd(String command, Task taskToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
+    protected void assertTaskVisible(Task taskToAdd) {
         // Get the task date.
         LocalDateTime taskDateTime = taskToAdd.getCalendarDateTime();
         if (taskDateTime == null) {
@@ -149,10 +146,7 @@ public abstract class GuiTest {
      * 
      * TODO: Check event dates if they match.
      */
-    protected void assertEventVisibleAfterCmd(String command, Event eventToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
+    protected void assertEventVisible(Event eventToAdd) {
         // Get the event date.
         LocalDateTime eventStartDateTime = eventToAdd.getStartDate();
         if (eventStartDateTime == null) {
@@ -173,10 +167,7 @@ public abstract class GuiTest {
      * Utility method for testing if task does not appear in the GUI after a command.
      * Assumption: No two events can have the same name in this test.
      */
-    protected void assertTaskNotVisibleAfterCmd(String command, Task taskToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
+    protected void assertTaskNotVisible(Task taskToAdd) {
         // Get the task date.
         LocalDateTime taskDateTime = taskToAdd.getCalendarDateTime();
         if (taskDateTime == null) {
@@ -201,10 +192,7 @@ public abstract class GuiTest {
      * Utility method for testing if event does not appear in the GUI after a command.
      * Assumption: No two events can have the same name in this test.
      */
-    protected void assertEventNotVisibleAfterCmd(String command, Event eventToAdd) {
-        // Run the command in the console.
-        console.runCommand(command);
-        
+    protected void assertEventNotVisible(Event eventToAdd) {
         // Get the event date.
         LocalDateTime eventStartDateTime = eventToAdd.getStartDate();
         if (eventStartDateTime == null) {

@@ -44,23 +44,31 @@ public class UndoRedoCommandTest extends GuiTest {
     
     @Test
     public void undo_single() {
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskVisibleAfterCmd(commandAdd2, task2);
-        assertTaskNotVisibleAfterCmd("undo", task2);
+        console.runCommand(commandAdd1);
+        assertTaskVisible(task1);
+        console.runCommand(commandAdd2);
+        assertTaskVisible(task2);
+        console.runCommand("undo");
+        assertTaskNotVisible(task2);
     }
     
     @Test
     public void undo_multiple() {
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskVisibleAfterCmd(commandAdd2, task2);
-        assertTaskNotVisibleAfterCmd("undo 2", task1);
-        assertTaskNotVisibleAfterCmd("list", task2); // A li'l hacky but oh well
+        console.runCommand(commandAdd1);
+        assertTaskVisible(task1);
+        console.runCommand(commandAdd2);
+        assertTaskVisible(task2);
+        console.runCommand("undo 2");
+        assertTaskNotVisible(task1);
+        assertTaskNotVisible(task2);
     }
     
     @Test
     public void undo_notavailable() {
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskNotVisibleAfterCmd("undo", task1);
+        console.runCommand(commandAdd1);
+        assertTaskVisible(task1);
+        console.runCommand("undo");
+        assertTaskNotVisible(task1);
         console.runCommand("undo");
         console.runCommand("undo");
         console.runCommand("undo");
@@ -75,19 +83,26 @@ public class UndoRedoCommandTest extends GuiTest {
     
     @Test
     public void redo_single() {
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskNotVisibleAfterCmd("undo", task1);
-        assertTaskVisibleAfterCmd("redo", task1);
+        console.runCommand(commandAdd1);
+        assertTaskVisible(task1);
+        console.runCommand("undo");
+        assertTaskNotVisible(task1);
+        console.runCommand("redo");
+        assertTaskVisible(task1);
     }
     
     @Test
     public void redo_multiple() {
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskVisibleAfterCmd(commandAdd2, task2);
-        assertTaskNotVisibleAfterCmd("undo 2", task1);
-        assertTaskNotVisibleAfterCmd("list", task2);
-        assertTaskVisibleAfterCmd("redo 2", task1);
-        assertTaskVisibleAfterCmd("list", task2);
+        console.runCommand(commandAdd1);
+        assertTaskVisible(task1);
+        console.runCommand(commandAdd2);
+        assertTaskVisible(task2);
+        console.runCommand("undo 2");
+        assertTaskNotVisible(task1);
+        assertTaskNotVisible(task2);
+        console.runCommand("redo 2");
+        assertTaskVisible(task1);
+        assertTaskVisible(task2);
     }
     
     @Test
