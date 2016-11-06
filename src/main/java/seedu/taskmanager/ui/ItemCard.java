@@ -126,6 +126,7 @@ public class ItemCard extends UiPart{
         } else {
         	doneButton.setText(UNDONE_TEXT);
         }
+        deleteButton.setStyle("-fx-background-color: c10000");
         tags.setText(item.tagsString());
     }
 
