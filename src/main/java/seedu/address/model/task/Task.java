@@ -32,9 +32,9 @@ import java.util.Locale;
 
 public class Task implements ReadOnlyTask {
 
-    private static final int DAYS_OF_MONTH = 28;
-    private static final int DAYS_OF_WEEK = 7;
-    private static final int RECURRING_UPDATE_THRESHOLD = 1;
+    public static final int DAYS_OF_MONTH = 28;
+    public static final int DAYS_OF_WEEK = 7;
+    public static final int RECURRING_UPDATE_THRESHOLD = 1;
     private Name name;
     private Date date;
     private Recurring recurring;
