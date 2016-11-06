@@ -1,5 +1,5 @@
 # A0143641Mreused
-###### /java/seedu/taskmanager/model/item/UniqueItemList.java
+###### \java\seedu\taskmanager\model\item\UniqueItemList.java
 ``` java
     /**
      * Removes the equivalent item from the list.
