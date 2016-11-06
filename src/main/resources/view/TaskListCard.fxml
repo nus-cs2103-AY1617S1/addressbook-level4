@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="cardPane" minHeight="40.0" prefHeight="72.0" prefWidth="630.0" style="-fx-border-color: #eceff1; -fx-border-width: 0 0 1 0; -fx-border: ;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="72.0" prefWidth="630.0" style="-fx-border-color: #eceff1; -fx-border-width: 0 0 1 0; -fx-border: ;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
@@ -53,7 +53,7 @@
                   </Text>
                           
       					<!-- @@author A0121643R -->
-                  <Circle fx:id="priorityLevel" fill="#1fff4d" radius="6.0" scaleX="1.1" scaleY="1.1" scaleZ="1.1" stroke="BLACK" strokeType="INSIDE" translateX="35.0" />
+                  <Circle fx:id="priorityLevel" fill="#1fff4d" radius="6.0" scaleX="1.1" scaleY="1.1" scaleZ="1.1" stroke="BLACK" strokeType="INSIDE" translateX="43.0" />
                </children>
             </GridPane>
             <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" translateY="-5.0" GridPane.columnIndex="1">
