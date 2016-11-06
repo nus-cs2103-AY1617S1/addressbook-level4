@@ -193,18 +193,17 @@ public class EditCommand extends UndoableCommand {
         }        
     }
 
-	@Override
-	public CommandResult execute() {	    
-	    assert model != null;
+    @Override
+    public CommandResult execute() {
+        assert model != null;
         
-	    // check if viewing done list
+        // check if viewing done list
         // cannot edit in done list, return an incorrect command message
-	    if (attemptToEditDoneList()) {
-	        indicateAttemptToExecuteIncorrectCommand();
-	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
-	    }
+        if (attemptToEditDoneList()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-
         
         if (lastShownList.size() < targetIndex || targetIndex == 0) {
             indicateAttemptToExecuteIncorrectCommand();
