@@ -18,6 +18,8 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
+        openTime = new DateTime();
+        closeTime = new DateTime();     
     }
     
     //@@author A0141052Y
