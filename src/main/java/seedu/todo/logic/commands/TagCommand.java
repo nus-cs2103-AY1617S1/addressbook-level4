@@ -53,13 +53,16 @@ public class TagCommand extends BaseCommand {
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
     private static final String DESCRIPTION_RENAME_TAG_TASK = "Rename a tag from a task";
 
-    private static final int INDEX_OFFSET = 1;
     private static final String ARGUMENTS_SHOW_TAGS = "";
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS_TASK = "index /d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_DELETE_TAGS = "/d tag1 [, tag2, ...]";
     private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
     private static final String ARGUMENTS_RENAME_TAG_TASK = "index /r old_tag_name new_tag_name";
+
+    private static final int INDEX_OFFSET = 1;
+    private static final int INDEX_RENAME_OLD_NAME = 0;
+    private static final int INDEX_RENAME_NEW_NAME = 1;
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -290,8 +293,8 @@ public class TagCommand extends BaseCommand {
     private CommandResult performRenameTagFromTaskWhenApplicable() throws ValidationException {
         if (isRenameTagFromTask()) {
             String[] renameTagsParam = StringUtil.split(renameTag.getValue());
-            String oldName = renameTagsParam[0];
-            String newName = renameTagsParam[1];
+            String oldName = renameTagsParam[INDEX_RENAME_OLD_NAME];
+            String newName = renameTagsParam[INDEX_RENAME_NEW_NAME];
             model.renameTag(index.getValue(), oldName, newName);
             return new CommandResult(oldName + SUCCESS_RENAME_TAGS + newName);
         }
@@ -311,7 +314,7 @@ public class TagCommand extends BaseCommand {
     /**
      * Returns true if the command parameters matches the action of renaming tags.
      */
-    private boolean isRenameTagFromAllTasks() {
+    private boolean isRenameTagOfAllTasks() {
         return !index.hasBoundValue() && !addTags.hasBoundValue() && !deleteTags.hasBoundValue()
                 && renameTag.hasBoundValue();
     }
@@ -320,7 +323,7 @@ public class TagCommand extends BaseCommand {
      * Performs validation to rename params (check for sufficient parameters to rename).
      */
     private void validateRenameAllParams() {
-        if (isRenameTagFromAllTasks()) {
+        if (isRenameTagOfAllTasks()) {
             validateParameterForTwoItems(renameTag.getName(), renameTag.getValue());
         }
     }
@@ -330,10 +333,10 @@ public class TagCommand extends BaseCommand {
      *      Rename a specific tag globally.
      */
     private CommandResult performRenameTagWhenApplicable() throws ValidationException {
-        if (isRenameTagFromAllTasks()) {
+        if (isRenameTagOfAllTasks()) {
             String[] renameTagsParam = StringUtil.split(renameTag.getValue());
-            String oldName = renameTagsParam[0];
-            String newName = renameTagsParam[1];
+            String oldName = renameTagsParam[INDEX_RENAME_OLD_NAME];
+            String newName = renameTagsParam[INDEX_RENAME_NEW_NAME];
             model.renameTag(oldName, newName);
             return new CommandResult(oldName + SUCCESS_RENAME_TAGS + newName);
         }
@@ -364,7 +367,7 @@ public class TagCommand extends BaseCommand {
      */
     private boolean isInputParameterSufficient() {
         return getNumberOfTruth(isShowTags(), isAddTagsToTask(), isDeleteTagsFromTask(),
-                isDeleteTagsFromAllTasks(), isRenameTagFromAllTasks(), isRenameTagFromTask()) == 1;
+                isDeleteTagsFromAllTasks(), isRenameTagOfAllTasks(), isRenameTagFromTask()) == 1;
     }
 
     /**
