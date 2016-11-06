@@ -39,7 +39,8 @@ public class UpdateCommandTest extends GuiTest {
         String command = "update 1 name Buy bread";
         testTask.setName("Buy bread");
         testTask.setDueDate(DateUtil.parseDateTime("2016-10-15 14:00:00"));
-        assertTaskVisibleAfterCmd(command, testTask);
+        console.runCommand(command);
+        assertTaskVisible(testTask);
     }
     
     @Test
@@ -51,7 +52,8 @@ public class UpdateCommandTest extends GuiTest {
         String command = "update 1 by today 5pm";
         testTask.setName("Buy milk");
         testTask.setDueDate(LocalDateTime.now().toLocalDate().atTime(17, 0));
-        assertTaskVisibleAfterCmd(command, testTask);
+        console.runCommand(command);
+        assertTaskVisible(testTask);
     }
     
     @Test
@@ -63,7 +65,8 @@ public class UpdateCommandTest extends GuiTest {
         String command = "update 1 by today 5pm";
         testTask.setName("Buy milk");
         testTask.setDueDate(LocalDateTime.now().toLocalDate().atTime(17, 0));
-        assertTaskVisibleAfterCmd(command, testTask);
+        console.runCommand(command);
+        assertTaskVisible(testTask);
     }
 
     @Ignore
@@ -78,7 +81,8 @@ public class UpdateCommandTest extends GuiTest {
         String command = "update 1 nodeadline";
         testTask.setName("Buy milk");
         testTask.setDueDate(DateUtil.NO_DATETIME_VALUE);
-        assertTaskVisibleAfterCmd(command, testTask);
+        console.runCommand(command);
+        assertTaskVisible(testTask);
     }
 
     @Test
@@ -91,7 +95,8 @@ public class UpdateCommandTest extends GuiTest {
         testEvent.setName("Updated presentation");
         testEvent.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         testEvent.setEndDate(DateUtil.parseDateTime(String.format("%s 21:00:00", twoDaysFromNowIsoString)));
-        assertEventVisibleAfterCmd(command, testEvent);
+        console.runCommand(command);
+        assertEventVisible(testEvent);
     }
     
     @Test
@@ -105,7 +110,8 @@ public class UpdateCommandTest extends GuiTest {
         testEvent.setName("Presentation");
         testEvent.setStartDate(DateUtil.parseDateTime(String.format("%s 17:00:00", twoDaysFromNowIsoString)));
         testEvent.setEndDate(DateUtil.parseDateTime(String.format("%s 21:00:00", twoDaysFromNowIsoString)));
-        assertEventVisibleAfterCmd(command, testEvent);
+        console.runCommand(command);
+        assertEventVisible(testEvent);
     }
 
     @Test
@@ -118,7 +124,8 @@ public class UpdateCommandTest extends GuiTest {
         testEvent.setName("Presentation");
         testEvent.setStartDate(DateUtil.parseDateTime(String.format("%s 14:00:00", twoDaysFromNowIsoString)));
         testEvent.setEndDate(DateUtil.parseDateTime(String.format("%s 17:00:00", twoDaysFromNowIsoString)));
-        assertEventVisibleAfterCmd(command, testEvent);
+        console.runCommand(command);
+        assertEventVisible(testEvent);
     }
     
     @Test

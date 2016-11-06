@@ -61,37 +61,41 @@ public class ClearCommandTest extends GuiTest {
     @Before
     public void initFixtures() {
         console.runCommand("clear");
-        assertTaskVisibleAfterCmd(commandAdd1, task1);
-        assertTaskVisibleAfterCmd(commandAdd2, task2);
-        assertEventVisibleAfterCmd(commandAdd3, event3);
-        assertEventVisibleAfterCmd(commandAdd4, event4);
+        console.runCommand(commandAdd1);
+        console.runCommand(commandAdd2);
+        console.runCommand(commandAdd3);
+        console.runCommand(commandAdd4);
+        assertTaskVisible(task1);
+        assertTaskVisible(task2);
+        assertEventVisible(event3);
+        assertEventVisible(event4);
     }
     
     @Test
     public void fixtures_test() {
         console.runCommand("clear");
-        assertTaskNotVisibleAfterCmd("list", task1);
-        assertTaskNotVisibleAfterCmd("list", task2);
-        assertEventNotVisibleAfterCmd("list", event3);
-        assertEventNotVisibleAfterCmd("list", event4);
+        assertTaskNotVisible(task1);
+        assertTaskNotVisible(task2);
+        assertEventNotVisible(event3);
+        assertEventNotVisible(event4);
     }
     
     @Test
     public void clear_allTasks_success() {
         console.runCommand("clear tasks");
-        assertTaskNotVisibleAfterCmd("list", task1);
-        assertTaskNotVisibleAfterCmd("list", task2);
-        assertEventVisibleAfterCmd("list", event3);
-        assertEventVisibleAfterCmd("list", event4);
+        assertTaskNotVisible(task1);
+        assertTaskNotVisible(task2);
+        assertEventVisible(event3);
+        assertEventVisible(event4);
     }
     
     @Test
     public void clear_allEvents_success() {
         console.runCommand("clear events");
-        assertTaskVisibleAfterCmd("list", task1);
-        assertTaskVisibleAfterCmd("list", task2);
-        assertEventNotVisibleAfterCmd("list", event3);
-        assertEventNotVisibleAfterCmd("list", event4);
+        assertTaskVisible(task1);
+        assertTaskVisible(task2);
+        assertEventNotVisible(event3);
+        assertEventNotVisible(event4);
     }
     
     @Test

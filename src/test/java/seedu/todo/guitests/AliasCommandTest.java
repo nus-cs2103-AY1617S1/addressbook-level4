@@ -48,7 +48,8 @@ public class AliasCommandTest extends GuiTest {
         
         Task testTask = new Task();
         testTask.setName("Buy milk");
-        assertTaskVisibleAfterCmd("ls", testTask);
+        console.runCommand("ls");
+        assertTaskVisible(testTask);
         assertValidCommand("ls");
     }
     
@@ -59,7 +60,8 @@ public class AliasCommandTest extends GuiTest {
         
         Task testTask = new Task();
         testTask.setName("Buy milk");
-        assertTaskVisibleAfterCmd("a Buy milk", testTask);
+        console.runCommand("a Buy milk");
+        assertTaskVisible(testTask);
     }
 
     @Test
@@ -71,7 +73,8 @@ public class AliasCommandTest extends GuiTest {
         Task testTask = new Task();
         testTask.setName("Buy milk");
         testTask.setDueDate(DateUtil.parseDateTime(String.format("%s 17:00:00", twoDaysFromNowIsoString)));
-        assertTaskVisibleAfterCmd(command, testTask);
+        console.runCommand(command);
+        assertTaskVisible(testTask);
     }
     
     @Test

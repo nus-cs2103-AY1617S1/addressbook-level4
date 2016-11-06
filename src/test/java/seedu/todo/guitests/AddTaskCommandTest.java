@@ -16,7 +16,8 @@ public class AddTaskCommandTest extends GuiTest {
         Task task = new Task();
         task.setName("Buy milk");
         task.setCalendarDateTime(DateUtil.parseDateTime("2016-10-15 14:00:00"));
-        assertTaskVisibleAfterCmd(command, task);
+        console.runCommand(command);
+        assertTaskVisible(task);
     }
 
     @Test
@@ -24,6 +25,7 @@ public class AddTaskCommandTest extends GuiTest {
         String command = "add task Buy milk";
         Task task = new Task();
         task.setName("Buy milk");
-        assertTaskVisibleAfterCmd(command, task);
+        console.runCommand(command);
+        assertTaskVisible(task);
     }
 }
