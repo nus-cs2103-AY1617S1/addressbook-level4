@@ -364,9 +364,7 @@ Use case ends.
 4. Should be user friendly
 5. Should respond command within 1 second
 6. Should be able to work offline
-7. Should be able to launch with keyboard shortcut
-8. Should have enough capacity to store all the information and tasks
-9. Should sync with calendars such as Google calendar
+7. Should have enough capacity to store all the information and tasks
 10. Should look pleasant and easy on the eyes
 11. Should be stable and reliable with as few breakdowns as possible
 
@@ -382,70 +380,70 @@ Use case ends.
 
 
 ## Appendix E : Product Survey
-
+<!-- @@author A0138411N --> 
 #### iOS Calendar
 
 **Strengths**
 
-*Set task using the “one-shot” approach
-*Syncs with Google Calendar
-*All tasks are set in calendar view
-*Alerts and prompts appear as notifications
-*Search for Keywords
+* Set task using the a one line entry
+* Syncs with Google Calendar
+* All tasks are set in calendar view
+* Alerts and prompts appear as notifications
+* Search for Keywords
 
 **Weakness**
 
-*Unable to colour code for events
-*Unable to strike off completed task
-*Able to set recurring task, but unable to set using one “one-shot” approach
-*Does not carry forwards uncompleted task 
+* Unable to colour code for events
+* Unable to strike off completed task
+* Able to set recurring task, but unable to set using one “one-shot” approach
+* Does not carry forwards uncompleted task 
 
 #### Errands
 
 **Strengths**
 
-*Set priority for tasks
-*Sort tasks based on priority level, due date and alphabetical order
-*Strike off finished tasks
-*Notification function
-*View tasks in a particular day
+* Set priority for tasks
+* Sort tasks based on priority level, due date and alphabetical order
+* Strike off finished tasks
+* Notification function
+* View tasks in a particular day
 
 **Weakness**
 
-*Cannot search for a particular task
-*Unable carry forward the incomplete tasks
-*Cannot set recurring task
-*Can only see a maximum of 10 tasks at the one time
+* Cannot search for a particular task
+* Unable carry forward the incomplete tasks
+* Cannot set recurring task
+* Can only see a maximum of 10 tasks at the one time
 
 #### Fantastical
 
 **Strengths**
 
-*Natural language processing
-*Able to view tasks in day, week, month, year views
-*Syncs with calendars
-*Use shading to intensity of tasks
-*Supports fixed and floating time zones for events
+* Natural language processing
+* Able to view tasks in day, week, month, year views
+* Syncs with calendars
+* Use shading to intensity of tasks
+* Supports fixed and floating time zones for events
 
 **Weakness**
 
-*Cannot set recurring tasks
-*Cannot transfer data to another computer
-*Unable to sync account information with other computer
+* Cannot set recurring tasks
+* Cannot transfer data to another computer
+* Unable to sync account information with other computer
 
 #### Google Calendar
 
 **Strengths**
 
-*Easy to choose a time slot and set task
-*Can have multiple calendars
-*Invite people to events
-*Set reminders for events
+* Easy to choose a time slot and set task
+* Can have multiple calendars
+* Invite people to events
+* Set reminders for events
 
 **Weakness**
 
-*Difficult to read if too many appointments 
-*Must use with internet
+* Difficult to read if too many appointments 
+* Must use with internet
 
 <!-- @@author --> 
 
