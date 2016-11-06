@@ -199,7 +199,7 @@ Examples:
 
 <br>
 [](@@author A0139196U)
-#### Editing a task’s tag: ‘tag add/delete/clear`
+#### Editing a task’s tag: `tag add/delete/clear`
 Edits the specified task’s tag in Emeraldo.<br>
 Format: `tag add/delete/clear INDEX [#TAGS]`
 
