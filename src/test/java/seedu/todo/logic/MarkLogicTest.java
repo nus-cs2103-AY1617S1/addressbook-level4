@@ -30,6 +30,7 @@ public class MarkLogicTest extends CommandLogicTest {
                 (new DoDoBird()).getTaskList());
 
     }
+    //@@author A0138967J
     @Test
     public void execute_mark_successful_today() throws IllegalValueException {
         Task toBeMarkedToday = helper.generateFullTaskToday(0);
@@ -44,7 +45,7 @@ public class MarkLogicTest extends CommandLogicTest {
                 (new DoDoBird()).getTaskList());
 
     }
-    
+  //@@author
     @Test
     public void execute_markInvalidArgsFormat_errorMessageShown() throws IllegalValueException {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
