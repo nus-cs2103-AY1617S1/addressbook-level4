@@ -16,7 +16,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    public static final String COMMAND_FORMAT = "delete <id> <more-ids>";
+    public static final String COMMAND_FORMAT = "delete <id> <more ids>";
     public static final String COMMAND_DESCRIPTION = "delete task(s) from Agendum";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task(s): %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "

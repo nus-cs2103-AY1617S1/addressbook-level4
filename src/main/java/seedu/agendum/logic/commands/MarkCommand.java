@@ -17,7 +17,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class MarkCommand extends Command {
 
     public static final String COMMAND_WORD = "mark";    
-    public static final String COMMAND_FORMAT = "mark <id> <more-ids>";
+    public static final String COMMAND_FORMAT = "mark <id> <more ids>";
     public static final String COMMAND_DESCRIPTION = "mark task(s) as completed";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s)!";

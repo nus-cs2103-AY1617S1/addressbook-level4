@@ -13,7 +13,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class RenameCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
-    public static final String COMMAND_FORMAT = "rename <id> <new-name>";
+    public static final String COMMAND_FORMAT = "rename <id> <new name>";
     public static final String COMMAND_DESCRIPTION = "update the name of a task";
     public static final String MESSAGE_SUCCESS = "Task renamed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";

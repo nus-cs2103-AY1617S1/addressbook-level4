@@ -44,7 +44,7 @@ public interface Model {
     void restorePreviousToDoList() throws NoPreviousListFoundException;
 
     /** 
-     * Resets the to-do list data to match the top list in the stack of previous lists
+     * Resets the main to-do list data to match the top list in the stack of previous lists
      */
     void resetDataToLastSavedList();
     

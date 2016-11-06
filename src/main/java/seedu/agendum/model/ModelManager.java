@@ -33,7 +33,7 @@ import seedu.agendum.sync.SyncProviderGoogle;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final ToDoList toDoList;
+    private final ToDoList mainToDoList;
     private final Stack<ToDoList> previousLists;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedTasks;
@@ -59,8 +59,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with to do list: " + src + " and user prefs " + userPrefs);
 
-        toDoList = new ToDoList(src);
-        filteredTasks = new FilteredList<>(toDoList.getTasks());
+        mainToDoList = new ToDoList(src);
+        filteredTasks = new FilteredList<>(mainToDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
         previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
@@ -73,8 +73,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyToDoList initialData) {
-        toDoList = new ToDoList(initialData);
-        filteredTasks = new FilteredList<Task>(toDoList.getTasks());
+        mainToDoList = new ToDoList(initialData);
+        filteredTasks = new FilteredList<Task>(mainToDoList.getTasks());
         sortedTasks = filteredTasks.sorted();
         previousLists = new Stack<ToDoList>();
         backupCurrentToDoList();
@@ -85,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0133367E
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-        toDoList.resetData(newData);
+        mainToDoList.resetData(newData);
         logger.fine("[MODEL] --- successfully reset data of the to-do list");
         backupCurrentToDoList();
         indicateToDoListChanged();
@@ -94,14 +94,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ReadOnlyToDoList getToDoList() {
-        return toDoList;
+        return mainToDoList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateToDoListChanged() {
         // force a reset/refresh for list view in UI
-        toDoList.resetData(toDoList);
-        raise(new ToDoListChangedEvent(toDoList));
+        mainToDoList.resetData(mainToDoList);
+        raise(new ToDoListChangedEvent(mainToDoList));
     }
     
     //@@author A0148095X
@@ -119,10 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> targets) throws TaskNotFoundException {
         for (ReadOnlyTask target: targets) {
-            toDoList.removeTask(target);
-
-            // Delete tasks in sync manager
-            syncManager.deleteEvent((Task) target);
+            mainToDoList.removeTask(target);
+            removeTaskFromSyncManager(target);
         }
 
         logger.fine("[MODEL] --- successfully deleted all specified targets from the to-do list");
@@ -132,37 +130,35 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        toDoList.addTask(task);    
+        mainToDoList.addTask(task);    
 
         logger.fine("[MODEL] --- successfully added the new task to the to-do list");
         backupCurrentToDoList();
         updateFilteredListToShowAll();
         indicateToDoListChanged();
-
-        syncManager.addNewEvent(task);
+        addTaskToSyncManager(task);
     }
     
     @Override
     public synchronized void updateTask(ReadOnlyTask target, Task updatedTask)
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        toDoList.updateTask(target, updatedTask);
+        mainToDoList.updateTask(target, updatedTask);
 
         logger.fine("[MODEL] --- successfully updated the target task in the to-do list");
         backupCurrentToDoList();
         updateFilteredListToShowAll();
         indicateToDoListChanged();
 
-        // Delete old task and add new task
-        syncManager.deleteEvent((Task) target);
-        syncManager.addNewEvent(updatedTask);
+        addTaskToSyncManager(updatedTask);
+        removeTaskFromSyncManager(target);
     }
 
     @Override
     public synchronized void markTasks(List<ReadOnlyTask> targets) 
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         for (ReadOnlyTask target: targets) {
-            toDoList.markTask(target);
-        } 
+            mainToDoList.markTask(target);
+        }
 
         logger.fine("[MODEL] --- successfully marked all specified targets from the to-do list");
         backupCurrentToDoList();
@@ -173,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void unmarkTasks(List<ReadOnlyTask> targets) 
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         for (ReadOnlyTask target: targets) {
-            toDoList.unmarkTask(target);
+            mainToDoList.unmarkTask(target);
         }
 
         logger.fine("[MODEL] --- successfully unmarked all specified targets from the to-do list");
@@ -193,13 +189,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Resets the to-do list data to match the top list in the stack of previous lists
+     * Resets the {@code mainToDoList} data to match the top list in the {@code previousLists} stack
      */
     @Override
     public void resetDataToLastSavedList() {
         assert !previousLists.empty();
         ToDoList lastSavedListFromHistory = previousLists.peek();
-        toDoList.resetData(lastSavedListFromHistory);
+        mainToDoList.resetData(lastSavedListFromHistory);
     }
  
     private void backupCurrentToDoList() {
@@ -212,7 +208,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Pops the top list from the stack of previous lists if there are more than 1 list in the stack
+     * Pops the top list from the {@code previousLists} stack if there are more than 1 list present
      * @throws NoPreviousListFoundException if there is only 1 list in the stack
      */
     private void removeLastSavedToDoList() throws NoPreviousListFoundException {
@@ -244,6 +240,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateChangeSaveLocation(location);
         indicateLoadDataRequest(location);
     }
+
+    private void addTaskToSyncManager(Task task) {
+        syncManager.addNewEvent(task);
+    }
+
+    private void removeTaskFromSyncManager(ReadOnlyTask task) {
+        syncManager.deleteEvent((Task) task);
+    }
     //@@author A0003878Y
 
     //=========== Sync Methods ===============================================================================
@@ -254,7 +258,7 @@ public class ModelManager extends ComponentManager implements Model {
             syncManager.startSyncing();
 
             // Add all current events into sync provider
-            toDoList.getTasks().forEach(syncManager::addNewEvent);
+            mainToDoList.getTasks().forEach(syncManager::addNewEvent);
         }
     }
 
@@ -264,6 +268,8 @@ public class ModelManager extends ComponentManager implements Model {
             syncManager.stopSyncing();
         }
     }
+
+    
 
     //@@author
     //=========== Filtered Task List Accessors ===============================================================
@@ -344,7 +350,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     @Subscribe
     public void handleLoadDataCompleteEvent(LoadDataCompleteEvent event) {
-        this.toDoList.resetData(event.data);
+        this.mainToDoList.resetData(event.data);
         indicateToDoListChanged();
         clearAllPreviousToDoLists();
         backupCurrentToDoList();
