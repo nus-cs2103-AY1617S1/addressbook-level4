@@ -30,4 +30,8 @@ public class MainGuiHandle extends GuiHandle {
     public CommandPreviewViewHandle getCommandPreviewView() {
         return new CommandPreviewViewHandle(guiRobot, primaryStage);
     }
+
+    public CommandErrorViewHandle getCommandErrorView() {
+        return new CommandErrorViewHandle(guiRobot, primaryStage);
+    }
 }
