@@ -89,8 +89,8 @@ public class Parser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
         
-        case GroupCommand.COMMAND_WORD:
-        	return prepareGroup(arguments);
+        case ListtagCommand.COMMAND_WORD:
+        	return prepareListtag(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -321,10 +321,10 @@ public class Parser {
      */
     
     
-    private Command prepareGroup(String args) {
+    private Command prepareListtag(String args) {
         final String keyword = args.trim();
     	   
-        return new GroupCommand(keyword);
+        return new ListtagCommand(keyword);
     }
     
     /**
