@@ -9,7 +9,7 @@ import seedu.taskitty.commons.exceptions.IllegalValueException;
 //@@author A0139930B
 /**
  * Represents a Task's time in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTimeFormat(String)}
  */
 public class TaskTime {
 
@@ -53,7 +53,7 @@ public class TaskTime {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid time in TIME_FORMAT_STRING format.
      */
     public static boolean isValidTimeFormat(String test) {
         return test.matches(TIME_VALIDATION_FORMAT);

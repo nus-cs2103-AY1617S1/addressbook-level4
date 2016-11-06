@@ -52,7 +52,7 @@ public class TaskDate {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid date in DATE_FORMAT_STRING format.
      */
     public static boolean isValidDateFormat(String test) {
         return test.matches(DATE_VALIDATION_REGEX);

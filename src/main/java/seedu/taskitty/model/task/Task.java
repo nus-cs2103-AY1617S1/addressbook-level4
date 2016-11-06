@@ -27,6 +27,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int EVENT_COMPONENT_INDEX_END_TIME = 4;
     public static final int EVENT_COMPONENT_COUNT = 5;
     
+    //@@author
     public static final char TODO_CATEGORY_CHAR = 't';
     public static final char DEADLINE_CATEGORY_CHAR = 'd';
     public static final char EVENT_CATEGORY_CHAR = 'e';
@@ -37,6 +38,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int DEADLINE_CATEGORY_INDEX = 1;
     public static final int EVENT_CATEGORY_INDEX = 2;
     
+    //@@author A0139930B
     private Name name;
     private TaskPeriod period;
     private boolean isDone;
@@ -132,6 +134,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public TaskPeriod getPeriod() {
         return period;
     }
+    
     //@@author A0130853L
     @Override
     public boolean getIsDone() {
