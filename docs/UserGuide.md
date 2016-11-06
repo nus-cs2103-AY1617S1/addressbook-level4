@@ -199,7 +199,7 @@ Examples:
 
 Examples:<br>
 * `delete 1, 2, 3`
-* `search oct 1`
+* `list oct 1`<br>
   `delete 2, 3` 
 <!-- @@author A0138420N -->   
  
@@ -219,7 +219,7 @@ Format: `redo`
 
 Edits task on the display list.<br>
 
-Format: `edit [INDEX] [DETAILTOEDIT] [NEWINFORMATION]`
+Format: `edit INDEX DETAIL_TO_EDIT NEW_INFORMATION`
 
 > More than 1 task detail can be edited at the same time. Simply separate the different details with a comma.
 
@@ -292,22 +292,29 @@ Format: `save FILE_NAME.xml`
 Exits the program.<br>
 Format: `exit`  
 
-<!-- @@author A0138420N --> 
+<!-- @@author A0138411N --> 
 ## Command Cheatsheet
 
 Command | Format  | Example
 --------| --------| ------------------------
 Add     | `add TASK`  | add buy fruits from ntuc
         | `add TASK, [DATE] [TIME] -[PRORITY]` |  add buy milk by tomorrow morning -low
-        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jab 2017 3pm -high
-List    | `list DATE`
-Search  | `search KEYWORD`
-Delete  | `delete INDEX`
+        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jan 2017 3pm -high
+List    | `list` | list all incomplete tasks
+        | `list all`| list all tasks in GGist
+        | `list done`| list all completed tasks
+        | `list DATE`| list 22 Nov
+        | `list PRIORITY`| list high
+Search  | `search KEYWORD`| search buy
+Delete  | `delete INDEX...` | delete 1,2,5
 Undo    | `undo`
 Redo    | `redo`
-Edit    | `edit INDEX FIELD NEW_INFORMATION`
-Done    | `done INDEX`
+Edit    | `edit INDEX FIELD NEW_INFORMATION`|edit 1 start date today
+        | `edit INDEX FIELD NEW_INFORMATION, FIELD NEW_INFORMATION`| edit 3 end date 30 nov, end time 10pm
+Done    | `done INDEX...`| done 1,6,7
+Continue| `continue INDEX...`| continue 1,2,3
 Help    | `help`
-Save    | `save FILE_LOCATION`
+Save    | `save FILE_LOCATION`| save /Users/OneDrive
+        | `save FILE_NAME.xml`| save newfilename.xml
 Exit    | `exit`
 <!-- @@author --> 
