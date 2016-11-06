@@ -1,5 +1,6 @@
 package seedu.todo.model.task;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 import seedu.todo.commons.util.CollectionUtil;
@@ -157,7 +158,27 @@ public class Task implements ReadOnlyTask {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    //@@author
+    //@@author A0121643R-unused
+    
+    /**
+     * compares first based on bydate, then on priority, then on name
+     * @return dateTimeComparator
+     */
+    public static Comparator getTaskComparator(){
+        return new Comparator<Task>(){
+            public int compare (Task t1, Task t2){
+                    if (t1.getByDate().compareTo(t2.getByDate()) == 0) {
+                    	if (t1.getPriority().compareTo(t2.getPriority()) == 0) {
+                    		return t1.getName().toString().compareTo(t2.getName().toString());
+                    	} else {
+                    		return t1.getPriority().compareTo(t2.getPriority());
+                    	}
+                    } else {
+                    	return t1.getByDate().compareTo(t2.getByDate());
+                    }
+            }
+        };
+    }
     
     @Override
     public boolean equals(Object other) {

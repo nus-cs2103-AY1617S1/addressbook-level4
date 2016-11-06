@@ -65,6 +65,27 @@ public class TaskDate {
     public LocalTime setTime(LocalTime time) {
         return this.time = time;
     }
+    
+  //@@author A0121643R-unused
+    
+    /**
+     * earlier date is smaller so that it can be shown before task with later date
+     */
+    
+
+	public int compareTo(TaskDate other) {
+		if (this.getDate() == null && other.getDate() == null) {
+			return 0;
+		} else if (this.getDate() == null) {
+			return 1;
+		} else if (other.getDate() == null) {
+			return -1;
+		} else if (this.getDate().equals(other.getDate())) {
+			return this.getTime().compareTo(other.getTime());			
+		} else {
+			return this.getDate().compareTo(other.getDate());
+		}
+	}
 
     @Override
     public String toString() {

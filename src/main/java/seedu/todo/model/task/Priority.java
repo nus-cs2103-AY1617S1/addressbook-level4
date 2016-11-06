@@ -39,6 +39,27 @@ public class Priority {
     public static boolean isValidpriority(String test) {
         return test.matches(PRIORITY_REGEX);
     }
+    
+    //@@author A0121643R-unused
+    /**
+     * higher priority is smaller so that can be shown in front
+     */
+
+	public int compareTo(Priority other) {
+		if(! this.priorityLevel.equals(other)) {
+			if (this.priorityLevel.equals(HIGH)) {
+				return -1;
+			} else if (this.priorityLevel.equals(LOW)) {
+				return 1;
+			} else if (this.priorityLevel.equals(MID) && other.priorityLevel.equals(HIGH)) {
+				return 1;
+			} else {
+				return -1;
+			}
+		} else {
+			return 0;
+		}
+	}
 
 
     @Override
