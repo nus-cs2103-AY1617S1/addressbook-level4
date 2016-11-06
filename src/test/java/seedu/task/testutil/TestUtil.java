@@ -300,13 +300,42 @@ public class TestUtil {
      * @param Tasks The array of Tasks.
      * @param Task The replacement Task
      * @param index The index of the Task to be replaced. Index does not begin with 0.
-     * @return
+     * @return The modified array of Tasks.
      */
     public static TestTask[] replaceTaskFromList(TestTask[] Tasks, TestTask Task, int index) {
         Tasks[index] = Task;    
         return Tasks;
     }
-
+    
+    //@@author A0141052Y
+    /**
+     * Moves the Task from an index to another. Does not replace the item in the other index.
+     * @param tasks The array of Tasks
+     * @param oldIndex The index of the Task to move
+     * @param newIndex The destination index of the Task
+     * @return The modified array of Tasks.
+     */
+    public static TestTask[] moveTaskInList(final TestTask[] tasks, int oldIndex, int newIndex) {
+        List<TestTask> listOfTasks = asList(tasks);
+        TestTask taskToMove = listOfTasks.remove(oldIndex);
+        listOfTasks.add(newIndex, taskToMove);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Adds a Task to the array of Tasks at the specified location.
+     * @param tasks An array of Tasks.
+     * @param taskToAdd The Task to be added
+     * @param index The index of the location in the array where the Task to be added should reside
+     * @return The modified array of Tasks.
+     */
+    public static TestTask[] insertTaskToList(final TestTask[] tasks, TestTask taskToAdd, int index) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.add(index, taskToAdd);
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    //@@author
+    
     /**
      * Appends Tasks to the array of Tasks.
      * @param Tasks A array of Tasks.

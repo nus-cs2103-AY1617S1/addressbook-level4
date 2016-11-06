@@ -26,7 +26,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
 
         // mark an originally completed task as not complete
         commandBox.runCommand("complete " + targetIndex);
-        commandBox.runCommand("uncomplete " + targetIndex);
+        commandBox.runCommand("uncomplete " + currentList.length);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
         assertFalse(newTask.getComplete());
         assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));
@@ -34,7 +34,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
         // unmark another task
         targetIndex = 3;
         commandBox.runCommand("complete " + targetIndex);
-        commandBox.runCommand("uncomplete " + targetIndex);
+        commandBox.runCommand("uncomplete " + currentList.length);
         newTask = taskListPanel.getTask(targetIndex - 1);
         assertFalse(newTask.getComplete());
         assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));
