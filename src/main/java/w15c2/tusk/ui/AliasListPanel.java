@@ -55,7 +55,15 @@ public class AliasListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
+    
+    /**
+     * Loads Alias List Panel with information from an alias list.
+     * 
+     * @param primaryStage          Stage containing panel.
+     * @param aliasListPlaceholder  Placeholder which alias list will use to display.
+     * @param aliasList             List of aliases which have been added.
+     * @return                      Filled alias list panel.
+     */
     public static AliasListPanel load(Stage primaryStage, AnchorPane aliasListPlaceholder,
                                        ObservableList<Alias> aliasList) {
         AliasListPanel aliasListPanel =

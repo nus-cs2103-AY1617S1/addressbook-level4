@@ -27,8 +27,16 @@ public class AliasCard extends UiPart{
 
         public AliasCard(){
         }
-        
+        /**
+         * Loads alias information on to an alias card.
+         *  
+         * @param alias             Alias object to fill up card
+         * @param displayedIndex    Index of card
+         * @return                  Card with relevant alias info
+         */
         public static AliasCard load(Alias alias, int displayedIndex){
+            assert alias != null;
+            assert displayedIndex >= 0;
             AliasCard card = new AliasCard();
             card.alias = alias;
             card.displayedIndex = displayedIndex;

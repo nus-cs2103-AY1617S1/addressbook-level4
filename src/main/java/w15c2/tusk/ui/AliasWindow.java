@@ -31,7 +31,14 @@ public class AliasWindow extends UiPart {
     
     @FXML
     private AnchorPane aliasListPanelPlaceholder;
-
+    
+    /**
+     * Loads alias window.
+     * 
+     * @param primaryStage  Primary stage of application.
+     * @param logic         Instance of Logic class with aliases.
+     * @return              Window of aliases.
+     */
     public static AliasWindow load(Stage primaryStage, Logic logic) {
         logger.fine("Showing list of aliases.");
         AliasWindow aliasWindow = UiPartLoader.loadUiPart(primaryStage, new AliasWindow());

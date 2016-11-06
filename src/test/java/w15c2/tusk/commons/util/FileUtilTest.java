@@ -14,6 +14,10 @@ import w15c2.tusk.testutil.SerializableTestClass;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
+/**
+ * Test for file util class
+ *
+ */
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
     private static final File TEST_FILE = new File(TestUtil.getFilePathInSandboxFolder("test.json"));
@@ -23,7 +27,7 @@ public class FileUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getPath(){
+    public void getPath() {
 
         // valid case
         assertEquals("folder" + File.separator + "sub-folder", FileUtil.getPath("folder/sub-folder"));

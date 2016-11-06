@@ -8,10 +8,13 @@ import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
+/**
+ * Container for Task Command classes to create information for help
+ */
 public class TaskCommandList {
     private static final Logger logger = LogsCenter.getLogger(TaskCommandList.class);
     
-    public static Class<?>[] getList(){
+    private static Class<?>[] getList(){
         
         return new Class[]{
                 AddAliasCommand.class, 
@@ -33,6 +36,12 @@ public class TaskCommandList {
                 UpdateTaskCommand.class};
     }
     
+    /**
+     * Returns help information for all task
+     * commands in Class list from getList()
+     * 
+     * @return  List of help information.
+     */
     public static ArrayList<HelpGuide> getHelpList() {
         ArrayList<HelpGuide> helpGuideList = new ArrayList<HelpGuide>();
         for(Class<?> taskCommand : getList()) {

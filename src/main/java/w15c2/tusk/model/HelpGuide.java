@@ -11,7 +11,13 @@ public class HelpGuide {
       private SimpleStringProperty commandName;
       private SimpleStringProperty format; 
       
-      // Converts 
+      /**
+       * Constructor for HelpGuide, arguments 
+       * should not be null.
+       * 
+       * @param name    Name of command.
+       * @param format  Input format of command.
+       */
       public HelpGuide(String name, String format) {
           assert name != null;
           assert format != null;

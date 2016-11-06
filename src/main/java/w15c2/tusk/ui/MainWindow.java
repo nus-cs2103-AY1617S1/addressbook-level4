@@ -175,6 +175,7 @@ public class MainWindow extends UiPart {
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }
     }
+    
   //@@author A0139708W
     private void setWindowMinSize() {
         primaryStage.setMinHeight(MIN_HEIGHT);
@@ -200,8 +201,9 @@ public class MainWindow extends UiPart {
     }
     
     /**
-     * Changes filter label to highlight the correct label
-     * @param commandType   COMMANDTYPE enum of command parsed 
+     * Changes filter label to highlight the correct label.
+     * 
+     * @param commandType   COMMANDTYPE enum of command parsed.
      */
     public void handleFilterLabelChange(COMMANDTYPE commandType) {
         if (commandType == COMMANDTYPE.List) {
@@ -251,6 +253,7 @@ public class MainWindow extends UiPart {
     public void taskListPanelScroll(int targetIndex) {
         taskListPanel.scrollTo(targetIndex);
     }
+    
     //@@author
     public void show() {
         primaryStage.show();

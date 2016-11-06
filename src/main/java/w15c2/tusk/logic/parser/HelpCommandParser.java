@@ -7,11 +7,10 @@ import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-
+//@@author A0139708W
 /**
  * Parses Help commands
  */
-//@@author A0139708W
 public class HelpCommandParser extends CommandParser {
     public static final String COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = HelpTaskCommand.ALTERNATE_COMMAND_WORD;
@@ -19,8 +18,8 @@ public class HelpCommandParser extends CommandParser {
     /**
     * Parses arguments in the context of the find task command.
     *
-    * @param args full command args string
-    * @return the prepared command
+    * @param args   Arguments of help command.
+    * @return       Prepared help command.
     */
     @Override
     public TaskCommand prepareCommand(String arguments) {
