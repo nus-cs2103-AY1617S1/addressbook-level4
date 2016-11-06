@@ -1,11 +1,16 @@
 package seedu.todo.guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.controllers.TagController;
+import seedu.todo.controllers.UntagController;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
@@ -82,4 +87,37 @@ public class TagUntagCommandTest extends GuiTest {
         console.runCommand("untag 3 errors");
         assertEventVisible(event3);
     }
+    
+    @Test
+    public void tag_missingIndex_fail() {
+        console.runCommand("tag");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_MISSING_INDEX_AND_TAG_NAME;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void tag_missingTag_fail() {
+        console.runCommand("tag 1");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_TAG_NAME_NOT_FOUND;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void untag_missingIndex_fail() {
+        console.runCommand("untag");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + UntagController.MESSAGE_MISSING_INDEX_AND_TAG_NAME;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void untag_missingTag_fail() {
+        console.runCommand("untag 1");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + UntagController.MESSAGE_TAG_NAME_NOT_FOUND;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
 }
