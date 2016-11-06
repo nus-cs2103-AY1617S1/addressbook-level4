@@ -8,7 +8,6 @@ public class ClearCommandTest extends WhatNowGuiTest {
 
     @Test
     public void clear() {
-
         //verify a non-empty list can be cleared
         assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
         assertClearCommandSuccess();

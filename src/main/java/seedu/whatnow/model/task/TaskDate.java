@@ -80,8 +80,6 @@ public class TaskDate {
     private static final String NOVEMBER_SHORT = "nov";
     private static final String DECEMBER_SHORT = "dec";
 
-    private static final String forwardSlash = "/";
-
     //@@author A0139772U
     private static final int DATE_COMPONENT_DAY = 0;
     private static final int DATE_COMPONENT_MONTH = 1;
@@ -324,7 +322,8 @@ public class TaskDate {
         if (currDate.compareTo(inputDate) > 0) {
             throw new IllegalValueException(EXPIRED_TASK_DATE);
         }
-        fullDate = formatDatetoStandardDate(incDate);
+    
+        fullDate = formatDateToStandardDate(incDate);
         return true;
     }
 
@@ -393,8 +392,8 @@ public class TaskDate {
         return cal;
     }
 
-    // @@author A0139772U
-    public static String formatDatetoStandardDate(String date) throws IllegalValueException, ParseException {
+    //@@author A0139772U
+    public static String formatDateToStandardDate(String date) throws IllegalValueException, ParseException {
         Calendar today = Calendar.getInstance();
         DateFormat yearFormat = new SimpleDateFormat("yyyy");
         String year = yearFormat.format(today.getTime());
@@ -410,12 +409,13 @@ public class TaskDate {
         } else if (date.contains(" ")) {
             dateComponent = date.split(" ");
         } else if (date.contains(".")) {
-            dateComponent = date.split(".");
+            dateComponent = date.split("\\.");
         } else {
             dateComponent[DATE_COMPONENT_DAY] = date.substring(0, 2);
             dateComponent[DATE_COMPONENT_MONTH] = date.substring(2, 4);
             dateComponent[DATE_COMPONENT_YEAR] = date.substring(4);
         }
+
         if (dateComponent[DATE_COMPONENT_DAY].length() < 2) {
             dateComponent[DATE_COMPONENT_DAY] = 0 + dateComponent[DATE_COMPONENT_DAY];
         }
@@ -427,7 +427,6 @@ public class TaskDate {
         }
         String formattedDate = dateComponent[DATE_COMPONENT_DAY] + "/" + dateComponent[DATE_COMPONENT_MONTH] + "/"
                 + dateComponent[DATE_COMPONENT_YEAR];
-
         return formattedDate;
     }
 
