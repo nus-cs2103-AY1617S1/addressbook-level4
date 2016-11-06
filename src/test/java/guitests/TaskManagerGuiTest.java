@@ -44,6 +44,7 @@ public abstract class TaskManagerGuiTest {
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
+    protected CompleteTaskListPanelHandle completeTaskListPanel;
 
     @BeforeClass
     public static void setupSpec() {
@@ -64,6 +65,7 @@ public abstract class TaskManagerGuiTest {
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
+            completeTaskListPanel = mainGui.getCompleteTaskListPanel();
         });
         EventsCenter.clearSubscribers();
         testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
@@ -116,5 +118,13 @@ public abstract class TaskManagerGuiTest {
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
+    }
+    
+    /**
+     * Asserts the size of the complete task list is equal to the given number.
+     */
+    protected void assertCompleteListSize(int size) {
+        int numberOfTask = completeTaskListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTask);
     }
 }

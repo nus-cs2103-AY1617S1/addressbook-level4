@@ -10,6 +10,8 @@ import jym.manager.model.task.*;
 public class TypicalTestTasks {
 
     public static TestTask doLaundry, doHomework, washCar, writeProgram, goShopping, eatWithFriends, unpackThings, buyFan, goToWork;
+	public TestTask event;
+	public TestTask deadline;
 //@@author A0153440R
     public TypicalTestTasks() {
         try {
