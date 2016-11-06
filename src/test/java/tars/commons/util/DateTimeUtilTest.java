@@ -60,7 +60,7 @@ public class DateTimeUtilTest {
 
         assertArrayEquals(expectedDateTime, actualDateTime);
     }
-    
+
     @Test
     public void parseStringToDateTime_dateRangeSuccessful() {
         String[] expectedDateTime = {"01/01/2016 1500", "02/01/2016 1600"};
@@ -69,8 +69,6 @@ public class DateTimeUtilTest {
 
         assertArrayEquals(expectedDateTime, actualDateTime);
     }
-
-    // @@author
 
     // @@author A0140022H
     @Test
@@ -101,8 +99,8 @@ public class DateTimeUtilTest {
         assertEquals(expectedMonth, modifiedMonth);
         assertEquals(expectedYear, modifiedYear);
     }
-    // @@author
 
+    // @@author A0121533W
     @Test
     public void isWithinWeek_dateTimeNullValue_returnFalse() {
         LocalDateTime nullDateTime = null;
@@ -145,8 +143,7 @@ public class DateTimeUtilTest {
 
     // @@author A0124333U
     @Test
-    public void isDateTimeWithinRange_emptyDateTimeSource()
-            throws DateTimeException, IllegalDateException {
+    public void isDateTimeWithinRange_emptyDateTimeSource() throws Exception {
         DateTime dateTimeSource =
                 new DateTime(StringUtil.EMPTY_STRING, StringUtil.EMPTY_STRING);
         DateTime dateTimeQuery =
@@ -156,8 +153,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void isDateTimeWithinRange_dateTimeOutOfRange()
-            throws DateTimeException, IllegalDateException {
+    public void isDateTimeWithinRange_dateTimeOutOfRange() throws Exception {
         DateTime dateTimeSource =
                 new DateTime("15/01/2016 1200", "16/01/2016 1200");
         DateTime dateTimeSource2 =
@@ -172,8 +168,7 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void isDateTimeWithinRange_dateTimeWithinRange()
-            throws DateTimeException, IllegalDateException {
+    public void isDateTimeWithinRange_dateTimeWithinRange() throws Exception {
         DateTime dateTimeSource =
                 new DateTime("14/01/2016 1200", "16/01/2016 1200");
         DateTime dateTimeQueryFullyInRange =
@@ -189,7 +184,7 @@ public class DateTimeUtilTest {
 
     @Test
     public void isDateTimeWithinRange_dateTimeWithoutStartDate()
-            throws DateTimeException, IllegalDateException {
+            throws Exception {
         DateTime dateTimeSource =
                 new DateTime("15/01/2016 1200", "17/01/2016 1100");
         DateTime dateTimeSourceWithoutStartDate =
@@ -215,10 +210,42 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void getListOfFreeTimeSlotsInDate_success() throws DateTimeException, IllegalDateException {
+    public void isDateTimeConflicting_dateTimeConflicts() throws Exception {
+        DateTime dateTimeSource =
+                new DateTime("14/01/2016 1200", "16/01/2016 1200");
+        DateTime conflictingDateTimeQuery =
+                new DateTime("14/01/2016 2000", "15/01/2016 1200");
+        DateTime conflictingDateTimeQuery2 =
+                new DateTime("13/01/2016 1000", "15/01/2016 1200");
+
+        assertTrue(DateTimeUtil.isDateTimeConflicting(dateTimeSource,
+                conflictingDateTimeQuery));
+        assertTrue(DateTimeUtil.isDateTimeConflicting(dateTimeSource,
+                conflictingDateTimeQuery2));
+    }
+
+    @Test
+    public void isDateTimeConflicting_dateTimeNotConflicting()
+            throws Exception {
+        DateTime dateTimeSource =
+                new DateTime("14/01/2016 1200", "16/01/2016 1200");
+        DateTime dateTimeQueryOutOfRange =
+                new DateTime("18/01/2016 2000", "19/01/2016 1200");
+        DateTime dateTimeAdjacent =
+                new DateTime("13/01/2016 1000", "14/01/2016 1200");
+
+        assertFalse(DateTimeUtil.isDateTimeConflicting(dateTimeSource,
+                dateTimeQueryOutOfRange));
+        assertFalse(DateTimeUtil.isDateTimeConflicting(dateTimeSource,
+                dateTimeAdjacent));
+    }
+
+    @Test
+    public void getListOfFreeTimeSlotsInDate_success()
+            throws DateTimeException, IllegalDateException {
         ArrayList<DateTime> listOfFilledTimeSlots = new ArrayList<DateTime>();
-        DateTime dateToCheck = new DateTime("29/10/2016 0000",
-                "29/10/2016 2359");
+        DateTime dateToCheck =
+                new DateTime("29/10/2016 0000", "29/10/2016 2359");
         ArrayList<DateTime> currentList = new ArrayList<DateTime>();
         ArrayList<DateTime> expectedList = new ArrayList<DateTime>();
 

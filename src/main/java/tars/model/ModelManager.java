@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
         for (ReadOnlyTask t : tars.getTaskList()) {
 
             if (t.getStatus().status == Status.UNDONE && DateTimeUtil
-                    .isDateTimeWithinRange(t.getDateTime(), dateTimeToCheck)) {
+                    .isDateTimeConflicting(t.getDateTime(), dateTimeToCheck)) {
                 conflictingTasksStringBuilder.append("\nTask ")
                         .append(taskCount).append(": ").append(t.getAsText());
                 taskCount++;
@@ -221,7 +221,7 @@ public class ModelManager extends ComponentManager implements Model {
         for (RsvTask rt : tars.getRsvTaskList()) {
             if (rt.getDateTimeList().stream()
                     .filter(dateTimeSource -> DateTimeUtil
-                            .isDateTimeWithinRange(dateTimeSource,
+                            .isDateTimeConflicting(dateTimeSource,
                                     dateTimeToCheck))
                     .count() > 0) {
                 conflictingTasksStringBuilder.append("\nRsvTask ")
@@ -291,12 +291,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(null);
     }
 
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(
-                new PredicateExpression(new NameQualifier(keywords)));
-    }
-
     public void updateFilteredTaskListUsingQuickSearch(
             ArrayList<String> quickSearchKeywords) {
         updateFilteredTaskList(new PredicateExpression(
@@ -317,12 +311,11 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(
                 new PredicateExpression(new DateQualifier(dateTime)));
     }
-    // @@author
 
     /**
-     * @@author A0140022H
+     * Sorts filtered list based on keywords
      * 
-     *          Sorts filtered list based on keywords
+     * @@author A0140022H
      */
     public void sortFilteredTaskList(Set<String> keywords) {
         if (keywords.contains(LIST_ARG_PRIORITY)) {
@@ -339,7 +332,6 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    // @@author
 
     // ========== Inner classes/interfaces used for filtering ==========
 
@@ -489,61 +481,23 @@ public class ModelManager extends ComponentManager implements Model {
 
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        /**
-         * @param task
-         * @return true if ALL keywords are found in the task name
-         */
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(
-                            task.getName().taskName, keyword))
-                    .count() == nameKeyWords.size();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(StringUtil.STRING_COMMA, nameKeyWords);
-        }
-    }
-
-
     // @@author A0140022H
     private class DateQualifier implements Qualifier {
         private final LocalDateTime startDateTime;
         private final LocalDateTime endDateTime;
         private final DateTime dateTimeQuery;
 
-        private static final int DATETIME_FIRST_HOUR_OF_DAY = 0;
-        private static final int DATETIME_FIRST_MINUTE_OF_DAY = 0;
-        private static final int DATETIME_FIRST_SECOND_OF_DAY = 0;
-        private static final int DATETIME_LAST_HOUR_OF_DAY = 23;
-        private static final int DATETIME_LAST_MINUTE_OF_DAY = 59;
-        private static final int DATETIME_LAST_SECOND_OF_DAY = 59;
-
         DateQualifier(DateTime dateTime) {
             if (dateTime.getStartDate() != null) {
-                startDateTime = DateTimeUtil.setLocalTime(
-                        dateTime.getStartDate(), DATETIME_FIRST_HOUR_OF_DAY,
-                        DATETIME_FIRST_MINUTE_OF_DAY,
-                        DATETIME_FIRST_SECOND_OF_DAY);
+                startDateTime = DateTimeUtil
+                        .setLocalTime(dateTime.getStartDate(), 0, 0, 0);
                 endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DATETIME_LAST_HOUR_OF_DAY, DATETIME_LAST_MINUTE_OF_DAY,
-                        DATETIME_LAST_SECOND_OF_DAY);
+                        23, 59, 59);
             } else {
                 startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DATETIME_FIRST_HOUR_OF_DAY, DATETIME_FIRST_HOUR_OF_DAY,
-                        DATETIME_FIRST_HOUR_OF_DAY);
+                        0, 0, 0);
                 endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DATETIME_LAST_HOUR_OF_DAY, DATETIME_LAST_MINUTE_OF_DAY,
-                        DATETIME_LAST_SECOND_OF_DAY);
+                        23, 59, 59);
             }
 
             dateTimeQuery = new DateTime();
@@ -557,5 +511,4 @@ public class ModelManager extends ComponentManager implements Model {
                     dateTimeQuery);
         }
     }
-    // @@author
 }
