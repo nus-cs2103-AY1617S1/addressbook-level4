@@ -27,6 +27,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int EVENT_COMPONENT_INDEX_END_TIME = 4;
     public static final int EVENT_COMPONENT_COUNT = 5;
     
+    //@@author
     public static final char TODO_CATEGORY_CHAR = 't';
     public static final char DEADLINE_CATEGORY_CHAR = 'd';
     public static final char EVENT_CATEGORY_CHAR = 'e';
@@ -37,6 +38,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int DEADLINE_CATEGORY_INDEX = 1;
     public static final int EVENT_CATEGORY_INDEX = 2;
     
+    //@@author A0139930B
     private Name name;
     private TaskPeriod period;
     private boolean isDone;
@@ -71,6 +73,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Name getName() {
         return name;
     }
+    
+    @Override
+    public TaskPeriod getPeriod() {
+        return period;
+    }
 
     //@@author
     @Override
@@ -94,6 +101,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
     }
     
+    /**
+     * Returns true if numArgs matches the number of arguments period has
+     */
+    public boolean isNumArgsMatch(int numArgs) {
+        return this.period.getNumArgs() == numArgs;
+    }
+    
     //@@author A0130853L
     /** 
      * Marks task as done or event as over.
@@ -112,8 +126,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (!isDone && !isOverdue) {
             this.isOverdue = true;
         }
-    }
-    
+    }    
     
     //@@author
     @Override
@@ -127,11 +140,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public String toString() {
         return getAsText();
     }
-
-    @Override
-    public TaskPeriod getPeriod() {
-        return period;
-    }
+    
     //@@author A0130853L
     @Override
     public boolean getIsDone() {

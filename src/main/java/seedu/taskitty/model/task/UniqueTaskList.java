@@ -178,8 +178,14 @@ public class UniqueTaskList implements Iterable<Task> {
     
     
     //@@author A0139930B
+    /**
+     * Filters the list based on the number of arguments the TaskPeriod has
+     *   TODOS      : numArgs = Task.TASK_COMPONENT_COUNT
+     *   DEADLINES  : numArgs = Task.DEADLINE_COMPONENT_COUNT
+     *   EVENTS     : numArgs = Task.EVENT_COMPONENT_COUNT
+     */
     public FilteredList<Task> getFilteredTaskList(int filter) {
-        return internalList.filtered(p -> p.getPeriod().getNumArgs() == filter);
+        return internalList.filtered(p -> p.isNumArgsMatch(filter));
     }
     
     //@@author

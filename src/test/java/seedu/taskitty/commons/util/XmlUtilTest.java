@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class XmlUtilTest {
 
@@ -32,24 +33,28 @@ public class XmlUtilTest {
     public void getDataFromFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(null, TaskManager.class);
+        fail();
     }
 
     @Test
     public void getDataFromFile_nullClass_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
+        fail();
     }
 
     @Test
     public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.getDataFromFile(MISSING_FILE, TaskManager.class);
+        fail();
     }
 
     @Test
     public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, TaskManager.class);
+        fail();
     }
 
     @Test
@@ -63,18 +68,21 @@ public class XmlUtilTest {
     public void saveDataToFile_nullFile_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(null, new TaskManager());
+        fail();
     }
 
     @Test
     public void saveDataToFile_nullClass_AssertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(VALID_FILE, null);
+        fail();
     }
 
     @Test
     public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new TaskManager());
+        fail();
     }
 
     @Test

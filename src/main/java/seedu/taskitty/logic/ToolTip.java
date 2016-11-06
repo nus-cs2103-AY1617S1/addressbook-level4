@@ -19,7 +19,7 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
 
     private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
-    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!\n";
+    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!";
 
     private static ToolTip tooltip;
 
@@ -131,6 +131,9 @@ public class ToolTip {
         return description;
     }
     
+    /**
+     * Returns true if user input is valid based on the latest tooltip generated
+     */
     public boolean isUserInputValid() {
         return !isMessageUnknownOrEmpty();
     }
