@@ -6,6 +6,8 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URL;
+
 public class AppUtilTest {
 
     @Rule
@@ -14,8 +16,10 @@ public class AppUtilTest {
 
 
     @Test
-    public void getImage_exitingImage(){
-        assertNotNull(AppUtil.getImage("/images/amethyst_task_manager.png"));
+    public void getImage_exitingImage() {
+    	URL location = AppUtilTest.class.getProtectionDomain().getCodeSource().getLocation();
+        System.out.println(location.getFile());
+    	assertNotNull(AppUtil.getImage("/images/amethyst_task_manager.png"));
     }
 
 
