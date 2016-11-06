@@ -302,8 +302,8 @@ The task manager shifts your data file from the current storage folder to the ne
 <br>
 ## How do I transfer my data to another Computer?
 
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Task Book folder.
+**A**: Install the app in the other computer and overwrite the default data file it generates with 
+       your current data file.
        
 >Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
 
@@ -325,7 +325,10 @@ The task manager shifts your data file from the current storage folder to the ne
 2| Add deadline | add deadline_description; date; end_time   
 3| Add to-do | add to-do_description 
 4| Add with tags | add [event_description, date, start_time, end_time] #tag 
-5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
+5| Edit | edit &lt;index&gt; **des** &lt;new_task_description&gt;
+  |     | edit &lt;index&gt; **date** &lt;new_task_date&gt;
+  |     | edit &lt;index&gt; **start** &lt;new_task_startTime&gt;
+  |     | edit &lt;index&gt; **end** &lt;new_task_endTime&gt;
 6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt; 
 8| List done| list done 
