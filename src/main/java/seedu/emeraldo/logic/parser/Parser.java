@@ -387,7 +387,6 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindAllCommand(keywordSet);
     }
-    //@@author
 
     //@@author A0139749L
     /**
