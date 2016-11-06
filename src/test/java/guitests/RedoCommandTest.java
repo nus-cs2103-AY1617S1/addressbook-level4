@@ -114,7 +114,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
             // confirm edit command has been redone
         }
 
-        assertResultMessage("Redo previous undo command: " + command);
+        assertResultMessage("Redo previous undo command: "  + command);
 
         // confirm the result message is correct
         // assertResultMessage("Redo previous undo command: " + command));
