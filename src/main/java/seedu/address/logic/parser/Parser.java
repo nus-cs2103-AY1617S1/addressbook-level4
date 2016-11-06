@@ -354,6 +354,8 @@ public class Parser {
 			return new IncorrectCommand(e.getMessage());
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(String.format(e.getMessage()));
 		}
 	}
 	
@@ -511,7 +513,8 @@ public class Parser {
 		
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
-
+	//@@author
+	
 	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
