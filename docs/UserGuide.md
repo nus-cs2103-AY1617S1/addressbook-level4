@@ -71,8 +71,8 @@ For any tasks with tags, specify the tags as the last parameter.|`add "James wed
 <br>
 Accepted entry formats | Examples
 ---------------------|---------------
-Date formats | 4/03/2016 / 4/03/16 / 4-03-16 / 4.03.16 / 4 March 16 / 4/03 / 4 Mar
-Time formats | 14:20 / 14.20 / 1420 / 2.20pm / 2:20pm
+Date formats | 4/03/2016 / 4/03/16 / 4-03-16 / 4.03.16 / 4 March 16 / 4/03 / 4 Mar |
+Time formats | 14:20 / 14.20 / 1420 / 2.20pm / 2:20pm |
 
 
 <br>
@@ -181,7 +181,7 @@ Examples:
 [](@@author A0142290N)
 #### Editing a task: `edit`
 Edits the specified task from Emeraldo.<br>
-Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME]`
+Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME]`
 
 
 > Task will be edited given the new parameter(s), and updated instantly.<br>
@@ -199,7 +199,7 @@ Examples:
 
 <br>
 [](@@author A0139196U)
-#### Editing a task’s tag: `tag add/delete/clear`
+#### Editing a task’s tag: ‘tag add/delete/clear`
 Edits the specified task’s tag in Emeraldo.<br>
 Format: `tag add/delete/clear INDEX [#TAGS]`
 
