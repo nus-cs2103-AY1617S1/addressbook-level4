@@ -298,7 +298,7 @@ Use case ends.
 1b. The task name already exists on the list.
 > MESS shows a message to inform user that task already exists
 Use case ends.
-
+<!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Alias command
  
@@ -625,4 +625,4 @@ Use case ends.
 #### Summary
 
 In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, having priority for tasks and tags for tasks are some important features.
-<!-- author -->
+<!-- @@author -->
