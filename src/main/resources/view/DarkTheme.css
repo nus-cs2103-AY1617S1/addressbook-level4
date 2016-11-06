@@ -5,7 +5,7 @@
 /*@@author */
 
 .background {
-    -fx-background-color: black;
+    -fx-background-color: white;
 }
 
 .label {
@@ -83,7 +83,7 @@
 
 /*@@author A0143641M */ 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: derive(#1d1d1d, 70%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-background-color: main-bg-color;
 }
 /*@@author */
@@ -99,6 +99,7 @@
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
+
 /*@@author A0143641M */
 .list-cell:focused {
 	-fx-background-color: derive(#F0E68E, 10%);
@@ -112,7 +113,6 @@
 
 .list-cell:focused:selected .label {
 	-fx-text-fill: #00BFFF;
-	-fx-font-size: 30px;
 }
 
 #itemsPane {
@@ -129,6 +129,12 @@
     -fx-max-width: 300;
     -fx-wrap-text: true;
 }
+
+.cell_small_label_itemType {
+    -fx-font-size: 11px;
+    -fx-text-fill: #00BFFF;
+}
+
 /*@@author */
 
 .cell_small_label {
@@ -187,7 +193,7 @@
 }
 /*@@author A0143641M */
 .context-menu {
-    -fx-background-color: derive(#009999, 80%);
+    -fx-background-color: white;
 }
 
 .context-menu .label {
@@ -200,6 +206,14 @@
     -fx-border-width: 1px;
 }
 /*@@author */
+
+
+
+.menu-item:focused {
+     -fx-background-color: "#2daeff";
+     -fx-text-fill: white;
+}
+
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: Palatino;
@@ -221,7 +235,7 @@
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: #0098f7;
     -fx-font-family: Palatino;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
@@ -229,7 +243,7 @@
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3a;
+    -fx-background-color: #2daeff;
 }
 
 .button:pressed, .button:default:hover:pressed {

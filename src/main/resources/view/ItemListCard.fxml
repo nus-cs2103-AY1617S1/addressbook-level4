@@ -35,7 +35,7 @@
                             </children>
                         </HBox>
                         <HBox spacing="5" alignment="CENTER_LEFT">
-                        	<Label fx:id="itemType" styleClass="cell_small_label" text="\$itemType" />
+                        	<Label fx:id="itemType" styleClass="cell_small_label_itemType" text="\$itemType"/>
                         	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                         </HBox>
                         <HBox>
