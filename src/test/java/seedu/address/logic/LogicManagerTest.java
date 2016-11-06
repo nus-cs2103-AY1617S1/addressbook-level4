@@ -10,6 +10,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.history.UndoableCommandHistory;
 import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
@@ -21,7 +22,6 @@ import seedu.address.model.item.*;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.StorageStub;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.UndoableCommandHistoryStub;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,7 +62,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        history = new UndoableCommandHistoryStub();
+        history = UndoableCommandHistoryManager.getInstance();
         logic = new LogicManager(model, new StorageStub(), history);
         EventsCenter.getInstance().registerHandler(this);
 
@@ -115,6 +115,31 @@ public class LogicManagerTest {
     }
     
     /**
+     * Executes the command and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the backing list shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     */
+    private void assertCommandBehaviorAndVerifyData(String inputCommand, String expectedMessage,
+                                       ReadOnlyTaskManager expectedTaskManager,
+                                       List<? extends ReadOnlyTask> expectedUndoneList,
+                                       List<? extends ReadOnlyTask> expectedDoneList) throws Exception {
+
+        //Execute the command
+        CommandResult result = logic.execute(inputCommand);
+
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedUndoneList, model.getFilteredUndoneTaskList());
+        assertEquals(expectedDoneList, model.getFilteredDoneTaskList());
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskManager, model.getTaskManager());
+        assertEquals(expectedTaskManager, latestSavedTaskManager);
+    }
+    
+    /**
      * Executes the done command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
@@ -139,62 +164,194 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
     
-    /* Test removed as we take add as a default command, so this will add an item with that name.
-    @Test
-    public void execute_unknownCommandWord() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-    }
-    
-
     @Test
     public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.MESSAGE_ALL_COMMAND_WORDS +"\n" + HelpCommand.MESSAGE_USAGE);
+        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
     }
-    */
+    
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    // @@author A0093960X
     @Test
-    public void execute_clear() throws Exception {
+    public void execute_clearInListUndone_clearsAllUndoneTaskOnly() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateFloatingTask(1));
-        model.addTask(helper.generateFloatingTask(2));
-        model.addTask(helper.generateFloatingTask(3));
+        List<Task> undoneTasks = helper.generateFloatingTaskListRange(4, 6);
+        model.addTasks(undoneTasks);
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, new TaskManager(), Collections.emptyList());
-    }
+        List<Task> doneTasks = helper.generateFloatingTaskList(3);
+        model.addDoneTasks(doneTasks);
 
-    /*
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        TaskManager expectedAB = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
+                doneTasks);
+
+        assertCommandBehaviorAndVerifyData("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, expectedAB,
+                expectedAB.getUndoneTaskList(), expectedAB.getDoneTaskList());
     }
-    */
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
-        /* Don't need to validate name?
-        assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-                */
-        /* This test is failing because our program converts "-LOL" to "medium" priority. This test should be removed since it's
-         * not an invalid person data.
-        assertCommandBehavior(
-                "add Valid Name -LOL", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));*/
+    public void execute_clearInListDone_clearsAllDoneTaskOnly() throws Exception {
+        model.setCurrentListToBeDoneList();
 
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> doneTasks = helper.generateFloatingTaskListRange(4, 6);
+        model.addDoneTasks(doneTasks);
+
+        List<Task> undoneTasks = helper.generateFloatingTaskList(3);
+        model.addTasks(undoneTasks);
+
+        TaskManager expectedAB = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+                Collections.emptyList());
+        assertCommandBehaviorAndVerifyData("clear", ClearCommand.MESSAGE_SUCCESS_DONE_LIST, expectedAB,
+                expectedAB.getUndoneTaskList(), expectedAB.getDoneTaskList());
     }
 
+    @Test
+    public void execute_undoWithNoPreviousUndoableCommand_nothingToUndo() throws Exception {
+        // Force clear history
+        while (!history.isEarliestCommand()) {
+            history.undoStep();
+        }
+        assertCommandBehaviorAndVerifyData("undo", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
+                Collections.emptyList(), Collections.emptyList());
+        assertCommandBehaviorAndVerifyData("undo 23", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
+                Collections.emptyList(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_redoWithNoPreviousUndo_nothingToRedo() throws Exception {
+        assertCommandBehaviorAndVerifyData("redo", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
+                Collections.emptyList(), Collections.emptyList());
+        assertCommandBehaviorAndVerifyData("redo 123", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
+                Collections.emptyList(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_undoAndRedoSingleAddCommand_undoAndRedoAdd() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toAdd = helper.generateFloatingTask(1);
+
+        List<Task> taskList = helper.generateTaskList(toAdd);
+        logic.execute(helper.generateAddCommand(toAdd));
+
+        TaskManager expectedABAfterAdd = helper.generateTaskManagerUndoneAndDoneList(taskList,
+                Collections.emptyList());
+
+        assertCommandBehaviorAndVerifyData("undo", "Undid add item: " + toAdd.toString(), new TaskManager(),
+                Collections.emptyList(), Collections.emptyList());
+        assertCommandBehaviorAndVerifyData("redo", String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
+                expectedABAfterAdd, expectedABAfterAdd.getUndoneTaskList(),
+                expectedABAfterAdd.getDoneTaskList());
+    }
+    
+    @Test
+    public void execute_undoAndRedoSingleClearCommand_undoAndRedoClear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> undoneTasks = helper.generateFloatingTaskListRange(4, 6);
+        model.addTasks(undoneTasks);
+
+        List<Task> doneTasks = helper.generateFloatingTaskList(3);
+        model.addDoneTasks(doneTasks);
+
+        TaskManager expectedABBeforeClear = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+                doneTasks);
+        TaskManager expectedABAfterClear = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
+                doneTasks);
+        
+        logic.execute("clear");
+        assertCommandBehaviorAndVerifyData("undo", ClearCommand.MESSAGE_UNDO_SUCCESS_UNDONE_LIST, expectedABBeforeClear,
+                expectedABBeforeClear.getUndoneTaskList(), expectedABBeforeClear.getDoneTaskList());
+        assertCommandBehaviorAndVerifyData("redo", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST,
+                expectedABAfterClear, expectedABAfterClear.getUndoneTaskList(),
+                expectedABAfterClear.getDoneTaskList());
+    }
+    
+    @Test
+    public void execute_undoAndRedoSingleEditCommand_undoAndRedoAdd() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toEdit = helper.generateFloatingTask(1);
+        Task beforeEdit = new Task(toEdit);
+
+        List<Task> taskListBeforeEdit = helper.generateTaskList(beforeEdit);
+        model.addTask(toEdit);
+        logic.execute(helper.generateEditCommand());
+        
+        //assign parameters for expectations
+        Name name = new Name("Do stuff later");
+        Date startDate = DateTime.convertStringToDate("10am");
+        Date endDate = DateTime.convertStringToDate("12pm");
+        Priority priority = Priority.HIGH;
+        RecurrenceRate recurrenceRate = new RecurrenceRate("1","day");
+        
+        List<Task> taskList = helper.generateTaskList(toEdit);
+        TaskManager expectedABBeforeEdit = helper.generateTaskManagerUndoneAndDoneList(taskListBeforeEdit,
+                Collections.emptyList());
+        
+        TaskManager expectedABAfterEdit = helper.generateTaskManagerUndoneAndDoneList(taskList,
+                Collections.emptyList());
+        expectedABAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
+
+
+        assertCommandBehaviorAndVerifyData("undo", String.format(EditCommand.MESSAGE_UNDO_SUCCESS, toEdit, beforeEdit), expectedABBeforeEdit,
+                expectedABBeforeEdit.getUndoneTaskList(), expectedABBeforeEdit.getDoneTaskList());
+        
+        expectedABAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
+        assertCommandBehaviorAndVerifyData("redo", String.format(EditCommand.MESSAGE_SUCCESS, toEdit),
+                expectedABAfterEdit, expectedABAfterEdit.getUndoneTaskList(),
+                expectedABAfterEdit.getDoneTaskList());
+    }
+    
+    @Test
+    public void execute_undoAndRedoSingleDeleteCommand_undoAndRedoDelete() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        List<Task> undoneTasks = helper.generateFloatingTaskList(1);
+        model.addTasks(undoneTasks);
+
+        TaskManager expectedABBeforeDelete = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+                Collections.emptyList());
+
+        TaskManager expectedABAfterDelete = helper
+                .generateTaskManagerUndoneAndDoneList(Collections.emptyList(), Collections.emptyList());
+
+        logic.execute("delete 1");
+
+        assertCommandBehaviorAndVerifyData("undo",
+                String.format(DeleteCommand.MESSAGE_UNDO_SUCCESS, undoneTasks), expectedABBeforeDelete,
+                expectedABBeforeDelete.getUndoneTaskList(), expectedABBeforeDelete.getDoneTaskList());
+        
+        assertCommandBehaviorAndVerifyData("redo",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedABAfterDelete,
+                expectedABAfterDelete.getUndoneTaskList(), expectedABAfterDelete.getDoneTaskList());
+    }
+    
+    @Test
+    public void execute_undoAndRedoSingleDoneCommand_undoAndRedoDone() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        List<Task> undoneTasks = helper.generateFloatingTaskList(1);
+        model.addTasks(undoneTasks);
+
+        TaskManager expectedABBeforeDone = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+                Collections.emptyList());
+
+        TaskManager expectedABAfterDone = helper
+                .generateTaskManagerUndoneAndDoneList(Collections.emptyList(), undoneTasks);
+
+        logic.execute("done 1");
+
+        assertCommandBehaviorAndVerifyData("undo",
+                String.format(DoneCommand.MESSAGE_DONE_UNDO_SUCCESS, undoneTasks), expectedABBeforeDone,
+                expectedABBeforeDone.getUndoneTaskList(), expectedABBeforeDone.getDoneTaskList());
+        
+        assertCommandBehaviorAndVerifyData("redo",
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedABAfterDone,
+                expectedABAfterDone.getUndoneTaskList(), expectedABAfterDone.getDoneTaskList());
+    }
+
+    //@@author
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -235,7 +392,7 @@ public class LogicManagerTest {
         expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
 
         // execute edit command and verify result
-        assertCommandBehavior(helper.generateEditCommand(toBeEdited),
+        assertCommandBehavior(helper.generateEditCommand(),
                 String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getUndoneTaskList());
@@ -492,10 +649,10 @@ public class LogicManagerTest {
         Task p1 = helper.generateFloatingTaskWithName("KE Y");
         Task p2 = helper.generateFloatingTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateFloatingTaskList(p1, pTarget1, p2, pTarget2);
+        List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         Collections.sort(fourPersons);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Task> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         Collections.sort(expectedList);
         helper.addToModel(model, fourPersons);
 
@@ -513,7 +670,7 @@ public class LogicManagerTest {
         Task p3 = helper.generateFloatingTaskWithName("key key");
         Task p4 = helper.generateFloatingTaskWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generateFloatingTaskList(p3, p1, p4, p2);
+        List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
         Collections.sort(fourPersons);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = fourPersons;
@@ -533,9 +690,9 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generateFloatingTaskWithName("key key");
         Task p1 = helper.generateFloatingTaskWithName("sduauo");
 
-        List<Task> fourPersons = helper.generateFloatingTaskList(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Task> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
@@ -585,7 +742,7 @@ public class LogicManagerTest {
         
         //@@author A0139552B
         /** Generates the correct edit command */
-        String generateEditCommand(Task p) {
+        String generateEditCommand() {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("edit 1 ");
@@ -633,7 +790,17 @@ public class LogicManagerTest {
          */
         TaskManager generateTaskManager(List<Task> floatingTasks) throws Exception{
             TaskManager taskManager = new TaskManager();
-            addToTaskManager(taskManager, floatingTasks);
+            addToTaskManagerUndoneList(taskManager, floatingTasks);
+            return taskManager;
+        }
+        
+        /**
+         * Generates an AddressBook based on the list of Persons given.
+         */
+        TaskManager generateTaskManagerUndoneAndDoneList(List<Task> undoneTasks, List<Task> doneTasks) throws Exception{
+            TaskManager taskManager = new TaskManager();
+            addToTaskManagerUndoneList(taskManager, undoneTasks);
+            addToTaskManagerDoneList(taskManager, doneTasks);
             return taskManager;
         }
 
@@ -642,15 +809,24 @@ public class LogicManagerTest {
          * @param addressBook The AddressBook to which the Persons will be added
          */
         void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
-            addToTaskManager(taskManager, generateFloatingTaskList(numGenerated));
+            addToTaskManagerUndoneList(taskManager, generateFloatingTaskList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Tasks to the given TaskManager undone list
          */
-        void addToTaskManager(TaskManager addressBook, List<Task> floatingTasksToAdd) throws Exception{
+        void addToTaskManagerUndoneList(TaskManager addressBook, List<Task> floatingTasksToAdd) throws Exception{
             for(Task p: floatingTasksToAdd){
                 addressBook.addTask(p);
+            }
+        }
+        
+        /**
+         * Adds the given list of Tasks to the given TaskManager done list
+         */
+        void addToTaskManagerDoneList(TaskManager addressBook, List<Task> floatingTasksToAdd) throws Exception{
+            for(Task p: floatingTasksToAdd){
+                addressBook.addDoneTask(p);
             }
         }
 
@@ -681,8 +857,19 @@ public class LogicManagerTest {
             }
             return floatingTasks;
         }
+        
+        /**
+         * Generates a list of FloatingTask based on the flags.
+         */
+        List<Task> generateFloatingTaskListRange(int numStart, int numEnd) throws Exception{
+            List<Task> floatingTasks = new ArrayList<>();
+            for(int i = numStart; i <= numEnd; i++){
+                floatingTasks.add(generateFloatingTask(i));
+            }
+            return floatingTasks;
+        }
 
-        List<Task> generateFloatingTaskList(Task... floatingTasks) {
+        List<Task> generateTaskList(Task... floatingTasks) {
             return Arrays.asList(floatingTasks);
         }
 

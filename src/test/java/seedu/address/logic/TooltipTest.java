@@ -2,17 +2,10 @@ package seedu.address.logic;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.CommandParser;
-import seedu.address.history.UndoableCommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.testutil.StorageStub;
-import seedu.address.testutil.UndoableCommandHistoryStub;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.*;
