@@ -11,9 +11,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the task manager.
+ * Deletes an alias identified using its last displayed index IN THE .
  */
-public class DeleteCommand extends Command {
+public class DeleteAliasCommand extends Command {
 
     public static final String COMMAND_WORD = "del";
 
@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
     private final int[] targetIndices;
     private ArrayList<Task> recentDeletedTasks;
 
-    public DeleteCommand(int[] targetIndices) {
+    public DeleteAliasCommand(int[] targetIndices) {
         this.targetIndices = targetIndices;
     }
 

@@ -62,7 +62,7 @@ public class AddCommand extends Command {
      */
     // TODO allow tag list as params
     public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) 
-    		throws IllegalValueException, IllegalArgumentException {
+    		throws IllegalValueException {
        	this.toAdd = new Task(
         		new Name(name),
         		new TaskType("event"),

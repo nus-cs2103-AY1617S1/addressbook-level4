@@ -82,36 +82,8 @@ public class EditCommand extends Command {
         	    postEdit.setName(newName.get());
             }
             
-            if(newStartDateTime.isPresent() && newEndDateTime.isPresent()){
-            	LocalDateTime startDateTime = newStartDateTime.get();
-            	LocalDateTime endDateTime = newEndDateTime.get();
-            	
-            	Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
-            }
+            validateEndDateTimeAfterStartDateTime(taskToEdit);
             
-            if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
-            	if(isRemoveEndDateTime){
-            		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
-            	}
-            	
-            	if(!taskToEdit.getEndDate().isPresent()){
-            		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
-            	}
-            	
-            	LocalDateTime startDateTime = newStartDateTime.get();
-        		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
-        		
-        		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
-            }
-            
-            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){           	
-            	if((!isRemoveStartDateTime) && taskToEdit.getStartDate().isPresent()){
-            		LocalDateTime endDateTime = newEndDateTime.get();
-            		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
-            		
-            		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
-            	}
-            }
             
             if(newEndDateTime.isPresent()) {
             	postEdit.setEndDate(newEndDateTime.get());
@@ -162,4 +134,39 @@ public class EditCommand extends Command {
 		int indexToScrollTo = listAfterEdit.indexOf(postEdit);
 		EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToScrollTo));
 	}    
+	
+	//@@author A0143756Y
+	private void validateEndDateTimeAfterStartDateTime(ReadOnlyTask taskToEdit){
+		
+		if(newStartDateTime.isPresent() && newEndDateTime.isPresent()){
+        	LocalDateTime startDateTime = newStartDateTime.get();
+        	LocalDateTime endDateTime = newEndDateTime.get();
+        	
+        	Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        }
+        
+        if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
+        	if(isRemoveEndDateTime){
+        		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_REMOVED);
+        	}
+        	
+        	if(!taskToEdit.getEndDate().isPresent()){
+        		throw new IllegalArgumentException(Task.MESSAGE_START_DATE_TIME_CANNOT_BE_SET_WITH_END_DATE_TIME_MISSING);
+        	}
+        	
+        	LocalDateTime startDateTime = newStartDateTime.get();
+    		LocalDateTime endDateTime = taskToEdit.getEndDate().get();
+    		
+    		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        }
+        
+        if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){           	
+        	if((!isRemoveStartDateTime) && taskToEdit.getStartDate().isPresent()){
+        		LocalDateTime endDateTime = newEndDateTime.get();
+        		LocalDateTime startDateTime = taskToEdit.getStartDate().get();
+        		
+        		Task.validateEndDateTimeAfterStartDateTime(startDateTime, endDateTime);
+        	}
+        }
+	}
 }
