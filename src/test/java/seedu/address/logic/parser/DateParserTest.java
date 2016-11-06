@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.text.ParseException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 
@@ -86,7 +87,7 @@ public class DateParserTest {
 	
 	@Test
 	public void ddMMMyyyyHHmm_validOrder2_valueAsExpected() throws ParseException {
-		String userInput = "16:30 25-dec-2016";
+		String userInput = "16:30 25-dEc-2016";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -166,8 +167,44 @@ public class DateParserTest {
 		String userInput = "01:00";
 		LocalDateTime date = DateParser.parse(userInput);
 		
-		LocalDateTime oneAmNextWeek = LocalDateTime.now().withHour(1).truncatedTo(ChronoUnit.HOURS);
+		LocalDateTime oneAmToday = LocalDateTime.now().withHour(1).truncatedTo(ChronoUnit.HOURS);
 		
-		assertEquals(oneAmNextWeek, date);
+		assertEquals(oneAmToday, date);
+	}
+	
+	
+	/*
+	 * Tests for containsDate method
+	 */
+	@Test
+	public void containsDate_standardFormat_returnsTrue() throws ParseException {
+		String userInput = "25-dec-2016 16:30";
+		boolean containsDate = DateParser.containsDate(userInput);
+
+		assertEquals(true, containsDate);
+	}
+	
+	@Test
+	public void containsDate_today1630_returnsTrue() throws ParseException {
+		String userInput = "today 16:30";
+		boolean containsDate = DateParser.containsDate(userInput);
+
+		assertEquals(true, containsDate);
+	}
+	
+	@Test
+	public void containsDate_standardFormatForToday_returnsTrue() throws ParseException {
+		String userInput = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		boolean containsDate = DateParser.containsDate(userInput);
+
+		assertEquals(true, containsDate);
+	}
+	
+	@Test
+	public void containsDate_1630_returnsFalse() throws ParseException {
+		String userInput = "16:30";
+		boolean containsDate = DateParser.containsDate(userInput);
+
+		assertEquals(false, containsDate);
 	}
 }
