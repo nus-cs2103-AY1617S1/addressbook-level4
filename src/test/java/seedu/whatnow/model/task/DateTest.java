@@ -88,11 +88,11 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate("7/8/2018"));
         assertTrue(TaskDate.getIsValidDate("8/5/2017"));
         assertTrue(TaskDate.getIsValidDate("30/12/2018"));
-        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("01.12.2020")));
-        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("13/06/2019")));
-        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("7-10-2023")));
-        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("19 12 2019")));
-        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDatetoStandardDate("05072018")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("01.12.2020")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("13/06/2019")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("7-10-2023")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("19 12 2019")));
+        assertTrue(TaskDate.getIsValidDate(TaskDate.formatDateToStandardDate("05072018")));
     }
 
     @Test

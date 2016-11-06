@@ -243,6 +243,7 @@ public class Parser {
      */
     private static String formatDate(String date) {
         String[] splitDate = null;
+        String formattedDate = EMPTY_STRING;
         if (date.contains(FORWARD_SLASH)) {
             splitDate = date.split(DELIMITER_FORWARD_SLASH);
         } else if (date.contains(HYPHEN)) {
@@ -250,10 +251,8 @@ public class Parser {
         } else if (date.contains(DOT)) {
             splitDate = date.split(DELIMITER_DOT);
         } else {
-            return null;
+            return date;
         }
-        
-        String formattedDate = EMPTY_STRING;
 
         for (int i = 0; i < splitDate.length; i++) {
             formattedDate += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
