@@ -2,14 +2,17 @@ package seedu.dailyplanner.logic.commands;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
+import seedu.dailyplanner.commons.util.DateUtil;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.history.*;
+
 
 /**
  * Adds a person to the address book.
@@ -25,7 +28,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
     public static final String MESSAGE_WARNING_CLASH = "Warning! Current timeslot clashes with one the tasks: %1$s";
-
+    private List<ReadOnlyTask> personList = model.getAddressBook().getPersonList();
     private final Task toAdd;
     /**
      * Convenience constructor using raw values.
@@ -52,8 +55,8 @@ public class AddCommand extends Command {
             model.addPerson(toAdd);
             
             
-        	//if (checkClash(toAdd) > -1)
-				//return new CommandResult(String.format(MESSAGE_WARNING_CLASH, model.getAddressBook().getPersonList().get(checkClash(toAdd))));
+        	if (checkClash(toAdd) > -1)
+				return new CommandResult(String.format(MESSAGE_WARNING_CLASH, personList.get(checkClash(toAdd))));
         	
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
@@ -63,27 +66,35 @@ public class AddCommand extends Command {
     }
 
     public int checkClash(Task toCheck) {
-
-	String toAddStartTiming = toCheck.getStart().toString().replaceAll(":", "");
-	String toAddEndTiming = toCheck.getEnd().toString().replaceAll(":", "");
-
-	for (int i = 0; i < model.getAddressBook().getPersonList().size(); i++) {
-	    if (!(toCheck == model.getAddressBook().getPersonList().get(i))) {
-		if (toCheck.getStart().toString()
-			.equals(model.getAddressBook().getPersonList().get(i).getStart().toString())) {
-		    String tasksEndTiming = model.getAddressBook().getPersonList().get(i).getStart().toString()
-			    .replaceAll(":", "");
-		    String tasksStartTiming = model.getAddressBook().getPersonList().get(i).getEnd().toString()
-			    .replaceAll(":", "");
-		    if ((Integer.parseInt(toAddStartTiming) < Integer.parseInt(tasksEndTiming))
-			    && (Integer.parseInt(toAddStartTiming) > Integer.parseInt(tasksStartTiming))) {
-
-			return i;
-		    }
+    	
+    if(!(DateUtil.hasStartandEndTime(toCheck))){
+    	return -1;
+    }
+	Time toAddStartTiming = toCheck.getStart().getTime();
+	Time toAddEndTiming = toCheck.getEnd().getTime();
+	
+	for (int i = 0; i < personList.size(); i++) {
+		ReadOnlyTask storedTask = personList.get(i);
+		if(DateUtil.hasStartandEndTime(storedTask) ){
+			if (!(toCheck == storedTask)) {
+				if (toCheck.getStart().getDate().compareTo(storedTask.getStart().getDate()) == 0) {
+					Time tasksEndTiming = storedTask.getStart().getTime();
+					Time tasksStartTiming = storedTask.getEnd().getTime();
+		    
+					if ((toAddStartTiming.compareTo(tasksEndTiming) < 0)  && (toAddStartTiming.compareTo(tasksStartTiming) >0)) {
+						return i;
+					}
+					if((toAddEndTiming.compareTo(tasksStartTiming) > 0) && (toAddEndTiming.compareTo(tasksEndTiming) <0)){
+						return i;	
+					}
+				}	
+			}
+	
 		}
-	    }
 	}
 	return -1;
     }
+    
+ 
 
 }
