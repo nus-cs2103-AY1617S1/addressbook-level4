@@ -30,6 +30,7 @@ public class CommandBox extends UiPart {
     private ImageView catImage;
 
     private Logic logic;
+    private boolean isInputValid;
 
     @FXML
     private TextField commandTextField;
@@ -48,6 +49,7 @@ public class CommandBox extends UiPart {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         this.catImage = mainWindow.getCatImage();
+        isInputValid = true;
         
         registerAsAnEventHandler(this);
     }
@@ -66,7 +68,8 @@ public class CommandBox extends UiPart {
             tooltip.createToolTip(newValue);
             resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
             
-            if (tooltip.isUserInputValid()) {
+            isInputValid = tooltip.isUserInputValid();
+            if (isInputValid) {
                 setStyleToIndicateCorrectCommand();
             } else {
                 setStyleToIndicateIncorrectCommand();
@@ -105,7 +108,9 @@ public class CommandBox extends UiPart {
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
         emptyCommandText(command);
-        setCatImage("/images/cat_happy.png");
+        if (isInputValid) {
+            setCatImage("/images/cat_happy.png");
+        }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -124,6 +129,7 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
         setCatImage("/images/cat_normal.png");
+        isInputValid = true;
     }
 
     @Subscribe
@@ -147,6 +153,7 @@ public class CommandBox extends UiPart {
         if (!commandTextField.getStyleClass().contains("error")) {
             commandTextField.getStyleClass().add("error"); 
             setCatImage("/images/cat_sad.png");
+            isInputValid = false;
         }
     }
     
