@@ -5,7 +5,7 @@
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
-    * [Architecture](##architecture)
+    * [Architecture](#architecture)
     * [UI Component](#ui-component)
     * [Logic Component](#logic-component)
     * [Model Component](#model-component)
