@@ -15,13 +15,19 @@ public class TaskCard extends UiPart{
     @FXML
     private Label name;
     @FXML
+    private Label doneStatus;
+    @FXML
     private Label id;
     @FXML
+<<<<<<< HEAD
     private Label isDone;
     @FXML
     private Label startDate;
     @FXML
     private Label dueDate;
+=======
+    private Label dateString;
+>>>>>>> C3/recurring-tasks
     @FXML
     private Label address;
     @FXML
@@ -54,6 +60,13 @@ public class TaskCard extends UiPart{
         }
         startDate.setText(task.getStartDate().value);
         dueDate.setText(task.getDueDate().value);
+=======
+        dateString.setText(task.dateString());
+        if(task.getisDone())
+        	doneStatus.setText(" [O]");
+       	else
+       		doneStatus.setText(" [X]");
+>>>>>>> C3/recurring-tasks
         address.setText(task.getAddress().value);
         priority.setText(task.getPriority().value);
         tags.setText(task.tagsString());

@@ -1,5 +1,6 @@
 package seedu.gtd.model;
 
+import java.io.IOException;
 import java.util.Set;
 
 import seedu.gtd.commons.core.UnmodifiableObservableList;
@@ -23,9 +24,13 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Adds the given task */
+    /** Edits the given task */
     void editTask(int targetIndex, Task task) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Modifies the location of the saved tasklist 
+     * @throws IOException */
+    void setFilePathTask(String newFilePath) throws IOException;
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
