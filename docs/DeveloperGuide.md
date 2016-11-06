@@ -252,11 +252,11 @@ See [UsingTravis.md](UsingTravis.md) for more details.
 [//]: # "@@author A0147944U"
 ### Review code quality
 
-We use [CODACY](https://travis-ci.org/) to perform code review of common security concerns, code style violations, best practices, code coverage and other metrics to Codacy on our projects.
+We use [Codacy](https://www.codacy.com/) to perform code review of common security concerns, code style violations, best practices, code coverage and other metrics to Codacy on our projects.
 
 ### Automated coverage reports
 
-We use [COVERALLS](https://travis-ci.org/) on top of EclEmma to generate JUnit tests coverage reports as the development progresses.
+We use [Coveralls](https://coveralls.io/) on top of EclEmma to generate JUnit tests coverage reports as the development progresses.
 
 ### Making a Release
 
