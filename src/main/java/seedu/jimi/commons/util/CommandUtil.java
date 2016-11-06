@@ -90,10 +90,10 @@ public class CommandUtil {
             oneEditDistanceDict.forEach(w -> twoEditDistanceDict.addAll(Dictionary.generateOneEditDistanceDict(w)));
             
             for (String twoEditDistanceWord : twoEditDistanceDict) {
-                Set<String> toPut = cmdWordNearMatches.containsKey(twoEditDistanceWord)
+                Set<String> cmdWordMatches = cmdWordNearMatches.containsKey(twoEditDistanceWord)
                         ? cmdWordNearMatches.get(twoEditDistanceWord) : new HashSet<String>();
-                toPut.add(cmdWord);
-                cmdWordNearMatches.put(twoEditDistanceWord, toPut);
+                cmdWordMatches.add(cmdWord);
+                cmdWordNearMatches.put(twoEditDistanceWord, cmdWordMatches);
             }
         });
     }

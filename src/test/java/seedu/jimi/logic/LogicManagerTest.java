@@ -706,8 +706,7 @@ public class LogicManagerTest {
                 expectedList,
                 Collections.emptyList());
     }
-    
-    //@@ author
+    // @@author
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
