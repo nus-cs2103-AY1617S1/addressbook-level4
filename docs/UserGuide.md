@@ -6,6 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<br>
 ## Introduction
 
 Frustrated with the repetitive number of mouse clicks when using task managers? Tired of cluttered windows? Need the ability to 
@@ -15,6 +16,7 @@ Welcome to Simply.
 
 Gone are the repetitive mouse clicks other task managers require of you. With a single line command entry, you can easily create a task and categorize it as you desire. With its simple interface, gone are the cluttered windows of other task managers and tasks can be easily found at a glance.
 
+<br>
 ## Getting Started
 
 1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -32,6 +34,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
+<br>
 ## Features
 
 ###1 Add Command
@@ -214,7 +217,7 @@ Now that you have seen, all the tasks that you have done, to return to the main 
 
 ####6.1 Deleting a task
 
-The delete command enables you to delete the tasks that you no longer need.
+The delete command enables you to delete the tasks that you no longer need and it is available in the following formats.
 
 > Format: Delete &lt;index&gt;
 
@@ -234,7 +237,10 @@ Delete T1, T3
 
 >Note: The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
+<br>
 ####6.2 Deleting a tag / multiple tags
+
+If you find that any of the tags that you added to previously created tasks are no longer useful, you can delete them by typing the following command.
 
 >Format: **Delete** &lt;index&gt; #tag1 #tag2
 
@@ -243,7 +249,7 @@ Example: Delete E1 #win #victor #finally
 <br>
 ###7 Undo the Most Recent Commands
 
-The undo command enables you to undo the most recent executed command.
+Oh no! What happens if you accidentally deleted something by mistake? In life, there are no undos but here, there are. The following undo command enables you to undo the most recent executed command, restoring anything lost.
 
 > Format: Undo &lt;number of operations&gt;
 
@@ -255,10 +261,10 @@ Undo 2
 
 >Note: If no number is entered, the default number of times the command will undo is 1.
 
+<br>
+###8 Redo the Most Recent Undone Commands
 
-###8 Redo the Most Recent Commands
-
-The redo command enables you to redo the most recent undone command.
+If after undoing and after more thought, you find that the command that you had just undone was actually done correctly, you can simply use the following redo command.
 
 > Format: Redo &lt;number of operations&gt;
 
@@ -270,6 +276,7 @@ Redo 2
 
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
+<br>
 ###9 Exiting the program
 
 When you are done and wish to exit the program, simply type exit and press enter. This saves all your data and exits the program.
@@ -300,11 +307,12 @@ Example: storage C:\Users\Ronald\Documents\DummyFolder
 The task manager shifts your file from the current storage folder to the newly specified one on exit.
 
 <br>
-## FAQ
+## How do I transfer my data to another Computer?
 
-**Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
+       
+       >Note: Search for the default taskbook.xml file that is stored in the data folder and overwrite it.
 
 <br>
 ###Command Summary
