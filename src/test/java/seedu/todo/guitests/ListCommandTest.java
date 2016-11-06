@@ -65,8 +65,6 @@ public class ListCommandTest extends GuiTest {
     private static boolean hasInitialized = false;
     
     public ListCommandTest() {
-        System.out.println(commandAddPastEvent);
-        
         completeFutureTask5.setName("Play Xbox");
         completeFutureTask5.setDueDate(DateUtil.parseDateTime(
                 String.format("%s 17:00:00", fiveDaysFromNowIsoString)));
