@@ -1,4 +1,4 @@
-﻿# Developer Guide 
+﻿# Developer Guide
 
 ## Table of Content
 1. [Introduction](#1-introduction)
@@ -21,7 +21,7 @@
     2. [Continuous Integration](#62-continuous-integration)
     3. [Making a Release](#63-making-a-release)
     4. [Managing Depedencies](#64-managing-dependencies)
-7. [Appendix](#7-appendix) 
+7. [Appendix](#7-appendix)
     1. [Appendix A: User Stories](#71-appendix-a--user-stories)
     2. [Appendix B: Use Cases](#72-appendix-b--use-cases)
     3. [Appendix C: Non Functional Requirements](#73-appendix-c--non-functional-requirements)
@@ -42,7 +42,7 @@ To ensure that you are able to run SmartyDo smoothly, do ensure that you have me
 
     > This app may not work as intended with earlier versions of Java 8. <br>
     This app will not work with earlier versions of Java.
-    
+
 2. Installed **Eclipse** IDE
 3. Installed **e(fx)clipse** plugin for Eclipse (Follow the instructions given on
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -53,7 +53,7 @@ To ensure that you are able to run SmartyDo smoothly, do ensure that you have me
 To import the lastest version of this project into Eclipse, follow the instructions as given below:
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -110,7 +110,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Figure 4. Sequence Diagram: ToDoEventChange<br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The follwing sections will give you more details about each component.
@@ -146,6 +146,7 @@ Logic is in charge of reading user input and executing the correct commands. It 
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+5. `Logic` loads the `undo/redo Manager` which is initially an empty stack. If the command that is recently executed successfully belongs to a undoable command, the undo/redo manager will record it.
 
 Below, you will find the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -203,7 +204,7 @@ and logging destinations.
 
 ### 4.2 Configuration
 
-You can control certain properties of the application (e.g App name, logging level) through the configuration file 
+You can control certain properties of the application (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -225,26 +226,26 @@ You can find tests in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. _Hybrids of unit and integration tests._ These test are checking multiple code units as well as 
+   3. _Hybrids of unit and integration tests._ These test are checking multiple code units as well as
       how they are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+
 ## 6. Dev Ops
 
 ### 6.1 Build Automation
@@ -259,12 +260,12 @@ You may read [UsingTravis.md](UsingTravis.md) for more details.
 ### 6.3 Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
- 
+
 ### 6.4 Managing Dependencies
 
 A project often depends on third-party libraries. For example, SmartyDo depends on the
@@ -274,7 +275,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-  
+
 ## 7. Appendix
 <!-- @@author A0121261Y -->
 
@@ -291,7 +292,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user |view list of completed and pending tasks | keep track of what needs to be done
 `* *` | user with many tasks at a time | sort my tasks by different criteria | view tasks easily
-`* *` | user with large projects/ tasks | add subtasks to main task | break down larger task into smaller tasks 
+`* *` | user with large projects/ tasks | add subtasks to main task | break down larger task into smaller tasks
 `* *` | user with many uncofirmed events | allocate timeslots for tentative meetings/tasks | avoid having plans that might conflict with unconfirmed plans
 `* *` | user | undo  1 previous operation | remove commands executed by accident   
 `* *` | user | specify a target folder as the data storage location | synchronise file with other applications
@@ -494,4 +495,3 @@ Use case ends.
 | Google Calendar | Allows creation of task and events and reside them in the same view. Free to use. Synchronises with gmail account. Allows conversion of email invites into events | Does not have blockout slots |
 | Sticky Notes | Free on Windows Store. Always open. Easy to bring up. Shows all items, always. Easy addition/editing/removal of tasks.  Can store notes/weblinks. Can store handwritten notes. Supports basic text formatting. |  No backup mechanism. Unable to change font. Manual sorting. Resets to default settings on restart. No “calendar view”. Takes up desktop space. Unable to minimise. Can be quite cluttered and messy|
 | Todo.txt | Does not rely on network access to operate. Able to synchronise with cloud storage. Allows priority scheduling. Breaks difficult objectives into small steps to reach the goal. Records date of completion for tasks. Simple GUI and lightweight Application | No support for recurring tasks. No reminder for upcoming due dates |
-

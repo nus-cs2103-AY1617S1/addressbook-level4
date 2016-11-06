@@ -102,7 +102,7 @@ Here is the summary of the parameters and their usage:
 
 | Parameter     |     Flag     |   Format Requirements    | Optional |
 | ------------- |:-------------:| -----:|:---:|
-| `TASK_NAME`   |     | _**/n**_ required if `TASK_NAME` is not the first parameter | No |
+| `TASK_NAME`   |     | _**n;**_ required if `TASK_NAME` is not the first parameter | No |
 | `DATE_TIME` |    **t;**  | [Date] [Start_Time] [End_Time] , delimited by spaces    | Yes |
 | `TAG`         | _**t/**_ | alphanumeric | Yes |
 | `LOCATION` | _**a;**_ |  alphanumeric  | Yes |
@@ -241,7 +241,7 @@ For example, after finding specific tasks, to return the Visual Box back to wher
 <img src="images/viewAllCommand.png" width="250" align="middle"><br>Figure 12. Example of view command<br>
 
 ### 3.12. **Locating a Destination**
-You may search for destinations listed in the LOCATION parameter of your task by using the `locate` command. A separate window will appear showing the details of the location mentioned (if any) in your task. Each task can be referred to by the index displayed in front of its title. 
+You may search for destinations listed in the LOCATION parameter of your task by using the `locate` command. A separate window will appear showing the details of the location mentioned (if any) in your task. Each task can be referred to by the index displayed in front of its title.
 
 Format: `locate INDEX`
 
@@ -293,7 +293,7 @@ SmartyDo will automatically save your data in the hard disk after any command th
 |Help   || `help`|
 |Save     |FILEPATH.xml|`save FILEPATH.xml`|
 |Load     |FILEPATH.xml|`load FILEPATH.xml`|
-|Add      |TASK_NAME, DATE_TIME,[LOCATION], [TAG] |`add /n TASK_NAME d; DATE START_TIME END_TIME t/ TAG a; LOCATION `|
+|Add      |TASK_NAME(n; required if TASK_NAME is not the first parameter), DATE_TIME,[LOCATION], [TAG] |`add n; TASK_NAME d; DATE START_TIME END_TIME t/ TAG a; LOCATION `|
 |Edit     |INDEX|`edit INDEX`|
 |Delete   |INDEX|`delete INDEX`|
 |Done     |INDEX|`done INDEX`|
