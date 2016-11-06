@@ -12,26 +12,31 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Kenneth Tan Xin You](https://github.com/kennethtxytqw)<br>
 <img src="https://avatars0.githubusercontent.com/u/16360559?v=3&s=466" width="150"><br>
-* Components in charge of:
-* Aspects/tools in charge of:
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/DeveloperGuide.md#34-model-component)
+* Aspects/tools in charge of: Team Lead, Integration, Git, Issue Tracking
 * Features implemented:
-   * [List persons](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Delete person](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-* Code written: [functional code][test code][docs]
+   * [Edit Command](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#35-editing-task-details)
+   * [Minimise](https://github.com/CS2103AUG2016-W10-C3/main/pull/80)
+   * [Confirmation Prompt](https://github.com/CS2103AUG2016-W10-C3/main/pull/51)
+* Code written: [[functional code](../collated/main/A0135812L.md)][[test code](../collated/test/A0135812L.md)][[docs](../collated/docs/A0135812L.md)]
 * Other major contributions:
-  * Did blah blah
-  * Did smth
+  * Set up Travis and Coveralls
+  * Implemented the logical ordering of tasks [#37](https://github.com/CS2103AUG2016-W10-C3/main/pull/37)
+  * Advised on implementation of several features and changes to UI
+  * Did the initial copy-editing of docs for CS2101[[link to commit](https://github.com/CS2103AUG2016-W10-C3/main/commit/03c182a9546a453d2279bb0e0a9dca61d9832230)]
+  * Assisted Filbert in Testing and Bug Fixing
+  * Assisted Matthew in improvements to UI [#80](https://github.com/CS2103AUG2016-W10-C3/main/pull/80)
 
 -----
 
 #### [Filbert Cheong](https://github.com/mitigator)
 <img src="https://avatars2.githubusercontent.com/u/17725170?v=3&s=466" width="150"><br>
-* Components in charge of:
-* Aspects/tools in charge of:
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/DeveloperGuide.md#33-logic-component)
+* Aspects/tools in charge of: Testing, Parsing
 * Features implemented:
-   * [List persons](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Delete person](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-* Code written: [functional code][test code][docs]
+   * [Undo and Redo](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#38-undoing-and-redoing)
+   * [Mark Completed Tasks](https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md#37-marking-completed-tasks)
+* Code written: [[functional code](../collated/main/A0121261Y.md)][[test code](../collated/test/A0121261Y.md)][[docs](../collated/docs/A0121261Y.md)]
 * Other major contributions:
   * Did blah blah
   * Did smth
