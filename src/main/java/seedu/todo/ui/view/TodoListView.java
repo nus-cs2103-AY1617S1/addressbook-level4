@@ -92,55 +92,15 @@ public class TodoListView extends UiPart {
     }
 
     /**
-     * Scrolls the {@link #todoListView} to the particular task card at the listIndex.
-     */
-    public void scrollAndSelect(int listIndex) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(listIndex);
-            todoListView.getSelectionModel().clearAndSelect(listIndex);
-        });
-    }
-
-    /**
-     * Scrolls the {@link #todoListView} to the particular task card, if the task card is available.
-     * However, this method has a bounded wait between 10ms to 1000ms.
+     * Scrolls the {@link #todoListView} to the particular task card.
      *
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
-        scrollAndSelectHelper(task, 100);
+        todoListView.getSelectionModel().clearSelection();
+        todoListView.getSelectionModel().select(task);
     }
 
-    /**
-     * Helper method for {@link #scrollAndSelect(ImmutableTask)}.
-     * Repeatedly and recursively tries to select for a task for finite number of times.
-     */
-    private void scrollAndSelectHelper(ImmutableTask task, int attempts) {
-        Runnable runnable = () -> {
-            TaskCardView taskCardView = TaskCardView.getTaskCard(task);
-            if (taskCardView != null) {
-                int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
-                scrollAndSelect(listIndex);
-            } else if (attempts > 0) {
-                scrollAndSelectHelper(task, attempts - 1);
-            } else {
-                logger.warning("Task Card View is null for task: " + task.getTitle());
-            }
-        };
-
-        //Tries to sleep first to wait for the ui, and then attempts the view.
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                Platform.runLater(runnable);
-            }
-        });
-
-        thread.start();
-    }
 
     /* Override Methods */
     @Override
