@@ -53,6 +53,14 @@ public interface ReadOnlyTask {
 //        getTags().forEach(builder::append);
         return builder.toString();
     }
+    
+  //@@author A0153617E
+    /**
+     * Formats the description as text.
+     */
+    default String getDescriptionAsText() {
+        return getDescription().toString();
+    }
 
     /**
      * Returns a string representation of this Person's tags
