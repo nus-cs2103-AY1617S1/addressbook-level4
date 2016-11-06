@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -64,7 +66,7 @@ public class EventDate implements Date {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof EventDate && isSameEventDate((EventDate) other));
+        return other == this || ( other instanceof EventDate && isSameEventDate((EventDate) other) );
     }
 
     private boolean isSameEventDate(EventDate other) {
@@ -85,11 +87,67 @@ public class EventDate implements Date {
     }
 
     // @@author A0142325R
-    public void updateDate(String start, String end) {
-        this.startDate = start;
-        this.endDate = end;
-        this.date = start + " to " + end;
+
+    /**
+     * Override the updateRecurringDate in Date interface. Change current date
+     * value to "numOfDays" after. Update this.date value
+     */
+    @Override
+    public void updateRecurringDate(long numOfDays) {
+        LocalDate startDate = getLocalDate().get(0);
+        LocalDate endDate = getLocalDate().get(1);
+        String startDateToUpdate = DateUtil.getFormattedDateString(startDate.plusDays(numOfDays));
+        String endDateToUpdate = DateUtil.getFormattedDateString(endDate.plusDays(numOfDays));
+        updateDate(startDateToUpdate, endDateToUpdate);
+
     }
-    // @@author
+
+    /**
+     * Override getLocalDate method in Date interface. return startDate and
+     * endDate value in an arrayList of LocalDate
+     */
+    @Override
+    public ArrayList<LocalDate> getLocalDate() {
+        assert startDate != null && endDate != null;
+        ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
+        dateArray.add(LocalDate.parse(startDate.substring(0, 10), DateUtil.getGermanFormatter()));
+        dateArray.add(LocalDate.parse(endDate.substring(0, 10), DateUtil.getGermanFormatter()));
+        return dateArray;
+    }
+
+    /**
+     * Override the updateDate in Date interface. Update startDate, endDate, and
+     * date attribute to the updated version
+     */
+    @Override
+    public void updateDate(String... dateString) {
+        assert dateString.length == 2;
+        this.startDate = getUpdatedString(startDate, dateString[0]);
+        this.endDate = getUpdatedString(endDate, dateString[1]);
+        this.date = this.startDate + " to " + this.endDate;
+
+    }
+
+    /**
+     * Get updated startTime and endTime string with time value attached if
+     * necessary.
+     * 
+     * @param originalDate
+     *            (i.e. startDate, or endDate)
+     * @param up-to-date
+     *            date value without time value attached
+     * @return a string with update-to-date value with time value attached is
+     *         necessary.
+     */
+    private String getUpdatedString(String originalDate, String date) {
+        if (DateUtil.isDateFormat(originalDate)) {
+            return date;
+        } else if (DateUtil.isDateTimeFormat(originalDate)) {
+            return date + originalDate.substring(10);
+        } else {
+            assert false;
+            return null;
+        }
+    }
 
 }

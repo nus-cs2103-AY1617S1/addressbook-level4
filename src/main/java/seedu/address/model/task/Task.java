@@ -2,6 +2,7 @@ package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.text.DateFormat;
@@ -31,6 +32,9 @@ import java.util.Locale;
 
 public class Task implements ReadOnlyTask {
 
+    private static final int DAYS_OF_MONTH = 28;
+    private static final int DAYS_OF_WEEK = 7;
+    private static final int RECURRING_UPDATE_THRESHOLD = 1;
     private Name name;
     private Date date;
     private Recurring recurring;
@@ -46,7 +50,7 @@ public class Task implements ReadOnlyTask {
     private boolean isEvent;
     private boolean isDone;
     private boolean isRecurring;
-                                  // when the task's done status is updated
+    // when the task's done status is updated
     public static final String RECURDAILY = "daily";
     public static final String RECURWEEKLY = "weekly";
     public static final String RECURMONTHLY = "monthly";
@@ -55,9 +59,7 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
 
-    // @@author A0142325R
-
-   //----------------------------Constructors-------------------------------------------------
+    // ----------------------------Constructors-------------------------------------------------
 
     public Task(Name name, UniqueTagList tags, Priority priorityLevel) throws IllegalValueException {
         this(name, new Deadline(""), tags, false, false, priorityLevel);
@@ -77,7 +79,7 @@ public class Task implements ReadOnlyTask {
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring, Priority priorityLevel) {
-        assert !CollectionUtil.isAnyNull(name, date, tags);
+        assert ! CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.nameString = new SimpleStringProperty(name.taskName);
         this.date = date;
@@ -98,12 +100,13 @@ public class Task implements ReadOnlyTask {
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring recurring, Priority priorityLevel) {
-        this(name,date,tags,isDone,true,priorityLevel);
+        this(name, date, tags, isDone, true, priorityLevel);
         this.recurring = recurring;
         recurringString.set(recurring.recurringFrequency);
 
     }
 
+    // @@author A0142325R
 
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring(),
@@ -114,21 +117,16 @@ public class Task implements ReadOnlyTask {
         }
     }
 
-
     /**
      * update the recurring task to its next recurring date
      */
-
     public void updateRecurringTask() {
-        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        Calendar currentDateTime = Calendar.getInstance();
-        DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(Locale.GERMAN);
-        LocalDate currentDate = LocalDate.parse(dateFormat.format(currentDateTime.getTime()).toString(),
-                germanFormatter);
-        LocalDate startDate = LocalDate.parse(date.getValue().substring(0, 10), germanFormatter);
-        long elapsedDays = ChronoUnit.DAYS.between(startDate, currentDate);
-        if (elapsedDays < 1) {
+
+        LocalDate beginDate = date.getLocalDate().get(0);
+
+        long elapsedDays = DateUtil.getElapsedDaysFromCurrentDate(beginDate);
+
+        if (elapsedDays < RECURRING_UPDATE_THRESHOLD) {
             return;
         }
         switch (recurring.recurringFrequency) {
@@ -136,14 +134,15 @@ public class Task implements ReadOnlyTask {
             updateRecurringTask(elapsedDays);
             break;
         case RECURWEEKLY:
-            long numWeek = (elapsedDays - 1) / 7 + 1;
-            updateRecurringTask(numWeek * 7);
+            long numWeek = ( elapsedDays - 1 ) / DAYS_OF_WEEK + 1;
+            updateRecurringTask(numWeek * DAYS_OF_WEEK);
             break;
         case RECURMONTHLY:
-            long numMonth = elapsedDays / 28 + 1;
-            updateRecurringTask(numMonth * 28);
+            long numMonth = ( elapsedDays - 1 ) / DAYS_OF_MONTH + 1;
+            updateRecurringTask(numMonth * DAYS_OF_MONTH);
             break;
         default:
+            assert false;
             break;
         }
     }
@@ -151,75 +150,14 @@ public class Task implements ReadOnlyTask {
     /**
      * update recurring task based on the number of days to update
      *
-     * @param daysToUpdate
+     * @param daysToUpdate,
+     *            must be positive integer greater than the update threshold
      */
-
     private void updateRecurringTask(long daysToUpdate) {
-
-        DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
-                .withLocale(Locale.GERMAN);
-
-        if (date instanceof EventDate) {
-            String startDate = ((EventDate) date).getStartDate().substring(0, 10);
-            LocalDate startLocalDate = LocalDate.parse(startDate, germanFormatter);
-            startDate = germanFormatter.format(startLocalDate.plusDays(daysToUpdate)).toString();
-            String endDate = ((EventDate) date).getEndDate().substring(0, 10);
-            LocalDate endLocalDate = LocalDate.parse(endDate, germanFormatter);
-            endDate = germanFormatter.format(endLocalDate.plusDays(daysToUpdate)).toString();
-            updateRecurringEvent(startDate, endDate);
-        } else if (date instanceof Deadline) {
-            String deadlineDate = date.getValue().substring(0, 10);
-            LocalDate deadlineLocalDate = LocalDate.parse(deadlineDate, germanFormatter);
-            deadlineDate = germanFormatter.format(deadlineLocalDate.plusDays(daysToUpdate)).toString();
-            updateRecurringDeadlineTask(deadlineDate);
-        } else {
-            return;
-        }
+        assert daysToUpdate >= RECURRING_UPDATE_THRESHOLD;
+        date.updateRecurringDate(daysToUpdate);
         dateString.set(date.getValue());
 
-    }
-
-    /**
-     * update start and end date of a recurring event
-     *
-     * @param startDate
-     * @param endDate
-     */
-
-    private void updateRecurringEvent(String startDate, String endDate) {
-
-        String startTime = "", endTime = "";
-        if (((EventDate) date).getStartDate().length() > 10) {
-            startTime = ((EventDate) date).getStartDate().substring(11);
-            endTime = ((EventDate) date).getEndDate().substring(11);
-        }
-
-        if (!startTime.equals("") && !endTime.equals("")) {
-            ((EventDate) date).updateDate(startDate + "-" + startTime, endDate + "-" + endTime);
-        } else if (!startTime.equals("")) {
-            ((EventDate) date).updateDate(startDate + "-" + startTime, endDate);
-        } else if (!endTime.equals("")) {
-            ((EventDate) date).updateDate(startDate, endDate + "-" + endTime);
-        } else {
-            ((EventDate) date).updateDate(startDate, endDate);
-        }
-    }
-
-    /**
-     * update deadline of a recurring task
-     *
-     * @param deadlineDate
-     */
-
-    private void updateRecurringDeadlineTask(String deadlineDate) {
-        String deadlineTime = "";
-        if (date.toString().length() > 10) {
-            deadlineTime = date.toString().substring(11);
-        }
-        if (!deadlineTime.equals(""))
-            ((Deadline) date).updateDate(deadlineDate + "-" + deadlineTime);
-        else
-            ((Deadline) date).updateDate(deadlineDate);
     }
 
     // @@author
@@ -281,8 +219,8 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                        && this.isSameStateAs((ReadOnlyTask) other));
+                || ( other instanceof ReadOnlyTask // instanceof handles nulls
+                        && this.isSameStateAs((ReadOnlyTask) other) );
     }
 
     @Override
@@ -364,10 +302,10 @@ public class Task implements ReadOnlyTask {
             setRecurring(new Recurring(details));
             break;
         case "startDate":
-            setDate(new EventDate(details, ((EventDate) date).getEndDate()));
+            setDate(new EventDate(details, ( (EventDate) date ).getEndDate()));
             break;
         case "endDate":
-            setDate(new EventDate(((EventDate) date).getStartDate(), details));
+            setDate(new EventDate(( (EventDate) date ).getStartDate(), details));
             break;
         case "deadline":
             setDate(new Deadline(details));

@@ -1,5 +1,8 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 
@@ -59,14 +62,67 @@ public class Deadline implements Date {
     }
 
     // @@author A0142325R
-    public void updateDate(String deadline) {
-        this.date = deadline;
+
+    /**
+     * Override the updateRecurringDate method in Date interface. Change the
+     * current date to "numOfDays" after the current value. Update this.date
+     * value
+     */
+    @Override
+    public void updateRecurringDate(long numOfDays) {
+        LocalDate deadlineDate = getLocalDate().get(0);
+        String upToDateDeadline = DateUtil.getFormattedDateString(deadlineDate.plusDays(numOfDays));
+        updateDate(upToDateDeadline);
+
     }
-    
-    //@@author A0146123R
+
+    /**
+     * Override getLocalDate in interface Date. Return date in LocalDate type as
+     * an arrayList.
+     */
+    @Override
+    public ArrayList<LocalDate> getLocalDate() {
+        assert date != null;
+        ArrayList<LocalDate> dateArray = new ArrayList<LocalDate>();
+        dateArray.add(LocalDate.parse(date.substring(0, 10), DateUtil.getGermanFormatter()));
+        return dateArray;
+    }
+
+    /**
+     * Override the updateDate in interface Date. Update the date attribute of
+     * this Deadline object.
+     */
+    @Override
+    public void updateDate(String... deadline) {
+        assert deadline.length == 1;
+        assert getUpdateDeadline(deadline) != null;
+        this.date = getUpdateDeadline(deadline);
+    }
+
+    /**
+     * get updated deadline string with time value attached from the input
+     * string
+     * 
+     * @param deadline
+     *            with the up-to-date date value excluding time value
+     * @return updated complete deadline string with time value attached if
+     *         possible
+     */
+    private String getUpdateDeadline(String... deadline) {
+        if (DateUtil.isDateFormat(date)) {
+            return deadline[0];
+        } else if (DateUtil.isDateTimeFormat(date)) {
+            return deadline[0] + date.substring(10);
+        } else {
+            assert false;
+            return null;
+        }
+    }
+
+    // @@author A0146123R
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Deadline && isSameDeadline((Deadline) other));
+        return other == this || ( other instanceof Deadline && isSameDeadline((Deadline) other) );
     }
 
     private boolean isSameDeadline(Deadline other) {
