@@ -238,7 +238,7 @@ The [TestFX](https://github.com/TestFX/TestFX) library allows
  **Problem: Tests fail because NullPointException when AssertionError is expected**
  * Reason: Assertions are not enabled for JUnit tests. 
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ * Solution: Assertions is enabled in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
   
@@ -259,7 +259,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 3. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -278,8 +278,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task without deadline | keep track of my tasks
+`* * *` | new user | See usage instructions | refer to instructions when I forget how to use the App
+`* * *` | user | Add a task without deadline | keep track of my tasks
 `* * *` | user | Set a start and end time for a task | Have a clearer idea of my schedule
 `* * *` | user | Set a deadline for a task | Be reminded of impending deadline
 `* * *` | user | Delete a task | Totally remove task that I no longer care about
@@ -368,6 +368,7 @@ Use case ends.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
+<!-- @@author --> 
 
 
 ## Appendix E : Product Survey
@@ -376,8 +377,8 @@ Use case ends.
 
 **Strengths**
 
-* Set task using the a one line entry
-* Syncs with Google Calendar
+* Set tasks using one line entry
+* Sync with Google Calendar
 * All tasks are set in calendar view
 * Alerts and prompts appear as notifications
 * Search for Keywords
@@ -412,9 +413,9 @@ Use case ends.
 
 * Natural language processing
 * Able to view tasks in day, week, month, year views
-* Syncs with calendars
+* Sync with calendars
 * Use shading to intensity of tasks
-* Supports fixed and floating time zones for events
+* Support fixed and floating time zones for events
 
 **Weakness**
 
@@ -434,7 +435,7 @@ Use case ends.
 **Weakness**
 
 * Difficult to read if too many appointments 
-* Must use with internet
+* Internet access is required
 
 <!-- @@author --> 
 
