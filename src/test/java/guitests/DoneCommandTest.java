@@ -2,11 +2,9 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.model.task.Status;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DoneCommand.MESSAGE_MARK_TASK_SUCCESS;
 
 //@@author A0138601M

@@ -86,6 +86,7 @@
     -fx-background-color: derive(#1d1d1d, 10%);
 }
 
+/*@@author A0138601M */
 .list-view {
 	-fx-background-color: #cccccc;
 	-fx-padding: 3;
@@ -111,6 +112,7 @@
     -fx-text-fill: #111111;
 }
 
+/*@@author */
 .cell_big_label {
     -fx-font-size: 18px;
     -fx-text-fill: #010504;
@@ -178,7 +180,6 @@
     -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-top-width: 1px;
     -fx-border-bottom-width: 1px;
-
 }
 
 .menu-bar .label {
@@ -288,14 +289,9 @@
     -fx-padding: 8 1 8 1;
 }
 
+/*@@author A0138601M */
 #cardPane {	
     -fx-background-color: transparent;
-}
-
-.titled-pane {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 11pt;
 }
 
 .tab {

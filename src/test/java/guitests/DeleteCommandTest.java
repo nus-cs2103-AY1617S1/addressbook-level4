@@ -1,15 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-
-import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.model.task.Status;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-
-import java.util.Collections;
 
 //@@author A0138601M
 public class DeleteCommandTest extends ToDoListGuiTest {

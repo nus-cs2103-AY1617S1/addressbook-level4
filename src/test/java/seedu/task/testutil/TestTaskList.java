@@ -69,6 +69,9 @@ public class TestTaskList {
     	return numberOfTask;
     }
     
+    /**
+     * Empty all three list
+     */
     public void clear() {
         testCompleteTasks = new ArrayList<TestTask>();
         testIncompleteTasks = new ArrayList<TestTask>();

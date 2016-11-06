@@ -3,7 +3,7 @@ package seedu.todolist.model.parser;
 import java.time.DateTimeException;
 import java.time.LocalTime;
 
-//@@author A0138601M-unused
+//@@author A0138601M
 /**
  * Converts a String to Time and vice versa.
  */

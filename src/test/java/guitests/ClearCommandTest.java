@@ -2,13 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.ClearCommand;
 import seedu.todolist.model.task.Status;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class ClearCommandTest extends ToDoListGuiTest {

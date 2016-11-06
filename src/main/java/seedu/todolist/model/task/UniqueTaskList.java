@@ -79,7 +79,6 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    //@@author A0138601M
     /**
      * Marks the equivalent task(s) in the list.
      *
@@ -99,7 +98,6 @@ public class UniqueTaskList implements Iterable<Task> {
         Collections.sort(internalList);
         return taskFound;
     }
-    //@@author
     
     //@@author A0146682X
     /**
@@ -116,7 +114,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFound;
     }
-
+    
+    //@@author
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

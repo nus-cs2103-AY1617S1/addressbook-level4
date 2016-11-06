@@ -22,13 +22,13 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task deleted!";
     public static final int MULTIPLE_DELETE_OFFSET = 1;
 
+    //@@author A0138601M
     private int[] targetIndexes;
 
     public DeleteCommand(int[] targetIndexes) {
         this.targetIndexes = targetIndexes;
     }
 
-    //@@author A0138601M
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();       
@@ -57,7 +57,7 @@ public class DeleteCommand extends Command {
         } else if (model.getCurrentTab().equals(MainWindow.TAB_TASK_OVERDUE)) {
             return model.getFilteredOverdueTaskList();
         } else {
-            assert false : "Last showb list must come from either completed, incomplete or overdue pane";
+            assert false : "Last shown list must come from either completed, incomplete or overdue pane";
             return null;
         }
     }
@@ -72,6 +72,7 @@ public class DeleteCommand extends Command {
         }
         return tasksToDelete;
     }
+    //@@author
     
     /**
      * Check if a particular index can be deleted

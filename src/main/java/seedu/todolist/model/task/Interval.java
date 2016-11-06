@@ -1,8 +1,5 @@
 package seedu.todolist.model.task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 import seedu.todolist.commons.exceptions.IllegalValueException;
 
 //@@author A0138601M
@@ -299,8 +296,7 @@ public class Interval implements Comparable<Interval> {
      * Returns 0 if both date-times are equal
      * Returns -1 otherwise
      */
-    private int compareSecondDate(TaskDate firstDate, TaskDate secondDate,
-            TaskTime firstTime, TaskTime secondTime) {
+    private int compareSecondDate(TaskDate firstDate, TaskDate secondDate, TaskTime firstTime, TaskTime secondTime) {
         assert firstDate != null;
         
         if (isFloatTask(secondDate)) {
