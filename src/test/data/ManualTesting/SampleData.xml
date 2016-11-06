@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <activities>
+        <type>task</type>
+        <name>IE4210 HW9</name>
+        <line1>9-11-2016 4:00 PM</line1>
+        <line2>2</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+        <tagged>HW</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>update CPLEX</name>
+        <line1></line1>
+        <line2>3</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>FYP</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE4210 Lecture</name>
+        <line1>7-11-2016 4:00 PM</line1>
+        <line2>7-11-2016 5:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>true</recurring>
+        <starttimeRecurring>every mon 1600</starttimeRecurring>
+        <endtimeRecurring>every mon 1600</endtimeRecurring>
+        <tagged>IE4210</tagged>
+        <tagged>lecture</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 lecture</name>
+        <line1>8-11-2016 2:00 PM</line1>
+        <line2>8-11-2016 4:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>true</recurring>
+        <starttimeRecurring>every tue 1400</starttimeRecurring>
+        <endtimeRecurring>every tue 1400</endtimeRecurring>
+        <tagged>EG2401</tagged>
+        <tagged>lecture</tagged>
+    </activities>
+    <activities>
         <type>event</type>
         <name>EG2401 meeting</name>
         <line1>31-10-2016 7:00 PM</line1>
@@ -24,7 +71,7 @@
         <type>activity</type>
         <name>IE3110 output analysis</name>
         <reminder>30-10-2016 12:00 PM</reminder>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurring>false</recurring>
         <tagged>IE3110</tagged>
         <tagged>Project</tagged>
@@ -56,6 +103,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>IE4210</tagged>
+        <tagged>tutorial</tagged>
     </activities>
     <activities>
         <type>activity</type>
@@ -70,7 +118,7 @@
         <type>activity</type>
         <name>CS2103 demo</name>
         <reminder>3-11-2016 1:25 PM</reminder>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurring>false</recurring>
         <tagged>CS2103</tagged>
         <tagged>Project</tagged>
@@ -148,7 +196,7 @@
         <type>activity</type>
         <name>print template and bring clipboard</name>
         <reminder>3-11-2016 6:00 PM</reminder>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurring>false</recurring>
         <tagged>SDP</tagged>
     </activities>
@@ -188,7 +236,7 @@
         <line1>3-11-2016 7:00 AM</line1>
         <line2></line2>
         <reminder></reminder>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurring>false</recurring>
         <tagged>SDP</tagged>
     </activities>
@@ -247,6 +295,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>CS2103</tagged>
+        <tagged>exam</tagged>
     </activities>
     <activities>
         <type>activity</type>
@@ -273,6 +322,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>IE3110</tagged>
+        <tagged>exam</tagged>
     </activities>
     <activities>
         <type>event</type>
@@ -283,6 +333,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>IE4210</tagged>
+        <tagged>exam</tagged>
     </activities>
     <activities>
         <type>event</type>
@@ -293,6 +344,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>EG2401</tagged>
+        <tagged>exam</tagged>
     </activities>
     <activities>
         <type>event</type>
@@ -351,6 +403,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>IE3110</tagged>
+        <tagged>tutorial</tagged>
     </activities>
     <activities>
         <type>task</type>
@@ -361,6 +414,7 @@
         <completion>false</completion>
         <recurring>false</recurring>
         <tagged>IE3110</tagged>
+        <tagged>HW</tagged>
     </activities>
     <activities>
         <type>task</type>
@@ -368,7 +422,7 @@
         <line1>9-11-2016 4:00 PM</line1>
         <line2>2</line2>
         <reminder>5-11-2016 10:00 AM</reminder>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurring>false</recurring>
         <tagged>IE4210</tagged>
     </activities>
@@ -540,5 +594,8 @@
     </tags>
     <tags>
         <tagName>Meeting</tagName>
+    </tags>
+    <tags>
+        <tagName>HW</tagName>
     </tags>
 </addressbook>
