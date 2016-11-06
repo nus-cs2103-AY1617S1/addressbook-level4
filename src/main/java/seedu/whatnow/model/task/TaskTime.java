@@ -187,7 +187,6 @@ public class TaskTime {
         }
         
     }
-
     /**
      * This function checks if the givenTimeRange is valid by finding the
      * corresponding regex and passes its corresponding format to a method
