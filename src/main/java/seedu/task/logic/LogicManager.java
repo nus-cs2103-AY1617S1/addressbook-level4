@@ -14,6 +14,7 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.storage.Storage;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
+import seedu.taskcommons.core.Status;
 
 /**
  * The main LogicManager of dowat.
@@ -47,13 +48,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
-    	model.updateFilteredTaskListToShowWithStatus(false);
+    	model.updateFilteredTaskListToShowWithStatus(Status.INCOMPLETED);
         return model.getFilteredTaskList();
     }
 
     @Override
     public ObservableList<ReadOnlyEvent> getFilteredEventList() {
-    	model.updateFilteredEventListToShowWithStatus(false);
+    	model.updateFilteredEventListToShowWithStatus(Status.INCOMPLETED);
         return model.getFilteredEventList();
     }
     

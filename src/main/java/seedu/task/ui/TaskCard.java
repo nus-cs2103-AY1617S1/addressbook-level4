@@ -73,14 +73,16 @@ public class TaskCard extends UiPart{
     	//if status-complete
         if (task.getTaskStatus()) {
             cardPane.getStyleClass().add("status-complete");
-        } else if(isDueToday(task)) {
-        	cardPane.getStyleClass().add("status-today");
         } else if (isOverdue(task)) {
         	cardPane.getStyleClass().add("status-overdue");
-        }
+        }else if(isDueToday(task)) {
+        	cardPane.getStyleClass().add("status-today");
+        } 
 
     }
     //@@author
+    
+    //@@author A0144702N
     private boolean isOverdue(ReadOnlyTask task) {
 		return task.getDeadline().isPresent() 
 				&& task.getDeadline().get().getTime().isBefore(LocalDateTime.now());

@@ -1,10 +1,13 @@
 package seedu.task.ui;
 
+import java.time.LocalDateTime;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.task.model.item.ReadOnlyEvent;
+import seedu.task.model.item.ReadOnlyTask;
 //@@author A0144702N-reused
 public class EventCard extends UiPart {
     private static final String FXML = "EventListCard.fxml";
@@ -39,7 +42,7 @@ public class EventCard extends UiPart {
         index.setText(displayedIndex + ". ");
         initialiseDescription();
         duration.setText(event.getDuration().toString().trim());
-        setCompletionBackgroundText();
+        setStyleClass();
     }
 
     private void initialiseDescription() {
@@ -52,13 +55,21 @@ public class EventCard extends UiPart {
     }
     
     //Adds the lavender colour to the background if the task status is completed
-    private void setCompletionBackgroundText() {
+    private void setStyleClass() {
         if (event.isEventCompleted()) {
             cardPane.getStyleClass().add("status-complete");
+        } else if (isDueToday(event)) {
+        	cardPane.getStyleClass().add("status-today");
         }
     }
 
     //@@author
+    
+	private boolean isDueToday(ReadOnlyEvent event) {
+		LocalDateTime eventTime = event.getDuration().getStartTime();
+		return eventTime.getDayOfYear() == LocalDateTime.now().getDayOfYear();
+	}
+	
     public HBox getLayout() {
         return cardPane;
     }

@@ -2,31 +2,101 @@
 # User Guide
 
 * [Quick Start](#quick-start)
-* [Features](#features)
 * [UI Control](#ui-control)
+* [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 ## Quick Start
-
+<!-- @@author A0144702N -->
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `dowat.jar` from the 'releases' tab.
 2. Copy the file to the folder you want to use as the home folder for your task book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/MockUI.PNG" width="600">
+3. Double-click the file to start the app. The GUI should appear in a few seconds. Refer to [UI Control](#ui-control) for a more detailed walkthrough of various UI components. 
+   > <img src="images/UIOverview.png" width="800">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list /t`** : lists all tasks that are not completed. 
-   * **`add`** `CS2103 Lab 6 /desc finish lab /by 12-30-16` : 
+   * **`add`** `CS2103 Lab 6 /desc finish lab /by December 30` : 
      adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of 30th December.
    * **`mark`**` 3` : marks the 3rd task as complete.
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#features) section below for details of each command. Or directly go to [Command Summary](#command-summary) for a summary of commands<br>
+
+
+
+
+## UI Control
+#### Event/Task Card
+The default card is shown as below:  
+<img src="images/Card_Default.png" width="500">
+
+<br>
+A task that is overdue will be highlighted and shown as below:  
+<img src="images/Card_Overdue.png" width="500">
+
+<br>
+A task/event that is due on today will be highlighted and shown:  
+<img src="images/Card_Today.png" width="500">
+
+<br>
+A task/event that is completed or passed will be hidden from the list by default, and shown as below.  
+<img src="images/Card_Done.png" width="500">
+
+
+#### Calendar Features
+The envents and tasks will be both sync to your calendar. You are not able to do any modification through the calendar. 
+* Select on an event /task
+  Your selection on task / event will be sync to calendar. When you select a task /event, the calendar will jump to the correct time frame to show the task / event as highlighted. 
+
+* Current time
+  The red line shows the current time.
+
+* Toggle Calendar view
+  With the `show` calendar, you can jump to any valid time frame such as "today, tomorrow 9pm". You can also toggle the view between week view(5 days by default) and day view. 
+
+<img src="images/Calendar_Day.png" width="400"> <img src="images/Calendar_Week.png" width="400">
+
+
+<!-- @@author A0121608N -->
+#### Traversing between Windows
+The four main windows in which the user can traverse are:
+
+  * Command Box
+  * Result Display Panel
+  * Task Panel
+  * Event Panel
+
+By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
+
+The window in which the user is currently on is shown by a brown border highlight.
+
+
+#### Command Box Features
+When the Command Box is selected, it has 2 main features:
+
+* Clearing the Command Box
+
+  Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
+
+* Accessing past History of Commands
+  
+  Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
+
+  The Command history resets itself after each session of usage (i.e exit the program).
+
+#### Result Display Panel Features
+When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+#### Task and Event Panel Features
+When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
+
+<!-- @@author-->
 
 
 ## Features
@@ -73,13 +143,15 @@ Examples:
 
 <!-- @@author A0144702N -->
 
-#### Listing tasks
+#### Listing tasks or events
 Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
+Shows a list of events that are not completed. Or shows a list of all events. <br>
+Or shows a list of both events and tasks that are upcoming, or all items. <br>
 
-Format: `list /t [/a]`
+Format: `list [/t] [/e] [/a]`
 
 > Tasks that are marked done will not be shown by default.
-> An `/a` optional flag will request the TaskBook to list all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request the TaskBook to list all, both completed or upcoming. 
 
 Examples: 
 * `list /t` <br>
@@ -87,20 +159,16 @@ Examples:
 * `list /t /a` <br>
   All tasks will be shown.
 
-
-#### Listing events
-Shows a list of events that are not completed. Or shows a list of all events. <br>
-
-Format: `list /e [/a]` <br>
-
-> Events that are completed will not be shown by default.
-> An `/a` optional flag will request the TaskBook to list all events, both completed and passed. 
-
-Examples: 
 * `list /e `<br>
   Lists events that are not completed yet. 
 * `list /e /a` <br>
   All events will be shown.
+
+* `list` or `list /t /e` <br>
+  Lists both events and tasks that are upcoming. 
+* `list /a` or `list /t /e /a` <br>
+  Lists everything in the app. 
+
 
 <!-- @@author A0127570H -->
 
@@ -309,49 +377,7 @@ Examples:
 #### Exiting the program
 Format : `exit`
 
-<!-- @@author A0121608N -->
 
-## UI Control
-
-#### Traversing between Windows
-The four main windows in which the user can traverse are:
-
-	* Command Box
-	* Result Display Panel
-	* Task Panel
-	* Event Panel
-
-By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. The order of traversal is descending down the list before it loops back to the beginning. 
-
-The window in which the user is currently on is shown by a brown border highlight.
-
-<img src="images/MockUI.PNG" width="600">
-
-
-#### Command Box Features
-When the Command Box is selected, it has 2 main features:
-
-* Clearing the Command Box
-
-	Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
-
-* Accessing past History of Commands
-	
-	Pressing the UP key will access the previous command in the history and will copy it into the Command Box. Pressing the DOWN key will access the next command in the history and will copy it into the Command Box. 
-
-	The Command history resets itself after each session of usage (i.e exit the program).
-
-#### Result Display Panel Features
-When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
-
-#### Task and Event Panel Features
-When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. This prevents the need to use the mouse wheel for scrolling.
-
-<!-- @@author-->
-
-<!-- #### Interpreting Task and Event Card -->
-
-<!-- #### Calendar thingies -->
 
 ## FAQ
 
@@ -369,7 +395,7 @@ When the Task or Event Panel is selected, it has a scrolling feature where the U
 -------- | :-------- 
 [Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]`
 [Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION] `
-[List Task or Event](#listing-tasks) | `list /t|/e [/a]`
+[List Task or Event](#listing-tasks-or-events) | `list [/t|/e] [/a]`
 [Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
 [Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`

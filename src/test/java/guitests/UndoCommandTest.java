@@ -20,6 +20,8 @@ import seedu.task.testutil.TypicalTestTasks;
 public class UndoCommandTest extends TaskBookGuiTest {
 
 	/*
+	 * Integration tests:
+	 * 
 	 * Possible EP of valid undo use cases: 
 	 * - Undo single modification
 	 * 		- mark

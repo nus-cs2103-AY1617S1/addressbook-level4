@@ -22,7 +22,6 @@ public class EventDuration implements Comparable<EventDuration> {
 	private static final String MESSAGE_DURATION_FORMAT = "%1$s to %2$s";
 	private static final long DEFAULT_DURATION = 1;
 	
-	
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	
@@ -114,6 +113,15 @@ public class EventDuration implements Comparable<EventDuration> {
 	public String getEndTimeAsText() {
 		return getEndTime().format(StringUtil.DATE_FORMATTER);
 	}
+	
+	@Override
+	public int compareTo(EventDuration o) {
+		if (this.startTime.compareTo(o.startTime) == 0) {
+			return this.endTime.compareTo(o.endTime);
+		} else {
+			return this.startTime.compareTo(o.startTime);
+		}
+	}
 	//@@author generated
 	@Override
 	public int hashCode() {
@@ -135,15 +143,5 @@ public class EventDuration implements Comparable<EventDuration> {
 		
 		EventDuration other = (EventDuration) obj;
 		return this.toString().equals(other.toString());
-	}
-
-
-	@Override
-	public int compareTo(EventDuration o) {
-		if (this.startTime.compareTo(o.startTime) == 0) {
-			return this.endTime.compareTo(o.endTime);
-		} else {
-			return this.startTime.compareTo(o.startTime);
-		}
 	}
 }

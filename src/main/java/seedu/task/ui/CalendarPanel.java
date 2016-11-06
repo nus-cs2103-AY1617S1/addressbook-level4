@@ -19,6 +19,7 @@ import jfxtras.scene.control.agenda.Agenda.LocalDateTimeRange;
 import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.taskcommons.core.CalendarView;
 import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N
@@ -31,12 +32,11 @@ import seedu.taskcommons.core.LogsCenter;
  *
  */
 public class CalendarPanel extends UiPart {
-	private static final int DAY_SKIN = 1;
-	private static final int WEEK_SKIN = 0;
 	private static final String CALENDAR_UNSYC_MESSAGE = "Calendar is unsync";
 	private static final String CALENDAR_VIEW_ID = "calendar";
 	private static final int DEFAULT_BEFORE = -1;
 	private static final int DEFAULT_AFTER = 5;
+	private static final double DEFAULT_WEEK_VIEW_DAYS= 3.0;
 	private Agenda agenda;
 	private final Logger logger = LogsCenter.getLogger(CalendarPanel.class);
 	private AnchorPane placeHolderPane;
@@ -64,18 +64,23 @@ public class CalendarPanel extends UiPart {
 		setPlaceholder(calendarPlaceHolder);
 		setBoundary();
 		setWeekView(DEFAULT_BEFORE, DEFAULT_AFTER);
-		this.agenda.setAllowDragging(false);
-		this.agenda.setDisplayedLocalDateTime(LocalDateTime.now());
+		agenda.setAllowDragging(false);
+		agenda.setDisplayedLocalDateTime(LocalDateTime.now());
 		resetCallBack();
 		addToPlaceHodler();
 	}
 	
+	/**
+	 * Set up the week view by setting the default value for the sliders.
+	 * @param before
+	 * @param after
+	 */
 	private void setWeekView(int before, int after) {
 		AgendaDaysFromDisplayedSkin skin = new AgendaDaysFromDisplayedSkin(this.agenda);
 		skin.setDaysBeforeFurthest(before);
 		skin.setDaysAfterFurthest(after);
 		Slider slider = (Slider)this.agenda.lookup("#daysAfterSlider");
-		slider.setValue(3.0);
+		slider.setValue(DEFAULT_WEEK_VIEW_DAYS);
 		this.agenda.setSkin(skin);
 	}
 
@@ -114,7 +119,25 @@ public class CalendarPanel extends UiPart {
 		agenda.setId(CALENDAR_VIEW_ID);
 		placeHolderPane.getChildren().add(agenda);
 	}
+	
 
+	private void setBoundary() {
+		AnchorPane.setTopAnchor(agenda, 0.0);
+		AnchorPane.setBottomAnchor(agenda, 0.0);
+		AnchorPane.setLeftAnchor(agenda, 0.0);
+		AnchorPane.setRightAnchor(agenda, 0.0);
+	}
+
+	@Override
+	public void setPlaceholder(AnchorPane placeholder) {
+		this.placeHolderPane = placeholder;
+	}
+	
+	/**
+	 * Set data connection of calendar and the lists
+	 * @param eventList
+	 * @param taskList
+	 */
 	private void configure(List<ReadOnlyEvent> eventList, List<ReadOnlyTask> taskList) {
 		setConnection(eventList, taskList);
 	}
@@ -138,43 +161,6 @@ public class CalendarPanel extends UiPart {
 			.forEach(task -> agenda.appointments().add(calHelper.convertFromTask(task)));
 	}
 
-	
-	/**
-	 * Focus the calendar to a certain time frame
-	 * @param t
-	 */
-	public void updateCalendarShownPeriod(LocalDateTime t) {
-		agenda.setDisplayedLocalDateTime(t);
-	}
-	
-
-	private void setBoundary() {
-		AnchorPane.setTopAnchor(agenda, 0.0);
-		AnchorPane.setBottomAnchor(agenda, 0.0);
-		AnchorPane.setLeftAnchor(agenda, 0.0);
-		AnchorPane.setRightAnchor(agenda, 0.0);
-	}
-
-	@Override
-	public void setPlaceholder(AnchorPane placeholder) {
-		this.placeHolderPane = placeholder;
-	}
-
-	@Override
-	public void setNode(Node node) {
-
-	}
-
-	/**
-	 * Not use Fxml
-	 * @return
-	 */
-	@Override
-	public String getFxmlPath() {
-		return "";
-
-	}
-
 	/** 
 	 * Refresh data shown when eventlist in model modified
 	 * @param eventList
@@ -188,12 +174,12 @@ public class CalendarPanel extends UiPart {
 	 * Toggle the Calendar display mode
 	 * @param calendarViewMode
 	 */
-	public void updateCalendarMode(int calendarViewMode) {
+	public void updateCalendarMode(CalendarView calendarViewMode) {
 		switch(calendarViewMode) {
-		case DAY_SKIN:
+		case DAY:
 			agenda.setSkin(new AgendaDaySkin(agenda));
 			break;
-		case WEEK_SKIN:
+		case WEEK:
 			setWeekView(DEFAULT_BEFORE, DEFAULT_AFTER);
 			break;
 		default:
@@ -202,7 +188,7 @@ public class CalendarPanel extends UiPart {
 	}
 	
 	/**
-	 * Select a event in the calendar and show its details. 
+	 * Select an event in the calendar and show its details. 
 	 * @param targetEvent
 	 * @throws exception if calendar is not sync with event list. Restart needed.
 	 */
@@ -223,9 +209,10 @@ public class CalendarPanel extends UiPart {
 	}
 
 	public void select(ReadOnlyTask targetTask) throws CalendarUnsyncException {
-		if(isCompleted(targetTask) || isFloating(targetTask)) {
+		if(isCompleted(targetTask) || isFloatingTask(targetTask)) {
 			return;
 		}
+		
 		LocalDateTime displayedDateTime = targetTask.getDeadline().get().getTime();
 		updateCalendarShownPeriod(displayedDateTime);
 		
@@ -237,12 +224,36 @@ public class CalendarPanel extends UiPart {
 		
 		agenda.selectedAppointments().add(targetAppoint);
 	}
+	
+	/**
+	 * Focus the calendar to a certain time frame
+	 * @param t
+	 */
+	public void updateCalendarShownPeriod(LocalDateTime t) {
+		agenda.setDisplayedLocalDateTime(t);
+	}
+	
 
-	private boolean isFloating(ReadOnlyTask targetTask) {
+	private boolean isFloatingTask(ReadOnlyTask targetTask) {
 		return !targetTask.getDeadline().isPresent();
 	}
 
 	private boolean isCompleted(ReadOnlyTask targetTask) {
 		return targetTask.getTaskStatus();
+	}
+	
+	@Override
+	public void setNode(Node node) {
+
+	}
+
+	/**
+	 * Not use Fxml
+	 * @return
+	 */
+	@Override
+	public String getFxmlPath() {
+		return "";
+
 	}
 }

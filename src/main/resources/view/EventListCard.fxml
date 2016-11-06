@@ -21,6 +21,11 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="10.0" prefWidth="15.0" />
             </columnConstraints>
             <children>
+                     <Label fx:id="index" prefHeight="20.0" prefWidth="20.0" styleClass="cell_index_label" text="\$index">
+               <font>
+                  <Font size="6.0" />
+               </font>
+            </Label>
                 <VBox alignment="CENTER_LEFT" GridPane.columnIndex="0" VBox.vgrow="ALWAYS">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
@@ -35,11 +40,6 @@
                             <children>
                                 <HBox>
                                    <children>
-                                       <Label fx:id="index" prefHeight="20.0" prefWidth="20.0" styleClass="cell_index_label" text="\$index">
-                                 <font>
-                                    <Font size="6.0" />
-                                 </font>
-                              </Label>
                                        <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true" />
                                    </children>
                                 </HBox>

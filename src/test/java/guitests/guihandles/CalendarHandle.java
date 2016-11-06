@@ -22,9 +22,15 @@ import seedu.task.testutil.TestUtil;
 import seedu.task.ui.CalendarHelper;
 
 //@@author A0144702N
+/**
+ * Handler for CalendarTest
+ * @author xuchen
+ */
 public class CalendarHandle extends GuiHandle {
 	
 	private static final String PANE_ID = "#calendar";
+	private static final String SLIDER_DAT_AFTER_OPTION = "#daysAfterSlider";
+	private static final double SLIDER_DEFAULT_VALUE = 3.0;
 	private final CalendarHelper calHelper;
 
 	public CalendarHandle(GuiRobot guiRobot, Stage primaryStage) {
@@ -52,14 +58,23 @@ public class CalendarHandle extends GuiHandle {
 	private boolean isCalendarTaskMatching(int startPosition, ReadOnlyTask[] tasks) {
 		if(tasks.length + startPosition != getAppoinmentsTask().size()) {
 			throw new IllegalArgumentException("Calendar size mismatched\n" + "Expected" 
-		+ (getAppoinmentsTask().size()-1) + "events\n" + "But was : " + tasks.length);
+					+ (getAppoinmentsTask().size()-1) + "events\n" 
+					+ "But was : " + tasks.length);
 		}
 		
 		return (this.containsAllTask(startPosition, tasks));
 	}
-
 	
-
+	private boolean isCalendarEventMatching(int startPosition, ReadOnlyEvent[] events) {
+		if(events.length + startPosition != getAppoinmentsEvent().size()) {
+			throw new IllegalArgumentException("Calendar size mismatched\n" + "Expected" 
+					+ (getAppoinmentsEvent().size()-1) + "events\n" 
+					+ "But was : " + events.length);
+		}
+		
+		return (this.containsAll(startPosition, events));
+	}
+	
 	private List<Appointment> getAppoinmentsTask() {
 		Agenda agenda = getAgenda();
 		return agenda.appointments().stream()
@@ -75,14 +90,6 @@ public class CalendarHandle extends GuiHandle {
 		.collect(Collectors.toList());
 	}
 
-	private boolean isCalendarEventMatching(int startPosition, ReadOnlyEvent[] events) {
-		if(events.length + startPosition != getAppoinmentsEvent().size()) {
-			throw new IllegalArgumentException("Calendar size mismatched\n" + "Expected" 
-		+ (getAppoinmentsEvent().size()-1) + "events\n" + "But was : " + events.length);
-		}
-		
-		return (this.containsAll(startPosition, events));
-	}
 
 	private boolean containsAll(int startPosition, ReadOnlyEvent[] events) {
 		List<Appointment> eventsInCal = getAppoinments();
@@ -118,14 +125,14 @@ public class CalendarHandle extends GuiHandle {
 	}
 
 	private boolean isSameTask(Appointment appointment, ReadOnlyTask task) {
-		return appointment.getSummary().equals(task.getTask().fullName)
+		return appointment.getSummary().equals(task.getTask().getNameValue())
 				&& appointment.getStartLocalDateTime().format(StringUtil.DATE_FORMATTER)
 				.equals(task.getDeadline().get().getTime().format(StringUtil.DATE_FORMATTER))
 				&& appointment.getDescription().equals(task.getDescriptionValue());
 	}
 
 	public boolean isSameEvent(Appointment appointment, ReadOnlyEvent event) {
-		return appointment.getSummary().equals(event.getEvent().fullName)
+		return appointment.getSummary().equals(event.getEvent().getNameValue())
 				&& appointment.getDescription().equals(event.getDescriptionValue())
 				&& appointment.getStartLocalDateTime().format(StringUtil.DATE_FORMATTER)
 				.equals(event.getDuration().getStartTime().format(StringUtil.DATE_FORMATTER))
@@ -134,6 +141,11 @@ public class CalendarHandle extends GuiHandle {
 		
 	}
 
+	/**
+	 * Generate a stub agenda in day view
+	 * @return
+	 * @throws Exception
+	 */
 	public Agenda getAgendaOfDay() throws Exception {
 		TestUtil.initRuntime();
 		Agenda agenda = new Agenda();
@@ -143,17 +155,28 @@ public class CalendarHandle extends GuiHandle {
 		return agenda;
 	}
 	
+	/**
+	 * Generate a stub agenda in week view
+	 * @return
+	 * @throws Exception
+	 */
 	public Agenda getAgendaOfWeek() throws Exception {
 		TestUtil.initRuntime();
 		Agenda agenda = new Agenda();
 		agenda.setSkin(new AgendaDaysFromDisplayedSkin(agenda));
-		Slider slider = (Slider)agenda.lookup("#daysAfterSlider");
-		slider.setValue(3.0);
+		Slider slider = (Slider)agenda.lookup(SLIDER_DAT_AFTER_OPTION);
+		slider.setValue(SLIDER_DEFAULT_VALUE);
 		TestUtil.tearDownRuntime();
 		
 		return agenda;
 	}
-
+	
+	/**
+	 * Generate a stub agenda of specific time.
+	 * @param time
+	 * @return
+	 * @throws Exception
+	 */
 	public Agenda getAgendaOfDateTime(LocalDateTime time) throws Exception {
 		TestUtil.initRuntime();
 		Agenda agenda = new Agenda();
@@ -162,6 +185,4 @@ public class CalendarHandle extends GuiHandle {
 		
 		return agenda;
 	}
-
-	
 }

@@ -5,6 +5,7 @@ import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.task.logic.commands.Command;
@@ -34,6 +35,41 @@ public class FindCommandTest extends CommandTest {
 	 * 	4. no match
 	 */
 	
+	/** Private fields for testing **/
+	private TaskBook expectedTB;
+	private TestDataHelper helper;
+	private Task tTarget1;
+	private Task tTarget2;
+	private Task t1;
+	private Task t2;
+	
+	private Event eTarget1;
+	private Event eTarget2;
+	private Event e1;
+	private Event e2;
+	private List<Task> fourTasks;
+	private List<Event> fourEvents;
+	
+	
+	@Before
+	public void setupHelper() throws Exception {
+		helper = new TestDataHelper();
+		
+		tTarget1 = helper.generateTaskWithName("TargetA");
+        tTarget2 = helper.generateTaskWithDescription("TargetB");
+        t1 = helper.generateTaskWithName("TaskAAA");
+        t2 = helper.generateTaskWithDescription("TaskBBB");
+        
+        eTarget1 = helper.generateEventWithName("TargetA");
+        eTarget2 = helper.generateEventWithDescription("TargetB");
+        e1 = helper.generateEventWithName("EventAAA");
+        e2 = helper.generateEventWithDescription("EventBBB");
+        
+        fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
+        fourEvents = helper.generateEventList(e1, eTarget1,e2, eTarget2);
+        expectedTB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
+	}
+	
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -43,32 +79,10 @@ public class FindCommandTest extends CommandTest {
 
     @Test
     public void execute_findWithPower_matchesSimiliarWordsInNamesOrDescription() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        
-        //prepare Tasks
-        Task tTarget1 = helper.generateTaskWithName("TargetA");
-        Task tTarget2 = helper.generateTaskWithDescription("TargetB");
-        
-        Task t1 = helper.generateTaskWithName("NotaTarget");
-        Task t2 = helper.generateTaskWithDescription("NotATarget");
-
-        //prepare Events
-        Event eTarget1 = helper.generateEventWithName("TargetA");
-        Event eTarget2 = helper.generateEventWithDescription("TargetB");
-
-        Event e1 = helper.generateEventWithName("EventAAA");
-        Event e2 = helper.generateEventWithDescription("EventBBB");
-        
-        
-        List<Task> fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
-        List<Event> fourEvents = helper.generateEventList(e1, eTarget1, e2, eTarget2);
-        
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
-        
         List<Task> expectedTaskList = helper.generateTaskList(tTarget1, tTarget2);
         List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2);
         
-        helper.addTaskToModel(model,fourTasks);
+        helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
         
         expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
@@ -77,34 +91,13 @@ public class FindCommandTest extends CommandTest {
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size()) 
                 + "\n"
                 + Command.getMessageForEventListShownSummary(expectedEventList.size()),
-                expectedAB,
+                expectedTB,
                 expectedTaskList, expectedEventList);
     }
 
     
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        //Tasks
-        Task t1 = helper.generateTaskWithName("I am not a target lah");
-        Task tTarget1 = helper.generateTaskWithName("I AM A TARGET");
-        
-        Task t2 = helper.generateTaskWithDescription("I am not a target");
-        Task tTarget2 = helper.generateTaskWithDescription("I am a target as well");
-        
-        //Events
-        Event e1 = helper.generateEventWithName("I AM NOT A TARGET");
-        Event eTarget1 = helper.generateEventWithName("I AM A TARGET");
-        
-        Event e2 = helper.generateEventWithDescription("I am NOT a target");
-        Event eTarget2 = helper.generateEventWithDescription("I am a target");
-        
-        
-        List<Task> fourTasks = helper.generateTaskList(t1, tTarget1, t2, tTarget2);
-        List<Event> fourEvents = helper.generateEventList(e1, eTarget1,e2, eTarget2);
-        
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
-        
+    public void execute_find_isNotCaseSensitive() throws Exception { 
         List<Task> expectedTaskList = helper.generateTaskList(tTarget1, tTarget2);
         List<Event> expectedEventList = helper.generateEventList(eTarget1, eTarget2);
         
@@ -113,46 +106,28 @@ public class FindCommandTest extends CommandTest {
         
         helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
-
-        assertTaskAndEventCommandBehavior("find I am a target",
+        
+        assertTaskAndEventCommandBehavior("find taRgEt ",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size())
                 +"\n"
                 + Command.getMessageForEventListShownSummary(expectedEventList.size()),
-                expectedAB,
+                expectedTB,
                 expectedTaskList, expectedEventList);
     }
     
     @Test
     public void execute_find_noMatch() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        //Tasks
-        Task t1 = helper.generateTaskWithName("I am not a target lah");
-        Task t2 = helper.generateTaskWithDescription("I am not a target");
-        
-        //Events
-        Event e1 = helper.generateEventWithName("I AM NOT A TARGET");
-        Event e2 = helper.generateEventWithDescription("I am NOT a target");
-        
-        
-        List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        List<Event> twoEvents = helper.generateEventList(e1, e2);
-        
-        TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(twoTasks, twoEvents);
-        
         List<Task> expectedTaskList = helper.generateTaskList();
         List<Event> expectedEventList = helper.generateEventList();
-        
-        helper.addTaskToModel(model, twoTasks);
-        helper.addEventToModel(model, twoEvents);
 
-        assertTaskAndEventCommandBehavior("find I am a target X",
+        helper.addTaskToModel(model, fourTasks);
+        helper.addEventToModel(model, fourEvents);
+        
+        assertTaskAndEventCommandBehavior("find 404NotFound /power",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size())
                 +"\n"
                 + Command.getMessageForEventListShownSummary(expectedEventList.size()),
-                expectedAB,
+                expectedTB,
                 expectedTaskList, expectedEventList);
     }
-    
-    
-
 }

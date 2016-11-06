@@ -1,14 +1,20 @@
 package seedu.task.logic.commands;
 
+import java.util.logging.Logger;
+
+import seedu.task.logic.parser.ListParser.ListTarget;
+import seedu.taskcommons.core.Status;
+import seedu.taskcommons.core.LogsCenter;
+
 //@@author A0144702N
 /**
- * Abstract class to represent generic list operations.  
+ * Represent  list operations.  
  * @author xuchen
  */
 
-public abstract class ListCommand extends Command {
+public class ListCommand extends Command {
+	private final Logger logger = LogsCenter.getLogger(ListCommand.class);
 	public static final String COMMAND_WORD = "list";
-	
 	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n" 
 			+ COMMAND_WORD + " /t "
 			+ "Shows a list of tasks that are not marked done\n"
@@ -19,24 +25,52 @@ public abstract class ListCommand extends Command {
 			+ "Shows a list of events that are not completed yet.\n "
 			+ "Optional flag: [/a] to request show all events" 
 			+ "Parameters: LIST_TYPE + [OPTIONAL FLAG]\n" 
-			+ "Example: "+ COMMAND_WORD + " /e /a";
-
+			+ "Example: "+ COMMAND_WORD + " /e /a"
+			+ COMMAND_WORD + " [/e /t]"
+			+ "Shows both lists of upcoming tasks and events"				+ "Optional flag: [/a] to request shows all completed ones "
+			+ "Parameters:[OPTIONAL FLAG]\n" 
+			+ "Example: "+ COMMAND_WORD + "/a";
+	public static final String MESSAGE_SUCCESS_FORMAT = "dowat is showing %1$s %2$s";
 	
+	/** which panel to list **/
+	private ListTarget listTarget;
+	/** fields to indicate items of which state should be displayed **/
+	private Status status;
 	
-	/** fields to indicate if all items should be displayed **/
-	protected boolean showAll;
+	public ListCommand(ListTarget targetPanel, Status filter) {
+		this.listTarget = targetPanel;
+		this.status = filter;
+	}
 	
 	/**
 	 * Executes the command and returns the result message.
 	 * @return feedback message of the operation result for display
 	 */
-	public abstract CommandResult execute();
+	public CommandResult execute() {
+		logger.info("-------[Executing ListCommands]"+ this.toString() );
+		
+		switch (listTarget) {
+		case EVENT:
+			model.updateFilteredEventListToShowWithStatus(status);
+			break;
+		case TASK:
+			model.updateFilteredTaskListToShowWithStatus(status);
+			break;
+		case BOTH:
+			model.updateFilteredTaskListToShowWithStatus(status);
+			model.updateFilteredEventListToShowWithStatus(status);
+			break;
+		default:
+			return new CommandResult(MESSAGE_USAGE);
+		}
+		
+		return new CommandResult(this.toString());
+	}
 	
-	/**
-	 * Determine if the list operations should show all items. 
-	 * @return if all items should be shown
-	 */
-	protected boolean shouldShowAll() {
-		return this.showAll;
+	@Override
+	public String toString() {
+		return String.format(MESSAGE_SUCCESS_FORMAT,
+						this.status, 
+						listTarget.toString());
 	}
 }

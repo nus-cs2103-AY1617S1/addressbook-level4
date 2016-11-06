@@ -33,6 +33,10 @@ public class Name implements Comparable<Name> {
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);
     }
+    
+    public String getNameValue() {
+    	return fullName;
+    }
 
     @Override
     public String toString() {
