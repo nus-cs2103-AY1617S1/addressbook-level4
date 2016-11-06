@@ -23,6 +23,7 @@ import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.model.SavvyTasker;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -32,6 +33,27 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
+    
+    private final String UNDO_COMMAND = "undo";
+    private final String REDO_COMMAND = "redo";
+    private final String HELP_COMMAND = "help";
+    private final String EXIT_COMMAND = "exit";
+    private final String LIST_COMMAND = "list";
+    private final String LIST_ARCHIVED_COMMAND = "list archived";
+    private final String LIST_PRIORITY_COMMAND = "list priorityLevel";
+    private final String LIST_ALIAS_COMMAND = "list alias";
+    private final String CLEAR_COMMAND = "clear";
+    
+	KeyCombination saveKey = new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN);
+	KeyCombination undoKey = new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN);
+	KeyCombination redoKey = new KeyCodeCombination(KeyCode.Y, KeyCombination.META_DOWN);
+	KeyCombination helpKey = new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN);
+	KeyCombination exitKey = new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN);
+	KeyCombination listKey = new KeyCodeCombination(KeyCode.L, KeyCombination.META_DOWN);
+	KeyCombination listArchivedKey = new KeyCodeCombination(KeyCode.A, KeyCombination.META_DOWN);
+	KeyCombination listPriorityKey = new KeyCodeCombination(KeyCode.P, KeyCombination.META_DOWN);
+	KeyCombination listAliasKey = new KeyCodeCombination(KeyCode.I, KeyCombination.META_DOWN);
+	KeyCombination clearKey = new KeyCodeCombination(KeyCode.D, KeyCombination.META_DOWN);
     
     // stack to store commands history
  	private static Stack<String> COMMAND_HISTORY_STACK = new Stack<String>();
@@ -139,15 +161,6 @@ public class CommandBox extends UiPart {
 		
 		String userInput = commandTextField.getText().trim();
 		
-		KeyCombination saveKey = new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN);
-		KeyCombination undoKey = new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN);
-		KeyCombination redoKey = new KeyCodeCombination(KeyCode.Y, KeyCombination.META_DOWN);
-		KeyCombination helpKey = new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN);
-		KeyCombination exitKey = new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN);
-		KeyCombination listKey = new KeyCodeCombination(KeyCode.L, KeyCombination.META_DOWN);
-		KeyCombination listArchivedKey = new KeyCodeCombination(KeyCode.A, KeyCombination.META_DOWN);
-		KeyCombination clearKey = new KeyCodeCombination(KeyCode.D, KeyCombination.META_DOWN);
-		
 		try {
 
 			KeyCode keyCode = keyEvent.getCode();
@@ -171,31 +184,39 @@ public class CommandBox extends UiPart {
 				
 			} else if (undoKey.match(keyEvent)) {
 					
-				executeCommand("undo");
+				executeCommand(UNDO_COMMAND);
 					
 			} else if (redoKey.match(keyEvent)) {
 				
-				executeCommand("redo");
+				executeCommand(REDO_COMMAND);
 				
 			} else if (helpKey.match(keyEvent)) {
 				
-				executeCommand("help");
+				executeCommand(HELP_COMMAND);
 				
 			} else if (exitKey.match(keyEvent)) {
 				
-				executeCommand("exit");
+				executeCommand(EXIT_COMMAND);
 				
 			} else if (listKey.match(keyEvent)) {
 				
-				executeCommand("list");
+				executeCommand(LIST_COMMAND);
 				
 			} else if (listArchivedKey.match(keyEvent)) {
 				
-				executeCommand("list t/Archived");
+				executeCommand(LIST_ARCHIVED_COMMAND);
+				
+			} else if (listPriorityKey.match(keyEvent)) {
+				
+				executeCommand(LIST_PRIORITY_COMMAND);
+				
+			} else if (listAliasKey.match(keyEvent)) {
+				
+				executeCommand(LIST_ALIAS_COMMAND);
 				
 			} else if (clearKey.match(keyEvent)) {
 				
-				executeCommand("clear");
+				executeCommand(CLEAR_COMMAND);
 				
 			}
 			

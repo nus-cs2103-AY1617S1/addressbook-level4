@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -44,13 +46,14 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-	private static final String ICON = "/images/address_book_32.png";
+	private static final String ICON = "/images/savvytasker-icon.png";
+	private static final Image image = new Image(MainWindow.class.getResourceAsStream(ICON));
 	private static final String FXML = "MainWindow.fxml";
 	public static final int MIN_HEIGHT = 700;
 	public static final int MIN_WIDTH = 1150;
 
 	private Logic logic;
-	Date date = new Date();
+	Date firstDayOfSelectedWeek = new Date();
 	private static int DAYS_OF_WEEK = 7;	
 
 	// Independent Ui parts residing in this Ui container
@@ -84,7 +87,7 @@ public class MainWindow extends UiPart {
 	private AnchorPane commandBoxPlaceholder;
 
 	@FXML
-	private MenuItem helpMenuItem;
+	private ImageView imageIcon;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -168,7 +171,7 @@ public class MainWindow extends UiPart {
 	}
 
 	void fillInnerParts() {
-		//browserPanel = BrowserPanel.load(browserPlaceholder);
+
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
         setDefaultView();
@@ -180,13 +183,13 @@ public class MainWindow extends UiPart {
 		floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
 		overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
 		loadDailyPanel();
-		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(date));
+		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(firstDayOfSelectedWeek));
 	}
 
 	private void loadDailyPanel() {
         for (int i = 0; i < DAYS_OF_WEEK; i++) {
             Date onDate = new Date();
-            onDate.setTime(date.getTime());
+            onDate.setTime(firstDayOfSelectedWeek.getTime());
             onDate = addDay(i, onDate);
             dailyPanel = DailyPanel.load(primaryStage, getDailyPanelPlaceholder(i),
                     logic.getFilteredDailyTasks(i, onDate), i, onDate);
