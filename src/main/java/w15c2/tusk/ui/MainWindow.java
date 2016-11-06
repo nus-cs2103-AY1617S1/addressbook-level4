@@ -199,7 +199,10 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
     
-    //Choose appropriate CSS to enable depending on list shown
+    /**
+     * Changes filter label to highlight the correct label
+     * @param commandType   COMMANDTYPE enum of command parsed 
+     */
     public void handleFilterLabelChange(COMMANDTYPE commandType) {
         if (commandType == COMMANDTYPE.List) {
             setListLabelActive();
@@ -245,7 +248,7 @@ public class MainWindow extends UiPart {
         aliasWindow.show();
     }
     
-    public void TaskListPanelScroll(int targetIndex) {
+    public void taskListPanelScroll(int targetIndex) {
         taskListPanel.scrollTo(targetIndex);
     }
     //@@author
