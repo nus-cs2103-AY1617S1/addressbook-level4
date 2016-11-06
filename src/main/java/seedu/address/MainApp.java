@@ -54,7 +54,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage);
 
         logic = new LogicManager(model, storage);
 
@@ -68,7 +68,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage) {
         Optional<ReadOnlyToDo> addressBookOptional;
         ReadOnlyToDo initialData;
         try {
@@ -85,7 +85,7 @@ public class MainApp extends Application {
             initialData = new ToDo();
         }
 
-        return new ModelManager(initialData, userPrefs, storage);
+        return new ModelManager(initialData, storage);
     }
 
     private void initLogging(Config config) {
