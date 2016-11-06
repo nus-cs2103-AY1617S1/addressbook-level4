@@ -57,6 +57,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: Git
 * Features implemented:
 	* Edit tasks’ description, date & time and tags
+	* Motivateme Command
 * Code written: 
 [[functional code]
 (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139196U.md)]

@@ -43,8 +43,8 @@
 Format: `help`
 
 
-> Help document will pop up and you can look for the necessary information regarding each command
-> Assistance also be provided if you enter an incorrect command e.g. `abcd`
+> * Help document will pop up and you can look for the necessary information regarding each command
+> * Assistance also be provided if you enter an incorrect command e.g. `abcd`
  
 <br>
 [](@@author A0139749L)
@@ -92,8 +92,8 @@ Shows a list of all tasks in the Emeraldo according to a stated category or by t
 Format: `listall CATEGORIES` or `listall TAG`
 
 
-> Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
-> Tags can be anything the user has input when adding a task.
+> * Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
+> * Tags can be anything the user has input when adding a task.
 
 
 Examples (categories):
@@ -122,8 +122,8 @@ Shows a list of all uncompleted tasks in the Emeraldo according to a stated cate
 Format: `list CATEGORIES` or `list TAG`
 
 
-> Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
-> Tags can be anything the user has input when adding a task.
+> * Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
+> * Tags can be anything the user has input when adding a task.
 
 
 Examples (categories):
@@ -184,8 +184,8 @@ Edits the specified task from Emeraldo.<br>
 Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME]`
 
 
-> Task will be edited given the new parameter(s), and updated instantly.<br>
-> Requires at least 1 type of parameter to be passed in.
+> * Task will be edited given the new parameter(s), and updated instantly.<br>
+> * Requires at least 1 type of parameter to be passed in.
 
 
 Examples:
@@ -204,10 +204,10 @@ Edits the specified task’s tag in Emeraldo.<br>
 Format: `tag add/delete/clear INDEX [#TAGS]`
 
 
-> Task’s tags will be edited given the new parameter, and updated instantly.<br>
-> Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.<br>
-> For add/delete, requires one parameter to be passed in as tag.<br>
-> For clear, parameter to be passed in is not required.
+> * Task’s tags will be edited given the new parameter, and updated instantly.<br>
+> * Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.<br>
+> * For add/delete, requires one parameter to be passed in as tag.<br>
+> * For clear, parameter to be passed in is not required.
 
 
 Examples:
@@ -229,7 +229,7 @@ Deletes the specified task from Emeraldo.<br>
 Format: `delete INDEX`
 
 
-> Task will be removed from the list.
+> * Task will be removed from the list.
 
 
 Examples: 
@@ -248,7 +248,7 @@ Undo the previous action. <br>
 Format: `undo`
 
 
-> Emeraldo will revert the last action done.
+> * Emeraldo will revert the last action done.
 
 
 Examples: 
@@ -267,7 +267,7 @@ Marks a task as completed.<br>
 Format: `completed INDEX`
 
 
-> Emeraldo will mark task as completed and the date of completion will be shown instead of the due date set earlier
+> * Emeraldo will mark task as completed and the date of completion will be shown instead of the due date set earlier
 
 
 <br>
@@ -284,7 +284,7 @@ Changes the save location of the emeraldo.xml file. <br>
 Format: `saveto FILEPATH`
 
 
-> Emeraldo change the save location according to FILEPATH.
+> * Emeraldo change the save location according to FILEPATH.
 
 
 Examples:
@@ -311,9 +311,9 @@ Emeraldo data are saved in the hard disk automatically after any command that ch
 There is no need to save manually.
 
 
-> The file name must end in `.xml` for it to be acceptable to the program.
+> * The file name must end in `.xml` for it to be acceptable to the program.
 >
-> When running the program inside Eclipse, you can set command line parameters before running the program.
+> * When running the program inside Eclipse, you can set command line parameters before running the program.
 
 
 <br>
