@@ -23,10 +23,10 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
    
 2. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for Jimi.
-4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+4. Double-click the file to start the app. The window should appear in a few seconds. 
 > <img src="images/WelcomeScreenUi.png" width="800">
 
-5. Type the command in the command box below and press <kbd>Enter</kbd> to execute it. <br>
+5. Type any command in the command box below and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open this user guide in another window.
 6. Some example commands you can try: 
    * **`add`**` "do laundry" `**`due`**` tomorrow` : 
@@ -219,7 +219,8 @@ Examples:
 Marks an existing task as complete. <br>
 Format: `complete TASK_INDEX`
 
-> * Jimi will mark the task as completed at the specified `TASK_INDEX`. 
+> * Jimi will mark the task as completed at the specified `TASK_INDEX`.
+> * Jimi will then move the completed task to a completed task list.
 > * If you want to revert the task back as incomplete, use the [`undo`](#undo) command.
 
 Example:
@@ -321,7 +322,7 @@ Examples:
 #### <a id="undo"></a>Undoing previous action: `undo`
 Undoes the previous action done in Jimi. <br>
 Format: `undo` <br>
-Only actions that make changes to the data of Jimi are undo-able. i.e. [`add`](#add), [`delete`](#del), [`edit`](#edit), [`clear`](#clear), [`complete`](#com)
+Only actions that make changes to the data of Jimi are undo-able. i.e. [`add`](#add), [`delete`](#del), [`edit`](#edit), [`clear`](#clear), [`complete`](#com) You can only undo actions done in the current session, if you exit from Jimi you cannot undo any actions done in the previous session when a new session is started.
 
 <br><br>
 
@@ -397,7 +398,7 @@ Format: `clear`
 Exits the program.<br>
 Format: `exit`  
 
-> Before exiting the program, ensure you have no unwanted actions that need to be reverted. You can only undo actions done in the current session.
+> Before exiting the program, ensure you have no unwanted actions that need to be reverted.
 
 <br><br>
 
