@@ -234,7 +234,8 @@ public class UpdateController extends Controller {
         // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
 
-        if (name == null && dateFrom == null && dateTo == null && !naturalFrom.equals(STRING_NULL)) {
+        if (name == null && dateFrom == null && dateTo == null
+                && (naturalFrom == null || !naturalFrom.equals(STRING_NULL))) {
             return false;
         }
 
