@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import seedu.todo.commons.exceptions.AmbiguousEventTypeException;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
@@ -56,7 +57,14 @@ public class ClearController extends Controller {
                 Tokenizer.tokenize(CalendarItemFilter.getFilterTokenDefinitions(), input);
         
         // Decide if task/event/both
-        boolean[] isTaskEvent = CalendarItemFilter.parseIsTaskEvent(parsedResult);
+        boolean[] isTaskEvent = null;
+        try {
+            isTaskEvent = CalendarItemFilter.parseIsTaskEvent(parsedResult);
+        } catch (AmbiguousEventTypeException e) {
+            renderDisambiguation(parsedResult, true, true);
+            return;
+        }
+        
         boolean filterTask = isTaskEvent[0];
         boolean filterEvent = isTaskEvent[1];
         
