@@ -161,10 +161,8 @@ public class LogicManagerTest {
 	private void assertUndoAndRedoCommandBehavior(ReadOnlyTaskManager expectedTaskManager, List<? extends ReadOnlyTask> expectedShownList) throws ParseException{
 		logic.execute("undo");
 		logic.execute("redo");
-		
 		// Confirm the ui display elements should contain the right data
 		assertEquals(expectedShownList, model.getFilteredTaskList());
-
 		// Confirm the state of data (saved and in-memory) is as expected
 		assertEquals(expectedTaskManager, model.getTaskManager());
 		assertEquals(expectedTaskManager, latestSavedTaskManager);
@@ -253,6 +251,19 @@ public class LogicManagerTest {
 		Task toBeAdded = helper.homework();
 
 		addTaskToManagerHelper(toBeAdded, expectedManager);
+		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
+	}
+	
+	@Test
+	public void execute_redo_delete_successful() throws Exception {
+		TaskManager expectedManager = new TaskManager();
+		Task toBeAdded = helper.homework();
+		
+		//Add task to manager
+		addTaskToManagerHelper(toBeAdded, expectedManager);
+
+		logic.execute(helper.generateDeleteCommand(0));
+		
 		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
 	}
 
