@@ -3,15 +3,17 @@ import java.util.NoSuchElementException;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 
-/**
- * Redo an undo action.
- * @@author A0139714B
+/*
+ * Redo the most recent command that has been undo-ed
+ * 
  */
+
+//@@author A0139714B
 public class RedoCommand extends Command {
 	
 	public static final String COMMAND_WORD = "redo";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": redo the most recent undo command. \n "
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo the most recent undo command. \n "
 			+ "Example: " + COMMAND_WORD;
 
 	public static final String MESSAGE_SUCCESS = "Redo success!";

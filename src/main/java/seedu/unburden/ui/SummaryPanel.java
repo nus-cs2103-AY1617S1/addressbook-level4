@@ -34,8 +34,9 @@ import seedu.unburden.model.ModelManager;
 /**
  * The Summary panel
  * which will show the number of different types of tasks
- * @@author A0147986H
+ * 
  */
+//@@author A0147986H
 public class SummaryPanel extends UiPart{
 
     private static final String FXML = "SummaryPanel.fxml";
@@ -96,7 +97,7 @@ public class SummaryPanel extends UiPart{
        
     }
              
-  //@@author A0143095H
+    //@@author A0143095H
     @Subscribe
     private void modelChangedEvent(ListOfTaskChangedEvent change) {
     	

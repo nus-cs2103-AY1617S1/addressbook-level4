@@ -11,8 +11,12 @@ import seedu.unburden.commons.util.FileUtil;
 import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.Task;
-//@@Gary Goh A0139714B
-public class SetDirectoryCommand extends Command{
+
+/*
+ * changes the save directory of the task list to the user-specified directory
+ */
+//@@author A0139714B
+public class SetDirectoryCommand extends Command {
 	
 	public static final String COMMAND_WORD = "setdir";
 

@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.model.task.ReadOnlyTask;
 
-//@@Gauri Joshi A0143095H
+//@@author A0143095H
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";

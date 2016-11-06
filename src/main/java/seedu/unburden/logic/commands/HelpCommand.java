@@ -4,10 +4,9 @@ import seedu.unburden.commons.events.ui.ShowHelpRequestEvent;
 
 /**
  * Format full help instructions for every command for display.
- * 
- * @@author A0139678J
  */
-// @@Nathanael Chan A0139678J
+
+//@@author A0139678J
 public class HelpCommand extends Command {
 
 	public static final String COMMAND_WORD = "help";
@@ -16,6 +15,7 @@ public class HelpCommand extends Command {
 			+ COMMAND_WORD;
 
 	public static final String HELP_MESSAGE_ADD = "To add a task, type: \n" + "add \"your own task name\" \n"
+			+ "i/ \"your task description (optional)\" \n"
 			+ "d/ \"your deadline (optional)\" \n" + "s/ \"your start time (optional)\" \n"
 			+ "e/ \"your end time (optional)\" \n" + "t/ \"your tags (optional)\" \n";
 

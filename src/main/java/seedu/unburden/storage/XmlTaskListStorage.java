@@ -28,11 +28,11 @@ public class XmlTaskListStorage implements TaskListStorage {
         return filePath;
     }
     
-    //@@Gary Goh A0139714B
+    //@@author A0139714B
     public void setTaskListFilePath(String newFilePath) {
     	this.filePath = newFilePath;
     }
-    //@@Gary Goh
+    //@@author
 
     /**
      * Similar to {@link #readAddressBook()}

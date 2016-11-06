@@ -8,6 +8,8 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Clears the address book.
  */
+
+//@@author A0139678J
 public class ClearCommand extends Command {
 
 	public static final String COMMAND_WORD = "clear";

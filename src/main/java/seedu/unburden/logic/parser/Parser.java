@@ -12,6 +12,7 @@ import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
 
+
 /**
  * Parses user input.
  */
@@ -29,7 +30,9 @@ public class Parser {
 	// @@author A0143095H
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern
 			.compile("(?<dates>([0-9]{2})[-]([0-9]{2})[-]([0-9]{4}))");
-
+	
+	
+	//@@author A0139678J
 	// Event
 	private static final Pattern ADD_FORMAT_0 = Pattern.compile(
 			"(?<name>[^/]+)" + "i/(?<taskDescriptions>[^/]+)" + "d/(?<date>[^/]+)" + "s/(?<startTimeArguments>[^/]+)"
@@ -61,7 +64,9 @@ public class Parser {
 
 	// Floating task without task description
 	private static final Pattern ADD_FORMAT_7 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
-
+	
+	
+	//@@author A0139714B
 	private static final Pattern EDIT_FORMAT = Pattern
 			.compile("(?<index>[^/]+)(?!$)" + "((?<name>[^/]+))?" + "(i/(?<taskDescriptions>[^/]+))?"
 					+ "(d/(?<date>[^/]+))?" + "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
@@ -70,6 +75,7 @@ public class Parser {
 
 	private static final Pattern SET_DIR_FORMAT_RESET = Pattern.compile(SetDirectoryCommand.COMMAND_RESET);
 
+	//@@author A0139678J
 	private static final String BYTODAY = "by today";
 
 	private static final String BYTOMORROW = "by tomorrow";
@@ -180,9 +186,10 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
-	 * 
-	 * @@author A0139678J
+	 *
 	 */
+	
+	//@@author A0139678J
 	private Command prepareAdd(String args) {
 		Calendar calendar = Calendar.getInstance();
 		ArrayList<String> details = new ArrayList<String>(); // Arraylist to
@@ -328,6 +335,7 @@ public class Parser {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
+	//@@author
 
 	/**
 	 * Extracts the new person's tags from the add command's tag arguments
@@ -359,7 +367,9 @@ public class Parser {
 
 		return new DeleteCommand(index.get());
 	}
-
+	
+	
+	//@@author A0139678J
 	private Command prepareList(String args) throws ParseException {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(calendar.getTime());
@@ -409,8 +419,8 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 * 
-	 * @@author A0139714B
 	 */
+	//@@author A0139714B
 	private Command prepareEdit(String args) {
 		String name, taskDescription, date, startTime, endTime;
 
@@ -468,8 +478,8 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 * 
-	 * @@author A0139714B
 	 */
+	//@@author A0139714B
 	private Command prepareSetDir(String args) {
 		final Matcher resetMatcher = SET_DIR_FORMAT_RESET.matcher(args.trim());
 		final Matcher pathMatcher = SET_DIR_FORMAT.matcher(args.trim());
@@ -492,7 +502,7 @@ public class Parser {
 	 * @return the prepared command
 	 */
 
-	// @@author generated
+	//@@author generated
 	private Command prepareSelect(String args) {
 
 		Optional<Integer> index = parseIndex(args);
@@ -508,6 +518,7 @@ public class Parser {
 	 * integer is given as the index. Returns an {@code Optional.empty()}
 	 * otherwise.
 	 */
+	//@@author generated
 	private Optional<Integer> parseIndex(String command) {
 		final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
 		if (!matcher.matches()) {
@@ -529,8 +540,8 @@ public class Parser {
 	 *            full command args string
 	 * @return the prepared command
 	 * 
-	 * @@author A0139678J
 	 */
+	//@@author A0139678J
 	private Command prepareFind(String args) {
 		final Matcher matcherName = KEYWORDS_NAME_FORMAT.matcher(args.trim());
 		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
@@ -569,10 +580,9 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return prepared doneCommand
-	 * 
-	 * @@author A0143095H
+	 *
 	 */
-	// @@Gauri Joshi A0143095H
+	//@@author A0143095H
 	private Command prepareDone(String args) {
 		args = args.trim();
 		if (args.toLowerCase().equals(ALL)) {
@@ -587,8 +597,6 @@ public class Parser {
 		}
 	}
 
-	// @@Nathanael Chan A0139678J
-
 	/**
 	 * Sets up undone command to be executed
 	 * 
@@ -596,8 +604,9 @@ public class Parser {
 	 *            full command args string
 	 * @return prepared undoneCommand
 	 * 
-	 * @@author A0143095H
+	 * 
 	 */
+	//@@author A0143095H
 	private Command prepareUnDone(String args) {
 		Optional<Integer> index = parseIndex(args);
 		if (!index.isPresent()) {
@@ -607,6 +616,7 @@ public class Parser {
 		return new UnDoneCommand(index.get());
 	}
 
+	//@@author A0139678J
 	private Command prepareHelp(String args) {
 		args = args.trim();
 
@@ -636,6 +646,7 @@ public class Parser {
 	 * To retrieve, concatenate and split the arguments to the respective
 	 * parameters
 	 */
+	//@@author A0139714B
 	private String[] getNewArgs(String[] tokens) {
 		String[] newArgs = new String[5];
 		for (int i = 0; i < 5; i++)

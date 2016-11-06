@@ -47,6 +47,9 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    /*
+     * raises an event to indicate that the storage path has been changed
+     */
     //@@author A0139714B
     protected void indicateStoragePathChange(String oldPath, String newPath) {
     	EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));

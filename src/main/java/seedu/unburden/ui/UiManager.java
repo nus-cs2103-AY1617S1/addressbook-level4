@@ -24,9 +24,9 @@ import java.util.logging.Logger;
 
 /**
  * The manager of the UI component. accept events to make changes of the UI components
- * @@author A0147986H
  */
 
+//@@author A0143095H
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/Unburden3_logo.JPG";
