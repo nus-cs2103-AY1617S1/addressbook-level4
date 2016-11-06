@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -89,9 +90,9 @@ public interface Model {
     
     ObservableList<Task> getTaskManagerDoneList();
 
-    void updateFilteredUndoneTaskListDatePred(Set<String> keywords);
+    void updateFilteredUndoneTaskListDatePred(String keyword) throws IllegalValueException;
 
-    void updateFilteredDoneTaskListDatePred(Set<String> keywords);
+    void updateFilteredDoneTaskListDatePred(String keyword) throws IllegalValueException;
 
 
 

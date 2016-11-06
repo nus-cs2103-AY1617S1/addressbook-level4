@@ -65,12 +65,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.priority = source.getPriorityValue();
     }
 
-    // @@author A0139498J
-    /**
-     * Validates given value.
-     *
-     * @throws IllegalValueException if given value is invalid.
-     */
     public Task(Name taskName, Date startDate, Date endDate, RecurrenceRate recurrenceRate, Priority priorityValue) {
         assert !CollectionUtil.isAnyNull(taskName);
         assert taskName != null;
@@ -138,6 +132,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         }
         if (getEndDate().isPresent()) {
             builder.append(", EndDate: ").append(getEndDate().get());
+        }
+        if (getRecurrenceRate().isPresent()) {
+            builder.append(", Repeats: ").append(getRecurrenceRate().get());
         }
         return builder.toString();
     }

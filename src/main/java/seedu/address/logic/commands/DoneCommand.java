@@ -29,12 +29,13 @@ public class DoneCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    //@author A0093960X
+    //@@author A0093960X
+
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_TASKS_SUCCESS = "Archived Tasks: %1$s";
     public static final String MESSAGE_FAILURE = "Failed to archive Task.";
 
-    //@author
+    //@@author
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
@@ -42,7 +43,6 @@ public class DoneCommand extends UndoableCommand {
     
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
-    
     //@@author A0139498J
     private final List<Integer> targetIndexes;
     private List<Task> targetTasks;
@@ -56,9 +56,6 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        prepareToArchiveTasks(); 
-
-        
         prepareToArchiveTasks();
         if (attemptToExecuteDoneOnDoneList()) {
             return generateCommandResultForDoneListRestriction();
@@ -131,7 +128,9 @@ public class DoneCommand extends UndoableCommand {
                 : new CommandResult(String.format(MESSAGE_DONE_TASKS_SUCCESS, toDisplay));
     }
 
-
+    /**
+     * Returns true if the done command is being executed on the done list.
+     */
     private boolean attemptToExecuteDoneOnDoneList() {
         return isViewingDoneList && !isRedoAction;
     }
@@ -145,6 +144,7 @@ public class DoneCommand extends UndoableCommand {
         assert targetIndexes != null;
         assert targetTasks != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+        
         for (int targetIndex : targetIndexes) {            
             boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
             if (isTaskTargetIndexOutOfBounds) {
