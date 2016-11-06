@@ -52,7 +52,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+    //@@author A0138601M
     @FXML
     public void initialize() {
         id.setText(displayedIndex + ". ");
@@ -62,6 +62,9 @@ public class TaskCard extends UiPart{
         formatRemarksField();
     }
     
+    /**
+     * Display the fields accordingly based on the type of task.
+     */
     private void formatIntervalField() {
         if (task.getInterval().isFloat()){
             intervalIcon.setVisible(false);
@@ -96,7 +99,8 @@ public class TaskCard extends UiPart{
         }
         remarks.setText(task.getRemarks().toString());
     }
-
+    
+    //@@author
     public HBox getLayout() {
         return cardPane;
     }

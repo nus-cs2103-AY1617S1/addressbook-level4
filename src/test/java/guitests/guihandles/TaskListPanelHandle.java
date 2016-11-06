@@ -44,6 +44,10 @@ public class TaskListPanelHandle extends GuiHandle {
         return taskList.getSelectionModel().getSelectedItems();
     }
     
+    //@@author A0138601M
+    /**
+     * Get the list view based on the type of task it is showing
+     */
     public ListView<ReadOnlyTask> getListView(Status.Type type) {
         switch (type) {
         
@@ -63,18 +67,21 @@ public class TaskListPanelHandle extends GuiHandle {
         }
     }
     
-    public ListView<ReadOnlyTask> getIncompleteListView() {
+    private ListView<ReadOnlyTask> getIncompleteListView() {
         return (ListView<ReadOnlyTask>) getNode(LIST_VIEW_ID_INCOMPLETE);
     }
     
-    public ListView<ReadOnlyTask> getCompleteListView() {
+    private ListView<ReadOnlyTask> getCompleteListView() {
         return (ListView<ReadOnlyTask>) getNode(LIST_VIEW_ID_COMPLETE);
     }
     
-    public ListView<ReadOnlyTask> getOverdueListView() {
+    private ListView<ReadOnlyTask> getOverdueListView() {
         return (ListView<ReadOnlyTask>) getNode(LIST_VIEW_ID_OVERDUE);
     }
     
+    /**
+     * Get the list tab based on the type of task it is showing
+     */
     public Node getListTab(Status.Type type) {
         switch (type) {
         
@@ -93,18 +100,19 @@ public class TaskListPanelHandle extends GuiHandle {
         }
     }
     
-    public Node getIncompleteListTab() {
+    private Node getIncompleteListTab() {
         return getNode(TAB_ID_INCOMPLETE);
     }
     
-    public Node getCompleteListTab() {
+    private Node getCompleteListTab() {
         return getNode(TAB_ID_COMPLETE);
     }
     
-    public Node getOverdueListTab() {
+    private Node getOverdueListTab() {
         return getNode(TAB_ID_OVERDUE);
     }
     
+    //@@author
     /**
      * Clicks on the ListView.
      */

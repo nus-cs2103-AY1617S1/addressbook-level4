@@ -56,6 +56,10 @@ public class TaskListPanel extends UiPart {
         return taskListPanel;
     }
     
+    /**
+     * Assign an id based on the type of task it is supposed to display
+     * @param type represents the status type of a task
+     */
     private void initializeTaskListID(Status.Type type) {
         
         switch (type) {
@@ -78,6 +82,7 @@ public class TaskListPanel extends UiPart {
         }
     }
 
+    //@@author
     private void configure(ObservableList<ReadOnlyTask> taskList, Status.Type type) {
         setConnections(taskList);
         initializeTaskListID(type);

@@ -79,7 +79,6 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    //@@author A0138601M
     /**
      * Marks the equivalent task(s) in the list.
      *
@@ -89,17 +88,16 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toMark != null;
         boolean taskFound = false;
         for (ReadOnlyTask task : toMark) {
-        	taskFound = (internalList.indexOf(task) != -1);
-        	if (!taskFound) {
+            taskFound = (internalList.indexOf(task) != -1);
+            if (!taskFound) {
                 throw new TaskNotFoundException();
             }
-        	Task taskMarked = new Task(task.getName(), task.getInterval(), task.getLocation(), task.getRemarks(), new Status(Status.Type.Complete));
-        	internalList.set(internalList.indexOf(task), taskMarked);
+            Task taskMarked = new Task(task.getName(), task.getInterval(), task.getLocation(), task.getRemarks(), new Status(Status.Type.Complete));
+            internalList.set(internalList.indexOf(task), taskMarked);
         }
         Collections.sort(internalList);
         return taskFound;
     }
-    //@@author
     
     //@@author A0146682X
     /**
@@ -116,7 +114,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFound;
     }
-
+    
+    //@@author
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

@@ -9,89 +9,89 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
+<!--@@author A0138601M -->
 <HBox id="cardPane" fx:id="cardPane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <GridPane HBox.hgrow="ALWAYS">
-         <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="150.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" valignment="TOP" />
-         </rowConstraints>
-         <children>
-                     <Label fx:id="id" alignment="TOP_CENTER" contentDisplay="RIGHT" styleClass="cell_big_label" text="id" />
+        <GridPane HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" prefWidth="150.0" />
+                <ColumnConstraints halignment="LEFT" hgrow="NEVER" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+             </columnConstraints>
+             <rowConstraints>
+                <RowConstraints minHeight="10.0" valignment="TOP" />
+             </rowConstraints>
+            <children>
+            <Label fx:id="id" alignment="TOP_CENTER" contentDisplay="RIGHT" styleClass="cell_big_label" text="id" />
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS">
-               <children>
-                  <ImageView fx:id="intervalIcon" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/clock_icon.png" />
-                     </image>
-                  </ImageView>
-                  <VBox alignment="CENTER_LEFT">
-                     <children>
-                              	<Label fx:id="startDate" styleClass="cell_small_label" text="\$start">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="endDate" styleClass="cell_small_label" text="\$end">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets left="-10.0" />
-                     </HBox.margin>
-                  </VBox>
-               </children>
+                <children>
+                    <ImageView fx:id="intervalIcon" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/clock_icon.png" />
+                        </image>
+                    </ImageView>
+                    <VBox alignment="CENTER_LEFT">
+                        <children>
+                            <Label fx:id="startDate" styleClass="cell_small_label" text="\$start">
+                                <padding>
+                                    <Insets left="5.0" />
+                                </padding>
+                            </Label>
+                            <Label fx:id="endDate" styleClass="cell_small_label" text="\$end">
+                                <padding>
+                                    <Insets left="5.0" />
+                                </padding>
+                            </Label>
+                        </children>
+                        <HBox.margin>
+                            <Insets left="-10.0" />
+                        </HBox.margin>
+                    </VBox>
+                </children>
             </HBox>
             <VBox GridPane.columnIndex="1">
-               <children>
-                           <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <ImageView fx:id="locationIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../images/location_icon.png" />
-                           </image>
-                        </ImageView>
-                        			<Label fx:id="locationParam" styleClass="cell_small_label" text="\$location">
-                           <padding>
-                              <Insets left="5.0" />
+                <children>
+                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                    <HBox alignment="CENTER_LEFT">
+                           <children>
+                            <ImageView fx:id="locationIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                <image>
+                                    <Image url="@../images/location_icon.png" />
+                                </image>
+                            </ImageView>
+                            <Label fx:id="locationParam" styleClass="cell_small_label" text="\$location">
+                                <padding>
+                                    <Insets left="5.0" />
+                                </padding>
+                            </Label>
+                        </children>
+                        <padding>
+                            <Insets top="10.0" />
+                        </padding>
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <children>
+                            <ImageView fx:id="remarksIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                <image>
+                                    <Image url="@../images/remarks_icon.png" />
+                                   </image>
+                            </ImageView>
+                            <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks">
+                                <padding>
+                                    <Insets left="5.0" />
+                                   </padding>
+                            </Label>
+                        </children>
+                        <padding>
+                            <Insets top="2.0" />
                            </padding>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT">
-                     <children>
-                        <ImageView fx:id="remarksIcon" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                           <image>
-                              <Image url="@../images/remarks_icon.png" />
-                           </image>
-                        </ImageView>
-                        			<Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets top="2.0" />
-                     </padding>
-                  </HBox>
-               </children>
+                      </HBox>
+                </children>
             </VBox>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="20.0" right="10.0" top="5.0" />
-         </padding>
-      </GridPane>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="20.0" right="10.0" top="5.0" />
+            </padding>
+        </GridPane>
     </children>
 </HBox>

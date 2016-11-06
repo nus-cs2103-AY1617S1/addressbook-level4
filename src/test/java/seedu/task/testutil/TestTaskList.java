@@ -66,9 +66,12 @@ public class TestTaskList {
     }
     
     public int getNumberOfTask() {
-    	return numberOfTask;
+        return numberOfTask;
     }
     
+    /**
+     * Empty all three list
+     */
     public void clear() {
         testCompleteTasks = new ArrayList<TestTask>();
         testIncompleteTasks = new ArrayList<TestTask>();
@@ -182,12 +185,12 @@ public class TestTaskList {
      * @param isFromIncompleteList Whether to edit from incomplete list or complete list
      */
     public void editTask(int index, TestTask newTask, boolean isFromIncompleteList) {
-    	if (isFromIncompleteList) {
-    		testIncompleteTasks.set(index-1, newTask);
-    	}
-    	else {
-    		testCompleteTasks.set(index-1, newTask);
-    	}
+        if (isFromIncompleteList) {
+            testIncompleteTasks.set(index-1, newTask);
+        }
+        else {
+            testCompleteTasks.set(index-1, newTask);
+        }
     }
     //@@author  
 }

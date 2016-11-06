@@ -86,13 +86,14 @@
     -fx-background-color: derive(#1d1d1d, 10%);
 }
 
+/*@@author A0138601M */
 .list-view {
-	-fx-background-color: #cccccc;
-	-fx-padding: 3;
+    -fx-background-color: #cccccc;
+    -fx-padding: 3;
 }
 
 .list-cell {
-	-fx-background-color: #eeeeee;
+    -fx-background-color: #eeeeee;
     -fx-background-radius: 10;
     -fx-border-width: 2px;
     -fx-border-color: #cccccc;
@@ -104,13 +105,14 @@
 }
 
 .list-cell:filled:selected:focused, .list-cell:filled:selected {
-	-fx-background-color: #dddddd;
+    -fx-background-color: #dddddd;
 }
 
 .list-cell .label {
     -fx-text-fill: #111111;
 }
 
+/*@@author */
 .cell_big_label {
     -fx-font-size: 18px;
     -fx-text-fill: #010504;
@@ -178,7 +180,6 @@
     -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-top-width: 1px;
     -fx-border-bottom-width: 1px;
-
 }
 
 .menu-bar .label {
@@ -288,21 +289,16 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {	
+/*@@author A0138601M */
+#cardPane {    
     -fx-background-color: transparent;
 }
 
-.titled-pane {
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 11pt;
-}
-
 .tab {
-	-fx-focus-color: transparent;
-	-fx-background-color: transparent;
-	-fx-opacity: 0.7;
-	-fx-padding: 20 20 5 60;
+    -fx-focus-color: transparent;
+    -fx-background-color: transparent;
+    -fx-opacity: 0.7;
+    -fx-padding: 20 20 5 60;
 }
 
 .tab .tab-label { 
@@ -313,7 +309,7 @@
 }
 
 .tab:selected {
-	-fx-opacity: 1.0;
+    -fx-opacity: 1.0;
 }
 
 .tab:selected .tab-label { 
@@ -322,29 +318,29 @@
 }
 
 #notificationPane .title{
-	-fx-background-color: transparent;
-	-fx-padding: 25 20 10 60;
-	-fx-background-image: url('../images/notification_title.png');
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: 170;
+    -fx-background-color: transparent;
+    -fx-padding: 25 20 10 60;
+    -fx-background-image: url('../images/notification_title.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 170;
 }
 
 #incompleteTab {
-	-fx-background-image: url('../images/incomplete_tab_title.png');
-	-fx-background-size: cover;
+    -fx-background-image: url('../images/incomplete_tab_title.png');
+    -fx-background-size: cover;
 }
 
 #completedTab {
-	-fx-translate-x: -1;
-	-fx-background-image: url('../images/completed_tab_title.png');
-	-fx-background-size: cover;
+    -fx-translate-x: -1;
+    -fx-background-image: url('../images/completed_tab_title.png');
+    -fx-background-size: cover;
 }
 
 #overdueTab {
-	-fx-translate-x: -1;
-	-fx-padding: 20 30 5 70;
-	-fx-background-image: url('../images/overdue_tab_title.png');
-	-fx-background-size: cover;
+    -fx-translate-x: -1;
+    -fx-padding: 20 30 5 70;
+    -fx-background-image: url('../images/overdue_tab_title.png');
+    -fx-background-size: cover;
 }
 
 #taskListPanelPlaceholder {
@@ -363,11 +359,11 @@
 }
 
 #commandPaneTitleLabel {
-	-fx-background-image: url('../images/command_pane_title.png');
-	-fx-background-repeat: no-repeat;
-	-fx-background-size: 170;
-	-fx-text-fill: #ffffff;
-	-fx-padding: 25 30 10 70;
+    -fx-background-image: url('../images/command_pane_title.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 170;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 25 30 10 70;
 }
 
 #resultDisplayPlaceholder, #commandBoxPlaceholder {
