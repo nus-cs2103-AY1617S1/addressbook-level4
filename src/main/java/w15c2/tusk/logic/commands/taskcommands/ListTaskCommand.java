@@ -42,6 +42,12 @@ public class ListTaskCommand extends TaskCommand {
         }
     }
     
+    /**
+     * Shows appropriate list based on argument
+     * alias -> show alias window
+     * complete -> show completed tasks
+     * else display incomplete tasks
+     */
     @Override
     public CommandResult execute() {
         // Call event to display alias window

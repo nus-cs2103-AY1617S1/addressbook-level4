@@ -19,8 +19,6 @@ public class HelpTaskCommand extends TaskCommand {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help panel.";
 
-    public HelpTaskCommand() {}
-
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
