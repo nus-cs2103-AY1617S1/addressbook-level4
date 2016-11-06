@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -101,7 +102,12 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
+        setAccelerators();
+    }
+    
+    private void setAccelerators() {
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {

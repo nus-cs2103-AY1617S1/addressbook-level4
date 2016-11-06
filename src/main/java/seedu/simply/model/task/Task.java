@@ -206,7 +206,6 @@ public class Task implements ReadOnlyTask, ModifyTask, Comparable<Task> {
   //@@author A0139430L
     public boolean setTags(String specific_tag, String replacement) throws IllegalValueException{        
         Tag tempTag = new Tag(specific_tag);
-        System.out.println(tags.contains(tempTag));
         Iterator<Tag> itr = tags.iterator();
         while(itr.hasNext()){
             Tag temp = itr.next();

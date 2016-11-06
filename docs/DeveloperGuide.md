@@ -22,24 +22,24 @@
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
     
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+2. **Eclipse** IDE.
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in.
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace.
 
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Fork this repo, and clone the fork to your computer.
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given. 
    in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+3. Click `File` > `Import`.
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+5. Click `Browse`, then locate the project's directory.
+6. Click `Finish`.
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it may take up to 30 minutes for the set up to complete
+  > * Depending on your connection speed and server load, it may take up to 30 minutes for the set up to complete.
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
@@ -47,21 +47,21 @@
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/architecture_f.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/simply/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/simply/MainApp.java). It is responsible for:
+* Initializing the components in the correct sequence, and connecting them up with each other on App launch.
+* Shutting down the components and invoking cleanup method if necessary on App shut down.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+  is used by components to communicate with other components using events. (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
+The rest of the App consists of four components.
 * [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
@@ -73,37 +73,37 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram_v0.2.png" width="800"><br>   
+<img src="images/LogicClassDiagram_f.png" width="800"><br>   
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete E1`.
 
-<img src="images\SDForDeleteTask.png" width="800">
+<img src="images\SDForDeleteTask_f.png" width="800">
 
 >Note that when the Task Book data is changed, instead of directly asking `Storage` to save the updates to the hard disk,<br>
  the `Model` raises a `TaskBookChangedEvent`.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk. <br>
-<img src="images\SDForDeleteTaskEventHandling.png" width="800">
+<img src="images\SDForDeleteTaskEventHandling_f.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us in reducing direct 
   coupling between components.
 
 The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UIClassDiagram_v0.2.png" width="800"><br>
+<img src="images/UIClassDiagram_f.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/simply/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EventListPanel`,
-`DeadlineListPanel`, `TodoListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+`DeadlineListPanel`, `TodoListPanel` etc. All these, including the `MainWindow`, inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/simply/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
@@ -115,7 +115,7 @@ The `UI` component:
 
 ### Logic component
 
-<img src="images/LogicClassDiagram_v0.2.png" width="800"><br>
+<img src="images/LogicClassDiagram_f.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/simply/logic/Logic.java)
 
@@ -126,30 +126,31 @@ The `UI` component:
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete E1")`
  API call.<br>
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic_f.png" width="800"><br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram_v0.2.png" width="800"><br>
+<img src="images/ModelClassDiagram_f.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/simply/model/Model.java)
 
-The `Model`,
+The `Model`:
 * stores a `UserPref` object that represents the user's preference.
 * stores the Task Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list changes.
-* does not depend on any of the other three components.
+
+> Note that `Model` does not depend on any of the other three components.
 
 ### Storage component
 
-<img src="images/StorageClassDiagram_v0.2.png" width="800"><br>
+<img src="images/StorageClassDiagram_f.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/simply/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Task Book data in xml format and read it back.
+The `Storage` component:
+* saves `UserPref` objects in json format and reads it back.
+* saves the Task Book data in xml format and reads it back.
 
 ### Common classes
 
@@ -162,19 +163,19 @@ Classes used by multiple components are in the `seedu.simply.commons` package.
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
 and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
+* The logging level can be controlled using the `logLevel` setting in the configuration file.
   (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
+  the specified logging level.
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but with caution.
+* `INFO` : Information showing the noteworthy actions by the App.
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging.
+  e.g. print the actual list instead of just its size.
 
 ### Configuration
 
@@ -184,72 +185,69 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 ## Testing
 
-You can find the Tests can be found in the `./src/test/java` folder.
+You can find the Tests in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run as` > `JUnit Test`.
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* You can see [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
+1. **GUI Tests** - These are _System Tests_ which can be found in the `guitests` package that test the entire App by simulating user         actions on the GUI.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include:
+   1. _Unit tests_ targets the lowest level methods/classes. <br>
+      e.g. `seedu.simply.commons.UrlUtilTest`
+   2. _Integration tests_ checks the integration of multiple code units 
+     (these code units are assumed to be working).<br>
+      e.g. `seedu.simply.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These test checks multiple code units as well as 
+      how they are connected together.<br>
+      e.g. `seedu.simply.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ This means that you can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Dev Ops
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+You can see [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+You can see [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
-Here are the steps to create a new release.
+To make a new release, you can follow the steps below.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
+ 3. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+    and upload the JAR file you have created.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
-
-//@@author A0147890U
+is better than alternatives such as:<br>
+1. Including these libraries in the repo. (This bloats the repo size)<br>
+2. Requiring developers to download these libraries manually. (This creates extra work for developers)<br>
 
 ## Appendix A : User Stories
 
@@ -257,130 +255,135 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
  -------- | :-------- | :--------- | :-----------
-***  |  user  |  add events with a start time and an end time  |
-***  |  user  |  add tasks without a specified time  | 
-***  |  user  |  add tasks without a deadline | 
-***  |  user  |  edit existing events  |  update deadlines or venues  
-***  |  user  |  delete existing events  |  remove entries that is no longer needed
-***  |  user  |  complete events  |  acknowledge the completion of event
+***  |  user  |  add tasks with a start time and an end time  |
+***  |  user  |  add tasks with a deadline  | 
+***  |  user  |  add tasks that can be done anytime | 
+***  |  user  |  edit existing tasks  |  update tasks details  
+***  |  user  |  delete existing tasks  |  remove tasks that are no longer needed
+***  |  user  |  complete tasks  |  acknowledge the completion of tasks
 ***  |  user  |  undo the most recent operations  | undo wrong commands 
-***  |  user  |  search by partial keyword  |  find related events containing the keyword
-***  |  user  | be able to specify my storage folder | use cloud syncing services on it
-**  |  user  |  add tasks that is recurring  |  
+***  |  user  |  search by partial keyword  |  find related tasks containing the keyword
+***  |  user  | specify my storage folder | use cloud syncing services on it
+**  |  user  |  add recurring tasks  |  
 **  |  user  |  some variations in command keywords
 **  |  user  |  set priorities  |  indicate tasks that are important
+**  | user   | display completed tasks | know what I have done
+**  |  user  |  hide completed tasks |  conceal tasks that are completed
 *   |  user  | start the program with a shortcut/ key combination | save mouse clicks
-*   | user   | display completed tasks | know what I have done
-*  |  user  |  hide completed  |  conceal events that are completed
 
 
 ## Appendix B : Use Cases
 
-#### Use case: Add events with a start time and an end time 
+#### Use case: Add tasks with a start time and an end time 
 
 **MSS**
 
-1.User requests to add events with start time and end time
-2.Task manager adds events into manager <br>
-Use case ends
+1. User requests to add tasks with start time and end time. <br>
+2. Task manager adds tasks into manager. <br>
+Use case ends. <br>
 
 **Extensions**
 
-2a. There is already an event in the time slot
+2a. There is already a task in the time slot. <br>
 
->2a1. Task manager shows an error message
- Use case ends
+>2a1. Task manager shows an error message. <br>
+ Use case ends. <br>
  
 
-#### Use case: Edit existing events
+#### Use case: Edit existing tasks
 
 **MSS**
 
-1.User requests to edit existing events
-2.Task manager edits the events<br>
-Use case ends
+1. User requests to edit an existing task. <br>
+2. Task manager edits the task. <br>
+Use case ends. <br>
 
 **Extensions**
-2a. There is no such event requested by the user
+2a. The task requested by the user does not exist. <br>
 
->2a1. Task manager shows an error message
- Use case ends
+>2a1. Task manager shows an error message. <br>
+ Use case ends. <br>
 
 
 #### Use case: Delete existing events
 
 **MSS**
 
-1.User request to show list of events/task
-2.Task manager shows list of events/task
-3.User request to delete a specific event / task  
-4.Task manager deletes the event / task <br>
-Use case ends
+1. User requests to show the list of tasks. <br>
+2. Task manager shows the list of tasks. <br>
+3. User requests to delete a specific task. 
+4. Task manager deletes the task. <br>
+Use case ends. <br>
 
 
 **Extensions**
 
-2a. The list is empty
+2a. The list is empty. <br>
 
->Use case ends
+>Use case ends. <br>
 
-3a. The given event/task is non existent
+3a. The given task does not exist. <br>
 
->3a1. Task manager shows an error message <br>
- Use case ends
+>3a1. Task manager shows an error message. <br>
+ Use case ends. <br>
 
 
-#### Use case: Complete events
+#### Use case: Complete tasks
 
 **MSS**
 
-1.User request to update a specific event / task to completed  
-2.Task manager updates the event / task as completed<br>
-Use case ends
+1. User requests to mark a task as completed.  
+2. Task manager marks the task as completed. <br>
+Use case ends. <br>
 
 **Extensions**
-2a. The given event/task is non existent 
+2a. The given task does not exist. <br> 
 
->2a1.Task manager shows an error message <br>
- Use case ends
+>2a1. Task manager shows an error message. <br>
+ Use case ends. <br>
 
 
 #### Use case: undo the most recent operations
 
 **MSS**
 
-1.User request to undo previous operations
-2.Task manager undoes the operations<br>
-Use case ends
+1. User requests to undo previous operations. <br>
+2. Task manager performs the request. <br>
+Use case ends. <br>
 
 **Extensions**
-2a. There are no previous operations
+2a. There are no previous operations. <br>
 
-> 2a1.Task manager shows an warning message <br>
-  Use case ends
+> 2a1. Task manager shows a warning message. <br>
+  Use case ends. <br>
 
 
 #### Use case: search by partial keyword
 
 **MSS**
 
-1.User requests to search for an event by keyword
-2.Task Manager shows a list of events/tasks containing the keyword
-Use case ends
+1. User requests to search for an task by keyword. <br>
+2. Task Manager shows a list of tasks containing the keyword. <br>
+Use case ends. <br>
 
 **Extensions**
 
-1a. The matching keyword is not found
+1a. The matching keyword is not found. <br>
 
->1a1.Task manager shows an error message
- Use case ends
+>1a1. Task manager shows an error message. <br>
+ Use case ends. <br>
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to max 100 tasks per day.
+2. Should be able to hold up to a maximum of 1000 tasks per day.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should load the command result within one second of execution.
+6. Should not corrupt data if an unexpected crash occurs.
+7. Should not require an installer to run the App.
+8. Should be free.
+9. Should be able to have functioning basic commands without the internet.
 
 You can also visit the following page for more information on Project Constraints 
 http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
@@ -403,49 +406,50 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 
 ###Pros
 
-1. Quick add function
-2. Similar to what we are trying to achieve, you can type the entire add command in one line with event description, time, location and it will interpret it for you and add as an event. It ties into Google Maps for event locations. So if it is recognised in Google Maps, you can choose an exact meeting place.
-3. Support for recurring events
-4. Google Calendar is remarkably social
-5. Calendar can be shared.
-6. Supports shared events.
-7. Ability to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
-8. Can add a video call such that all attendees to a shared event can join the same video call
-9. Ability to set a specific time zone for each event. For the frequent travellers.
-10. You can add documents, spreadsheets, and other files directly to an event so that your guests have all the information they need right in the event.
-11. Support for multiple calendars for different aspects of life. Eg. one for work, one for family, one for play
-12. Google Calendar automatically synchronises with google account which is heavily integrated into android. 
-13. Colour coding for events so that you can self-categorize according to colour.
-14. Calendar view time frame can be switched. View by week, month.
+1. Contains a quick add function which is similar to what we are trying to achieve, you can type the entire add command in one line with event description, time, location and it will interpret it for you and add as an event. 
+2. Ties with Google Maps for event locations. So if it is recognised in Google Maps, you can choose an exact meeting place.
+3. Supports addition of recurring events.
+4. Supports social interations - shareable calender.
+5. Supports shared events.
+6. Supports real time video calls to all attendees of a shared event.
+7. Consists of multiple calendars for different aspects of life. Eg. one for work, one for family, one for play.
+8. Automatically synchronises with google account which is heavily integrated into android. 
+9. Supports colour coding for events so that you can self-categorize according to colour.
+9. Supports switching of time frames. eg.view by week, month.
+10. Allows user to find a common time for everyone to attend a shared event created by you based on their Google Calendars.
+11. Allows setting of time zones for each event, mainly used by frequent travellers.
+12. Allows addition of documents, spreadsheets, and other files directly to an event so as to notify all guest of the details in a single platform.
+
+
 
 ###Cons
 
-1. Lots of mouse clicks; lots of different columns to fill.
-2. Security. Online so it can be hacked, revealing your life schedule.
+1. Severe mouse clicks required to fill up the numerous columns.
+2. Security isses. It is connected to the web so the is the possibility of hacking which can reveal your life schedule.
 
 ##Todoist
 
 ###Pros
 
-1. Colour code for priority, not time
+1. Colour code for priority, not time.
 2. Command allows for recurring days eg every day/every Tuesday/ holidays etc.
-3. User able to choose subcatergories like task today, task tomorrow but (involves 1 click)
-4. Task can divide to further catagories called projects like shopping , work personal, errands, or create your own(involves 1 click) >  for bigger projects subcategories can be created. Projects are shareable with others
-6. Filters > priority setting priority1, priority 2, assign to me or assign to others
-7. Adding priority (click 2 times) one for flag menu, two for flag colour 4 priority choices or add
-8. Able to exploit templates for other projects
-9. Lots of filters to choose from 
-10. Add labels/ tags
-11. Premium acc  add files to task. Supports third party integration eg link to dropbox/ integrates with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others
-12. Uses drag and drop to shift tasks
-13. Karma system> trend>> shows productivity over time > graph> bar(shows type for task done) / sets goals for the week / enable/ disable for vacations etc a karma level eg grandmaster 5000+ to make user feel good
-14. History : no limit
-15. Bold italic control i control b
+3. User should be able to choose sub-categories like today's  or tomorrow's task but requires clicking (involves 1 click).
+4. Tasks can be divided further to categories called projects such as shopping , work, personal, errands, or create your own <br> 
+>for bigger projects sub-categories can be created. Projects are shareable with others.
+5. Filters > priority setting priority 1, priority 2, assign to me or assign to others.
+6. Able to set priority:  one for flag menu, two for flag colour 4 priority choices or add.
+7. Able to use templates from other projects.
+8. Lots of filters to choose from. 
+9. Able to add labels/ tags.
+10. Premium account allows you to add files to task. Supports third party integration eg link to dropbox/ integration with other services like Zapier, Google Drive, Cloud Magic, Sunrise Calendar, and others.
+11. Uses drag and drop to shift tasks.
+12. No limit to stored history of data.
+13. Shortcuts are available. E.g. To bold : control b, for italics : control i.
 
 ###Cons
 
-1. not jim friendly, involves clicking form filling style eg. Click add> type task>click schedule>click to choose date or for recurring dates > type every day or every week. Edit>click and change
-2. Able to link schedules with other people. Eg assign task to others(jim do not need it?)
+1. not jim friendly, involves clicking form filling style eg. Click add> type task>click schedule>click to choose date or for recurring dates > type every day or every week. Edit>click and change.
+2. Able to link schedules with other people. Eg assign task to others(jim do not need it?).
 3. Most of Jims todo items arrive as emails. 
 4. Divides into too many catagories too messy for jim.
 
@@ -455,45 +459,45 @@ http://www.comp.nus.edu.sg/~cs2103/AY1617S1/
 ###Pros
 
 1. It is available across windows, mac, android and ios.
-2. Easy search function
-3. Free for non-premium users
-4. Nice interface
-5. Intuitive options and menu selections that is not complicated
-6. Customizable backgrounds to your own liking
-7. Able to accept recurring events
-8. Can set reminders and notifications
-9. Can share between people
-10. Multiple task lists
-11. Short cuts to starred task, overdues and today task
-12. Cloud syncing
+2. Easy search function.
+3. Free for non-premium users.
+4. Nice interface.
+5. Intuitive options and menu selections that is not complicated.
+6. Customizable backgrounds to your own liking.
+7. Able to accept recurring events.
+8. Can set reminders and notifications.
+9. Can share between people.
+10. Multiple task lists.
+11. Short cuts to starred task, overdues and today task.
+12. Cloud syncing.
 
 
 ###Cons
 
 1. There is no options for subtasks.
-2. No start dates for events
-3. Need to pay for premium
-4. Excel files cannot be uploaded
+2. No start dates for events.
+3. Need to pay for premium.
+4. Excel files cannot be uploaded.
 5. Have to do organization of tasks, events or other stuff by ourselves, they do not group them up for us.
-6. Does not sync with google
+6. Does not sync with google.
 
 ##Trello
 
 ###Pros
 
-1. Works both on web and mobile devices
+1. Works both on web and mobile devices.
 2. Free subscription, but also offers a professional package, with the privacy and administrative settings required by large enterprises.
-3. Good visual
-4. Track task easily
-5. Able to collaborate with multiple people on a single task
-6. Receive email update when other teammates make changes
-7. Always in sync 
+3. Good visual.
+4. Track task easily.
+5. Able to collaborate with multiple people on a single task.
+6. Receive email update when other teammates make changes.
+7. Always in sync. 
 
 ###Cons
 
-1. Does not provide a lot of tools to sort cards or reports
-2. Inability to put due dates
-3. Inability to put tag on members in checklist
-4. Does not have calendar
+1. Does not provide a lot of tools to sort cards or reports.
+2. Inability to put due dates.
+3. Inability to put tag on members in checklist.
+4. Does not have calendar.
 
 

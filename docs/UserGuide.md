@@ -14,9 +14,9 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-2. Download the latest `simply.jar` from the [releases](../../../releases) tab.
-3. Copy the file to the folder you want to use as the home folder for your Simply.
-4. Double-click the file to start the app. The GUI should appear in a few seconds. 
+2. You can download the latest `simply.jar` from the [releases](../../../releases) tab. <br>
+3. Copy the file to the folder you want to use as the home folder for Simply.
+4. Double-click the file to start the app. The GUI should appear as below in a few seconds. 
   
 <img src="images/startup_new2.png" width="600"><br>
 

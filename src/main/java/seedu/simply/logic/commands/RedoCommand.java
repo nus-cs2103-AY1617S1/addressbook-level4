@@ -52,7 +52,7 @@ public class RedoCommand extends Command {
             Config config = saveToResetTo.getSaveStateConfig();
             model.setConfig(config);
             
-            System.out.println(config.getTaskBookFilePath());
+            //System.out.println(config.getTaskBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             } catch (IOException e) {
