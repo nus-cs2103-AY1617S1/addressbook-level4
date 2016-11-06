@@ -175,7 +175,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateDatedTask(1));
         model.addTask(helper.generateDatedTask(2));
-        model.addTask(helper.generateDatedTask(3));
+        model.addTask(helper.generateUndatedTask(1));
+        model.addTask(helper.generateUndatedTask(2));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
@@ -359,7 +360,8 @@ public class LogicManagerTest {
     //@@author A0139145E
     @Test 
     public void execute_done_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
     //@@author
@@ -371,16 +373,19 @@ public class LogicManagerTest {
     }
     //@@author
 
-  //@@author A0139145E
+    //@@author A0139145E
     @Test
     public void execute_done_alreadyCompleted() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                            helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        
         TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
+        //Set 1 dated and undated task as completed
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
         expectedAB.completeTask(completeDated);
@@ -388,11 +393,16 @@ public class LogicManagerTest {
         model.completeTask(completeDated);
         model.completeTask(completeUndated);
 
+        //Complete tasks that are already completed
         assertCommandBehavior("list done",
                 String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
                 expectedAB, Arrays.asList(completeDated),
                 Arrays.asList(completeUndated));
         assertCommandBehavior("done A1",
+                DoneCommand.MESSAGE_TASK_ALREADY_DONE,
+                expectedAB, Arrays.asList(completeDated),
+                Arrays.asList(completeUndated));
+        assertCommandBehavior("done B1",
                 DoneCommand.MESSAGE_TASK_ALREADY_DONE,
                 expectedAB, Arrays.asList(completeDated),
                 Arrays.asList(completeUndated));
@@ -415,9 +425,10 @@ public class LogicManagerTest {
 
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
+
+        //Complete 1 dated and 1 undated task
         expectedAB.completeTask(completeDated);
         expectedDatedTasks = helper.generateTaskList(helper.deadlineA());
-
         assertCommandBehavior("done B2",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeDated),
                 expectedAB, expectedDatedTasks,
@@ -447,7 +458,8 @@ public class LogicManagerTest {
     @Test
     public void execute_listAll_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                      helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
         TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
@@ -471,7 +483,8 @@ public class LogicManagerTest {
     @Test
     public void execute_listCompleted_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                    helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
         TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
@@ -480,6 +493,7 @@ public class LogicManagerTest {
         assertCommandBehavior("list done", String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
                 expectedAB, Collections.emptyList(), Collections.emptyList());
 
+        //Set 1 undated and dated task as completed
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
         expectedAB.completeTask(completeDated);
@@ -732,7 +746,7 @@ public class LogicManagerTest {
     /*
      * Generates initialData for undo and redo command testing
      */
-    private Task[] generateStartStateForUndo(int i) throws Exception{
+    private Task[] generateStartStateForUndo(int i) throws Exception {
         Task[] tasks = new Task[2];
         TestDataHelper helper = new TestDataHelper();
         expectedTB = helper.generateTaskBook(i);
@@ -793,7 +807,6 @@ public class LogicManagerTest {
         Task[] toUndo = generateStartStateForUndo(2);    
         model.addTask(toUndo[0]);
         
-        
         //Undo delete undated task
         expectedTB.addTask(toUndo[0]);
         expectedTB.removeTask(toUndo[0]);
@@ -830,8 +843,6 @@ public class LogicManagerTest {
     @Test
     public void execute_undoRedoDone_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
-        
-        //TODO add test for dated task
         
         //Undo complete undated task
         expectedTB.addTask(toUndo[0]);
@@ -940,8 +951,7 @@ public class LogicManagerTest {
         clashList.add(toUndo[1]); //since clashing, only shows these two events
         assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add")
                 + "\n" + AddCommand.MESSAGE_CLASHING_EVENTS), expectedTB, 
-                clashList, expectedTB.getUndatedTaskList());
-        
+                clashList, expectedTB.getUndatedTaskList());   
     }
     //@@author
     
@@ -963,8 +973,7 @@ public class LogicManagerTest {
         expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("undo", (String.format(UndoCommand.MESSAGE_SUCCESS, "delete")
                 + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK), expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());   
     }
     //@@author
     
@@ -975,7 +984,7 @@ public class LogicManagerTest {
         model.addTask(toUndo[0]);
         expectedTB.addTask(toUndo[0]);
         
-      //Delete and add undated task
+        //Delete and add undated task
         model.deleteTask(toUndo[0]);
         model.addUndo("delete", toUndo[0]);
         model.addTask(toUndo[0]);
@@ -1009,8 +1018,7 @@ public class LogicManagerTest {
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());   
     }
     //@@author
 
@@ -1045,8 +1053,6 @@ public class LogicManagerTest {
         
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
-        
     }
     //@@author
 
