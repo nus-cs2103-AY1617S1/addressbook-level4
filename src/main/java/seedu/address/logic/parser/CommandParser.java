@@ -22,6 +22,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_INVALID_COMMAN
  */
 public class CommandParser {
     
+    private static final String EMPTY_SPACE_FOR_NAME_NO_CHANGE = " ";
     private static final String STRING_REGEX_ONE_OR_MORE_WHITESPACE = "\\s+";
     private static final String STRING_ONE_SPACE = " ";
     
@@ -735,7 +736,7 @@ public class CommandParser {
      */
     private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String beforeResetSplit)
             throws IllegalValueException {
-        return new CommandParserHelper().prepareEdit(beforeResetSplit);
+        return new CommandParserHelper().prepareEdit(EMPTY_SPACE_FOR_NAME_NO_CHANGE + beforeResetSplit);
     }
 
     private String prepareAddDetailedTooltip(final String arguments) {
