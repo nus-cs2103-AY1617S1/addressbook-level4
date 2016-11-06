@@ -44,6 +44,7 @@ public class TaskDate {
     private static final Pattern DAYS_THURSDAY = Pattern.compile("((?:thursday|thur|thu))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_FRIDAY = Pattern.compile("((?:friday|fri))", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_SATURDAY = Pattern.compile("((?:saturday|sat))", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DAYS_SUNDAY = Pattern.compile("((?:sunday|sun))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
 
@@ -88,7 +89,7 @@ public class TaskDate {
     private static final int INCREASE_DATE_BY_ONE_DAY = 1;
     private static final int INCREASE_DATE_BY_SEVEN_DAYS = 7;
 
-    // @@author A0139128A
+    //@@author A0139128A
     /**
      * Validates given date
      *
@@ -193,17 +194,26 @@ public class TaskDate {
      * @return true is valid date range, else false
      * @throws ParseException
      */
-    // @@author A0139128A
+    //@@author A0139128A
     private static boolean isValidDateRange(String startDate, String endDate) throws ParseException {
         return isValidDateRangeValidator(startDate, endDate);
     }
     
-    // @@author A0139128A
+    //@@author A0139128A
     private static boolean isValidDateRangeValidator(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
-        System.out.println("Entered here: beforeDate is:" + beforeDate + " afterDate : " + afterDate);
+        if(isDay(beforeDate) && isDay(afterDate)) {
+            beforeDate = formatDayToDate(beforeDate);
+            afterDate = formatDayToDate(afterDate);
+        }
+        else if(isDay(beforeDate)) {
+            beforeDate = formatDayToDate(beforeDate);
+        }
+        else if(isDay(afterDate)) {
+            afterDate = formatDayToDate(afterDate);
+        }
         boolean validDateRange = false;
         boolean sameDate = false;
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -265,6 +275,7 @@ public class TaskDate {
     private static boolean isValidNumDate(String incDate)
             throws ParseException, IllegalValueException {
         Date inputDate = null;
+        
         try {
             DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
@@ -290,11 +301,17 @@ public class TaskDate {
         if(currDate.compareTo(inputDate) > 0){
             throw new IllegalValueException(EXPIRED_TASK_DATE);
         } 
-
         fullDate = formatDatetoStandardDate(incDate);
         return true;
     }
-
+    
+    //@@author A0139128A
+    private static boolean isDay(String inputDay) {
+        return(DAYS_MONDAY.matcher(inputDay).find() || DAYS_TUESDAY.matcher(inputDay).find() 
+                || DAYS_WEDNESDAY.matcher(inputDay).find() || DAYS_THURSDAY.matcher(inputDay).find()
+                || DAYS_FRIDAY.matcher(inputDay).find() || DAYS_SATURDAY.matcher(inputDay).find()
+                || DAYS_SUNDAY.matcher(inputDay).find());
+    }
     /**
      * This method checks the validity of the month entered by the user.
      */
