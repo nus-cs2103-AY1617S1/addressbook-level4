@@ -1,123 +1,124 @@
 # A0147967Jreused
-###### \java\seedu\address\ui\AutoCompleteTextField.java
+###### \java\seedu\address\ui\AutocompleteTextField.java
 ``` java
 /**
- * This class extends javafx text field for auto complete
- * implementation for Happy Jim Task Master. 
- * Reference: https://gist.github.com/floralvikings/10290131
+ * This class extends javafx text field for auto complete implementation for
+ * Happy Jim Task Master. Reference:
+ * https://gist.github.com/floralvikings/10290131
  */
-public class AutoCompleteTextField extends TextField
-{	
-	/** Stores command, syntax and utility words.*/
-	private final SortedSet<String> dictionary;
-	
-	/** Pops up the dictionary words. */
-	private ContextMenu dictionaryPopup;
-	
-	/** Determines whether to turn on the auto-complete function. */
-	public boolean turnOn = true;
-	
-	/** Constructor */
-	public AutoCompleteTextField() {
-		
-		super();
-		
-		dictionary = new TreeSet<>();
-		setDictionary();
-		dictionaryPopup = new ContextMenu();
-		
-		
-		textProperty().addListener(new ChangeListener<String>(){
-			@Override
-			public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {				
-				if (getText().length() == 0 || getCurrentWord() == null){
-					dictionaryPopup.hide();
-				} else {
-					LinkedList<String> searchResult = new LinkedList<>();
-					searchResult.addAll(dictionary.subSet(getCurrentWord(), getCurrentWord() + Character.MAX_VALUE));
-					if (dictionary.size() > 0){
-						popup(searchResult);
-						if (!dictionaryPopup.isShowing() && turnOn){
-							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, getText().length()*8, 0);
-						}
-					} else {
-						dictionaryPopup.hide();
-					}
-				}
-			}
-		});
+public class AutocompleteTextField extends TextField {
+    /** Stores command, syntax and utility words. */
+    private final SortedSet<String> dictionary;
 
-		focusedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue, Boolean newValue) {
-				dictionaryPopup.hide();
-			}
-		});
-	}
+    /** Pops up the dictionary words. */
+    private ContextMenu dictionaryPopup;
 
-	/**
-	 * Pop out the entry set with the given search results.
-	 */
-	private void popup(List<String> searchResult) {
-		
-		List<CustomMenuItem> menuItems = new LinkedList<>();
+    /** Determines whether to turn on the auto-complete function. */
+    public boolean turnOn = true;
 
-		for (String result: searchResult){
-			
-			Label entryLabel = new Label(result);
-			CustomMenuItem item = new CustomMenuItem(entryLabel, true);
-			item.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent actionEvent) {
-					setText(getPreviousWords() + result + " ");
-					dictionaryPopup.hide();
-					positionCaret(getText().length());
-				}
-			});
-			
-			menuItems.add(item);
-		}
-		dictionaryPopup.getItems().clear();
-		dictionaryPopup.getItems().addAll(menuItems);
-	}
-	
-	/**
-	 * Sets the data of the dictionary used. Naive method. 
-	 */
-	private void setDictionary(){
-		
-		//syntax words
-		dictionary.add("from");
-		dictionary.add("to");
-		dictionary.add("by");
-		dictionary.add("t/");
-		//command word
-		String[] commandWords = {"add","block","cd","clear","delete","done","edit","help","u","r","find","list","select","exit"};
-		for(String s: commandWords) dictionary.add(s);
-		//date
-		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
-							  "aug","sep","oct","nov","dec","today","tomorrow","yesterday",
-							  "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
-							  "daily", "weekly", "monthly", "yearly","next",
-							  "day", "week", "year"};
-		for(String s: dateWords) dictionary.add(s);
-	}
-	
-	/**
-	 * Returns current word that should be provided suggestions.
-	 */
-	private String getCurrentWord(){
-		if(getText().endsWith(" ")) return null;
-		String[] enteredWords = getText().split(" ");
-		return enteredWords[enteredWords.length - 1];
-	}
-	
-	/**
-	 * Returns existing text for future text modification. 
-	 */
-	private String getPreviousWords(){
-		return getText().substring(0, getText().length() - getCurrentWord().length());
-	}
+    /** Constructor */
+    public AutocompleteTextField() {
+
+        super();
+
+        dictionary = new TreeSet<>();
+        setDictionary();
+        dictionaryPopup = new ContextMenu();
+
+        textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {
+                if (getText().length() == 0 || getCurrentWord() == null) {
+                    dictionaryPopup.hide();
+                } else {
+                    LinkedList<String> searchResult = new LinkedList<>();
+                    searchResult.addAll(dictionary.subSet(getCurrentWord(), getCurrentWord() + Character.MAX_VALUE));
+                    if (dictionary.size() > 0) {
+                        popup(searchResult);
+                        if (!dictionaryPopup.isShowing() && turnOn) {
+                            dictionaryPopup.show(AutocompleteTextField.this, Side.BOTTOM, getText().length() * 8, 0);
+                        }
+                    } else {
+                        dictionaryPopup.hide();
+                    }
+                }
+            }
+        });
+
+        focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean oldValue,
+                    Boolean newValue) {
+                dictionaryPopup.hide();
+            }
+        });
+    }
+
+    /**
+     * Pop out the entry set with the given search results.
+     */
+    private void popup(List<String> searchResult) {
+
+        List<CustomMenuItem> menuItems = new LinkedList<>();
+
+        for (String result : searchResult) {
+
+            Label entryLabel = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            item.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    setText(getPreviousWords() + result + " ");
+                    dictionaryPopup.hide();
+                    positionCaret(getText().length());
+                }
+            });
+
+            menuItems.add(item);
+        }
+        dictionaryPopup.getItems().clear();
+        dictionaryPopup.getItems().addAll(menuItems);
+    }
+
+    /**
+     * Sets the data of the dictionary used. Naive method.
+     */
+    private void setDictionary() {
+
+        // syntax words
+        dictionary.add("from");
+        dictionary.add("to");
+        dictionary.add("by");
+        dictionary.add("t/");
+        // command word
+        String[] commandWords = { "add", "block", "cd", "clear", "delete", "done", "edit", "help", "u", "r", "find",
+                "list", "select", "view", "exit" };
+        for (String s : commandWords)
+            dictionary.add(s);
+        // date
+        String[] dateWords = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec",
+                "today", "tomorrow", "yesterday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday",
+                "sunday", "daily", "weekly", "monthly", "yearly", "next", "day", "week", "year" };
+        for (String s : dateWords)
+            dictionary.add(s);
+    }
+
+    /**
+     * Returns current word that should be provided suggestions.
+     */
+    private String getCurrentWord() {
+        if (getText().endsWith(" "))
+            return null;
+        String[] enteredWords = getText().split(" ");
+        return enteredWords[enteredWords.length - 1];
+    }
+
+    /**
+     * Returns existing text for future text modification.
+     */
+    private String getPreviousWords() {
+        return getText().substring(0, getText().length() - getCurrentWord().length());
+    }
 }
 ```
 ###### \java\seedu\address\ui\BrowserPanel.java
@@ -125,51 +126,53 @@ public class AutoCompleteTextField extends TextField
 /**
  * The Browser Panel of the App modified to display the agenda.
  */
-public class BrowserPanel extends UiPart{
+public class BrowserPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private static final String FXML = "BrowserPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    
+
     @FXML
     private MyAgenda agenda;
 
     /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
+     * Constructor is kept private as {@link #load(AnchorPane)} is the only way
+     * to create a BrowserPanel.
      */
     @Override
     public void setNode(Node node) {
-    	panel = (VBox) node;
+        panel = (VBox) node;
     }
 
     @Override
     public String getFxmlPath() {
-		return FXML;
-       //not applicable
+        return FXML;
+        // not applicable
     }
-    
+
     @Override
     public void setPlaceholder(AnchorPane pane) {
-    	this.placeHolderPane = pane;
+        this.placeHolderPane = pane;
     }
 
     /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
+     * Factory method for creating a Browser Panel. This method should be called
+     * after the FX runtime is initialized and in FX application thread.
+     * 
+     * @param placeholder
+     *            The AnchorPane where the BrowserPanel must be inserted
      */
     public static BrowserPanel load(Stage primaryStage, AnchorPane browserPanelPlaceholder,
-            ObservableList<TaskComponent> taskList){
-        logger.info("Initializing Agenda");       
-        BrowserPanel browserPanel =
-                UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
+            ObservableList<TaskOccurrence> taskList) {
+        logger.info("Initializing Agenda");
+        BrowserPanel browserPanel = UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
         browserPanel.initialize(taskList);
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
         browserPanel.placeHolderPane.getChildren().add(browserPanel.panel);
         return browserPanel;
     }
-    
+
 ```
 ###### \java\seedu\address\ui\CommandBox.java
 ``` java
@@ -190,8 +193,8 @@ public class BrowserPanel extends UiPart{
      * Sets the command box style to indicate a correct command.
      */
     private void setStyleToIndicateCorrectCommand() {
-        commandTextField.getStyleClass().remove("error");
-        commandTextField.getStyleClass().remove("fail");
+        getStyleClass().remove("error");
+        getStyleClass().remove("fail");
         commandTextField.setText("");
     }
 
@@ -266,6 +269,7 @@ public class BrowserPanel extends UiPart{
     -fx-text-fill: #010504;
 }
 
+/* Styles for navbar */
 #navbarView .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 10;
@@ -285,21 +289,20 @@ public class BrowserPanel extends UiPart{
     -fx-text-fill: white;
 }
 
-#navbarView .list-cell:even:filled {
+#navbarView .list-cell:odd:filled {
     -fx-background-color: derive(#f7882f, 20%);
 }
 
-#navbarView .list-cell:odd:filled {
+#navbarView .list-cell:even:filled {
     -fx-background-color: derive(#f7c331, 50%);
 }
-#navbarView .list-cell:odd:filled .image-view{
+#navbarView .list-cell:even:filled .image-view{
     -fx-image:url('/images/ddl_icon.png');
 }
-#navbarView .list-cell:even:filled .image-view{
+#navbarView .list-cell:odd:filled .image-view{
     -fx-image:url('/images/task_icon.png');
     -fx-alignment:left;
 }
-
 
 .cell_big_label {
     -fx-font-size: 16px;
