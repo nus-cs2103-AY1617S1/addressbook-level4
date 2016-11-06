@@ -324,15 +324,20 @@ Use case ends
 
 **Extensions**
 
-1a. User enters an input that needs to be escaped as it contains values that CommandParser is not able to parse properly. 
+1a. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse rightly. 
 
-> 1a1. TaskManager's instant parsing feature will reflect to the user that his / her input is being placed in the wrong field. 
-> 1a2. User uses the escape feature to explicitly denote the task name. <br>
+> 1a1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field 
+> 1a2. User uses the double inverted commas to escape the task name <br>
 Use case resumes at step 2
 
 2a. User enters an input that does not follow the `add` command format
 
 > 2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `add` command and an example `add` command <br>
+  Use case resumes at step 1
+  
+2b. User is currently at done list view
+
+> 2b1. TaskManger displays an error message on the GUI, informing the user that he / she is unable to perform the add command in done list view, and prompts the user to switch to undone list view instead to perform the add command <br>
   Use case resumes at step 1
   
 3a. User identifies a mistake in the details of the task added
@@ -390,14 +395,25 @@ Use case ends
 > 3a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
  Use case resumes at step 3
   
+3b. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse rightly. 
+
+> 3b1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field 
+> 3b2. User uses the double inverted commas to escape the task name <br>
+Use case resumes at step 3
+  
 4a. The given index is invalid
 
 > 4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot edit any task <br>
   Use case resumes at step 3
-  
-4b. User enters an input that does not follow the `edit` command format
 
->4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
+4b. User enters an end date that occurs before the start date.
+
+>4b1. TaskManager displays an error message on the GUI, informing the user that the end date must occur after the start date <br>
+ Use case resumes at step 3
+   
+4c. User enters an input that does not follow the `edit` command format
+
+>4c1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
  Use case resumes at step 3
 
 <!-- @@author -->

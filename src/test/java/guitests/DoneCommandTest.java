@@ -98,7 +98,7 @@ public class DoneCommandTest extends DearJimGuiTest {
     private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList, final TestTask[] currentDoneList) {
         TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
-        TestTask[] expectedDoneTaskList = TestUtil.addFloatingTasksToList(currentDoneList, taskToDone);
+        TestTask[] expectedDoneTaskList = TestUtil.addTasksToList(currentDoneList, taskToDone);
         commandBox.runCommand("done " + targetIndexOneIndexed);
 
         // confirm the list now contains all previous tasks except the archived task
@@ -142,7 +142,7 @@ public class DoneCommandTest extends DearJimGuiTest {
             }
             taskToDone = expectedRemainder[targetIndexOneIndexed-offset-1];
             expectedRemainder = TestUtil.removeTaskFromList(expectedRemainder, targetIndexOneIndexed-offset);
-            expectedDoneTaskList = TestUtil.addFloatingTasksToList(expectedDoneTaskList, taskToDone);
+            expectedDoneTaskList = TestUtil.addTasksToList(expectedDoneTaskList, taskToDone);
             offset++;
             doneTasks.add(taskToDone);
         }

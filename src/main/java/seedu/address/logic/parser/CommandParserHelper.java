@@ -111,7 +111,15 @@ public class CommandParserHelper {
         return mapContainingVariables(task);
     }
     
-    //@@author 
+    //@@author A0139552B
+    /**
+     * Returns a HashMap containing Optional<String> values of
+     * taskName, startDate, endDate, rate, timePeriod and priority.
+     *
+     * @param args user input of task to add.
+     * @return     values of taskName, startDate, endDate, rate, timePeriod and priority.
+     * @throws IllegalValueException  if args does not match the matcher.
+     */
     public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
@@ -650,7 +658,13 @@ public class CommandParserHelper {
         return priority;
     }
 
-    //@@author
+    //@@author A0139552B
+    /**
+     * Returns priority based on input.
+     * 
+     * @return priority based on input. If user did not specify a priority,
+     * return null
+     */
     private String generatePriorityEdit(Matcher matcher) {
         String priority;
         if (matcher.group("priority") != null) {
@@ -661,6 +675,7 @@ public class CommandParserHelper {
         return priority;
     }
     
+    //@@author A0139655U
     /**
      * Assigns values into Task's parameters.
      * 
@@ -677,7 +692,14 @@ public class CommandParserHelper {
     }
 
     //@@author A0139552B
+    /**
+     * Assigns values into Task's parameters.
+     * 
+     *@param   task  OptionalStringTask object that contains String values to be converted to 
+     * an actual Task object.
+     */
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
+        assert task != null;
         task.taskName = Optional.of(matcher.group("taskName").trim());
         HashMap<String, Optional<String>> recurrenceRateMap = matchesRateAndTimePeriod();
         task.rate = recurrenceRateMap.get("rate");

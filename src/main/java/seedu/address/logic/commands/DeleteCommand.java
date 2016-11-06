@@ -27,7 +27,7 @@ public class DeleteCommand extends UndoableCommand {
     public static final String MESSAGE_DELETE_TASKS_SUCCESS = "Deleted Tasks: %1$s";
     public static final String MESSAGE_FAILURE = "Failed to delete Task.";
 
-    //@@author
+    //@@author A0093960X
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
@@ -94,11 +94,13 @@ public class DeleteCommand extends UndoableCommand {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = (isViewingDoneList)
                 ? model.getFilteredDoneTaskList()
                 : model.getFilteredUndoneTaskList();
+                
         for (int targetIndex : targetIndexes) {            
             boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
             if (isTaskTargetIndexOutOfBounds) {
                 continue;
             }
+
             int adjustedTaskIndex = targetIndex - 1;
             Task task = new Task(lastShownList.get(adjustedTaskIndex));
             targetTasks.add(task);
@@ -157,17 +159,26 @@ public class DeleteCommand extends UndoableCommand {
     public CommandResult undo() {
         assert model != null && targetTasks != null;    
         
-        // attempt to undo the delete by adding back the list of tasks that was deleted
-        // add back to the list the user was viewing when clear was executed
         if (isViewingDoneList) {
-            model.addDoneTasks(targetTasks);
+            undoDeletedDoneTasks();
         }
         else {
-            model.addTasks(targetTasks);
+            undoDeletedUndoneTasks();
+
         }
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, targetTasks));
     }
     //@@author 
+
+
+    private void undoDeletedUndoneTasks() {
+        model.addTasks(targetTasks);
+    }
+
+
+    private void undoDeletedDoneTasks() {
+        model.addDoneTasks(targetTasks);
+    }
 
 }

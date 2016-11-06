@@ -24,10 +24,10 @@ public class EditCommandTest extends DearJimGuiTest {
     
     //@@author A0139552B
     @Test
-    public void edit() throws IllegalValueException {    	
+    public void editCommand_editFields() throws IllegalValueException {    	
     	
         TestTask[] currentList = td.getTypicalUndoneTasks();
-        assertClearCommandSuccess();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
@@ -64,18 +64,25 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
         aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
         aliceTask.setPriority(Priority.HIGH);        
-        assertTrue(personListPanel.isListMatching(aliceTask));
-        
+        assertTrue(personListPanel.isListMatching(aliceTask));       
     }
     
     @Test
-    public void editCheckReset() throws IllegalValueException{
+    public void editCommand_editResetFields() throws IllegalValueException{
         
         TestTask[] currentList = td.getTypicalUndoneTasks();
-        assertClearCommandSuccess();
+        assertUndoneListClearCommandSuccess();
 
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
+        
+        commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
+        aliceTask.setName(new Name("Call Alice"));
+        aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
+        aliceTask.setEndDate(DateTime.convertStringToDate("3pm"));
+        aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
+        aliceTask.setPriority(Priority.HIGH);        
+        assertTrue(personListPanel.isListMatching(aliceTask));
         
         //test to check reset function
         commandBox.runCommand("edit 1 -reset start end repeat");
@@ -92,17 +99,32 @@ public class EditCommandTest extends DearJimGuiTest {
     }
     
     @Test
-    public void editCheckInvalid(){
+    public void editCommand_editInvalidRecurrence(){
         TestTask[] currentList = td.getTypicalUndoneTasks();
-
-        //invalid index
-        commandBox.runCommand("edit " + 10 + " " + "testing");
-        assertResultMessage("The task index provided is invalid");
-        
-        //invalid command format
+        commandBox.runCommand("edit " + 1 + " " + "repeat every day");
+        assertResultMessage("For recurring tasks to be valid, "
+            + "at least one DATE_TIME must be provided.");
+    }
+    
+    @Test
+    public void editCommand_editInvalidEndDate(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        commandBox.runCommand("edit 1 from 6 nov 1pm to 6 nov 11am");
+        assertResultMessage("End date should be later than start date.");
+    }
+    
+    @Test
+    public void editCommand_editInvalidFormat(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
         commandBox.runCommand("edit " + 1);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));              
+    }
+
+    @Test
+    public void editCommand_editInvalidIndex(){
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        commandBox.runCommand("edit " + 10 + " " + "testing");
+        assertResultMessage("The task index provided is invalid");       
     }
     
     /**
@@ -118,17 +140,17 @@ public class EditCommandTest extends DearJimGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
     /**
      * Runs the clear command to clear the current list and confirms the result is correct.
      */
-    private void assertClearCommandSuccess() {
-    	commandBox.runCommand("clear");
-    	assertListSize(0);
-    	assertResultMessage("Task Manager has been cleared!");
+    private void assertUndoneListClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Task Manager undone list has been cleared!");
     }
 
 }
