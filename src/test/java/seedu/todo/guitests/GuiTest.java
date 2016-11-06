@@ -103,6 +103,16 @@ public abstract class GuiTest {
     
     /* ========= COMMON TEST METHODS ============= */
     
+    protected void assertInvalidCommand(String command) {
+        assertEquals(command, console.getConsoleInputText());
+        assertEquals("Invalid command!", console.getConsoleTextArea());
+    }
+    
+    protected void assertValidCommand(String command) {
+        assertEquals("", console.getConsoleInputText());
+        assertNotEquals("Invalid command!", console.getConsoleTextArea());
+    }
+    
     /**
      * Utility method for testing if task has been successfully added to the GUI.
      * This runs a command and checks if TaskList contains TaskListTaskItem that matches
