@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<!--@@Gauri Joshi A0143095H  -->
+<!--@@author A0143095H  -->
 
 <AnchorPane fx:id="summary" maxWidth="350.0" prefHeight="373.0" prefWidth="323.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.unburden.ui.SummaryPanel">
    <children>
