@@ -128,8 +128,6 @@ public class UiManager extends ComponentManager implements Ui {
         ImageIcon reminderIcon = new ImageIcon(getClass().getResource("/images/ringing.png"),
                 "Reminder Bell");
         
-        //System.out.println("I'm here");
-        
         for (ReadOnlyActivity activity : activities) {
             JOptionPane.showMessageDialog(new JFrame(),
                     textForReminderDialog(activity, activity.getClass().getSimpleName()),
