@@ -2,10 +2,14 @@ package w15c2.tusk.logic.commands.taskcommands;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
+//@@author A0139708W
 public class TaskCommandList {
+    private static final Logger logger = LogsCenter.getLogger(TaskCommandList.class);
     
     public static Class<?>[] getList(){
         
@@ -40,20 +44,13 @@ public class TaskCommandList {
                 helpGuideList.add(new HelpGuide(commandDescription, arguments));
 
             } catch (NoSuchFieldException e) {
-                // TODO Auto-generated catch block
+                logger.severe("Error: Non-command class placed into list");
                 e.printStackTrace();
-            } catch (SecurityException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
+            } catch (Exception e) {
+                logger.severe("Exception encountered");
                 e.printStackTrace();
             }
         }
-        
         return helpGuideList;
         
     }
