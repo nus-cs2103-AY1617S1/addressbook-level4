@@ -1,10 +1,11 @@
-package seedu.todo.commons.util;
+package seedu.todo.testutil;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 //@@author reused
+
 /**
  * Utility methods related to Collections
  */

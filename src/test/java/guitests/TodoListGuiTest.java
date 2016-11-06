@@ -14,8 +14,10 @@ import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
+import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.HelpView;
 import seedu.todo.ui.view.TodoListView;
 
 import java.util.ArrayList;
@@ -53,6 +55,9 @@ public abstract class TodoListGuiTest {
     protected CommandInputViewHandle commandInputView;
     protected CommandPreviewViewHandle commandPreviewView;
     protected CommandFeedbackViewHandle commandFeedbackView;
+    protected CommandErrorViewHandle commandErrorView;
+    protected HelpViewHandle helpView;
+    protected GlobalTagViewHandle globalTagView;
 
     private Stage stage;
 
@@ -76,6 +81,9 @@ public abstract class TodoListGuiTest {
             commandInputView = mainGui.getCommandInputView();
             commandFeedbackView = mainGui.getCommandFeedbackView();
             commandPreviewView = mainGui.getCommandPreviewView();
+            commandErrorView = mainGui.getCommandErrorView();
+            helpView = mainGui.getHelpView();
+            globalTagView = mainGui.getGlobalTagView();
         });
         // EventsCenter.clearSubscribers();
         /*
@@ -99,6 +107,7 @@ public abstract class TodoListGuiTest {
         return todoList;
     }
 
+    //@@author A0135805H
     /**
      * Override {@link #getInitialData()} and use this method to set a variable initial
      * task size between {@code lowerBound} and {@code upperBound} inclusive.
@@ -111,6 +120,17 @@ public abstract class TodoListGuiTest {
     }
 
     /**
+     * Override {@link #getInitialData()} and use this method to set a custom list of tasks.
+     */
+    protected TodoList getInitialDataHelper(List<ImmutableTask> tasks) {
+        TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
+        initialTaskData = tasks;
+        TestUtil.loadTodoListWithData(todoList, initialTaskData);
+        return todoList;
+    }
+
+    //@@author reused
+    /**
      * Override this in child classes to set the data file location.
      */
     protected String getDataFileLocation() {
@@ -122,6 +142,15 @@ public abstract class TodoListGuiTest {
         FxToolkit.cleanupStages();
     }
 
+    /**
+     * Copies the list of ImmutableTask stored inside the {@link TodoListView}
+     * into {@link #previousTasksFromView}, for history taking.
+     */
+    protected void updatePreviousTaskListFromView() {
+        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
+    }
+
+    //@@author A0135805H
     /**
      * Enters the command via the {@link CommandInputView} but does not execute.
      */
@@ -145,15 +174,6 @@ public abstract class TodoListGuiTest {
         assertEquals(expected, commandFeedbackView.getText());
     }
 
-    /**
-     * Copies the list of ImmutableTask stored inside the {@link TodoListView}
-     * into {@link #previousTasksFromView}, for history taking.
-     */
-    protected void updatePreviousTaskListFromView() {
-        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
-    }
-
-    //@@author A0135805H
     /**
      * Executes the incorrect command, and asserts that error view is shown to the user.
      */
