@@ -34,6 +34,7 @@ Code written: [[functional code](A0147890U.md)][[docs](A0147890U.md)]
 -----
 
 #### Zavier Ong 
+<img src = "images/IMG_5660.JPG" width="100"><br>
 Role: Developer <br>  
 Responsibilities: Code Integration
 
@@ -68,6 +69,7 @@ Code written: [[functional code](A0139430L JingRui.md)][[test](A0139430L JingRui
 -----
 
 #### Li Zhiyuan
+<img src = "images/scan0002.jpg" width="100"><br>
 Role: Developer <br>  
 Responsibilities: Code Quality, Tool Expert
 

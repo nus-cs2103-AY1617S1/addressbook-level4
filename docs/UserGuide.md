@@ -41,7 +41,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 3. Copy the file to the folder you want to use as the home folder for Simply.
 4. Double-click the file to start the app. The GUI should appear as below in a few seconds. 
   
-<img src="images/simplySSwithArrows.PNG" width="1000"><br>
+<img src="images/SimplyCorrected.PNG" width="1000"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -67,7 +67,7 @@ Example: add go swimming #fitness
 <br>
 ####1.2 Add a deadline
 
-Perhaps after adding a todo, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
+Perhaps after adding a to-do, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
 
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
@@ -113,7 +113,7 @@ When you accidentally enter the wrong details for any of your tasks, worry not. 
 
 >Note: Removing the end time from a deadline will automatically convert your deadline to a to-do.
 
->Noted: Removing the start time from a event will automatically convert your event to a deadline.
+>Note: Removing the start time from a event will automatically convert your event to a deadline.
 
 <br>
 ####2.1 Edit task description
@@ -136,6 +136,13 @@ Example: Edit E1 date 21/12/16
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
 <br>
+If you wish, you can also remove the date of a task by following this format.
+
+>Format: **edit** &lt;index&gt; **date** no date; 
+
+Doing so will change an event into a to-do. Removing the date from a deadline will also change it into a to-do.
+
+<br>
 ####2.3 Edit task start time 
 
 Samantha's birthday party is tomorrow and she has called to inform you that her party is starting two hours earlier at 5pm instead. To change the start time, simply use the following command.
@@ -147,6 +154,13 @@ Example: edit E1 start 5pm
 >Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today, with a default end time of 2359 and start time as entered. 
 
 <br>
+If you wish, you can also remove the start time of a task by following this format.
+
+>Format: **edit** &lt;index&gt; **start** no start; 
+
+Doing so will change a event into a deadline.
+
+<br>
 ####2.4 Edit task end time 
 
 Samantha has also informed you that the party is scheduled to end at 11pm, so that you can tell your parents when to pick you up. To update the end time, type the following and <kbd>Enter</kbd>.
@@ -156,6 +170,13 @@ Samantha has also informed you that the party is scheduled to end at 11pm, so th
 Example: edit E1 end 2300
 <br><br>
 >Note: Adding a end time to a to-do will automatically convert your to-do into a deadline with a default date of today and end time as entered. 
+
+<br>
+If you wish, you can also remove the end time of a task by following this format.
+
+>Format: **edit** &lt;index&gt; **end** no end; 
+
+Doing so to an event will result in it's end time being set to a default of 2359. Removing the end time from a deadline will change the end time to a default of 2359. 
 
 <br>
 ####2.5 Edit a specific tag
