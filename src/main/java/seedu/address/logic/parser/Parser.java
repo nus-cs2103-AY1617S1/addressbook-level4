@@ -5,6 +5,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.logic.parser.ArgumentTokenizer.*;
+import seedu.address.model.task.Recurring;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -17,6 +18,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
  * Parses user input.
  */
 public class Parser {
+
+    
 
     /**
      * Used for initial separation of command word and args.
@@ -232,7 +235,7 @@ public class Parser {
 
     private Command prepareAddFloatingTaskCommand(ArgumentTokenizer argsTokenizer) throws Exception {
         if (argsTokenizer.isPresent(recurringPrefix)) {
-            throw new MissingRecurringDateException("Recurring task must have a deadline");
+            throw new MissingRecurringDateException(Recurring.RECURRING_MISSING_DATE);
         }
         if ( ! argsTokenizer.isPresent(priorityPrefix)) {
             return new AddCommand(argsTokenizer.getValue(namePrefix).get(), "",
