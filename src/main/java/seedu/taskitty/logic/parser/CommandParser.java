@@ -37,6 +37,9 @@ public class CommandParser {
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
     public static final int FILE_EXTENSION_LENGTH = 4;
+    
+    public static final int DAY_COMPONENT_INDEX = 0;
+    public static final int MONTH_COMPONENT_INDEX = 1;
 
     /**
      * Used for initial separation of command word and args.
@@ -46,7 +49,7 @@ public class CommandParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     // Used for checking for number date formats in arguments
-    private static final Pattern LOCAL_DATE_FORMAT = Pattern.compile("[^\\d]*(?<date>\\d{1,2}[/-]\\d{1,2}[/-]?(\\d{2}|\\d{4})?)[^\\d]*");
+    private static final Pattern LOCAL_DATE_FORMAT = Pattern.compile("[^\\d]*(?<date>\\d{1,2}[/-]\\d{1,2})[/-]?(\\d{2}|\\d{4})?[^\\d]*");
 
     // One or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
@@ -366,8 +369,7 @@ public class CommandParser {
      * @return the separator character used in localDateString
      */
     private String getDateSeparator(String localDateString) {
-        // if 2nd char in string is an integer, then the 3rd char must be the
-        // separator
+        // if 2nd char in string is an integer, then the 3rd char must be the separator
         if (StringUtil.isInteger(localDateString.substring(1, 2))) {
             return localDateString.substring(2, 3);
         } else { // else 2nd char is the separator
@@ -383,12 +385,8 @@ public class CommandParser {
      * @return the date string with its day and month component swapped
      */
     private String swapDayAndMonth(String localDate, String dateSeparator) {
-        String[] splitDate = localDate.split(dateSeparator);
-        if (splitDate.length == 3) {
-            return splitDate[1] + dateSeparator + splitDate[0] + dateSeparator + splitDate[2];
-        } else {
-            return splitDate[1] + dateSeparator + splitDate[0];
-        }
+        String[] splitDate = localDate.split(dateSeparator);        
+        return splitDate[MONTH_COMPONENT_INDEX] + dateSeparator + splitDate[DAY_COMPONENT_INDEX];
     }
 
     // @@author A0139930B
