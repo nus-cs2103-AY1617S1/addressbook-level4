@@ -277,20 +277,18 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`| user | add a deadline | record tasks that should be ended at the specific time
 `* * *`| user | add a floating task | record tasks without specific start and end date
 `* * *`| user | view upcoming tasks | decide what needs to be done soon. 
-`* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
-`* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
+`* * *`| user | delete a task | get rid of tasks that I no longer care to track.
+`* * *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
+`* * *`| user | specify which folder path to save my file | organize my task manager easily
+`* * *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
-`* *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
-`* *`| user | specify which folder path to save my file | organize my task manager easily
 `* *`| user | custom my commands' formats | use customized commands
-
-`* * *`| user | keep track my task | check which task have completed or on going
-`* *`| advanced user |  use shorter versions of a command | that can type a command faster.
-`* *`|user | set reminder for my task | can complete the task on time. 
-`* *` |user | view task that is due today when I launch the application | verify what is done and what is to be done. 
+`* *`| user | color code a task | group my task easily
+`* *`| user | keep track my task | check which task have completed or on going
+`*`|user | set reminder for my task | can complete the task on time. 
 `* *` |user |add category to a task | view task in a more organize manner. 
 `* *`| user | set priority to each of my task | prioritize which task to focus on. 
-`*`| user | color code a task | group my task easily
+
 
 
 
@@ -299,7 +297,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-
+<!--- @@author A0139932X --->
 #### Use case: UC01 View more information about a particular command
 Actor: User<br>
 
@@ -314,6 +312,8 @@ Use Case ends
        1a.User enter an invalid command
        >1a1. System show error message
        Use case ends.
+       
+<!--- @@author --->
        
 <!-- @@author A0153411W -->
 
@@ -508,23 +508,6 @@ Use Case end.
     Use case finishes.
 <!-- @@author -->
 
-<!-- @@author A0139932X -->
-
-#### Use case: UC10 Change save file path command
-   Actor:User
-   
-**MSS**
-
-1. User request to change file directory
-2. System will update the file directory on the config
-
-**Extension**
-
-	1a. Invalid file path
-	>1a1. System shows an error message
-	Use case ends.
-
-
 #### Use case: UC09 Undo last executed command
    Actor: User
 
@@ -610,9 +593,6 @@ Use Case end.
 	Use case resume at step 2
 	
 <!-- @@author -->
-
-
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
