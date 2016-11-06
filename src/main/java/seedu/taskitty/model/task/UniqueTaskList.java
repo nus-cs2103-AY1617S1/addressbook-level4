@@ -167,7 +167,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private void checkAndSetIsOverToday() {
         final ArrayList<Task> eventsToSetOver = new ArrayList<Task>();
     	for (Task t: internalList) {
-    	    if (t.isEvent() && DateTimeUtil.isOverdue(t)) {
+    	    if (t.isEvent() && DateTimeUtil.isOverdue(t) && !t.getIsDone()) {
     	        eventsToSetOver.add(t);
     	    }
     	}

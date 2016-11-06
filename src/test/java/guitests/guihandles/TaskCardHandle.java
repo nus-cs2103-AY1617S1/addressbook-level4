@@ -10,9 +10,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String CARDPANE_FIELD_ID = "#cardPane";
 
     private Node node;
 
@@ -30,26 +28,23 @@ public class TaskCardHandle extends GuiHandle {
     	return getStyleFromLabel(fieldId, node);
     }
     
+    // get the CSS in line style of the specified Hbox, returned as a string
+    protected String getStyleFromHbox(String fieldId) {
+        return getStyleFromHbox(fieldId, node);
+    }
     // get the CSS in line style of the name of the task card as a helper method for checking if its marked as done.
-    public String getStyle() {
+    public String getDoneStyle() {
     	return getStyleFromLabel(NAME_FIELD_ID);
+    }
+ // get the CSS in line style of the name of the task card as a helper method for checking if its marked as overdue.
+    public String getOverdueStyle() {
+        return getStyleFromHbox(CARDPANE_FIELD_ID);
     }
     //@@author
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
-    }
-
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
-    }
-
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
-    }
 
     public boolean isSamePerson(ReadOnlyTask person){
         return getFullName().equals(person.getName().fullName);
@@ -59,14 +54,13 @@ public class TaskCardHandle extends GuiHandle {
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getFullName().equals(handle.getFullName()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName();
     }
 }

@@ -77,18 +77,18 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     
     /**
      * Runs the done command to mark the task at specified index as done and confirms the result is correct 
-     * @param targetIndexOneIndexed e.g. to mark the first task in the list as done, 1 should be given as the target index.
+     * @param targetIndex e.g. to mark the first task in the list as done, 1 should be given as the target index.
      * @param category the category in which to mark as done from.
      * @param currentList A copy of the current list of tasks (before being marked as done).     
      */
-    private void assertMarkAsDoneSuccess(int targetIndexOneIndexed, char category, final TestTaskList currentList) {
+    private void assertMarkAsDoneSuccess(int targetIndex, char category, final TestTaskList currentList) {
         commandBox.runViewAllCommand();
         
         StringBuilder resultMessage = new StringBuilder(String.format(DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, 1));
-        TestTask taskToMark = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
+        TestTask taskToMark = currentList.getTaskFromList(targetIndex - 1, category); //-1 because array uses zero indexing
         
-        currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);
-        commandBox.runCommand("done " + category + targetIndexOneIndexed);
+        currentList.markTaskAsDoneInList(targetIndex - 1, category, taskToMark);
+        commandBox.runCommand("done " + category + targetIndex);
 
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
@@ -169,7 +169,8 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertResultMessage(resultMessage.substring(0, resultMessage.length() - 2));
     }
     
-    private void assertTaskCardMarkedAsDone(TestTask markedTask) {
+    //@@author A0130853L
+    public void assertTaskCardMarkedAsDone(TestTask markedTask) {
         // find task card of marked task
         TaskCardHandle markedCard = taskListPanel.navigateToTask(markedTask.getName().fullName, markedTask.getPeriod().getNumArgs());
         // confirm its the correct task
