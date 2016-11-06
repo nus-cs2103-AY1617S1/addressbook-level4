@@ -1,3 +1,5 @@
+<img src="images/JimiLogo.png" width="800"><br>
+
 # About Us
 
 We are the team in charge of developing Jimi, a command-line based task manager that is designed for fast typers. <br>
