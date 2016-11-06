@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
@@ -26,6 +27,7 @@ public class FindController extends Controller {
     
     private static final String MESSAGE_LISTING_SUCCESS = "A total of %s %s and %s %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No tasks or events found!";
+    private static final String STRING_SPACE = " ";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
@@ -38,13 +40,14 @@ public class FindController extends Controller {
     @Override
     public void process(String input) throws ParseException {
         input = input.replaceFirst(COMMAND_KEYWORD, "").trim();
+        List<String> namesToFind = Arrays.asList(input.split(STRING_SPACE));
         
         List<Predicate<Task>> taskPredicates = new ArrayList<Predicate<Task>>();
-        taskPredicates.add(Task.predByName(input));
+        taskPredicates.add(Task.predByNameAny(namesToFind));
         List<Task> tasks = Task.where(taskPredicates);
         
         List<Predicate<Event>> eventPredicates = new ArrayList<Predicate<Event>>();
-        eventPredicates.add(Event.predByName(input));
+        eventPredicates.add(Event.predByNameAny(namesToFind));
         List<Event> events = Event.where(eventPredicates);
         
         if (tasks.size() == 0 && events.size() == 0) {
