@@ -103,6 +103,8 @@ public class TodoListView extends UiPart {
 
     /**
      * Scrolls the {@link #todoListView} to the particular task card, if the task card is available.
+     * However, this method has a bounded wait between 10ms to 1000ms.
+     *
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
@@ -126,9 +128,10 @@ public class TodoListView extends UiPart {
             }
         };
 
+        //Tries to sleep first to wait for the ui, and then attempts the view.
         Thread thread = new Thread(() -> {
             try {
-                Thread.sleep(50);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
