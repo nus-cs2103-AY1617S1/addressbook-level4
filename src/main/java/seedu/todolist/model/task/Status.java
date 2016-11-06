@@ -46,7 +46,7 @@ public class Status {
         }
     }
     
-    public Type getStatus() {
+    public Type getType() {
         return this.status;
     }
     
