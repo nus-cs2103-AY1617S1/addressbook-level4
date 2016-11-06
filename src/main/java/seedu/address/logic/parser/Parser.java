@@ -78,6 +78,7 @@ public class Parser {
 	public Command parseCommand(String userInput) {
 		String replacedInput = replaceAliases(userInput);
 		
+		System.out.println("original: " + userInput);
 		System.out.println("replaced: " + replacedInput);
 		
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(replacedInput.trim());
@@ -163,7 +164,7 @@ public class Parser {
 			}
 		}		
 		
-		return inputWithNameRemoved + quotedText;
+		return inputWithNameRemoved + " " + quotedText;
 	}
 	
 	//@@author A0141019U	
@@ -186,27 +187,27 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		String taskNameWithQuotes = getQuotedText(arguments);
-		String taskNameWithoutQuotes = taskNameWithQuotes.substring(1, taskNameWithQuotes.length()-1);
-		String args = getNonQuotedText(arguments);
+		String taskNameWithQuotes = StringUtil.getQuotedText(arguments);
+		String taskNameWithoutQuotes = StringUtil.removeFirstAndLastChars(taskNameWithQuotes);
+		String args = StringUtil.getNonQuotedText(arguments);
 
 		System.out.println("name: " + taskNameWithoutQuotes);
 		System.out.println("args: " + args);
 		
 		String argsLowerCase = args.toLowerCase();	
 		
-		if (argsLowerCase.contains(" on ")
-				&& argsLowerCase.contains(" from ") 
-				&& argsLowerCase.contains(" to ")) {
+		if (argsLowerCase.contains("on")
+				&& argsLowerCase.contains("from") 
+				&& argsLowerCase.contains("to")) {
 			logger.log(Level.FINEST, "Calling prepareAddEventSameDay");
 			return prepareAddEventSameDay(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" from ")
-				&& argsLowerCase.contains(" to ")) {
+		else if (argsLowerCase.contains("from")
+				&& argsLowerCase.contains("to")) {
 			logger.log(Level.FINEST, "Calling prepareAddEventDifferentDays");
 			return prepareAddEventDifferentDays(taskNameWithoutQuotes, "event", args);
 		}
-		else if (argsLowerCase.contains(" by ")) {
+		else if (argsLowerCase.contains("by")) {
 			logger.log(Level.FINEST, "Calling prepareAddDeadline");
 			return prepareAddDeadline(taskNameWithoutQuotes, "deadline", args);
 		}
@@ -388,9 +389,8 @@ public class Parser {
 		Optional<String> taskName;
 		String args;
 		if (editTaskArgs.contains("\'")) {
-			Pair<String,String> nameAndArgs = separateNameAndArgs(editTaskArgs);
-			taskName = Optional.of(nameAndArgs.getKey());
-			args = nameAndArgs.getValue();
+			taskName = Optional.of(StringUtil.removeFirstAndLastChars(StringUtil.getQuotedText(editTaskArgs)));
+			args = StringUtil.getNonQuotedText(editTaskArgs);
 		} 
 		else {
 			taskName = Optional.empty();

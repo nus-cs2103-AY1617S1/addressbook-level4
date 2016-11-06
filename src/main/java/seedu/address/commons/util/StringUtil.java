@@ -65,11 +65,11 @@ public class StringUtil {
 	 * @return the name of the task enclosed by single quotes if it exists, an
 	 *         empty string otherwise
 	 */
-	public static String getQuotedText(String arguments) {
+	public static String getQuotedText(String s) {
 		Prefix quotePrefix = new Prefix("'");
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(quotePrefix);
-		argsTokenizer.tokenize(arguments);
+		argsTokenizer.tokenize(s);
 		
 		Optional<List<String>> maybeName = argsTokenizer.getAllValues(quotePrefix);
 		
@@ -81,6 +81,7 @@ public class StringUtil {
 		}
 	}
 
+	
 	/**
 	 * @param arguments
 	 *            an input command string that may contain 0 or 2 single quotes
@@ -88,15 +89,20 @@ public class StringUtil {
 	 * @return the arguments before the quoted text concatenated with the
 	 *         arguments after the quotes text
 	 */
-	public static String getNonQuotedText(String arguments) {
+	public static String getNonQuotedText(String s) {
 		Prefix quotePrefix = new Prefix("'");
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(quotePrefix);
-		argsTokenizer.tokenize(arguments);
+		argsTokenizer.tokenize(s);
 		
 		String argsBeforeQuotes = argsTokenizer.getPreamble().orElse("");
 		String argsAfterQuotes = argsTokenizer.getValue(quotePrefix).orElse("");
 		
 		return argsBeforeQuotes + " " + argsAfterQuotes;
+	}
+	
+	
+	public static String removeFirstAndLastChars(String s) {
+		return s.substring(1, s.length()-1);
 	}
 }
