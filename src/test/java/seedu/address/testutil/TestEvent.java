@@ -164,19 +164,25 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
         String dateFormat = "EEE, MMM d, yyyy h:mm a";
-        
+        String recurCommand;
         sb.append("add " + this.getName().fullName + " ");
         
-        
+        if (this.getStartTime().recurring){
+        	recurCommand = "every ";
+        	dateFormat = "EEE HHmm";
+        } else {
+        	recurCommand = "";
+        }	
         
         if (!getStartTime().value.equals(null)) {
-        sb.append("s/" + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
+        sb.append("s/" + recurCommand + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
         }
         
         if (!getEndTime().value.equals(null)) {
-        sb.append("e/" + dUtil.outputDateTimeAsString(this.getEndTime().getCalendarValue(), dateFormat) + " ");
+        sb.append("e/" + recurCommand + dUtil.outputDateTimeAsString(this.getEndTime().getCalendarValue(), dateFormat) + " ");
         }
         
+        dateFormat = "EEE, MMM d, yyyy h:mm a";
         if (!getReminder().value.equals(null)) {
             sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
         }
@@ -189,11 +195,18 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
         String dateFormat = "EEE, MMM d, yyyy h:mm a";
-        
+        String recurCommand;
         sb.append("add " + this.getName().fullName + " ");
         
+        if (this.getStartTime().recurring){
+        	recurCommand = "every ";
+        	dateFormat = "EEE hmm";
+        } else {
+        	recurCommand = "";
+        }
+
         if (!getStartTime().value.equals(null)) {
-        sb.append("s/" + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
+        sb.append("s/" + recurCommand + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
         }
                
         if (!getReminder().value.equals(null)) {

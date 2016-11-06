@@ -39,7 +39,13 @@ public class AddCommandTest extends AddressBookGuiTest {
         activityToAdd = td.findKenny;
         assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-               
+
+        //add a recurring event
+        activityToAdd = td.findMoney;
+        assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+
+        
         //section 2: test for adding duplicates of activities, tasks and events/
         
         //add duplicate activity
