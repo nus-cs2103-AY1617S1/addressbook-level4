@@ -11,7 +11,8 @@
    * [Delete a task](#deleting-a-task--delete)
    * [Undo & Redo](#undo--undo)
    * [Edit a task](#editing-a-task--edit)
-   * [Mark a task complete](#marking-a-task-as-complete--done)
+   * [Mark a task as done](#marking-a-task-as-done--done)
+   * [Mark a completed task as undone](#marking-a-completed-task-as-undone--continue)
    * [Save GGist data](#saving-the-data-to-a-specified-location--save)
 * [Command Cheatsheet](#command-cheatsheet)
 
