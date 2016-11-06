@@ -22,7 +22,7 @@ public class Time implements Comparable<Time> {
 		} else {
 			m_hour = 13;
 			m_minute = 0;
-			m_meridiem = "pm";
+			m_meridiem = "PM";
 		}
 	}
 
@@ -48,7 +48,7 @@ public class Time implements Comparable<Time> {
 	public int compareTo(Time o) {
 
 		if (!m_meridiem.equals(o.m_meridiem)) {
-			if (m_meridiem.equals("am") && o.m_meridiem.equals("pm")) {
+			if (m_meridiem.equals("AM") && o.m_meridiem.equals("PM")) {
 				return -1;
 			} else {
 				return 1;
