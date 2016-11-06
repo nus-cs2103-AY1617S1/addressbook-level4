@@ -61,6 +61,13 @@ Example: add complete report; 120916; 1900 #YOLO
 <br><br>
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
+###Date & Time Formats Accepted 
+ Date | Time |  
+ -------- | :-------- | 
+120916| 1300| 
+12-09-16| 1pm|  
+12/09/16| 1.00pm|  
+
 <br>
 ####1.3 Add an event
 
