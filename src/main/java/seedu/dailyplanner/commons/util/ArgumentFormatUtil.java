@@ -1,6 +1,5 @@
 package seedu.dailyplanner.commons.util;
 
-import org.apache.commons.lang.StringUtils;
 
 public class ArgumentFormatUtil {
 	
@@ -24,26 +23,32 @@ public class ArgumentFormatUtil {
 		return true;
 	}
 	
-	public static boolean isValidEditArgumentFormat(String trimmedArgs){
-			String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));
-			if(!trimmedArgs.contains(" ")){
+	
+	public static boolean isValidEditArgumentFormat(String args){
+			String trimmedArgs = args.trim();
+		
+			if(!(trimmedArgs.contains(" "))){
 				return false;
-			}
-			if(!(onlyIndex.matches("^-?\\d+$"))){
-				return false;
+			}			
+			else {
+				String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));						
+				if(!(onlyIndex.matches("^-?\\d+$"))){
+					return false;
+				}
 			}
 			
-			for (int k = 0; k < trimmedArgs.length(); k++) {
-				if (trimmedArgs.charAt(k) == '/') {
-					if (!(k + 1 == trimmedArgs.length())) {
-						if (trimmedArgs.charAt(k + 1) == ' ') {
+			
+			if (args.charAt(args.length() -1) == '/')
+				return false;
+			
+			for (int k = 0; k < args.length(); k++) {
+				if (args.charAt(k) == '/') {
+					if (!(k + 3 == trimmedArgs.length())) {
+						if (args.charAt(k + 2) == '/') {
 								return false;
 						}
-					} else {
-						if (trimmedArgs.charAt(k) == '/')
-							return false;
-					}
-
+					} 
+					
 				}
 			}							
 			
@@ -52,37 +57,6 @@ public class ArgumentFormatUtil {
 	}
 	
 	
-	public static boolean isValidDeleteFormat(String trimmedArgs){
-		if(trimmedArgs.equals("complete")){
-			return true;
-		}
-		if(!(trimmedArgs.matches("^-?\\d+$"))){
-			return false;
-		}
-		return true;
 	
-	}
-	
-	
-	public static boolean isValidPinOrCompleteFormat(String trimmedArgs){
-		if(trimmedArgs.equals("complete")){
-			return false;
-		}
-		if(!(trimmedArgs.matches("^-?\\d+$"))){
-			return false;
-		}
-		return true;
-	}
-	
-	
-	public static boolean isValidShowFormat(String trimmedArgs){
-		if(trimmedArgs.equals("complete")){
-			return true;
-		}
-		if(!(trimmedArgs.matches("^-?\\d+$"))){
-			return false;
-		}
-		return true;
-	}
 
 }

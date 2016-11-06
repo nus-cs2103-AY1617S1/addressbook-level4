@@ -63,7 +63,7 @@ public class Parser {
 	 * @return the command based on the user input
 	 */
 	public Command parseCommand(String userInput) {
-		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput);
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
@@ -131,22 +131,16 @@ public class Parser {
 	}
 
 	private Command preparePin(String arguments) {
-		//if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
-			//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
-		//}
-		
+
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
 		}
 		return new PinCommand(index.get());
 	}
 
 	private Command prepareComplete(String arguments) {
-		//if(!(ArgumentFormatUtil.isValidPinOrCompleteFormat(arguments))){
-			//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
-		//}
-		
+
 		Optional<Integer> index = parseIndex(arguments);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
@@ -166,7 +160,7 @@ public class Parser {
 		
 		String trimmedArgs = arguments.trim();
 		
-		if(!(ArgumentFormatUtil.isValidEditArgumentFormat(trimmedArgs))){
+		if(!(ArgumentFormatUtil.isValidEditArgumentFormat(arguments))){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 
@@ -424,9 +418,10 @@ public class Parser {
 
 	// @@author A0146749N
 	private boolean hasTaskName(String arguments) {
-		if (arguments.length() == 1) {
+		String trimmedArgs = arguments.trim();
+		if (trimmedArgs.length() == 1) {
 			return true;
-		} else if (arguments.length() >= 2 && arguments.charAt(1) == '/') {
+		} else if (trimmedArgs.length() >= 2 && trimmedArgs.charAt(1) == '/') {
 			return false;
 		} else {
 			return true;
@@ -464,15 +459,13 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareDelete(String args) {
+		String trimmedArgs = args.trim();
 		
-		if(!ArgumentFormatUtil.isValidDeleteFormat(args)){
-			
-		}
-		if (args.contains("complete")) {
+		if (trimmedArgs.contains("complete")) {
 			return new DeleteCompletedCommand();
 		} else {
 
-			Optional<Integer> index = parseIndex(args);
+			Optional<Integer> index = parseIndex(trimmedArgs);
 			if (!index.isPresent()) {
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
 			}
@@ -549,6 +542,10 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareFind(String args) {
+		/*if(!(ArgumentFormatUtil.isValidFindFormat(args))){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+		}
+		*/
 		final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
