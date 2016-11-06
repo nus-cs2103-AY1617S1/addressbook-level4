@@ -27,13 +27,13 @@
 
 
 ## About
-In this modern day, we're all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out where's the add button or how to edit our tasks. 
+In this modern day, we're all swamped with numerous tasks to do everyday. It is no wonder that task managers have become an indispensable tool in our everyday lives. However, we often spending more time figuring out where the add button is or how to edit our tasks. 
 
-Well, fret not! Here's introducing Unburden! With Unburden, you won't need to trouble yourself with what or where to click. It utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
+Well, fret not! Here's introducing _Unburden_! With _Unburden_, you won't need to trouble yourself with what or where to click. It utilizes a simple and intuitive command line interface which only requires you to type. No more clicking or scrolling!
 
-Unburden features a clean interface with colour coding to prioritize your tasks. It's simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to Unburden! What's more is that Unburden works offline! So now you can even use it when your WIFI is down. 
+_Unburden_ features a clean interface with colour coding to prioritize your tasks. It's simple to use and easy to manage! All you need to know is shown on the screen, just type your queries and leave the rest to _Unburden_! What's more is that _Unburden_ works offline! So now you can even use it when your WIFI is down. 
 
-Need to unburden? Let's get started!
+Need to _Unburden_? Let's get started!
 
 
 ## Getting Started
@@ -97,7 +97,7 @@ If you wish to know the specific formats of each individual command or require a
    Help  find <br>   
     > <img src="UserGuideImages/Help_1.JPG" width="400">
     
-This command will show you the command format of the specific command you have entered in the result display panel. For example, if     i type “help add,” the result display panel will show the specific format of the add command. 
+This command will show you the command format of the specific command you have entered in the result display panel. For example, if i type “help add,” the result display panel will show the specific format of the add command. 
 
 <br>
 <br>
@@ -377,11 +377,11 @@ Add | `add <Task description> <Date if applicable> <Start time if applicable> <E
 Delete | `delete <task name>`
 Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
 Done | `done <Task Index>`
-undone | `undone <Task index> `
+Undone | `undone <Task index> `
 List | `list`
 Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
-clear| `clear`
-undo | `undo`
-redo | `redo`
+Clear| `clear`
+Undo | `undo`
+Redo | `redo`
 Exit | `exit`
 

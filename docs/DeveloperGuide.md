@@ -320,9 +320,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `* * *` | new user | list all the commands | know how to use the program |
 |`* * *` | new user | view a command | know how to use that particular command |
 |`* * *` | user | add a event task | keep track of all important events which I have to attend |
-|`* * *` | user | add a deadline task | keep track of deadlines |
-|`* * *` | user | add a floating task | remind myself on less important tasks |
-|`* * *` | user | add a deadline task without the time | so that I can keep track of my less urgent deadlines|
+|`* * *` | user | add a deadline task | keep track of deadlines and adhere to them |
+|`* * *` | user | add a floating task | remind myself of less important tasks |
+|`* * *` | user | add a deadline task with the time | prioritise all the different deadlines due on the same day |
 |`* * *` | user | add a task with tags | properly categorize my tasks |
 |`* * *` | user | delete a task | remove a completed task from the list |
 |`* * *` | user | delete all tasks | declutter my task manager |
@@ -403,7 +403,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 2.2 _Unburden_ will show the user the entire list of tasks <br>
 
-3.2 User requests to delete all tasks in _Unburden> <br>
+3.2 User requests to delete all tasks in _Unburden_ <br>
 
 3.4 _Unburden_ deletes all tasks <br>
 

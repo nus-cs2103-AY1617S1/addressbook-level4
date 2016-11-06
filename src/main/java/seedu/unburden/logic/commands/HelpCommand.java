@@ -15,6 +15,7 @@ public class HelpCommand extends Command {
 			+ COMMAND_WORD;
 
 	public static final String HELP_MESSAGE_ADD = "To add a task, type: \n" + "add \"your own task name\" \n"
+			+ "i/ \"your task description (optional)\" \n"
 			+ "d/ \"your deadline (optional)\" \n" + "s/ \"your start time (optional)\" \n"
 			+ "e/ \"your end time (optional)\" \n" + "t/ \"your tags (optional)\" \n";
 
