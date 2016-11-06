@@ -1,6 +1,4 @@
-//@@author A0093896H
 package seedu.todo.model.task;
-
 
 import java.time.LocalTime;
 
@@ -9,7 +7,7 @@ import seedu.todo.commons.util.DateTimeUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
+//@@author A0093896H
 /**
  * Represents the information for Task's date and time .
  * 
@@ -17,8 +15,9 @@ import java.time.LocalDateTime;
  */
 public class TaskDate {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Do-Do Bird is unable to recognise the date and time you entered.\n"
-            + "Please try again! You can refer to our help manual for acceptable date and time formats.\n"
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Do-Do Bird is unable to recognise "
+            + "the date and time you entered.\n Please try again! You can refer to our help manual"
+            + " for acceptable date and time formats.\n"
             + "Type 'help' to launch the help manual.";
     
     

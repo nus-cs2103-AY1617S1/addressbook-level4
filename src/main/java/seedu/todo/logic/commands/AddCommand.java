@@ -22,7 +22,9 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added!\n%1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to do list";
-    public static final String MESSAGE_INVALID_DATE_RANGE = "You entered a starting date later than the ending date.\n"
+    
+    public static final String MESSAGE_INVALID_DATE_RANGE = "You entered a starting date later "
+            + "than the ending date.\n"
             + "Please ensure that the starting date is earlier than the ending date.";
     
     private final Task toAdd;
@@ -79,11 +81,6 @@ public class AddCommand extends Command {
     /**
      * Constructs the byDate based on the onDate.
      * Validates that the byDate cannot be earlier than on date.
-     * 
-     * @param onDateString
-     * @param byDateString
-     * @return byDate
-     * @throws IllegalValueException
      */
     private TaskDate constructByDate(String onDateString, String byDateString) throws IllegalValueException {
         TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);

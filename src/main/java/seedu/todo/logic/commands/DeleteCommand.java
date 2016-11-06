@@ -16,15 +16,17 @@ public class DeleteCommand extends Command {
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
-
+    
+    //@@author A0093896H
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task at Index: %1$d\nName : %2$s";
-
+    //@@author
+    
     public final int targetIndex;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
+    
     //@@author A0093896H
     /**
      * Executes the delete command.

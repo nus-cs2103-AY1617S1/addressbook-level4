@@ -191,7 +191,5 @@ public class UpdateCommand extends Command {
         }
         return newPriority;
     }    
-    //@@author
-    
     
 }

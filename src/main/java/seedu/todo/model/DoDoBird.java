@@ -20,9 +20,11 @@ import java.util.stream.Collectors;
  */
 public class DoDoBird implements ReadOnlyToDoList {
     
+    //@@author A0093896H
     private final Stack<UniqueTaskList> tasksHistory;
     private final Stack<UniqueTagList> tagsHistory;
-
+    //@@author
+    
     public DoDoBird() {
         this(new UniqueTaskList(), new UniqueTagList());
     }
@@ -33,7 +35,8 @@ public class DoDoBird implements ReadOnlyToDoList {
     public DoDoBird(ReadOnlyToDoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
-
+    
+    //@@author A0093896H
     /**
      * Tasks and Tags are copied into this ToDoList
      */
@@ -42,7 +45,8 @@ public class DoDoBird implements ReadOnlyToDoList {
         tagsHistory = new Stack<>();
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
-
+    //@@author
+    
     public static ReadOnlyToDoList getEmptyToDoList() {
         return new DoDoBird();
     }
@@ -132,8 +136,6 @@ public class DoDoBird implements ReadOnlyToDoList {
     
     /**
      * Adds a task to the to do list.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
@@ -150,6 +152,13 @@ public class DoDoBird implements ReadOnlyToDoList {
         
     }
     
+    /**
+     * Deletes a task to the to do list.
+     * Also checks the deleted task's tags and updates {@link #tags} to remove or decrease
+     * the tag count.
+     *
+     * @throws UniqueTaskList.TaskNotFoundException if the task cannot be found
+     */
     public void deleteTask(ReadOnlyTask key) throws TaskNotFoundException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
@@ -166,10 +175,6 @@ public class DoDoBird implements ReadOnlyToDoList {
     
     /**
      * Updates a task to the to do list.
-     * 
-     * @param index the index of the task to update
-     * @param newTask copy the fields in new task into task to update
-     * @throws UniqueTaskList.TaskNotFoundException if the task to update is not found.
      */
     public void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
         updateTaskHistoryStack();
@@ -186,6 +191,15 @@ public class DoDoBird implements ReadOnlyToDoList {
         
     }
     
+    //@@author A0142421X
+    /**
+     * Add tags to a task.
+     * 
+     * Will not throw exception even if there is a duplicate tag, 
+     * will instead move on to add the other tags.
+     * 
+     * @throws UniqueTaskList.TaskNotFoundException if the task cannot be found 
+     */
     public void addTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
@@ -207,6 +221,11 @@ public class DoDoBird implements ReadOnlyToDoList {
         updateTagTopList();
     }
     
+    /**
+     * Deletes tags from a task.
+     * 
+     * @throws UniqueTaskList.TaskNotFoundException if the task cannot be found
+     */
     public void deleteTaskTags(ReadOnlyTask oldTask, UniqueTagList tagList) throws TaskNotFoundException {
         updateTaskHistoryStack();
         updateTagHistoryStack();
@@ -223,7 +242,11 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
         updateTagTopList();
     }
-        
+    //@@author
+    //@@author A0093896H
+    /**
+     * Updates the dates of a task based on the recurrence frequency.
+     */
     public void updateTasksRecurrence() {
         for (Task t : this.getTasks()) {
             if (t.isRecurring()) { 
@@ -240,7 +263,6 @@ public class DoDoBird implements ReadOnlyToDoList {
     /**
      * Pop the top most UniqueTaskList and UniqueTagList
      * Does not pop if there is only one state in history 
-     * TODO : Does not handle tags as of yet
      */
     public boolean undo() {
         if (this.tasksHistory.size() > 1 && this.tagsHistory.size() > 1) {
@@ -264,14 +286,20 @@ public class DoDoBird implements ReadOnlyToDoList {
     /*************************
      *  TAG-LEVEL OPERATIONS *
      *************************/
-    
+    //@@author A0142421X
+    /**
+     * Add tag to TagHistory's top UniqueTagList
+     */
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         updateTagHistoryStack();
         UniqueTagList topList = this.getUniqueTagList();
         topList.add(t);
     }
     
-    
+    /**
+     * Updates the top list in tagHistory with the correct tags
+     * and the number of tasks with that tag
+     */
     private void updateTagTopList() {
         UniqueTagList topList = this.getUniqueTagList();
         topList.getInternalList().clear();
@@ -300,11 +328,12 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
         
     }
+    //@@author
     
     /******************
      *  UTIL METHODS  *
      ******************/
-    
+    //@@author A0093896H
     @Override
     public String toString() {
         return tasksHistory.peek().getInternalList().size() + " tasks, " 

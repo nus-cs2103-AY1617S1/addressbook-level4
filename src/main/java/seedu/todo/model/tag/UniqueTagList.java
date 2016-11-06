@@ -96,6 +96,7 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.add(toAdd);
     }
     
+    //@@author A0142421X
     /**
      * Removes the equivalent tag from the list.
      *
@@ -109,7 +110,8 @@ public class UniqueTagList implements Iterable<Tag> {
         }
         return tagFoundAndDeleted;
     }
-
+    //@@author
+    
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();

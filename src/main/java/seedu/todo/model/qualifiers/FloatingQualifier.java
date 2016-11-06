@@ -8,6 +8,7 @@ import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 
+//@@author A0093896H
 public class FloatingQualifier implements Qualifier {
     
     private SearchCompletedOption option;

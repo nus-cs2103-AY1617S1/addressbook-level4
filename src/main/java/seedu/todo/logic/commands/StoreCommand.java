@@ -4,7 +4,7 @@ package seedu.todo.logic.commands;
 import java.io.IOException;
 
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.events.model.SaveLocationChangedEvent;
+import seedu.todo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.todo.commons.util.FileUtil;
 
 

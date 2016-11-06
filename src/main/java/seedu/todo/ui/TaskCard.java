@@ -81,6 +81,7 @@ public class TaskCard extends UiPart{
         return FXML;
     }
     
+    //@@author A0093896H
     private void initOnDate() {
         if (task.getOnDate().getDate() != null) {
             onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 

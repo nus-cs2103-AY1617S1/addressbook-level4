@@ -1,8 +1,6 @@
-//@@author A0093896H
 package seedu.todo.logic.parser;
 
 import java.util.regex.Pattern;
-
 
 /**
  * Contains the various regex Patterns that ToDoListParser will use 
@@ -10,6 +8,7 @@ import java.util.regex.Pattern;
  */
 public class ParserFormats {
     
+    //@@author A0121643R-unused
     public static final int FIRST_INDEX = 0;
     public static final String PRIORITY_FORMAT = " priority (?<priority>[^;]+)";
     public static final String ON_DATE_FORMAT = " (on|from) (?<onDateTime>[^;]+)";

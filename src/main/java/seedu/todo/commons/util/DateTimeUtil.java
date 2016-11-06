@@ -26,6 +26,9 @@ public class DateTimeUtil {
     public static final int DEFAULT_BY_HOUR = 23;
     public static final int DEFAULT_BY_MINUTE = 59;
     
+    /**
+     * Checks whether a dateTimeString is empty
+     */
     public static boolean isEmptyDateTimeString(String dateTimeString) {
         return (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" "));
     }
@@ -38,9 +41,6 @@ public class DateTimeUtil {
      * If the String does not contains time information, the default time used is the 0000hrs if
      * it is an onDate and 2359 if it is a byDate.
      * 
-     * @param dateTimeString
-     * @param onOrBy
-     * @return LocalDateTime
      */
     public static LocalDateTime parseDateTimeString(String dateTimeString, String onOrBy) {
         Parser nattyParser = new Parser();
@@ -82,9 +82,6 @@ public class DateTimeUtil {
     /**
      * Checks whether date information is able to be parsed out 
      * from a String
-     * 
-     * @param dateTimeString
-     * @return boolean
      */
     public static boolean containsDateField(String dateTimeString) {
         Parser nattyParser = new Parser();
@@ -100,11 +97,7 @@ public class DateTimeUtil {
     }
     
     /**
-     * Checks whether time information is able to be parsed out 
-     * from a String
-     * 
-     * @param dateTimeString
-     * @return boolean
+     * Checks whether time information is able to be parsed out  from a String
      */
     public static boolean containsTimeField(String dateTimeString) {
         Parser nattyParser = new Parser();
@@ -121,10 +114,6 @@ public class DateTimeUtil {
     
     /**
      * Checks whether onDate is before byDate
-     * 
-     * @param onDate
-     * @param byDate
-     * @return boolean
      */
     public static boolean beforeOther(TaskDate onDate, TaskDate byDate) {
         if (onDate.getDate() == null || byDate.getDate() == null) {
@@ -138,9 +127,6 @@ public class DateTimeUtil {
     
     /**
      * Combines LocalDate and LocalTime to LocalDateTime with default time being 2359
-     * @param date
-     * @param time
-     * @return
      */
     public static LocalDateTime combineLocalDateAndTime(LocalDate date, LocalTime time) {
         assert date != null;

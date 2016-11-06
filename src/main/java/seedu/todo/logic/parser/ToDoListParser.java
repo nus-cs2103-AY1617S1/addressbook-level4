@@ -126,7 +126,8 @@ public class ToDoListParser {
         String tempArgs = args.trim(); 
         
         if (tempArgs.isEmpty()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE));
         }
 
         Matcher matcher;
@@ -144,10 +145,12 @@ public class ToDoListParser {
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             } catch (IllegalArgumentException iae) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddCommand.MESSAGE_USAGE));
             }
         } else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UpdateCommand.MESSAGE_USAGE));
         }  
     }
     
@@ -161,7 +164,8 @@ public class ToDoListParser {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    DeleteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteCommand(index.get());
@@ -177,7 +181,8 @@ public class ToDoListParser {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    MarkCommand.MESSAGE_USAGE));
         }
 
         return new MarkCommand(index.get());
@@ -193,7 +198,8 @@ public class ToDoListParser {
 
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UnmarkCommand.MESSAGE_USAGE));
         }
 
         return new UnmarkCommand(index.get());
@@ -212,14 +218,16 @@ public class ToDoListParser {
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        TagCommand.MESSAGE_USAGE));
             }
 
             String tagNames = tempArgs.substring(indexString.length());
 
             return new TagCommand(index.get(), tagNames);
         } catch (Exception e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    TagCommand.MESSAGE_USAGE));
         }
 
     }
@@ -237,14 +245,16 @@ public class ToDoListParser {
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        UntagCommand.MESSAGE_USAGE));
             }
 
             String tagNames = tempArgs.substring(1);
 
             return new UntagCommand(index.get(), tagNames);
         } catch (Exception e) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UntagCommand.MESSAGE_USAGE));
         }
 
     }
@@ -279,13 +289,15 @@ public class ToDoListParser {
         String tempArgs = args.trim(); 
         
         if (tempArgs.length() < 1) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UpdateCommand.MESSAGE_USAGE));
         }
         String indexString = tempArgs.split(" ")[0];
 
         Optional<Integer> index = parseIndex(indexString);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UpdateCommand.MESSAGE_USAGE));
         }
 
         tempArgs = tempArgs.substring(indexString.length()).trim();
@@ -301,7 +313,8 @@ public class ToDoListParser {
                     matchPriorityResult(matcher), 
                     matchRecurrenceResult(matcher));
         } else {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    UpdateCommand.MESSAGE_USAGE));
         }  
         
 

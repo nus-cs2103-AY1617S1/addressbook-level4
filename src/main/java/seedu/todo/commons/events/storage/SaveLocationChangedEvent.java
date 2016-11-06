@@ -1,7 +1,8 @@
-package seedu.todo.commons.events.model;
+package seedu.todo.commons.events.storage;
 
 import seedu.todo.commons.events.BaseEvent;
 
+//@@author A0093896H
 /** Indicates the save location for the data has changed*/
 public class SaveLocationChangedEvent extends BaseEvent {
    

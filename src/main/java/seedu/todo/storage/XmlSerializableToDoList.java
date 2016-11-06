@@ -85,7 +85,7 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
     
-    //@@author A0093896H
+    //@@author A0142421X
     @Override
     public List<Tag> getTagList() {
         return tags.stream().map(t -> {
@@ -93,7 +93,6 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
                 return t.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

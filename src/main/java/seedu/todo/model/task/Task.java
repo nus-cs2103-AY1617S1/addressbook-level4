@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.model.task;
 
 import java.util.Objects;
@@ -6,7 +5,7 @@ import java.util.Objects;
 import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
-
+//@@author A0093896H
 /**
  * Represents a Task in DoDo-Bird
  * Guarantees: all fields are not null, field values are validated.
@@ -102,7 +101,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
-  //@@author A0093896H
+    //@@author A0093896H
     @Override
     public boolean isRecurring() {
         return this.recurrence.isRecurring();

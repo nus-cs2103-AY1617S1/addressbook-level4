@@ -231,6 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
+    //@@author A0142421X
     @Subscribe
     private void handleTagPanelSelectionEvent(TagPanelSelectionEvent tpse) {
         this.updateFilteredTaskListByTag(tpse.tag.getName(), SearchCompletedOption.UNDONE);

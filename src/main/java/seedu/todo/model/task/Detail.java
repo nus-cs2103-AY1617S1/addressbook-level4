@@ -7,9 +7,7 @@ package seedu.todo.model.task;
  * Guarantees: mutable; no constraints.
  */
 public class Detail {
-
-    public static final String MESSAGE_DETAILS_CONSTRAINTS = "Task details has no constraint.";
-
+    
     public String value;
 
     public Detail(String detail) {

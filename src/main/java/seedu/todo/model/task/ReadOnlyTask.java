@@ -23,18 +23,19 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
+    //@@author A0093896H
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    //@@author A0093896H
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || ((other != null) // this is first to avoid NPE below
                 && other.getName().equals(this.getName())
                 && other.getDetail().equals(this.getDetail())
-                && other.getPriority().equals(this.getPriority())
+                && other.getByDate().equals(this.getByDate())
                 && other.getOnDate().equals(this.getOnDate())
-                && other.getByDate().equals(this.getByDate()));
+                && other.getPriority().equals(this.getPriority())
+                && other.getRecurrence().equals(this.getRecurrence()));
     }
 
     /**
@@ -49,12 +50,16 @@ public interface ReadOnlyTask {
                 .append("Start: ")
                 .append(getOnDate() + "\n")
                 .append("End: ")
-                .append(getByDate() + "\n");
-                
-                
+                .append(getByDate() + "\n")
+                .append("Priority: ")
+                .append(getPriority() + "\n")
+                .append("Recurrence: ")
+                .append(getRecurrence() + "\n");
+        
         return builder.toString();
     }
-
+    //@@author
+    
     /**
      * Returns a string representation of this Task's tags
      */
