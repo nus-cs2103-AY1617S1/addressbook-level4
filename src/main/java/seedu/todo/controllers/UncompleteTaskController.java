@@ -18,11 +18,11 @@ public class UncompleteTaskController extends Controller {
     private static final String COMMAND_SYNTAX = "uncomplete <index>";
     private static final String COMMAND_KEYWORD = "uncomplete";
 
-    private static final String MESSAGE_SUCCESS = "Task marked as incomplete!";
-    private static final String MESSAGE_INVALID_ITEM = "Could not mark task as incomplete: Invalid index provided!";
-    private static final String MESSAGE_CANNOT_UNCOMPLETE_EVENT = "An event cannot be marked as incomplete!";
-    private static final String MESSAGE_ALREADY_INCOMPLETE = "Could not mark task as incomplete: Task is not completed!";
-    private static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as incomplete: An error occured while saving the database file.";
+    public static final String MESSAGE_SUCCESS = "Task marked as incomplete!";
+    public static final String MESSAGE_INVALID_ITEM = "Could not mark task as incomplete: Invalid index provided!";
+    public static final String MESSAGE_CANNOT_UNCOMPLETE_EVENT = "An event cannot be marked as incomplete!";
+    public static final String MESSAGE_ALREADY_INCOMPLETE = "Could not mark task as incomplete: Task is not completed!";
+    public static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as incomplete: An error occured while saving the database file.";
     
     
     private static CommandDefinition commandDefinition =

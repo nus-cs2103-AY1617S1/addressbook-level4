@@ -18,11 +18,11 @@ public class CompleteTaskController extends Controller {
     private static final String COMMAND_SYNTAX = "complete <index>";
     private static final String COMMAND_KEYWORD = "complete";
     
-    private static final String MESSAGE_SUCCESS = "Task marked as complete!";
-    private static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";
-    private static final String MESSAGE_CANNOT_COMPLETE_EVENT = "An event cannot be marked as complete!";
-    private static final String MESSAGE_ALREADY_COMPLETED = "Could not mark task as complete: Task is already complete!";
-    private static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as complete: An error occured while saving the database file.";
+    public static final String MESSAGE_SUCCESS = "Task marked as complete!";
+    public static final String MESSAGE_INVALID_ITEM = "Could not mark task as complete: Invalid index provided!";
+    public static final String MESSAGE_CANNOT_COMPLETE_EVENT = "An event cannot be marked as complete!";
+    public static final String MESSAGE_ALREADY_COMPLETED = "Could not mark task as complete: Task is already complete!";
+    public static final String MESSAGE_COULD_NOT_SAVE = "Could not mark task as complete: An error occured while saving the database file.";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
