@@ -523,15 +523,6 @@
         <endTime></endTime>
         <done>false</done>
     </items>
-    <items>
-        <name>submit sample data</name>
-        <itemType>deadline</itemType>
-        <startDate></startDate>
-        <startTime></startTime>
-        <endDate>2016-11-07</endDate>
-        <endTime>11:00</endTime>
-        <done>false</done>
-    </items>
     <tags>
         <tagName>hello</tagName>
     </tags>

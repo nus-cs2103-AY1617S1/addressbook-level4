@@ -28,7 +28,7 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="5" VBox.vgrow="ALWAYS">
                             <children>
-                                <HBox>
+                                <HBox HBox.hgrow="NEVER">
                                     <Label fx:id="id" maxWidth="100.0" />
                                     <Label fx:id="name" maxWidth="400.0" text="\$first" />
                                 </HBox>
