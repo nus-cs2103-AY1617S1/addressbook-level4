@@ -99,8 +99,8 @@ public class TypicalTestTasks {
         LocalDate currentDate = LocalDate.now();
         final StringBuilder sb = new StringBuilder();
         sb.append(currentDate.getDayOfMonth() + "/")
-        	.append(currentDate.getMonthValue() + "/")
-        	.append(currentDate.getYear());
+            .append(currentDate.getMonthValue() + "/")
+            .append(currentDate.getYear());
         return sb.toString();
     }
     //@@author
