@@ -21,7 +21,7 @@ public class UnpinCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Pinned Task: %1$s";
+    public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Uninned Task: %1$s";
 
     public UnpinCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -30,7 +30,7 @@ public class UnpinCommand extends Command {
     @Override
     public CommandResult execute() {
 
-	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getPinnedTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

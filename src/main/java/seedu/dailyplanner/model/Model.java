@@ -78,5 +78,8 @@ public interface Model {
     /** Returns the StringProperty holding the last shown date command */
     public StringProperty getLastShowDateProperty();
 
+    /** Resets the pinboard to an empty pinboard */
+	public void resetPinBoard();
+
 
 }
