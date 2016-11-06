@@ -43,7 +43,8 @@
 Format: `help`
 
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+> Help document will pop up and you can look for the necessary information regarding each command
+> Assistance also be provided if you enter an incorrect command e.g. `abcd`
  
 <br>
 [](@@author A0139749L)
@@ -70,20 +71,8 @@ For any tasks with tags, specify the tags as the last parameter.|`add "James wed
 <br>
 Accepted entry formats | Examples
 ---------------------|---------------
-Date formats | 4/03/2016 , 4/03/16 , 4-03-16 , 4.03.16 , 4 March 16 , 4/03 , 4 Mar
-Time formats | 14:20 , 14.20 , 1420 , 2.20pm , 2:20pm
-
-
-<br>
-
-
-First, type a command.
-<img src="../assets/add_1.png" width="1000"><br>
-
-
-<br>
-Command will be added.
-<img src="../assets/add_2.png" width="1000"><br>
+Date formats | 4/03/2016 / 4/03/16 / 4-03-16 / 4.03.16 / 4 March 16 / 4/03 / 4 Mar
+Time formats | 14:20 / 14.20 / 1420 / 2.20pm / 2:20pm
 
 
 <br>
@@ -100,7 +89,7 @@ Format: `listall`
 
 #### Listing all tasks (both uncompleted and completed) by categories or tags: `listall`
 Shows a list of all tasks in the Emeraldo according to a stated category or by tag. <br>
-Format: `listall CATEGORIES or `listall TAG`
+Format: `listall CATEGORIES` or `listall TAG`
 
 
 > Categories include: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth. <br>
@@ -365,6 +354,6 @@ FindAll | `findall KEYWORD [MORE_KEYWORDS]`
 Help | `help`
 List | `list [CATEGORIES]` or `list [TAGS]`
 ListAll | `listall [CATEGORIES]` or `listall [TAGS]`
-Saveto | `saveto FILEPATH`
+SaveTo | `saveto FILEPATH`
 Tag | `tag add/delete/clear INDEX [#TAGS]`
 Undo | `undo`
