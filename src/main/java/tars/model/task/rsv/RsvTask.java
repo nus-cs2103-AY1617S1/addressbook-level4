@@ -16,6 +16,8 @@ public class RsvTask {
     protected Name name;
     protected ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
 
+    private static String RSV_TASK_STRING = "%1$s DateTime: %2$s";
+
     public RsvTask() {
 
     }
@@ -83,7 +85,8 @@ public class RsvTask {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" DateTime: ").append(getDateTimeList().toString());
+        builder.append(String.format(RSV_TASK_STRING, getName(),
+                getDateTimeList().toString()));
 
         return builder.toString();
     }

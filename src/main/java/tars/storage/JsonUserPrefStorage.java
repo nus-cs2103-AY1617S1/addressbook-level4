@@ -19,6 +19,10 @@ public class JsonUserPrefStorage implements UserPrefsStorage {
     private static final Logger logger =
             LogsCenter.getLogger(JsonUserPrefStorage.class);
 
+    private static String LOG_MESSAGE_PREF_FILE_NOT_FOUND =
+            "Prefs file %s not found";
+    private static String LOG_MESSAGE_PREF_FILE_READING_ERROR =
+            "Error reading from prefs file %1$s: %2$s";
     private String filePath;
 
     public JsonUserPrefStorage(String filePath) {
@@ -49,7 +53,8 @@ public class JsonUserPrefStorage implements UserPrefsStorage {
         File prefsFile = new File(prefsFilePath);
 
         if (!prefsFile.exists()) {
-            logger.info("Prefs file " + prefsFile + " not found");
+            logger.info(
+                    String.format(LOG_MESSAGE_PREF_FILE_NOT_FOUND, prefsFile));
             return Optional.empty();
         }
 
@@ -59,8 +64,8 @@ public class JsonUserPrefStorage implements UserPrefsStorage {
             prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile,
                     UserPrefs.class);
         } catch (IOException e) {
-            logger.warning("Error reading from prefs file " + prefsFile
-                    + StringUtil.STRING_COLON + e);
+            logger.warning(String.format(LOG_MESSAGE_PREF_FILE_READING_ERROR,
+                    prefsFile, e));
             throw new DataConversionException(e);
         }
 

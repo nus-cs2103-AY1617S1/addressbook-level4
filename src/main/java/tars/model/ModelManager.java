@@ -50,6 +50,10 @@ public class ModelManager extends ComponentManager implements Model {
     private static final String LIST_ARG_DATETIME = "/dt";
     private static final String LIST_ARG_PRIORITY = "/p";
     private static final String LIST_KEYWORD_DESCENDING = "dsc";
+    private static String MESSAGE_INITIALIZING_TARS =
+            "Initializing with tars %1$s and user prefs %2$s";
+    private static String CONFLICTING_TASK = "\nTask %1$s: %2$s";
+    private static String CONFLICTING_RSV_TASK = "\nRsvTask %1$s: %2$s";
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables should not be null
@@ -59,8 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with tars: " + src + " and user prefs "
-                + userPrefs);
+        logger.fine(String.format(MESSAGE_INITIALIZING_TARS, src, userPrefs));
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
@@ -215,8 +218,8 @@ public class ModelManager extends ComponentManager implements Model {
 
             if (t.getStatus().status == Status.UNDONE && DateTimeUtil
                     .isDateTimeConflicting(t.getDateTime(), dateTimeToCheck)) {
-                conflictingTasksStringBuilder.append("\nTask ")
-                        .append(taskCount).append(": ").append(t.getAsText());
+                conflictingTasksStringBuilder.append(String
+                        .format(CONFLICTING_TASK, taskCount, t.getAsText()));
                 taskCount++;
             }
         }
@@ -227,8 +230,8 @@ public class ModelManager extends ComponentManager implements Model {
                             .isDateTimeConflicting(dateTimeSource,
                                     dateTimeToCheck))
                     .count() > 0) {
-                conflictingTasksStringBuilder.append("\nRsvTask ")
-                        .append(rsvCount).append(": ").append(rt.toString());
+                conflictingTasksStringBuilder.append(String
+                        .format(CONFLICTING_RSV_TASK, rsvCount, rt.toString()));
                 rsvCount++;
 
             }
@@ -375,6 +378,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0124333U
     private class QuickSearchQualifier implements Qualifier {
+        private static final String LABEL_TAGS = "Tags: ";
+        private static final String LABEL_STATUS = "Status: ";
+        private static final String LABEL_PRIORITY = "Priority: ";
+        private static final String LABEL_DATETIME = "DateTime: ";
         private final ArrayList<String> quickSearchKeywords;
 
         QuickSearchQualifier(ArrayList<String> quickSearchKeywords) {
@@ -387,10 +394,10 @@ public class ModelManager extends ComponentManager implements Model {
                             StringUtil.EMPTY_STRING)
                     .replace(StringUtil.STRING_SQUARE_BRACKET_CLOSE,
                             StringUtil.STRING_WHITESPACE)
-                    .replace("DateTime: ", StringUtil.EMPTY_STRING)
-                    .replace("Priority: ", StringUtil.EMPTY_STRING)
-                    .replace("Status: ", StringUtil.EMPTY_STRING)
-                    .replace("Tags: ", StringUtil.EMPTY_STRING);
+                    .replace(LABEL_DATETIME, StringUtil.EMPTY_STRING)
+                    .replace(LABEL_PRIORITY, StringUtil.EMPTY_STRING)
+                    .replace(LABEL_STATUS, StringUtil.EMPTY_STRING)
+                    .replace(LABEL_TAGS, StringUtil.EMPTY_STRING);
             return editedString;
         }
 

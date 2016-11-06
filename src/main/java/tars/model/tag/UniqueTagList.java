@@ -19,6 +19,7 @@ import java.util.*;
  */
 public class UniqueTagList implements Iterable<Tag> {
     
+    private static final int INVALID_INDEX = -1;
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
@@ -153,7 +154,7 @@ public class UniqueTagList implements Iterable<Tag> {
             throws TagNotFoundException, IllegalValueException {
         int selectedIndex = internalList.indexOf(new Tag(toBeUpdated));
         
-        if (selectedIndex == -1) {
+        if (selectedIndex == INVALID_INDEX) {
             throw new TagNotFoundException();
         }
         

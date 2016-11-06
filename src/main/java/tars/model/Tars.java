@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
+import tars.commons.util.StringUtil;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
@@ -29,8 +30,7 @@ import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 /**
- * Wraps all data at the tars level Duplicates are not allowed (by .equals
- * comparison)
+ * Wraps all data at the tars level Duplicates are not allowed (by .equals comparison)
  */
 public class Tars implements ReadOnlyTars {
 
@@ -38,26 +38,32 @@ public class Tars implements ReadOnlyTars {
     private final UniqueTagList tags;
     private final UniqueRsvTaskList rsvTasks;
 
+    private static String TARS_COMPONENTS_SIZES =
+            "%1$s tasks, %2$s reserved tasks, %3$s tags";
+
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
         rsvTasks = new UniqueRsvTaskList();
     }
 
-    public Tars() { }
+    public Tars() {}
 
     /**
      * Tasks and Tags are copied into this tars
      */
     public Tars(ReadOnlyTars toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(), toBeCopied.getUniqueRsvTaskList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(),
+                toBeCopied.getUniqueRsvTaskList());
     }
 
     /**
      * Tasks and Tags are copied into this tars
      */
-    public Tars(UniqueTaskList tasks, UniqueTagList tags, UniqueRsvTaskList rsvTasks) {
-        resetData(tasks.getInternalList(), rsvTasks.getInternalList(), tags.getInternalList());
+    public Tars(UniqueTaskList tasks, UniqueTagList tags,
+            UniqueRsvTaskList rsvTasks) {
+        resetData(tasks.getInternalList(), rsvTasks.getInternalList(),
+                tags.getInternalList());
     }
 
     public static ReadOnlyTars getEmptyTars() {
@@ -95,7 +101,7 @@ public class Tars implements ReadOnlyTars {
         }
 
         ObservableList<Task> list = this.tasks.getInternalList();
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = StringUtil.START_INDEX; i < list.size(); i++) {
             if (list.get(i).isSameStateAs(toReplace)) {
                 syncTagsWithMasterList(replacement);
                 list.set(i, replacement);
@@ -108,14 +114,16 @@ public class Tars implements ReadOnlyTars {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<RsvTask> newRsvTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks,
+            Collection<RsvTask> newRsvTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setRsvTasks(newRsvTasks.stream().collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTars newData) {
-        resetData(newData.getTaskList(), newData.getRsvTaskList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getRsvTaskList(),
+                newData.getTagList());
     }
 
     //// task-level operations
@@ -147,7 +155,8 @@ public class Tars implements ReadOnlyTars {
      * @@author A0121533W
      * @throws DuplicateTaskException
      */
-    public void mark(ArrayList<ReadOnlyTask> toMarkList, Status status) throws DuplicateTaskException {
+    public void mark(ArrayList<ReadOnlyTask> toMarkList, Status status)
+            throws DuplicateTaskException {
         for (ReadOnlyTask t : toMarkList) {
             if (!t.getStatus().equals(status)) {
                 // prevent marking tasks which are already marked
@@ -159,8 +168,8 @@ public class Tars implements ReadOnlyTars {
     }
 
     /**
-     * Ensures that every tag in this task: - exists in the master list
-     * {@link #tags} - points to a Tag object in the master list
+     * Ensures that every tag in this task: - exists in the master list {@link #tags} - points to a
+     * Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -180,7 +189,8 @@ public class Tars implements ReadOnlyTars {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key)
+            throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -196,10 +206,10 @@ public class Tars implements ReadOnlyTars {
         }
     }
 
-    /** 
-     * @@author A0140022H 
+    /**
+     * @@author A0140022H
      * 
-     * Sorts internal list by priority from low to high
+     *          Sorts internal list by priority from low to high
      */
     public void sortByPriority() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -211,10 +221,10 @@ public class Tars implements ReadOnlyTars {
     }
     // @@author A0140022H
 
-    /** 
-     * @@author A0140022H 
+    /**
+     * @@author A0140022H
      * 
-     * Sorts internal list by priority from high to low
+     *          Sorts internal list by priority from high to low
      */
     public void sortByPriorityDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -226,10 +236,10 @@ public class Tars implements ReadOnlyTars {
     }
     // @@author
 
-    /** 
-     * @@author A0140022H 
+    /**
+     * @@author A0140022H
      * 
-     * Sorts internal list by earliest end dateTime first
+     *          Sorts internal list by earliest end dateTime first
      */
     public void sortByDatetime() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -241,10 +251,10 @@ public class Tars implements ReadOnlyTars {
     }
     // @@author
 
-    /** 
-     * @@author A0140022H 
+    /**
+     * @@author A0140022H
      * 
-     * Sorts internal list by latest end dateTime first
+     *          Sorts internal list by latest end dateTime first
      */
     public void sortByDatetimeDescending() {
         this.tasks.getInternalList().sort(new Comparator<Task>() {
@@ -258,12 +268,12 @@ public class Tars implements ReadOnlyTars {
 
     //// tag-level operations
 
-    //@@author A0139924W
+    // @@author A0139924W
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-    //@@author A0139924W
+    // @@author A0139924W
     public void removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
         tags.remove(t);
     }
@@ -280,7 +290,8 @@ public class Tars implements ReadOnlyTars {
     public void renameTasksWithNewTag(ReadOnlyTag toBeRenamed, Tag newTag)
             throws IllegalValueException, TagNotFoundException {
 
-        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+        for (int i = StringUtil.START_INDEX; i < tasks.getInternalList()
+                .size(); i++) {
             Task toEdit = new Task(tasks.getInternalList().get(i));
             UniqueTagList tags = toEdit.getTags();
             if (tags.contains(new Tag(toBeRenamed))) {
@@ -299,11 +310,13 @@ public class Tars implements ReadOnlyTars {
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
      */
-    public ArrayList<ReadOnlyTask> removeTagFromAllTasks(ReadOnlyTag toBeDeleted)
-            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+    public ArrayList<ReadOnlyTask> removeTagFromAllTasks(
+            ReadOnlyTag toBeDeleted) throws IllegalValueException,
+            TagNotFoundException, DuplicateTagException {
         ArrayList<ReadOnlyTask> editedTasks = new ArrayList<ReadOnlyTask>();
 
-        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+        for (int i = StringUtil.START_INDEX; i < tasks.getInternalList()
+                .size(); i++) {
             Task toEdit = new Task(tasks.getInternalList().get(i));
             UniqueTagList tags = toEdit.getTags();
             if (tags.contains(new Tag(toBeDeleted))) {
@@ -325,11 +338,13 @@ public class Tars implements ReadOnlyTars {
      * @throws IllegalValueException if the given tag name string is invalid.
      * @throws TagNotFoundException if there is no matching tags.
      */
-    public void addTagToAllTasks(ReadOnlyTag toBeAdded, ArrayList<ReadOnlyTask> allTasks)
-            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+    public void addTagToAllTasks(ReadOnlyTag toBeAdded,
+            ArrayList<ReadOnlyTask> allTasks) throws IllegalValueException,
+            TagNotFoundException, DuplicateTagException {
 
-        for (int i = 0; i < allTasks.size(); i++) {
-            for (int j = 0; j < tasks.getInternalList().size(); j++) {
+        for (int i = StringUtil.START_INDEX; i < allTasks.size(); i++) {
+            for (int j = StringUtil.START_INDEX; j < tasks.getInternalList()
+                    .size(); j++) {
                 Task toEdit = new Task(tasks.getInternalList().get(j));
                 if (toEdit.equals(allTasks.get(i))) {
                     UniqueTagList tags = toEdit.getTags();
@@ -341,13 +356,16 @@ public class Tars implements ReadOnlyTars {
         }
     }
 
-    //@@author
+    // @@author
 
     //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + rsvTasks.getInternalList().size() + " reserved tasks," + tags.getInternalList().size() + " tags";
+        return String.format(TARS_COMPONENTS_SIZES,
+                tasks.getInternalList().size(),
+                rsvTasks.getInternalList().size(),
+                tags.getInternalList().size());
     }
 
     @Override
