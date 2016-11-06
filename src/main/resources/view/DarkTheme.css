@@ -2,7 +2,6 @@
 .root {
 	main-bg-color: white;
 	main-bg-color: #F5F5F5;
-	main-border-color: derive(#1d1d1d, 90%);
 	card-bg-color: #FFF5EE;
 }
 /*@@author */
@@ -106,9 +105,11 @@
 
 /*@@author A0143641M */
 .list-cell:focused:selected {
-	-fx-background-color: derive(#00BFFF, 80%);
+	-fx-background-color: derive(#0066CC , 90%);
 }
-
+.list-cell:focused:selected .label {
+	-fx-font-size: 21px;
+}
 .list-cell .label {
 	-fx-font-family: Palatino;
 	-fx-font-size: 16px;
@@ -130,14 +131,11 @@
     -fx-wrap-text: true;
 }
 
-
-/*@@author */
-
 .cell_small_label {
 	-fx-text-fill: derive(black, 35%);
     -fx-font-size: 16px;
 }
-
+/*@@author */
 
 .anchor-pane {
      -fx-background-color: derive(white, 20%);

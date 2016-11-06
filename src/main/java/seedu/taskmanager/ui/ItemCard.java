@@ -122,6 +122,7 @@ public class ItemCard extends UiPart{
         startDate.setStyle("-fx-text-fill: #048200");
         tags.setText(item.tagsString());
         if (item.getDone()) {
+            doneButton.setStyle("-fx-background-color: #28A428");
             doneButton.setText(DONE_TEXT);
         } else {
         	doneButton.setText(UNDONE_TEXT);
