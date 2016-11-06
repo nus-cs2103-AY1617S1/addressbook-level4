@@ -280,18 +280,12 @@ public class TodoModel implements Model {
     @Override
     public void addTagsToTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
-
-        ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator
-                .validate("add tags", validator -> validator.validateAddTags(task, tagNames));
-
-        addTagsToTaskHelper(index, task, tagNames);
+        addTagsToTaskHelper(index, tagNames);
     }
 
     @Override
     public void addTagsToTask(MutableTask task, String... tagNames) {
         saveUndoState();
-
         //Do not perform validation (disallowed by Consumer interface). Perform actual tag adding.
         addTagsToTaskHelper(task, tagNames);
     }
@@ -299,32 +293,25 @@ public class TodoModel implements Model {
     @Override
     public void deleteTagsFromTask(int index, String... tagNames) throws ValidationException {
         saveUndoState();
-
-        ImmutableTask task = getTask(index);
-        UniqueTagCollectionValidator
-                .validate("delete tags", validator -> validator.validateDeleteTags(task, tagNames));
-
         deleteTagsFromTaskHelper(index, tagNames);
     }
 
     @Override
     public void deleteTags(String... tagNames) throws ValidationException {
         saveUndoState();
-
-        UniqueTagCollectionValidator.validate("delete tags",
-                validator -> validator.validateDeleteTags(uniqueTagCollection, tagNames));
-
         deleteTagsHelper(tagNames);
     }
 
     @Override
     public void renameTag(String oldName, String newName) throws ValidationException {
         saveUndoState();
-
-        UniqueTagCollectionValidator.validate("rename tag",
-                validator -> validator.validateRenameCommand(uniqueTagCollection, oldName, newName));
-
         renameTagHelper(oldName, newName);
+    }
+
+    @Override
+    public void renameTag(int index, String oldName, String newName) throws ValidationException {
+        saveUndoState();
+        renameTagFromTaskHelper(index, oldName, newName);
     }
 
     /**
@@ -339,31 +326,42 @@ public class TodoModel implements Model {
 
     /* Helper Method */
     /**
-     * Helper method that handles tag adding operation
+     * Helper method that validate and handles tag adding operation
      */
-    private void addTagsToTaskHelper(int index, ImmutableTask task, String[] tagNames)
+    private void addTagsToTaskHelper(int index, String... tagNames)
             throws ValidationException {
+        int taskIndex = getTaskIndex(index);
+        ImmutableTask task = getTask(index);
 
-        update(index, mutableTask -> {
+        UniqueTagCollectionValidator
+                .validate("add tags", validator -> validator.validateAddTags(task, tagNames));
+
+        todoList.update(taskIndex, mutableTask -> {
             assert mutableTask.equals(task); //Just a sanity check.
-            addTagsToTask(mutableTask, tagNames);
+            addTagsToTaskHelper(mutableTask, tagNames);
         });
     }
 
     /**
-     * Helper method that handles tag adding operation
+     * Helper method that handles tag adding operation without validation
      */
-    private void addTagsToTaskHelper(MutableTask task, String[] tagNames) {
+    private void addTagsToTaskHelper(MutableTask task, String... tagNames) {
         Set<Tag> newTags = new HashSet<>(uniqueTagCollection.associateTaskToTags(task, tagNames));
         newTags.addAll(task.getTags());
         task.setTags(newTags);
     }
 
     /**
-     * Helper method that handles tag deletion from task operation
+     * Helper method that validates and handles tag deletion from task operation
      */
-    private void deleteTagsFromTaskHelper(int index, String[] tagNames) throws ValidationException {
-        update(index, mutableTask -> {
+    private void deleteTagsFromTaskHelper(int index, String... tagNames) throws ValidationException {
+        int taskIndex = getTaskIndex(index);
+        ImmutableTask task = getTask(index);
+
+        UniqueTagCollectionValidator
+                .validate("delete tags", validator -> validator.validateDeleteTags(task, tagNames));
+
+        todoList.update(taskIndex, mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             Collection<Tag> deletedTags = uniqueTagCollection.dissociateTaskFromTags(mutableTask, tagNames);
             tagsFromTask.removeAll(deletedTags);
@@ -372,9 +370,12 @@ public class TodoModel implements Model {
     }
 
     /**
-     * Helper method that handles tag deletion operation
+     * Helper method that validates and handles tag deletion operation
      */
-    private void deleteTagsHelper(String[] tagNames) throws ValidationException {
+    private void deleteTagsHelper(String... tagNames) throws ValidationException {
+        UniqueTagCollectionValidator.validate("delete tags",
+                validator -> validator.validateDeleteTags(uniqueTagCollection, tagNames));
+
         Collection<Tag> deletedTags = uniqueTagCollection.deleteTags(tagNames);
         todoList.updateAll(mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
@@ -384,16 +385,32 @@ public class TodoModel implements Model {
     }
 
     /**
-     * Helper method that handles tag renaming operation
+     * Helper method that validates and handles global tag renaming operation
      */
     private void renameTagHelper(String oldName, String newName) throws ValidationException {
+        UniqueTagCollectionValidator.validate("rename tag",
+                validator -> validator.validateGlobalRenameCommand(uniqueTagCollection, oldName, newName));
+
         Set<ImmutableTask> tasksWithTag = uniqueTagCollection.getTasksLinkedToTag(oldName);
-        deleteTags(oldName);
+        deleteTagsHelper(oldName);
 
         todoList.updateAll(mutableTask -> {
             if (tasksWithTag.contains(mutableTask)) {
-                addTagsToTask(mutableTask, newName);
+                addTagsToTaskHelper(mutableTask, newName);
             }
         });
+    }
+
+    /**
+     * Helper method that validates and handles tag renaming operation
+     */
+    private void renameTagFromTaskHelper(int index, String oldName, String newName) throws ValidationException {
+        ImmutableTask task = getTask(index);
+
+        UniqueTagCollectionValidator.validate("rename tag",
+                validator -> validator.validateRenameCommand(task, oldName, newName));
+
+        deleteTagsFromTaskHelper(index, oldName);
+        addTagsToTaskHelper(index, newName);
     }
 }
