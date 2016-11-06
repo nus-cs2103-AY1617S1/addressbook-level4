@@ -13,13 +13,13 @@ public class ToolTip {
     public static final String TOOLTIP_DELIMITER = " | ";
     
     private static final int COMMAND_WORD_POSITION = 0;
-    private static final String COMMAND_WORD_DELIMITER = " ";
+    private static final String COMMAND_WORD_DELIMITER = "\\s+";
 
     private static final int COMMAND_WORD_COUNT_NO_MATCH = 0;
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
 
     private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
-    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!\n";
+    private static final String TOOLTIP_UNKNOWN_COMMAND = "This does not resemble any command I have, Meow!";
 
     private static ToolTip tooltip;
 
@@ -52,8 +52,8 @@ public class ToolTip {
      */
     public void createToolTip(String input) {
         clearToolTip();
-        String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
-
+        String[] splitedInput = input.trim().split(COMMAND_WORD_DELIMITER);
+        
         // only interested in the first word, which is the command word
         String command = splitedInput[COMMAND_WORD_POSITION];
 
@@ -131,6 +131,9 @@ public class ToolTip {
         return description;
     }
     
+    /**
+     * Returns true if user input is valid based on the latest tooltip generated
+     */
     public boolean isUserInputValid() {
         return !isMessageUnknownOrEmpty();
     }

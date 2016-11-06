@@ -6,7 +6,7 @@ import seedu.taskitty.commons.util.CollectionUtil;
 //@@author A0139930B
 /**
  * Represents a Task's startDate, startTime, endDate and endTime in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidPeriod(String)}
  */
 public class TaskPeriod implements Comparable<TaskPeriod>{
 
@@ -69,7 +69,10 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given startDate, startTime, endDate, endTime form a valid period.
+     * 
+     * Valid period is where startDate, startTime cannot be later than endDate, endTime
+     * If either startDate or endDate are null, return true because there is no period
      */
     public static boolean isValidPeriod(TaskDate startDate, TaskTime startTime,
             TaskDate endDate, TaskTime endTime) {

@@ -16,6 +16,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String END_DATE_FIELD_ID = "#endDate";
     private static final String END_TIME_FIELD_ID = "#endTime";
     private static final String TAG_FIELD_ID = "#tags";
+    private static final String CARDPANE_FIELD_ID = "#cardPane";
 
     private Node node;
 
@@ -33,15 +34,23 @@ public class TaskCardHandle extends GuiHandle {
     	return getStyleFromLabel(fieldId, node);
     }
     
+    // get the CSS in line style of the specified Hbox, returned as a string
+    protected String getStyleFromHbox(String fieldId) {
+        return getStyleFromHbox(fieldId, node);
+    }
     // get the CSS in line style of the name of the task card as a helper method for checking if its marked as done.
-    public String getStyle() {
+    public String getDoneStyle() {
     	return getStyleFromLabel(NAME_FIELD_ID);
+    }
+ // get the CSS in line style of the name of the task card as a helper method for checking if its marked as overdue.
+    public String getOverdueStyle() {
+        return getStyleFromHbox(CARDPANE_FIELD_ID);
     }
     //@@author
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
-
+    
     //@@author A0139052L
     public String getStartDate() {
         return getTextFromLabel(START_DATE_FIELD_ID);

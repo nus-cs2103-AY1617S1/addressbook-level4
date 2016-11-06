@@ -45,7 +45,12 @@ public abstract class TaskManagerGuiTest {
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
-
+     
+    //@@author A0130853L
+    private static final String OVERDUE_STYLE = "-fx-background-color: #d9534f";
+    private static final String DONE_STYLE = "-fx-text-fill: #555555";
+    
+    //@@author 
     @BeforeClass
     public static void setupSpec() {
         try {
@@ -61,7 +66,7 @@ public abstract class TaskManagerGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -107,10 +112,18 @@ public abstract class TaskManagerGuiTest {
      * Asserts the task shown is marked as done by verifying that it has the "#done" CSS style.
      */
     public void assertMarkAsDone(TaskCardHandle card) {
-    	assertEquals("-fx-text-fill: #555555", card.getStyle());
+    	assertEquals(DONE_STYLE, card.getDoneStyle());
     }
-    //@@author
+    
+    /**
+     * Asserts the task shown is marked as overdue by verifying that it has the "#overdue" CSS style.
+     */
+    public void assertMarkAsOverdue(TaskCardHandle card) {
+        assertEquals(OVERDUE_STYLE, card.getOverdueStyle());
+    }
 
+    //@@author
+   
     /**
      * Asserts the size of the todo list is equal to the given number.
      */

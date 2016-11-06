@@ -26,15 +26,17 @@ We are a group of Computer Science students from the School of Computing, Nation
 * Aspects/tools in charge of: Integration<br>
 * Features implemented:
   * [Add Task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#create-a-new-task-add)
-  * [Find Tag](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#find-tasks-find)
+  * [Find Task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#find-tasks-find)
   * [Tooltips](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#quick-start)
 * Code written: [[functional code](../collated/main/A0139930B.md)][[test code](../collated/test/A0139930B.md)][[docs](../collated/docs/A0139930B.md)]
 * Other major contributions:
+  * Overhaul UI for v0.5 [[#217](https://github.com/CS2103AUG2016-W14-C4/main/pull/217)][[#236](https://github.com/CS2103AUG2016-W14-C4/main/pull/236)]
+  * Set up Natty [[#93](https://github.com/CS2103AUG2016-W14-C4/main/pull/93)]
   * Did the initial refactoring from AddressBook to TasKitty [[#15](https://github.com/CS2103AUG2016-W14-C4/main/pull/15)]
   * Set up initial Storage from AddressBook to TasKitty [[#65](https://github.com/CS2103AUG2016-W14-C4/main/pull/65)]
   * Set up initial Model from AddressBook to TasKitty [[#72](https://github.com/CS2103AUG2016-W14-C4/main/pull/72)]
-  * Set up Natty [[#93](https://github.com/CS2103AUG2016-W14-C4/main/pull/93)]
   * Set up Codacy
+  * Improve Codacy to A [[#223](https://github.com/CS2103AUG2016-W14-C4/main/pull/223)][[#226](https://github.com/CS2103AUG2016-W14-C4/main/pull/226)][[#228](https://github.com/CS2103AUG2016-W14-C4/main/pull/228)]
 
 -----
 

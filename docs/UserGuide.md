@@ -25,6 +25,7 @@ To get started, proceed to the Quick Start section below.
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
 >   Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.  
+   
 <!-- @@author A0130853L -->
 
 1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
@@ -33,13 +34,13 @@ To get started, proceed to the Quick Start section below.
    <img src="images/Ui.png" width="900">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   While typing commands, tooltips will appear to aid you. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+> While typing commands, tooltips will appear to aid you. <br>
 5. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
-   * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
+   * **`add`**` business proposal 17 nov 2pm` : adds a new task that has the deadline `02:00pm, 17 nov`.
    * **`view`** : lists all upcoming and uncompleted tasks.
-   * **`view`**` 1 Jan 2015` : lists all tasks for the specific date.
+   * **`view`**` 1 Jan` : lists all tasks for the specific date.
    * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -47,10 +48,18 @@ To get started, proceed to the Quick Start section below.
 <br>
 ## Features
 
+> Items in `<angle brackets>` are the parameters.<br>
+> Items in `[square brackets]` are optional.<br>
+> Items with `...` after them can have multiple instances.<br><br>
+> `<datetime>` parameters can accept different formats. `2 Jan 2015 3pm`, `15:00 2/1/2015`, `2-1-2015, 3:00pm` are acceptable formats to represent 2 Jan 2015, 3pm.<br>
+> `<datetime>` parameters can also accept relative date formats such as `tomorrow 4pm` and `next friday 2359`.<br><br>
+> The order of parameters is fixed.<br>
+
 <br>
 #### View help : `help`
 Format: `help`<br>
 Shortcut key: `F1`
+
 
 A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 <img src="images/UIhelp.png" width="900">
@@ -73,16 +82,16 @@ Example:
  
  
 <br>
-#### View all tasks for a specified date: `view DATE`
-Lists all events for the specified date, deadlines up to the specified date, and all todo tasks.<br>
-Format: `view DATE`
+#### View all tasks for a specified date: `view <date>`
+Lists all events for the specified date, uncompleted deadlines up to the specified date, and all todo tasks.<br>
+Format: `view <date>`
 
 All todo tasks, events for the specified date and deadlines up to the specified date will be displayed.<br>
-If `view today` is entered, today's tasks, events and deadlines up to today will be displayed.
+If `view today` is entered, today's tasks, events and uncompleted deadlines up to today will be displayed.
 
 Example:
 
-* `view 5 Nov`<br>
+* `view 7 Nov`<br>
   <img src="images/UIviewDate.png" width="900">
 
 
@@ -119,77 +128,79 @@ Example:
 <!-- @@author A0139930B -->
 #### Create a new task: `add`
 Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
-* Todo format: `add NAME`<br>
-* Deadline format: `add NAME END_DATE_TIME`<br>
-* Event format: `add NAME START_DATE_TIME to END_DATE_TIME`
 
-> **Command Format**<br><br>
 > Tasks are split into 3 categories: `todo`, `deadline`, `event`.<br>
 > `todo`: Tasks that have no specific date/time to be completed by.<br>
 > `deadline`: Tasks that have a specific date/time they must be completed by.<br>
 > `event`: Tasks that have specific start and end date/time.<br>
 
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * `DATE_TIME` parameter can accept different formats. 2 Jan 2015 3pm, 15:00 2/1/2015 are acceptable formats to represent 2 Jan 2015, 15:00.
-> * `DATE_TIME` parameter can also accept relative date formats such as tomorrow and next friday.
-> * The order of parameters is fixed.
-
-> Depending on the input format, the task will be saved into 1 of 3 categories: `todo`, `deadline` or `event`.
+* Todo format: `add <name> [#tag]...`<br>
+* Deadline format: `add <name> [end datetime] [#tag]...`<br>
+* Event format: `add <name> [start datetime] to [end datetime] [#tag]...`
 
 <!-- @@author A0130853L -->
 Examples:
 
-* `add study for test`<br>
-  Adds a `todo` task with `NAME` as `study for test`.<br>
+* `add buy new tie #work`<br>
+  Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
 
-* `add math assignment 17 Nov 2pm`<br>
-  Adds a `deadline` task with `NAME` as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.<br>
+* `add submit proposal 17 Nov 2pm #work`<br>
+  Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
-* `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
-  Adds an `event` task with `NAME` as `walk dog`, DATE as `5 Nov 2016`, `START\_TIME` as `17:00`, `END\_TIME` as `18:00`.<br>
+* `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
+  Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
   
 
+<!-- @@author A0139930B -->
 <br>
 #### Find tasks: `find`
 Finds tasks based on keywords.<br>
-Format: `find KEYWORDS...`
+Format: `find <keyword> [more keywords]...`
 
-Tasks that partly or completely match the keywords entered will be displayed.<br>
+Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`<br>
 
 Example: 
-* `find assign`<br>
+* `find prop`<br>
   <img src="images/UIfind.png" width="900">
-
+  
+* `find #work`<br>
+  <img src="images/UIfindTag.png" width="900">
 
 <br>
 <!-- @@author A0135793W -->
 #### Edit task details: `edit`
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> Edits a task at the specified `INDEX` under the todos `t`, deadlines `d` or events `e` section. The `INDEX` refers to the category and index number shown in the most recent listing. eg. `t1` `d2` `e3` <br>
-If no or an invalid category was listed, the app will default to todo format `t`. eg. `1` and `+1` becomes `t1` <br><br>
-> Format depends on the type of task being edited. When only 1 `TIME` is provided, it is treated as `END_TIME` for both deadline and event.<br><br>
-> Note that you can enter the `view` command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
+* Format: `edit <index> [name] [datetime] `
+
+`<index>` is the index of the task shown in the most recent listing, including the prefix, `t` todo, `d` deadline or `e` event. eg. `t2` `d1` `e4`<br>
+If no or an invalid category was listed, the app will default to todo format `t`. eg. `1` and `+1` becomes `t1` <br>
+
+Format depends on the type of task being edited. When only 1 `<time>` is provided, it is treated as `<end time>` for both deadline and event.<br>
+
+> Note that you can enter the [`view`](#view-upcoming-tasks-view) command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
 <!-- @@author A0130853L -->
 Example:
 
 * `view`<br>
-  `edit d2 math assignment2 15 Nov 2016`<br>
-  Edits the 2nd task under the deadline tasks section. Changes the `NAME` to `math assignment2` and `DATE` to `15 Nov 2016`.<br>
+  `edit d2 15 Nov`<br>
+  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov`.<br>
   <img src="images/UIedit.png" width="900">
 
+* `view`<br>
+  `edit t1 buy blue tie`<br>
+  Edits the 1st task under the todo tasks section. Changes the `<name>` to `buy blue tie`.<br>
+  <img src="images/UIeditTodo.png" width="900">
 <br>
 
 #### Delete task: `delete`
 Deletes one or more todo, deadline or event task already inside the task manager using the index of the task.<br>
-* Format: `delete INDEXES...`<br>
+
+* Format: `delete <index> [more indexes]...`<br>
 
 > You can enter tasks in a range by typing the category and first number index of the task followed by a `-` and then the final number index. eg. `t1-3` counts as todo tasks t1, t2 and t3 together.<br>
 
@@ -205,15 +216,16 @@ Examples:
   After:<br>
   <img src="images/UIdeleteAfter.png" width="900"><br>
   
-* `view 5 Nov 2016`<br>
+* `view 7 Nov`<br>
   `delete e1`<br>
-  Deletes the 1st task under the events section for `5 Nov 2016` as shown by the `view DATE` command.<br>
+  Deletes the 1st task under the events section for `7 Nov` as shown by the `view DATE` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBeforeDate.png" width="900"><br>
   
   After:<br>
   <img src="images/UIdeleteAfterDate.png" width="900"><br>
+  
 <!-- @@author A0139052L -->
 
 * `view`<br>
@@ -225,17 +237,18 @@ Examples:
   
   After:<br>
   <img src="images/UIdeleteMultipleAfter.png" width="900"><br>  
+  
 <!-- @@author A0130853L -->  
 
 <br>
 
 #### Mark task as done: `done`
 Marks one or more task in the task list as done.<br>
-* Format: `done INDEXES...`
 
-Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
-Event tasks will be automatically marked as done once they are over.<br>
-Note that tasks that are marked as done will be sorted in reversed order based on their `START_DATE`.<br>
+* Format: `done <index> [more indexes]...`
+
+> Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
+> Note that tasks that are marked as done will be sorted in reversed order based on their `<start datetime>`.<br>
 
 Example:
 
@@ -251,13 +264,14 @@ Example:
 <!-- @@author A0139052L --> 
  * `view all`<br>
   `done t1 t2 t3`<br>
-  Marks the 1st 3 task under the todo section shown by the `view all` command as completed.<br>
+  Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneMultipleBefore.png" width="900"><br>
   
   After:<br>
   <img src="images/UIdoneMultipleAfter.png" width="900"><br>
+  
 <!-- @@author A0130853L -->  
 
 <br>
@@ -317,17 +331,18 @@ Commands that do not affect the task manager cannot be undone/redone. eg. view, 
 
 #### Save/Load data: `path`
 Saves data to a specified folder.<br>
-Format: `path FILEPATH.`
+Format: `path <filepath>.xml`
 
 * Windows OS FILEPATH format example: `C:\\Users\\<username>\\Desktop\\CS2103 Tutorial\\TasKitty.xml`
 * Mac OS FILEPATH format example: `/Users/<username>/Desktop/CS2103 Tutorial/TasKitty.xml`
 
-TasKitty must end with a .xml extension.<br>
-TasKitty will save any other FILEPATH format in the same directory as TasKitty.<br>
-TasKitty will automatically create the folder if the folder is not present.<br>
-TasKitty can load data from an existing .xml file if TasKitty is empty.<br>
+> TasKitty must end with a .xml extension.<br>
+> TasKitty will save any other FILEPATH format in the same directory as TasKitty.<br>
+> TasKitty will automatically create the folder if the folder is not present.<br>
+> TasKitty can load data from an existing .xml file if TasKitty is empty.<br>
 
 Example:
+
 * `path /Users/<username>/Desktop/CS2103 Tutorial/TasKitty.xml`<br>
   Saves TasKitty data into the folder CS2103 Tutorial with TasKitty.xml as the filename.<br>
   If folder CS2103 Tutorial is not present, TasKitty will create the folder.
@@ -351,9 +366,11 @@ Format: `exit`
 <!-- @@author -->
 ## FAQ
 
+**Q**: The app is not recognizing my tasks correctly!<br>
+**A**: Try to use "quotes" around your task names to help TasKitty differentiate between your task name and other parameters.
+
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous task manager's folder.      
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous task manager's folder.      
 
 <br>
 
@@ -362,18 +379,18 @@ Format: `exit`
 
 Command | Format  
 -------- | :-------- 
-Add todo | `add NAME`
-Add deadline | `add NAME DATE END_TIME`
-Add event | `add NAME DATE START_TIME END_TIME`
+Add todo | `add <name>`
+Add deadline | `add <name> <end datetime>`
+Add event | `add <name> <start datetime> to <end datetime>`
 View upcoming | `view`
 View all | `view all`
-View date | `view DATE`
+View date | `view <date>`
 View done | `view done`
-Find | `find KEYWORDS...`
-Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Delete | `delete INDEXES...`
-Done | `done INDEXES...`
-Path | `path FILEPATH`
+Find | `find <keyword> [more keywords]...`
+Edit | `edit <index> <name> <datetime>`
+Delete | `delete <index> [more indexes]...`
+Done | `done <index> [more indexes]...`
+Path | `path <filepath>.xml`
 Undo | `undo`
 Redo | `redo`
 Help | `help`

@@ -6,10 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.logic.ToolTip;
@@ -25,25 +27,29 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     private String previousCommandText;
+    private ImageView catImage;
 
     private Logic logic;
+    private boolean isInputValid;
 
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+            ResultDisplay resultDisplay, MainWindow mainWindow, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(resultDisplay, mainWindow, logic);
         commandBox.addToPlaceholder();
         commandBox.setTooltipListener();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    public void configure(ResultDisplay resultDisplay, MainWindow mainWindow, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        this.catImage = mainWindow.getCatImage();
+        isInputValid = true;
         
         registerAsAnEventHandler(this);
     }
@@ -51,18 +57,23 @@ public class CommandBox extends UiPart {
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 50, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 50, 0.0, 10, 10);
+        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 10, 10);
     }
     
     //@@author A0139930B
+    /**
+     * Creates a text listener to listen on user input into textbox
+     * and give appropriate feedback using the ToolTip class.
+     */
     private void setTooltipListener() {
         ToolTip tooltip = ToolTip.getInstance();
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             tooltip.createToolTip(newValue);
             resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
             
-            if (tooltip.isUserInputValid()) {
+            isInputValid = tooltip.isUserInputValid();
+            if (isInputValid) {
                 setStyleToIndicateCorrectCommand();
             } else {
                 setStyleToIndicateIncorrectCommand();
@@ -101,6 +112,9 @@ public class CommandBox extends UiPart {
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
         emptyCommandText(command);
+        if (isInputValid) {
+            setCatImage("/images/cat_happy.png");
+        }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -118,6 +132,8 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
+        setCatImage("/images/cat_normal.png");
+        isInputValid = true;
     }
 
     @Subscribe
@@ -138,7 +154,15 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
-        commandTextField.getStyleClass().add("error");
+        if (!commandTextField.getStyleClass().contains("error")) {
+            commandTextField.getStyleClass().add("error"); 
+            setCatImage("/images/cat_sad.png");
+            isInputValid = false;
+        }
+    }
+    
+    private void setCatImage(String imagePath) {
+        catImage.setImage(AppUtil.getImage(imagePath));
     }
 
 }

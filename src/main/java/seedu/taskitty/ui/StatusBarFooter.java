@@ -62,7 +62,7 @@ public class StatusBarFooter extends UiPart {
         addSaveLocation();
         addViewStatus();
         setViewStatus("Viewing: " + UPCOMING_TASKS);
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         registerAsAnEventHandler(this);
     }
     //@@author
