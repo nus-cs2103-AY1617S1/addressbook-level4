@@ -13,15 +13,14 @@ public class SaveCommandTest extends AddressBookGuiTest {
     
     @Test
     public void save_withDefaultTestPath() {
-        assertSave(TEST_SAVE_DIRECTORY);
+        saveFile(TEST_SAVE_DIRECTORY);
+        assertSaveFileExists(TEST_SAVE_DIRECTORY);
     }
     
-    private void assertSave(String saveDirectory) {
+    private void saveFile(String saveDirectory) {
         String saveCommand = "save " + saveDirectory;
         
         commandBox.runCommand(saveCommand);
-        
-        assertSaveFileExists(saveDirectory);
     }
     
     private void assertSaveFileExists(String saveDirectory) {
