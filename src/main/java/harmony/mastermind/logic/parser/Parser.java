@@ -24,7 +24,7 @@ import com.google.common.base.Strings;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.commons.util.StringUtil;
-import harmony.mastermind.logic.commands.ActionHistoryCommand;
+import harmony.mastermind.logic.commands.HistoryCommand;
 import harmony.mastermind.logic.commands.AddCommand;
 import harmony.mastermind.logic.commands.AddCommandBuilder;
 import harmony.mastermind.logic.commands.ClearCommand;
@@ -144,8 +144,8 @@ public class Parser {
             case ExportCommand.COMMAND_KEYWORD_EXPORT:
                 return prepareExport(arguments);
                 
-            case ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY:
-                return new ActionHistoryCommand();
+            case HistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY:
+                return new HistoryCommand();
             default:
                 return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND+": "+userInput);
         }
