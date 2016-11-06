@@ -47,7 +47,7 @@ Example: add go swimming #fitness
 
 >Note: tags are optional and multiple tags can be added to all tasks.
 
-<br><br>
+<br>
 ####1.2 Add a deadline
 
 Perhaps after adding a todo, now you want to add a task with a deadline. Let's say you have to do a report by next Monday, 7pm.
@@ -58,7 +58,7 @@ Example: add complete report; 120916; 1900 #YOLO
 
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
-<br><br>
+<br>
 ####1.3 Add an event
 
 Let's say you have to attend a friend's birthday party on the weekend. You know the date, the time it starts, as well as the time it ends.
@@ -73,7 +73,7 @@ Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPres
 
 >Important: The square brackets are compulsory when adding an event.
 
-<br><br>
+<br>
 ####1.4 Add a tag / multiple tags to existing tasks
 
 Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added.
@@ -82,7 +82,7 @@ Now, that report due on Monday has become a very important task that you absolut
 
 Example: Add D1 #VeryImportant #omg  
 
-<br><br>
+<br>
 
 ###2 Edit a task
 
@@ -102,7 +102,7 @@ When you accidentally enter the wrong details on any of your tasks, worry not. T
 
 >Note: Removing end time from deadlines will automatically set the end time of the deadline to 2359. 
 
-<br><br>
+<br>
 ####2.1 Edit task description
 
 Remember that birthday party previously entered? Perhaps now instead of entering Sam's birthday party, you want to change the description to Samantha's birthdday party. To do so, simply follow the command format below.
@@ -111,7 +111,7 @@ Remember that birthday party previously entered? Perhaps now instead of entering
 
 Example: edit E1 des Sam's birthday party
 
-<br><br>
+<br>
 ####2.2 Edit task date
 
 Now, maybe the date of the birthday party you previously entered is also wrong and should be one day later instead. 
@@ -122,7 +122,7 @@ Example: Edit E1 date 21/12/16
 
 >Note: If you add a date to a to-do, this will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
 
-<br><br>
+<br>
 ####2.3 Edit task start time 
 
 Samantha's birthday party is tomorrow and she has called to inform you that her party is starting two hours earlier at 5pm instead. To change the start time, simply type the following command.
