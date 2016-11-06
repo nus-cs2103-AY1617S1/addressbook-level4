@@ -85,7 +85,7 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate("5/11/2017"));
         assertTrue(TaskDate.getIsValidDate("7/8/2017"));
         assertTrue(TaskDate.getIsValidDate("8/5/2017"));
-        assertTrue(TaskDate.getIsValidDate("30/12"));
+        assertTrue(TaskDate.getIsValidDate("30/12/2018"));
     }
     
     @Test

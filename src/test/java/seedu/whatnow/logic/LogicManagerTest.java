@@ -268,7 +268,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
-        // set AB state to 2 tasks
+        // set WN state to 2 tasks
         model.resetData(new WhatNow());
         for (Task p : taskList) {
             model.addTask(p);
@@ -365,7 +365,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
-        // set AB state to 2 tasks
+        // set WN state to 2 tasks
         model.resetData(new WhatNow());
         for (Task p : taskList) {
             model.addTask(p);
