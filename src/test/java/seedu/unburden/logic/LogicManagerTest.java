@@ -915,6 +915,7 @@ public class LogicManagerTest {
 		Task p3 = helper.generateFloatingTask("KE Y", "say goodbye", "hi");
 		Task p4 = helper.generateFloatingTask("keyKEY sduauo", "move", "bye");
 		Task p5 = helper.generateFloatingTask("K EY sduauo", "high kneel", "yo");
+		Task toEdit = helper.generateEventTaskWithAll("", "", "", "", "1900", "yo");
 		Task updatedTask = helper.generateFloatingTask("K EY sduauo", "high kneel", "yo");
 
 		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
@@ -925,7 +926,9 @@ public class LogicManagerTest {
 		for (Task t : fiveTasks) {
 			model.addTask(t);
 		}
-
+		
+		expectedAB.editTask(p5, toEdit);
+		
 		assertCommandBehavior("edit 5 e/1900", String.format(Messages.MESSAGE_CANNOT_ADD_ENDTIME_WITH_NO_DATE),
 				expectedAB, expectedList);
 	}
@@ -940,6 +943,8 @@ public class LogicManagerTest {
 		Task p4 = helper.generateDeadlineTask("keyKEY sduauo", "move", "14-10-2016", "bye");
 		Task p5 = helper.generateDeadlineTask("K EY sduauo", "high kneel", "15-10-2016", "yo");
 
+		Task toEdit = helper.generateEventTaskWithAll("", "", "", "1900", "", "yo");
+		
 		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
 		ListOfTask expectedAB = helper.generateListOfTask(fiveTasks);
 		List<Task> expectedList = helper.generateTaskList(p1, p2, p3, p4, p5);
@@ -948,11 +953,13 @@ public class LogicManagerTest {
 		for (Task t : fiveTasks) {
 			model.addTask(t);
 		}
+		
+		expectedAB.editTask(p5, toEdit);
 
 		assertCommandBehavior("edit 5 s/1900", String.format(Messages.MESSAGE_CANNOT_ADD_STARTTIME_WITH_NO_ENDTIME),
 				expectedAB, expectedList);
 	}
-
+	
 	// @@author A0139714B
 	@Test
 	public void execute_edit_fail_startTimeAfterEndTime() throws Exception {
@@ -1109,7 +1116,7 @@ public class LogicManagerTest {
 				String.format(Messages.MESSAGE_CANNOT_REMOVE_ENDTIME_WHEN_THERE_IS_STARTTIME), expectedAB,
 				expectedList);
 	}
-
+	
 	// @@author A0139714B
 	@Test
 	public void execute_edit_fail_removeDateOnTaskWithEndTime() throws Exception {
