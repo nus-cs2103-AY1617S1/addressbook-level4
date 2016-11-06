@@ -208,13 +208,7 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         
-        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
-        Optional<Integer> index = Optional.of(Integer.parseInt(matcher.group("targetIndex")));
+        Optional<Integer> index = parseIndex(args, EDIT_DATA_ARGS_FORMAT);
         final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
         ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
@@ -237,10 +231,10 @@ public class Parser {
     	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
     	System.out.println(alDetails.toString());
     	
-    	String name = new String();
-    	String address = new String();
-    	String dueDate = new String();
-    	String priority = new String();
+    	String name;
+    	String address;
+    	String dueDate;
+    	String priority;
     	
     	int currentDetailType = 0;
     	
@@ -387,7 +381,23 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
+    
+    //@@author A0146130W
+    private Optional<Integer> parseIndex(String command, Pattern matcherFormat) {
+        final Matcher matcher = matcherFormat.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
 
+        String index = matcher.group("targetIndex");
+        if(!StringUtil.isUnsignedInteger(index)){
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
+
+    }
+    
+    //@@author addressbook-level4
     /**
      * Parses arguments in the context of the find task command.
      *
