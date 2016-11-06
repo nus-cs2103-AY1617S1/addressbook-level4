@@ -327,6 +327,44 @@ public class ParserTest {
 		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
+	//@@author A0143756Y
+	/*
+	 * Tests for the `list-alias` command
+	 */
+	@Test
+	public void parseCommand_listAliasInvalidArgs_incorrectCommandReturned() {
+		String userInput = "list-alias hello";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listAliasInvalidArgs2_incorrectCommandReturned() {
+		String userInput = "list-alias 1";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listAliasInvalidArgs3_incorrectCommandReturned() {
+		String userInput = "list alias";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listAliasValid_listAliasCommandReturned() {
+		String userInput = "list-alias";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(listAliasCommand.getClass(), command.getClass());
+	}
+		
+	//@@author A0141019U
+	
 	/*
 	 * Tests for the `del` command
 	 */
@@ -399,7 +437,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_delAliasValidIndex_deleteCommandReturned() {
+	public void parseCommand_delAliasValidIndex_deleteAliasCommandReturned() {
 		String userInput = "del-alias 2";
 		Command command = parser.parseCommand(userInput);
 
@@ -407,7 +445,7 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_delAliasValidIndices_deleteCommandReturned() {
+	public void parseCommand_delAliasValidIndices_deleteAliasCommandReturned() {
 		String userInput = "del-alias 3 2";
 		Command command = parser.parseCommand(userInput);
 
