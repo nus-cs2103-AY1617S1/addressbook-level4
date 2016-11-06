@@ -93,7 +93,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`. This same _Sequence Diagram_ will be used to illustrace `undo` in the following _Sequence Diagram_.
+command `delete 1`. This same _Sequence Diagram_ will be used to illustrate `undo` in the following _Sequence Diagram_.
 
 <img src="images\SDforDeleteTask.png" width="800"><br>
 
