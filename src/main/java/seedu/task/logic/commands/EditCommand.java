@@ -42,19 +42,9 @@ public class EditCommand extends Command {
     public static final String EDIT_DEADLINE = "deadline";
     public static final String EDIT_TAG = "tag";
     public final int targetIndex;
-    //private final Task toEdit;
     private final String toEdit;
     private final String toEditItem;
     private final Set<String> toEditTags;
-    
-    //    public EditCommand(int targetIndex, String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
-    //        final Set<Tag> tagSet = new HashSet<>();
-    //        for (String tagName : tags) {
-    //            tagSet.add(new Tag(tagName));
-    //        }
-    //        this.toEdit = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status());
-    //        this.targetIndex = targetIndex;
-    //    }
     
     // @@author A0152958R
     public EditCommand(int targetIndex, String item, String editResult,  Set<String> tags) throws IllegalValueException {
