@@ -1,8 +1,10 @@
 package seedu.whatnow.model.task;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.text.ParseException;
 
@@ -17,6 +19,9 @@ import java.util.Calendar;
  */
 public class TaskDate {
     // @@author A0139128A
+    
+    private static final Logger logger = LogsCenter.getLogger(TaskDate.class);
+    
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:\n"
             + "dd/mm/yyyy\n" + "day month year\n" + "today\n" + "tomorrow\n";
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
@@ -303,7 +308,7 @@ public class TaskDate {
 
             inputDate = df.parse(incDate);
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("TaskDate.java, isValidNumDate:\n" + ex.getMessage());
             return false;
         }
 
