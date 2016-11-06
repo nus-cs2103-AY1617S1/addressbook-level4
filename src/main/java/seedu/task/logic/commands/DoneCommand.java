@@ -26,23 +26,29 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_ALREADY_DONE = "Task has already been done!";
 
-    public final int targetIndex;
-
+    public int targetIndex;
+    public int currentIndex;
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
+        currentIndex = targetIndex;
     }
 
+    public DoneCommand(int targetIndex, int currentIndex)
+    {
+        this.targetIndex = targetIndex;
+        this.currentIndex = currentIndex;
+    }
     @Override
     public CommandResult execute(boolean isUndo) {
         assert model != null;
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < currentIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask currentTask = lastShownList.get(currentIndex - 1);
         boolean oldStatus = currentTask.getStatus().getDoneStatus();
 
         try {
@@ -51,14 +57,14 @@ public class DoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        Task newTask = new Task(currentTask);
-        newTask.getStatus().setDoneStatus(true);
+        Task taskToDone = new Task(currentTask);
+        taskToDone.getStatus().setDoneStatus(true);
 
         try {
-            model.addTask(targetIndex - 1, newTask);
+            model.addTask(targetIndex - 1, taskToDone);
         } catch (UniqueTaskList.DuplicateTaskException e) {}
 
-        if (oldStatus == newTask.getStatus().getDoneStatus()) {
+        if (oldStatus == taskToDone.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_DONE);
         } else {
             // @@author A0147944U
@@ -67,14 +73,16 @@ public class DoneCommand extends Command {
         }
         // @@author A0147335E
 
-        if (!isUndo) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
-        }
+        
         // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, newTask.getName()));
+        int currentIndex = model.getTaskManager().getTaskList().indexOf(taskToDone);
+        if (!isUndo) {
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToDone, null, currentIndex));
+        }
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone.getName()));
     }
 
 }

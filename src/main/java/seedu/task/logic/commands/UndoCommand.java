@@ -23,6 +23,8 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo: ";
     public static final String MESSAGE_FAIL = "Cannot undo anymore!";
 
+    
+
     public static final String EMPTY_STRING = "";
     public static final String DELIMITER = " ";
     public static final String NEW_LINE = "\n";
@@ -92,11 +94,11 @@ public class UndoCommand extends Command {
                 case EditCommand.COMMAND_WORD:
                     prepareUndoEdit(commandParts);
                     break;
-                    
-                case EditCommand.COMMAND_WORD_ALT:
-                    prepareUndoEdit(commandParts);
-                    break;
 
+                case EditCommand.COMMAND_WORD_ALT:      
+                    prepareUndoEdit(commandParts);      
+                    break;
+                    
                 case ClearCommand.COMMAND_WORD:
                     prepareUndoClear();
                     break;
@@ -178,16 +180,26 @@ public class UndoCommand extends Command {
     }
 
     private void prepareUndoDone(String[] commandParts) {
+        int undoIndex = lastIndexOfUndoList();
+
+        int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
-        Command command = new UndoneCommand(index);
+
+        Command command = new UndoneCommand(index, currentIndex);
         setData(command);
         executeCommand(command);
         removePreviousCommand();
     }
 
     private void prepareUndoUndone(String[] commandParts) {
+        int undoIndex = lastIndexOfUndoList();
+
+        int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
+
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
-        Command command = new DoneCommand(index);
+       
+        
+        Command command = new DoneCommand(index, currentIndex);
         setData(command);
         executeCommand(command);
         removePreviousCommand();
@@ -278,13 +290,13 @@ public class UndoCommand extends Command {
             tagStringSet = new HashSet<>(tagSet.size());
             toEditItemParsed = "tag";
             break;
-            
+
         default:
             break;
         }
-        //@@author A0147335E
         try {
-            Command command = new EditCommand(index, toEditItemParsed, toEdit, tagStringSet);
+            int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
+            Command command = new EditCommand(index, currentIndex, toEditItemParsed, toEdit, tagStringSet);
             setData(command);
             executeCommand(command);
         } catch (IllegalValueException e) {
@@ -294,8 +306,8 @@ public class UndoCommand extends Command {
     }
 
     private void prepareUndoAdd() {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        Command command = new DeleteCommand(lastShownList.size());
+        int undoIndex = lastIndexOfUndoList();
+        Command command = new DeleteCommand(getUndoList().get(undoIndex).getCurrentIndex() + 1);
         setData(command);
         executeCommand(command);
         removePreviousCommand();
@@ -348,7 +360,7 @@ public class UndoCommand extends Command {
         AddCommand command = new AddCommand(EMPTY_STRING + getUndoList().get(index).getNewTask().getName(),
                 EMPTY_STRING + getUndoList().get(index).getNewTask().getStartTime(),
                 EMPTY_STRING + getUndoList().get(index).getNewTask().getEndTime(),
-                EMPTY_STRING + getUndoList().get(index).getNewTask().getDeadline(), tagStringSet);
+                EMPTY_STRING + getUndoList().get(index).getNewTask().getDeadline(), tagStringSet, getUndoList().get(index).getNewTask().getStatus());
         return command;
     }
 

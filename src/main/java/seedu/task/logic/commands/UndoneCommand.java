@@ -28,23 +28,32 @@ public class UndoneCommand extends Command {
 
     public static final String MESSAGE_ALREADY_UNDONE = "Task has already been undone!";
 
-    public final int targetIndex;
+    public int targetIndex;
+    public int currentIndex;
+
 
     public UndoneCommand(int targetIndex)
     {
         this.targetIndex = targetIndex;
+        currentIndex = targetIndex;
+    }
+    
+    public UndoneCommand(int targetIndex, int currentIndex)
+    {
+        this.targetIndex = targetIndex;
+        this.currentIndex = currentIndex;
     }
 
     @Override
     public CommandResult execute(boolean isUndo) {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         assert model != null;
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < currentIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask currentTask = lastShownList.get(currentIndex - 1);
         boolean previousDoneStatus = currentTask.getStatus().getDoneStatus();
 
         try {
@@ -60,13 +69,16 @@ public class UndoneCommand extends Command {
         if (isEqual(previousDoneStatus, taskToUndone.getStatus().getDoneStatus())) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
-        if (!isUndo) {
-            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null));
-        }
+        
         // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
+        int currentIndex = model.getTaskManager().getTaskList().indexOf(taskToUndone);
+
+        if (!isUndo) {
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null, currentIndex));
+        }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone.getName()));
     }
 

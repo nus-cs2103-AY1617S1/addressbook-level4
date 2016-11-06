@@ -56,24 +56,26 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            if (!isUndo) {
-                getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
-            }
+            
             // @@author A0147944U
             // Sorts updated list of tasks
             model.autoSortBasedOnCurrentSortPreference();
             // @@author A0147335E-reused
+            int currentIndex = model.getTaskManager().getTaskList().indexOf(toAdd);
+            if (!isUndo) {
+                getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null, currentIndex));
+            }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
 
-	private ArrayList<RollBackCommand> getUndoList() {
-		return history.getUndoList();
-	}
-	
-	// insert a task at a specific index
+    private ArrayList<RollBackCommand> getUndoList() {
+        return history.getUndoList();
+    }
+    
+    // insert a task at a specific index
     public CommandResult execute(int index) {
         assert model != null;
         try {
