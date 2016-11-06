@@ -1,7 +1,6 @@
 package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.EventsCenter;
-import seedu.todolist.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todolist.commons.events.ui.JumpToListRequestEvent;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.*;
