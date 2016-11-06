@@ -1,11 +1,15 @@
 package seedu.todo.guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
+import seedu.todo.controllers.ClearController;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
@@ -73,7 +77,7 @@ public class ClearCommandTest extends GuiTest {
     }
     
     @Test
-    public void clear_all_tasks() {
+    public void clear_allTasks_success() {
         console.runCommand("clear tasks");
         assertTaskNotVisibleAfterCmd("list", task1);
         assertTaskNotVisibleAfterCmd("list", task2);
@@ -82,12 +86,44 @@ public class ClearCommandTest extends GuiTest {
     }
     
     @Test
-    public void clear_all_events() {
+    public void clear_allEvents_success() {
         console.runCommand("clear events");
         assertTaskVisibleAfterCmd("list", task1);
         assertTaskVisibleAfterCmd("list", task2);
         assertEventNotVisibleAfterCmd("list", event3);
         assertEventNotVisibleAfterCmd("list", event4);
+    }
+    
+    @Test
+    public void clear_unknownCommand_disambiguate() {
+        console.runCommand("clear yellow");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + String.format(ClearController.MESSAGE_UNKNOWN_TOKENS, "yellow");
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void clear_ambiguousCommand_disambiguate() {
+        console.runCommand("clear completed over");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + ClearController.MESSAGE_AMBIGUOUS_TYPE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void clear_invalidTaskDate_disambiguate() {
+        console.runCommand("clear tasks before mcdonalds");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + ClearController.MESSAGE_INVALID_DATE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void clear_invalidEventDate_disambiguate() {
+        console.runCommand("clear events before mcdonalds");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + ClearController.MESSAGE_INVALID_DATE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
     }
     
 }

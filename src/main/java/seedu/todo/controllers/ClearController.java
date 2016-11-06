@@ -31,11 +31,11 @@ public class ClearController extends Controller {
     
     private static final String MESSAGE_CLEAR_NO_ITEMS_FOUND = "No items matched your query!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s %s and %s %s deleted!\n" + "To undo, type \"undo\".";
-    private static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
-    private static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
+    public static final String MESSAGE_UNKNOWN_TOKENS = "Could not parse your query as it contained unknown tokens: %s";
+    public static final String MESSAGE_AMBIGUOUS_TYPE = "We could not tell if you wanted to clear events or tasks. \n"
             + "Note that only tasks can be \"complete\"/\"incomplete\", "
             + "while only events can be \"past\", \"over\" or \"future\".";
-    private static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
+    public static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
     
     private static final String CLEAR_TEMPLATE = "clear [name \"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     private static final String CLEAR_TASKS_TEMPLATE = "clear tasks [name \"%s\"] [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
