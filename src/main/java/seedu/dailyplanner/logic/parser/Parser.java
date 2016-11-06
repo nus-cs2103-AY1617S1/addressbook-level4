@@ -123,7 +123,8 @@ public class Parser {
 	}
 
 	private Command prepareUnpin(String arguments) {
-		Optional<Integer> index = parseIndex(arguments);
+		String trimmedArg = arguments.trim();
+		Optional<Integer> index = parseIndex(trimmedArg);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
@@ -131,8 +132,8 @@ public class Parser {
 	}
 
 	private Command preparePin(String arguments) {
-
-		Optional<Integer> index = parseIndex(arguments);
+		String trimmedArg = arguments.trim();
+		Optional<Integer> index = parseIndex(trimmedArg);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
 		}
@@ -140,8 +141,8 @@ public class Parser {
 	}
 
 	private Command prepareComplete(String arguments) {
-
-		Optional<Integer> index = parseIndex(arguments);
+		String trimmedArg = arguments.trim();
+		Optional<Integer> index = parseIndex(trimmedArg);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
 		}
@@ -507,7 +508,8 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareSelect(String args) {
-		Optional<Integer> index = parseIndex(args);
+		String trimmedArg = args.trim();
+		Optional<Integer> index = parseIndex(trimmedArg);
 		if (!index.isPresent()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 		}
@@ -546,7 +548,8 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 		}
 		*/
-		final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+		String trimmedArg = args.trim();
+		final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(trimmedArg);
 		if (!matcher.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
 		}
