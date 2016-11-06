@@ -70,13 +70,18 @@
 
 .help-panel {
 	-fx-background-color: #633914;
+	-fx-border-color: rgb(186, 143, 106);
+	-fx-border-radius: 20;
 	-fx-background-radius: 20;
 	-fx-padding: 10;
+	-fx-opacity: 0.5;
 }
 
 .help-title {
+	-fx-font-size: 16pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-opacity: 0.8;
 	-fx-text-fill: #FFFFFF;
-	-fx-font-weight: bold;
 }
 
 .list-cell {

@@ -132,6 +132,10 @@ public class UpdateTaskCommand extends TaskCommand {
 		if (taskToUpdate.isPinned()) {
 			updatedTask.setAsPin();
 		}
+		// Retain edited status
+		if (taskToUpdate.isCompleted()) {
+			updatedTask.setAsComplete();
+		}
     }
     
     /**
