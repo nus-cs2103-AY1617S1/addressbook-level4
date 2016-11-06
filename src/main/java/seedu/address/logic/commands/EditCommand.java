@@ -101,7 +101,7 @@ public class EditCommand extends UndoableCommand {
     /**
      * Converts given String into the Date representation for start date.
      * 
-     * @param startDateString user's input of start date
+     * @param  startDateString user's input of start date
      * @throws IllegalValueException if startDateString cannot be converted into a Date object
      */
     private void assignStartDateIfPresent(Optional<String> startDateString) throws IllegalValueException {
@@ -116,7 +116,7 @@ public class EditCommand extends UndoableCommand {
     /**
      * Converts given String into the Date representation for end date.
      * 
-     * @param endDateString user's input of end date
+     * @param  endDateString user's input of end date
      * @throws IllegalValueException if endDateString cannot be converted into a Date object
      */
     private void assignEndDateIfPresent(Optional<String> endDateString) throws IllegalValueException {
@@ -134,10 +134,10 @@ public class EditCommand extends UndoableCommand {
     /**
      * Converts given String into the RecurrenceRate representation. 
      *
-     * @param rateString user's input of rate
-     * @param timePeriodString user's input of time period
+     * @param  rateString user's input of rate
+     * @param  timePeriodString user's input of time period
      * @throws IllegalValueException if rateString is present but timePeriodString isn't present
-     * (for e.g, "3" is invalid. Examples such as "3 days" or "week" is valid).
+     *         (for e.g, "3" is invalid. Examples such as "3 days" or "week" is valid).
      */
     private void assignRecurrenceRateIfPresent(Optional<String> rateString, Optional<String> timePeriodString)
             throws IllegalValueException {
@@ -179,7 +179,7 @@ public class EditCommand extends UndoableCommand {
      * Check which field is to be reset
      * 
      * @param resetFieldString user's input of fields to be reset
-     * set the remove fields as true if present
+     *        set the remove fields as true if present
      */
     private void assignResetFieldIfPresent(String resetFieldString) {
         if(resetFieldString != null){               
@@ -231,7 +231,7 @@ public class EditCommand extends UndoableCommand {
         assignStartDate();
         assignEndDate();
         
-        /*
+        /**
          * return incorrect date message if end date is before start date
          */
         if(endDate != null && startDate != null && endDate.before(startDate)){
@@ -249,7 +249,7 @@ public class EditCommand extends UndoableCommand {
             recurrenceRate = toEdit.getRecurrenceRate().get();
         }  
         
-        /*
+        /**
          * Set recurrenceRate as the previous one if it exist should the user not input any
          * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
          * Return incorrect recurrence message if no date present
