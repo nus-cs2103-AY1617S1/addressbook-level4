@@ -64,7 +64,7 @@ public class HelpCommand extends Command {
         commandList.add(RelocateCommand.COMMAND_WORD);
         commandList.add(ImportCommand.COMMAND_WORD);
         commandList.add(ExportCommand.COMMAND_KEYWORD_EXPORT);
-        commandList.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
+        commandList.add(HistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
         commandList.add(HelpCommand.COMMAND_WORD);
         commandList.add(ExitCommand.COMMAND_WORD);
     }
@@ -85,7 +85,7 @@ public class HelpCommand extends Command {
         formatList.add(RelocateCommand.COMMAND_FORMAT);
         formatList.add(ImportCommand.COMMAND_FORMAT);
         formatList.add(ExportCommand.COMMAND_FORMAT);
-        formatList.add(ActionHistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
+        formatList.add(HistoryCommand.COMMAND_KEYWORD_ACTIONHISTORY);
         formatList.add(HelpCommand.COMMAND_WORD);
         formatList.add(ExitCommand.COMMAND_WORD);
     }
@@ -106,7 +106,7 @@ public class HelpCommand extends Command {
         descriptionList.add(RelocateCommand.COMMAND_DESCRIPTION);
         descriptionList.add(ImportCommand.COMMAND_DESCRIPTION);
         descriptionList.add(ExportCommand.COMMAND_DESCRIPTION);
-        descriptionList.add(ActionHistoryCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(HistoryCommand.COMMAND_DESCRIPTION);
         descriptionList.add(HelpCommand.COMMAND_DESCRIPTION);
         descriptionList.add(ExitCommand.COMMAND_DESCRIPTION);
     }
