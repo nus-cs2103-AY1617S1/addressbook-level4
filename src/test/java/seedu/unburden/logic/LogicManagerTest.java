@@ -17,6 +17,7 @@ import seedu.unburden.model.ReadOnlyListOfTask;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
 import seedu.unburden.model.task.*;
+import seedu.unburden.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.unburden.storage.StorageManager;
 
 import org.junit.After;
@@ -485,7 +486,141 @@ public class LogicManagerTest {
 		assertCommandBehavior("List all", String.format(Messages.MESSAGE_NO_TASKS_FOUND, ListCommand.MESSAGE_USAGE),
 				expected, expectedList);
 	}
+	
+	@Test
+	public void execute_List_Shows_Deadline() throws Exception{
+		TestDataHelper helper= new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Chanadler bong", "Friends is life", "12-12-2016");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List <?extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List 10-12-2016 to 13-12-2016", "1 tasks listed!", expected, expectedList);
+	}
+	
+	@Test
+	public void execute_List_Shows_Deadline_2() throws Exception{
+		TestDataHelper helper= new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Drake Remoray", "Friends is life", "10-12-2016");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List <?extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List 10-12-2016 to 13-12-2016", "1 tasks listed!", expected, expectedList);
+	}
 
+	@Test
+	public void execute_List_Shows_Deadline_3() throws Exception{
+		TestDataHelper helper= new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Morning's here", "Friends is life", "13-12-2016");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List <?extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List 10-12-2016 to 13-12-2016", "1 tasks listed!", expected, expectedList);
+	}
+	
+	@Test
+	public void execute_List_Shows_Overdue() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Bamboolzed", "Best game ever", "01-11-2016");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List overdue", "1 tasks listed!", expected, expectedList);
+		
+	}
+	
+	@Test
+	public void execute_List_Shows_Done() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected1 = helper.generateListOfTask(0);
+		List<? extends ReadOnlyTask> expectedList1 = expected1.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList1);
+		
+		assertCommandBehavior("List done", ListCommand.MESSAGE_NO_MATCHES_DONE, expected1, expectedList1);
+		
+	}
+	
+	
+	@Test
+	public void execute_List_Tomorrow() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+		Task task = helper.generateDeadlineTask("We were on a break!", "Ross and Rachel", DATEFORMATTER.format(calendar.getTime()));
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List tomorrow", "1 tasks listed!", expected, expectedList);
+	}
+	
+	@Test
+	public void execute_List_NextWeek() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(calendar.getTime());
+		calendar.add(Calendar.WEEK_OF_YEAR, 1);
+		SimpleDateFormat DATEFORMATTER = new SimpleDateFormat("dd-MM-yyyy");
+		Task task = helper.generateDeadlineTask("Three lead clover", "Stupid team member", DATEFORMATTER.format(calendar.getTime()));
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("List next week", "1 tasks listed!", expected, expectedList);
+	}
+	
+	@Test
+	public void execute_List_wrongly() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(1);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel(model, 1);
+		
+		assertCommandBehavior("List !!!", "Try List, or List followed by \"done\" or \"all\" or a date", expected, expectedList);
+	}
+	
+	@Test
+	public void execute_List_wrongly2() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		ListOfTask expected = helper.generateListOfTask(1);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel(model, 1);
+		
+		assertCommandBehavior("List ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), expected, expectedList);
+	}
+	
+	
+	@Test
+	public void execute_List_Undone() throws Exception{
+		TestDataHelper helper = new TestDataHelper();
+		Task task = helper.generateDeadlineTask("Carol", "Susan", "13-12-2016");
+		ListOfTask expected = new ListOfTask();
+		expected.addTask(task);
+		List<? extends ReadOnlyTask> expectedList = expected.getTaskList();
+		
+		helper.addToModel_ReadOnlyTask(model, expectedList);
+		
+		assertCommandBehavior("LIST undone", "1 tasks listed!", expected, expectedList);
+	}
 	/**
 	 * Confirms the 'invalid argument index number behaviour' for the given
 	 * command targeting a single person in the shown list, using visible index.
@@ -1193,6 +1328,17 @@ public class LogicManagerTest {
 			for (Task p : tasksToAdd) {
 				model.addTask(p);
 			}
+		}
+		
+		public void addToModel_ReadOnlyTask(Model model, List<? extends ReadOnlyTask> expectedList) {
+			for(ReadOnlyTask task: expectedList){
+				try {
+					model.addTask((Task) task);
+				} catch (DuplicateTaskException e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 
 		/**

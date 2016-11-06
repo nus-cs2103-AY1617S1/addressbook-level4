@@ -248,7 +248,8 @@ public class Parser {
 				return new AddCommand("deadline without task description and time", details,
 						getTagsFromArgs(matcher4.group("tagArguments")));
 
-			}else if (matcher5.matches()) { //Matcher for deadline with description and date
+			} else if (matcher5.matches()) { // Matcher for deadline with
+												// description and date
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("taskDescriptions"));
 				details.add(matcher5.group("date"));
@@ -374,11 +375,6 @@ public class Parser {
 		}
 		if (matcherDate.matches()) {
 			return new ListCommand(todayKeyword, args, "date");
-		} else {
-			if (args.toLowerCase().contains("to")) {
-				String[] dates = args.toLowerCase().split("to");
-				return new ListCommand(dates[0], dates[1], "date");
-			}
 		}
 		switch (args.toLowerCase()) {
 		case TOMORROW:
@@ -398,9 +394,12 @@ public class Parser {
 			return new ListCommand(OVERDUE);
 		case ALL:
 			return new ListCommand(ALL);
-		default:
-			return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
 		}
+		if (args.toLowerCase().contains("to")) {
+			String[] dates = args.toLowerCase().split("to");
+			return new ListCommand(dates[0], dates[1], "date");
+		}
+		return new IncorrectCommand("Try List, or List followed by \"done\" or \"all\" or a date");
 	}
 
 	/**
@@ -433,7 +432,7 @@ public class Parser {
 			if (!index.isPresent()) {
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 			}
-			
+
 			String[] newArgs = seperateIndex[1].split(" ");
 
 			String[] parameters = getNewArgs(newArgs);
@@ -443,7 +442,7 @@ public class Parser {
 			startTime = (parameters[3].length() == 0) ? null : parameters[3].substring(2);
 			endTime = (parameters[4].length() == 0) ? null : parameters[4].substring(2);
 
-            EditCommand.reset();
+			EditCommand.reset();
 			return new EditCommand(index.get(), name, taskDescription, date, startTime, endTime);
 
 		} catch (IllegalValueException ive) {
@@ -632,45 +631,50 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
 		}
 	}
-	
+
 	/*
-	 * To retrieve, concatenate and split the arguments to the respective parameters
+	 * To retrieve, concatenate and split the arguments to the respective
+	 * parameters
 	 */
-    private String[] getNewArgs(String[] tokens) {
-     	 String[] newArgs = new String[5];
-          for (int i=0;i<5;i++)
-          	newArgs[i] = "";
-          
-          int loopIndex = 0;
-          int targetIndex = 0;
-          while (loopIndex < tokens.length) {
-         	 if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
-         		 switch (tokens[loopIndex].charAt(0)) {
-         		 	case ('i') : targetIndex = 1;
-         		 			     break;
-         		 	case ('d') : targetIndex = 2;
- 		 			   		     break;
-         		 	case ('s') : targetIndex = 3;
- 			   		   			 break;
-         		 	case ('e') : targetIndex = 4;
- 			   		   			 break;
- 			   		default    : break; 
-         		 }
-         	 }
-         	 
-         	 if (newArgs[targetIndex] == "") {
-         		 newArgs[targetIndex] = tokens[loopIndex] + " ";
-         	 }
-         	 else {
-         		 newArgs[targetIndex] = newArgs[targetIndex] + (tokens[loopIndex]) + " ";
-         	 }
-     		 loopIndex = loopIndex + 1;
-          }
-          
-          for (int i=0;i<newArgs.length;i++) {
-         	 newArgs[i] = newArgs[i].trim();
-          }
-          
-     	return newArgs;
-     }
+	private String[] getNewArgs(String[] tokens) {
+		String[] newArgs = new String[5];
+		for (int i = 0; i < 5; i++)
+			newArgs[i] = "";
+
+		int loopIndex = 0;
+		int targetIndex = 0;
+		while (loopIndex < tokens.length) {
+			if (tokens[loopIndex].length() > 1 && tokens[loopIndex].charAt(1) == '/') {
+				switch (tokens[loopIndex].charAt(0)) {
+				case ('i'):
+					targetIndex = 1;
+					break;
+				case ('d'):
+					targetIndex = 2;
+					break;
+				case ('s'):
+					targetIndex = 3;
+					break;
+				case ('e'):
+					targetIndex = 4;
+					break;
+				default:
+					break;
+				}
+			}
+
+			if (newArgs[targetIndex] == "") {
+				newArgs[targetIndex] = tokens[loopIndex] + " ";
+			} else {
+				newArgs[targetIndex] = newArgs[targetIndex] + (tokens[loopIndex]) + " ";
+			}
+			loopIndex = loopIndex + 1;
+		}
+
+		for (int i = 0; i < newArgs.length; i++) {
+			newArgs[i] = newArgs[i].trim();
+		}
+
+		return newArgs;
+	}
 }
