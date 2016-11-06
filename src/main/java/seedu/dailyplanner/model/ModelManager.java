@@ -9,6 +9,7 @@ import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
+import seedu.dailyplanner.commons.util.DateUtil;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
@@ -16,7 +17,6 @@ import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -255,7 +255,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 		@Override
 		public boolean run(ReadOnlyTask task) {
-			return dateKeyWords.stream().filter(keyword -> StringUtil.withinDateRange(task, keyword)).findAny()
+			return dateKeyWords.stream().filter(keyword -> DateUtil.withinDateRange(task, keyword)).findAny()
 					.isPresent();
 		}
 
