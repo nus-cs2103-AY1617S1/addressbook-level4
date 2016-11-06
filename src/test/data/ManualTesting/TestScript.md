@@ -277,7 +277,7 @@ Command: `clear` <br>
 Expected Output: `Your task list has been cleared!`
 
 #### Undo clear 
-N.B.: This test is just to restore the cleared task list; should be performed immediately after clear command.
+N.B.: This test is just to restore the cleared task list; should be performed immediately after clear command. <br>
 Command: `undo` <br>
 Expected Output: `Your previous action has been undone.`
 
