@@ -36,7 +36,7 @@ public class EditCommandTest extends CommandTest {
      */
     
     @Test
-    public void execute_editFloatTask_duplicate() throws Exception {
+    public void executeEditTask_floatTaskDuplicate_notAllowed() throws Exception {
         
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -56,7 +56,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_editEvent_duplicate() throws Exception {
+    public void executeEditEvent_eventDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -75,7 +75,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_invalidEditCommandInput() throws Exception {
+    public void executeEdit_invalidEditCommandInput_notAllowed() throws Exception {
         // setup expectations
         TaskBook expectedAB = new TaskBook();
         TestDataHelper helper = new TestDataHelper();
@@ -107,7 +107,7 @@ public class EditCommandTest extends CommandTest {
     
     // invalid removing deadline in floating task
     @Test
-    public void execute_editInvalidDeadlineRemoval_invalid() throws Exception {
+    public void executeEditTask_invalidDeadlineRemoval_notAllowed() throws Exception {
         // setup expectations
         TaskBook expectedAB = new TaskBook();
         TestDataHelper helper = new TestDataHelper();
@@ -123,14 +123,14 @@ public class EditCommandTest extends CommandTest {
     
     // Invalid argument format
     @Test
-    public void execute_edit_invalidArgsFormat() throws Exception {
+    public void executeEdit_invalidArgsFormat_notAllowed() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertCommandBehavior_task(
                 "edit", expectedMessage);
     }
     
     @Test
-    public void execute_editTask_invalidIndex_unsuccessful() throws Exception {
+    public void executeEditTask_invalidIndex_unsuccessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -148,7 +148,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_editEvent_invalidIndex_unsuccessful() throws Exception {
+    public void executeEditEvent_invalidIndex_unsuccessful() throws Exception {
      // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -166,7 +166,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     @Test
-    public void execute_edit_invalidIndexAndDescription_unsuccessful() throws Exception {
+    public void executeEdit_invalidIndexAndDescription_unsuccessful() throws Exception {
      // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -203,7 +203,7 @@ public class EditCommandTest extends CommandTest {
 
     //Editing float task name only
     @Test
-    public void execute_editFloatTask_name_successful() throws Exception {
+    public void executeEditTask_floatTaskName_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -223,7 +223,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing float task desc only
     @Test
-    public void execute_editFloatTask_desc_successful() throws Exception {
+    public void executeEditTask_floatTaskDesc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -244,7 +244,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing float task name and desc
     @Test
-    public void execute_editFloatTask_name_desc_successful() throws Exception {
+    public void executeEditTask_floatTaskNameDesc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -264,7 +264,7 @@ public class EditCommandTest extends CommandTest {
     
     //Removing deadline from deadline task
     @Test
-    public void execute_editDeadlineTaskToFloatTask_successful() throws Exception {
+    public void executeEditTask_deadlineTaskToFloatTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -284,7 +284,7 @@ public class EditCommandTest extends CommandTest {
     
     //Adding deadline to float task
     @Test
-    public void execute_editFloatTaskToDeadlineTask_successful() throws Exception {
+    public void executeEditTask_FloatTaskToDeadlineTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -316,7 +316,7 @@ public class EditCommandTest extends CommandTest {
 
     //Editing name
     @Test
-    public void execute_editTask_name_successful() throws Exception {
+    public void executeEditTask_taskName_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -336,7 +336,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing description
     @Test
-    public void execute_editTask_desc_successful() throws Exception {
+    public void executeEditTask_taskDesc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -356,7 +356,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing deadline
     @Test
-    public void execute_editTask_deadline_successful() throws Exception {
+    public void executeEditTask_taskDeadline_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -376,7 +376,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing all 3 fields
     @Test
-    public void execute_editTask_all_successful() throws Exception {
+    public void executeEditTask_all_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -409,7 +409,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing name
     @Test
-    public void execute_editEvent_name_successful() throws Exception {
+    public void executeEditEvent_name_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -429,7 +429,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing description
     @Test
-    public void execute_editEvent_desc_successful() throws Exception {
+    public void executeEditEvent_desc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -449,7 +449,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing duration
     @Test
-    public void execute_editEvent_duration_successful() throws Exception {
+    public void executeEditEvent_duration_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -469,7 +469,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing start duration
     @Test
-    public void execute_editEvent_StartDuration_successful() throws Exception {
+    public void executeEditEvent_StartDuration_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -489,7 +489,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing end duration
     @Test
-    public void execute_editEvent_EndDuration_successful() throws Exception {
+    public void executeEditEvent_EndDuration_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -509,7 +509,7 @@ public class EditCommandTest extends CommandTest {
     
     //Editing all 3 fields
     @Test
-    public void execute_editEvent_all_successful() throws Exception {
+    public void executeEditEvent_all_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();

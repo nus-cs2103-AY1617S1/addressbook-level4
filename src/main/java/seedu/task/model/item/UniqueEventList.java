@@ -52,7 +52,7 @@ public class UniqueEventList implements Iterable<Event> {
 
     //@@author A0127570H
     /**
-     * Adds a event to the begining of list.
+     * Adds a event to the list.
      *
      * @throws DuplicateEventException if the event to add is a duplicate of an existing event in the list.
      */

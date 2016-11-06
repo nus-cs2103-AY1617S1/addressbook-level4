@@ -48,7 +48,9 @@ public class AddEventCommand extends AddCommand {
 	}
 
     /*
+     * Execute method for add event command
      * Newly added event is to be selected for easy viewing
+     * To post a JumpToEventListRequestEvent
      */
 	@Override
     public CommandResult execute() {

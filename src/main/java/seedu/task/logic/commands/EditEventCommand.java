@@ -85,12 +85,15 @@ public class EditEventCommand extends EditCommand {
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));
 
 		} catch (UniqueEventList.DuplicateEventException e) {
-			return new CommandResult(MESSAGE_DUPLICATE_EVENT);
+		    logger.info("-------[Failed execution of EditEventCommand]" + " Duplicate Event");
+		    return new CommandResult(MESSAGE_DUPLICATE_EVENT);
 		} catch (IndexOutOfBoundsException ie) {
 			indicateAttemptToExecuteIncorrectCommand();
+			logger.info("-------[Failed execution of EditEventCommand]" + " Index out of bound");
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
 		} catch (IllegalValueException e) {
 		    indicateAttemptToExecuteIncorrectCommand();
+		    logger.info("-------[Failed execution of EditEventCommand]" + " Illegal value");
             return new CommandResult(e.getMessage());
         } 
 	}

@@ -72,6 +72,9 @@ public class EditParser implements Parser {
         }
     }
 
+    /*
+     * To get the values according to each field prefix
+     */
     private void getTokenizerValue(ArgumentTokenizer argsTokenizer) throws EmptyValueException {
         taskIndex = argsTokenizer.getValue(taskPrefix);
         eventIndex = argsTokenizer.getValue(eventPrefix);

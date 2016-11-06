@@ -54,7 +54,9 @@ public class AddTaskCommand extends AddCommand {
 	}
 
 	/*
+	 * Execute for add task command
 	 * Newly added task is to be selected for easy viewing
+	 * Done by posting a JumpToTaskListRequestEvent
 	 */
 	@Override
 	public CommandResult execute() {

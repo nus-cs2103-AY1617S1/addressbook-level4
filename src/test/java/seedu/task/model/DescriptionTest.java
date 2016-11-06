@@ -13,7 +13,7 @@ public class DescriptionTest {
     @Test
     public void descriptionTest () throws Exception {
         try {            
-            Description description = new Description (".,$#@%&():");
+            Description description = new Description (".,$#@%&():'");
             assert true;
             description = new Description ("/");
         } catch (IllegalValueException ive) {

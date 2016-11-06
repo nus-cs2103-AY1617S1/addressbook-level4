@@ -39,7 +39,7 @@ public class AddCommandTest extends CommandTest{
 	
     // Invalid argument format
     @Test
-    public void execute_addInvalidArgsFormat_Unsuccessful() throws Exception {
+    public void executeAdd_invalidArgsFormat_Unsuccessful() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior_task(
                 "add", expectedMessage);
@@ -47,7 +47,7 @@ public class AddCommandTest extends CommandTest{
     
     //Invalid data field format
     @Test 
-    public void execute_addTaskInvalidTaskData_Unsuccessful() throws Exception {
+    public void executeAddTask_invalidTaskData_Unsuccessful() throws Exception {
     	//Invalid Name 
     	assertCommandBehavior_task(
                 "add []\\[;] /desc nil /by 30-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
@@ -77,23 +77,23 @@ public class AddCommandTest extends CommandTest{
     
     //Invalid data field format
     @Test
-    public void execute_addEvent_invalidEventData() throws Exception {
+    public void executeAddEvent_invalidEventData_unsuccessful() throws Exception {
         assertCommandBehavior_task(
                 "add []\\[;] /desc nil /from 30-12-16 31-12-16", Name.MESSAGE_NAME_CONSTRAINTS);
         
         //start time after end time
         assertCommandBehavior_task("add valideventName /desc nil /from today /to yesterday", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
         
-        // no start time not allowed. 
+        //empty start time not allowed if flag is keyed in. 
         assertCommandBehavior_task("add valideventName /desc nil /from  /to today 5pm", ArgumentTokenizer.MESSAGE_EMPTY_VALUE);
         
         //invalid start time not allowed. 
         assertCommandBehavior_task("add valideventName /desc nil /from  hahaha /to today 5pm", EventDuration.MESSAGE_DURATION_CONSTRAINTS);
     }
 
-    //Task with desc and deadline
+    //Duplicate task
     @Test
-    public void execute_addTaskDuplicate_notAllowed() throws Exception {
+    public void executeAddTask_taskDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -112,9 +112,9 @@ public class AddCommandTest extends CommandTest{
 
     }
     
-    //Task with desc
+    //Duplicate task with desc
     @Test
-    public void execute_addDescTaskDuplicate_notAllowed() throws Exception {
+    public void executeAddTask_descTaskDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -133,9 +133,9 @@ public class AddCommandTest extends CommandTest{
 
     }
     
-    //Task with deadline
+    //Duplicate task with deadline
     @Test
-    public void execute_addDeadlineTaskDuplicate_notAllowed() throws Exception {
+    public void executeAddTask_deadlineTaskDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDeadlineTask();
@@ -154,9 +154,9 @@ public class AddCommandTest extends CommandTest{
 
     }
     
-    //Task with name only
+    //Duplicate task with name only
     @Test
-    public void execute_addNameTaskDuplicate_notAllowed() throws Exception {
+    public void executeAddTask_nameTaskDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingNameTask();
@@ -175,8 +175,9 @@ public class AddCommandTest extends CommandTest{
 
     }
     
+    //Duplicate event
     @Test
-    public void execute_addEventDuplicate_notAllowed() throws Exception {
+    public void executeAddEvent_eventDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -206,7 +207,7 @@ public class AddCommandTest extends CommandTest{
     
     //Multiple tasks with desc and deadline
     @Test
-    public void execute_addTaskWithDescDeadline_successful() throws Exception {
+    public void executeAddTask_taskWithDescDeadline_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         
@@ -232,7 +233,7 @@ public class AddCommandTest extends CommandTest{
     
     //Task with desc and deadline in varying order
     @Test
-    public void execute_addTaskInVaryingOrder_successful() throws Exception {
+    public void executeAddTask_taskInVaryingOrder_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingTask();
@@ -258,7 +259,7 @@ public class AddCommandTest extends CommandTest{
     
     //Task with desc
     @Test
-    public void execute_addDescTask_successful() throws Exception {
+    public void executeAddTask_descTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -275,7 +276,7 @@ public class AddCommandTest extends CommandTest{
     
     //Task with deadline
     @Test
-    public void execute_addDeadlineTask_successful() throws Exception {
+    public void executeAddTask_deadlineTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDeadlineTask();
@@ -292,7 +293,7 @@ public class AddCommandTest extends CommandTest{
     
     //Task with name only
     @Test
-    public void execute_addNameTask_successful() throws Exception {
+    public void executeAddTask_nameTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingNameTask();
@@ -317,7 +318,7 @@ public class AddCommandTest extends CommandTest{
     
     //Event with duration
     @Test
-    public void execute_addEvent_successful() throws Exception {
+    public void executeAddEvent_eventWithDuration_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingNoDescUpComingEvent();
@@ -334,7 +335,7 @@ public class AddCommandTest extends CommandTest{
     
     //Event with desc and duration
     @Test
-    public void execute_addDescEvent_successful() throws Exception {
+    public void executeAddEvent_descEvent_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -351,7 +352,7 @@ public class AddCommandTest extends CommandTest{
     
     //Event with desc and duration in varying order
     @Test
-    public void execute_addEventInVaryingOrder_successful() throws Exception {
+    public void executeAddEvent_eventFieldInVaryingOrder_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingUpComingEvent();
@@ -368,7 +369,7 @@ public class AddCommandTest extends CommandTest{
     
     //Event with end duration only
     @Test
-    public void execute_addEvent_endDuration_successful() throws Exception {
+    public void executeAddEvent_eventWithEndDuration_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Event toBeAdded = helper.computingEndDurationUpComingEvent();
