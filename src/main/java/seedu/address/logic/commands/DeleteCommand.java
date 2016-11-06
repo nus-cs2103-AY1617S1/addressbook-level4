@@ -11,7 +11,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using its displayed index in the last task listing .
  */
 public class DeleteCommand extends Command {
 
@@ -19,11 +19,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (positive integer) [MORE_INDICES] ... \n"
+            + "Parameters: INDEX [MORE_INDICES] ... \n"
             + "Example: " + COMMAND_WORD + " 1 3";
  
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted tasks: %1$s";
-    public static final String MESSAGE_UNDO_DELETE_SUCCESS = "Undid deletion of tasks: %1$s";
 
     private final int[] targetIndices;
     private ArrayList<Task> recentDeletedTasks;
@@ -47,7 +46,7 @@ public class DeleteCommand extends Command {
         for (int i=0; i<targetIndices.length; i++) {
         	if (lastShownList.size() < targetIndices[i]) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                return new CommandResult(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
             }
 
             tasksToDelete.add(lastShownList.get(targetIndices[i] - 1));
@@ -68,5 +67,4 @@ public class DeleteCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
     }
-
 }

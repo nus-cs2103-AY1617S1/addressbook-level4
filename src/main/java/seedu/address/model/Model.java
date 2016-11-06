@@ -62,23 +62,29 @@ public interface Model {
     
     /** Sets task manager data storage location */    
     void setStorage(File newStorageFileFilePath, File oldStorageFileFilePath) throws IOException;
-
-    /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
-    void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException;
     
     /** Checks if alias argument for AddAliasCommand is valid. Alias cannot be a sub-string or super-string or any previously set alias. */
     boolean validateAliasforAddAliasCommand(String alias);    
     //@@author
     
-    /** Updates the task status overdue if not marked as done and end time is before now */
-    void checkForOverdueTasks();
+    //@@author A0143756Y-reused
+    /** Saves alias to XML file, "aliasbook.xml" in ./data folder. */
+    void addAlias(Alias aliasToAdd) throws UniqueAliasList.DuplicateAliasException;
     
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    /** Deletes the given aliases. */
+    void deleteAliases(ArrayList<ReadOnlyAlias> targets) throws UniqueAliasList.AliasNotFoundException;
+    //@@author
     
     //@@author A0142184L
     /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
 	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
+	
+	/** Updates the task status overdue if not marked as done and end time is before now */
+    void checkForOverdueTasks();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+
 	
     /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();

@@ -35,16 +35,11 @@ public class AddCommand extends Command {
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
-    //@@author A0143756Y
-    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
-    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
-    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
-    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
-    //@@author
     private final Task toAdd;
     
     //@@author A0141019U    
-    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) 
+    		throws IllegalValueException, IllegalArgumentException {
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -58,56 +53,6 @@ public class AddCommand extends Command {
         		endDate,
         		new UniqueTagList(tagSet)
          );
-    }
-    
-    /**
-     * Convenience constructor for event task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    // TODO allow tag list as params
-    public AddCommand(String name, LocalDateTime startDate, LocalDateTime endDate) throws IllegalValueException {
-       	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("event"),
-        		new Status("pending"), 
-        		Optional.of(startDate), 
-        		Optional.of(endDate),
-        		new UniqueTagList()
-                );
-    }
-    
-    /**
-     * Convenience constructor for deadline task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, LocalDateTime endDate) throws IllegalValueException {
-    	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("deadline"),
-        		new Status("pending"), 
-        		Optional.empty(), 
-        		Optional.of(endDate),
-        		new UniqueTagList()
-                );
-    	System.out.println("deadline added: " + toAdd);
-    }
-    
-    /**
-     * Convenience constructor for someday task using raw values
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name) throws IllegalValueException {
-    	this.toAdd = new Task(
-        		new Name(name),
-        		new TaskType("someday"),
-        		new Status("pending"), 
-        		Optional.empty(), 
-        		Optional.empty(),
-        		new UniqueTagList()
-                );
     }
     
     /**

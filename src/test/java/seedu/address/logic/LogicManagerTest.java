@@ -259,7 +259,7 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
@@ -274,7 +274,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+        String expectedMessage = MESSAGE_INVALID_DISPLAYED_INDEX;
         assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
@@ -307,11 +307,11 @@ public class LogicManagerTest {
 //    }
 
 
-    @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
-    }
+//    @Test
+//    public void execute_find_invalidArgsFormat() throws Exception {
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+//        assertCommandBehavior("find ", expectedMessage);
+//    }
 
     // TODO
 //    @Test

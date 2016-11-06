@@ -23,7 +23,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 	public void done() {
 		// mark tasks as done
 		commandBox.runCommand("list pending");
-		pendingList = td.getNotDoneTasks();
+		pendingList = td.getPendingTasks();
 		doneList = td.getDoneTasks();
 		String command = "done 1 8";
 		int[] indices = new int[] { 1, 8 };
@@ -35,7 +35,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		// mark index out of bound
 		command = "done 9";
 		commandBox.runCommand(command);
-		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		String message = Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 		assertResultMessage(message);
 	}
 
@@ -44,7 +44,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		// mark tasks as pending
 		commandBox.runCommand("list done");
 		doneList = td.getDoneTasks();
-		pendingList = td.getNotDoneTasks();
+		pendingList = td.getPendingTasks();
 		String command = "pending 3 2";
 		int[] indices = new int[] { 3, 2 };
 		updatedList = pendingTasks(indices, pendingList, doneList);
@@ -55,7 +55,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		// mark index out of bound
 		command = "pending 0";
 		commandBox.runCommand(command);
-		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		String message = Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 		assertResultMessage(message);
 	}
 
