@@ -330,10 +330,12 @@ The task manager shifts your data file from the current storage folder to the ne
   |     | edit &lt;index&gt; **start** &lt;new_task_startTime&gt;
   |     | edit &lt;index&gt; **end** &lt;new_task_endTime&gt;
 6| Find | find &lt;keywords&gt; 
-7| Done | done &lt;index&gt;, &lt;index&gt; 
+7| Done | done &lt;index&gt;, &lt;index&gt;
+  |     | done &lt;index&gt;-&lt;index&gt;
 8| List done| list done 
 9| List | list 
-10| Delete | delete &lt;index&gt;, &lt;index&gt;  
+10| Delete | delete &lt;index&gt;, &lt;index&gt;
+  |     | delete &lt;index&gt;-&lt;index&gt;
 11| Undo | undo &lt;number of times to undo&gt; 
 12| Redo | redo &lt;number of times to redo&gt; 
 13| Clear | clear 
