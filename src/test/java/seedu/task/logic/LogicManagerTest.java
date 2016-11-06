@@ -162,7 +162,7 @@ public class LogicManagerTest {
 
     @Test
     public void executeAddInvalidTaskData() throws Exception {
-        assertCommandBehavior("add Inval/id name, from 10.00 to 11.11 by 10.00", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior("add Inval/id name, from 10.00am to 11.11am by 11.30am", Name.MESSAGE_NAME_CONSTRAINTS);
         /*assertCommandBehavior(
                 "add Invalid start time, from 20.00 to 11.11 by 10.00", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
         assertCommandBehavior(
@@ -170,7 +170,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Invalid deadline, from 10.00 to 11.11 by 1000", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);*/
         assertCommandBehavior(
-                "add Invalid tag, from 10.00am to 11.11pm by 10.00 #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Invalid tag, from 10.00am to 11.11am by 11.30am #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
     // @@author
