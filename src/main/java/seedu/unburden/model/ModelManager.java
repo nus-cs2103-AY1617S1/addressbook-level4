@@ -79,6 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.Counter(); 
         indicateTaskListChanged();
     }
+    //@@author
 
     @Override
     public ReadOnlyListOfTask getListOfTask() {
@@ -161,6 +162,7 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.Counter(); 
     	indicateTaskListChanged();
     }
+    //@@author
         
     
     //=========== Filtered Task List Accessors ===============================================================
