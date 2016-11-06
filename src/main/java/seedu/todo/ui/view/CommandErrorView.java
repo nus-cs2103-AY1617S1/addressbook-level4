@@ -58,11 +58,7 @@ public class CommandErrorView extends UiPart {
      * Configure the UI layout of {@link CommandErrorView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(errorViewBox, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorBox, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(fieldErrorBox, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(fieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(nonFieldErrorGrid, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(errorViewBox, 0.0, 0.0, 0.0);
     }
 
     /**
