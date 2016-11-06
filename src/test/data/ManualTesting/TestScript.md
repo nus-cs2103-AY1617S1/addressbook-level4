@@ -269,15 +269,15 @@ Type `undo` into the command box
 
 
 Task to be added with a date to be defined by the tester
-1. Type `add "today's task" on (Today's date)`
-2. Type `add "tomorrow's task" on (Tomorrow's date) #friends`
-3. Type `add "nextweek's task" on (Any date next week)`
-4. Type `add "nextmonth's task" on (Any date next month)`
-5. Type `add "uncompleted task" on 5 nov`
-6. Type `Completed 54`
-7. Type `Completed 55`
-8. Type `Completed 56`
-9. Type `Completed 57`
+> 1. Type `add "today's task" on (Today's date)`
+> 2. Type `add "tomorrow's task" on (Tomorrow's date) #friends`
+> 3. Type `add "nextweek's task" on (Any date next week)`
+> 4. Type `add "nextmonth's task" on (Any date next month)`
+> 5. Type `add "uncompleted task" on 5 nov`
+> 6. Type `Completed 54`
+> 7. Type `Completed 55`
+> 8. Type `Completed 56`
+> 9. Type `Completed 57`
 
 
 <br>
