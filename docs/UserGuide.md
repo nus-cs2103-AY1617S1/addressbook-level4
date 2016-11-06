@@ -1,5 +1,3 @@
-//@@author A0147890U
-
 
 # User Guide
 
@@ -15,7 +13,7 @@ easily categorise tasks?
 
 Welcome to Simply.
 
-Gone are the repetitive mouse clicks other task managers require of you. With a single line command entry, you can create a task and categorize it as you desire. With its simple interface, gone are the cluttered windows of other task managers and you can also easily categorize your tasks!
+Gone are the repetitive mouse clicks other task managers require of you. With a single line command entry, you can easily create a task and categorize it as you desire. With its simple interface, gone are the cluttered windows of other task managers and tasks can be easily found at a glance. 
 
 ## Getting Started
 
