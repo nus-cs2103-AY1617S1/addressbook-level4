@@ -207,12 +207,18 @@
 }
 /*@@author */
 
+/*@@author A0140060AM */
+.context-menu:hover {
+    -fx-background-color: "#2daeff";
+}
 
 
 .menu-item:focused {
      -fx-background-color: "#2daeff";
      -fx-text-fill: white;
 }
+
+/*@@author */
 
 .menu-bar .label {
     -fx-font-size: 14pt;
