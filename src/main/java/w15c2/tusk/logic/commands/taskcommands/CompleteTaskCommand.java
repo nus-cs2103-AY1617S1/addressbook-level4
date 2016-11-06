@@ -15,6 +15,9 @@ public class CompleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "complete";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX>";
+    public static final String COMMAND_DESCRIPTION = "Complete a Task"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Completes the task identified by the index number used in the last task listing.\n"
@@ -46,7 +49,7 @@ public class CompleteTaskCommand extends TaskCommand {
 
         Task taskToComplete = lastShownList.get(targetIndex - 1);
         if(!taskToComplete.isCompleted()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.completeTask(taskToComplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToComplete));

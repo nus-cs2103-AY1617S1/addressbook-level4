@@ -1,4 +1,4 @@
-package w15c2.tusk.model.task;
+package w15c2.tusk.model;
 
 import java.util.Set;
 
@@ -8,6 +8,9 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemExceptio
 import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import w15c2.tusk.commons.core.UnmodifiableObservableList;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
+import w15c2.tusk.model.task.Task;
+
 
 /*
  * Represents an in-memory task list
@@ -114,7 +117,7 @@ public interface Model {
 	/*
 	 * Gets help list to fill up help overlay
 	 */
-	ObservableList<String> getHelpList();
+	ObservableList<HelpGuide> getHelpList();
 
 	/*
 	 * Redoes the command that has been undone

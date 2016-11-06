@@ -13,11 +13,11 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
+import w15c2.tusk.model.Model;
 import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
-import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.testutil.TestUtil;
 

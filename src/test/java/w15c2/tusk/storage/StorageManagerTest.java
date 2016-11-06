@@ -11,18 +11,16 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.commons.events.storage.DataSavingExceptionEvent;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.alias.XmlAliasStorage;
-import w15c2.tusk.storage.task.TaskStorage;
-import w15c2.tusk.storage.task.TaskStorageManager;
 import w15c2.tusk.storage.task.XmlTaskManagerStorage;
 import w15c2.tusk.testutil.EventsCollector;
 import w15c2.tusk.testutil.TypicalTestTasks;
 
 public class StorageManagerTest {
-    private TaskStorageManager storageManager;
+    private StorageManager storageManager;
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -30,7 +28,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new TaskStorageManager(getTempFilePath("tm"), getTempFilePath("alias"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("tm"), getTempFilePath("alias"), getTempFilePath("prefs"));
     }
 
 
@@ -56,14 +54,14 @@ public class StorageManagerTest {
 
     @Test
     public void taskManagerReadSave() throws Exception {
-        TaskManager originalTaskManager = new TypicalTestTasks().getTypicalTaskManager();
-        storageManager.saveTaskManager(originalTaskManager.getTasks());
-        storageManager.saveAlias(originalTaskManager.getAliasCollection());
+        ModelManager originalModelManager = new TypicalTestTasks().getTypicalModelManager();
+        storageManager.saveTaskManager(originalModelManager.getTasks());
+        storageManager.saveAlias(originalModelManager.getAliasCollection());
 
-        UniqueItemCollection<Task> retrievedTaskManager = storageManager.readTaskManager().get();
+        UniqueItemCollection<Task> retrievedModelManager = storageManager.readTaskManager().get();
         UniqueItemCollection<Alias> retrievedAlias = storageManager.readAlias().get();
-        assertEquals(originalTaskManager, new TaskManager(retrievedTaskManager, retrievedAlias));
-        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
+        assertEquals(originalModelManager, new ModelManager(retrievedModelManager, retrievedAlias));
+        //More extensive testing of ModelManager saving/reading is done in XmlModelManagerStorageTest
     }
 
     @Test
@@ -73,8 +71,8 @@ public class StorageManagerTest {
 
     @Test
     public void handleTaskManagerChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a TaskStorageManager while injecting a stub that throws an exception when the save method is called
-        TaskStorage storage = new TaskStorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"), new XmlAliasStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
+        Storage storage = new StorageManager(new XmlTaskManagerStorageExceptionThrowingStub("dummy"), new XmlAliasStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new UniqueItemCollection<Task>()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);

@@ -3,7 +3,7 @@ package w15c2.tusk.testutil;
 import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.task.TaskManager;
+import w15c2.tusk.model.ModelManager;
 
 /**
  *
@@ -47,7 +47,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadTaskManagerWithSampleData(TaskManager tm) {
+    public static void loadModelManagerWithSampleData(ModelManager tm) {
         try {
             tm.addTask(new TestTask(task1));
             tm.addTask(new TestTask(task2));
@@ -67,9 +67,9 @@ public class TypicalTestTasks {
         return new TestTask[]{task1, task2, task3, task4, task5, task6, task7};
     }
 
-    public TaskManager getTypicalTaskManager() {
-        TaskManager tm = new TaskManager();
-        loadTaskManagerWithSampleData(tm);
+    public ModelManager getTypicalModelManager() {
+        ModelManager tm = new ModelManager();
+        loadModelManagerWithSampleData(tm);
         return tm;
     }
 }

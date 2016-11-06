@@ -10,10 +10,10 @@ import w15c2.tusk.commons.events.ui.ShowHelpRequestEvent;
 import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.logic.commands.*;
-import w15c2.tusk.model.task.Model;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
-import w15c2.tusk.storage.task.TaskStorageManager;
+import w15c2.tusk.storage.StorageManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -59,11 +59,11 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new TaskManager();
+        model = new ModelManager();
         String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempAliasesFile = saveFolder.getRoot().getPath() + "TempAliases.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new TaskStorageManager(tempTaskManagerFile, tempAliasesFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempAliasesFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
      
         latestSavedTaskManager = model.getTasks(); // last saved assumed to be up to date before.

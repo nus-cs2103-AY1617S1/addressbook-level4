@@ -15,8 +15,8 @@ public class PinTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "pin";
     public static final String ALTERNATE_COMMAND_WORD = null;
-
-    public static final String HELP_MESSAGE_USAGE = "Pin a task: \t" + COMMAND_WORD + " <index>";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX>";
+    public static final String COMMAND_DESCRIPTION = "Pin a Task"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Pins the task identified by the index number used in the last task listing.\n"
@@ -46,7 +46,7 @@ public class PinTaskCommand extends TaskCommand {
         Task taskToPin = lastShownList.get(targetIndex - 1);
 
         if(!taskToPin.isPinned()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.pinTask(taskToPin);
             return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, taskToPin));
         }

@@ -1,4 +1,4 @@
-package w15c2.tusk.storage.task;
+package w15c2.tusk.storage;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -13,10 +13,10 @@ import w15c2.tusk.commons.exceptions.DataConversionException;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.storage.JsonUserPrefsStorage;
-import w15c2.tusk.storage.UserPrefsStorage;
 import w15c2.tusk.storage.alias.AliasStorage;
 import w15c2.tusk.storage.alias.XmlAliasStorage;
+import w15c2.tusk.storage.task.TaskStorage;
+import w15c2.tusk.storage.task.XmlTaskManagerStorage;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -26,22 +26,22 @@ import java.util.logging.Logger;
  * Manages storage of TaskManager data in local storage.
  */
 //@@author A0143107U
-public class TaskStorageManager extends ComponentManager implements TaskStorage {
+public class StorageManager extends ComponentManager implements Storage {
 
-    private static final Logger logger = LogsCenter.getLogger(TaskStorageManager.class);
-    private TaskManagerStorage taskManagerStorage;
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private TaskStorage taskManagerStorage;
     private AliasStorage aliasStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public TaskStorageManager(TaskManagerStorage taskManagerStorage, AliasStorage aliasStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskStorage taskManagerStorage, AliasStorage aliasStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.taskManagerStorage = taskManagerStorage;
         this.aliasStorage = aliasStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public TaskStorageManager(String taskManagerFilePath, String aliasFilePath, String userPrefsFilePath) {
+    public StorageManager(String taskManagerFilePath, String aliasFilePath, String userPrefsFilePath) {
         this(new XmlTaskManagerStorage(taskManagerFilePath), new XmlAliasStorage(aliasFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 

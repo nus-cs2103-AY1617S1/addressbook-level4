@@ -22,7 +22,7 @@ public class UndoCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoTaskCommand.HELP_MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoTaskCommand.MESSAGE_USAGE);
 		
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("previous");
 		String feedback = command.feedbackToUser;

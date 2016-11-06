@@ -9,7 +9,7 @@ import w15c2.tusk.model.Copiable;
  * A DeadlineTask is a task that holds a date as the deadline
  */
 //@@author A0139817U
-public class DeadlineTask extends Task implements PinnableTask, CompletableTask {
+public class DeadlineTask extends Task {
 
 	private Date deadline;
 

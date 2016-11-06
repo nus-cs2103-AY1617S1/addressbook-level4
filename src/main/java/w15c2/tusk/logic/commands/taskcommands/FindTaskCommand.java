@@ -16,8 +16,9 @@ public class FindTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "find";
         public static final String ALTERNATE_COMMAND_WORD = null;
-
-        public static final String HELP_MESSAGE_USAGE = "Find Tasks: \t" + "find <keyword[s]>";
+        
+        public static final String COMMAND_FORMAT = COMMAND_WORD + " <keyword[s]>";
+        public static final String COMMAND_DESCRIPTION = "Find Tasks"; 
         
         public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
                 + "the specified keywords and displays them as a list with index numbers.\n"
@@ -32,7 +33,7 @@ public class FindTaskCommand extends TaskCommand {
         @Override
         public CommandResult execute() {
             model.filterTasks(keywords);
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
             return new CommandResult(getMessageForTaskListShownSummary(model.getCurrentFilteredTasks().size()));
         }
         

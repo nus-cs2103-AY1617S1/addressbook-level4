@@ -22,7 +22,7 @@ public class RedoCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoTaskCommand.HELP_MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoTaskCommand.MESSAGE_USAGE);
 		
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("previous");
 		String feedback = command.feedbackToUser;

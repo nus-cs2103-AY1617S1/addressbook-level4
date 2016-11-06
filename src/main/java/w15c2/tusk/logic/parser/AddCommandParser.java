@@ -42,13 +42,14 @@ public class AddCommandParser extends CommandParser{
     		return new AddTaskCommand(description);
     	}
     	
-    	// Determine if it is DeadlineTask (which has "by" or "on") or EventTask (which has "from")
-    	// Spaces needed before "from", "by" and "on" to ensure they are separate words
+    	// Determine if it is DeadlineTask (which has "by", "on" or "at") or EventTask (which has "from")
+    	// Spaces needed before "from", "by", "on" and "at" to ensure they are separate words
     	int finalIndex = -1;
     	String finalString = null;
     	int indexOfLastFrom = description.lastIndexOf(" from ");
     	int indexOfLastBy = description.lastIndexOf(" by ");
     	int indexOfLastOn = description.lastIndexOf(" on ");
+    	int indexOfLastAt = description.lastIndexOf(" at ");
     	
     	if (indexOfLastFrom > finalIndex) {
     		finalIndex = indexOfLastFrom;
@@ -62,9 +63,13 @@ public class AddCommandParser extends CommandParser{
     		finalIndex = indexOfLastOn;
     		finalString = " on ";
     	}
+    	if (indexOfLastAt > finalIndex) {
+    		finalIndex = indexOfLastAt;
+    		finalString = " at ";
+    	}
     	
     	if (finalIndex == -1) {
-    		// If all keywords ("from", "by", "on") are missing, it means it is a Floating task
+    		// If all keywords ("from", "by", "on", "at") are missing, it means it is a Floating task
     		return new AddTaskCommand(description);
     	} else {
     		// Create an AddTaskCommand based on the keywords
@@ -84,7 +89,8 @@ public class AddCommandParser extends CommandParser{
     	String taskDescription = description.substring(0, substringFrom).trim();
     	String dateString = description.substring(substringFrom + keyword.length(), description.length()).trim();
     	
-    	if ((keyword.equals(" by ") || keyword.equals(" on ")) && DateUtil.isValidDateFormat(dateString)) {
+    	if ((keyword.equals(" by ") || keyword.equals(" on ") || keyword.equals(" at ")) && 
+    			DateUtil.isValidDateFormat(dateString)) {
     		// dateString represents task's deadline
     		Date deadline = DateUtil.getDate(dateString);
 			return new AddTaskCommand(taskDescription, deadline);

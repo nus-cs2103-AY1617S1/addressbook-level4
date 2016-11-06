@@ -15,8 +15,9 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "delete";
     public static final String ALTERNATE_COMMAND_WORD = null;
-
-    public static final String HELP_MESSAGE_USAGE = "Delete a task: \t" + "delete <index>";
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX>";
+    public static final String COMMAND_DESCRIPTION = "Delete a Task"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
@@ -46,7 +47,7 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	        try {
 	            model.deleteTask(taskToDelete);
-	            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+	            closeHelpWindow();
 	            if(lastShownList.size() == 0) {
 	                model.clearTasksFilter();
 	            }

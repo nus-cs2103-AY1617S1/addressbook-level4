@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.storage.StorageChangedEvent;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0138978E
@@ -18,6 +19,9 @@ public class SetStorageCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "setstorage";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <FOLDERPATH>";
+    public static final String COMMAND_DESCRIPTION = "Set Storage Location"; 
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD 
 			+ ": Sets the folder to be used for storage\n" 
@@ -29,8 +33,6 @@ public class SetStorageCommand extends TaskCommand {
 	public static final String MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY = "Cannot set storage location to \"%1$s\", this is not a directory!";
 	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!";	
 	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE = "Cannot set storage location to \"%1$s\", cannot write to here!";
-
-    public static final String HELP_MESSAGE_USAGE = "Set storage location: \t" + COMMAND_WORD + " <folderPath>";	
 	
 	String storageLocation;
 
@@ -56,6 +58,7 @@ public class SetStorageCommand extends TaskCommand {
 		}
 		Path actualPath = path.get();
 		EventsCenter.getInstance().post(new StorageChangedEvent(storageLocation));
+		EventsCenter.getInstance().post(new HideHelpRequestEvent());
 		return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS, actualPath.toAbsolutePath()));
 	}
 	

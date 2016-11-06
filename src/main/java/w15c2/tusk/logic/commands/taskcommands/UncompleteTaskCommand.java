@@ -15,6 +15,8 @@ public class UncompleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "uncomplete";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX>";
+    public static final String COMMAND_DESCRIPTION = "Uncomplete a Task"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Uncompletes the task identified by the index number used in the last task listing.\n"
@@ -23,9 +25,6 @@ public class UncompleteTaskCommand extends TaskCommand {
 
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
     public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
-
-    public static final String HELP_MESSAGE_USAGE = "Uncomplete a task: \t" + COMMAND_WORD +" <index>";
-
 
     public final int targetIndex;
 
@@ -52,7 +51,7 @@ public class UncompleteTaskCommand extends TaskCommand {
         
         //checks if the task has been completed in the first place
         if(taskToUncomplete.isCompleted()){
-            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+            closeHelpWindow();
         	model.uncompleteTask(taskToUncomplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));

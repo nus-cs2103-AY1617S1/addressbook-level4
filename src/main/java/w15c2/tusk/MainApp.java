@@ -24,12 +24,12 @@ import w15c2.tusk.commons.util.TaskConfigUtil;
 import w15c2.tusk.logic.Logic;
 import w15c2.tusk.logic.LogicManager;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.Model;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.UserPrefs;
-import w15c2.tusk.model.task.Model;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
-import w15c2.tusk.storage.task.TaskStorage;
-import w15c2.tusk.storage.task.TaskStorageManager;
+import w15c2.tusk.storage.Storage;
+import w15c2.tusk.storage.StorageManager;
 import w15c2.tusk.ui.Ui;
 import w15c2.tusk.ui.UiManager;
 
@@ -43,7 +43,7 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected TaskStorage storage;
+    protected Storage storage;
     protected Model model;
     protected TaskConfig config;
     protected UserPrefs userPrefs;
@@ -56,7 +56,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new TaskStorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -76,7 +76,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(TaskStorage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<UniqueItemCollection<Task>> tasks;
         Optional<UniqueItemCollection<Alias>> alias;
         UniqueItemCollection<Task> initialData;
@@ -105,9 +105,7 @@ public class MainApp extends Application {
             initialData = new UniqueItemCollection<Task>();
             initialAliasData = new UniqueItemCollection<Alias>();
         }
-
-        // TODO: Actually pass in data to use
-        return new TaskManager(initialData, initialAliasData);
+        return new ModelManager(initialData, initialAliasData);
     }
 
     private void initLogging(TaskConfig config) {
@@ -222,7 +220,7 @@ public class MainApp extends Application {
         	UniqueItemCollection<Alias> aliases = storage.readAlias().orElse(new UniqueItemCollection<Alias>());
         	
         	// Reinitialize the current storage object
-        	storage = new TaskStorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
+        	storage = new StorageManager(config.getTasksFilePath(), config.getAliasFilePath(), config.getUserPrefsFilePath());
         	
         	// Save the current status of everything into the new location
         	// This is if we close the app without adding new tasks

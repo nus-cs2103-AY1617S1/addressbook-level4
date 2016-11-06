@@ -1,4 +1,4 @@
-package w15c2.tusk.model.task;
+package w15c2.tusk.model;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -21,37 +21,27 @@ import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.commons.util.StringUtil;
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
-import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.ModelHistory;
+import w15c2.tusk.model.task.Task;
 
 /**
  * Manages a list of tasks & aliases and acts as a gateway for Commands to perform CRUD operations on the list
  */
-public class TaskManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(TaskManager.class);
+public class ModelManager extends ComponentManager implements Model {
+	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;
 	private FilteredList<Task> filteredTasks;
 	private final ModelHistory modelHistory; // Stores tasks & aliases to support undo & redo commands
 
-	public TaskManager() {
+	public ModelManager() {
 		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>());		
 	}
 	
-	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases) {
+	public ModelManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases) {
 		this.tasks = tasks;
 		this.aliases = aliases;
 		this.modelHistory = new ModelHistory();
@@ -66,7 +56,7 @@ public class TaskManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-	public UniqueItemCollection<Alias> getAliasCollection(){
+	public UniqueItemCollection<Alias> getAliasCollection() {
 		return aliases;
 	}
 	
@@ -302,21 +292,8 @@ public class TaskManager extends ComponentManager implements Model {
 	}
 	//@@author A0139708W
     @Override
-    public ObservableList<String> getHelpList() {
-        ObservableList<String> helpItems = FXCollections.observableArrayList ();
-        helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ClearTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(CompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UndoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(PinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UnpinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
+    public ObservableList<HelpGuide> getHelpList() {
+        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList (TaskCommandList.getHelpList());
         return helpItems;
     }
 	
@@ -441,10 +418,10 @@ public class TaskManager extends ComponentManager implements Model {
     	if(obj == this){
     		return true;
     	}
-    	if(!(obj instanceof TaskManager)){
+    	if(!(obj instanceof ModelManager)){
     		return false;
     	}
-    	TaskManager other = (TaskManager)obj;
+    	ModelManager other = (ModelManager)obj;
     	Iterator<Task> itr = tasks.iterator();
     	boolean contains;
 		while(itr.hasNext()){

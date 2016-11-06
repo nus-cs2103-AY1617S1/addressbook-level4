@@ -1,5 +1,7 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
+import w15c2.tusk.commons.core.EventsCenter;
+import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
 /**
@@ -9,6 +11,8 @@ public class ClearTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "clear";
         public static final String ALTERNATE_COMMAND_WORD = null;
+        public static final String COMMAND_FORMAT = COMMAND_WORD;
+        public static final String COMMAND_DESCRIPTION = "Clear Current List"; 
 
         public static final String HELP_MESSAGE_USAGE = "Clear Tasks: \t clear";
         
@@ -22,6 +26,7 @@ public class ClearTaskCommand extends TaskCommand {
         @Override
         public CommandResult execute() {
             int deleted = model.clearTasks();
+            closeHelpWindow();
             return new CommandResult(String.format("%d tasks deleted!", deleted));
         }
 }

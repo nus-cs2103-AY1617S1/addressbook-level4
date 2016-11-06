@@ -17,7 +17,7 @@ public class UndoCommandParser extends CommandParser{
     @Override
     public TaskCommand prepareCommand(String arguments) {
     	if(!arguments.equals("")){
-        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoTaskCommand.HELP_MESSAGE_USAGE));
+        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoTaskCommand.MESSAGE_USAGE));
         }
         return new UndoTaskCommand();
     }

@@ -12,6 +12,9 @@ public class ExitCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "exit";
     public static final String ALTERNATE_COMMAND_WORD = null;
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD;
+    public static final String COMMAND_DESCRIPTION = "Exit Tusk"; 
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Tusk Manager as requested ...";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exits Tusk Manager.\n"

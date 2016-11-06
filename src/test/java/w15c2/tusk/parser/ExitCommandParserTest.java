@@ -5,49 +5,31 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.ExitCommandParser;
 
-/**
- * Tests Exit Command Parser
- */
-//@@author A0143107U
 public class ExitCommandParserTest {
-	// Initialized to support the tests
-	ExitCommandParser parser = new ExitCommandParser();
-	
-	/**
-	 * Testing correct handling of invalid formats
-	 * 
-	 */
-	@Test
-	public void prepareCommand_invalidFormat() {
-		/*
-		 * Testing correct handling of non-empty strings
-		 * 
-		 */
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE);
-		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("tusk");
-		String feedback = command.feedbackToUser;
-		assertEquals(feedback, expected);
-		
-		command = (IncorrectTaskCommand) parser.prepareCommand("app");
-		feedback = command.feedbackToUser;
-		assertEquals(feedback, expected);
-	}
-	
-	/**
-	 * Testing valid exit format
-	 */
-	@Test
-	public void prepareCommand_validExitFormat() {
-		String expected = ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
-		
-		ExitCommand command = (ExitCommand) parser.prepareCommand("");
-		String feedback = command.toString();
-		assertEquals(feedback, expected);
-		
-	}
+    ExitCommandParser parser = new ExitCommandParser();
+    
+    @Test
+    public void prepareCommand_noArguments(){
+        /*
+         * Test the exit command with no arguments - should be accepted
+         */
+        TaskCommand command = parser.prepareCommand("");
+        CommandResult result = command.execute();
+        assertEquals(result.feedbackToUser, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+    
+    @Test
+    public void prepareCommand_withArguments(){
+        /*
+         * Test the exit command with some arguments - should be rejected
+         */
+        TaskCommand command = parser.prepareCommand("extra arguments");
+        CommandResult result = command.execute();
+        assertEquals(result.feedbackToUser, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE));
+    }
 }

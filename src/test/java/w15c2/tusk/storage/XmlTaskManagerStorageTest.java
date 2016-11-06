@@ -11,8 +11,8 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.exceptions.DataConversionException;
 import w15c2.tusk.commons.util.FileUtil;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.Task;
-import w15c2.tusk.model.task.TaskManager;
 import w15c2.tusk.storage.alias.XmlAliasStorage;
 import w15c2.tusk.storage.task.XmlTaskManagerStorage;
 import w15c2.tusk.testutil.TestTask;
@@ -64,7 +64,7 @@ public class XmlTaskManagerStorageTest {
         String taskManagerFilePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
         String aliasFilePath = testFolder.getRoot().getPath() + "TempAlias.xml";
         TypicalTestTasks td = new TypicalTestTasks();
-        TaskManager original = td.getTypicalTaskManager();
+        ModelManager original = td.getTypicalModelManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(taskManagerFilePath);
         XmlAliasStorage xmlAliasStorage = new XmlAliasStorage(aliasFilePath);
 
@@ -76,7 +76,7 @@ public class XmlTaskManagerStorageTest {
         UniqueItemCollection<Task> taskReadBack = xmlTaskManagerStorage.readTaskManager(taskManagerFilePath).get();
         UniqueItemCollection<Alias> aliasReadBack = xmlAliasStorage.readAlias(aliasFilePath).get();
 
-        assertEquals(original, new TaskManager(taskReadBack, aliasReadBack));
+        assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new TestTask(TypicalTestTasks.extraTask1));
@@ -89,13 +89,13 @@ public class XmlTaskManagerStorageTest {
         taskReadBack = xmlTaskManagerStorage.readTaskManager(taskManagerFilePath).get();
         aliasReadBack = xmlAliasStorage.readAlias(aliasFilePath).get();
 
-        assertEquals(original, new TaskManager(taskReadBack, aliasReadBack));
+        assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
 
         //Save and read without specifying file path
         original.addTask(new TestTask(TypicalTestTasks.extraTask2));
         xmlTaskManagerStorage.saveTaskManager(original.getTasks()); //file path not specified
         taskReadBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
-        assertEquals(original, new TaskManager(taskReadBack, aliasReadBack));
+        assertEquals(original, new ModelManager(taskReadBack, aliasReadBack));
 
     }
 
@@ -112,7 +112,7 @@ public class XmlTaskManagerStorageTest {
     @Test
     public void saveTaskManager_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveTaskManager(new TaskManager().getTasks(), null);
+        saveTaskManager(new ModelManager().getTasks(), null);
     }
 
 
