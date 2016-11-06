@@ -37,10 +37,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
         //edit the last in the list, edit time 
         ArrayList<TestTask> TimeTesting= new ArrayList<TestTask> (Arrays.asList(currentArray));
-        targetIndex = currentArray.length;
+        targetIndex = 1;
         newContent = "10:00 PM";
         type = "start time";
-        taskToBeReplaced = TimeTesting.get(targetIndex - 1);
+        taskToBeReplaced = TimeTesting.get(0);
         TaskTime originalTime = taskToBeReplaced.getStartTime();
         taskToBeReplaced.setStartTime(new TaskTime(newContent));
         assertEditSuccess(targetIndex,type,newContent,taskToBeReplaced);
