@@ -33,6 +33,7 @@ public class TypicalTestTasks {
             first = new TaskBuilder().withName("Alphabet soup making session").withOpenTime("1 hour from now")
                     .withCloseTime("2 hours from now").withTags("first").build();
             last = new TaskBuilder().withName("Zebra feeding").build();
+            
             hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("one hour from now")
                     .withCloseTime("tomorrow").withTags("omg").withImportance(false).build();//.withRecurrentWeek(0)
             ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("two weeks from now")
