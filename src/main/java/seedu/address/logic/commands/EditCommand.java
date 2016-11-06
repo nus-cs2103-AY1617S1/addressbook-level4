@@ -198,7 +198,7 @@ public class EditCommand extends UndoableCommand {
 	    assert model != null;
         
 	    // check if viewing done list
-        // cannot edit in done list, return an incorrect command msg
+        // cannot edit in done list, return an incorrect command message
 	    if (attemptToEditDoneList()) {
 	        indicateAttemptToExecuteIncorrectCommand();
 	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
@@ -225,6 +225,9 @@ public class EditCommand extends UndoableCommand {
         assignStartDate();
         assignEndDate();
         
+        /*
+         * return incorrect date message if end date is before start date
+         */
         if(endDate != null && startDate != null && endDate.before(startDate)){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_END_DATE_CONSTRAINTS);
@@ -243,6 +246,7 @@ public class EditCommand extends UndoableCommand {
         /*
          * Set recurrenceRate as the previous one if it exist should the user not input any
          * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
+         * Return incorrect recurrence message if no date present
          */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
