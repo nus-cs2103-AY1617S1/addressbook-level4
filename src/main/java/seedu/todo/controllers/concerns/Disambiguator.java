@@ -9,18 +9,18 @@ import seedu.todo.commons.util.StringUtil;
 public class Disambiguator {
     
     private static final String TOKEN_NAME = "name";
-    private static final String PLACEHOLDER_NAME = "<name>";
+    public static final String PLACEHOLDER_NAME = "<name>";
     private static final String TOKEN_TASKSTATUS = "taskStatus";
-    private static final String PLACEHOLDER_TASKSTATUS = "<task status>";
+    public static final String PLACEHOLDER_TASKSTATUS = "<task status>";
     private static final String TOKEN_EVENTSTATUS = "eventStatus";
-    private static final String PLACEHOLDER_EVENTSTATUS = "<event status>";
+    public static final String PLACEHOLDER_EVENTSTATUS = "<event status>";
     private static final String TOKEN_TAG = "tag";
-    private static final String PLACEHOLDER_TAG = "<tag>";
+    public static final String PLACEHOLDER_TAG = "<tag>";
     private static final String TOKEN_STARTTIME = "startTime";
-    private static final String PLACEHOLDER_STARTTIME = "<start>";
+    public static final String PLACEHOLDER_STARTTIME = "<start>";
     private static final int INDEX_STARTTIME = 0;
     private static final String TOKEN_ENDTIME = "endTime";
-    private static final String PLACEHOLDER_ENDTIME = "<end>";
+    public static final String PLACEHOLDER_ENDTIME = "<end>";
     private static final int INDEX_ENDTIME = 1;
     
     /**

@@ -37,9 +37,9 @@ public class ListController extends Controller {
             + "while only events can be \"past\", \"over\" or \"future\".";
     private static final String MESSAGE_INVALID_DATE = "We could not parse the date in your query, please try again.";
     
-    private static final String TEMPLATE_LIST = "list [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
-    private static final String TEMPLATE_LIST_TASKS = "list tasks [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
-    private static final String TEMPLATE_LIST_EVENTS = "list events [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
+    public static final String TEMPLATE_LIST = "list [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
+    public static final String TEMPLATE_LIST_TASKS = "list tasks [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
+    public static final String TEMPLATE_LIST_EVENTS = "list events [\"%s\"] [from \"%s\"] [to \"%s\"] [tag \"%s\"]";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
