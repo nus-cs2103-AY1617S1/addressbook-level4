@@ -16,7 +16,7 @@ import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 public class TypicalTestTasks {
 
     public TestTask highPriority, medPriority, lowPriority, furthestDue, 
-                            nearerDue, notSoNearerDue, earliestDue, longDue, happy, haloween;
+                            nearerDue, notSoNearerDue, earliestDue, longDue, happy, haloween, pjm, projectMeeting;
     private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             
     public TypicalTestTasks() {
@@ -41,6 +41,8 @@ public class TypicalTestTasks {
             //Manually added
             happy = new TaskBuilder().withId(9).withTaskName("Happy Task").build();
             haloween = new TaskBuilder().withId(10).withTaskName("Haloween Task").build();
+            pjm = new TaskBuilder().withId(11).withTaskName("pjm").build();
+            projectMeeting = new TaskBuilder().withId(12).withTaskName("Project Meeting").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
