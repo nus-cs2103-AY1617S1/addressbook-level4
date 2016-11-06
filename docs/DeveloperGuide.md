@@ -311,6 +311,10 @@ Use case ends.
 1b.  Time slot for task is already filled
 >1b1. Task manager warns user that time slot clashes <br>
 	Use case resumes
+	
+1c. Format is invalid
+> 3b1. Task Manager shows an error message <br>
+	Use case resumes
 
 
 #### Use case: Delete task
@@ -330,7 +334,7 @@ Use case ends
     
 3a. Given index is invalid
 >3b1. Task manager shows error message <br>
-Use case resumes at step 2
+	Use case resumes at step 2
 
 
 #### Use case: Completing task
@@ -350,7 +354,7 @@ Use case ends
     
 3a. Given index is invalid
 >3b1. Task manager shows error message <br>
-Use case resumes at step 2
+	Use case resumes at step 2
 
 #### Use case: Pin a task
 
@@ -369,7 +373,7 @@ Use case ends
     
 3a. Given index is invalid
 >3b1. Task manager shows error message <br>
-Use case resumes at step 2
+	Use case resumes at step 2
 
 
 #### Use case: Unpin a task
@@ -407,8 +411,7 @@ Use case ends
 1. User requests to list tasks for a specific time period
 2. Task Manager displays all tasks during time period
 3. User requests to edit a specific task in the list
-4. User confirms the changes
-5. Task manager makes the edits <br>
+4. Task manager makes the edits <br>
 Use case ends.
 
 
@@ -423,6 +426,9 @@ Use case ends.
 > 3a1. Task Manager shows an error message <br>
 > Use case resumes at step 2
 
+3b. Format is invalid
+> 3b1. Task Manager shows an error message <br>
+> Use case resumes at step 2
 
 
     

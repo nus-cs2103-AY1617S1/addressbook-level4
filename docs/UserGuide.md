@@ -43,10 +43,7 @@ The `STARTDATE` and `ENDDATE` field, if specified, tells the Daily Planner which
 
 The `STARTDATE` and `ENDDATE` field can accept natural descriptions of dates. The following are all valid dates:
 ```
-1978-01-28
-1984/04/02
-1/02/1980
-2/28/79
+
 The 31st of April in the year 2008
 Fri, 21 Nov 1997
 Jan 21, '97
@@ -233,6 +230,7 @@ Examples: <br>
 ```pin 5```
 >Task 5 of current list is being pinned on  the pinned list<br>
 
+
 ### Remove important task on the pinned task list: `unpin`
 
 Description: Unpins task on the list from the pinned tasks list. <br>
@@ -261,7 +259,8 @@ Format: `undo`
 
 Examples: <br>
 ```undo```
->Undo previous command<br>
+>Undo previous command <br>
+
 
 ### Delete every task: `clear`
 
@@ -270,16 +269,16 @@ Description: Clears all tasks. <br>
 Format: `clear` 
 
 > Clears all task from the list
-  <br>
-  
+  <br>  
 
 Examples: <br>
 ```clear```
->The list is now empty<br>
+>The list is now empty <br>
 
 ### Exiting the program : `exit`
 Exits the program.<br>
-Format: `exit`  
+Format: `exit`  <br>
+
 
 ### Saving the data 
 Daily Planner data is saved in the hard disk automatically after any command that changes the data.<br>
