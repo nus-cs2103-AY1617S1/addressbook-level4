@@ -6,10 +6,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.logic.ToolTip;
@@ -25,6 +27,7 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     private String previousCommandText;
+    private ImageView catImage;
 
     private Logic logic;
 
@@ -33,17 +36,18 @@ public class CommandBox extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+            ResultDisplay resultDisplay, MainWindow mainWindow, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(resultDisplay, mainWindow, logic);
         commandBox.addToPlaceholder();
         commandBox.setTooltipListener();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    public void configure(ResultDisplay resultDisplay, MainWindow mainWindow, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        this.catImage = mainWindow.getCatImage();
         
         registerAsAnEventHandler(this);
     }
@@ -101,6 +105,7 @@ public class CommandBox extends UiPart {
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
         emptyCommandText(command);
+        setCatImage("/images/cat_happy.png");
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -118,6 +123,7 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
+        setCatImage("/images/cat_normal.png");
     }
 
     @Subscribe
@@ -139,8 +145,13 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         if (!commandTextField.getStyleClass().contains("error")) {
-            commandTextField.getStyleClass().add("error");   
+            commandTextField.getStyleClass().add("error"); 
+            setCatImage("/images/cat_sad.png");
         }
+    }
+    
+    private void setCatImage(String imagePath) {
+        catImage.setImage(AppUtil.getImage(imagePath));
     }
 
 }

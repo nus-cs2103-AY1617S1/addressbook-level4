@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -81,6 +82,8 @@ public class MainWindow extends UiPart {
 
     //@@author 
     @FXML
+    private ImageView catImage;
+    @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
@@ -148,7 +151,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
                 config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, this, logic);
     }
     
     //@@author A0135793W
@@ -167,6 +170,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
+    }
+    
+    public ImageView getCatImage() {
+        return catImage;
     }
 
     //@@author A0130853L
