@@ -10,7 +10,7 @@ public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Task names should be alphabets, numbers, spaces and common punctuations, Meow!";
-    public static final String NAME_VALIDATION_REGEX_FORMAT = "[\\p{Alnum}!@$%&(),.? ]+";
+    public static final String NAME_VALIDATION_REGEX_FORMAT = "[\\p{Alnum}'!@$%&(),.? ]+";
 
     public final String fullName;
 
