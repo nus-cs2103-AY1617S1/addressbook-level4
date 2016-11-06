@@ -19,6 +19,7 @@ import jfxtras.scene.control.agenda.Agenda.LocalDateTimeRange;
 import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.taskcommons.core.CalendarView;
 import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N
@@ -31,8 +32,6 @@ import seedu.taskcommons.core.LogsCenter;
  *
  */
 public class CalendarPanel extends UiPart {
-	private static final int DAY_SKIN = 1;
-	private static final int WEEK_SKIN = 0;
 	private static final String CALENDAR_UNSYC_MESSAGE = "Calendar is unsync";
 	private static final String CALENDAR_VIEW_ID = "calendar";
 	private static final int DEFAULT_BEFORE = -1;
@@ -188,12 +187,12 @@ public class CalendarPanel extends UiPart {
 	 * Toggle the Calendar display mode
 	 * @param calendarViewMode
 	 */
-	public void updateCalendarMode(int calendarViewMode) {
+	public void updateCalendarMode(CalendarView calendarViewMode) {
 		switch(calendarViewMode) {
-		case DAY_SKIN:
+		case DAY:
 			agenda.setSkin(new AgendaDaySkin(agenda));
 			break;
-		case WEEK_SKIN:
+		case WEEK:
 			setWeekView(DEFAULT_BEFORE, DEFAULT_AFTER);
 			break;
 		default:

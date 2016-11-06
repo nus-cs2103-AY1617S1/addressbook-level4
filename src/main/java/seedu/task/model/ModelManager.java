@@ -299,7 +299,7 @@ public class ModelManager extends ComponentManager implements Model {
         	
         	for(String source: sourceSet) {
     			boolean found = keyWords.stream()
-                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
+                .filter(keyword -> StringUtil.isSimilar(source.trim(), keyword.trim()))
                 .findAny()
                 .isPresent();
     			
@@ -338,7 +338,7 @@ public class ModelManager extends ComponentManager implements Model {
         	
         	for(String source: sourceSet) {
     			boolean found = keyWords.stream()
-                .filter(keyword -> StringUtil.findMatch(source.trim(), keyword.trim()))
+                .filter(keyword -> StringUtil.isSimilar(source.trim(), keyword.trim()))
                 .findAny()
                 .isPresent();
     			

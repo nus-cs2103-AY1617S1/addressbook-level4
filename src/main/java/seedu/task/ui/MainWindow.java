@@ -21,6 +21,7 @@ import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.taskcommons.core.CalendarView;
 import seedu.taskcommons.core.Config;
 import seedu.taskcommons.core.GuiSettings;
 
@@ -269,7 +270,7 @@ public class MainWindow extends UiPart {
 		this.calendarPanel.refresh(eventList,taskList);
 	}
 
-	public void updateCalendarView(LocalDateTime displayedDateTime, int calendarViewMode) {
+	public void updateCalendarView(LocalDateTime displayedDateTime, CalendarView calendarViewMode) {
 		this.calendarPanel.updateCalendarMode(calendarViewMode);
 		this.calendarPanel.updateCalendarShownPeriod(displayedDateTime);
 	}

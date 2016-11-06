@@ -32,6 +32,5 @@ public class UndoableCommandHistory {
 		} catch (NoSuchElementException e) {
 			throw new UndoableException();
 		}
-	}
-	
+	}	
 }

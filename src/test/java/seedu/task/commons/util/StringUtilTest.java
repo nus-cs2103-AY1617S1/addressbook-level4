@@ -55,8 +55,8 @@ public class StringUtilTest {
         String c = new String("long string");
         String d = new String("long");
         
-        assertTrue("'Xu ssChen' and 'XuChen' are similiar", StringUtil.findMatch(a, b));
-        assertTrue("Similiar because contains", StringUtil.findMatch(c, d));
+        assertTrue("'Xu ssChen' and 'XuChen' are similiar", StringUtil.isSimilar(a, b));
+        assertTrue("Similiar because contains", StringUtil.isSimilar(c, d));
     }
     
     @Test
@@ -64,7 +64,7 @@ public class StringUtilTest {
         String a = new String("Xu ssChen");
         String b = null;
 
-        assertFalse("'Xu ssChen' and '' are not similiar", StringUtil.findMatch(a, b));
+        assertFalse("'Xu ssChen' and '' are not similiar", StringUtil.isSimilar(a, b));
     }
 
 

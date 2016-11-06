@@ -35,9 +35,7 @@ public class FindParser implements Parser {
 		}
 		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(powerSearchPrefix, findKeywordPrefix);
-		
 		argsTokenizer.tokenize(args.trim());
-		
 		
 		Optional<String> keyword = Optional.empty();
 		Optional<List<String>> moreKeywords = Optional.empty();
@@ -45,13 +43,7 @@ public class FindParser implements Parser {
 		
 		moreKeywords = argsTokenizer.getAllValues(findKeywordPrefix);
 		isPowerSearch = argsTokenizer.hasPrefix(powerSearchPrefix);
-		
-		try {
-			keyword = argsTokenizer.getPreamble();
-		} catch (EmptyValueException e) {
-			//consume the exception since it is fine for find
-			//do nothing.
-		}
+		keyword = argsTokenizer.getPreambleAllowEmpty();
 		
 		final Set<String> keywordSet = combineKeywords(keyword, moreKeywords);
 		return new FindCommand(keywordSet, isPowerSearch);
@@ -65,5 +57,4 @@ public class FindParser implements Parser {
 		}
 		return new HashSet<>(keywordList);
 	}
-
 }

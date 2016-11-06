@@ -14,12 +14,11 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
+//@@author A0144702N
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
-	
-	//@@author A0144702N
 	/**
 	 * DateTimeFormatter for LocalTimeDate fields. 
 	 */
@@ -30,7 +29,7 @@ public class StringUtil {
 			+ "MM DD YY is the expected numerical sequence. \n"
 			+ "Possible event duration could be:"
 			+ "today 4pm /to tomorrow 4pm";
-	private static final int SIMILIAR_THRESHOLD = 1; 
+
 	/**
 	 * Parse a String argument into date format. 
 	 * @param parser
@@ -39,16 +38,16 @@ public class StringUtil {
 	 * @throws IllegalValueException
 	 */
 	public static LocalDateTime parseStringToTime(String dateArg) throws IllegalValueException {
-		PrettyTimeParser parser = new PrettyTimeParser();
-		
-		//invalid start date
+		//empty start date
 		if(dateArg == null) throw new IllegalValueException(TIME_CONSTRAINTS);
 		
+		PrettyTimeParser parser = new PrettyTimeParser();
 		List<Date> parsedResult = parser.parse(dateArg);
 		
 		//cannot parse
 		if(parsedResult.isEmpty()) throw new IllegalValueException(TIME_CONSTRAINTS);
 		
+		//wrap in LocalDateime class
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}
 	
@@ -57,32 +56,14 @@ public class StringUtil {
         return source.toUpperCase().indexOf(query.toUpperCase()) != -1;
     }
 
+	private static final int SIMILIAR_THRESHOLD = 1; 
     /**
-     * Returns a detailed message of the t, including the stack trace.
-     */
-    public static String getDetails(Throwable t){
-        StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw));
-        return t.getMessage() + "\n" + sw.toString();
-    }
-
-    /**
-     * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
-     *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
-     * @param s Should be trimmed.
-     */
-    public static boolean isUnsignedInteger(String s){
-        return s != null && s.matches("^0*[1-9]\\d*$");
-    }
-
-    
-    /**
-     * return true if two strings are simlar with distance less than 2. 
+     * Check if two strings are similar 
      * @param a
      * @param b
      * @return
      */
-    public static boolean findMatch(String a, String b) {
+    public static boolean isSimilar(String a, String b) {
     	
     	//short circuit if one of null
     	if(a == null || b == null) {
@@ -102,8 +83,13 @@ public class StringUtil {
         return getDistance(a, b) <= SIMILIAR_THRESHOLD;
     }
 
+    /**
+     * Calcuates Levenshteisn Distance of two strings
+     * @param a
+     * @param b
+     * @return
+     */
     public static int getDistance(String a, String b) {
-        
     	int aIndex = a.length()-1;
         int bIndex = b.length()-1;
         
@@ -119,7 +105,6 @@ public class StringUtil {
         }
         
         int subCost = (a.charAt(aIndex) == b.charAt(bIndex)) ? 0 : 1;
-        
         return min(
                 levenshteinDistance(a, b, aIndex-1, bIndex, currentCost+1)+1,
                 levenshteinDistance(a, b, aIndex, bIndex-1, currentCost+1)+1,
@@ -127,13 +112,32 @@ public class StringUtil {
                 );
  
     }
-
+    
     private static int min(int i, int j, int k) {
         int min = i;
         if(j<min) min =j;
         if(k<min) min = k;
         
         return min;
+    }
+    //@@author 
+    
+    /**
+     * Returns a detailed message of the t, including the stack trace.
+     */
+    public static String getDetails(Throwable t){
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw));
+        return t.getMessage() + "\n" + sw.toString();
+    }
+
+    /**
+     * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
+     *   Will return false for null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
+     * @param s Should be trimmed.
+     */
+    public static boolean isUnsignedInteger(String s){
+        return s != null && s.matches("^0*[1-9]\\d*$");
     }
 
 }

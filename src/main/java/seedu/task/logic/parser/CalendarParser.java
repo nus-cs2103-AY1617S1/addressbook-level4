@@ -8,33 +8,32 @@ import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.CalendarCommand;
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.IncorrectCommand;;
+import seedu.task.logic.commands.IncorrectCommand;
+import seedu.taskcommons.core.CalendarView;;
 
 //@@author A0144702N
 /**
  * Parses which parses command argument for show calendar command
+ * 
  * @author xuchen
  */
-public class CalendarParser implements Parser{
+public class CalendarParser implements Parser {
 
 	@Override
 	public Command prepare(String args) {
-		if(args.isEmpty()) {
+		if (args.isEmpty()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
 		}
-		
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(calendarViewDayPrefix, calendarViewWeekPrefix);
-		
+
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(calendarViewDayPrefix);
 		argsTokenizer.tokenize(args.trim());
+		Optional<String> displayedDateTime = argsTokenizer.getPreambleAllowEmpty();
+		boolean toggleToDayView = argsTokenizer.hasPrefix(calendarViewDayPrefix);
+		
+		CalendarView showView = (toggleToDayView)? CalendarView.DAY : CalendarView.WEEK; 
 		
 		try {
-			Optional<String> displayedDateTime = argsTokenizer.getPreamble();
-			boolean toggleToDayView = argsTokenizer.hasPrefix(calendarViewDayPrefix);
-			boolean toggleToWeekView = argsTokenizer.hasPrefix(calendarViewWeekPrefix);
-			
-			return new CalendarCommand(displayedDateTime.orElse(""), toggleToWeekView, toggleToDayView);
-		} catch (EmptyValueException e) {
-			return new IncorrectCommand(e.getMessage());
+			return new CalendarCommand(displayedDateTime.orElse(""), showView);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
