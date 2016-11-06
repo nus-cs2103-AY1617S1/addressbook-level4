@@ -1,7 +1,6 @@
 package seedu.todo.controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.ConfigCenter;
@@ -29,7 +28,8 @@ public class ConfigController extends Controller {
     private static final String MESSAGE_INVALID_INPUT = "Invalid config setting provided!";
     private static final String MESSAGE_WRONG_EXTENSION = "Could not change storage path: File must end with %s";
     private static final String TEMPLATE_SET_CONFIG = "config <setting> <value>";
-    private static final String SPACE = " ";
+    
+    private static final String STRING_SPACE = " ";
     private static final int ARGS_LENGTH = 2;
     private static final String DB_FILE_EXTENSION = ".json";
 
@@ -52,42 +52,29 @@ public class ConfigController extends Controller {
         }
         
         // Check args length
-        String[] args = params.split(SPACE, ARGS_LENGTH);
+        String[] args = params.split(STRING_SPACE, ARGS_LENGTH);
         if (args.length != ARGS_LENGTH) {
             Renderer.renderDisambiguation(TEMPLATE_SET_CONFIG, MESSAGE_INVALID_INPUT);
             return;
         }
         
-        assert args.length == ARGS_LENGTH;
-        
-        // Split by args
         String configName = args[0];
         String configValue = args[1];
-
-        // Get current config
         Config config = ConfigCenter.getInstance().getConfig();
 
-        // Check name
-        List<String> validConfigDefinitions = config.getDefinitionsNames();
-        if (!validConfigDefinitions.contains(configName)) {
+        // Check if configName is a valid name.
+        if (!config.getDefinitionsNames().contains(configName)) {
             Renderer.renderDisambiguation(TEMPLATE_SET_CONFIG, MESSAGE_INVALID_INPUT);
             return;
         }
 
-        assert validConfigDefinitions.contains(configName);
-
-        // Update config value
         try {
+            // Update config value
             config = updateConfigByName(config, configName, configValue);
-        } catch (CannotConfigureException e) {
-            Renderer.renderConfig(e.getMessage());
-            return;
-        }
-
-        // Save config to file
-        try {
+            
+            // Save config to file
             ConfigCenter.getInstance().saveConfig(config);
-        } catch (IOException e) {
+        } catch (CannotConfigureException | IOException e) {
             Renderer.renderConfig(String.format(MESSAGE_FAILURE, e.getMessage()));
             return;
         }
@@ -118,17 +105,8 @@ public class ConfigController extends Controller {
             break;
 
         case "databaseFilePath" :
-            // Make sure the new path has a .json extension
-            if (!configValue.endsWith(DB_FILE_EXTENSION)) {
-                throw new CannotConfigureException(String.format(MESSAGE_WRONG_EXTENSION, DB_FILE_EXTENSION));
-            }
-
             // Move the DB file to the new location
-            try {
-                TodoListDB.getInstance().move(configValue);
-            } catch (IOException e) {
-                throw new CannotConfigureException(e.getMessage());
-            }
+            moveDatabaseFile(configValue);
 
             // Update config
             config.setDatabaseFilePath(configValue);
@@ -140,6 +118,23 @@ public class ConfigController extends Controller {
         }
 
         return config;
+    }
+    
+    /**
+     * Moves the database file to the new location.
+     * Throws an exception if the new path does not exist, or if it has the wrong extension.
+     */
+    private void moveDatabaseFile(String newPath) throws CannotConfigureException {
+        // Make sure the new path has a .json extension
+        if (!newPath.endsWith(DB_FILE_EXTENSION)) {
+            throw new CannotConfigureException(String.format(MESSAGE_WRONG_EXTENSION, DB_FILE_EXTENSION));
+        }
+
+        try {
+            TodoListDB.getInstance().move(newPath);
+        } catch (IOException e) {
+            throw new CannotConfigureException(e.getMessage());
+        }
     }
 
 }
