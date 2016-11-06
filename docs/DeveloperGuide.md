@@ -68,7 +68,7 @@ This guide will allow you as a developer to obtain a better understanding of how
 <img src="images/Architecture.png" width="600"><br>
 Figure 1: Architecture Diagram
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
+Figure 1 given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
@@ -91,12 +91,12 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (see the Figure 2 given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/logicDiagram.png" width="800"><br>
 Figure 2: Logic Class Diagram
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+Figure 3 below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images/SDforDeleteTask.png" width="800">
@@ -105,7 +105,7 @@ Figure 3: Sequence Diagram For Delete Person
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+Figure 4 below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images/SDforDeleteTaskEventHandling.png" width="800">
 Figure 4: Sequence Diagram For Event Handling Of Delete Person
@@ -150,7 +150,7 @@ Figure 6 : Logic Class Diagram
 * The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 * The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Figure 7 is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/logicDiagram.png" width="800"><br>
 Figure 7: Sequence Diagram Within Logic For Delete Task
