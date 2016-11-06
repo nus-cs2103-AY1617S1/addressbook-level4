@@ -85,7 +85,7 @@ public class RsvTaskListPanel extends UiPart {
 
     class RsvTaskListViewCell extends ListCell<RsvTask> {
         private RsvTask newlyAddedRsvTask;
-        
+
         public RsvTaskListViewCell() {
             registerAsAnEventHandler(this);
         }
@@ -98,10 +98,11 @@ public class RsvTaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                RsvTaskCard card = RsvTaskCard.load(task, getIndex() + START_INDEX);
+                RsvTaskCard card =
+                        RsvTaskCard.load(task, getIndex() + START_INDEX);
                 HBox layout = card.getLayout();
-                if (this.newlyAddedRsvTask != null &&
-                        this.newlyAddedRsvTask.isSameStateAs(task)) {
+                if (this.newlyAddedRsvTask != null
+                        && this.newlyAddedRsvTask.isSameStateAs(task)) {
                     layout.setStyle(UiColor.TASK_CARD_NEWLY_ADDED_BORDER);
                 } else {
                     layout.setStyle(UiColor.TASK_CARD_DEFAULT_BORDER);
@@ -109,7 +110,7 @@ public class RsvTaskListPanel extends UiPart {
                 setGraphic(layout);
             }
         }
-        
+
         @Subscribe
         private void handleRsvTaskAddedEvent(RsvTaskAddedEvent event) {
             logger.info(LogsCenter.getEventHandlingLogMessage(event,

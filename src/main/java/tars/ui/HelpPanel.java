@@ -19,7 +19,7 @@ public class HelpPanel extends UiPart {
 
     private VBox panel;
     private AnchorPane placeHolderPane;
-    
+
     @FXML
     private WebView browser = new WebView();
 
@@ -54,7 +54,7 @@ public class HelpPanel extends UiPart {
     private void configure() {
         addToPlaceholder();
         browser.getEngine().load(configureURL(UserGuide.DEFAULT));
-        
+
     }
 
     /**

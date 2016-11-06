@@ -98,7 +98,7 @@ public class TaskCard extends UiPart {
         String label = getLabelBasedOnPriorityAndStatus(priority, status);
 
         priorityCircle.setFill(circleColor);
-        
+
         circleLabel.setText(label);
         circleLabel.setStyle(UiColor.CIRCLE_LABEL_COLOR);
     }
@@ -167,7 +167,7 @@ public class TaskCard extends UiPart {
         name.setStyle(color);
         date.setStyle(color);
         tags.setStyle(color);
-       
+
         if (taskStatus.equals(STATUS_UNDONE)) {
             date.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);
             tags.setStyle(UiColor.STATUS_UNDONE_TEXT_FILL_LIGHT);

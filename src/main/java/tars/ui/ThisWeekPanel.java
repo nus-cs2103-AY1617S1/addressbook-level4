@@ -57,7 +57,7 @@ public class ThisWeekPanel extends UiPart {
     private Label overduedTasksList;
     @FXML
     private Label upcomingTasksList;
-    
+
     private static final int MIN_SIZE = 5;
 
     public static ThisWeekPanel load(Stage primaryStage,
@@ -102,7 +102,7 @@ public class ThisWeekPanel extends UiPart {
         Date today = new Date();
         date.setText(df.format(today));
     }
-    
+
     private void handleUpcomingTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
@@ -136,22 +136,22 @@ public class ThisWeekPanel extends UiPart {
             setThisWeekPanelTaskList(count, overduedTasks, overduedTasksList);
         }
     }
-    
+
     /**
      * Set text for tasksLists to display top three tasks
      * 
      */
-    private void setThisWeekPanelTaskList(int count, List<ReadOnlyTask> tasksList, Label taskListLabel) {
-            List<ReadOnlyTask> topFiveTasks = tasksList.subList(
-                    StringUtil.START_INDEX, Math.min(tasksList.size(), MIN_SIZE));
-            String list = Formatter
-                    .formatThisWeekPanelTasksList(topFiveTasks);
-            if (tasksList.size() > MIN_SIZE) {
-                list = list + TasksListEllipsis;
-            }
-            taskListLabel.setText(list);
+    private void setThisWeekPanelTaskList(int count,
+            List<ReadOnlyTask> tasksList, Label taskListLabel) {
+        List<ReadOnlyTask> topFiveTasks = tasksList.subList(
+                StringUtil.START_INDEX, Math.min(tasksList.size(), MIN_SIZE));
+        String list = Formatter.formatThisWeekPanelTasksList(topFiveTasks);
+        if (tasksList.size() > MIN_SIZE) {
+            list = list + TasksListEllipsis;
+        }
+        taskListLabel.setText(list);
     }
-    
+
     /**
      * Updates panel with latest data
      */
@@ -168,7 +168,7 @@ public class ThisWeekPanel extends UiPart {
                 "Update this week panel"));
         updateThisWeekPanel();
     }
-    
+
     @Subscribe
     private void handleTarsStorageChangeDirectoryEvent(
             TarsStorageDirectoryChangedEvent event) {
