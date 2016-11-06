@@ -10,10 +10,13 @@ import seedu.dailyplanner.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
+   
+
     String getName();
     DateTime getStart();
     DateTime getEnd();
     String getCompletion();
+    String getDueStatus();
     boolean isPinned();
     boolean isComplete();
     

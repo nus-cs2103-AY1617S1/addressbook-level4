@@ -3,6 +3,7 @@ package seedu.dailyplanner.model.task;
 import java.util.Objects;
 
 import seedu.dailyplanner.commons.util.CollectionUtil;
+import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.model.tag.UniqueTagList;
 
 /**
@@ -16,6 +17,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private DateTime end;
 	private boolean isComplete;
 	private boolean isPinned;
+	private String dueStatus;
 	private UniqueTagList tags;
 
 	/**
@@ -30,9 +32,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		// changes in the arg list
 		this.isComplete = isComplete;
 		this.isPinned = isPinned;
+		dueStatus = "";
+		dueStatus = calculateDueStatus(end);
 	}
 
-	/**
+
+    /**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
@@ -72,6 +77,27 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public void unpin() {
 		this.isPinned = false;
 	}
+	
+	private String calculateDueStatus(DateTime end) {
+	    if(end.getTime().toString().equals("")) {
+	        return "";
+	        
+	    }
+	    DateTime nowAsDateTime = StringUtil.nowAsDateTime();
+	    if (!StringUtil.checkDatePrecedence(end, nowAsDateTime) && (!end.getDate().equals(nowAsDateTime.getDate()))) {
+	        return "OVERDUE";
+	    }
+	    else if (end.getDate().equals(nowAsDateTime.getDate())) {
+         int overDueHours = end.getTime().m_hour - nowAsDateTime.getTime().m_hour;
+         if (overDueHours<0) {
+             return "OVERDUE";
+         }
+         else if (overDueHours>=0 && overDueHours<=3) {
+             return "DUE SOON";
+         }
+        }
+        return "";
+	}
 
 	@Override
 	public String getName() {
@@ -92,6 +118,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public String getCompletion() {
 		return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
 	}
+	
+	 @Override
+	    public String getDueStatus() {
+	        return dueStatus;
+	    }
 
 	@Override
 	public boolean isComplete() {
@@ -140,5 +171,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		} else
 			return taskName.compareTo(o.taskName);
 	}
+
+
+   
 
 }

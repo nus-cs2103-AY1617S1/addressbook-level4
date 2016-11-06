@@ -1,5 +1,6 @@
 package seedu.dailyplanner.model.task;
 
+
 public class DateTime implements Comparable<DateTime> {
 
     public final Date m_date;
@@ -22,7 +23,7 @@ public class DateTime implements Comparable<DateTime> {
     public Time getTime() {
 	return m_time;
     }
-
+    
     @Override
     public boolean equals(Object other) {
 	return other == this // short circuit if same object

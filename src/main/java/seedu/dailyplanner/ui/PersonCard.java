@@ -11,6 +11,7 @@ public class PersonCard extends UiPart {
 
 	private static final String FXML = "PersonListCard.fxml";
 	private static final String DUE_SOON_LABEL_STYLE = "-fx-background-color: rgba(247, 170, 69, 1);";
+    private static final String OVERDUE_LABEL_STYLE = "-fx-background-color: rgba(183, 48, 36, 1);";
 
     @FXML
     private HBox cardPane;
@@ -61,8 +62,18 @@ public class PersonCard extends UiPart {
 	    isComplete.setText(task.getCompletion());
 	    isComplete.setVisible(true);
 	} else {
-	    isComplete.setText("DUE SOON");
-        isComplete.setStyle(DUE_SOON_LABEL_STYLE);
+	    String dueStatus = task.getDueStatus();
+	    if(dueStatus.equals("")) {
+	        isComplete.setVisible(false);
+	    } else {
+	        isComplete.setText(dueStatus);
+	        if (dueStatus.equals("DUE SOON")) {
+	            isComplete.setStyle(DUE_SOON_LABEL_STYLE);
+	        } else if (dueStatus.equals("OVERDUE")) {
+	            isComplete.setStyle(OVERDUE_LABEL_STYLE);
+	        }
+	        
+	    }
 	}
 
 	if (task.getStart().getDate().toString().equals("")) {
