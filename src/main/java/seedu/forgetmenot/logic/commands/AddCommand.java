@@ -25,7 +25,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_CLASH_WARNING = "WARNING! This task clashes with one of the tasks in ForgetMeNot. Type undo if you want to undo the previous add.";
     
     private final Task toAdd;
-//    private Storage storage;
 
     /**
      * Convenience constructor using raw values.
@@ -54,17 +53,18 @@ public class AddCommand extends Command {
 	@Override
     public CommandResult execute() throws IllegalValueException {
         assert model != null;
-        	boolean clashCheck = false;
-        	if(model.isClashing(toAdd))
-        		clashCheck = true;
         	
-            model.saveToHistory();
-            model.addTask(toAdd);
-            if (toAdd.getRecurrence().getValue())
-                model.addRecurringTask(toAdd);
-            model.updateFilteredTaskListToShowNotDone();
-            
-        	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
-        					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        boolean clashCheck = false;
+    	if(model.isClashing(toAdd))
+    		clashCheck = true;
+    	
+        model.saveToHistory();
+        model.addTask(toAdd);
+        if (toAdd.getRecurrence().getValue())
+            model.addRecurringTask(toAdd);
+        model.updateFilteredTaskListToShowNotDone();
+        
+    	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
+    					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 }

@@ -46,7 +46,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@author A0147619W
     /**
-     * Sorts a list according to timing
+     * Sorts the list according to timing
      */
     public void sortList() {
         if (internalList.size() <= 1)

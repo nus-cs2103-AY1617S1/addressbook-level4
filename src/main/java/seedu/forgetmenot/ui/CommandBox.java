@@ -63,6 +63,9 @@ public class CommandBox extends UiPart {
         registerAsAnEventHandler(this);
     }
     
+    /**
+     * This method handles what to do when special keys are pressed
+     */
     private void configureKeyEvents(){
 		commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(final KeyEvent keyEvent) {
@@ -82,6 +85,9 @@ public class CommandBox extends UiPart {
 		});
 	}
     
+    /**
+     * Returns the older commands
+     */
     private void getUpLine(){
 		if(!upKeyStack.isEmpty()){
 			if(downKeyStack.isEmpty()){
@@ -93,6 +99,9 @@ public class CommandBox extends UiPart {
 		}
 	}
 
+    /**
+     * Returns the newer commands
+     */
 	private void getDownLine(){
 		if(!downKeyStack.isEmpty()){
 			upKeyStack.push(commandTextField.getText());
@@ -101,6 +110,9 @@ public class CommandBox extends UiPart {
 		}
 	}
 
+	/**
+	 * Autocompletes the command
+	 */
 	private void autoComplete(){
 		String currentString = commandTextField.getText();
 		String completedCommand = commandTextField.getText();

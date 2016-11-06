@@ -77,6 +77,10 @@ public class Time {
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     
+    /**
+     * Formats the time to human readable form
+     * @return the formatted time
+     */
     public String appearOnUIFormat() {
     	if(time.getTime().equals(new Date(0))) {
     		return "-";

@@ -2,7 +2,6 @@ package seedu.forgetmenot.model;
 
 import java.util.Set;
 
-import javafx.collections.ObservableList;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;

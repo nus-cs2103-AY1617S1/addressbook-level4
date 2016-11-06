@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.forgetmenot.commons.core.Messages;
-import seedu.forgetmenot.logic.commands.AddCommand;
 import seedu.forgetmenot.testutil.TestTask;
 import seedu.forgetmenot.testutil.TestUtil;
 
+//@@author A0147619W
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
