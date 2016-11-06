@@ -6,6 +6,7 @@ import org.junit.Test;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
+import seedu.todolist.model.task.Status;
 
 import static org.junit.Assert.assertTrue;
 
@@ -45,15 +46,15 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName, taskToAdd.getStatus().getStatus());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
         currentList.addTasksToList(taskToAdd);
-        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(taskToAdd.getStatus().getStatus(), currentList.getIncompleteList()));
         
         //confirm no new task is added to completed pane
-        assertCompleteListSize(0);
+        //TODO
     }
 
 }

@@ -8,6 +8,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.ListCommand;
+import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.TaskDate;
 
 //@@author A0153736B
@@ -63,8 +64,8 @@ public class ListCommandTest extends ToDoListGuiTest {
 	
 	private void assertFindCommandSuccess(String command, TestTaskList expectedList) {
 		commandBox.runCommand(command);
-        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
-        assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
         if ("list".equals(command)) {
         	assertResultMessage(ListCommand.MESSAGE_ALLTASKS_SUCCESS);
         }

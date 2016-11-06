@@ -9,6 +9,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.UndoCommand;
+import seedu.todolist.model.task.Status;
 
 //@@author A0153736B
 public class UndoCommandTest extends ToDoListGuiTest {
@@ -65,8 +66,8 @@ public class UndoCommandTest extends ToDoListGuiTest {
     
     private void assertUndoCommandSuccess(TestTaskList expectedList) {
         commandBox.runCommand("undo");
-        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
-        assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
     }
 }

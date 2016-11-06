@@ -3,6 +3,7 @@ package guitests;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.HelpCommand;
+import seedu.todolist.model.task.Status;
 
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class HelpWindowTest extends ToDoListGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
+        taskListPanel.clickOnListView(Status.Type.Incomplete);
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 

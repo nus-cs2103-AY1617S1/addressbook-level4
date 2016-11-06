@@ -9,6 +9,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.RedoCommand;
+import seedu.todolist.model.task.Status;
 
 //@@author A0153736B
 public class RedoCommandTest extends ToDoListGuiTest {
@@ -53,8 +54,8 @@ public class RedoCommandTest extends ToDoListGuiTest {
     
     private void assertRedoCommandSuccess(TestTaskList expectedList) {
         commandBox.runCommand("redo");
-        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
-        assertTrue(completeTaskListPanel.isListMatching(expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
     }
 }

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
+import seedu.todolist.model.parser.DateParser;
 
 //author A0138601M
 /**
@@ -44,7 +45,7 @@ public class TaskDate implements Comparable<TaskDate> {
         }
         
         try {
-            this.date = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
+            this.date = DateParser.parseDate(date);
         } catch (DateTimeException dateTimeException) {
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }

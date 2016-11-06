@@ -15,6 +15,7 @@ import seedu.todolist.commons.events.ui.ExitAppRequestEvent;
 import seedu.todolist.logic.Logic;
 import seedu.todolist.model.UserPrefs;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,8 +34,8 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
-    private CompleteTaskListPanel completeTaskListPanel;
-    private OverdueTaskListPanel overdueTaskListPanel;
+    private TaskListPanel completeTaskListPanel;
+    private TaskListPanel overdueTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -121,9 +122,12 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
-        completeTaskListPanel = CompleteTaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
-        overdueTaskListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueTaskListPlaceholder(), logic.getFilteredOverdueTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
+                logic.getFilteredIncompleteTaskList(), Status.Type.Incomplete);
+        completeTaskListPanel = TaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(),
+                logic.getFilteredCompleteTaskList(), Status.Type.Complete);
+        overdueTaskListPanel = TaskListPanel.load(primaryStage, getOverdueTaskListPlaceholder(),
+                logic.getFilteredOverdueTaskList(), Status.Type.Overdue);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -218,8 +222,12 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
     
-    public CompleteTaskListPanel getCompleteTaskListPanel() {
+    public TaskListPanel getCompleteTaskListPanel() {
         return this.completeTaskListPanel;
+    }
+    
+    public TaskListPanel getOverdueTaskListPanel() {
+        return this.overdueTaskListPanel;
     }
 
     public void loadTaskPage(ReadOnlyTask task) {

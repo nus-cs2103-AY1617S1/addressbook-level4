@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
+import seedu.todolist.model.task.Status;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DoneCommand.MESSAGE_MARK_TASK_SUCCESS;
@@ -49,10 +50,10 @@ public class DoneCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(getCommand(targetIndexes));
 
         //confirm the incomplete list now contains all previous tasks except the marked task
-        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, currentList.getIncompleteList()));
         
         //confirm complete list contains all marked task
-        assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Complete, currentList.getCompleteList()));
 
         //confirm the result message is correct
         assertResultMessage(MESSAGE_MARK_TASK_SUCCESS);

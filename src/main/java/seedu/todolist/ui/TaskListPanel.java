@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 
 import java.util.logging.Logger;
 
@@ -48,15 +49,38 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
+                                       ObservableList<ReadOnlyTask> taskList, Status.Type type) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
+        taskListPanel.configure(taskList, type);
         return taskListPanel;
     }
+    
+    private void initializeTaskListID(Status.Type type) {
+        
+        switch (type) {
+        case Complete :
+            taskListView.setId("completeTaskListView");
+            break;
+            
+        case Incomplete :
+            taskListView.setId("taskListView");
+            break;
+            
+        case Overdue :
+            taskListView.setId("overdueTaskListView");
+            break;
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+        default :
+            assert false : "Task should be either Complete, Incomplete or Overdue";
+            break;
+            
+        }
+    }
+
+    private void configure(ObservableList<ReadOnlyTask> taskList, Status.Type type) {
         setConnections(taskList);
+        initializeTaskListID(type);
         addToPlaceholder();
     }
 

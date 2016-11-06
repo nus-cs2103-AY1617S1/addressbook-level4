@@ -15,6 +15,7 @@ import seedu.task.testutil.TypicalTestTasks;
 import seedu.todolist.commons.core.EventsCenter;
 import seedu.todolist.model.ToDoList;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 
 import java.util.concurrent.TimeoutException;
 
@@ -41,7 +42,6 @@ public abstract class ToDoListGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
-    protected CompleteTaskListPanelHandle completeTaskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -62,7 +62,6 @@ public abstract class ToDoListGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
-            completeTaskListPanel = mainGui.getCompleteTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -100,24 +99,28 @@ public abstract class ToDoListGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+    protected void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
      * Asserts the size of the incomplete task list is equal to the given number.
      */
-    protected void assertIncompleteListSize(int size) {
-        int numberOfTask = taskListPanel.getNumberOfTask();
+    private void assertListSize(int size, Status.Type type) {
+        int numberOfTask = taskListPanel.getNumberOfTask(type);
         assertEquals(size, numberOfTask);
     }
     
-    /**
-     * Asserts the size of the complete task list is equal to the given number.
-     */
+    protected void assertIncompleteListSize(int size) {
+        assertListSize(size, Status.Type.Incomplete);
+    }
+    
     protected void assertCompleteListSize(int size) {
-        int numberOfTask = completeTaskListPanel.getNumberOfTask();
-        assertEquals(size, numberOfTask);
+        assertListSize(size, Status.Type.Complete);
+    }
+    
+    protected void assertOverdueListSize(int size) {
+        assertListSize(size, Status.Type.Overdue);
     }
 
     /**

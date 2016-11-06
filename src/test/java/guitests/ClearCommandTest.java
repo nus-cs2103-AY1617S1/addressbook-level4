@@ -5,6 +5,7 @@ import org.junit.Test;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.ClearCommand;
+import seedu.todolist.model.task.Status;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -16,12 +17,12 @@ public class ClearCommandTest extends ToDoListGuiTest {
 
         //verify a non-empty list can be cleared
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
-        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, currentList.getIncompleteList()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.event.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.event));
+        assertTrue(taskListPanel.isListMatching(td.event.getStatus().getStatus(), td.event));
         commandBox.runCommand("delete 1");
         assertIncompleteListSize(0);
 
@@ -40,6 +41,8 @@ public class ClearCommandTest extends ToDoListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertIncompleteListSize(0);
+        assertCompleteListSize(0);
+        assertOverdueListSize(0);
         assertResultMessage("Incomplete task has been cleared!");
     }
 }

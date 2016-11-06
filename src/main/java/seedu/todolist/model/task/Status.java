@@ -46,6 +46,10 @@ public class Status {
         }
     }
     
+    public Type getStatus() {
+        return this.status;
+    }
+    
     public void setStatus(Type status) {
         this.status = status;
     }
