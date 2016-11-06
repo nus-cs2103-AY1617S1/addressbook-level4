@@ -205,7 +205,7 @@ Format: `tag add/delete/clear INDEX [#TAGS]`
 
 
 > Task’s tags will be edited given the new parameter, and updated instantly.<br>
-> Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.
+> Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.<br>
 > For add/delete, requires one parameter to be passed in as tag.<br>
 > For clear, parameter to be passed in is not required.
 
