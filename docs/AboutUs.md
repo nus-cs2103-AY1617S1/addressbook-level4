@@ -22,7 +22,7 @@ Responsibilities: Team Mentor
    * <kbd>[Done](UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](UserGuide.md#undone-a-specific-task--undone)</kbd> Command
    * Offline Help page
-* Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs](../collated/test/A0147335E.md)</kbd>
 * Other major contributions:
   * Did the initial porting from AddressBook to TaskManager
   * Did the initial porting of JUnit tests from AddressBook to TaskManager
@@ -40,7 +40,7 @@ Responsibilities: Team Lead, Logic
    * Natural time input parsing using natty
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs](../collated/test/A0152958R.md)</kbd>
 
 **Role**: Developer <br>
 Responsibilities: Natural time input parsing, Add & edit command parsing
@@ -77,12 +77,12 @@ Responsibilities: Testing, GUI
 * Other major contributions:
   * Organize and manage [GitHub repository](https://github.com/CS2103AUG2016-T17-C3/main)
   * Ensure and improve code quality of code throughout the project
+  * Maintain documentations (updates, improvements and ensure formatting quality)
   * Refactored CommandParser into individual Parsers for each command
   * Improve Regex for Parsers
-  * Edit and ensure formatting of documentations
 
   
 **Role**: Developer <br>
-Responsibilities: Integration, Code Quality, GitHub Project Manager, Storage related codes
+Responsibilities: Integration, Code Quality, GitHub Project Manager, Documentation, Storage related codes
 
 -----
