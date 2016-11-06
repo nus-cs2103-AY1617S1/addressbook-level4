@@ -31,7 +31,7 @@ public class ItemCard extends UiPart{
     
     //@@author A0065571A 
     @FXML
-    private Label itemType;
+    private Text itemType;
     @FXML
     private Label endTime;
     @FXML
@@ -43,7 +43,7 @@ public class ItemCard extends UiPart{
     @FXML
     private Label startDate;
     @FXML
-    private Label tags;
+    private Text tags;
 
     private ReadOnlyItem item;
     @FXML
@@ -94,7 +94,7 @@ public class ItemCard extends UiPart{
         name.setText(item.getName().value);
         name.setFill(Color.web("#4f4f4f"));
         itemType.setText(item.getItemType().value);
-        itemType.setStyle("-fx-text-fill: #007fff");
+        itemType.setFill(Color.web("#007fff"));
         endTime.setText(item.getEndTime().value);
         endTime.setStyle("-fx-text-fill: #a00000");
         endDate.setText(item.getEndDate().value);
@@ -138,6 +138,7 @@ public class ItemCard extends UiPart{
         }
         deleteButton.setStyle("-fx-background-color: c10000");
         tags.setText(item.tagsString());
+        tags.setFill(Color.web("#4f4f4f"));
     }
 
     public HBox getLayout() {

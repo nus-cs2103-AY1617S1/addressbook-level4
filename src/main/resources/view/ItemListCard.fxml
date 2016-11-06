@@ -17,8 +17,7 @@
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES"  minWidth="10.0" prefWidth="400.0"/>
             </columnConstraints>
             <children>
                 <VBox alignment="TOP_LEFT" minHeight="105.0" GridPane.columnIndex="0">
@@ -31,25 +30,37 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                    <!-- @@author A0140060A -->
+                        <HBox alignment = "CENTER_LEFT" spacing = "5">
                             <children>
                                 <HBox>
-                                	<!-- @@author A0140060A -->
+                                	
                                     <TextFlow>
-                                   		<Text fx:id="name" text="\$first">
+                                   		<Text fx:id = "name" text = "\$first">
                                    			<font>
-                								<Font name="Palatino" size="24.0" />
+                								<Font name = "Palatino" size = "24.0" />
            									</font>
            								</Text>
                                     </TextFlow>
-                                    <!-- @@author -->
                                 </HBox>
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                        	<Label fx:id="itemType" text="\$itemType" />
-                        	<Label fx:id="tags" text="\$tags" />
+                        <HBox alignment = "CENTER_LEFT" spacing = "5">
+	                        <TextFlow>
+	                       		<Text fx:id = "itemType" text = "\$itemType" >
+	                       			<font>
+	    								<Font name = "Palatino" size = "16.0" />
+									</font>
+								</Text>
+								<Text text = " "/>
+								<Text fx:id = "tags" text = "\$tags" >
+	                       			<font>
+	    								<Font name = "Palatino" size = "16.0" />
+									</font>
+								</Text>
+	                        </TextFlow>
                         </HBox>
+                        <!-- @@author -->
                         <HBox>
                             <Label fx:id="startDate" text="\$startDate" />
                             <Label fx:id="startDateSpace" text=" " />
