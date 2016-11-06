@@ -20,10 +20,10 @@ public class DestroyController extends Controller {
     private static final String COMMAND_SYNTAX = "destroy <index>";
     private static final String COMMAND_KEYWORD = "destroy";
     
-    private static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
-    private static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not delete task/event: Invalid index provided!";
-    private static final String MESSAGE_MISSING_INDEX = "Please specify the index of the item to delete.";
-    private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
+    public static final String MESSAGE_DELETE_SUCCESS = "Item deleted successfully!\n" + "To undo, type \"undo\".";
+    public static final String MESSAGE_INDEX_OUT_OF_RANGE = "Could not delete task/event: Invalid index provided!";
+    public static final String MESSAGE_MISSING_INDEX = "Please specify the index of the item to delete.";
+    public static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
