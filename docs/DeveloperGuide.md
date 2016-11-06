@@ -312,7 +312,7 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    <!-- @@author A0135782Y-->
-   **Unit tests** targeting the lowest level methods/classes. Below are some snippets, <br>
+   **Unit tests**. Below are some snippets, <br>
    
    _TaskTester.java_<br>
    <img src="images/unit_test_TaskTester_A.png" width="600"><br>
@@ -324,8 +324,7 @@ We have two types of tests:
    > The rest of the stubs are injected into the dependencies for Task.<br>
    > This isolates Task from its dependencies and allows us to test only Task.
    
-   **Integration tests** that are checking the integration of multiple code units 
-     (those code units are assumed to be working). Below are some snippets, <br>
+   **Integration tests**. Below are some snippets, <br>
 
    _XmlTaskListStorageTest.java_<br>
    <img src="images/test_snipper_XmlTaskListStorage.PNG" width="600"><br>
