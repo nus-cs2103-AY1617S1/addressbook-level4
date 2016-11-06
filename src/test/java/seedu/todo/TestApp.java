@@ -10,6 +10,8 @@ import seedu.todo.models.TodoListDB;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
 import seedu.todo.testutil.TestUtil;
+import seedu.todo.ui.UiManager;
+import seedu.todo.ui.views.IndexView;
 
 public class TestApp extends MainApp {
     
@@ -55,9 +57,8 @@ public class TestApp extends MainApp {
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
-    }
 
-    public static void main(String[] args) {
-        launch(args);
+        IndexView view = UiManager.loadView(IndexView.class);
+        UiManager.renderView(view);
     }
 }
