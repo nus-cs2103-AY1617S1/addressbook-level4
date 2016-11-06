@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
-import seedu.todolist.model.parser.DateParser;
 
 //author A0138601M
 /**
@@ -26,8 +25,12 @@ public class TaskDate implements Comparable<TaskDate> {
     
     public static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     
-    public final LocalDate date;
+    private LocalDate date;
 
+    public TaskDate() {
+        
+    }
+    
     /**
      * Validates given date.
      *
@@ -41,7 +44,7 @@ public class TaskDate implements Comparable<TaskDate> {
         }
         
         try {
-            this.date = DateParser.parseDate(date);
+            this.date = LocalDate.parse(date, DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
         } catch (DateTimeException dateTimeException) {
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }
@@ -54,6 +57,10 @@ public class TaskDate implements Comparable<TaskDate> {
         return test.matches(DATE_VALIDATION_REGEX_FORMAT);
     }
     
+    public LocalDate getDate() {
+        return this.date;
+    }
+    
     /**
      * Returns true if this date is earlier than given date.
      */
@@ -61,10 +68,15 @@ public class TaskDate implements Comparable<TaskDate> {
         return this.date.isBefore(other.getDate());
     }
 
-    public LocalDate getDate() {
-        return this.date;
+    /**
+     * Return the current date
+     */
+    public static TaskDate now() {
+        TaskDate now = new TaskDate();
+        now.date = LocalDate.now();
+        return now;
     }
-
+    
     @Override
     public String toString() {
         if (this.date != null) {

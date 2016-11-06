@@ -1,5 +1,8 @@
 package seedu.todolist.model.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import seedu.todolist.commons.exceptions.IllegalValueException;
 
 //@@author A0138601M
@@ -105,6 +108,16 @@ public class Interval implements Comparable<Interval> {
      */
     private boolean isValidTimeInterval(TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime) {
         return !startDate.equals(endDate) || !endTime.isBefore(startTime);
+    }
+    
+    /**
+     * Returns true if interval is earlier than current datetime
+     */
+    public boolean isOver() {
+        Interval now = new Interval();
+        now.endDate = TaskDate.now();
+        now.endTime = TaskTime.now();
+        return this.compareTo(now) > 0;
     }
     
     /**

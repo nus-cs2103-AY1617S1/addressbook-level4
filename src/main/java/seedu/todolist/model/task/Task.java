@@ -1,5 +1,7 @@
 package seedu.todolist.model.task;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -23,7 +25,18 @@ public class Task implements ReadOnlyTask {
         this.interval = interval;
         this.location = location;
         this.remarks = remarks;
+        
+        if (status.isIncomplete() && interval.isOver()) {
+            status = new Status(Status.Type.Overdue);
+        }
         this.status = status;
+    }
+        
+    /**
+     * Only Name field must be present and not null. Other fields can be null. Default status is incomplete.
+     */
+    public Task(Name name, Interval interval, Location location, Remarks remarks) {
+        this(name, interval, location, remarks, new Status());
     }
 
     /**
