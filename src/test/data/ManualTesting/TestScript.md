@@ -1,4 +1,4 @@
-# Test Script
+# Test Script (for Manual Testing)
 
 * [How to perform Manual Testing with Sample Data?](#how-to-perform-manual-testing-with-sample-data)
 * [Tests for Add command](#tests-for-add-command)
@@ -18,7 +18,7 @@
 ## How to perform Manual Testing with Sample Data?
 
 1. Copy SampleData.xml file which can be found at `\src\test\data\ManualTesting\SampleData.xml`.
-2. Paste the file into the data storage directory (the `data` folder found in the same location as the JAR file `Lazyman's Friend.jar`)
+2. Paste the file into the data storage directory (the `data` folder found in the same location as that of the app; if the directory does not exist, create it)
 3. Delete the existing XML data file and rename SampleData.xml to the name of this existing XML data file.
 4. Now to perform Manual Testing, perform the tests below in the given order.
 
