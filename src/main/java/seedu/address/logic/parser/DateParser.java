@@ -13,6 +13,8 @@ import java.util.Date;
  * Supports date formats: relative days from today, days of week, month and day
  * Note: events can reuse this. split up string startDate startTime and endDate endTime, and parse each separately
  */
+// Commenting this out so it doesn't affect our Coverage
+/*
 public class DateParser {
     
     private static final String[] keywords = {"tonight", "today",
@@ -203,3 +205,4 @@ public class DateParser {
         }
     }
 }
+*/

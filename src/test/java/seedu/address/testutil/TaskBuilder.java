@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
-import seedu.address.model.tag.Tag;
 
 /**
  *
