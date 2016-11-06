@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.whatnow.commons.core.EventsCenter;
 import seedu.whatnow.commons.core.Messages;
+import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.logic.Logic;
@@ -24,8 +25,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
@@ -106,11 +111,12 @@ public class LogicManagerTest {
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         
-        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD))
+        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) 
+                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD))
             assertEquals(expectedShownList, model.getAllTaskTypeList());
 
         // Confirm the state of data (saved and in-memory) is as expected
-        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD)) {
+        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD)) {
             assertEquals(expectedWhatNow, model.getWhatNow());
             //assertEquals(expectedWhatNow, latestSavedWhatNow);
         }
@@ -220,7 +226,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void executeListAllDone_correctArgument_showDownTasks() throws Exception {
+    public void executeListAll_correctArgument_showDownTasks() throws Exception {
         //prepare expectations
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateModifiedWhatNow(2);
@@ -233,6 +239,7 @@ public class LogicManagerTest {
         
         assertCommandBehavior("list all", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
     }
+    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
@@ -591,7 +598,8 @@ public class LogicManagerTest {
         assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB, expectedList);
     }
-
+    
+    //@@author A0139772U
     @Test
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
         assertCommandBehavior("freetime", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
@@ -621,7 +629,23 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void executeFreeTime_blockPeriodWithEndDateAlreadyTaken_freeSlotNotFound() throws Exception {
+    public void executeFreeTime_blockPeriodWithStartEndDateNotTaken_freeSlotNotFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task test = helper.generateTask(0);
+        test.setTaskDate(null);
+        test.setStartDate("12/12/2222");
+        test.setEndDate("14/12/2222");
+        test.setStartTime("12:00am");
+        test.setEndTime("11:59pm");
+        
+        model.addTask(test);
+        
+        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222");
+    }
+    
+    @Test
+    public void executeFreeTime_blockPeriodWithStartAndEndDateTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Task preloaded1 = helper.generateTask(1);
@@ -641,19 +665,138 @@ public class LogicManagerTest {
         test.setStartTime("12:00am");
         test.setEndTime("11:59pm");
         
-        WhatNow expectedAB = new WhatNow();
-        expectedAB.addTask(preloaded1);
-        expectedAB.addTask(preloaded2);
-        expectedAB.addTask(test);
-        
         model.addTask(preloaded1);
         model.addTask(preloaded2);
         model.addTask(test);
         
-        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222", 
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222");
+        model.deleteTask(preloaded1);
+        model.deleteTask(preloaded2);
+        model.deleteTask(test);
     }
-
+    
+    @Test
+    public void getPinnedItems_pinByTag_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+        
+        TestDataHelper helper = new TestDataHelper();
+       
+        Task preload1 = helper.generateTask(0);
+        String preload1Tag = preload1.getTags().getInternalList().get(0).tagName;
+        
+        Task preload2 = helper.generateTask(1);
+        preload2.setTags(new UniqueTagList(new Tag(preload1Tag)));
+        preload2.setTaskDate(null);        
+        
+        model.addTask(preload1);
+        model.addTask(preload2);
+        
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("tag", preload1Tag);
+        assertTrue(testList.size() == 2);
+        
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+    }
+    
+    @Test
+    public void getPinnedItems_pinToday_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+        
+        TestDataHelper helper = new TestDataHelper();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate(today);
+        
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+        
+        model.addTask(preload1);
+        model.addTask(preload2);
+        
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("date", "today");
+        assertTrue(testList.size() == 1);
+        
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+    }
+    
+    @Test
+    public void getPinnedItems_pinByDate_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+        
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate("12/12/2222");
+        
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+        
+        Task preload3 = helper.generateTask(2);
+        preload3.setTaskDate("11/11/2222");
+        
+        model.addTask(preload1);
+        model.addTask(preload2);
+        model.addTask(preload3);
+        
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("date", "12/12/2222");
+        
+        assertTrue(testList.size() == 2);
+        
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+        model.deleteTask(preload3);
+    }
+    
+    @Test
+    public void getPinnedItems_rubbishCondition_invalidCommandFeedback() throws Exception {
+        assertCommandBehavior("pin rubbish", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+    }
+    
+    @Test
+    public void list_listTodoTask_todoTaskDisplayedCorrectly() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate(null);
+        preload1.setTaskType("floating");
+        
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+        preload2.setStartTime("04:00pm");
+        preload2.setEndTime("06:00pm");
+        preload2.setTaskType("not_floating");
+        
+        model.addTask(preload1);
+        model.addTask(preload2);
+        
+        UnmodifiableObservableList<ReadOnlyTask> todo = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> schedule = model.getFilteredScheduleList();
+        
+        assertTrue(todo.size() == 1);
+        assertTrue(schedule.size() == 1);
+        
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+        
+    }
+    
+    @Test
+    public void getOverdueScheduleList_noOverdue_listSizeZero() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate("12/12/2222");
+        
+        UnmodifiableObservableList<ReadOnlyTask> overdue = model.getOverdueScheduleList();
+        assertTrue(overdue.size() == 0);
+        
+    }
+    
+    //@@author A0126240W
     /**
      * A utility class to generate test data.
      */
