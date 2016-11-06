@@ -286,7 +286,7 @@ Task to be added with a date to be defined by the tester
 Type `list` into the command box
 > * Output console will display `Tasks that are uncompleted are successfully listed!`<br>
 > * All uncompleted tasks will be listed<br>
-> * There will be 52 tasks listed in total
+> * There will be 53 tasks listed in total
 
 
 <br>
@@ -363,7 +363,7 @@ Type `list nextmonth` into the command box
 Type `listall` into the command box
 > * Output console will display `All tasks are successfully listed!`<br>
 > * All tasks (both completed and uncompleted) will be listed.<br>
-> * There will be 57 tasks listed in total
+> * There will be 58 tasks listed in total
 
 
 <br>
