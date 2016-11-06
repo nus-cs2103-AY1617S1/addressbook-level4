@@ -125,6 +125,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getEventsHandler().handleHelp(mainWindow.getHelpPanel(),
                 event.getHelpRequestEventArgs());
     }
+    // @@author
 
     @Subscribe
     private void handleTaskAddedEvent(TaskAddedEvent event) {

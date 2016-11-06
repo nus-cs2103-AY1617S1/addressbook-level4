@@ -14,9 +14,9 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 
 /**
- * Logic command test for list
- * 
  * @@author A0140022H
+ * 
+ * Logic command test for list
  */
 public class ListLogicCommandTest extends LogicCommandTest {
 

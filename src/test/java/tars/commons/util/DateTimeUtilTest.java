@@ -20,7 +20,7 @@ import tars.model.task.DateTime.IllegalDateException;
  */
 public class DateTimeUtilTest {
 
-    // @@authorA0139924W
+    // @@author A0139924W
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -101,6 +101,7 @@ public class DateTimeUtilTest {
         assertEquals(expectedMonth, modifiedMonth);
         assertEquals(expectedYear, modifiedYear);
     }
+    // @@author
 
     @Test
     public void isWithinWeek_dateTimeNullValue_returnFalse() {

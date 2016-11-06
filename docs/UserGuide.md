@@ -175,7 +175,7 @@ Examples:
 [comment]: # (@@author A0140022H)
 #### Displaying a list of available commands : `help`
 Shows program usage instructions in help panel.
-Format: `help`
+Format: `help [COMMAND_WORD]`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`.
 

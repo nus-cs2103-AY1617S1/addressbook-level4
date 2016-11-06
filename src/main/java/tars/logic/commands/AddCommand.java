@@ -12,6 +12,7 @@ import tars.commons.util.DateTimeUtil;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.task.DateTime;
+import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.Name;
 import tars.model.task.Priority;
 import tars.model.task.Status;
@@ -20,6 +21,8 @@ import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to tars.
+ * 
+ * @@author A0140022H
  */
 public class AddCommand extends UndoableCommand {
 
@@ -49,14 +52,14 @@ public class AddCommand extends UndoableCommand {
     private static final int RECURRINGSTRING_INDEX_OF_FREQUENCY = 2;
 
     private Task toAdd;
-    private ArrayList<Task> toAddArray;
+    private ArrayList<Task> taskArray;
 
     private String conflictingTaskList = "";
 
+    // @@author A0140022H
     /**
      * Convenience constructor using raw values.
-     *
-     * @@author A0140022H
+     * 
      * @throws IllegalValueException if any of the raw values are invalid
      * @throws DateTimeException if given dateTime string is invalid.
      */
@@ -64,19 +67,25 @@ public class AddCommand extends UndoableCommand {
             Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {
 
-        toAddArray = new ArrayList<Task>();
+        taskArray = new ArrayList<Task>();
 
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(new Name(name),
-                new DateTime(dateTime[0], dateTime[1]), new Priority(priority),
-                new Status(), new UniqueTagList(tagSet));
+        addToTaskArray(name, dateTime, priority, recurringString, tagSet);
 
+    }
+    // @@author
+
+    // @@author A0140022H
+    private void addToTaskArray(String name, String[] dateTime, String priority,
+            String[] recurringString, final Set<Tag> tagSet)
+            throws IllegalValueException, IllegalDateException {
         int numTask = ADDTASK_DEFAULT_NUMTASK;
-        if (recurringString != null && recurringString.length > 1) {
+        if (recurringString != null
+                && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
             numTask = Integer.parseInt(
                     recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
         }
@@ -85,21 +94,10 @@ public class AddCommand extends UndoableCommand {
             if (i != ADDTASK_FIRST_ITERATION) {
                 if (recurringString != null
                         && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
-                    if (dateTime[DATETIME_INDEX_OF_STARTDATE] != null
-                            && dateTime[DATETIME_INDEX_OF_STARTDATE]
-                                    .length() > DATETIME_EMPTY_DATE) {
-                        dateTime[DATETIME_INDEX_OF_STARTDATE] =
-                                DateTimeUtil.modifyDate(
-                                        dateTime[DATETIME_INDEX_OF_STARTDATE],
-                                        recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
-                    }
-                    if (dateTime[DATETIME_INDEX_OF_ENDDATE] != null
-                            && dateTime[DATETIME_INDEX_OF_ENDDATE]
-                                    .length() > DATETIME_EMPTY_DATE) {
-                        dateTime[DATETIME_INDEX_OF_ENDDATE] = DateTimeUtil
-                                .modifyDate(dateTime[DATETIME_INDEX_OF_ENDDATE],
-                                        recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
-                    }
+                    modifyDateTime(dateTime, recurringString,
+                            DATETIME_INDEX_OF_STARTDATE);
+                    modifyDateTime(dateTime, recurringString,
+                            DATETIME_INDEX_OF_ENDDATE);
                 }
             }
             this.toAdd = new Task(new Name(name),
@@ -107,44 +105,62 @@ public class AddCommand extends UndoableCommand {
                             dateTime[DATETIME_INDEX_OF_ENDDATE]),
                     new Priority(priority), new Status(),
                     new UniqueTagList(tagSet));
-            toAddArray.add(toAdd);
+            taskArray.add(toAdd);
         }
-
     }
+    // @@author
 
+    // @@author A0140022H
+    private void modifyDateTime(String[] dateTime, String[] recurringString,
+            int dateTimeIndex) {
+        if (dateTime[dateTimeIndex] != null
+                && dateTime[dateTimeIndex].length() > DATETIME_EMPTY_DATE) {
+            dateTime[dateTimeIndex] = DateTimeUtil.modifyDate(
+                    dateTime[dateTimeIndex],
+                    recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
+        }
+    }
+    // @@author
+
+    // @@author A0140022H
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            for (Task toAdd : toAddArray) {
-                conflictingTaskList +=
-                        model.getTaskConflictingDateTimeWarningMessage(
-                                toAdd.getDateTime());
-                model.addTask(toAdd);
-
-                if (toAddArray.size() == 1 && ((toAdd.getDateTime()
-                        .getStartDate() == null
-                        && toAdd.getDateTime().getEndDate() != null)
-                        || (toAdd.getDateTime().getStartDate() != null
-                                && toAdd.getDateTime().getEndDate() != null))) {
-                    model.updateFilteredTaskListUsingDate(toAdd.getDateTime());
-                }
-
-            }
+            addTasks();
             model.getUndoableCmdHist().push(this);
             return new CommandResult(messageSummary());
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
-
     }
+    // @@author
+
+    // @@author A0140022H
+    private void addTasks() throws DuplicateTaskException {
+        for (Task toAdd : taskArray) {
+            conflictingTaskList +=
+                    model.getTaskConflictingDateTimeWarningMessage(
+                            toAdd.getDateTime());
+            model.addTask(toAdd);
+
+            if (taskArray.size() == ADDTASK_DEFAULT_NUMTASK && ((toAdd
+                    .getDateTime().getStartDate() == null
+                    && toAdd.getDateTime().getEndDate() != null)
+                    || (toAdd.getDateTime().getStartDate() != null
+                            && toAdd.getDateTime().getEndDate() != null))) {
+                model.updateFilteredTaskListUsingDate(toAdd.getDateTime());
+            }
+        }
+    }
+    // @@author
 
     // @@author A0139924W
     @Override
     public CommandResult undo() {
         assert model != null;
         try {
-            for (Task toAdd : toAddArray) {
+            for (Task toAdd : taskArray) {
                 model.deleteTask(toAdd);
             }
             return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
@@ -155,13 +171,14 @@ public class AddCommand extends UndoableCommand {
                             Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
+    // @@author
 
     // @@author A0139924W
     @Override
     public CommandResult redo() {
         assert model != null;
         try {
-            for (Task toAdd : toAddArray) {
+            for (Task toAdd : taskArray) {
                 model.addTask(toAdd);
             }
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
@@ -172,12 +189,13 @@ public class AddCommand extends UndoableCommand {
                             Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
+    // @@author
 
     // @@author A0140022H
     private String messageSummary() {
         String summary = ADDTASK_STRING_EMPTY;
 
-        for (Task toAdd : toAddArray) {
+        for (Task toAdd : taskArray) {
             summary += String.format(MESSAGE_SUCCESS,
                     toAdd + ADDTASK_STRING_NEWLINE);
         }
@@ -188,5 +206,6 @@ public class AddCommand extends UndoableCommand {
         }
         return summary;
     }
+    // @@author
 
 }

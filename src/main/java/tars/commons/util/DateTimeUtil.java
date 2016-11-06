@@ -34,20 +34,21 @@ public class DateTimeUtil {
             DateTimeFormatter.ofPattern("HHmm");
 
     /**
-     * Extracts the new task's dateTime from the string arguments.
-     * 
      * @@author A0139924W
+     * 
+     * Extracts the new task's dateTime from the string arguments.
      * @return String[] with first index being the startDate time and second index being the end
      *         date time
      */
     public static String[] parseStringToDateTime(String dateTimeArg) {
         return NattyDateTimeUtil.parseStringToDateTime(dateTimeArg);
     }
+    // @@author
 
     /**
-     * Checks if given endDateTime is within the start and end of this week
-     * 
      * @@author A0121533W
+     * 
+     * Checks if given endDateTime is within the start and end of this week
      */
     public static boolean isWithinWeek(LocalDateTime endDateTime) {
         if (endDateTime == null) {
@@ -63,11 +64,12 @@ public class DateTimeUtil {
                     && endDateTime.isBefore(endThisWeek);
         }
     }
+    // @@author
 
     /**
-     * Checks if given endDateTime is before the end of today
-     * 
      * @@author A0121533W
+     * 
+     * Checks if given endDateTime is before the end of today
      */
     public static boolean isOverDue(LocalDateTime endDateTime) {
         if (endDateTime == null) {
@@ -77,11 +79,13 @@ public class DateTimeUtil {
             return endDateTime.isBefore(now);
         }
     }
+    // @@author
 
     /**
+     * @@author A0124333U
+     * 
      * Checks whether the dateTimeQuery falls within the range of the dateTimeSource
      * 
-     * @@author A0124333U
      * @param dateTimeSource
      * @param dateTimeQuery
      */
@@ -104,9 +108,10 @@ public class DateTimeUtil {
                 || dateTime1.getStartDate().isAfter(dateTime2.getEndDate())) {
             return false;
         } else {
-          return true;
+            return true;
         }
     }
+    // @@author
 
     private static DateTime fillDateTime(DateTime dateTimeToFill,
             DateTime filledDateTime) {
@@ -204,9 +209,9 @@ public class DateTimeUtil {
     }
 
     /**
-     * Modify the date based on the new hour, min and sec
-     * 
      * @@author A0139924W
+     * 
+     * Modify the date based on the new hour, min and sec
      */
     public static Date setDateTime(Date toBeEdit, int hour, int min, int sec) {
         Calendar calendar = Calendar.getInstance();
@@ -218,11 +223,12 @@ public class DateTimeUtil {
 
         return toBeEdit;
     }
+    // @@author
 
     /**
-     * Modifies the date based on the frequency for recurring tasks
-     * 
      * @@author A0140022H
+     * 
+     *          Modifies the date based on the frequency for recurring tasks.
      */
     public static String modifyDate(String dateToModify, String frequency) {
         LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);
@@ -245,6 +251,7 @@ public class DateTimeUtil {
         dateToModify = date.format(stringFormatter);
         return dateToModify;
     }
+    // @@author
 
     public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour,
             int min, int sec) {
