@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<?import javafx.scene.text.Font?>
 
 <HBox id="rightCardPane" fx:id="cardPane" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -47,8 +47,8 @@
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="5">
-                        	<Label fx:id="itemType" styleClass="cell_small_label_itemType" text="\$itemType" />
-                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                        	<Label fx:id="itemType" text="\$itemType" />
+                        	<Label fx:id="tags" text="\$tags" />
                         </HBox>
                         <HBox>
                             <Label fx:id="startDate" text="\$startDate" />
