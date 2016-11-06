@@ -24,7 +24,7 @@ public class TypicalTestEvents {
             tuition = new EventBuilder().withName("go to tuition").withTags("Math").withPriority("LOW").withStartNow().withEndOneHourLater().build();            
             
             //Manually added
-            nightClass = new EventBuilder().withName("night class").withPriority("HIGH").withStartTmr().withEndOneHourLater().build();
+            nightClass = new EventBuilder().withName("night class").withPriority("high").withStartNow().withEndOneHourLater().build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
