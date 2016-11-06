@@ -6,10 +6,11 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Adding tasks](#adding-a-task-add)
-   * [Listing tasks](#listing-tasks--list)
+   * [Listing tasks](#listing-tasks--list-shows-a-list-of-task-of-your-preferred-choice)
    * [Searching for tasks](#searching-tasks-by-keywords-search)
    * [Deleting tasks](#deleting-a-task--delete)
-   * [Undo & Redo](#undo--undo)
+   * [Undo](#undo--undo)
+   * [Redo](#redo--redo)
    * [Editing tasks](#editing-a-task--edit)
    * [Marking tasks as done](#marking-a-task-as-done--done)
    * [Marking completed tasks as undone](#marking-a-completed-task-as-undone--continue)
@@ -36,15 +37,16 @@ Are you ready to embrace a new style of organised living? Let's begin!
 1. Download the latest `GGist.jar` from the [releases](https://github.com/CS2103AUG2016-W13-C2/main/releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
 3. Double-click on the .jar file. The GUI should appear in a few seconds. 
-   > <img src="images/StartUI.png" width="800">
+   > <img src="images/StartUI.png" width="800"><br>
+   You will be presented with all today's undone tasks when you first open GGist.
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`**` today` : 
-     lists all today's undone tasks.
+     lists all of today's undone tasks.
    * **`add`**` water the plants, 13 dec, 1400` : 
-     adds a task `water the plants` with the deadline 2pm on the 13th of July to GGist.
+     adds a task `water the plants` with the deadline 2pm on the 13th of December to GGist.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list.
    * **`exit`** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -71,7 +73,7 @@ Format: `help`
 
 Adds a task to GGist<br>
 
-General format: `add TASK, [DATE] [TIME], [PRIORITY]`
+General format: `add TASK, [DATE] [TIME] -[PRIORITY]`
 
 > * `[DATE]` and `[TIME]` has to separated by a space.
 > * If a time without a date is given, the current date will be used by default.
@@ -86,16 +88,16 @@ General format: `add TASK, [DATE] [TIME], [PRIORITY]`
 
 ##### Without any deadline
 
-Format: `add TASK, [PRIORITY]`
+Format: `add TASK -[PRIORITY]`
 
 Examples: 
-* `add buy milk, -low`
+* `add buy milk -low`
 * `add buy brother's present`
 
 
 ##### With deadline
 
-Format: `add TASK, DATE TIME [PRIORITY]`
+Format: `add TASK, DATE TIME -[PRIORITY]`
 
 Examples: 
 * `add write diary, tomorrow 1300`
@@ -108,7 +110,7 @@ Examples:
 
 ##### With start and end time within the same day
 
-Format: `add TASK, DATE, STARTTIME, ENDTIME [PRIORITY]`
+Format: `add TASK, DATE, STARTTIME, ENDTIME -[PRIORITY]`
 
 Examples: 
 * `add tennis practice, 21 nov, 1pm, 3pm`
@@ -122,7 +124,7 @@ Examples:
 
 ##### With start and end time on different days
 
-Format: `add TASK, STARTDATE TIME, ENDDATE TIME [PRIORITY]`
+Format: `add TASK, STARTDATE TIME, ENDDATE TIME -[PRIORITY]`
 
 Examples: 
 * `add neurology conference, next thurs 10am, next sunday 7pm -high`
@@ -135,18 +137,31 @@ Examples:
 
 #### Listing tasks : `list` Shows a list of task of your preferred choice.<br>
 
+Note that overdue tasks will be listed at the top in all kinds of listings.
+
 Format: `list [TYPE]`
 
->**Available Listing**
-> * `list` shows all undone tasks
-> <img src="images/ListUI.png" width="800">
-> * `list today ` shows today's undone tasks
-> * `list all` shows all tasks
-> <img src="images/ListAllUI.png" width="800">
-> * `list done` shows all completed tasks
-> <img src="images/ListDoneUI.png" width="800">
-> * `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)
-> * `list [DATE]` shows all undone tasks with start date or end date as the specified date
+Examples:
+* `list` shows all undone tasks<br>
+
+<img src="images/ListUI.png" width="800">
+* `list today ` shows today's undone tasks<br>
+
+<img src="images/ListTodayUI.png" width="800">
+* `list all` shows all tasks<br>
+
+<img src="images/ListAllUI.png" width="800">
+* `list done` shows all completed tasks<br>
+
+<img src="images/ListDoneUI.png" width="800">
+* `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)<br>
+
+<img src="images/ListHighUI.png" width="800">
+* `list [DATE]` shows all undone tasks with start date or end date as the specified date<br>
+
+<img src="images/ListDateUI.png" width="800">
+
+
 <!--- @@author --->
 <!-- @@author A0138420N --> 
 
@@ -157,12 +172,10 @@ Searches and shows all tasks with details that contain the specified keyword. `D
 Format: `search KEYWORD`<br>
 
 > * The search is not case sensitive.
-> * The order of the keywords does not matter. e.g. `buy milk oct 21` will match `oct 21 buy milk`
-> * Partial words can be matched e.g. `parallel` will match `parallelogram`
+> * The order of the keywords does not matter. e.g. `buy milk in ntuc` will match `ntuc buy milk`
+> * Partial words can be matched e.g. `parallel` will match `parallelogram` but not the other way round.
 
 Examples: 
-* `search oct 1`<br>
-  Lists all tasks with the date `oct 1`.
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found. 
  <!-- @@author --> 
@@ -187,7 +200,7 @@ Examples:
 
 Examples:<br>
 * `delete 1, 2, 3`
-* `search oct 1`
+* `list oct 1`<br>
   `delete 2, 3` 
 <!-- @@author A0138420N -->   
  
@@ -207,7 +220,7 @@ Format: `redo`
 
 Edits task on the display list.<br>
 
-Format: `edit [INDEX] [DETAILTOEDIT] [NEWINFORMATION]`
+Format: `edit INDEX DETAIL_TO_EDIT NEW_INFORMATION`
 
 > More than 1 task detail can be edited at the same time. Simply separate the different details with a comma.
 
@@ -267,7 +280,7 @@ Example:<br>
 
 > * The new folder has to be a valid, existing folder <br>
 > * To switch back to the default save folder, type `save data` <br>
-> * By default, the filename will be ggist.xml
+> * By default, the filename will be `ggist.xml`
 
 You can change the file name to your preference too.<br>
 
@@ -280,22 +293,29 @@ Format: `save FILE_NAME.xml`
 Exits the program.<br>
 Format: `exit`  
 
-<!-- @@author A0138420N --> 
+<!-- @@author A0138411N --> 
 ## Command Cheatsheet
 
 Command | Format  | Example
 --------| --------| ------------------------
 Add     | `add TASK`  | add buy fruits from ntuc
         | `add TASK, [DATE] [TIME] -[PRORITY]` |  add buy milk by tomorrow morning -low
-        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jab 2017 3pm -high
-List    | `list DATE`
-Search  | `search KEYWORD`
-Delete  | `delete INDEX`
+        | `add TASK, [DATE] [TIME], [DATE] [TIME] -[PRIORITY]` | add go overseas from 20 Dec 10pm to 2 Jan 2017 3pm -high
+List    | to see all incompleted tasks | list
+        | to see all tasks| list all
+        | to see all completed tasks | list done
+        | `list DATE`| list 22 Nov
+        | `list PRIORITY`| list high
+Search  | `search KEYWORD`| search buy
+Delete  | `delete INDEX...` | delete 1,2,5
 Undo    | `undo`
 Redo    | `redo`
-Edit    | `edit INDEX FIELD NEW_INFORMATION`
-Done    | `done INDEX`
+Edit    | `edit INDEX FIELD NEW_INFORMATION`|edit 1 start date today
+        | `edit INDEX FIELD NEW_INFORMATION, FIELD NEW_INFORMATION`| edit 3 end date 30 nov, end time 10pm
+Done    | `done INDEX...`| done 1,6,7
+Continue| `continue INDEX...`| continue 1,2,3
 Help    | `help`
-Save    | `save FILE_LOCATION`
+Save    | `save FILE_LOCATION`| save /Users/OneDrive
+        | `save FILE_NAME.xml`| save newfilename.xml
 Exit    | `exit`
 <!-- @@author --> 
