@@ -104,6 +104,8 @@ Example:
 
 <br/>
 
+<!-- @@author A0139552B -->
+
 **_Specifying task priority_**
 
 You can assign a `PRIORITY` of `low`, `medium` or `high` to your task. <br>
@@ -127,6 +129,7 @@ Examples:
 * `Buy washing powder -high`
 
 <br/>
+<!-- @@author -->
 
 
 **_Adding a task with deadline_**
@@ -224,6 +227,7 @@ Examples:
 
 <br/>
 
+<!-- @@author A0139552B -->
 
 ### Editing a task: `edit`
 Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim.  <br>
@@ -259,6 +263,7 @@ Examples:
 > Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
 <br/>
+<!-- @@author -->
 
 
 ### Deleting a task: `delete`
@@ -347,6 +352,8 @@ Format: `list done`
 > `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks.
 <br/>
 
+<!-- @@author A0139552B -->
+
 ### Finding a task: `find`
 Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
 Format: `find NAME`
@@ -361,6 +368,7 @@ Examples:
 
 <br/>
 
+<!-- @@author -->
 
 ### Changing storage location: `store`
 Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
@@ -419,22 +427,18 @@ Examples:
 <img src="images/addInstantParse.PNG" width="550">
 </p>
 
+<p align="center">
+Figure 6: Instant preview for add command
+</p>
+<br>
 * Typing `edit 1 by 10pm -low -reset repeat` generates an instant `edit` preview
 
 <p align="center">
 <img src="images/editInstantParser.PNG" width="550">
 </p>
 
-
-
-### Saving the data
-* Entering the inputs for `add` command generates the details of what has been typed into each field
 <p align="center">
-<img src="images/instantParser.PNG" width="550">
-</p>
-
-<p align="center">
-Figure 6: Instant parsing for add command
+Figure 7: Instant preview for edit command
 </p>
 <br>
 
