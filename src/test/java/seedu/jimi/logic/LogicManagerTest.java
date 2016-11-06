@@ -28,13 +28,6 @@ import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.util.CommandUtil;
 import seedu.jimi.commons.util.ConfigUtil;
-
-import seedu.jimi.logic.Logic;
-import seedu.jimi.logic.LogicManager;
-import seedu.jimi.model.TaskBook;
-import seedu.jimi.model.datetime.DateTime;
-import seedu.jimi.model.event.Event;
-
 import seedu.jimi.logic.commands.AddCommand;
 import seedu.jimi.logic.commands.ClearCommand;
 import seedu.jimi.logic.commands.Command;
@@ -43,11 +36,14 @@ import seedu.jimi.logic.commands.DeleteCommand;
 import seedu.jimi.logic.commands.ExitCommand;
 import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
+import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
-
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
+import seedu.jimi.model.TaskBook;
+import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
@@ -115,7 +111,14 @@ public class LogicManagerTest {
         assertCommandBehavior(invalidCommand,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
-
+    
+    @Test
+    public void execute_redo_redolimit() throws Exception {
+        setup();
+        assertCommandBehavior("redo", RedoCommand.COMMAND_WORD.substring(0, 1).toUpperCase()
+                + RedoCommand.COMMAND_WORD.substring(1) + ": " + History.MESSAGE_REACHED_REDO_LIMIT);
+    }
+    
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
@@ -629,6 +632,7 @@ public class LogicManagerTest {
                 expectedList,
                 Collections.emptyList());
     }
+    
     //@@ author
 
     @Test
