@@ -118,17 +118,17 @@ public class GapCommandTest extends FlexiTrackGuiTest {
         // using a single letter to represent day 
         String gapUserCommand = "gap 2d";
         String messageShown = "The earliest 2 days free time are found... "
-                + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
                 + "\nBetween:  " + "Nov 09 2016 16:00" + "  to: " + "Nov 12 2016 10:00"
-                + "\nBetween:  " + "Nov 12 2016 14:00" + "  to: " + "Nov 18 2016 09:00";
+                + "\nBetween:  " + "Nov 12 2016 14:00" + "  to: " + "Nov 18 2016 09:00"
+                + "\nBetween:  " + "Nov 20 2016 14:00" + "  to: " + "Nov 22 2016 19:00";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
         // using the proper word + s
         gapUserCommand = "gap 3 days";
         messageShown = "The earliest 3 days free time are found... "
-                + "\nBetween:  now                        " + "  to: " + "Nov 08 2016 09:00"
                 + "\nBetween:  " + "Nov 12 2016 14:00" + "  to: " + "Nov 18 2016 09:00"
-                + "\nBetween:  " + "Nov 22 2016 21:00" + "  to: " + "Nov 16 2017 19:00";
+                + "\nBetween:  " + "Nov 22 2016 21:00" + "  to: " + "Nov 16 2017 19:00"
+                + "\nFree from: " + "Nov 16 2017 20:15" + " onwards. ";
         assertGapCommandSuccess(gapUserCommand, messageShown);
 
         // using the proper word with specified number of time slot 
