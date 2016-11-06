@@ -82,7 +82,7 @@ public class TestDataHelper {
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateFullTaskPriorityMid(int seed) throws Exception {
+    public Task generateFullTaskPriorityMid(int seed) throws IllegalValueException {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
@@ -101,7 +101,7 @@ public class TestDataHelper {
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateFullTaskPriorityHigh(int seed) throws Exception {
+    public Task generateFullTaskPriorityHigh(int seed) throws IllegalValueException {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
@@ -113,7 +113,6 @@ public class TestDataHelper {
     }
     
     //@@author A0093896H
-    
     /** Generates the correct add command based on the task given */
     public String generateAddCommand(Task p) {
         StringBuffer cmd = new StringBuffer();

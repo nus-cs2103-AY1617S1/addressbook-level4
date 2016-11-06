@@ -98,4 +98,11 @@ public class Recurrence {
         }
     }
     
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Recurrence // instanceof handles nulls
+                && this.freq.equals(((Recurrence) other).freq)); // state check
+    }
+    
 }

@@ -88,7 +88,7 @@ public class ParserFormats {
     
     //@@author A0121643R   
     public static final Pattern SEARCH_PRIORITY = Pattern
-            .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
+            .compile("priority (?<priority>.+?)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
     
     

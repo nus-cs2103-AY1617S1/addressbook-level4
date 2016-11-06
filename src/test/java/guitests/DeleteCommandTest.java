@@ -50,10 +50,6 @@ public class DeleteCommandTest extends ToDoListGuiTest {
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
         
-        for (TestTask t : expectedRemainder) {
-            System.out.println(t.getName().fullName);
-        }
-        
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 

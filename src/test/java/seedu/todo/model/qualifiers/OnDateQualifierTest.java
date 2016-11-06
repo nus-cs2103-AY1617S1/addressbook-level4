@@ -16,8 +16,8 @@ import seedu.todo.model.task.Task;
 import seedu.todo.testutil.TestDataHelper;
 
 /**
- * Test class for OnDateQualifier used in model when searching
- * for tasks that fall on a certain date
+ * Test class for OnDateQualifier used in model 
+ * when searching for tasks that fall on a certain date
  */
 public class OnDateQualifierTest {
     

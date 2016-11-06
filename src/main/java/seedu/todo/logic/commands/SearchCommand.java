@@ -48,7 +48,7 @@ public class SearchCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " birthday homework friday";
 
-    public static final String MESSAGE_SUCCESS = "Currently displaying search results for: %1$s %2$s\n";
+    public static final String MESSAGE_SUCCESS = "Currently displaying %1$s tasks for: %2$s %3$s\n";
 
     private final String data;
     private final SearchIndex whichSearch;
@@ -113,7 +113,7 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAll();
         int size = model.getFilteredTaskList().size();
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.ALL, "") 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "", SearchIndex.ALL, "") 
                 + getMessageForTaskListShownSummary(size));
     }
     
@@ -129,7 +129,7 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListOnDate(datetime, hasTimeField, this.option);
             int size = model.getFilteredTaskList().size();
             
-            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.ON, data) 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.ON, data) 
                     + getMessageForTaskListShownSummary(size));
             
         } catch (DateTimeParseException e) {
@@ -146,7 +146,7 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListBeforeDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.BEFORE, data) 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.BEFORE, data) 
                     + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
@@ -163,7 +163,7 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListAfterDate(datetime, this.option);
                 
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.AFTER, data) 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.AFTER, data) 
                     + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
@@ -185,7 +185,7 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime, this.option);
             
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.FT, data) 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.FT, data) 
                     + getMessageForTaskListShownSummary(size));
                 
         } catch (DateTimeParseException e) {
@@ -204,7 +204,7 @@ public class SearchCommand extends Command {
         model.updateFilteredTaskListByKeywords(keywordSet, this.option);
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.KEYWORD, data) 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.KEYWORD, data) 
                 + getMessageForTaskListShownSummary(size));
         
     }
@@ -216,7 +216,7 @@ public class SearchCommand extends Command {
         model.updateFilteredTaskListByTag(data.trim(), this.option);
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.TAG, data) 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.TAG, data) 
                 + getMessageForTaskListShownSummary(size));
     }
     
@@ -230,7 +230,7 @@ public class SearchCommand extends Command {
             model.updateFilteredTaskListByPriority(new Priority(priority), this.option);
            
             int size = model.getFilteredTaskList().size();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.PRIORITY, data) 
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.PRIORITY, data) 
                     + getMessageForTaskListShownSummary(size));
                
         } catch (IllegalValueException e) {
@@ -245,7 +245,7 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAllFloating(this.option);
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.UNDONE, "") 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.FLOATING, "") 
                 + getMessageForTaskListShownSummary(size));
     }
     
@@ -256,7 +256,7 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAllCompleted();
 
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.DONE, "") 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "", SearchIndex.DONE, "") 
                 + getMessageForTaskListShownSummary(size));
     }
     
@@ -268,7 +268,7 @@ public class SearchCommand extends Command {
         model.updateFilteredListToShowAllNotCompleted();
         
         int size = model.getFilteredTaskList().size();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, SearchIndex.UNDONE, "") 
+        return new CommandResult(String.format(MESSAGE_SUCCESS, "", SearchIndex.UNDONE, "") 
                 + getMessageForTaskListShownSummary(size));
     }
     
