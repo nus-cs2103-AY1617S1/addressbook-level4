@@ -90,6 +90,16 @@ Command | Default Command Word | Shortcuts
 * You have to always surround task/event names with double quotation marks, `"`.
 * Other than that, you can type anything within those double quotation marks.
 
+<br>
+
+**Input of Tags and Priorities**
+* For tags, you can only type single words made up of numbers and letters. E.g. `t/IMPT`.
+* For priorities, you can only type the following: `low`, `med`, `high`, `none`. E.g. `p/low`.
+* Priorities are also case-insensitive i.e. `p/LoW`.
+* A priority of `low` highlights your item in green; `med`, in yellow; and `high` in red.
+* If you fail to specify a priority when adding an item, Jimi defaults it to `none`.
+* For both, you cannot leave out the prefixes i.e. `t/` and `p/`. 
+
 <!--- @@author -->
 <br>
 <!--- @@author A0148040R -->
