@@ -34,6 +34,12 @@
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
 
+> **Priority Format**
+> * high, mid, low
+
+> **Recurrence Format**
+> * day, week, month, year
+
 > **Date and Time Format**
 > * **Date**
 >   * MM/DD/YYYY or MM-DD-YYYY <br>
@@ -43,10 +49,11 @@
 >   * DD MMMM YYYY
 >       * E.g 25 October 2017
 >   * Relative dates
->       * E.g tomorrow/yesterday/today/next monday/2 days later
+>       * E.g tomorrow, yesterday, today, next monday, 2 days later
 > * **Time**
->   * 24-hours format : 0930
->   * 12-hours format : 0930pm
+>   * 24-hours format: 0930
+>   * 12-hours format: 0930pm
+>   * Presets: monring, noon, evening, night, midnight
 
 ## Viewing help : `help`
 Shows the help page to user.<br>
@@ -79,15 +86,11 @@ Examples:
 * **`add`**` demoAdd on today by tomorrow priority mid ; for show only`
 * **`add`**` cooking on today 1400 by 1500 every day ; recurring every day`
 
-Demo:
-
-Type the command
-
-![ADD](./images/ADD.png)
-
-Display result
-
-![ADD_Result](./images/ADD_Result.png)
+Demo:<br>
+Type the `add` command: <br>
+<img src="images/ADD.png" width="450"><br><br>
+Result: <br>
+<img src="images/ADD_RESULT.png" width="450"><br>
 
 ## Searching tasks: `search`
 Search tasks whose names or details contain any of the given keywords. <br>
@@ -127,15 +130,11 @@ Examples:
 > * Tasks matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Meeting` will match `Meeting Professor`
 
-Demo:
-
-Type the command
-
-![SEARCH](./images/SEARCH.png)
-
-Display result
-
-![SEARCH_Result](./images/SEARCH_Result.png)
+Demo: <br>
+Type the `search` command: <br>
+<img src="images/SEARCH.png" width="450"><br><br>
+Result: <br>
+<img src="images/SEARCH_RESULT.png" width="450"><br>
 
 <!-- @@author A0121643R -->
 ## Marking tasks as done : `mark`
@@ -147,27 +146,14 @@ Format: `mark ID`
 
 Examples:
 
-* **`search`**` HeLlO`<br>
-**`mark`**` 2`<br>
+* **`mark`**` 2`<br>
 Mark the task with `ID #2` in the Do-Do Bird as completed.
 
-Demo:
-
-Type the `search` command
-
-![SEARCH](./images/SEARCH.png)
-
-Display search result
-
-![SEARCH_Result](./images/SEARCH_Result.png)
-
-Type the `mark` command
-
-![MARK](./images/MARK.png)
-
-Display mark result
-
-![MARK_Result](./images/MARK_Result.png)
+Demo:<br>
+Type the `mark` command: <br>
+<img src="images/MARK.png" width="450"><br><br>
+Result: <br>
+<img src="images/MARK_RESULT.png" width="450"><br>
 
 ## Unmarking tasks : `unmark`
 Unmark a task in Do-Do Bird to be uncompleted.<br>
@@ -178,8 +164,7 @@ Format: `unmark ID`
 
 Examples:
 
-* **`search`**` HeLlO`<br>
-**`unmark`**` 2`<br>
+* **`unmark`**` 2`<br>
 Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
 
 
@@ -208,23 +193,11 @@ Examples:
   **`update`**`  1 test task on Oct 29 1600 by mon priority mid every week; update all fields ` <br>
   Update the task with `ID #3` to remove old on date.
 
-Demo:
-
-Type the `search` command
-
-![SEARCH_1](./images/SEARCH_1.png)
-
-Display search result
-
-![SEARCH_Result_1](./images/SEARCH_Result_1.png)
-
-Type the `update` command
-
-![UPDATE](./images/UPDATE.png)
-
-Display mark result
-
-![UPDATE_Result](./images/UPDATE_Result.png)
+Demo: <br>
+Type the `update` command: <br>
+<img src="images/UPDATE.png" width="450"><br><br>
+Result: <br>
+<img src="images/UPDATE_RESULT.png" width="450"><br>
 
 
 ## Deleting a task : `delete`
@@ -236,28 +209,14 @@ Format: `delete ID`
 
 Examples:
 
-* **`search`**` Tutorial`<br>
-  **`delete`**` 1`<br>
+* **`delete`**` 3`<br>
 Deletes the task with `ID #1` in the Do-Do Bird.
 
-
-Demo:
-
-Type the `search` command
-
-![SEARCH_1](./images/SEARCH_1.png)
-
-Display search result
-
-![SEARCH_Result_1](./images/SEARCH_Result_1.png)
-
-Type the `delete` command
-
-![DELETE](./images/DELETE.png)
-
-Display delete result
-
-![DELETE_Result](./images/DELETE_Result.png)
+Demo: <br>
+Type the `delete` command: <br>
+<img src="images/DELETE.png" width="450"><br><br>
+Result: <br>
+<img src="images/DELETE_RESULT.png" width="450"><br>
 
 
 <!-- @@author A0142421X -->
@@ -271,27 +230,14 @@ Format: `tag ID TAG`
 
 Examples:
 
-* **`see`** <br>
 **`tag`**` 2 Tutorial`<br>
 Tags the task with `ID #2` with `Homework` tag
 
-Demo:
-
-Type the `see` command
-
-![SEE_1](./images/SEE_1.png)
-
-Display see result
-
-![SEE_Result_1](./images/SEE_Result_1.png)
-
-Type the `tag` command
-
-![TAG](./images/TAG.png)
-
-Display tag result
-
-![TAG_Result](./images/TAG_Result.png)
+Demo: <br>
+Type the `tag` command: <br>
+<img src="images/TAG.png" width="450"><br><br>
+Result: <br>
+<img src="images/TAG_RESULT.png" width="450"><br>
 
 
 ## Untagging a task : `untag`
@@ -305,24 +251,6 @@ Examples:
 
 * **`untag`**` 2 Tutorial`<br>
 Untags the task with `ID #2` from `Homework` tag
-
-Demo:
-
-Type the `see` command
-
-![SEE_2](./images/SEE_2.png)
-
-Display see result
-
-![SEE_Result_2](./images/SEE_Result_2.png)
-
-Type the `untag` command
-
-![UNTAG](./images/UNTAG.png)
-
-Display tag result
-
-![UNTAG_Result](./images/UNTAG_Result.png)
 
 <!-- @@author A0138967J -->
 ## Storing : `store`
@@ -368,33 +296,32 @@ Command | Format | Example
 Add | `add TASKNAME` | add hello
 	| `add TASKNAME priority PRIORITY` | add hello priority high/mid/low
 	| `add TASKNAME ; DETAILS` | add hello ; first time use
-	| `add TASKNAME on/from DATE`|  add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	| `add TASKNAME by/to DATE` | add hello by/to today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	| `add TASKNAME on/from DATE by/to DATE` |add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
-	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY` | add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
-	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`| add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; first time use
+	| `add TASKNAME on DATE`|  add hello on today/tomorrow/next wed/ 19:00/05:00pm
+	| `add TASKNAME by DATE` | add hello by 12/25/2017 19:00 05:00pm
+	| `add TASKNAME on DATE by DATE` |add hello on next wed 19:00 by next sunday 12:34am
+	| `add TASKNAME on DATE by DATE priority PRIORITY` | add hello on tomorrow 19:00 by sunday 12:34am priority high
+	| `add TASKNAME on DATE by DATE priority PRIORITY every RECURRENCE; DETAILS`| add hello on today 9pm by sunday 12:34am priority high every week ; a line of details
 Clear | `clear` |
 Delete | `delete ID` | delete 12
 Help | `help` |
 Mark | `mark ID`| mark 12
 Unmark | `unmark ID`| mark 12
 Quitting | `exit` |
-Search | `search KEYWORDS`| search hello/project Meeting/PrOjecT MeeTinG
-	   | `search before DATE` | search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	   | `search after DATE`| search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	   | `search priority PRIORITY`| search priority high/mid/low
+Search | `search KEYWORDS`| search hello PrOjecT MeeTinG
+	   | `search before DATE` | search before today 19:00
+	   | `search after DATE`| search before today 19:00
+	   | `search priority PRIORITY`| search priority high
 	   | `search tag TAG` | search tag study   
-See | `see` |
 Tag | `tag ID TAG` | tag 12 study
 Untag | `untag ID TAG`| untag 12 study
 Undo | `undo` |
 Update | `update ID TASKNAME`| update 10 hello again
-	   | `update ID on/from DATE`| update 10 on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID by/to DATE` | update 10 by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME on/from DATE` | update 10 hello again on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME by/to DATE`| update 10 hello again by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID on/from DATE by/to DATE` | update 10 on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME on/from DATE by/to DATE`| update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY`| update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
-	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`| update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; again and again
-      | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY every RECURRENCE; DETAILS`| update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low every day ; again and again
+	   | `update ID on DATE`| update 10 on tmr 07:00pm
+	   | `update ID by DATE` | update 10 by tmr 07:00pm
+	   | `update ID TASKNAME on DATE` | update 10 hello again on tmr 07:00pm
+	   | `update ID TASKNAME byo DATE`| update 10 hello again by tmr 07:00pm
+	   | `update ID on DATE by DATE` | update 10 on today 05:00pm by sunday 12:34am
+	   | `update ID TASKNAME on DATE by/to DATE`| update 10 hello again on today 19:00 by sunday 12:34am
+	   | `update ID TASKNAME on DATE by DATE priority PRIORITY`| update 10 hello again on today 5pm by sunday 12:34am priority mid
+	   | `update ID TASKNAME on DATE by DATE priority PRIORITY ; DETAILS`| update 10 hello again on today 05:00pm by sunday 12:34am priority high ; a line of details
+      | `update ID TASKNAME on DATE by DATE priority PRIORITY every RECURRENCE; DETAILS`| update 10 hello again on today 19:00 by sunday 12:34am priority high every day ; a line of details
