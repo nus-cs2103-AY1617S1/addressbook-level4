@@ -57,11 +57,11 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used to by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -487,9 +487,9 @@ Use case ends.
 
 Product | Strength | Weaknesses
 -------- | :-------- | :--------
-[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there’s internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of ‘clicks’ and fields to fill to save a task</li><li>Unable to “block” multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
-[Todo.txt](http://todotxt.com/)|<ol type="1"><li>Quick & easy unix-y access</li><li>Solves Google calendar being too slow</li><li>One shot approach</li><li>Manage tasks with as few keystrokes as possible</li><li>Works without Internet connectivity</li></ol>|<ol type="1"><li>No block feature</li><li>Unable to look for suitable slot</li></ol>
+[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there???s internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of ???clicks??? and fields to fill to save a task</li><li>Unable to ???block??? multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
+[Todo.txt](http://todotxt.com/)|<ol type="1"><li>Quick & easy unix-y access</li><li>Solves Google calendar being too slow</li><li>Manage tasks with as few keystrokes as possible</li><li>Works without Internet connectivity</li></ol>|<ol type="1"><li>No block feature</li><li>Unable to look for suitable slot</li></ol>
 [Fantastical](https://flexibits.com/fantastical)|<ol type="1"><li>Flexible<ul><li>Choose between dark and light theme</li><li>Works with Google, iCloud, Exchange and more</li></ul></li><li>Use natural language to quickly create events and reminders</li></ol>|<ol type="1"><li>No block feature</li><li>Need to click to create an event</li><li>Only available for Mac</li></ol>
-[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. “every day/week/month, every 27th, every Jan 27th”)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week’s overview of tasks or only today’s task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at anytime and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
+[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. ???every day/week/month, every 27th, every Jan 27th???)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week???s overview of tasks or only today???s task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at anytime and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
 
 

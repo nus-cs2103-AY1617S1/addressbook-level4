@@ -158,7 +158,7 @@ Format:
 > Parameters can be in any order.
 
 Examples: 
-* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords "meet" and "John" (e.g. meet John Doe)
 * `find /n meet /dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
 [comment]: # (@@author A0124333U)
