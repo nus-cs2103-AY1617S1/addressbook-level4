@@ -4,13 +4,11 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
-import seedu.todo.models.TodoListDB;
 
 /**
  * @@author A0093907W

@@ -1,13 +1,8 @@
 package seedu.todo.controllers;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import com.joestelmach.natty.*;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;
