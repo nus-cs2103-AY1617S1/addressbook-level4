@@ -58,6 +58,11 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setName(new Name("Trying out new things from the list"));
         assertTrue(personListPanel.isListMatching(aliceTask));
         
+        //test to edit name with escape
+        commandBox.runCommand("edit 1 " + "\"cut word count from 1000 to 500\"");
+        aliceTask.setName(new Name("cut word count from 1000 to 500"));
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
         //test to edit every detail
         commandBox.runCommand("edit 1 Visit distant relative at 1pm repeat every 3 years -h");
         aliceTask.setName(new Name("Visit distant relative"));
@@ -65,6 +70,41 @@ public class EditCommandTest extends DearJimGuiTest {
         aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));       
+    }
+    
+
+    @Test
+    public void editCommand_editDates() throws IllegalValueException{
+        
+        TestTask[] currentList = td.getTypicalUndoneTasks();
+        assertUndoneListClearCommandSuccess();
+
+        TestTask aliceTask = new TestTask(td.alice);
+        assertAddSuccess(aliceTask);
+        
+        commandBox.runCommand("edit 1 Call Alice from 11am to 12pm repeat every week -m");
+        aliceTask.setName(new Name("Call Alice"));
+        aliceTask.setStartDate(DateTime.convertStringToDate("11am"));
+        aliceTask.setEndDate(DateTime.convertStringToDate("12pm"));
+        aliceTask.setRecurrence(new RecurrenceRate("1", "week"));
+        aliceTask.setPriority(Priority.MEDIUM);        
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
+        //test to check set start time only
+        commandBox.runCommand("edit 1 from 1am");
+        aliceTask.setStartDate(DateTime.convertStringToDate("1am"));
+        assertTrue(personListPanel.isListMatching(aliceTask));
+
+        //test to check set end time only
+        commandBox.runCommand("edit 1 by 9pm");
+        aliceTask.setEndDate(DateTime.convertStringToDate("9pm"));
+        assertTrue(personListPanel.isListMatching(aliceTask));
+      
+        //test to check set both time only
+        commandBox.runCommand("edit 1 at 11 nov 10am to 12 nov 3:30pm");
+        aliceTask.setStartDate(DateTime.convertStringToDate("11 nov 10am"));
+        aliceTask.setEndDate(DateTime.convertStringToDate("12 nov 3:30pm"));
+        assertTrue(personListPanel.isListMatching(aliceTask));
     }
     
     @Test

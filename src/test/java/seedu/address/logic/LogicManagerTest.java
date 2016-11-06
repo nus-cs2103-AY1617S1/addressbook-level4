@@ -10,6 +10,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.history.UndoableCommandHistory;
 import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.TaskManager;
@@ -18,7 +19,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.item.*;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.StorageStub;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.UndoableCommandHistoryStub;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -41,7 +44,7 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
-    private UndoableCommandHistoryManager history;
+    private UndoableCommandHistory history;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;
@@ -61,10 +64,8 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        history = UndoableCommandHistoryManager.getInstance();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile), history);
+        history = new UndoableCommandHistoryStub();
+        logic = new LogicManager(model, new StorageStub(), history);
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
@@ -140,17 +141,6 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
     
-    /**
-     * Sends the inputCommand to the Logic component to generate a tooltip that will be compared against the expectedTooltip
-     * 
-     * @param inputCommand the user input
-     * @param expectedTooltip expected tool tip to be shown to user
-     */
-    private void assertToolTipBehavior(String inputCommand, String expectedToolTip) {
-        String generatedToolTip = logic.generateToolTip(inputCommand);
-        assertEquals(expectedToolTip, generatedToolTip);
-    }
-
     /* Test removed as we take add as a default command, so this will add an item with that name.
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -283,29 +273,6 @@ public class LogicManagerTest {
                 expectedAB.getUndoneTaskList());
 
     }
-    //@@author
-
-    /* Duplicate is allowed?
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addFloatingTask(toBeAdded);
-
-        // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_FLOATING_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
-
-    }
-    */
 
     //@@author A0139498J
     @Test
@@ -578,144 +545,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
-    
-    //TODO: do i need to have a test case for null string 
-    //@@author A0093960X
-    @Test
-    public void toolTip_invalidCommandInput_incorrectCommandTooltip() {
-        assertToolTipBehavior("", MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT);
-        assertToolTipBehavior("   ", MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT);    
-    }
-    
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfAdd_addToolTip() {
-        // simple add tooltip
-        assertToolTipBehavior("a", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("ad", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("add", AddCommand.TOOL_TIP);
-        assertToolTipBehavior("    add", AddCommand.TOOL_TIP);    
-
-        
-        //complicated add tooltip
-        assertToolTipBehavior("add f", AddCommand.TOOL_TIP+ "\n\tAdding task: \n\tName:\tf\n\tPriority:\tmedium");
-        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tmeet akshay\n\tStart Date:\t1pm\n\tPriority:\tmedium");
-        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tdo cs2103 tests\n\tPriority:\tmedium");
-        assertToolTipBehavior("   lolo l ", AddCommand.TOOL_TIP + "\n\tAdding task: \n\tName:\tlolo l\n\tPriority:\tmedium");    
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfClear_clearToolTip() {
-        assertToolTipBehavior("c", ClearCommand.TOOL_TIP);
-        assertToolTipBehavior("cl", ClearCommand.TOOL_TIP);
-        assertToolTipBehavior("cle", ClearCommand.TOOL_TIP);
-        assertToolTipBehavior("clea", ClearCommand.TOOL_TIP);
-        assertToolTipBehavior("clear", ClearCommand.TOOL_TIP);
-        assertToolTipBehavior("clear a", ClearCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfDelete_deleteToolTip() {
-        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP);
-        assertToolTipBehavior("de", DeleteCommand.TOOL_TIP);
-        assertToolTipBehavior("del", DeleteCommand.TOOL_TIP);
-        assertToolTipBehavior("dele", DeleteCommand.TOOL_TIP);
-        assertToolTipBehavior("delet", DeleteCommand.TOOL_TIP);
-        assertToolTipBehavior("delete", DeleteCommand.TOOL_TIP);
-        assertToolTipBehavior("delete 0", DeleteCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfDone_doneToolTip() {
-        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP);
-        assertToolTipBehavior("do", DoneCommand.TOOL_TIP);
-        assertToolTipBehavior("don", DoneCommand.TOOL_TIP);
-        assertToolTipBehavior("done", DoneCommand.TOOL_TIP);
-        assertToolTipBehavior("done 0", DoneCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfEdit_editToolTip() {
-        // simple edit tooltip
-        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP);
-        assertToolTipBehavior("ed", EditCommand.TOOL_TIP);
-        assertToolTipBehavior("edi", EditCommand.TOOL_TIP);
-        assertToolTipBehavior("edit", EditCommand.TOOL_TIP);
-        
-        // complicated edit tooltip
-        assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP + "\n\tEditing task at INDEX 0: \n\tName:\tNo Change" +
-                "\n\tStart Date:\tNo Change" + "\n\tEnd Date:\t\tNo Change" + "\n\tRecurrence Rate:\tNo Change" + 
-                "\n\tPriority:\tNo Change");
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfExit_exitToolTip() {
-        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP);
-        assertToolTipBehavior("ex", ExitCommand.TOOL_TIP);
-        assertToolTipBehavior("exi", ExitCommand.TOOL_TIP);
-        assertToolTipBehavior("exit", ExitCommand.TOOL_TIP);
-        assertToolTipBehavior("exit 0", ExitCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfFind_findToolTip() {
-        assertToolTipBehavior("f", FindCommand.TOOL_TIP);
-        assertToolTipBehavior("fi", FindCommand.TOOL_TIP);
-        assertToolTipBehavior("fin", FindCommand.TOOL_TIP);
-        assertToolTipBehavior("find", FindCommand.TOOL_TIP);
-        assertToolTipBehavior("find 0", FindCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfHelp_helpToolTip() {
-        assertToolTipBehavior("h", HelpCommand.TOOL_TIP);
-        assertToolTipBehavior("he", HelpCommand.TOOL_TIP);
-        assertToolTipBehavior("hel", HelpCommand.TOOL_TIP);
-        assertToolTipBehavior("help", HelpCommand.TOOL_TIP);
-        assertToolTipBehavior("help r", HelpCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfList_listToolTip() {
-        assertToolTipBehavior("l", ListCommand.TOOL_TIP);
-        assertToolTipBehavior("li", ListCommand.TOOL_TIP);
-        assertToolTipBehavior("lis", ListCommand.TOOL_TIP);
-        assertToolTipBehavior("list", ListCommand.TOOL_TIP);
-        assertToolTipBehavior("list done", ListCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfRedo_redoToolTip() {
-        assertToolTipBehavior("r", RedoCommand.TOOL_TIP);
-        assertToolTipBehavior("re", RedoCommand.TOOL_TIP);
-        assertToolTipBehavior("red", RedoCommand.TOOL_TIP);
-        assertToolTipBehavior("redo", RedoCommand.TOOL_TIP);
-        assertToolTipBehavior("redo done", RedoCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfSelect_selectToolTip() {
-        assertToolTipBehavior("s", SelectCommand.TOOL_TIP + "\n" + StoreCommand.TOOL_TIP);
-        assertToolTipBehavior("se", SelectCommand.TOOL_TIP);
-        assertToolTipBehavior("sel", SelectCommand.TOOL_TIP);
-        assertToolTipBehavior("sele", SelectCommand.TOOL_TIP);
-        assertToolTipBehavior("selec", SelectCommand.TOOL_TIP);
-        assertToolTipBehavior("select", SelectCommand.TOOL_TIP);
-        assertToolTipBehavior("select 1", SelectCommand.TOOL_TIP);
-    }
-    
-    @Test
-    public void toolTip_commandBeginningSubstringsOfUndo_undoToolTip() {
-        assertToolTipBehavior("u", UndoCommand.TOOL_TIP);
-        assertToolTipBehavior("un", UndoCommand.TOOL_TIP);
-        assertToolTipBehavior("und", UndoCommand.TOOL_TIP);
-        assertToolTipBehavior("undo", UndoCommand.TOOL_TIP);
-        assertToolTipBehavior("undo done", UndoCommand.TOOL_TIP);
-    }
-    
-    //@@author
-
 
     /**
      * A utility class to generate test data.

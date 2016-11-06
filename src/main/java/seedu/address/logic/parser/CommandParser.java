@@ -22,26 +22,18 @@ import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_INVALID_COMMAN
  */
 public class CommandParser {
     
+    private static final String EMPTY_SPACE_FOR_NAME_NO_CHANGE = " ";
     private static final String STRING_REGEX_ONE_OR_MORE_WHITESPACE = "\\s+";
-
-    private static final String DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX = "\n\tRecurrence Rate:\t";
-
-    private static final String DETAILED_TOOLTIP_RESET = "RESET";
-
-    private static final String DETAILED_TOOLTIP_NO_CHANGE = "No Change";
-
-    private static final String DETAILED_TOOLTIP_PRIORITY_PREFIX = "\n\tPriority:\t";
-
-    private static final String DETAILED_TOOLTIP_RECURRENCE_PREFIX = "\n\tRecurrence Rate:\tevery ";
-
     private static final String STRING_ONE_SPACE = " ";
-
+    
+    private static final String DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX = "\n\tRecurrence Rate:\t";
+    private static final String DETAILED_TOOLTIP_RESET = "RESET";
+    private static final String DETAILED_TOOLTIP_NO_CHANGE = "No Change";
+    private static final String DETAILED_TOOLTIP_PRIORITY_PREFIX = "\n\tPriority:\t";
+    private static final String DETAILED_TOOLTIP_RECURRENCE_PREFIX = "\n\tRecurrence Rate:\tevery ";
     private static final String DETAILED_TOOLTIP_END_DATE_PREFIX = "\n\tEnd Date:\t\t";
-
     private static final String DETAILED_TOOLTIP_START_DATE_PREFIX = "\n\tStart Date:\t";
-
     private static final String DETAILED_TOOLTIP_NAME_PREFIX = "\n\tName:\t";
-
     private static final String ADD_DETAILED_TOOLTIP_HEADER = "\n\tAdding task: ";
 
     private final Logger logger = LogsCenter.getLogger(CommandParser.class);
@@ -621,7 +613,7 @@ public class CommandParser {
     private String generateEditDetailedTooltip(String trimmedArgs) throws IllegalValueException {
         assert trimmedArgs != null;
         
-        String[] splitIndexFromOtherArgs = trimmedArgs.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE);
+        String[] splitIndexFromOtherArgs = trimmedArgs.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
         String indexToEdit = splitIndexFromOtherArgs[ZERO];
         
         try {
@@ -630,6 +622,7 @@ public class CommandParser {
             return EditCommand.TOOL_TIP + "\n" + "Please enter a number for the index.\n";
         }
         
+
         String argumentsWithoutIndex;
         if (splitIndexFromOtherArgs.length == 1) {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ZERO];
@@ -638,13 +631,24 @@ public class CommandParser {
 
         }
         
+        logger.info(argumentsWithoutIndex);
+        
         String resetField = null;
         String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
+        
+        logger.info(Arrays.asList(resetSplit).toString());
+ 
         
         boolean isResettingStartDate = false, isResettingEndDate = false, isResettingRecurrence = false, 
                 isResettingPriority = false;
                     
-        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(resetSplit);
+        
+        String beforeResetSplit = "";
+        if (resetSplit.length != 0) {
+            beforeResetSplit = resetSplit[0];
+        }
+        
+        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(beforeResetSplit);
         
         Optional<String> name = fieldMap.get(MAP_NAME);
         Optional<String> startDate = fieldMap.get(MAP_START_DATE);
@@ -722,6 +726,7 @@ public class CommandParser {
         }
         
         return sb.toString();
+        
     }
 
     /**
@@ -729,9 +734,9 @@ public class CommandParser {
      * @return
      * @throws IllegalValueException
      */
-    private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String[] resetSplit)
+    private HashMap<String, Optional<String>> retrieveEditFieldsFromArgs(String beforeResetSplit)
             throws IllegalValueException {
-        return new CommandParserHelper().prepareEdit(STRING_ONE_SPACE + resetSplit[ZERO]);
+        return new CommandParserHelper().prepareEdit(EMPTY_SPACE_FOR_NAME_NO_CHANGE + beforeResetSplit);
     }
 
     private String prepareAddDetailedTooltip(final String arguments) {

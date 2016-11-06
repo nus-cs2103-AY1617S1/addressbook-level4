@@ -128,35 +128,4 @@ public abstract class DearJimGuiTest {
     protected void assertCommandInput(String expected) {
         assertEquals(expected, commandBox.getCommandInput());
     }
-    
-    
-    /**
-     * Asserts the add detailed tooltip displayed in the result displayed area matches the expected fields.
-     * 
-     * @param expectedName the expected name in the add detailed tooltip
-     * @param expectedPriority the expected priority in the add detailed tooltip
-     * @param expectedStartDate the expected start date in the add detailed tooltip
-     * @param expectedEndDate the expected end date in the add detailed tooltip
-     * @param expectedRecurrence the expected recurrence rate in the add detailed tooltip
-     */
-    protected void assertAddDetailedToolTip(String expectedName, String expectedPriority, 
-            String expectedStartDate, String expectedEndDate, String expectedRecurrence) {
-        
-    }
-    
-    /**
-     * Asserts the add detailed tooltip displayed in the result displayed area matches the expected fields.
-     * 
-     * @param expectedIndex the expected index in the edit detailed tooltip
-     * @param expectedName the expected name in the edit detailed tooltip
-     * @param expectedPriority the expected priority in the edit detailed tooltip
-     * @param expectedStartDate the expected start date in the edit detailed tooltip
-     * @param expectedEndDate the expected end date in the edit detailed tooltip
-     * @param expectedRecurrence the expected recurrence rate in the edit detailed tooltip
-     */
-    protected void assertEditDetailedToolTip(String expectedIndex, String expectedName, String expectedPriority, 
-            String expectedStartDate, String expectedEndDate, String expectedRecurrence) {
-        
-        
-    }
 }

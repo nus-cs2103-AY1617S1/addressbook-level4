@@ -20,7 +20,6 @@ import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.item.Task;
 import seedu.address.model.TaskManager;
 import seedu.address.model.item.*;
-import seedu.address.model.tag.Tag;
 import seedu.address.storage.XmlSerializableTaskManager;
 
 import java.io.File;
@@ -77,20 +76,6 @@ public class TestUtil {
         };
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
 
     public static List<Task> generateSampleFloatingTaskData() {
         return Arrays.asList(sampleFloatingTaskData);
@@ -333,27 +318,6 @@ public class TestUtil {
     public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask task) {
         assert card != null;
         return card.isSameFloatingTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

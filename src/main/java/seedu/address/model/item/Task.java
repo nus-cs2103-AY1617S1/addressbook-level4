@@ -408,7 +408,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         
         compareByDateValue = compareThisTaskEndDateToOtherTaskStartDate(other);
         if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
-            // if dates are equal, put the one with start date in front of one with end date
+            // if dates are equal, put the one with start date only in front of one with start and end date
             return THIS_CHRONOLOGICALLY_AFTER_OTHER;
         }
         return compareByDateValue;
@@ -420,7 +420,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
             return compareByDateValue;
         }
-        return compareThisTaskEndDateToOtherTaskEndDate(other);
+        compareByDateValue = compareThisTaskEndDateToOtherTaskEndDate(other);
+        if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            // if dates are equal, put the one with start date and end date in front of the one with end date only
+            return THIS_CHRONOLOGICALLY_BEFORE_OTHER;
+        }
+        return compareByDateValue;
     }
     
     private int compareThisTaskWithStartDateOnlyAndOtherTaskWithStartAndEndDate(Task other) {
@@ -428,8 +433,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (compareByDateValue != THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
             return compareByDateValue;
         }
-
-        return compareThisTaskStartDateToOtherTaskEndDate(other);
+        compareByDateValue = compareThisTaskStartDateToOtherTaskEndDate(other);
+        if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            // if dates are equal, put the one with start date only in front of the one with start and end date
+            return THIS_CHRONOLOGICALLY_BEFORE_OTHER;
+        }
+        return compareByDateValue;
     }
 
     private int compareThisTaskWithEndDateOnlyAndOtherTaskWithStartAndEndDate(Task other) {
@@ -440,6 +449,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
         compareByDateValue = compareThisTaskEndDateToOtherTaskEndDate(other);
         if (compareByDateValue == THIS_CHRONOLOGICALLY_EQUAL_TO_OTHER) {
+            // if dates are equal, put the one with start date and end date in front of the one with end date only
             return THIS_CHRONOLOGICALLY_AFTER_OTHER;
         }
         return compareByDateValue;
