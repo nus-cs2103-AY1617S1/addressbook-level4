@@ -125,12 +125,13 @@ Command | Default Command Word | Shortcuts
 
 **Input of Index**
 * In order to differentiate the indexes of the tasks and events in the command inputs:
+    * Indices are case-insensitive.
     * The index of tasks should be preceded by the letter 't'.
     * The index of events should be preceded by the letter 'e'.
     * Eg:
         * complete **t1**
         * delete **e3**
-    * You will not go wrong if you follow the index that's written under the `No.` column of the tables.
+    * You can't go wrong if you follow the index that's written under the `No.` column of the tables.
 
 <br>
 <br>
