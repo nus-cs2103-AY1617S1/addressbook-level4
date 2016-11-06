@@ -140,6 +140,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTaskListPanel().switchToUndoneTaskListView();
     }
     
+    //@@author 
     @Subscribe
     private void handleSwapTaskListEvent(SwapTaskListEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

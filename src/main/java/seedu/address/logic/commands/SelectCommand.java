@@ -8,7 +8,7 @@ import seedu.address.model.item.ReadOnlyTask;
 
 //@@author A0139498J
 /**
- * Selects a task identified using it's last displayed index from the task manager.
+ * Selects a task identified using its last displayed index from the task manager.
  */
 public class SelectCommand extends Command {
 
@@ -32,12 +32,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-        if (model.isCurrentListDoneList()) {
-            lastShownList = model.getFilteredDoneTaskList();
-        } else {
-            lastShownList = model.getFilteredUndoneTaskList();
-        }
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = getLastShownList();
 
         boolean isTaskTargetIndexOutOfBounds = (lastShownList.size() < targetIndex);
         
@@ -48,7 +43,18 @@ public class SelectCommand extends Command {
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+    }
 
+    /**
+     * Returns the last shown list, depending on whether the current list view
+     * is the done or undone list.
+     */
+    private UnmodifiableObservableList<ReadOnlyTask> getLastShownList() {
+        if (model.isCurrentListDoneList()) {
+            return model.getFilteredDoneTaskList();
+        } else {
+            return model.getFilteredUndoneTaskList();
+        }
     }
 
 }
