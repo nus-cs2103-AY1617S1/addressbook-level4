@@ -321,11 +321,11 @@ The task manager shifts your file from the current storage folder to the newly s
 5| Edit | edit &lt;index&gt; &lt;new_event_description&gt; 
 6| Find | find &lt;keywords&gt; 
 7| Done | done &lt;index&gt;, &lt;index&gt;
-8| Undo | undo &lt;number of times to undo&gt;
-9| Redo | redo &lt;number of times to redo&gt;
+8| list done| list done
+9| list | list
 10| Delete | delete &lt;index&gt;, &lt;index&gt; 
-11| Exit | exit 
-12| help | help 
-13| list | list
-14| list done| list done
+11| Undo | undo &lt;number of times to undo&gt;
+12| Redo | redo &lt;number of times to redo&gt;
+13| Exit | exit 
+14| help | help 
 15| storage| storage &lt;valid file path&gt; 
