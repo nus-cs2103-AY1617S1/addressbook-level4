@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.task.logic.commands.ListCommand;
-import seedu.task.logic.commands.ListEventCommand;
-import seedu.task.logic.commands.ListTaskCommand;
+import seedu.task.logic.parser.ListParser.ListMode;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
+import seedu.taskcommons.core.Status;
 
 //@@author A0144702N
 /**
@@ -23,14 +23,8 @@ import seedu.task.testutil.TestTask;
  * EQ of List Command
  * 	1. /t or /e without /a
  * 	2. /t or /e with /a
- * 
- * Tested Valid Use cases:
- * 	1. /t or /e with /a
- * 	2. /t or /e without /a
- * 
- * Tested Invalid Use Cases:
- * 	1. Both /t /e
- * 	2. No /t /e 
+ * 	3. /t or /e with /a
+ * 	4. /t or /e without /a
  * 
  */
 public class ListCommandTest extends TaskBookGuiTest {
@@ -50,71 +44,78 @@ public class ListCommandTest extends TaskBookGuiTest {
 		incompletedTaskList = td.getTypicalTasks();
 	}
 	
-	
-	@Test
-	public void listTest_invalid() {
-		//empty args
-		commandBox.runCommand("list ");
-		assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-		
-		commandBox.runCommand("list /e /t");
-		assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-		
-		commandBox.runCommand("list /e /t /a");
-		assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-		
-		commandBox.runCommand("list /a");
-		assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-	}
-	
 	@Test
 	public void listTest_valid() {
 		
 		// list events
+		commandBox.runCommand("list /e");
 		assertListEventSuccess(OPTION_NOT_SHOW_ALL, incompletedEventList);
 
 		// list all events
+		commandBox.runCommand("list /e /a");
 		assertListEventSuccess(OPTION_SHOW_ALL, allEventList);
 
 		// list tasks
+		commandBox.runCommand("list /t");
 		assertListTaskSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList);
 
 		// list all tasks
+		commandBox.runCommand("list /t /a");
 		assertListTaskSuccess(OPTION_SHOW_ALL, allTaskList);
+		
+		// list both upcoming tasks and events
+		commandBox.runCommand("list /e /t");
+		assertBothListSuccess(OPTION_NOT_SHOW_ALL, incompletedTaskList, incompletedEventList);
+		
+		commandBox.runCommand("list /t /e /a");
+		assertBothListSuccess(OPTION_SHOW_ALL, allTaskList, allEventList);
+		
+		//flexible sequence of flags
+		commandBox.runCommand("list /e /t /a");
+		assertBothListSuccess(OPTION_SHOW_ALL, allTaskList, allEventList);
+		commandBox.runCommand("list /t /e /a");
+		assertBothListSuccess(OPTION_SHOW_ALL, allTaskList, allEventList);
+		
 	}
+	
+	/********************* Helper Methods **********************/
 
 	private void assertListEventSuccess(boolean showAll, final TestEvent[] currentList) {
 		if (!showAll) {
-			commandBox.runCommand("list /e");
-
 			// confirm result message is correct.
-			assertResultMessage(ListEventCommand.MESSAGE_INCOMPLETED_SUCCESS);
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.EVENT.toString()));
 		} else {
-			commandBox.runCommand("list /e /a");
-
 			// confirm result message is correct.
-			assertResultMessage(ListEventCommand.MESSAGE_ALL_SUCCESS);
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.EVENT.toString()));
 		}
-
 		// confirm the list shows all events not completed.
 		assertTrue(eventListPanel.isListMatching(currentList));
 	}
 
 	private void assertListTaskSuccess(boolean showAll, final TestTask[] currentList) {
 		if (!showAll) {
-			commandBox.runCommand("list /t");
-
 			// confirm result message is correct.
-			assertResultMessage(ListTaskCommand.MESSAGE_INCOMPLETED_SUCCESS);
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.TASK.toString()));
 		} else {
-			commandBox.runCommand("list /t /a");
-
 			// confirm result message is correct.
-			assertResultMessage(ListTaskCommand.MESSAGE_ALL_SUCCESS);
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.TASK.toString()));
 		}
 
 		// confirm the list shows all tasks not completed.
 		assertTrue(taskListPanel.isListMatching(currentList));
+	}
+	
+	private void assertBothListSuccess(boolean showAll, final TestTask[] currentTasks, final TestEvent[] currentEvents) {
+		if (!showAll) {
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListMode.ALL.toString()));
+			assertTrue(eventListPanel.isListMatching(currentEvents));
+			assertTrue(taskListPanel.isListMatching(currentTasks));
+			
+		} else {
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.NONE, ListMode.ALL.toString()));
+			assertTrue(eventListPanel.isListMatching(currentEvents));
+			assertTrue(taskListPanel.isListMatching(currentTasks));
+		}
 	}
 	
 }

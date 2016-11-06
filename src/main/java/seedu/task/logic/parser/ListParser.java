@@ -1,12 +1,10 @@
 package seedu.task.logic.parser;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.ListCommand;
-import seedu.task.logic.commands.ListEventCommand;
-import seedu.task.logic.commands.ListTaskCommand;
+import seedu.taskcommons.core.Status;
+
 //@@author A0144702N
 /**
  * Parses list command argument
@@ -17,28 +15,38 @@ public class ListParser implements Parser {
 
 	@Override
 	public Command prepare(String args) {
-		//empty field is not allowed
-		if (args.isEmpty()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-        }
-
+		
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(taskPresencePrefix, eventPresencePrefix, allPrefix);
 		argsTokenizer.tokenize(args.trim());
 		boolean showEvent = argsTokenizer.hasPrefix(eventPresencePrefix);
 		boolean showTask = argsTokenizer.hasPrefix(taskPresencePrefix);
 		boolean showAll = argsTokenizer.hasPrefix(allPrefix);
-		
-		//list with both flags are not supported
-		if(showEvent && showTask) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
-		}
-		
-		if(showEvent) {
-			return new ListEventCommand(showAll);
-		} else if (showTask) {
-			return new ListTaskCommand(showAll);
+		Status filter = (showAll) ? Status.NONE : Status.INCOMPLETED;
+		if(showEvent && !showTask) {
+			return new ListCommand(ListMode.EVENT, filter);
+		} else if (showTask && !showEvent) {
+			return new ListCommand(ListMode.TASK, filter);
 		} else {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+			return new ListCommand(ListMode.ALL, filter);
 		}
+	}
+	
+	/**
+	 * Represents which list to be listed
+	 * @author xuchen
+	 */
+	public enum ListMode {
+		TASK("tasks"), EVENT("events"), ALL("tasks and events");
+		
+		private final String value;
+		private ListMode(String value) {
+			this.value = value;
+		}
+		@Override
+		
+		public String toString() {
+			return this.value;
+		}
+		
 	}
 }

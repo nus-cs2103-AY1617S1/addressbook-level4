@@ -18,6 +18,7 @@ import seedu.taskcommons.core.LogsCenter;
  */
 public class CalendarCommand extends Command {
 	private final Logger logger = LogsCenter.getLogger(CalendarCommand.class);
+	
 	public static final String COMMAND_WORD = "show";
 	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
 			+ "TIME [/day | /wk]\n" 

@@ -8,6 +8,7 @@ import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
+import seedu.taskcommons.core.Status;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
@@ -63,10 +64,10 @@ public interface Model {
     void showFoundEventList(Set<String> keywords, boolean isPowerFind);
     
     /** Updates the filter of the filtered task list to filter by the status*/
-    void updateFilteredTaskListToShowWithStatus(Boolean statusCompleted);
+    void updateFilteredTaskListToShowWithStatus(Status statusCompleted);
 
     /** Updates the filter of the filtered event list to filter by the status*/
-	void updateFilteredEventListToShowWithStatus(Boolean statusPassed);
+	void updateFilteredEventListToShowWithStatus(Status statusPassed);
 	
 	/** Updates the filter of the filtered event list to show all events*/
 	void updateFilteredEventListToShowAll();

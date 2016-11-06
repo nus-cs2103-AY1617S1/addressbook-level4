@@ -12,12 +12,7 @@
 
 /**Group  10 for tasks undone */
 .group10 { 
-	-fx-background-image: url('/images/clipboard.png');
-    -fx-background-position: right center;
-    -fx-background-image-width: 5px;
-    -fx-background-image-height: 5px;
-  	-fx-background-repeat: no-repeat; 
-	-fx-background-color: transparent;
+	-fx-background-color:#ecf0f1 ;
 	-fx-fill: #AC725E; 
 	-fx-border-width: 5px 0px 5px 0px;
 	-fx-border-color: #c0392b;
@@ -32,7 +27,7 @@
 	-fx-font-family: 'Roboto Bold', Arial, sans-serif;
 	-fx-font-size:20px;
 	-fx-text-fill: #ecf0f1;
-	-fx-background-color:#d35400;
+	-fx-background-color:#c0392b;
 }
 
 .task-panel-header {
@@ -85,23 +80,9 @@
 }
 
 .status-overdue .cell_big_label, .status-overdue .cell_index_label {
-    -fx-text-fill: #c0392b;
+    -fx-text-fill: #e74c3c;
 }
 
-/*
- * 
-.status-overdue .cell_big_label, .status-overdue .cell_index_label {
-    -fx-text-fill:  #34495e;
-}
-
-.status-overdue .cell_desc_label {
-	  -fx-text-fill:  #bdc3c7;
-}
-
-.status-overdue .cell_ddl_label {
-	  -fx-text-fill: #ecf0f1;
-}
-*  */
 
 .tag-selector {
     -fx-border-width: 1;

@@ -32,7 +32,7 @@
 
 .cell_ddl_label {
     -fx-font-size: 11px !important;
-    -fx-text-fill: #2980b9;
+    -fx-text-fill: #e67e22;
     -fx-background-image: url('/images/calendar.png');
     -fx-background-position: left center;
   	-fx-background-repeat: no-repeat;
@@ -118,7 +118,7 @@
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: #ecf0f1;
 }
 
 .split-pane:horizontal .split-pane-divider {

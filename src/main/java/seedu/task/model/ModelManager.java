@@ -22,6 +22,7 @@ import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
 import seedu.taskcommons.core.ComponentManager;
 import seedu.taskcommons.core.LogsCenter;
+import seedu.taskcommons.core.Status;
 import seedu.taskcommons.core.UnmodifiableObservableList;
 
 
@@ -30,9 +31,12 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final boolean INCOMPLETE_STATUS = false;
-
+    private static final Status INCOMPLETE_STATUS = Status.INCOMPLETED;
+    private static final Status COMPLETE_STATUS = Status.COMPLETED;
+    
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+	
 
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
@@ -68,8 +72,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
         
-        updateFilteredEventListToShowWithStatus(false);
-        updateFilteredTaskListToShowWithStatus(false);
+        updateFilteredEventListToShowWithStatus(INCOMPLETE_STATUS);
+        updateFilteredTaskListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }
 
@@ -87,21 +91,21 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
-        updateFilteredTaskListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }
     
     @Override
     public synchronized void deleteEvent(ReadOnlyEvent target) throws EventNotFoundException {
         taskBook.removeEvent(target);
-        updateFilteredEventListToShowWithStatus(false);
+        updateFilteredEventListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }    
     
     @Override
     public synchronized void clearTasks() {
         
-        updateFilteredTaskListToShowWithStatus(true);
+        updateFilteredTaskListToShowWithStatus(COMPLETE_STATUS);
         while(!filteredTasks.isEmpty()){
             ReadOnlyTask task = filteredTasks.get(0);
             try {
@@ -116,7 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void clearEvents() {
-        updateFilteredEventListToShowWithStatus(true);
+        updateFilteredEventListToShowWithStatus(COMPLETE_STATUS);
         while(!filteredEvents.isEmpty()){
             ReadOnlyEvent event = filteredEvents.get(0);
             try {
@@ -132,7 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(ReadOnlyTask target){
         taskBook.markTask(target);
-        updateFilteredTaskListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(INCOMPLETE_STATUS);
         indicateTaskBookChanged();
     }
     
@@ -202,14 +206,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-	public void updateFilteredTaskListToShowWithStatus(Boolean status) {
-		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
-		
+	public void updateFilteredTaskListToShowWithStatus(Status status) {
+    	if(status == Status.NONE) {
+    		updateFilteredTaskListToShowAll();
+    	} else {
+    		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
+    	}
 	}
     
     @Override
-	public void updateFilteredEventListToShowWithStatus(Boolean status) {
-    	updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
+	public void updateFilteredEventListToShowWithStatus(Status status) {
+    	if(status == Status.NONE) {
+    		updateFilteredEventListToShowAll();
+    	} else {
+    		updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));
+    	}
 	}
     
     @Override
@@ -353,8 +364,17 @@ public class ModelManager extends ComponentManager implements Model {
     private class StatusQualifier implements Qualifier {
     	private Boolean status;
     	
-    	StatusQualifier(boolean status){
-    		this.status = status;
+    	StatusQualifier(Status status){
+    		switch(status) {
+    		case COMPLETED:
+    			this.status = true;
+    			break;
+    		case INCOMPLETED:
+    			this.status = false;
+    			break;
+    		default:
+    			this.status = false;
+    		}
     	}
     	
 		@Override
