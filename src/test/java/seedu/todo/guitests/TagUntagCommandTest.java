@@ -151,4 +151,45 @@ public class TagUntagCommandTest extends GuiTest {
                 + TagController.MESSAGE_EXCEED_TAG_SIZE;
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
+    
+    @Test
+    public void tag_invalidIndex_fail() {
+        console.runCommand("tag tmd");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_INDEX_NOT_NUMBER;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void untag_invalidIndex_fail() {
+        console.runCommand("untag tmd");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + UntagController.MESSAGE_INDEX_NOT_NUMBER;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void tag_indexOutOfRange_fail() {
+        console.runCommand("tag 100 incoherent");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_INDEX_OUT_OF_RANGE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void untag_indexOutOfRange_fail() {
+        console.runCommand("untag 100 gah");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + UntagController.MESSAGE_INDEX_OUT_OF_RANGE;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void tag_duplicate_fail() {
+        console.runCommand("tag 1 boogs");
+        console.runCommand("tag 1 boogs");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + TagController.MESSAGE_TAG_NAME_EXIST;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
 }
