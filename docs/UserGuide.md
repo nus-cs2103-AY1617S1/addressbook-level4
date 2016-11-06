@@ -41,7 +41,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 3. Copy the file to the folder you want to use as the home folder for Simply.
 4. Double-click the file to start the app. The GUI should appear as below in a few seconds. 
   
-<img src="images/SimplyLabelled.PNG" width="1000"><br>
+<img src="images/simplySSwithArrows.PNG" width="1000"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -71,7 +71,7 @@ Perhaps after adding a todo, now you want to add a task with a deadline. Let's s
 
 >Format: **add** &lt;deadline description&gt;; &lt;date(DDMMYY)&gt;; &lt;end time&gt; &lt;#tag&gt;
 
-Example: add complete report; 120916; 1900 #YOLO 
+Example: add complete report; 120916; 1900 #anyhowLah 
 <br><br>
 >Important: The date is compulsory when adding an deadline. If end time is not specified, a default of 11.59pm on the entered date is set.
 
@@ -93,7 +93,7 @@ Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPres
 <br>
 ####1.4 Add a tag / multiple tags to existing tasks
 
-Now, that report due on Monday has become a very important task that you absolutely have to do. Simply type add followed by the index of the report and the tags to be added and <kbd>Enter</kbd>.
+You suddenly heard from your friend that if you submit the report due on Monday late, your teacher would have a very "nice" surprise waiting for these students. Now that the report due on Monday has become a very important task to do, simply type add followed by the index of the report and the tags to be added and <kbd>Enter</kbd>.
 
 >Format: **add** &lt;index&gt; #tag1 #tag2
 
@@ -103,18 +103,20 @@ Example: Add D1 #VeryImportant #omg
 
 ###2 Edit a task
 
-When you accidentally enter the wrong details on any of your tasks, worry not. The multiple edit task methods listed below allow you to update specific task details.
+When you accidentally enter the wrong details for any of your tasks, worry not. The multiple edit task methods listed below allow you to update specific task details.
 <br><br>
->Note: Adding a end time to a to-do will automatically convert your to-do into a deadline.
+>Note: Adding a end time to a to-do will automatically convert your to-do into a deadline due today with the specified end time.
 
 >Note: Adding a start time to a deadline will automatically convert a deadline to an event.
 
->Note: Add a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
+>Note: Adding a date to a to-do will automatically convert your to-do into a deadline with a default end time of 2359 on that date.
+
+>Note: Removing
 
 <br>
 ####2.1 Edit task description
 
-Remember that birthday party previously entered? Perhaps now instead of entering Sam's birthday party, you want to change the description to Samantha's birthdday party. To do so, simply follow the command format below.
+Remember the birthday party previously entered? Perhaps now instead of entering Sam's birthday party, you want to change the description to Samantha's birthday party. To do so, simply follow the command format below.
 
 >Format: **edit** &lt;index&gt; **des** &lt;description&gt;
 
@@ -140,12 +142,12 @@ Samantha's birthday party is tomorrow and she has called to inform you that her 
 
 Example: edit E1 start 5pm
 <br><br>
->Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today and start time as entered. 
+>Note: Adding a start time to a to-do will automatically convert your to-do into an event with a default day of today, with a default end time of 2359 and start time as entered. 
 
 <br>
 ####2.4 Edit task end time 
 
-Samantha has also informed her friends that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following and <kbd>Enter</kbd>.
+Samantha has also you that the party is scheduled to end at 11pm, so that they know when to get their parents to pick them up. To update the end time, type the following and <kbd>Enter</kbd>.
 
 >Format: **edit** &lt;index&gt; **end** &lt;end time&gt;
 
@@ -160,14 +162,14 @@ You have been very busy and forgot to buy Samantha's present so you want to remi
 
 You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag with the following command.
 
->Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt; ***>*** &lt;new_tag&gt;
+>Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt;<b>></b>&lt;new_tag&gt;
 
-Example: edit E1 #rememberToBuyPresent > #AbsolutelyRememberToBuyPresent
+Example: edit E1 #rememberToBuyPresent<b>></b>#AbsolutelyRememberToBuyPresent
 <br><br>
  
 ###3 Find Task by Keyword
 
-The find by keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply by partial keyword. If the searched task is not found, an error message will be shown.
+The find by keyword command enables you to search for any events, deadlines and to-dos that have been added to Simply by partial keyword. If the searched task is not found, an error message will be shown.
 
 > Format: **Find** &lt;keyword&gt;
 
