@@ -149,7 +149,7 @@
 .cell_small_label {
     -fx-font-size: 14px;
     -fx-text-fill: #757575;
-    -fx-font-family: "Roboto Thin";
+    -fx-font-family: "Roboto";
 }
 
 .anchor-pane {
