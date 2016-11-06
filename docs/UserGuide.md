@@ -66,7 +66,9 @@ Command | Format
 [Show](#show) | `show SECTION`
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
-[Find](#find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]"`
+&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME`
+&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME to DATE_TIME`
 [SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
