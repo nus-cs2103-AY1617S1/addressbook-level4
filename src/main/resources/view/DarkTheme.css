@@ -1,6 +1,8 @@
 /*@@author A0143641M */
 .root {
 	main-bg-color: white;
+	main-bg-color: #F5F5F5;
+	main-border-color: derive(#1d1d1d, 90%);
 }
 /*@@author */
 
@@ -210,12 +212,10 @@
     -fx-background-color: "#2daeff";
 }
 
-
 .menu-item:focused {
      -fx-background-color: "#2daeff";
      -fx-text-fill: white;
 }
-
 /*@@author */
 
 .menu-bar .label {
@@ -334,7 +334,7 @@
 
 #commandTypeLabel {
     -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+    -fx-text-fill: #1d1d1d;
 }
 
 #filterField, #taskListPanel, #taskWebpage {
