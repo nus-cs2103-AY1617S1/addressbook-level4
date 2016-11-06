@@ -28,8 +28,10 @@
     4. [Appendix D: Glossary](#74-appendix-d--glossary)
     5. [Appendix E : Product Survey](#75-appendix-e--product-survey)
 
+<!-- @@author A0135812L -->
 ## 1. Introduction
 Welcome to the developer guide for SmartyDo. This guide is meant to enable budding developers like yourself to better understand the implementation of our program. Through this guide, we hope that you will be able to learn not only about how SmartyDo is implemented, but about different parts of the application that you are able to improve yourself.
+<!-- @@author A0135812L -->
 
 ## 2. Setting up
 
@@ -274,6 +276,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
   
 ## 7. Appendix
+<!-- @@author A0121261Y -->
 
 ## 7.1 Appendix A : User Stories
 
@@ -292,6 +295,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user with many uncofirmed events | allocate timeslots for tentative meetings/tasks | avoid having plans that might conflict with unconfirmed plans
 `* *` | user | undo  1 previous operation | remove commands executed by accident   
 `* *` | user | specify a target folder as the data storage location | synchronise file with other applications
+<!-- @@author -->
 
 <!-- @@author A0126649W -->
 ## 7.2 Appendix B : Use Cases
@@ -465,7 +469,9 @@ Use case ends.
 1a. The `file path` is invalid
 
 > Use case ends
+<!-- @@author -->
 
+<!-- @@author A0135812L -->
 ## 7.3 Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
