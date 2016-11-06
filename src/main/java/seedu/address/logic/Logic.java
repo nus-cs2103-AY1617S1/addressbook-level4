@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
@@ -17,6 +18,9 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered list of aliases */
+    ObservableList<ReadOnlyAlias> getFilteredAliasList();
 
     //@@author A0142184L
     /** Returns the list of all non-done tasks (not-done and overdue tasks) */

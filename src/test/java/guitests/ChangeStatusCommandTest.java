@@ -35,7 +35,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		// mark index out of bound
 		command = "done 9";
 		commandBox.runCommand(command);
-		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		String message = Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 		assertResultMessage(message);
 	}
 
@@ -55,7 +55,7 @@ public class ChangeStatusCommandTest extends TaskManagerGuiTest {
 		// mark index out of bound
 		command = "pending 0";
 		commandBox.runCommand(command);
-		String message = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+		String message = Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 		assertResultMessage(message);
 	}
 

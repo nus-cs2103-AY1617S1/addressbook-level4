@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteAliasCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -37,7 +38,9 @@ public class ParserTest {
 	private final RedoCommand redoCommand;
 	private final AddAliasCommand addAliasCommand;
 	private final ListAliasCommand listAliasCommand;
+	private final DeleteAliasCommand deleteAliasCommand;
 	private final TabCommand tabCommand;
+	
 	
 	public ParserTest() throws IllegalValueException {
 		parser = new Parser(new ModelManager());
@@ -53,6 +56,7 @@ public class ParserTest {
 		redoCommand = new RedoCommand();
 		addAliasCommand = new AddAliasCommand("ld", "list done");
 		listAliasCommand = new ListAliasCommand();
+		deleteAliasCommand = new DeleteAliasCommand(new int[]{1});
 		tabCommand = new TabCommand(TabCommand.TabName.WEEK);
 	}
 	
@@ -182,7 +186,7 @@ public class ParserTest {
 		
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
-	//@@author
+	//@@author A0141019U
 	
 	/*
 	 * Tests for the `add deadline` command
@@ -323,6 +327,36 @@ public class ParserTest {
 		assertEquals(listCommand.getClass(), command.getClass());
 	}
 	
+	//@@author A0143756Y
+	/*
+	 * Tests for the `list-alias` command
+	 */
+	@Test
+	public void parseCommand_listAliasInvalidArgs_incorrectCommandReturned() {
+		String userInput = "list alias";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listAliasValid_listAliasCommandReturned() {
+		String userInput = "list-alias";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(listAliasCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_listAliasValid2_listAliasCommandReturned() {
+		String userInput = " list-alias ";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(listAliasCommand.getClass(), command.getClass());
+	}
+			
+	//@@author A0141019U
+	
 	/*
 	 * Tests for the `del` command
 	 */
@@ -366,6 +400,52 @@ public class ParserTest {
 		assertEquals(deleteCommand.getClass(), command.getClass());
 	}
 
+	//@@author A0143756Y
+	/*
+	 * Tests for the `del-alias` command
+	 */
+	@Test
+	public void parseCommand_delAliasNonIntegerIndex_incorrectCommandReturned() {
+		String userInput = "del-alias 1 r 5";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delAliasNegativeIndex_incorrectCommandReturned() {
+		String userInput = "del-alias -3";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delAliasZeroIndex_incorrectCommandReturned() {
+		String userInput = "del-alias 0";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delAliasValidIndex_deleteAliasCommandReturned() {
+		String userInput = "del-alias 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(deleteAliasCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_delAliasValidIndices_deleteAliasCommandReturned() {
+		String userInput = "del-alias 3 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(deleteAliasCommand.getClass(), command.getClass());
+	}
+	
+	//@@author A0141019U
+	
 	/*
 	 * Tests for the `done` and `pending` commands
 	 */

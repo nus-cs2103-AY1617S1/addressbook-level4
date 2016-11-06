@@ -70,7 +70,7 @@ public class EditCommand extends Command {
         if (lastShownList.size() < targetIndex) {
             model.undoSaveState();
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);

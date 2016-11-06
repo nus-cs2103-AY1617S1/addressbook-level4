@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
@@ -25,6 +25,7 @@ import seedu.address.logic.commands.AddAliasCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteAliasCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ChangeStatusCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -131,6 +132,9 @@ public class Parser {
 			
 		case ListAliasCommand.COMMAND_WORD:
 			return new ListAliasCommand();
+			
+		case DeleteAliasCommand.COMMAND_WORD:
+			return prepareDeleteAlias(arguments);
 			
 		case TabCommand.COMMAND_WORD:
 			return prepareTabCommand(arguments);
@@ -514,7 +518,7 @@ public class Parser {
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
 	//@@author
-	
+
 	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
@@ -552,7 +556,7 @@ public class Parser {
 		return new ChangeStatusCommand(doneIndices, newStatus);
 	}
 	
-	//@@author A0143756Y
+	//@@author A0143756Y-reused
 	/**
      * Parses arguments in the context of the set alias task command.
      *
@@ -571,6 +575,22 @@ public class Parser {
         
         return new AddAliasCommand(alias, originalPhrase);
     }
+    
+	/**
+	 * @param a valid argument is one or more integers separated by spaces, corresponding to aliases
+	 * displayed on the screen.
+	 * @return a DeleteAliasCommand if the argument string is valid, IncorrectCommand otherwise.
+	 */
+	private Command prepareDeleteAlias(String arguments) {
+		int[] indices;
+		try {
+			indices = parseIndices(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
+		return new DeleteAliasCommand(indices);
+	}
+	//@@author
     
     
 	//@@author A0141019U
@@ -611,7 +631,7 @@ public class Parser {
 			String index = indexStrings[i].trim();
 			
 			if (!StringUtil.isUnsignedInteger(index)) {
-				throw new IllegalArgumentException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+				throw new IllegalArgumentException(MESSAGE_INVALID_DISPLAYED_INDEX);
 			}
 			else {
 				indices[i] = Integer.parseInt(index);
