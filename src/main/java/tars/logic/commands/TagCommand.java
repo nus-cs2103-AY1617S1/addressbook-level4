@@ -21,6 +21,10 @@ import tars.ui.formatter.Formatter;
  */
 public class TagCommand extends UndoableCommand {
 
+    private static final int TAG_SECOND_INDEX = 1;
+
+    private static final int TAG_FIRST_INDEX = 0;
+
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE =
@@ -81,8 +85,8 @@ public class TagCommand extends UndoableCommand {
 
     private CommandResult executeEditTag() throws DuplicateTagException,
             IllegalValueException, TagNotFoundException {
-        int targetedIndex = Integer.parseInt(args[0]);
-        String newTagName = args[1];
+        int targetedIndex = Integer.parseInt(args[TAG_FIRST_INDEX]);
+        String newTagName = args[TAG_SECOND_INDEX];
 
         if (isInValidIndex(targetedIndex)) {
             return new CommandResult(
@@ -90,7 +94,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeRenamed = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         newTag = new Tag(newTagName);
         model.renameTasksWithNewTag(toBeRenamed, newTag);
 
@@ -102,7 +106,7 @@ public class TagCommand extends UndoableCommand {
 
     private CommandResult executeDeleteTag() throws DuplicateTagException,
             IllegalValueException, TagNotFoundException {
-        int targetedIndex = Integer.parseInt(args[0]);
+        int targetedIndex = Integer.parseInt(args[TAG_FIRST_INDEX]);
 
         if (isInValidIndex(targetedIndex)) {
             return new CommandResult(
@@ -110,7 +114,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeDeleted = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         editedTaskList = model.removeTagFromAllTasks(toBeDeleted);
 
         model.getUndoableCmdHist().push(this);

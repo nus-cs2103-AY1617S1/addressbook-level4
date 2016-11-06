@@ -1,3 +1,4 @@
+
 package tars.ui.formatter;
 
 import java.time.LocalDateTime;
@@ -12,18 +13,19 @@ import tars.model.task.DateTime;
  * @@author A0139924W
  */
 public class DateFormatter {
+    private static final String DATE_FORMAT_DASH = " - ";
     private static final DateTimeFormatter DATE_FORMAT =
-            DateTimeFormatter.ofPattern("E, MMM dd");
+            DateTimeFormatter.ofPattern("E, MMM dd yyyy");
     private static final DateTimeFormatter TIME_FORMAT =
             DateTimeFormatter.ofPattern("hh:mm a");
     private static final DateTimeFormatter NORMAL_DATETIME_FORMAT =
-            DateTimeFormatter.ofPattern("E, MMM dd hh:mm a");
-    private static final DateTimeFormatter NORMAL_DATE_DIFF_YEAR_FORMAT =
             DateTimeFormatter.ofPattern("E, MMM dd yyyy hh:mm a");
+    private static final DateTimeFormatter SAME_DAY_DATE_FORMAT =
+            DateTimeFormatter.ofPattern("ddMMyyyy");
 
     private static final String TODAY_PREFIX_TEXT = "Today at ";
     private static final String TOMORROW_PREFIX_TEXT = "Tomorrow at ";
-    
+
     public static String formatDate(DateTime dateTime) {
         LocalDateTime startDateTime = dateTime.getStartDate();
         LocalDateTime endDateTime = dateTime.getEndDate();
@@ -45,25 +47,20 @@ public class DateFormatter {
             return TODAY_PREFIX_TEXT + TIME_FORMAT.format(firstDate);
         } else if (isTomorrow(firstDate)) {
             return TOMORROW_PREFIX_TEXT + TIME_FORMAT.format(firstDate);
-        } else if(isSameYear(firstDate, LocalDateTime.now())){
-            return NORMAL_DATETIME_FORMAT.format(firstDate);
         } else {
-            return NORMAL_DATE_DIFF_YEAR_FORMAT.format(firstDate);
+            return NORMAL_DATETIME_FORMAT.format(firstDate);
         }
     }
 
     public static String generateDateRangeFormat(LocalDateTime firstDate,
             LocalDateTime secondDate) {
         if (isSameDay(firstDate, secondDate)) {
-            return DATE_FORMAT.format(firstDate) + " "
-                    + TIME_FORMAT.format(firstDate) + " - "
+            return DATE_FORMAT.format(firstDate) + StringUtil.STRING_WHITESPACE
+                    + TIME_FORMAT.format(firstDate) + DATE_FORMAT_DASH
                     + TIME_FORMAT.format(secondDate);
-        } else if (isSameYear(firstDate, secondDate)) {
-            return NORMAL_DATETIME_FORMAT.format(firstDate) + " - "
-                    + NORMAL_DATETIME_FORMAT.format(secondDate);
         } else {
-            return NORMAL_DATE_DIFF_YEAR_FORMAT.format(firstDate) + " - "
-                    + NORMAL_DATE_DIFF_YEAR_FORMAT.format(secondDate);
+            return NORMAL_DATETIME_FORMAT.format(firstDate) + DATE_FORMAT_DASH
+                    + NORMAL_DATETIME_FORMAT.format(secondDate);
         }
     }
 
@@ -77,17 +74,8 @@ public class DateFormatter {
 
     private static boolean isSameDay(LocalDateTime firstDate,
             LocalDateTime secondDate) {
-        DateTimeFormatter sameDayDateFormat =
-                DateTimeFormatter.ofPattern("ddMMyyyy");
-        return sameDayDateFormat.format(firstDate)
-                .equals(sameDayDateFormat.format(secondDate));
+        return SAME_DAY_DATE_FORMAT.format(firstDate)
+                .equals(SAME_DAY_DATE_FORMAT.format(secondDate));
     }
 
-    private static boolean isSameYear(LocalDateTime firstDate,
-            LocalDateTime secondDate) {
-        DateTimeFormatter sameDayDateFormat =
-                DateTimeFormatter.ofPattern("yyyy");
-        return sameDayDateFormat.format(firstDate)
-                .equals(sameDayDateFormat.format(secondDate));
-    }
 }

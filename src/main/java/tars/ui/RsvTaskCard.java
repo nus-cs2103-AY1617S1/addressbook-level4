@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import tars.commons.util.StringUtil;
 import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
 import tars.ui.formatter.Formatter;
@@ -22,6 +23,8 @@ import tars.ui.formatter.Formatter;
  */
 public class RsvTaskCard extends UiPart {
 
+    private static final int PREF_SIZE_HEIGHT = 75;
+    private static final int PREF_SIZE_WIDTH = 200;
     private static final String DATE_TIME_LIST_AREA = "dateTimeListArea";
     private static final String FXML = "RsvTaskListCard.fxml";
     private static final String DATETIMELIST_ID = "dateTimeList";
@@ -29,7 +32,8 @@ public class RsvTaskCard extends UiPart {
     private TextArea dateTimeListArea;
     private AnchorPane dateTimeListPane;
 
-    private StringProperty dateTimeListdisplayed = new SimpleStringProperty("");
+    private StringProperty dateTimeListdisplayed =
+            new SimpleStringProperty(StringUtil.EMPTY_STRING);
 
     @FXML
     private HBox cardPane;
@@ -58,7 +62,7 @@ public class RsvTaskCard extends UiPart {
     @FXML
     public void initialize() {
         name.setText(rsvTask.getName().taskName);
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + StringUtil.STRING_FULLSTOP);
         setDateTimeList();
         configure();
     }
@@ -70,7 +74,7 @@ public class RsvTaskCard extends UiPart {
         dateTimeListArea.getStyleClass().removeAll();
         dateTimeListArea.getStyleClass().add(DATE_TIME_LIST_AREA);
         dateTimeListArea.setWrapText(true);
-        dateTimeListArea.setPrefSize(200, 75);
+        dateTimeListArea.setPrefSize(PREF_SIZE_WIDTH, PREF_SIZE_HEIGHT);
         dateTimeListArea.textProperty().bind(dateTimeListdisplayed);
         dateTimeListArea.autosize();
 

@@ -11,6 +11,9 @@ import java.io.FileNotFoundException;
  * Stores TARS data in an XML file
  */
 public class XmlFileStorage {
+    private static String MESSAGE_UNEXPECTED_EXCEPTION =
+            "Unexpected exception %s";
+
     /**
      * Saves the given TARS data to the specified file.
      */
@@ -19,15 +22,16 @@ public class XmlFileStorage {
         try {
             XmlUtil.saveDataToFile(file, tars);
         } catch (JAXBException e) {
-            assert false : "Unexpected exception " + e.getMessage();
+            assert false : String.format(MESSAGE_UNEXPECTED_EXCEPTION,
+                    e.getMessage());
         }
     }
 
     /**
      * Returns address book in the file or an empty address book
      */
-    public static XmlSerializableTars loadDataFromSaveFile(File file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static XmlSerializableTars loadDataFromSaveFile(File file)
+            throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableTars.class);
         } catch (JAXBException e) {

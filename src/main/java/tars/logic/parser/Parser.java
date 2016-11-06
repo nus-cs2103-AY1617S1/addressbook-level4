@@ -33,6 +33,10 @@ import tars.logic.commands.UndoCommand;
  */
 public class Parser {
 
+    private static final String PARSER_MATCHER_ARGUMENTS = "arguments";
+
+    private static final String PARSER_MATCHER_COMMANDWORD = "commandWord";
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -53,9 +57,12 @@ public class Parser {
         commandParserMap.put(AddCommand.COMMAND_WORD, AddCommandParser.class);
         commandParserMap.put(RsvCommand.COMMAND_WORD, RsvCommandParser.class);
         commandParserMap.put(EditCommand.COMMAND_WORD, EditCommandParser.class);
-        commandParserMap.put(DeleteCommand.COMMAND_WORD, DeleteCommandParser.class);
-        commandParserMap.put(ConfirmCommand.COMMAND_WORD, ConfirmCommandParser.class);
-        commandParserMap.put(ClearCommand.COMMAND_WORD, ClearCommandParser.class);
+        commandParserMap.put(DeleteCommand.COMMAND_WORD,
+                DeleteCommandParser.class);
+        commandParserMap.put(ConfirmCommand.COMMAND_WORD,
+                ConfirmCommandParser.class);
+        commandParserMap.put(ClearCommand.COMMAND_WORD,
+                ClearCommandParser.class);
         commandParserMap.put(FindCommand.COMMAND_WORD, FindCommandParser.class);
         commandParserMap.put(ListCommand.COMMAND_WORD, ListCommandParser.class);
         commandParserMap.put(UndoCommand.COMMAND_WORD, UndoCommandParser.class);
@@ -78,19 +85,20 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String commandWord = matcher.group(PARSER_MATCHER_COMMANDWORD);
+        final String arguments = matcher.group(PARSER_MATCHER_ARGUMENTS);
 
         if (!commandParserMap.containsKey(commandWord)) {
             return new IncorrectCommandParser().prepareCommand(arguments);
         }
 
         try {
-            return commandParserMap.get(commandWord).newInstance().prepareCommand(arguments);
+            return commandParserMap.get(commandWord).newInstance()
+                    .prepareCommand(arguments);
         } catch (Exception ex) {
             return new IncorrectCommandParser().prepareCommand(arguments);
         }

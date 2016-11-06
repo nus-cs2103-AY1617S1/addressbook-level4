@@ -28,6 +28,8 @@ import tars.logic.commands.RsvCommand;
  */
 public class MainWindowEventsHandler {
 
+    private static String LOG_MESSAGE_COMMAND_DETECTED = "%s command detected.";
+
     private double xOffset = 0;
     private double yOffset = 0;
     private final Logger logger = LogsCenter.getLogger(MainWindow.class);
@@ -93,8 +95,8 @@ public class MainWindowEventsHandler {
     @Subscribe
     private void CommandBoxTextFieldValueChangedEventHandler(
             CommandBoxTextFieldValueChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                event.getTextFieldValue() + " command detected."));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, String.format(
+                LOG_MESSAGE_COMMAND_DETECTED, event.getTextFieldValue())));
         if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD) || event
                 .getTextFieldValue().equals(ConfirmCommand.COMMAND_WORD)) {
             tabPane.getSelectionModel()
@@ -128,6 +130,5 @@ public class MainWindowEventsHandler {
         tabPane.getSelectionModel()
                 .select(MainWindow.HELP_PANEL_TAB_PANE_INDEX);
     }
-    // @@author
 
 }

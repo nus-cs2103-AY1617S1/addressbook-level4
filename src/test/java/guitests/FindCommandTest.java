@@ -10,28 +10,32 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * GUI test for find command
+ * 
+ * @@author A0124333U
+ */
 public class FindCommandTest extends TarsGuiTest {
 
-    // @@author A0124333U
     @Test
     public void find_quickSearch_nonEmptyList() {
         assertFindResultForQuickSearch("find Meeting"); // no results
         assertFindResultForQuickSearch("find Task B", td.taskB); // single result
-        assertFindResultForQuickSearch("find Task", td.taskA, td.taskB, td.taskC, td.taskD, td.taskE, td.taskF, td.taskG); // multiple
-                                                                                                             // results
+        assertFindResultForQuickSearch("find Task", td.taskA, td.taskB,
+                td.taskC, td.taskD, td.taskE, td.taskF, td.taskG); // multiple results
 
         // find after deleting one result
         commandBox.runCommand("del 1");
         assertFindResultForQuickSearch("find A");
     }
-    
+
     @Test
     public void find_filterSearch_nonEmptyList() {
-        assertFindResultForFilterSearch("find /n Task B", td.taskB); // single result                                                                                                    // results
+        assertFindResultForFilterSearch("find /n Task B", td.taskB); // single result
 
         // find after deleting one result
         commandBox.runCommand("del 1");
-        assertFindResultForFilterSearch("find /n Task B"); //no results
+        assertFindResultForFilterSearch("find /n Task B"); // no results
     }
 
     @Test
@@ -46,27 +50,30 @@ public class FindCommandTest extends TarsGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResultForQuickSearch(String command, TestTask... expectedHits) {
+    private void assertFindResultForQuickSearch(String command,
+            TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
 
         String[] keywordsArray = command.split("\\s+");
-        ArrayList<String> keywordsList = new ArrayList<String>(Arrays.asList(keywordsArray));
+        ArrayList<String> keywordsList =
+                new ArrayList<String>(Arrays.asList(keywordsArray));
         keywordsList.remove(0);
 
-        assertResultMessage(
-                expectedHits.length + " tasks listed!\n" + "Quick Search Keywords: " + keywordsList.toString());
+        assertResultMessage(expectedHits.length + " tasks listed!\n"
+                + "Quick Search Keywords: " + keywordsList.toString());
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
-    
-    private void assertFindResultForFilterSearch(String command, TestTask... expectedHits) {
+
+    private void assertFindResultForFilterSearch(String command,
+            TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
 
         String keywordString = "[Task Name: Task B] ";
 
-        assertResultMessage(
-                expectedHits.length + " tasks listed!\n" + "Filter Search Keywords: " + keywordString);
+        assertResultMessage(expectedHits.length + " tasks listed!\n"
+                + "Filter Search Keywords: " + keywordString);
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

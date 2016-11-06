@@ -16,45 +16,55 @@ import java.util.logging.Logger;
  */
 public class XmlTarsStorage implements TarsStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlTarsStorage.class);
+    private static final Logger logger =
+            LogsCenter.getLogger(XmlTarsStorage.class);
+
+    private static String LOG_MESSAGE_TARS_FILE_NOT_FOUND =
+            "Tars file %s not found";
 
     private String filePath;
 
-    public XmlTarsStorage(String filePath){
+    public XmlTarsStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getTarsFilePath(){
+    public String getTarsFilePath() {
         return filePath;
     }
 
     /**
      * Similar to {@link #readTars()}
+     * 
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyTars> readTars(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTars> readTars(String filePath)
+            throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File tarsFile = new File(filePath);
 
         if (!tarsFile.exists()) {
-            logger.info("Tars file "  + tarsFile + " not found");
+            logger.info(
+                    String.format(LOG_MESSAGE_TARS_FILE_NOT_FOUND, tarsFile));
             return Optional.empty();
         }
 
-        ReadOnlyTars tarsOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyTars tarsOptional =
+                XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(tarsOptional);
     }
 
     /**
      * Similar to {@link #saveTars(ReadOnlyTars)}
+     * 
      * @param filePath location of the data. Cannot be null
      */
-    public void saveTars(ReadOnlyTars tars, String filePath) throws IOException {
+    public void saveTars(ReadOnlyTars tars, String filePath)
+            throws IOException {
         assert tars != null;
-        assert filePath != null;        
+        assert filePath != null;
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
@@ -62,7 +72,8 @@ public class XmlTarsStorage implements TarsStorage {
     }
 
     @Override
-    public Optional<ReadOnlyTars> readTars() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTars> readTars()
+            throws DataConversionException, IOException {
         return readTars(filePath);
     }
 

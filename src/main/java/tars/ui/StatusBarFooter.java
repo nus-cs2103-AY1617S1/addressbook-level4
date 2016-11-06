@@ -23,6 +23,16 @@ import tars.commons.util.StringUtil;
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart {
+    private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
+    private static final String SYNC_STATUS_NO_UPDATE =
+            "Not updated yet in this session";
+    private static final String SYNC_STATUS_UPDATE_INFO = "Last Updated: %s";
+    private static final String LOG_MESSAGE_SETTINGS_LAST_UPDATE =
+            "Setting last updated status to %s";
+    private static final String LOG_MESSAGE_STORAGE_LOCATION_CHANGED =
+            "Storage Location Changed: %s";
+    private static String STORAGE_DIRECTORY_INFO = "Storage Directory: %s";
+
     private static final Logger logger =
             LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar syncStatus;
@@ -54,14 +64,16 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
+        setSyncStatus(SYNC_STATUS_NO_UPDATE);
         addSaveLocation();
-        setSaveLocation("Storage Directory: " + saveLocation);
+        setSaveLocation(String.format(STORAGE_DIRECTORY_INFO, saveLocation));
         registerAsAnEventHandler(this);
     }
 
     private void addMainPane() {
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         placeHolder.getChildren().add(mainPane);
     }
 
@@ -75,8 +87,9 @@ public class StatusBarFooter extends UiPart {
         this.saveLocationLabel = new Label();
         this.saveLocationStatus.setText(StringUtil.EMPTY_STRING);
         this.saveLocationStatus.getRightItems().add(saveLocationLabel);
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0,
-                0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
 
@@ -89,8 +102,9 @@ public class StatusBarFooter extends UiPart {
         this.syncStatusLabel = new Label();
         this.syncStatus.setText(StringUtil.EMPTY_STRING);
         this.syncStatus.getLeftItems().add(syncStatusLabel);
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0,
-                0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(syncStatus,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         syncStatusBarPane.getChildren().add(syncStatus);
     }
 
@@ -115,8 +129,8 @@ public class StatusBarFooter extends UiPart {
     public void handleTarsChangedEvent(TarsChangedEvent event) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Setting last updated status to " + lastUpdated));
-        setSyncStatus("Last Updated: " + lastUpdated);
+                String.format(LOG_MESSAGE_SETTINGS_LAST_UPDATE, lastUpdated)));
+        setSyncStatus(String.format(SYNC_STATUS_UPDATE_INFO, lastUpdated));
     }
 
     // @@author A0124333U
@@ -124,6 +138,7 @@ public class StatusBarFooter extends UiPart {
     private void handleTarsStorageChangeDirectoryEvent(
             TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setSaveLocation("Storage Location Changed: " + event.getNewFilePath());
+        setSaveLocation(String.format(LOG_MESSAGE_STORAGE_LOCATION_CHANGED,
+                event.getNewFilePath()));
     }
 }

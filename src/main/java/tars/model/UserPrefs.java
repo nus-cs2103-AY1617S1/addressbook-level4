@@ -9,6 +9,10 @@ import tars.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
+    private static final int GUI_SETTINGS_DEFAULT_Y_POSITION = 0;
+    private static final int GUI_SETTINGS_DEFAULT_X_POSITION = 0;
+    private static final int GUI_SETTINGS_DEFAULT_HEIGHT = 500;
+    private static final int GUI_SETTINGS_DEFAULT_WIDTH = 500;
     public GuiSettings guiSettings;
 
     public GuiSettings getGuiSettings() {
@@ -20,7 +24,9 @@ public class UserPrefs {
     }
 
     public UserPrefs(){
-        this.setGuiSettings(500, 500, 0, 0);
+        this.setGuiSettings(GUI_SETTINGS_DEFAULT_WIDTH,
+                GUI_SETTINGS_DEFAULT_HEIGHT, GUI_SETTINGS_DEFAULT_X_POSITION,
+                GUI_SETTINGS_DEFAULT_Y_POSITION);
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {

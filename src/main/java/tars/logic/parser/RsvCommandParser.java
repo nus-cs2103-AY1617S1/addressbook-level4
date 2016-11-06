@@ -27,12 +27,13 @@ public class RsvCommandParser extends CommandParser {
     @Override
     public Command prepareCommand(String args) {
         // there is no arguments
-        if (args.trim().length() == 0) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
+        if (args.trim().isEmpty()) {
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
 
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dateTimePrefix, deletePrefix);
+        ArgumentTokenizer argsTokenizer =
+                new ArgumentTokenizer(dateTimePrefix, deletePrefix);
         argsTokenizer.tokenize(args);
 
         if (argsTokenizer.getValue(deletePrefix).isPresent()) {
@@ -45,25 +46,29 @@ public class RsvCommandParser extends CommandParser {
     // Parses arguments for adding a reserved task
     private Command prepareRsvAdd(ArgumentTokenizer argsTokenizer) {
         if (!argsTokenizer.getValue(dateTimePrefix).isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RsvCommand.MESSAGE_DATETIME_NOT_FOUND));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            RsvCommand.MESSAGE_DATETIME_NOT_FOUND));
         }
 
         Set<String[]> dateTimeStringSet = new HashSet<>();
 
         try {
-            for (String dateTimeString : argsTokenizer.getMultipleValues(dateTimePrefix).get()) {
-                dateTimeStringSet.add(DateTimeUtil.parseStringToDateTime(dateTimeString));
+            for (String dateTimeString : argsTokenizer
+                    .getMultipleValues(dateTimePrefix).get()) {
+                dateTimeStringSet.add(
+                        DateTimeUtil.parseStringToDateTime(dateTimeString));
             }
 
-            return new RsvCommand(argsTokenizer.getPreamble().get(), dateTimeStringSet);
+            return new RsvCommand(argsTokenizer.getPreamble().get(),
+                    dateTimeStringSet);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         } catch (NoSuchElementException nse) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(
+                    MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
     }
 
@@ -71,15 +76,18 @@ public class RsvCommandParser extends CommandParser {
     private Command prepareRsvDel(ArgumentTokenizer argsTokenizer) {
         try {
             if (argsTokenizer.getPreamble().isPresent()) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        RsvCommand.MESSAGE_USAGE_DEL));
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                RsvCommand.MESSAGE_USAGE_DEL));
             }
 
-            String rangeIndex = StringUtil.indexString(argsTokenizer.getValue(deletePrefix).get());
+            String rangeIndex = StringUtil
+                    .indexString(argsTokenizer.getValue(deletePrefix).get());
             return new RsvCommand(rangeIndex);
         } catch (InvalidRangeException | IllegalValueException ie) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            RsvCommand.MESSAGE_USAGE_DEL));
         }
     }
 

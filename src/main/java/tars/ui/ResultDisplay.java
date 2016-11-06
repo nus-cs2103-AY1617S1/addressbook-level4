@@ -12,6 +12,7 @@ import tars.commons.util.FxViewUtil;
  * A ui for the results display that is displayed above the command box of the application.
  */
 public class ResultDisplay extends UiPart {
+    private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String RESULT_DISPLAY_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
@@ -39,10 +40,13 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.getStyleClass().add(RESULT_DISPLAY_STYLE_SHEET);
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
-        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0,
-                0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         mainPane.getChildren().add(resultDisplayArea);
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         placeHolder.getChildren().add(mainPane);
     }
 

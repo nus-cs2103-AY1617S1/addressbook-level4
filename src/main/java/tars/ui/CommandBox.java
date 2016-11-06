@@ -17,6 +17,7 @@ import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.IncorrectCommandAttemptedEvent;
 import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.commons.util.FxViewUtil;
+import tars.commons.util.StringUtil;
 import tars.logic.Logic;
 import tars.logic.commands.CommandResult;
 import tars.logic.commands.ConfirmCommand;
@@ -28,8 +29,13 @@ import java.util.Stack;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
+
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
+
+    private static String LOG_MESSAGE_RESULT = "Result: %s";
+    private static String LOG_MESSAGE_INVALID_COMMAND = "Invalid Command: %s";
+    private static final String COMMAND_TEXT_FIELD_ERROR = "error";
 
     private final Stack<String> prevCmdTextHistStack = new Stack<String>();
     private final Stack<String> nextCmdTextHistStack = new Stack<String>();
@@ -140,7 +146,8 @@ public class CommandBox extends UiPart {
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        logger.info(String.format(LOG_MESSAGE_RESULT,
+                mostRecentResult.feedbackToUser));
     }
 
     /**
@@ -155,7 +162,8 @@ public class CommandBox extends UiPart {
             mostRecentResult = logic.execute(RedoCommand.COMMAND_WORD);
         }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        logger.info(String.format(LOG_MESSAGE_RESULT,
+                mostRecentResult.feedbackToUser));
     }
 
     /**
@@ -221,15 +229,15 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate a correct command.
      */
     private void setStyleToIndicateCorrectCommand() {
-        commandTextField.getStyleClass().remove("error");
-        commandTextField.setText("");
+        commandTextField.getStyleClass().remove(COMMAND_TEXT_FIELD_ERROR);
+        commandTextField.setText(StringUtil.EMPTY_STRING);
     }
 
     @Subscribe
     private void handleIncorrectCommandAttempted(
             IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Invalid command: " + previousCommandTest));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, String
+                .format(LOG_MESSAGE_INVALID_COMMAND, previousCommandTest)));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
@@ -245,7 +253,7 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
-        commandTextField.getStyleClass().add("error");
+        commandTextField.getStyleClass().add(COMMAND_TEXT_FIELD_ERROR);
     }
 
 }

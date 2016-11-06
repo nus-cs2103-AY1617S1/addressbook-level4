@@ -9,6 +9,7 @@ import tars.commons.core.Messages;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
+import tars.commons.util.StringUtil;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.task.DateTime;
@@ -153,7 +154,6 @@ public class AddCommand extends UndoableCommand {
             }
         }
     }
-    // @@author
 
     // @@author A0139924W
     @Override
@@ -171,7 +171,6 @@ public class AddCommand extends UndoableCommand {
                             Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
-    // @@author
 
     // @@author A0139924W
     @Override
@@ -189,7 +188,6 @@ public class AddCommand extends UndoableCommand {
                             Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
-    // @@author
 
     // @@author A0140022H
     private String messageSummary() {
@@ -201,7 +199,8 @@ public class AddCommand extends UndoableCommand {
         }
 
         if (!conflictingTaskList.isEmpty()) {
-            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING
+            summary += StringUtil.STRING_NEWLINE
+                    + Messages.MESSAGE_CONFLICTING_TASKS_WARNING
                     + conflictingTaskList;
         }
         return summary;

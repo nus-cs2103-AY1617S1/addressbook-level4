@@ -78,7 +78,8 @@ public class EditCommand extends UndoableCommand {
                     Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        toBeReplacedTask = lastShownList.get(targetIndex - 1);
+        toBeReplacedTask = lastShownList
+                .get(targetIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         editedTask = new Task(toBeReplacedTask);
 
         try {

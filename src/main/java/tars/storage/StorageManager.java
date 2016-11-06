@@ -25,89 +25,104 @@ import java.util.logging.Logger;
  */
 public class StorageManager extends ComponentManager implements Storage {
 
-  private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-  private XmlTarsStorage tarsStorage;
-  private JsonUserPrefStorage userPrefStorage;
+    private static final Logger logger =
+            LogsCenter.getLogger(StorageManager.class);
+    private XmlTarsStorage tarsStorage;
+    private JsonUserPrefStorage userPrefStorage;
 
+    private static String LOG_MESSAGE_READING_DATA_FROM_FILE =
+            "Attempting to read data from file: %s";
+    private static String LOG_MESSAGE_READING_DATA_FROM_CHANGED_FILEPATH =
+            "Attempting to read data from changed file path: %s";
+    private static final String LOG_MESSAGE_LOCAL_DATA_CHANGED =
+            "Local data changed, saving to file";
 
-  public StorageManager(String tarsFilePath, String userPrefsFilePath) {
-    super();
-    tarsStorage = new XmlTarsStorage(tarsFilePath);
-    this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
-  }
-
-  // ================ UserPrefs methods ==============================
-
-  public StorageManager() {}
-
-  @Override
-  public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-    return userPrefStorage.readUserPrefs();
-  }
-
-  @Override
-  public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-    userPrefStorage.saveUserPrefs(userPrefs);
-  }
-
-
-  // ================ Tars methods ==============================
-
-  @Override
-  public String getTarsFilePath() {
-    return tarsStorage.getTarsFilePath();
-  }
-
-  @Override
-  public Optional<ReadOnlyTars> readTars() throws DataConversionException, FileNotFoundException {
-    logger.fine("Attempting to read data from file: " + tarsStorage.getTarsFilePath());
-    return tarsStorage.readTars(tarsStorage.getTarsFilePath());
-  }
-
-  public Optional<ReadOnlyTars> readTarsFromNewFilePath(String newFilePath)
-      throws DataConversionException, FileNotFoundException {
-    tarsStorage = new XmlTarsStorage(newFilePath);
-    logger.fine("Attempting to read data from changed file path: " + newFilePath);
-    return tarsStorage.readTars(newFilePath);
-  }
-
-  @Override
-  public void saveTars(ReadOnlyTars tars) throws IOException {
-    tarsStorage.saveTars(tars, tarsStorage.getTarsFilePath());
-  }
-
-  // @@author A0124333U
-  @Override
-  public void saveTarsInNewFilePath(ReadOnlyTars tars, String newFilePath) throws IOException {
-    tarsStorage = new XmlTarsStorage(newFilePath);
-    tarsStorage.saveTars(tars, newFilePath);
-  }
-
-  public boolean isFileSavedSuccessfully(String filePath) {
-    Path path = Paths.get(filePath);
-    return Files.exists(path);
-  }
-
-  public void updateTarsStorageDirectory(String newFilePath, Config newConfig) {
-    tarsStorage = new XmlTarsStorage(newFilePath);
-    indicateTarsStorageDirectoryChanged(newFilePath, newConfig);
-  }
-
-  // Raise an event that the tars storage directory has changed
-  private void indicateTarsStorageDirectoryChanged(String newFilePath, Config newConfig) {
-    raise(new TarsStorageDirectoryChangedEvent(newFilePath, newConfig));
-  }
-
-  // @@author
-  @Override
-  @Subscribe
-  public void handleTarsChangedEvent(TarsChangedEvent event) {
-    logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
-    try {
-      saveTars(event.data);
-    } catch (IOException e) {
-      raise(new DataSavingExceptionEvent(e));
+    public StorageManager(String tarsFilePath, String userPrefsFilePath) {
+        super();
+        tarsStorage = new XmlTarsStorage(tarsFilePath);
+        this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
-  }
+
+    // ================ UserPrefs methods ==============================
+
+    public StorageManager() {}
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs()
+            throws DataConversionException, IOException {
+        return userPrefStorage.readUserPrefs();
+    }
+
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        userPrefStorage.saveUserPrefs(userPrefs);
+    }
+
+
+    // ================ Tars methods ==============================
+
+    @Override
+    public String getTarsFilePath() {
+        return tarsStorage.getTarsFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTars> readTars()
+            throws DataConversionException, FileNotFoundException {
+        logger.fine(String.format(LOG_MESSAGE_READING_DATA_FROM_FILE,
+                tarsStorage.getTarsFilePath()));
+        return tarsStorage.readTars(tarsStorage.getTarsFilePath());
+    }
+
+    public Optional<ReadOnlyTars> readTarsFromNewFilePath(String newFilePath)
+            throws DataConversionException, FileNotFoundException {
+        tarsStorage = new XmlTarsStorage(newFilePath);
+        logger.fine(String.format(
+                LOG_MESSAGE_READING_DATA_FROM_CHANGED_FILEPATH, newFilePath));
+        return tarsStorage.readTars(newFilePath);
+    }
+
+    @Override
+    public void saveTars(ReadOnlyTars tars) throws IOException {
+        tarsStorage.saveTars(tars, tarsStorage.getTarsFilePath());
+    }
+
+    // @@author A0124333U
+    @Override
+    public void saveTarsInNewFilePath(ReadOnlyTars tars, String newFilePath)
+            throws IOException {
+        tarsStorage = new XmlTarsStorage(newFilePath);
+        tarsStorage.saveTars(tars, newFilePath);
+    }
+
+    public boolean isFileSavedSuccessfully(String filePath) {
+        Path path = Paths.get(filePath);
+        return Files.exists(path);
+    }
+
+    public void updateTarsStorageDirectory(String newFilePath,
+            Config newConfig) {
+        tarsStorage = new XmlTarsStorage(newFilePath);
+        indicateTarsStorageDirectoryChanged(newFilePath, newConfig);
+    }
+
+    // Raise an event that the tars storage directory has changed
+    private void indicateTarsStorageDirectoryChanged(String newFilePath,
+            Config newConfig) {
+        raise(new TarsStorageDirectoryChangedEvent(newFilePath, newConfig));
+    }
+
+    // @@author
+    @Override
+    @Subscribe
+    public void handleTarsChangedEvent(TarsChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                LOG_MESSAGE_LOCAL_DATA_CHANGED));
+        try {
+            saveTars(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 
 }

@@ -1,12 +1,13 @@
 package tars.logic.parser;
 
 /**
- * A prefix that marks the beginning of an argument
- * e.g. '/t' in 'add CS2103 Project Meeting /t meeting'
+ * A prefix that marks the beginning of an argument e.g. '/t' in 'add CS2103 Project Meeting /t
+ * meeting'
  * 
  * @@author A0139924W
  */
 public class Prefix {
+    private static final int HASHCODE_NULL_VALUE = 0;
     public final String value;
 
     public Prefix(String value) {
@@ -29,6 +30,7 @@ public class Prefix {
 
     @Override
     public int hashCode() {
-        return this.value == null ? 0 : this.value.hashCode();
+        return this.value == null ? HASHCODE_NULL_VALUE : this.value.hashCode();
     }
+
 }

@@ -44,7 +44,7 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        ArrayList<ReadOnlyTask> tasksToDelete = null;
+        ArrayList<ReadOnlyTask> tasksToDelete;
         try {
             tasksToDelete = getTasksFromIndexes(
                     this.arguments.split(StringUtil.STRING_WHITESPACE));

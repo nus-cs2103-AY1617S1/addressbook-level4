@@ -80,7 +80,7 @@ public class TaskCard extends UiPart {
     }
 
     private void setIndex() {
-        id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + StringUtil.STRING_FULLSTOP);
     }
 
     private void setDate() {

@@ -22,7 +22,7 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 /**
  * @@author A0124333U
  * 
- * Confirms a specified datetime for a reserved task and add it into the task list
+ *          Confirms a specified datetime for a reserved task and add it into the task list
  */
 public class ConfirmCommand extends UndoableCommand {
 
@@ -69,7 +69,8 @@ public class ConfirmCommand extends UndoableCommand {
                     Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
         }
 
-        rsvTask = lastShownList.get(taskIndex - 1);
+        rsvTask = lastShownList
+                .get(taskIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
 
         if (rsvTask.getDateTimeList().size() < dateTimeIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -78,8 +79,8 @@ public class ConfirmCommand extends UndoableCommand {
         }
 
         try {
-            toConfirm = new Task(rsvTask.getName(),
-                    rsvTask.getDateTimeList().get((dateTimeIndex - 1)),
+            toConfirm = new Task(rsvTask.getName(), rsvTask.getDateTimeList()
+                    .get((dateTimeIndex - StringUtil.DISPLAYED_INDEX_OFFSET)),
                     new Priority(priority), new Status(),
                     new UniqueTagList(tagSet));
         } catch (IllegalValueException ive) {

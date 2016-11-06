@@ -273,7 +273,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `* *` |user| can view all tags and edit them | edit a specific tag of all tasks with that tag in one command
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
-`*` | user | use a keyboard shortcut to launch the program | launch the program quickly
 `*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
 
 [comment]: # (@@author A0139924W)
@@ -286,7 +285,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to view help
-2. TARS shows a list of usage intructions<br>
+2. TARS shows a list of usage instructions<br>
 Use case ends.
 
 #### Use case: UC02- Add task
@@ -320,7 +319,7 @@ Use case ends.
 
 1. User requests to list tasks
 2. TARS shows a list of tasks
-3. User requets to delete a specific task in the list
+3. User requests to delete a specific task in the list
 4. TARS deletes the task<br>
 Use case ends.
 
