@@ -36,14 +36,14 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
     public LifeKeeper() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Activities and Tags are copied into this addressbook
      */
     public LifeKeeper(ReadOnlyLifeKeeper toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueActivityList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Activities and Tags are copied into this addressbook
      */
     public LifeKeeper(UniqueActivityList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
@@ -64,7 +64,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
         return tags.getInternalList();
     }
 
-    public void setPersons(List<Activity> persons) {
+    public void setActivities(List<Activity> persons) {
         this.activities.getInternalList().setAll(persons);
     }
 
@@ -72,15 +72,15 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {
-        List<Activity> activities = newPersons.stream().map(Activity::create).collect(Collectors.toList()); 
-    	setPersons(activities);
+    public void resetData(Collection<? extends ReadOnlyActivity> newActivities, Collection<Tag> newTags) {
+        List<Activity> activities = newActivities.stream().map(Activity::create).collect(Collectors.toList()); 
+    	setActivities(activities);
         setTags(newTags);
         nextReminders.initialize(activities);
     }
 
     public void resetData(ReadOnlyLifeKeeper newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getActivityList(), newData.getTagList());
     }
 
 //// activity-level operations
@@ -92,14 +92,14 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
      *
      * @throws UniqueActivityList.DuplicateTaskException if an equivalent activity already exists.
      */
-    public void addPerson(Activity p) throws UniqueActivityList.DuplicateTaskException {
+    public void addActivity(Activity p) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         activities.addTo(p);
         nextReminders.addReminder(p);
     }
     
 
-	public void addPerson(int index, Activity activity) throws UniqueActivityList.DuplicateTaskException {
+	public void addActivity(int index, Activity activity) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(activity);
         activities.addAt(index, activity);
         nextReminders.addReminder(activity);
@@ -128,7 +128,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
         activity.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeActivity(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (activities.remove(key)) {
             nextReminders.removeReminder(key);
             return true;
@@ -174,7 +174,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public List<ReadOnlyActivity> getPersonList() {
+    public List<ReadOnlyActivity> getActivityList() {
         return Collections.unmodifiableList(activities.getInternalList());
     }
 
@@ -184,7 +184,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public UniqueActivityList getUniquePersonList() {
+    public UniqueActivityList getUniqueActivityList() {
         return this.activities;
     }
 

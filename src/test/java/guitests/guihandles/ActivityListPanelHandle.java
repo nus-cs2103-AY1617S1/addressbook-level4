@@ -20,18 +20,18 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the activity list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class ActivityListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#activityListView";
 
-    public PersonListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public ActivityListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyActivity> getSelectedPersons() {
+    public List<ReadOnlyActivity> getSelectedActivities() {
         ListView<ReadOnlyActivity> personList = getListView();
         return personList.getSelectionModel().getSelectedItems();
     }
@@ -93,7 +93,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndActivity(getActivityCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }}
@@ -109,14 +109,14 @@ public class PersonListPanelHandle extends GuiHandle {
             throw new IllegalStateException("Activity Name not found: " + name);
         }
 
-        return navigateToPerson(activity.get());
+        return navigateToActivity(activity.get());
     }
     
     /**
      * Navigates the listview to display and select the activity.
      */
-    public ActivityCardHandle navigateToPerson(ReadOnlyActivity activity) {
-        int index = getPersonIndex(activity);
+    public ActivityCardHandle navigateToActivity(ReadOnlyActivity activity) {
+        int index = getActivityIndex(activity);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -124,17 +124,17 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index); 
         });
         guiRobot.sleep(100);
-        return getPersonCardHandle(activity);
+        return getActivityCardHandle(activity);
     }
 
 
     /**
      * Returns the position of the activity given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(ReadOnlyActivity targetPerson) {
+    public int getActivityIndex(ReadOnlyActivity targetActivity) {
         List<ReadOnlyActivity> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if(personsInList.get(i).getName().equals(targetActivity.getName())){
                 return i;
             }
         }
@@ -145,15 +145,15 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Gets a activity from the list by index
      */
-    public ReadOnlyActivity getPerson(int index) {
+    public ReadOnlyActivity getActivity(int index) {
         return getListView().getItems().get(index);
     }
 
-    public ActivityCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Activity(getListView().getItems().get(index)));
+    public ActivityCardHandle getActivityCardHandle(int index) {
+        return getActivityCardHandle(new Activity(getListView().getItems().get(index)));
     }
 
-    public ActivityCardHandle getPersonCardHandle(ReadOnlyActivity activity) {
+    public ActivityCardHandle getActivityCardHandle(ReadOnlyActivity activity) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new ActivityCardHandle(guiRobot, primaryStage, n).isSameActivity(activity))

@@ -58,7 +58,7 @@ public interface ReadOnlyActivity {
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this Activity's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

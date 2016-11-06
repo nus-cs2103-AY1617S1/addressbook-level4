@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Activity.
  */
 public class XmlAdaptedActivity {
 

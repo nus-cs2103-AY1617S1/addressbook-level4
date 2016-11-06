@@ -42,7 +42,7 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle activityListPanel;
+    protected ActivityListPanelHandle activityListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -62,7 +62,7 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            activityListPanel = mainGui.getPersonListPanel();
+            activityListPanel = mainGui.getActivityListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -100,7 +100,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the activity shown in the card is same as the given activity
      */
     public void assertMatching(ReadOnlyActivity activity, ActivityCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, activity));
+        assertTrue(TestUtil.compareCardAndActivity(card, activity));
     }
 
     /**

@@ -15,12 +15,12 @@ public interface ReadOnlyLifeKeeper {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueActivityList getUniquePersonList();
+    UniqueActivityList getUniqueActivityList();
 
     /**
      * Returns an unmodifiable view of persons list
      */
-    List<ReadOnlyActivity> getPersonList();
+    List<ReadOnlyActivity> getActivityList();
 
     /**
      * Returns an unmodifiable view of tags list

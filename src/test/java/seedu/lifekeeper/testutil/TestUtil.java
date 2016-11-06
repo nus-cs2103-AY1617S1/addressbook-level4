@@ -67,9 +67,9 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Activity[] samplePersonData = getSamplePersonData();
+    public static final Activity[] sampleActivityData = getSampleActivityData();
 
-    private static Activity[] getSamplePersonData() {
+    private static Activity[] getSampleActivityData() {
         try {
             return new Activity[]{
                     new Activity(new Name("Find Ali"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
@@ -104,8 +104,8 @@ public class TestUtil {
         }
     }
 
-    public static List<Activity> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+    public static List<Activity> generateSampleActivityData() {
+        return Arrays.asList(sampleActivityData);
     }
 
     /**
@@ -285,10 +285,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestActivity[] removePersonsFromList(final TestActivity[] persons, TestActivity... personsToRemove) {
-        List<TestActivity> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestActivity[listOfPersons.size()]);
+    public static TestActivity[] removeActivitiesFromList(final TestActivity[] persons, TestActivity... personsToRemove) {
+        List<TestActivity> listOfActivities = asList(persons);
+        listOfActivities.removeAll(asList(personsToRemove));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
     }
 
 
@@ -297,8 +297,8 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestActivity[] removePersonFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestActivity[] removeActivityFromList(final TestActivity[] list, int targetIndexInOneIndexedFormat) {
+        return removeActivitiesFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
@@ -308,7 +308,7 @@ public class TestUtil {
      * @param index The index of the activity to be replaced.
      * @return
      */
-    public static TestActivity[] replacePersonFromList(TestActivity[] persons, TestActivity activity, int index) {
+    public static TestActivity[] replaceActivityFromList(TestActivity[] persons, TestActivity activity, int index) {
         persons[index] = activity;
         return persons;
     }
@@ -319,10 +319,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestActivity[] addPersonsToList(final TestActivity[] persons, TestActivity... personsToAdd) {
-        List<TestActivity> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestActivity[listOfPersons.size()]);
+    public static TestActivity[] addActivitiesToList(final TestActivity[] persons, TestActivity... personsToAdd) {
+        List<TestActivity> listOfActivities = asList(persons);
+        listOfActivities.addAll(asList(personsToAdd));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -340,7 +340,7 @@ public class TestUtil {
     
 //@@author A0125284H
     
-    public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
+    public static boolean compareCardAndActivity(ActivityCardHandle card, ReadOnlyActivity activity) {
     	String classOfActivity = activity.getClass().getSimpleName();
 
     	switch (classOfActivity) {

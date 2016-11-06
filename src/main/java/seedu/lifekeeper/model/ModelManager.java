@@ -29,7 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final LifeKeeper lifeKeeper;
-    private final FilteredList<Activity> filteredPersons;
+    private final FilteredList<Activity> filteredActivities;
     private final FilteredList<Tag> filteredTags;
 
     /**
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         lifeKeeper = new LifeKeeper(src);
-        filteredPersons = new FilteredList<>(lifeKeeper.getAllEntries());
+        filteredActivities = new FilteredList<>(lifeKeeper.getAllEntries());
         filteredTags = new FilteredList<>(lifeKeeper.getTag());
         updateFilteredListToShowAll();
     }
@@ -55,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyLifeKeeper initialData, UserPrefs userPrefs) {
         lifeKeeper = new LifeKeeper(initialData);
-        filteredPersons = new FilteredList<>(lifeKeeper.getAllEntries());
+        filteredActivities = new FilteredList<>(lifeKeeper.getAllEntries());
         filteredTags = new FilteredList<>(lifeKeeper.getTag());
         updateFilteredListToShowAll();
     }
@@ -78,20 +78,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
-        lifeKeeper.removePerson(target);
+        lifeKeeper.removeActivity(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addTask(Activity activity) throws UniqueActivityList.DuplicateTaskException {
-        lifeKeeper.addPerson(activity);
+        lifeKeeper.addActivity(activity);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }       
 
 	@Override
 	public void undoDelete(int index, Activity taskToAdd) throws UniqueActivityList.DuplicateTaskException {
-		lifeKeeper.addPerson(index, taskToAdd);
+		lifeKeeper.addActivity(index, taskToAdd);
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 
@@ -127,66 +127,66 @@ public class ModelManager extends ComponentManager implements Model {
 	    indicateAddressBookChanged();
 	}
     
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Activity List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredActivities);
     }
     
     @Override
     public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredActivities);
     }
   //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getCompletionStatus() == false && p.getisOver() == false);
     }
     
     @Override
     public void updateFilteredByTagListToShowAll(String tag) {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getTags().contains1(tag));
     }
     
     @Override
     public void updateFilteredTaskListToShowAll() {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getClass().getSimpleName().equalsIgnoreCase("Task"));
     }
     
     @Override
     public void updateFilteredDoneListToShowAll() {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getCompletionStatus() == true || p.getisOver() == true);
     }
     
     @Override
     public void updateFilteredActivityListToShowAll() {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getClass().getSimpleName().equalsIgnoreCase("Activity"));
     }
     
     @Override
     public void updateAllListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredActivities.setPredicate(null);
     }
     
     @Override
     public void updateFilteredEventListToShowAll() {
-        filteredPersons.setPredicate(p->
+        filteredActivities.setPredicate(p->
         p.getClass().getSimpleName().equalsIgnoreCase("Event"));
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredActivityList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredActivityList(Expression expression) {
+        filteredActivities.setPredicate(expression::satisfies);
     }
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================

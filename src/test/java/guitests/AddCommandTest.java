@@ -23,23 +23,23 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestActivity activityToAdd = td.findHoon;
 
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add a task
         activityToAdd = td.findIda;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(currentList));
  
         //add an event
         activityToAdd = td.findJodie;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add an event without specifying end time
         activityToAdd = td.findKenny;
         assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add a recurring event
         activityToAdd = td.findMoney;
@@ -49,7 +49,7 @@ public class AddCommandTest extends AddressBookGuiTest {
       //add a recurring event without specifying end time
         activityToAdd = td.findMoney;
         assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         
         //section 2: test for adding duplicates of activities, tasks and events/
@@ -90,7 +90,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new activity
-        TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(expectedList));
     }
 
