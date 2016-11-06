@@ -54,7 +54,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     
-  //@@author A0153617E
+  //@@author a0153617e
     /**
      * Formats the description as text.
      */
