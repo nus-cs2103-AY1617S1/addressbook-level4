@@ -90,4 +90,14 @@ search after today | GUI should display all tasks that either start or end from 
 search from today to 4 days later | GUI should display all tasks that falls in between today and 4 days later (inclusive)
 search priority high | GUI should display all tasks with priority high
 search tag school | GUI should display all tasks with `school` tag
-search assignment | GUI should display all task with name or details that include the word assignment.
+search assignment | GUI should display all tasks with name or details that include the word assignment.
+
+## Today Panel Click
+Command | Expected Results |
+------- | :--------------
+Click on `Today` label on Today panel| GUI should display all tasks that should be done today.
+
+## Next 7 Days Panel Click
+Command | Expected Results |
+------- | :--------------
+Click on `Next 7 Days` label on Next 7 Days panel| GUI should display all tasks that should be done in the next 7 days.
