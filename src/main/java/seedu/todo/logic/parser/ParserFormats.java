@@ -28,34 +28,26 @@ public class ParserFormats {
     //one or more keywords separated by whitespace
     public static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     
-    public static final Pattern ADD_TASK_ARGS_FORMAT_FT = Pattern
-            .compile(NAME_FORMAT + ON_DATE_FORMAT + BY_DATE_FORMAT 
-                    + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern ADD_TASK_ARGS_FORMAT_ON = Pattern
-            .compile(NAME_FORMAT + ON_DATE_FORMAT + DETAIL_FORMAT, 
-                    Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern ADD_TASK_ARGS_FORMAT_BY = Pattern
-            .compile(NAME_FORMAT + BY_DATE_FORMAT + DETAIL_FORMAT, 
-                    Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern ADD_TASK_ARGS_FORMAT_FLOAT = Pattern
-            .compile(NAME_FORMAT + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
     
-    public static final Pattern ADD_TASK_ARGS_RECUR_FORMAT_FT = Pattern
-            .compile(NAME_FORMAT + ON_DATE_FORMAT + BY_DATE_FORMAT 
-                    + RECUR_FORMAT + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern ADD_TASK_ARGS_RECUR_FORMAT_ON = Pattern
-            .compile(NAME_FORMAT + ON_DATE_FORMAT + RECUR_FORMAT 
-                    + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
-
-    public static final Pattern ADD_TASK_ARGS_RECUR_FORMAT_BY = Pattern
-            .compile(NAME_FORMAT + BY_DATE_FORMAT + RECUR_FORMAT 
-                    + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
+    //@@author A0093896H 
+    public static final Pattern ADD_TASK_ARGS_FORMAT = Pattern
+            .compile("(?<name>[^/]+?) "
+                      + "?((^| )(on (?<onDateTime>[^;]+?)?"
+                      + "|by (?<byDateTime>[^;]+?)"
+                      + "|priority (?<priority>[^;]+?)"
+                      + "|every (?<rec>[^;]+?)))*?"
+                      + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
     
-    //@@author A0121643R
+    public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
+            .compile("(?<name>[^/]*?)? "
+                      + "?((^| )(on (?<onDateTime>[^;]+?)?"
+                      + "|by (?<byDateTime>[^;]+?)"
+                      + "|priority (?<priority>[^;]+?)"
+                      + "|every (?<rec>[^;]+?)))*?"
+                      + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
+    
+    
+    //@@author A0121643R-unused
     public static final Pattern ADD_PRIORITY_FT = Pattern
             .compile(NAME_FORMAT + ON_DATE_FORMAT + BY_DATE_FORMAT 
                     + PRIORITY_FORMAT + DETAIL_FORMAT, Pattern.CASE_INSENSITIVE);
@@ -99,13 +91,6 @@ public class ParserFormats {
     public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)(?<comOpt> done|all|undone)?", Pattern.CASE_INSENSITIVE);
     
-    //@@author A0093896H 
-    public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
-            .compile("(?<name>[^/]*?)? "
-                      + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"
-                      + "|by (?<byDateTime>[^;]+?)"
-                      + "|priority (?<priority>[^;]+?)"
-                      + "|every (?<rec>[^;]+?)))*?"
-                      + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
+    
     
 }

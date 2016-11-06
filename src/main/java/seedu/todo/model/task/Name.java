@@ -9,7 +9,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should not be empty and cannot contain semi-colons";
     public static final String NAME_VALIDATION_REGEX = "[^;]+";
     public static final String ESCAPE = "'";
     public static final int MAX_CHAR_LENGTH = 120;

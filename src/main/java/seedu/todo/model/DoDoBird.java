@@ -226,10 +226,13 @@ public class DoDoBird implements ReadOnlyToDoList {
         
     public void updateTasksRecurrence() {
         for (Task t : this.getTasks()) {
-            if (t.isRecurring() 
-                    && (t.getOnDate().getDate().isBefore(LocalDate.now()) 
-                    || t.getByDate().getDate().isBefore(LocalDate.now()))) {
-                t.getRecurrence().updateTaskDate(t);
+            if (t.isRecurring()) { 
+                LocalDate onDate = t.getOnDate().getDate();
+                LocalDate byDate = t.getByDate().getDate();
+                if ((onDate != null && onDate.isBefore(LocalDate.now()))
+                  || byDate != null && byDate.isBefore(LocalDate.now())) {
+                    t.getRecurrence().updateTaskDate(t);
+                }
             }
         }
     }

@@ -114,106 +114,43 @@ public class ToDoListParser {
         return matcher.group("tags");
     }
     
-    
-
+    //@@author A0093896H
     /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0093896H
     private Command prepareAdd(String args) {
         
-        Pattern[] dataPatterns = {ParserFormats.ADD_PRIORITY_FT, ParserFormats.ADD_PRIORITY_ON, 
-                ParserFormats.ADD_PRIORITY_BY, ParserFormats.ADD_PRIORITY_FL, 
-                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, 
-                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.ADD_TASK_ARGS_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_FORMAT_ON, 
-                ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
-       
-        Matcher matcher;
-        try {
-            for (Pattern p : dataPatterns) {
-                matcher = p.matcher(args.trim());
-                if (matcher.matches()) {
-                    if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_FT)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, 
-                                Frequency.NONE);
-                        
-                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_ON)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                null, Priority.DEFAULT_PRIORITY, 
-                                Frequency.NONE);
-                        
-                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_BY)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), null,
-                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, 
-                                Frequency.NONE);
-                        
-                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, 
-                                Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
-                        
-                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), null, 
-                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, 
-                                Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
-                        
-                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                null, Priority.DEFAULT_PRIORITY, 
-                                Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
-                    
-                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FT)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                matchByDateTimeResult(matcher), matchPriorityResult(matcher), 
-                                Frequency.NONE);
-                         
-                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FL)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), null, 
-                                null, matchPriorityResult(matcher), 
-                                Frequency.NONE);
-                        
-                    } else if (p.equals(ParserFormats.ADD_PRIORITY_ON)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), matchOnDateTimeResult(matcher), 
-                                null, matchPriorityResult(matcher), 
-                                Frequency.NONE);  
-
-                    } else if (p.equals(ParserFormats.ADD_PRIORITY_BY)) {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), null, 
-                                matchByDateTimeResult(matcher), matchPriorityResult(matcher), 
-                                Frequency.NONE);
-                        
-                    } else {
-                        return new AddCommand(matchNameResult(matcher), 
-                                matchDetailResult(matcher), 
-                                null, null, 
-                                Priority.DEFAULT_PRIORITY, Frequency.NONE);
-                    }
-                }
-            }
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
+        String tempArgs = args.trim(); 
+        
+        if (tempArgs.isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        Matcher matcher;
+        matcher = ParserFormats.ADD_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
+        
+        if (matcher.matches()) {
+            try {
+                return new AddCommand(matchNameResult(matcher).trim(),
+                        matchDetailResult(matcher), 
+                        matchOnDateTimeResult(matcher), 
+                        matchByDateTimeResult(matcher), 
+                        matchPriorityResult(matcher), 
+                        matchRecurrenceResult(matcher));
+                
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            } catch (IllegalArgumentException iae) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        } else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+        }  
     }
-
+    
     /**
      * Parses arguments in the context of the delete task command.
      *

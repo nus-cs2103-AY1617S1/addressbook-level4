@@ -33,32 +33,28 @@ public class AddCommand extends Command {
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(String name, String detail, String onDateString, 
-                      String byDateString, String priority, Frequency freq)
+                      String byDateString, String priority, String freq)
                       throws IllegalValueException {
         
-        TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
-        TaskDate byDate = new TaskDate(byDateString, TaskDate.TASK_DATE_BY);
-        
-        if (byDate.getDate() != null && !DateTimeUtil.containsDateField(byDateString)) {
-            
-            byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
-                    onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
+        if (priority == null) {
+            priority = Priority.LOW;
         }
         
-        if (!DateTimeUtil.beforeOther(onDate, byDate)) {
-            throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
+        if (freq == null) {
+            freq = Frequency.NONE.name();
         }
         
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
-                onDate,
-                byDate,
+                new TaskDate(onDateString, TaskDate.TASK_DATE_ON),
+                constructByDate(onDateString, byDateString),
                 new Priority(priority),
-                new Recurrence(freq)
+                new Recurrence(Frequency.valueOf(freq.toUpperCase().trim()))
         );
     }
-    //
+    
+    
     /**
      * Executes the add command. The new task is added to the top of the list.
      * 
@@ -77,6 +73,32 @@ public class AddCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+    
+    
+    /**
+     * Constructs the byDate based on the onDate.
+     * Validates that the byDate cannot be earlier than on date.
+     * 
+     * @param onDateString
+     * @param byDateString
+     * @return byDate
+     * @throws IllegalValueException
+     */
+    private TaskDate constructByDate(String onDateString, String byDateString) throws IllegalValueException {
+        TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
+        TaskDate byDate = new TaskDate(byDateString, TaskDate.TASK_DATE_BY);
+        
+        if (byDate.getDate() != null && !DateTimeUtil.containsDateField(byDateString)) {
+            byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
+                    onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
+        }
+        
+        if (!DateTimeUtil.beforeOther(onDate, byDate)) {
+            throw new IllegalValueException(MESSAGE_INVALID_DATE_RANGE);
+        }
+        
+        return byDate;
     }
 
 }
