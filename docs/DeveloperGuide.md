@@ -23,15 +23,12 @@ Emeraldo is a simple app for users to manage their daily tasks, such as keeping 
 This app is catered for folks who can type fast and prefer typing over mouse/voice commands.
 It is also a Java desktop application that has a GUI.
 
-
 <br>
-<br>
-
 
 This guide describes the design and implementation of Emeraldo.
 Through this guide, you will gain an understanding how Emeraldo works and how you can further contribute to its development.
-[]<@@author>
 
+[]<@@author>
 
 <br>
 ## Setting up
@@ -42,12 +39,9 @@ Through this guide, you will gain an understanding how Emeraldo works and how yo
 
 1. **JDK `1.8.0_60`**  or later<br>
 
-
     > Having any Java 8 version is not enough <br>
     This app will not work with earlier versions of Java 8
     
-
-
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse from the Eclipse Marketplace
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
@@ -64,10 +58,6 @@ Through this guide, you will gain an understanding how Emeraldo works and how yo
 4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 5. Click `Browse`, then locate the project's directory
 6. Click `Finish`
-
-
-<br>
-
 
   > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the setup to finish
@@ -344,7 +334,7 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  
 #### Troubleshooting tests
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- * _Reason_: Assertions are not enabled for JUnit tests. 
+ * _Reason_: Assertions are not enabled for JUnit tests. <br>
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
  * _Solution_: Enable assertions in JUnit tests as described 
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
@@ -384,8 +374,8 @@ A project often depends on third-party libraries. For example, Emeraldo depends 
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+  a. Include those libraries in the repo (this bloats the repo size)<br>
+  b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 
 <br>
@@ -407,7 +397,7 @@ user | delete a task | I can remove entries that I no longer need.<br>
 user | see all my tasks | I can easily know what I need to do at a glance.<br>
 user | edit the task descriptions, date or time | I can update the details of my tasks.<br>
 user | add tags to my tasks | I can categorise my tasks.<br>
-user | edit tags of my tasks | I can manage my tasks\’ tags.<br>
+user | edit tags of my tasks | I can manage my tasks' tags.<br>
 
 
 <br>
@@ -465,8 +455,9 @@ busy user | reserve time slots for one or more tasks that may not be confirmed |
 1a. Emeraldo detects task to have the exact same details as an existing task
 
 
-> 1a1. Emeraldo shows error message: \“This task already exists in the task manager\”.<br>
-> 1a2. User changes the details of the task to be added<br>	
+> 1a1. Emeraldo shows error message: "This task already exists in the task manager".<br>
+> 1a2. User changes the details of the task to be added <br>
+	
 Steps 1a1-1a2 are repeated until the data entered are correct.<br>
 Use case resumes from step 2.
 	
@@ -498,20 +489,12 @@ Use case resumes from step 2.
 3a. Emeraldo detects an error in the user input
 
 
-> 3a1. Emeraldo shows an error message and requests for correct data<br>
+> 3a1. Emeraldo shows an error message and requests for correct data <br>
   Use case resumes from step 2.
 
-
-
-
-
-
-
-
-
 <br>
 [](@@author A0139196U)
-#### Use case: UC03 - Edit task\’s tag
+#### Use case: UC03 - Edit task's tag
 
 
 **MSS**
@@ -519,8 +502,8 @@ Use case resumes from step 2.
 
 1. User requests to list task (UC05)
 2. Emeraldo shows a list of tasks
-3. User requests to edit a task\’s tag
-4. Emeraldo edits the task\’s tag
+3. User requests to edit a task's tag
+4. Emeraldo edits the task's tag
 5. Emeraldo displays the edited task
 <br>  Use case ends.
 
@@ -622,6 +605,7 @@ Use case resumes from step 2.
 2a. Emeraldo could not find the specified task
 > 2a1. Emeraldo requests for new inputs  <br>
 > 2a2. User specifies a new task <br>
+
 Steps 2a1 - 2a2 are repeated until the data entered are correct.<br>
 Use case resumes from step 4.
 
