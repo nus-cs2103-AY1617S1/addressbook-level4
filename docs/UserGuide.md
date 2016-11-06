@@ -6,7 +6,7 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Adding tasks](#adding-a-task-add)
-   * [Listing tasks](#listing-tasks--list)
+   * [Listing tasks](#listing-tasks--list-shows-a-list-of-task-of-your-preferred-choice)
    * [Searching for tasks](#searching-tasks-by-keywords-search)
    * [Deleting tasks](#deleting-a-task--delete)
    * [Undo](#undo--undo)
@@ -37,15 +37,16 @@ Are you ready to embrace a new style of organised living? Let's begin!
 1. Download the latest `GGist.jar` from the [releases](https://github.com/CS2103AUG2016-W13-C2/main/releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your GGist application.
 3. Double-click on the .jar file. The GUI should appear in a few seconds. 
-   > <img src="images/StartUI.png" width="800">
+   > <img src="images/StartUI.png" width="800"><br>
+   You will be presented with all today's undone tasks when you first open GGist.
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`list`**` today` : 
-     lists all today's undone tasks.
+     lists all of today's undone tasks.
    * **`add`**` water the plants, 13 dec, 1400` : 
-     adds a task `water the plants` with the deadline 2pm on the 13th of July to GGist.
+     adds a task `water the plants` with the deadline 2pm on the 13th of December to GGist.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list.
    * **`exit`** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
