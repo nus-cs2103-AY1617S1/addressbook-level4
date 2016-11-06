@@ -80,6 +80,11 @@
 
 3. The task will be added to your to do list and message "Added task" is displayed on console.
 
+  >  Example Command: `add task Finish Notes` <br>
+
+  > <div style="text-align:center"><img src="images/appResponses/add_command_response.png" width="300"><br>
+> App Response for `add task Finish Notes`
+
 #### Add an event
 
 1. Type `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
@@ -100,10 +105,10 @@
 
 2. App will display a list of items with names containing the keyword in the bottom left panel.
 
-	>  Example Command: `find CS2105` <br>
+	>  Example Command: `find tutorial` <br>
 
 	> <div style="text-align:center"><img src="images/appResponses/find_command_response.png" width="300"><br>
-	> App Response for `find CS2105`
+	> App Response for `find tutorial`
 
 ### When you need to edit a deadline, task or event
 * At least one optional parameter must be specified.
@@ -122,11 +127,9 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 
 3. App will display edited item's details in the results panel (below the command box).
 
-	> Example Command:
-	> 1. `find random module`
-	> 2. `edit 6 n/CS2103 #work`
-	> <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
-	> App Response for `edit 6 n/CS2103 #work`
+  > Example Command:
+  > 1. `find random module`
+  > 2. `edit 1 n/CS2103
 
 ##### If you know the index of the task in the displayed list
 
@@ -134,7 +137,11 @@ For tasks, you can only edit the name, its tags and the end date and time. Note:
 
 2. App will display edited item's details in the results panel.
 
-	> Example Command: `edit 1 n/CS2103 #work #-play`
+> Example Command:
+> 1. `edit 1 #wife`
+> <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
+> App Response for `edit 1 #wife`
+
 
 #### Edit a deadline's name, end date and end time
 For deadlines, you can only edit the name, end date and time and its tags.
@@ -203,6 +210,10 @@ For events, you can edit all optional parameters.
 1. Type `l[ist]`. Press `Enter`.
 
 2. Console refreshes with all deadlines, tasks, and events displayed.
+
+> Example Command: `list`
+> <div style="text-align:center"><img src="images/appResponses/list_command_response.png" width="300"><br>
+> App Response for `list`
 
 [comment]: # (@@author A0140060A)
 
