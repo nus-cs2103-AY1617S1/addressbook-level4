@@ -157,8 +157,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 > _The sequence diagram for the interactions within the `Logic` component for `execute("delete 1")`_
-<!-- @@author -->
 
+<!-- @@author A0139498J -->
 ### Model component
 
 <img src="images/ModelClassDiagram.PNG" width="800"><br>
@@ -172,6 +172,8 @@ The `Model`,
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+<!-- @@author -->
 
 ### Storage component
 
@@ -346,8 +348,7 @@ Use case resumes at step 2
 > Use case ends
 
 
-<!-- @@author -->
-
+<!-- @@author A0139498J -->
 
 #### Use case: UC02 - List all undone tasks
 
@@ -417,7 +418,7 @@ Use case resumes at step 3
 >4c1. TaskManager displays an error message on the GUI, informing the user of the correct format for the `edit` command and an example `edit` command <br>
  Use case resumes at step 3
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 #### Use case: UC04 - Delete an undone task
 
@@ -507,7 +508,7 @@ _Use case resumes at step 3_
 > 3a1. TaskManager indicates that there is nothing to undo.<br>
 _Use case ends._
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -515,11 +516,12 @@ _Use case ends._
 2. Should be able to hold up to 10000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Should have <1 second startup and processing times.
+5. Should have less than 2 seconds processing time for each command.
 6. Should be easy to learn and use.
 7. Should be available without Internet connection.
 8. Should be scalable and maintainable.
 
+<!-- @@author -->
 
 ## Appendix D : Glossary
 
@@ -538,6 +540,9 @@ _Use case ends._
 ##### Maintainable
 
 > Code that is readable and easy to contribute towards
+
+
+<!-- @@author A0139498J -->
 
 ## Appendix E : Product Survey
 
