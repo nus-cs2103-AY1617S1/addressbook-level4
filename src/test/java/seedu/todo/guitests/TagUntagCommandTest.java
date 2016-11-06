@@ -120,4 +120,12 @@ public class TagUntagCommandTest extends GuiTest {
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
     
+    @Test
+    public void untag_tagNotExist_fail() {
+        console.runCommand("untag 1 sucks");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n"
+                + UntagController.MESSAGE_TAG_NAME_DOES_NOT_EXIST;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
 }
