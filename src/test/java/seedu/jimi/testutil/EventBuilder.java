@@ -1,5 +1,7 @@
 package seedu.jimi.testutil;
 
+import javax.swing.Spring;
+
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.Priority;
@@ -38,13 +40,28 @@ public class EventBuilder{
         return this;
     }
     
-    public EventBuilder withStart(String deadline) throws IllegalValueException {
-        this.event.setStart(new DateTime(deadline));
+    public EventBuilder withStart(String start) throws IllegalValueException {
+        this.event.setStart(new DateTime(start));
         return this;
     }
     
-    public EventBuilder withEnd(String deadline) throws IllegalValueException {
-        this.event.setEnd(new DateTime(deadline));
+    public EventBuilder withStartNow() {
+        this.event.setStart(new DateTime());
+        return this;
+    }
+    
+    public EventBuilder withStartTmr() throws IllegalValueException {
+        this.event.setStart(DateTime.getTomorrow());
+        return this;
+    }
+        
+    public EventBuilder withEnd(String end) throws IllegalValueException {
+        this.event.setEnd(new DateTime(end));
+        return this;
+    }
+    
+    public EventBuilder withEndOneHourLater() throws IllegalValueException {
+        this.event.setEnd(DateTime.getOneHourLater(this.event.getStart()));
         return this;
     }
 

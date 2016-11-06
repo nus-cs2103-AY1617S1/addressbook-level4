@@ -42,11 +42,19 @@ public class DateTime implements Comparable<DateTime> {
                 .withSecond(0).withNano(0);
     }
     
+    // @@ author A0143471L
     public static DateTime getTomorrow() throws IllegalValueException {
-        DateTime tomorrow = new DateTime(LocalDateTime.now().withSecond(0).withNano(0).plus(1, ChronoUnit.DAYS).toString().replace("T", " "));
+        DateTime tomorrow = new DateTime(LocalDateTime.now().withMinute(0).withSecond(0).withNano(0).plus(1, ChronoUnit.DAYS).toString().replace("T", " "));
         return tomorrow;
     }
     
+    public static DateTime getOneHourLater(DateTime now) throws IllegalValueException {
+        DateTime oneHourLater = new DateTime(now.dtInstance.withSecond(0).withNano(0).plusHours(1).toString().replace("T", " "));
+        return oneHourLater;
+    }
+    // @@ author 
+    
+    // @@ author A0148040R
     public String getDate() {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         return dtInstance.format(dateFormatter).toString();
@@ -104,4 +112,5 @@ public class DateTime implements Comparable<DateTime> {
         DateTimeFormatter dtFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return dtInstance.format(dtFormatter);
     }
+    // @@ author
 }

@@ -20,11 +20,11 @@ public class TypicalTestEvents {
     
     public TypicalTestEvents() {
         try {
-            wedding =  new EventBuilder().withName("wedding dinner").withPriority("MED").withStart("2016-11-03 19:00").withEnd("2016-11-03 22:00").build();
+            wedding =  new EventBuilder().withName("wedding dinner").withPriority("MED").withStartTmr().withEndOneHourLater().build();
+            tuition = new EventBuilder().withName("go to tuition").withTags("Math").withPriority("LOW").withStartNow().withEndOneHourLater().build();            
             
             //Manually added
-            tuition = new EventBuilder().withName("go tuition").withTags("Math").withPriority("LOW").withStart("2016-11-01 19:00").withEnd("2016-11-01 22:00").build();
-            nightClass = new EventBuilder().withName("night class").withPriority("HIGH").withStart("2016-10-31 19:00").withEnd("2016-10-31 22:00").build();
+            nightClass = new EventBuilder().withName("night class").withPriority("HIGH").withStartTmr().withEndOneHourLater().build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -35,6 +35,7 @@ public class TypicalTestEvents {
 
         try {
             ab.addTask(new Event(wedding, wedding.getStart(), wedding.getEnd()));
+            ab.addTask(new Event(tuition, tuition.getStart(), tuition.getEnd()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
