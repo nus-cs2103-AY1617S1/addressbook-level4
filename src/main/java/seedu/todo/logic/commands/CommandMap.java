@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 //@@author A0135817B
 public class CommandMap {
@@ -85,5 +86,17 @@ public class CommandMap {
         List<CommandSummary> commandSummariesList = new ArrayList<>();
         getCommandSummaryMap().values().forEach(commandSummariesList::addAll);
         return commandSummariesList;
+    }
+
+    //@@author A0135805H
+    /**
+     * Get a representation of the command summary by a list of array strings, with each array string
+     * with the format:
+     *      [Scenario, Command, Arguments]
+     */
+    public static List<String[]> getAllCommandSummaryArray() {
+        return CommandMap.getAllCommandSummary().stream()
+                .map(CommandSummary::toArray)
+                .collect(Collectors.toList());
     }
 }

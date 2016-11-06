@@ -34,4 +34,8 @@ public class MainGuiHandle extends GuiHandle {
     public CommandErrorViewHandle getCommandErrorView() {
         return new CommandErrorViewHandle(guiRobot, primaryStage);
     }
+
+    public HelpViewHandle getHelpView() {
+        return new HelpViewHandle(guiRobot, primaryStage);
+    }
 }

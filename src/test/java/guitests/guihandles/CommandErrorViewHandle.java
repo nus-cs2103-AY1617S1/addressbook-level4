@@ -27,6 +27,7 @@ public class CommandErrorViewHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
+    /* Interfacing Methods */
     /**
      * Returns true if the placeholder is visible.
      */
