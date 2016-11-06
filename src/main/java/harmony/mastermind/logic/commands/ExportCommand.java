@@ -38,8 +38,6 @@ public class ExportCommand extends Command {
     
     public static final String MESSAGE_FAILURE = "Failed to export CSV.";
 
-    private static final String NEWLINE_CHARACTER = "\n";
-
     private static final Object[] GOOGLE_CALENDAR_HEADER = { "Subject", "Start Date", "Start Time", "End Date", "End Time", "All Day Event", "Description", "Location", "Private" };
 
     private static final SimpleDateFormat GOOGLE_CALENDAR_DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");

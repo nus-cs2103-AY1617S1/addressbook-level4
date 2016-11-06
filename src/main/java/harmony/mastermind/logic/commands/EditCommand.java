@@ -1,17 +1,14 @@
 package harmony.mastermind.logic.commands;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.model.tag.Tag;

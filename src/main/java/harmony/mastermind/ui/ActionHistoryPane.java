@@ -1,5 +1,12 @@
 package harmony.mastermind.ui;
 
+import com.google.common.eventbus.Subscribe;
+
+import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
+import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
+import harmony.mastermind.commons.util.FxViewUtil;
+import harmony.mastermind.logic.Logic;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
@@ -8,14 +15,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import com.google.common.eventbus.Subscribe;
-
-import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
-import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
-import harmony.mastermind.commons.util.FxViewUtil;
-import harmony.mastermind.logic.Logic;
-import javafx.fxml.FXML;
 
 public class ActionHistoryPane extends UiPart {
 

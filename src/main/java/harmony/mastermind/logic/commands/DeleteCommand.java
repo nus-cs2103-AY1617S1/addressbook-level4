@@ -1,18 +1,14 @@
 package harmony.mastermind.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
-import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
-import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 

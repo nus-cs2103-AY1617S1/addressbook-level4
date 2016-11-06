@@ -2,18 +2,13 @@ package harmony.mastermind.logic.commands;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
-import harmony.mastermind.memory.GenericMemory;
-import harmony.mastermind.memory.Memory;
 import harmony.mastermind.logic.parser.Parser;
-import harmony.mastermind.model.tag.Tag;
-import harmony.mastermind.model.tag.UniqueTagList;
+import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskBuilder;
 import harmony.mastermind.model.task.UniqueTaskList;
@@ -69,12 +64,7 @@ public class AddCommand extends Command implements Undoable, Redoable {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Mastermind";
 
     private final Task toAdd;
-    
 
-    private static final String TASK = "Task";
-    private static final String DEADLINE = "Deadline";
-    private static final String EVENT = "Event";
-    
     static GenericMemory task; 
     static GenericMemory deadline; 
     static GenericMemory event;

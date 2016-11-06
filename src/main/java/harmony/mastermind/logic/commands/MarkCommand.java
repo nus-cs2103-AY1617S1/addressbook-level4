@@ -5,7 +5,6 @@ import java.util.Date;
 
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.commons.exceptions.TaskAlreadyMarkedException;
 import harmony.mastermind.model.ModelManager;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.Task;
@@ -37,6 +36,9 @@ public class MarkCommand extends Command implements Undoable, Redoable {
     public static final String MESSAGE_MARK_RECURRING_FAILURE = "Unable to add recurring Task";
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Mark Command] %1$s has been unmarked";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Mark Command] %1$s has been archived";
+    
+    public static final String MARK_INDEX = "empty";
+    public static final String MARK_DUE = "due";
 
     private int targetIndex;
     private String type;
@@ -136,14 +138,14 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             throw new TaskNotFoundException();
         }
 
-        if (type.equals("empty")) {
+        if (type.equals(MARK_INDEX)) {
             tasksToMark.add(lastShownList.get(targetIndex - 1));
             Task taskToMark = tasksToMark.get(0); 
             model.markTask(taskToMark);
             if (taskToMark.isRecur()) {
                 model.addNextTask(taskToMark);
             }
-        } else if (type.equals("due")){
+        } else if (type.equals(MARK_DUE)){
             model.updateFilteredListToShowUpcoming(new Date().getTime(),type);
             lastShownList = model.getListToMark();
             for (Task task: lastShownList) {

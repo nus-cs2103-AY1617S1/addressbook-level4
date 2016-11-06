@@ -1,9 +1,5 @@
 package harmony.mastermind.model;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +17,6 @@ import com.google.common.eventbus.Subscribe;
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
-import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
