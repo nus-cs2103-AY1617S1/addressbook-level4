@@ -3,6 +3,7 @@ package seedu.taskitty.ui;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +25,7 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String HELPIMAGE = "/images/UIhelp.png";
-    private AnchorPane mainPane;
+    private ScrollPane mainPane;
 
     private Stage dialogStage;
 
@@ -37,7 +38,7 @@ public class HelpWindow extends UiPart {
 
     @Override
     public void setNode(Node node) {
-        mainPane = (AnchorPane) node;
+        mainPane = (ScrollPane) node;
     }
 
     @Override
@@ -45,19 +46,22 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0139052L
     private void configure(){
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        Screen screen = Screen.getPrimary();
 
         setIcon(dialogStage, ICON);
         
+        //Get the HelpWindow image and set its boundary and size
         Image helpImage = AppUtil.getImage(HELPIMAGE);
         ImageView helpImageView = new ImageView(helpImage);        
         FxViewUtil.applyAnchorBoundaryParameters(helpImageView, 0.0, 0.0, 0.0, 0.0);
         helpImageView.autosize();
-        mainPane.getChildren().add(helpImageView);
+        
+        //Set the HelpWindow image obtained as the content for the ScrollPane
+        mainPane.setContent(helpImageView);
     }
 
     public void show() {
