@@ -17,23 +17,23 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for Jimi.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+2. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for Jimi.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. 
 > <img src="images/WelcomeScreenUi.png" width="800">
 
-4. Type the command in the command box below and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box below and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open this user guide in another window.
-5. Some example commands you can try: 
+6. Some example commands you can try: 
    * **`add`**` "do laundry" `**`due`**` tomorrow` : 
      adds a task named `do laundry` due `tomorrow` to Jimi.
    * **`delete`**` t1` : deletes the 1st task shown in the current task list
    * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 <!--- @@author A0140133B -->
 ###Explaining the UI
