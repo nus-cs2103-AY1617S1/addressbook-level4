@@ -22,7 +22,7 @@ Responsibilities: Team Mentor
    * <kbd>[Done](UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](UserGuide.md#undone-a-specific-task--undone)</kbd> Command
    * Offline Help page
-* Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs](../collated/test/A0147335E.md)</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs](../collated/docs/A0147335E.md)</kbd>
 * Other major contributions:
   * Did the initial porting from AddressBook to TaskManager
   * Did the initial porting of JUnit tests from AddressBook to TaskManager
@@ -40,7 +40,7 @@ Responsibilities: Team Lead, Logic
    * Natural time input parsing using natty
    * <kbd>[Add](UserGuide.md#adding-a-task-add)</kbd> Command
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs](../collated/test/A0152958R.md)</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0152958R.md)</kbd> <kbd>[Test code](../collated/test/A0152958R.md)</kbd> <kbd>[Docs](../collated/docs/A0152958R.md)</kbd>
 
 **Role**: Developer <br>
 Responsibilities: Natural time input parsing, Add & edit command parsing
@@ -54,7 +54,7 @@ Responsibilities: Natural time input parsing, Add & edit command parsing
 * Features implemented:
    * New GUI
    * <kbd>[Edit](UserGuide.md#editing-a-task-edit)</kbd> Command
-* Code written: <kbd>[Functional code](../collated/main/A0133369B.md)</kbd> <kbd>[Test code]</kbd> <kbd>[Docs]</kbd>
+* Code written: <kbd>[Functional code](../collated/main/A0133369B.md)</kbd> <kbd>[Test code](../collated/test/A0133369B.md)</kbd> <kbd>[Docs](../collated/docs/A0133369B.md)</kbd>
 
 **Role**: Developer <br>
 Responsibilities: Testing, GUI
