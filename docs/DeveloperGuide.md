@@ -69,8 +69,8 @@ The rest of the App consists four components, where each components defines its 
 
 Component Name | Purpose | Interface | Implementation |
 -------- | :----------- | :----------- |:-----------
-[**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | `UIManager.java`
-[**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | `LogicManager.java`
+[**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | [`UIManager.java`](../src/main/java/w15c2/tusk/ui/UIManager.java)
+[**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | [`LogicManager.java`](../src/main/java/w15c2/tusk/logic/LogicManager.java)
 [**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/Model.java) | [`ModelManager.java`](../src/main/java/w15c2/tusk/model/ModelManager.java)
 [**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) <br> [`AliasStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | [`StorageManager.java`](../src/main/java/w15c2/tusk/storage/StorageManager.java)
 
