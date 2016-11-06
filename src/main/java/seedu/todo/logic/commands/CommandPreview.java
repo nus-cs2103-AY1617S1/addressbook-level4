@@ -1,16 +1,9 @@
 package seedu.todo.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-
-import seedu.todo.commons.util.StringUtil;
-
 //@@author A0139021U
-
 /**
  * Represents all relevant commands that will be used to show to the user.
  */
