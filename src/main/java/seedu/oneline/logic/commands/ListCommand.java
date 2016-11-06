@@ -27,7 +27,7 @@ public class ListCommand extends Command {
             + "Example: " + COMMAND_WORD
             + "today";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "Listed %1$s tasks";
 
     public static final String MESSAGE_INVALID = "Argument given is invalid. \n" +
                                                 "Supported formats: list [done/undone/today/week/float/#<Category>]";
@@ -90,7 +90,7 @@ public class ListCommand extends Command {
         default:
             return new CommandResult(MESSAGE_INVALID);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, listBy.equals(" ") ? "all" : listBy));
     }
 
     @Override
