@@ -209,6 +209,11 @@ public class Parser {
     private Command prepareEdit(String args) {
         
         Optional<Integer> index = parseIndex(args, EDIT_DATA_ARGS_FORMAT);
+        final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
         final String[] splitNewDetails = matcher.group("newDetails").split("\\s+");
         ArrayList<String> combinedDetails = combineSameDetails(splitNewDetails);
         
@@ -231,10 +236,10 @@ public class Parser {
     	ArrayList<String> alDetails = new ArrayList<String>(Arrays.asList(details));
     	System.out.println(alDetails.toString());
     	
-    	String name;
-    	String address;
-    	String dueDate;
-    	String priority;
+    	String name = new String();
+    	String address = new String();
+    	String dueDate = new String();
+    	String priority = new String();
     	
     	int currentDetailType = 0;
     	
