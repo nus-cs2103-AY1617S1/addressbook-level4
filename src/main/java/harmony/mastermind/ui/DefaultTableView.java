@@ -30,12 +30,12 @@ import javafx.stage.Stage;
 //@@author A0138862W
 @DefaultProperty("defaultTableView")
 public class DefaultTableView extends UiPart {
-    
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.042;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.285;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.18;
+
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.049;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.28;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.19;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.19;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.175;
     private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final String FXML = "DefaultTableView.fxml";
