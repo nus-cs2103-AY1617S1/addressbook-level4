@@ -38,4 +38,8 @@ public class MainGuiHandle extends GuiHandle {
     public HelpViewHandle getHelpView() {
         return new HelpViewHandle(guiRobot, primaryStage);
     }
+
+    public GlobalTagViewHandle getGlobalTagView() {
+        return new GlobalTagViewHandle(guiRobot, primaryStage);
+    }
 }
