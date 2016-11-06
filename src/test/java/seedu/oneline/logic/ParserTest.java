@@ -146,9 +146,66 @@ public class ParserTest {
                 new SimpleEntry<TaskField, String>(TaskField.NAME, testName),
                 new SimpleEntry<TaskField, String>(TaskField.END_TIME, testEndTime),
                 new SimpleEntry<TaskField, String>(TaskField.DEADLINE, testDeadline));
+    }    
+    
+    //@@author A0142605N
+    // Collaborated with A0140156R for full coverage of parser
+    
+    @Test
+    public void parser_allArgsReordered_success() {
+        String args = testName + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " " +
+                CommandConstants.TAG_PREFIX + testTag;
+        Map<TaskField, String> fields = null;
+        try {
+            fields = Parser.getTaskFieldsFromArgs(args);
+        } catch (IllegalCmdArgsException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        assertEqualFields(fields,
+                new SimpleEntry<TaskField, String>(TaskField.NAME, testName),
+                new SimpleEntry<TaskField, String>(TaskField.START_TIME, testStartTime),
+                new SimpleEntry<TaskField, String>(TaskField.END_TIME, testEndTime),
+                new SimpleEntry<TaskField, String>(TaskField.DEADLINE, testDeadline),
+                new SimpleEntry<TaskField, String>(TaskField.TAG, testTag));
     }
-
-    // =========== Test case for no values specified ===========
+    
+    @Test
+    public void parser_tagInMiddle_fail() {
+        // tags supposed to be specified at the end of the command
+        boolean errorThrown = false;
+        String args = testName + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
+                CommandConstants.TAG_PREFIX + testTag + 
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " ";
+        try {
+            Parser.getTaskFieldsFromArgs(args);
+        } catch (IllegalCmdArgsException e) {
+            errorThrown = e.getMessage().equals("Categories should be the last fields in command");
+        }
+        assertTrue(errorThrown);
+    }
+    
+    @Test
+    public void parser_duplicateField_fail() {
+        boolean errorThrown = false;
+        String args = testName + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " " +
+                CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
+                CommandConstants.TAG_PREFIX + testTag;
+        try {
+            Parser.getTaskFieldsFromArgs(args);
+        } catch (IllegalCmdArgsException e) {
+            errorThrown = e.getMessage().equals("There are more than 1 instances of .from in the command.");
+        }
+        assertTrue(errorThrown);
+    }
     
     @Test
     public void parser_noArgs_throwError() {
