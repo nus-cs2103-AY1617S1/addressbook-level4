@@ -65,12 +65,6 @@ public class CommandParser {
             Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<interval>[^,]+)");
     //@@author
 
-    public static final String EDIT_NAME = "name";
-    public static final String EDIT_START_TIME = "start";
-    public static final String EDIT_END_TIME = "end";
-    public static final String EDIT_DEADLINE = "due";
-    public static final String EDIT_TAG = "tag";
-
     /**
      * Parses user input into command for execution.
      *
@@ -90,6 +84,9 @@ public class CommandParser {
             return prepareAdd(arguments);
 
         case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
+            
+        case EditCommand.COMMAND_WORD_ALT:
             return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -429,15 +426,16 @@ public class CommandParser {
         TimeParserResult time = parserTime.parseTime(content);
         StringBuilder start = new StringBuilder();
         switch (item) {
-        case EDIT_NAME:
+        case "name":
+        case "n":
             try {
-                return new EditCommand(index, item, content, null);
+                return new EditCommand(index, "name", content, null);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
-        case EDIT_START_TIME:
-        case EDIT_END_TIME:
-        case EDIT_DEADLINE:
+        case "starttime":
+        case "start":
+        case "s":
             if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
                 buildFirstTime(time, start);
             }
@@ -445,11 +443,40 @@ public class CommandParser {
                 return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
             }
             try {
-                return new EditCommand(index, item, start.toString(), null);
+                return new EditCommand(index, "starttime", start.toString(), null);
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
-        case EDIT_TAG:
+        case "endtime":
+        case "end":
+        case "e":
+            if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
+                buildFirstTime(time, start);
+            }
+            if (start.length() == 0) {
+                return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
+            }
+            try {
+                return new EditCommand(index, "endtime", start.toString(), null);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        case "deadline":
+        case "due":
+        case "d":
+            if (time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME) {
+                buildFirstTime(time, start);
+            }
+            if (start.length() == 0) {
+                return new IncorrectCommand(Messages.MESSAGE_INVALID_TIME_FORMAT);
+            }
+            try {
+                return new EditCommand(index, "deadline", start.toString(), null);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        case "tag":
+        case "t":
             try {
                 return new EditCommand(index, item, item, getTagsFromArgs(" " + content));
             } catch (IllegalValueException ive) {

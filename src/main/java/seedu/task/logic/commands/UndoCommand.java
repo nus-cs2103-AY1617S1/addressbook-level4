@@ -23,12 +23,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo: ";
     public static final String MESSAGE_FAIL = "Cannot undo anymore!";
 
-    public static final String UNDO_EDIT_NAME = "name";
-    public static final String UNDO_EDIT_START_TIME = "start";
-    public static final String UNDO_EDIT_END_TIME = "end";
-    public static final String UNDO_EDIT_DEADLINE = "deadline";
-    public static final String UNDO_EDIT_TAG = "tag";
-
     public static final String EMPTY_STRING = "";
     public static final String DELIMITER = " ";
     public static final String NEW_LINE = "\n";
@@ -96,6 +90,10 @@ public class UndoCommand extends Command {
                     break;
 
                 case EditCommand.COMMAND_WORD:
+                    prepareUndoEdit(commandParts);
+                    break;
+                    
+                case EditCommand.COMMAND_WORD_ALT:
                     prepareUndoEdit(commandParts);
                     break;
 
@@ -244,34 +242,48 @@ public class UndoCommand extends Command {
     private void prepareUndoEdit(String[] commandParts) {
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
         String toEditItem = commandParts[COMMAND_FIELD].replace(",", EMPTY_STRING);
+        String toEditItemParsed = "";
         String toEdit = EMPTY_STRING;
         HashSet<String> tagStringSet = null;
         int undoIndex = lastIndexOfUndoList();
 
         switch (toEditItem) {
 
-        case UNDO_EDIT_NAME:
+        case "name":
+        case "n":
             toEdit = getUndoList().get(undoIndex).getOldTask().getName().toString();
+            toEditItemParsed = "name";
             break;
-        case UNDO_EDIT_START_TIME:
+        case "starttime":
+        case "start":
+        case "s":
             toEdit = getUndoList().get(undoIndex).getOldTask().getStartTime().toString();
+            toEditItemParsed = "starttime";
             break;
-        case UNDO_EDIT_END_TIME:
+        case "endtime":
+        case "end":
+        case "e":
             toEdit = getUndoList().get(undoIndex).getOldTask().getEndTime().toString();
+            toEditItemParsed = "endtime";
             break;
-        case UNDO_EDIT_DEADLINE:
+        case "deadline":
+        case "due":
+        case "d":
             toEdit = getUndoList().get(undoIndex).getOldTask().getDeadline().toString();
+            toEditItemParsed = "deadline";
             break;
-        case UNDO_EDIT_TAG:
+        case "tag":
+        case "t":
             HashSet<Tag> tagSet = new HashSet<>(getUndoList().get(undoIndex).getNewTask().getTags().toSet());
             tagStringSet = new HashSet<>(tagSet.size());
+            toEditItemParsed = "tag";
             break;
             
         default:
             break;
         }
         try {
-            Command command = new EditCommand(index, toEditItem, toEdit, tagStringSet);
+            Command command = new EditCommand(index, toEditItemParsed, toEdit, tagStringSet);
             setData(command);
             executeCommand(command);
         } catch (IllegalValueException e) {
