@@ -37,7 +37,7 @@ public class MarkLogicTest extends CommandLogicTest {
         expectedTDL.addTask(toBeMarkedToday);
         
         toBeMarkedToday.setCompletion(new Completion(true));
-        model.addTask(helper.generateFullTask(0));
+        model.addTask(helper.generateFullTaskToday(0));
         
         assertCommandBehavior("mark 1",
                 String.format(MarkCommand.MESSAGE_SUCCESS, 1, toBeMarkedToday),
