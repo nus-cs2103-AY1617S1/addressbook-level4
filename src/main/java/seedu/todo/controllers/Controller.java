@@ -19,7 +19,7 @@ public abstract class Controller {
      * @return confidence   True if the command keyword matches.
      */
     public boolean matchCommandKeyword(String keyword) {
-        return getCommandDefinition().getCommandKeyword().toLowerCase().equals(keyword.toLowerCase());
+        return getCommandDefinition().getCommandKeyword().equalsIgnoreCase(keyword);
     }
     
     /**
