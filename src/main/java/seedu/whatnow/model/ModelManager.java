@@ -504,6 +504,7 @@ public class ModelManager extends ComponentManager implements Model {
             freeTimes.put(startDate, newFreePeriod);
         } else {
             freeTimes.get(startDate).block(startTime, DEFAULT_END_TIME);
+            freeTimes.put(startDate, freeTimes.get(startDate));
         }
         if (freeTimes.get(endDate) == null) {
             FreePeriod newFreePeriod = new FreePeriod();
@@ -511,6 +512,7 @@ public class ModelManager extends ComponentManager implements Model {
             freeTimes.put(endDate, newFreePeriod);
         } else {
             freeTimes.get(endDate).block(DEFAULT_START_TIME, endTime);
+            freeTimes.put(endDate, freeTimes.get(endDate));
         }
         blockDatesInBetween(startDate, endDate);
     }

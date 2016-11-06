@@ -38,11 +38,12 @@ public class FreePeriod {
             Date reqEndTime = df.parse(end);
             Date freeSlotStartTime;
             Date freeSlotEndTime;
-            for (int i = 0; i < freePeriod.size(); i++) {
+            for (int i = freePeriod.size()-1; i >= 0; i--) {
                 Period curr = freePeriod.get(i);
                 freeSlotStartTime = df.parse(curr.getStart());
                 freeSlotEndTime = df.parse(curr.getEnd());
                 if (isWithinThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
+                    System.out.println("test1");
                     freePeriod.remove(i);
                     freePeriod.add(new Period(curr.getStart(), start));
                     freePeriod.add(new Period(end, curr.getEnd()));
@@ -59,6 +60,7 @@ public class FreePeriod {
                 } else if (isBiggerThanThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     freePeriod.remove(i);
                 } else {
+                    System.out.println("test8");
                     logger.warning("FreePeriod.java: block method, entered else statement!\n" 
                 + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n"
                 + "curr block: " + freePeriod.get(i) + "\n");
@@ -118,7 +120,7 @@ public class FreePeriod {
      */
     private boolean isPartlyBeforeThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
-        return reqStartTime.compareTo(freeSlotStartTime) < 0 && reqEndTime.compareTo(freeSlotStartTime) >= 0
+        return reqStartTime.compareTo(freeSlotStartTime) < 0 && reqEndTime.compareTo(freeSlotStartTime) > 0
                 && reqEndTime.compareTo(freeSlotEndTime) < 0;
     }
 

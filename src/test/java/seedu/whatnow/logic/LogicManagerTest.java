@@ -580,6 +580,58 @@ public class LogicManagerTest {
     public void executeFreeTime_farfarIntoTheFutureDate_freeSlotFound() throws Exception {
         assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_SUCCESS + "12/12/2222\n" + "[[12:00am, 11:59pm]]");
     }
+    
+    @Test
+    public void executeFreeTime_allFreeSlotsOnDateTaken_freeSlotNotFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task test = helper.generateTask(0);
+        test.setTaskDate("12/12/2222");
+        test.setStartTime("12:00am");
+        test.setEndTime("11:59pm");
+        
+        WhatNow expectedAB = new WhatNow();
+        expectedAB.addTask(test);
+        
+        model.addTask(test);
+        
+        assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "12/12/2222", 
+                expectedAB, expectedAB.getTaskList());
+        model.deleteTask(test);
+    }
+    
+    @Test
+    public void executeFreeTime_blockPeriodWithEndDateAlreadyTaken_freeSlotNotFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        
+        Task preloaded1 = helper.generateTask(1);
+        preloaded1.setTaskDate("12/12/2222");
+        preloaded1.setStartTime("08:00am");
+        preloaded1.setEndTime("09:00am");
+        
+        Task preloaded2 = helper.generateTask(2);
+        preloaded2.setTaskDate("14/12/2222");
+        preloaded2.setStartTime("08:00am");
+        preloaded2.setEndTime("09:00am");
+        
+        Task test = helper.generateTask(0);
+        test.setTaskDate(null);
+        test.setStartDate("12/12/2222");
+        test.setEndDate("14/12/2222");
+        test.setStartTime("12:00am");
+        test.setEndTime("11:59pm");
+        
+        WhatNow expectedAB = new WhatNow();
+        expectedAB.addTask(preloaded1);
+        expectedAB.addTask(preloaded2);
+        expectedAB.addTask(test);
+        
+        model.addTask(preloaded1);
+        model.addTask(preloaded2);
+        model.addTask(test);
+        
+        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222", 
+                expectedAB, expectedAB.getTaskList());
+    }
 
     /**
      * A utility class to generate test data.
@@ -609,8 +661,7 @@ public class LogicManagerTest {
          * with the same parameter values guarantees the returned task will have
          * the same state. Each unique seed will generate a unique Task object.
          *
-         * @param seed
-         *            used to generate the task data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
             return new Task(new Name("Task " + seed), "23/02/2017", null, null, null, null, null, null, null,
@@ -623,8 +674,7 @@ public class LogicManagerTest {
          * with the same parameter values guarantees the returned task will have
          * the same state. Each unique seed will generate a unique Task object.
          *
-         * @param seed
-         *            used to generate the task data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTaskForSelect(int seed) throws Exception {
             return new Task(new Name("Task " + seed), null, null, null, null, null, null, null, null,
