@@ -67,6 +67,12 @@ public class StartTime extends DateTime {
             this.value.set(Calendar.SECOND, 0);
         }
     }
+    
+    public StartTime(Calendar date, boolean isRecurring, String recurringMessage) {
+        super(date);
+        this.recurring = isRecurring;
+        this.RecurringMessage = recurringMessage;
+    }
 
     public String forDisplay() {
         if (this.value == null) {
