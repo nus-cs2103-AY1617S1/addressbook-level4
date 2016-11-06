@@ -17,9 +17,9 @@ We are a team based in the [School of Computing, National University of Singapor
 	* ListAll categories or tags
 	* Flexible command inputs for date and time
 * Code written: 
-[functional code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139749L.md)
-[test code] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139749L.md)
-[docs] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139749L.md)
+\[[functional code]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/main/A0139749L.md)
+\[[test code]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/test/A0139749L.md)
+\[[docs]\] (https://github.com/CS2103AUG2016-T10-C3/main/blob/master/collated/docs/A0139749L.md)
 * Other major contributions:
 	* Did the initial refactoring from AddressBook to Emeraldo
 	* Set up Travis and Coveralls
@@ -105,3 +105,10 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### Sam Yong
 <img src="images/SamYong.jpg" width="150"><br>
+
+
+ 
+
+
+
+
