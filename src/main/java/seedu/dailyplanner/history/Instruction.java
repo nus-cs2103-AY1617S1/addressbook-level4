@@ -26,4 +26,8 @@ public class Instruction {
 	public void setReverse(String cmd) {
 		this.reverseCommand = cmd;
 	}
+	
+	public ReadOnlyTask getTask() {
+		return this.task;
+	}
 }

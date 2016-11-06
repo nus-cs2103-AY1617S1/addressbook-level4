@@ -22,13 +22,11 @@ public class UndoCommand extends Command {
 		Instruction undoInstruction = model.getHistory().getLastInstruction();
 		ReadOnlyTask taskToUndo = null;
 
-		taskToUndo = new Task(undoInstruction.getName(), undoInstruction.getTaskStart(), undoInstruction.getTaskEnd(),
-				undoInstruction.isComplete(), undoInstruction.isPinned(), undoInstruction.getTag());
+		taskToUndo = undoInstruction.getTask();
 
 		if (undoInstruction.getReverse().equals("A")) {
 			try {
 				model.addPerson((Task) taskToUndo);
-
 			} catch (IllegalValueException e) {
 				e.printStackTrace();
 			}
@@ -44,7 +42,6 @@ public class UndoCommand extends Command {
 
 		if (undoInstruction.getReverse().equals("ED")) {
 			try {
-				System.out.println("TEST  " + taskToUndo.toString());
 				model.deletePerson(taskToUndo);
 
 			} catch (PersonNotFoundException e) {
@@ -57,13 +54,20 @@ public class UndoCommand extends Command {
 			undoInstruction = model.getHistory().getLastInstruction();
 			taskToUndo = null;
 
-			taskToUndo = new Task(undoInstruction.getName(), undoInstruction.getTaskStart(),
-					undoInstruction.getTaskEnd(), undoInstruction.isComplete(), undoInstruction.isPinned(),
-					undoInstruction.getTag());
+			taskToUndo = undoInstruction.getTask();
 
 			try {
 				model.addPerson((Task) taskToUndo);
 			} catch (DuplicatePersonException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (undoInstruction.getReverse().equals("UP")) {
+			int indexInPinBoard = model.getPinnedTaskList().indexOf(taskToUndo);
+			try {
+				model.unpinTask(indexInPinBoard);
+			} catch (PersonNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
