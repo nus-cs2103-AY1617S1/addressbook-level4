@@ -4,10 +4,12 @@ import guitests.guihandles.TaskCardViewHandle;
 import org.junit.Test;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.CommandGeneratorUtil;
+import seedu.todo.testutil.TaskBuilder;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.UiTestUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -39,6 +41,12 @@ public class AddCommandTest extends TodoListGuiTest {
 
         //Add duplicated task
         executeAddTestHelper(task2);
+
+        //Add an overdue task
+        ImmutableTask task3 = TaskBuilder.name("Overdue Task")
+                .due(LocalDateTime.now().minusHours(3))
+                .build();
+        executeAddTestHelper(task3);
     }
 
     @Test
@@ -47,11 +55,23 @@ public class AddCommandTest extends TodoListGuiTest {
         ImmutableTask event1 = TaskFactory.event();
         executeAddTestHelper(event1);
 
-        //Add another event
-        ImmutableTask event2 = TaskFactory.event();
+        //Add an overdue event.
+        ImmutableTask event2 = TaskBuilder.name("Overdue Event")
+                .event(LocalDateTime.now().minusHours(3), LocalDateTime.now().minusHours(2))
+                .build();
         executeAddTestHelper(event2);
 
-        //Add duplicated task
+        //Add an ongoing event.
+        ImmutableTask event3 = TaskBuilder.name("Ongoing Event")
+                .event(LocalDateTime.now().minusHours(3), LocalDateTime.now().plusHours(2))
+                .build();
+        executeAddTestHelper(event3);
+
+        //Add another event
+        ImmutableTask event4 = TaskFactory.event();
+        executeAddTestHelper(event4);
+
+        //Add duplicated event
         executeAddTestHelper(event1);
     }
 
