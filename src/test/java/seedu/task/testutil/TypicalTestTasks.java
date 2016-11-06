@@ -26,7 +26,7 @@ public class TypicalTestTasks {
                     .withRemarks(null)
                     .withStatus(Status.Type.Incomplete).build();
             eventWithLocation = new TaskBuilder().withName("Event with location")
-                    .withInterval(getTodayDate(), "20:00", getTodayDate(), "23:59")
+                    .withInterval(getTodayDate(), "23:58", getTodayDate(), "23:59")
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(Status.Type.Incomplete).build();

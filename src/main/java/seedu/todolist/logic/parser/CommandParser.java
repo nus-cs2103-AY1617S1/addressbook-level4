@@ -233,8 +233,10 @@ public class CommandParser {
      * @return a string array that contains date and time
      */
     private String[] parseDatetime(String datetime) {
-        if (isReversed(datetime)) {
+        System.out.println("FIRST: " + datetime);
+        if (isSlashFormat(datetime)) {
             datetime = reverseDayAndMonth(datetime);
+            System.out.println(datetime);
         }
         
         ArrayList<String> intervalComponents = new ArrayList<String>();
@@ -255,19 +257,6 @@ public class CommandParser {
     private boolean isSlashFormat(String datetime) {
         Matcher matcher = Pattern.compile(TaskDate.DATE_VALIDATION_SLASH_REGEX).matcher(datetime.trim());
         return matcher.matches();
-    }
-    
-    /**
-     * Returns true if both day and month are smaller than 12
-     * because Natty will parse the date in reversed as mm/dd/yyyy.
-     */
-    private boolean isReversed(String datetime) {
-        if (isSlashFormat(datetime)) {
-            String[] dateAndTime = datetime.trim().split(DATE_DELIMITER);
-            return Integer.parseInt(dateAndTime[INDEX_MONTH]) <= MAX_MONTH 
-                    && Integer.parseInt(dateAndTime[INDEX_DAY]) <= MAX_MONTH;
-        }
-        return false;
     }
     
     /**
