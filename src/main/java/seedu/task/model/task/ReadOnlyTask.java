@@ -51,7 +51,7 @@ public interface ReadOnlyTask {
         if (!getDeadline().toString().isEmpty()) {       
             builder.append(" \nDeadline: ").append(getDeadline());
         }
-        if (!getRecurring().toString().isEmpty()) {       
+        if (!getRecurring().toString().equals("false")) {       
             builder.append(" \nRecurring: ").append(getDeadline());
         }
         if (!getTags().toSet().isEmpty()) {       
