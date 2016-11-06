@@ -29,6 +29,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
     public static final String TAB_TASK_COMPLETE = "Completed";
     public static final String TAB_TASK_INCOMPLETE = "Incomplete";
+    public static final String TAB_TASK_OVERDUE = "Overdue";
 
     private Logic logic;
 

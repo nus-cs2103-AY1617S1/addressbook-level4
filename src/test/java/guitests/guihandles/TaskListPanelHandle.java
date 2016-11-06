@@ -29,6 +29,10 @@ public class TaskListPanelHandle extends GuiHandle {
     private static final String LIST_VIEW_ID_INCOMPLETE = "#taskListView";
     private static final String LIST_VIEW_ID_COMPLETE = "#completeTaskListView";
     private static final String LIST_VIEW_ID_OVERDUE = "#overdueTaskListView";
+    
+    private static final String TAB_ID_INCOMPLETE = "#incompleteTab";
+    private static final String TAB_ID_COMPLETE = "#completedTab";
+    private static final String TAB_ID_OVERDUE = "#overdueTab";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -58,7 +62,7 @@ public class TaskListPanelHandle extends GuiHandle {
             
         }
     }
-
+    
     public ListView<ReadOnlyTask> getIncompleteListView() {
         return (ListView<ReadOnlyTask>) getNode(LIST_VIEW_ID_INCOMPLETE);
     }
@@ -70,11 +74,50 @@ public class TaskListPanelHandle extends GuiHandle {
     public ListView<ReadOnlyTask> getOverdueListView() {
         return (ListView<ReadOnlyTask>) getNode(LIST_VIEW_ID_OVERDUE);
     }
+    
+    public Node getListTab(Status.Type type) {
+        switch (type) {
+        
+        case Complete :
+            return getCompleteListTab();
+            
+        case Incomplete :
+            return getIncompleteListTab();
+            
+        case Overdue :
+            return getOverdueListTab();
+            
+        default :
+            assert false : "Type must be either Complete, Incomplete or Overdue";
+            return null;           
+        }
+    }
+    
+    public Node getIncompleteListTab() {
+        return getNode(TAB_ID_INCOMPLETE);
+    }
+    
+    public Node getCompleteListTab() {
+        return getNode(TAB_ID_COMPLETE);
+    }
+    
+    public Node getOverdueListTab() {
+        return getNode(TAB_ID_OVERDUE);
+    }
+    
     /**
      * Clicks on the ListView.
      */
     public void clickOnListView(Status.Type type) {
-        Point2D point= TestUtil.getScreenMidPoint(getListView(type));
+        Point2D point = TestUtil.getScreenMidPoint(getListView(type));
+        guiRobot.clickOn(point.getX(), point.getY());
+    }
+    
+    /**
+     * Clicks on the list tab.
+     */
+    public void clickOnListTab(Status.Type type) {
+        Point2D point = TestUtil.getScreenMidPoint(getListTab(type));
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -122,6 +165,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public TaskCardHandle navigateToTask(String name, Status.Type type) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        clickOnListTab(type);
         final Optional<ReadOnlyTask> task = getListView(type).getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
