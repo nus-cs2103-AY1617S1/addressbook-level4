@@ -51,9 +51,9 @@ public class StorageManager extends ComponentManager implements Storage {
                 changeTaskManager(taskManagerFilePath, data);
             } 
         } catch (DataConversionException e) {
-            e.printStackTrace();
+            throw new DataConversionException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new IOException(e);
         }     
     }
     

@@ -10,7 +10,8 @@ import seedu.taskitty.model.task.*;
 public class TypicalTestTask {
 
     //@@author A0139930B
-    public static TestTask read, spring, shop, dinner, todo, deadline, overdueDeadline, event, overEvent;
+    public static TestTask read, spring, shop, dinner, todo, deadline, overdueDeadline, event, overEvent, 
+                           editedDeadline, editedEvent;
     
     public TypicalTestTask() {
         try {
@@ -30,12 +31,18 @@ public class TypicalTestTask {
             deadline = new TaskBuilder().withName("deadline")
                     .withDeadline("23/12/2016", "08:00")
                     .withTags("generic").build();
+            editedDeadline = new TaskBuilder().withName("deadline")
+                    .withDeadline("24/12/2016", "08:00")
+                    .withTags("generic").build();
             overdueDeadline = new TaskBuilder().withName("deadline")
                     .withDeadline("23/10/2016", "08:00")
                     .withTags("generic").build();
             event = new TaskBuilder().withName("event")
                     .withEvent("13/12/2016", "13:00", "15/12/2016", "10:00")
                     .withTags("generic").build();
+            editedEvent = new TaskBuilder().withName("shop for xmas")
+                    .withEvent("12/12/2016", "10:00", "17/12/2016", "19:00")
+                    .build();
             overEvent = new TaskBuilder().withName("overEvent")
                     .withEvent("02/01/2016", "12:00", "03/01/2016", "12:00")
                     .withTags("generic").build();

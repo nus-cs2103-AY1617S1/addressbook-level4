@@ -18,6 +18,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private static final String DONE_STATUS = "done";
     private static final String OVERDUE_STATUS = "overdue";
     private static final String DEFAULT_STATUS = "default";
+    
     @Test
     public void edit() {
         
@@ -27,20 +28,39 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //edit from deadline to todo
         TestTask taskToEdit = td.todo;
         int targetIndex = currentList.size('d');
-        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, DEFAULT_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, DEFAULT_STATUS);
 
         //edit from event to deadline
         taskToEdit = td.deadline;
         targetIndex = currentList.size('e');
-        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, DEFAULT_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, false, DEFAULT_STATUS);
         
         //edit from todo to event
         taskToEdit = td.event;
         targetIndex = currentList.size('t');
-        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, DEFAULT_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, false, DEFAULT_STATUS);
+        
+        //editing date of deadline using date only
+        commandBox.runCommand("edit d1 24/12/2016");
+        taskToEdit = td.editedDeadline;
+        assertEditSuccess(taskToEdit, 1, 'd', currentList, true, DEFAULT_STATUS);
+        
+        commandBox.runCommand("edit e1 12/12/2016 to 17/12/2016");
+        taskToEdit = td.editedEvent;
+        assertEditSuccess(taskToEdit, 1, 'e', currentList, true, DEFAULT_STATUS);
+        
+        //invalid edit from event to deadline using only one date; need to specify time
+        commandBox.runCommand("edit e1 24/12/2016");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
+        
+        //invalid edit from deadline to event by only specifying dates
+        commandBox.runCommand("edit d1 24/12/2016 to 25/12/2016");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         
         //edit into duplicate task
-        commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, 'e'));
+        commandBox.runCommand(td.editedDeadline.getEditCommand(targetIndex - 1, 'e'));
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(currentList.isListMatching(taskListPanel));
         
@@ -61,6 +81,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(td.todo.getEditCommand(targetIndex, 't'));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(currentList.isListMatching(taskListPanel));
+
     }
    
     //@@author A0130853L
@@ -72,7 +93,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runViewAllCommand();
         int targetIndex = currentList.size('d');
         TestTask taskToEdit = td.deadline;
-        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, DONE_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, DONE_STATUS);
     }
     
     @Test
@@ -81,7 +102,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //edit an overdue deadline
         TestTask taskToEdit = td.overdueDeadline;
         int targetIndex = currentList.size('d');
-        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, OVERDUE_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, OVERDUE_STATUS);
     }
     
     @Test
@@ -92,7 +113,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runViewAllCommand();
         int targetIndex = currentList.size('e');
         currentList.markTaskAsDoneInList(targetIndex-1, 'e', taskToEdit);
-        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, DONE_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, false, DONE_STATUS);
     }
     
     /**
@@ -108,23 +129,31 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("done e2");
         int targetIndex = currentList.size('e');
         currentList.markTaskAsDoneInList(targetIndex-1, 'e', taskToEdit);
-        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, DONE_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, false, DONE_STATUS);
     }
     
     //@@author
-    private void assertEditSuccess(TestTask taskToEdit, int index, char category, TestTaskList currentList, String taskStatus) {
-        commandBox.runCommand(taskToEdit.getEditCommand(index, category));
+    
+    //@@author A0135793W
+    private void assertEditSuccess(TestTask taskToEdit, int index, char category, TestTaskList currentList, 
+            boolean isSpecialCommand, String taskStatus) {
+        
+        if (!isSpecialCommand) {
+            commandBox.runCommand(taskToEdit.getEditCommand(index, category));
+        }
 
         //confirm the new card contains the right data
-        TaskCardHandle editedCard = taskListPanel.navigateToTask(taskToEdit.getName().fullName, taskToEdit.getPeriod().getNumArgs());
+        TaskCardHandle editedCard = taskListPanel.navigateToTask(taskToEdit.getName().fullName, 
+                                                                 taskToEdit.getPeriod().getNumArgs());
         assertMatching(taskToEdit, editedCard);
        
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous tasks plus the new edited task
         currentList.editTaskFromList(index - 1, category, taskToEdit);
         assertTrue(currentList.isListMatching(taskListPanel));
         
         verifyTasksWithSpecifiedStatuses(taskStatus, editedCard);
     }
+    
     
     //@@author A0130853L
     /**

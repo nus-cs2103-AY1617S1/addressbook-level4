@@ -146,7 +146,7 @@ public class EditCommand extends Command {
         if (data[Task.EVENT_COMPONENT_INDEX_START_TIME] == null) {
             if (categoryIndex != Task.EVENT_CATEGORY_INDEX) {
                 return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                                                   MESSAGE_USAGE)));
+                                                        Command.MESSAGE_FORMAT + MESSAGE_PARAMETER)));
             }
             data[Task.EVENT_COMPONENT_INDEX_START_TIME] = taskToEdit.getPeriod().getStartTime().toString();
         }
@@ -164,7 +164,7 @@ public class EditCommand extends Command {
         if (data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] == null) {
             if (categoryIndex != Task.DEADLINE_CATEGORY_INDEX) {
                 return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                                                   MESSAGE_USAGE)));
+                                                        Command.MESSAGE_FORMAT + MESSAGE_PARAMETER)));
             }
             data[Task.DEADLINE_COMPONENT_INDEX_END_TIME] = taskToEdit.getPeriod().getEndTime().toString();
         }
