@@ -216,6 +216,67 @@ public class LogicManagerTest {
 		assertCommandBehavior("help", HelpCommand.HELP_MESSAGE_HELP);
 		assertTrue(helpShown);
 	}
+	
+	@Test
+	public void execute_help_add() throws Exception {
+		assertCommandBehavior("help add", HelpCommand.HELP_MESSAGE_ADD);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_delete() throws Exception {
+		assertCommandBehavior("help delete", HelpCommand.HELP_MESSAGE_DELETE);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_find() throws Exception {
+		assertCommandBehavior("help find", HelpCommand.HELP_MESSAGE_FIND);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_edit() throws Exception {
+		assertCommandBehavior("help edit", HelpCommand.HELP_MESSAGE_EDIT);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_list() throws Exception {
+		assertCommandBehavior("help list", HelpCommand.HELP_MESSAGE_LIST);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_clear() throws Exception {
+		assertCommandBehavior("help clear", HelpCommand.HELP_MESSAGE_CLEAR);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_undo() throws Exception {
+		assertCommandBehavior("help undo", HelpCommand.HELP_MESSAGE_UNDO);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_redo() throws Exception {
+		assertCommandBehavior("help redo", HelpCommand.HELP_MESSAGE_REDO);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_done() throws Exception {
+		assertCommandBehavior("help done", HelpCommand.HELP_MESSAGE_DONE);
+		assertTrue(helpShown);
+	}
+	
+	@Test
+	public void execute_help_exit() throws Exception {
+		assertCommandBehavior("help exit", HelpCommand.HELP_MESSAGE_EXIT);
+		assertTrue(helpShown);
+	}
+	
 
 	@Test
 	public void execute_exit() throws Exception {
@@ -1568,6 +1629,7 @@ public class LogicManagerTest {
 							  expectedAB, 
 							  expectedList);
 	}
+	
 	
 	
 	
