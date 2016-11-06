@@ -40,7 +40,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	
     	assert !CollectionUtil.isAnyNull(name, taskType, status, startDate, endDate, tags);
     	
-    	validateDateTimeArgumentsWithTaskType();
+    	validateDateTimeArgumentsWithTaskType(startDate, endDate, taskType);
     	
     	if(startDate.isPresent() && endDate.isPresent()){
     		LocalDateTime startDateTime = startDate.get();
@@ -142,7 +142,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	}
     }
     
-    private void validateDateTimeArgumentsWithTaskType(){
+    private void validateDateTimeArgumentsWithTaskType(Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, TaskType taskType){
     	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
     		throw new IllegalArgumentException("Only events should have start dates");
     	}
