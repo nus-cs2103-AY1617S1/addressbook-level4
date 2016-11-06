@@ -21,7 +21,7 @@
 
 ## About GGist
 
-Are you constantly overwhelmed by the number of things you have to do everyday? Do you have a hard time managing your time? If your answer is yes, GGist is the perfect solution for you. GGist is a one-stop, user-friendly desktop application designed to aid busy individuals like you in better managing and prioritising your everyday tasks.
+Are you constantly overwhelmed by the number of things you have to do everyday? Do you have troubles managing your time? If your answer is yes, GGist is the perfect solution for you. GGist is a one-stop, user-friendly desktop application designed to aid busy individuals like you in better managing and prioritising your everyday tasks.
 
 Unlike most of the other task managers in the market, GGist accepts straightforward, one-liner keyboard commands that incorporate flexible natural language. This makes it extremely convenient for working professionals like you who spend most of your time near a computer and prefer typing instead of using the mouse. 
 
@@ -45,8 +45,8 @@ Are you ready to embrace a new style of organised living? Let's begin!
    * **`list`**` today` : 
      lists all today's undone tasks.
    * **`add`**` water the plants, 13 dec, 1400` : 
-     adds a task `water the plants` with the deadline 2pm on the 13th of July to GGist.
-   * **`delete`**` 3` : deletes the 3rd task shown in the current list.
+     adds a task `water the plants` with a deadline of 2pm on the 13th of July to GGist.
+   * **`delete`**` 3` : deletes the third task in the viewed listing.
    * **`exit`** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -68,7 +68,7 @@ Format: `help`
 
 <!-- @@author A0144727B --> 
 
-#### Adding a task: `add` 
+#### Adding tasks: `add` 
 
 Adds a task to GGist<br>
 
@@ -85,7 +85,7 @@ General format: `add TASK, [DATE] [TIME], [PRIORITY]`
 > * Three available levels: `-low` , `-med` , `-high`
 
 
-##### Without any deadline
+##### Tasks without any deadline
 
 Format: `add TASK, [PRIORITY]`
 
@@ -94,7 +94,7 @@ Examples:
 * `add buy brother's present`
 
 
-##### With deadline
+##### Tasks with deadline
 
 Format: `add TASK, DATE TIME [PRIORITY]`
 
@@ -107,7 +107,7 @@ Examples:
 > * `[DATE]` and `[TIME]` has to separated by a space or an ' at '.<br>
 
 
-##### With start and end time within the same day
+##### Tasks with start and end time within the same day
 
 Format: `add TASK, DATE, STARTTIME, ENDTIME [PRIORITY]`
 
@@ -121,7 +121,7 @@ Examples:
 > * The comma after `[STARTTIME]` can be replaced with `to`.<br>
 <!-- @@author A0138411N --> 
 
-##### With start and end time on different days
+##### Tasks with start and end time on different days
 
 Format: `add TASK, STARTDATE TIME, ENDDATE TIME [PRIORITY]`
 
@@ -134,9 +134,9 @@ Examples:
 > * The comma after `[STARTDATE] [TIME]` can be replaced with a `to`.
 
 
-#### Listing tasks : `list` Shows a list of task of your preferred choice.<br>
+#### Listing tasks : `list` 
 
-Note that overdue tasks will be listed at the top in all kinds of listings.
+Shows a list of tasks of your choice. Note that overdue tasks will be listed at the top in all kinds of listings.
 
 Format: `list [TYPE]`
 
@@ -153,7 +153,7 @@ Examples:
 * `list done` shows all completed tasks<br>
 
 <img src="images/ListDoneUI.png" width="800">
-* `list [PRIORITY]` shows all tasks with the specified priority level  (low, med, high)<br>
+* `list [PRIORITY]` shows all tasks with the specified priority level (low, med, high)<br>
 
 <img src="images/ListHighUI.png" width="800">
 * `list [DATE]` shows all undone tasks with start date or end date as the specified date<br>
@@ -181,7 +181,7 @@ Examples:
   Lists the all the tasks with names containing the word `milk` if any can be found. 
  <!-- @@author --> 
 
-#### Deleting a task : `delete`
+#### Deleting tasks : `delete`
 
 Deletes the specified task from the viewed listing.<br>
 
@@ -208,6 +208,7 @@ Examples:<br>
 #### Undo : `undo`
 
 Reverts the most recent action. Undo can be called multiple times.<br>
+
 Format: `undo`
 <!-- @@author -->  
 <!--- @@author A0138411N --->
@@ -215,9 +216,10 @@ Format: `undo`
 #### Redo : `redo`
 
 Reverts the most recent undo action. You can consecutively redo as many times as you have consecutively undid.<br>
+
 Format: `redo`
 
-#### Editing a task : `edit`
+#### Editing tasks : `edit`
 
 Edits task on the display list.<br>
 
@@ -232,7 +234,7 @@ Examples:
 
 <!-- @@author A0138420N -->
 
-#### Marking a task as done : `done`
+#### Marking tasks as done : `done`
 
 Marks a task on the viewed listing as done. The task marked as done will disappear from the viewed listing of undone tasks, but can be retrieved using `list done` to view all completed tasks.<br>
 
@@ -250,18 +252,18 @@ Examples:<br>
 
 <!-- @@author A0144727B -->
 
-#### Marking a completed task as undone : `continue`
+#### Marking completed tasks as undone : `continue`
 
 Marks a completed task on the done listing as undone.<br>
 Format: `continue INDEX...`
 
-Example:<br>
+Examples:<br>
 * `list done`<br>
   `continue 2`
  
 To mark more than one completed task as undone, simply type in indexes separated by a comma. <br>
 
-Example:<br>
+Examples:<br>
 * `list done`<br>
   `continue 1, 2, 3`
 
@@ -271,7 +273,7 @@ Example:<br>
 #### Saving the data to a specified location : `save` 
 
 There is no need to save your data manually. GGist automatically saves all data in the hard disk after receiving any command that changes the data.<br>
-The save data file is located in  the`./data` folder together with the `.jar` folder by default.<br>
+The save data file is located in the`./data` folder together with the `.jar` folder by default.<br>
 You can change the location and port the data file over easily with this command.<br>
 
 Format: `save FILELOCATION`
@@ -283,12 +285,16 @@ Example:<br>
 > * To switch back to the default save folder, type `save data` <br>
 > * By default, the filename will be ggist.xml
 
-You can change the file name to your preference too.<br>
+You can also change the file name to your preference.<br>
 
 Format: `save FILE_NAME.xml`
 
 > The file format has to be .xml
 
+
+#### Clearing all data : `clear`
+Clears all the data in GGist. This action is irreversible.<br>
+Format: `clear` 
 
 #### Exiting the program : `exit`
 Exits the program.<br>
