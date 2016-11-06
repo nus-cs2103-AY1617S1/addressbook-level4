@@ -21,6 +21,7 @@ public interface ReadOnlyItem {
     void setDone();
     void setUndone();
     boolean isPastDeadline();
+    boolean isNearDeadline();
     Date getEndDateTime();
 
     /**

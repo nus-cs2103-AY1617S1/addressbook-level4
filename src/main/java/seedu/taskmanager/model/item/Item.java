@@ -1,14 +1,18 @@
 package seedu.taskmanager.model.item;
 
+import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.CollectionUtil;
 import seedu.taskmanager.model.tag.UniqueTagList;
+import seedu.taskmanager.ui.UiManager;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 /**
  * Represents a Item in the task manager.
@@ -34,8 +38,8 @@ public class Item implements ReadOnlyItem {
     private ItemTime endTime;
     private boolean done;
 
-    private UniqueTagList tags;
-
+    private UniqueTagList tags;    
+    
     /**
      * Convenience constructor for tasks. Calls primary constructor with empty fields for startDate, startTime, endDate, endTime
      *
@@ -208,7 +212,7 @@ public class Item implements ReadOnlyItem {
         return getAsText();
     }
     
-    
+    //@@author A0143641M
     /**
      * Checks if current item is overdue.
      * Assumes current item is either an event or a deadline.
@@ -225,6 +229,20 @@ public class Item implements ReadOnlyItem {
         } else { // Past Deadline
             return true;
         }
+    }
+    
+    /**
+     * Returns true if deadline within the next 24 hours.
+     */
+    public boolean isNearDeadline() {
+        Date thisEndDate = getEndDateTime();
+        Date todayDate = new Date();
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +1);
+        Date tomorrowDate = cal.getTime();
+
+        return thisEndDate.after(todayDate) && thisEndDate.before(tomorrowDate);
     }
     
     public Date getEndDateTime() {

@@ -80,22 +80,6 @@ public class ShortItemCard extends UiPart{
         
         setColour();
     }
-    
-    //@@author A0143641M
-    private void setColour() {
-        if (item.getDone()) {
-            id.setStyle("-fx-text-fill: #2E8B57");
-            name.setStyle("-fx-text-fill: #2E8B57");
-            tags.setStyle("-fx-text-fill: #2E8B57");
-        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
-            if (item.isPastDeadline()) { // Past End Date
-            	id.setStyle("-fx-text-fill: #FF0000");
-                name.setStyle("-fx-text-fill: #FF0000");
-                tags.setStyle("-fx-text-fill: #FF0000");
-            }
-        }
-    }
-    //@@author
 
     public HBox getLayout() {
         return cardPane;
@@ -109,5 +93,25 @@ public class ShortItemCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    //@@author A0143641M
+    private void setColour() {
+        if (item.getDone()) {
+            id.setStyle("-fx-text-fill: #2E8B57");
+            name.setStyle("-fx-text-fill: #2E8B57");
+            tags.setStyle("-fx-text-fill: #2E8B57");
+        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD) || item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            if (item.isNearDeadline()) { // 24 Hours Before End Date
+                id.setStyle("-fx-text-fill: #E67E00");
+                name.setStyle("-fx-text-fill: #E67E00");
+                tags.setStyle("-fx-text-fill: #E67E00");
+            }
+            if (item.isPastDeadline()) { // Past End Date
+                id.setStyle("-fx-text-fill: #FF0000");
+                name.setStyle("-fx-text-fill: #FF0000");
+                tags.setStyle("-fx-text-fill: #FF0000");
+            }
+        }
     }
 }
