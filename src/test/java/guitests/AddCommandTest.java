@@ -28,10 +28,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         taskToAdd = tasksToAdd.get(1);
         assertAddSuccess(taskToAdd, currentTaskList);
 
-        //add duplicate person
-        //commandBox.runCommand(td.hoon.getAddCommand());
-        //assertResultMessage(AddTaskCommand.MESSAGE_DUPLICATE_TASK);
-        //assertTrue(taskListPanel.isListMatching(currentList));
+        //add duplicate task but should pass
+        taskToAdd = taskToAdd.copy();
+        assertAddSuccess(taskToAdd, currentTaskList);
 
         //add to empty list
         taskToAdd = tasksToAdd.get(2);
