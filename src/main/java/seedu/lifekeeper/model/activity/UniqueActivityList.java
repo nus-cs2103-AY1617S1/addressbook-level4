@@ -36,7 +36,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty ActivityList.
      */
     public UniqueActivityList() {}
 

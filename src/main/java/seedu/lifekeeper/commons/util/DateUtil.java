@@ -145,6 +145,16 @@ public class DateUtil {
     }
 
     /**
+     * Returns true if a given string is a valid task reminder.
+     */
+    public static boolean isValidDate(String test) {
+        if (validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
+            return true;
+        else
+            return false;
+    }
+
+    /**
      * Convert today's date into date format Must contain time of the day in
      * hour and mins
      * 
@@ -153,7 +163,7 @@ public class DateUtil {
      * @return tomorrow in valid date format
      */
 
-    public static String FixedTime(String date) throws IllegalValueException {
+    public static String convertDateWhenDayOfTheWeekIsGiven(String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         Date today = new Date();
         String strDate;
@@ -165,15 +175,15 @@ public class DateUtil {
             strDate = new SimpleDateFormat("d-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
         } else if (date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
                 || date.contains("fri") || date.contains("sat") || date.contains("sun")) {
-            dayIndex = DayOfTheWeek(date);
+            dayIndex = findDayOfTheWeek(date);
             strDate = new SimpleDateFormat("d-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(dayIndex));
         } else
             throw new IllegalValueException(INVALID_FORMAT);
-        return ConcatDateTime(strDate, date);
+        return concatDateTime(strDate, date);
 
     }
 
-    private static String ConcatDateTime(String strDate, String date) throws IllegalValueException {
+    private static String concatDateTime(String strDate, String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
         String part1 = strDate;
         String part2 = strDate;
@@ -189,7 +199,7 @@ public class DateUtil {
         return part2;
     }
 
-    public static int DayOfTheWeek(String date) {
+    public static int findDayOfTheWeek(String date) {
         int dayindex = 0;
         int diff = 0;
         int today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -218,18 +228,18 @@ public class DateUtil {
                 || date.contains("wed") || date.contains("thu") || date.contains("fri") || date.contains("sat")
                 || date.contains("sun")) { // allow user to key in "today"
                                            // instead of today's date
-            date = FixedTime(date);
+            date = convertDateWhenDayOfTheWeekIsGiven(date);
         }
         Date taskDate = parseDateTime(date);
         return taskDate;
     }
 
-    public static Date convertFixedDate(String date) throws IllegalValueException {
+    public static Date convertDate(String date) throws IllegalValueException {
         if (date.contains("today") || date.contains("tomorrow") || date.contains("mon") || date.contains("tue")
                 || date.contains("wed") || date.contains("thu") || date.contains("fri") || date.contains("sat")
                 || date.contains("sun")) { // allow user to key in "today"
                                            // instead of today's date
-            date = FixedTime(date);
+            date = convertDateWhenDayOfTheWeekIsGiven(date);
         }
         Date taskDate = parseDateTime(date);
         return taskDate;
@@ -305,5 +315,40 @@ public class DateUtil {
             }
         }
         return false;
+    }
+    
+    public static Calendar setDate(String date) throws IllegalValueException {
+        String[] recur = date.split(" ", 2);
+        String recurfreq = recur[0];
+
+        if (recur.length != 1) {
+
+            if (recurfreq.contains("day")) {
+                date = "today " + recur[1];
+            }
+
+            if (!date.equals("")) {
+                Date taskDate = DateUtil.convertDate(date);
+                if (!DateUtil.isValidDate(date)) {
+                    throw new IllegalValueException(INVALID_FORMAT);
+                }
+                if (taskDate == null) {
+                    assert false : "Date should not be null";
+                } /*
+                   * else if (DateUtil.hasPassed(taskDate)) { throw new
+                   * IllegalValueException(MESSAGE_REMINDER_INVALID);
+                   */
+
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(taskDate);
+                cal.set(Calendar.MILLISECOND, 0);
+                cal.set(Calendar.SECOND, 0);
+            
+            return cal;}
+
+        }
+        if(date.equals(""))
+            return null;
+        throw new IllegalValueException(INVALID_FORMAT);
     }
 }

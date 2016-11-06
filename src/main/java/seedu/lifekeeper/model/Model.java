@@ -67,5 +67,7 @@ public interface Model {
 
     void updateAllListToShowAll();
 
+	UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
+
     
 }

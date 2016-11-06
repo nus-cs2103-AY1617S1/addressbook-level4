@@ -39,7 +39,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
      * Conversion
      */
     public XmlSerializableAddressBook(ReadOnlyLifeKeeper src) {
-        activities.addAll(src.getPersonList().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
+        activities.addAll(src.getActivityList().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -55,7 +55,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public UniqueActivityList getUniquePersonList() {
+    public UniqueActivityList getUniqueActivityList() {
         UniqueActivityList lists = new UniqueActivityList();
         for (XmlAdaptedActivity p : activities) {
             try {
@@ -68,7 +68,7 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public List<ReadOnlyActivity> getPersonList() {
+    public List<ReadOnlyActivity> getActivityList() {
         return activities.stream().map(p -> {
             try {
                 return p.toModelType();

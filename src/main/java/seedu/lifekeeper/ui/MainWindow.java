@@ -123,9 +123,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	//fill main activities display panel
-        activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+        activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
         //fill dash board
-//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredPersonList());
+//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredActivityList());
         
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -145,7 +145,7 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
+    public AnchorPane getActivityListPlaceholder() {
         return activityListPanelPlaceholder;
     }
 /*    
