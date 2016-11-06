@@ -107,7 +107,7 @@ We will now go into further details about each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/stask/ui/Ui.java)
 
-As you can see in Figure BLAH, our UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`, `StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
+As you can see in Figure 4, our UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DatedTaskListPanel`, `StatusBarFooter`, `UndatedTaskListPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -119,6 +119,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` has changed.
 * Responds to events raises from various parts of sTask and updates the UI accordingly.
 <!--@@author-->
+
 <!--@@author A0139145E-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.4 Logic component</b>
 
@@ -126,13 +127,14 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/stask/logic/Logic.java)
 
-In this component, you can see from Figure BLAH that,
+In this component, you can see from Figure 5 that,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 <!--@@author-->
+
 <!--@@author A0139024M-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.5 Model component</b>
 
@@ -140,7 +142,7 @@ In this component, you can see from Figure BLAH that,
 
 **API** : [`Model.java`](../src/main/java/seedu/stask/model/Model.java)
 
-Based on Figure BLAH above, the `Model`,
+Based on Figure 6 above, the `Model`,
 * Stores a `UserPref` object that represents the user's preferences
 * Stores sTask data
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
