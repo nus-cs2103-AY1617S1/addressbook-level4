@@ -32,7 +32,6 @@ public class CustomizeCommand extends Command {
 		if (!isCommandWordPresent(commandWord))
 			return new CommandResult("Command:" + commandWord + " is not found.");
 		try {
-			//prepareCommandForUndo(config);
 			config.setCustomCommandFormat(commandWord, userCommand);
 			ConfigUtil.saveConfig(config, configFilePathUsed);
 			new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
@@ -47,24 +46,17 @@ public class CustomizeCommand extends Command {
 		}
 	}
 
-	private void prepareCommandForUndo(Config config){
-		userCommandForUndo = config.getCustomValuebyCommand(commandWord);
-	}
-	
 	private boolean isCommandWordPresent(String commandWord) {
 		List<String> commands = Command.getAllCommands();
 		return commands.contains(commandWord);
 	}
 
 	/**
-	 * Save Command is not reversible.
+	 * Customize Command is not reversible.
 	 */
 	@Override
 	public CommandResult executeUndo() {
-		if(userCommandForUndo == null)
-			return new CommandResult("Method cannot be undone because command: "+commandWord+" didn't have set previous custom command format");
-		this.userCommand = userCommandForUndo;
-		return this.execute();
+		return null;
 	}
 
 	@Override

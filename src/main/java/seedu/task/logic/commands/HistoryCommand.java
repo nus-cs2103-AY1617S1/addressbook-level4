@@ -10,14 +10,13 @@ public class HistoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows history of last executed commands.\n"
             + "Example: " + COMMAND_WORD;
-
-    public static final String HISTORY_EMPTY = "No commands was executed.";
     
     public HistoryCommand() {}
 
     @Override
     public CommandResult execute() {
-    	return null;
+    	String userHistory= model.getCommandHistory();
+    	return new CommandResult(userHistory);
     }
 
 	@Override

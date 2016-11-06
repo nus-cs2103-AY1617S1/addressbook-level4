@@ -196,13 +196,28 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	// @@author A0153411W
-
 	/** Add executed command for undo */
 	@Override
 	public void addCommandForUndo(Command command) {
 		updateFilteredListToShowAll();
 		commandManager.addCommandForUndo(command);
 	}
+	
+	/**
+	 * Add user inputed command to command manager for history
+	 */
+	@Override
+	public void addCommandForHistory(String commandText) {
+		commandManager.addCommandForHistory(commandText);
+	}
+	
+	/**
+	 * Get history of executed user's commands
+	 */
+	@Override
+	public String getCommandHistory(){
+		return commandManager.getCommandHistory();
+	};
 	
 	/**
 	 * Get last executed reversible command for undo operation

@@ -60,6 +60,17 @@ public interface Model {
 	// @@author A0153411W
 	/** Add executed reversible command for undo operation */
 	void addCommandForUndo(Command command);
+	
+	/**
+	 * Add user inputed command to command manager for history
+	 */
+	void addCommandForHistory(String commandText);
+	
+	
+	/**
+	 * Get history of executed user's commands
+	 */
+	String getCommandHistory();
 
 	/**
 	 * Get last executed reversible command 
