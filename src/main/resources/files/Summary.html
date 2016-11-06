@@ -1,123 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+</head>
+<body>
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<p>Q: How many times am I able to undo a previous command? <br> A: You are able to undo any number of times up till the state where you first opened ForgetMeNot!</p>
+<p>Q: I can't undo my previous commands after reopening ForgetMeNot <br> A: Like most task managers out there, ForgetMeNot does not support data backup while the program is not active</p>
+<p>Q: Is it possible to set my storage path to a portable drive as I want to use them on different computers? <br> A: Yes! Just use the setstorage command and choose the specified path of the portable drive</p>
+<p>Q: How do I edit recurring tasks? Do all of them change if I edit one single instance? <br> A: No, only the selected instance gets edited. Our design philosophy is that recurring tasks should be treated as separate instances so that the other recurring tasks would not be affected if you were to make changes to one of them due to some circumstances.</p>
 <h2 id="command-summary">Command Summary</h2>
 <p>Following is the list of all commands:</p>
 <table>
-    <colgroup>
-        <col width="12%" />
-        <col width="45%" />
-        <col width="42%" />
-    </colgroup>
-    <thead>
-        <tr class="header">
-            <th>Command</th>
-            <th>Format</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="odd">
-            <td><code>help</code></td>
-            <td><code>help</code></td>
-            <td>Opens a help page</td>
-        </tr>
-        <tr class="even">
-            <td><code>add</code></td>
-            <td><code>add</code> <code>&lt;name&gt;</code></td>
-            <td>Adds a floating task</td>
-        </tr>
-        <tr class="odd">
-            <td></td>
-            <td><code>add</code> <code>&lt;name&gt;</code> at <code>&lt;Start Time&gt;</code></td>
-            <td>Adds a task only with a start time</td>
-        </tr>
-        <tr class="even">
-            <td></td>
-            <td><code>add</code> <code>&lt;name&gt;</code> by <code>&lt;End Time&gt;</code></td>
-            <td>Adds a deadline task</td>
-        </tr>
-        <tr class="odd">
-            <td></td>
-            <td><code>add</code> <code>&lt;name&gt;</code> from <code>&lt;Start Time&gt;</code> to <code>&lt;End_Time&gt;</code></td>
-            <td>Adds an event task from start time to end time</td>
-        </tr>
-        <tr class="even">
-            <td><code>edit</code></td>
-            <td><code>edit</code> <code>&lt;index&gt;</code> <code>&lt;New Parameters&gt;</code></td>
-            <td>Edits a task with the new parameters</td>
-        </tr>
-        <tr class="odd">
-            <td><code>done</code></td>
-            <td><code>done</code> <code>&lt;index&gt;</code></td>
-            <td>Marks a task as done</td>
-        </tr>
-        <tr class="even">
-            <td><code>delete</code></td>
-            <td><code>delete</code> <code>&lt;index&gt;</code></td>
-            <td>Removes a task from the task manager</td>
-        </tr>
-        <tr class="odd">
-            <td><code>show</code></td>
-            <td><code>show</code></td>
-            <td>Shows all tasks</td>
-        </tr>
-        <tr class="even">
-            <td></td>
-            <td><code>show</code> done</td>
-            <td>Shows the done tasks</td>
-        </tr>
-        <tr class="odd">
-            <td></td>
-            <td><code>show</code> today</td>
-            <td>Shows all tasks for today</td>
-        </tr>
-        <tr class="even">
-            <td></td>
-            <td><code>show</code> tmr</td>
-            <td>Shows all tasks for tomorrow</td>
-        </tr>
-        <tr class="odd">
-            <td></td>
-            <td><code>show</code> <code>&lt;date&gt;</code></td>
-            <td>Shows all tasks for that particular date</td>
-        </tr>
-        <tr class="even">
-            <td></td>
-            <td><code>show</code> overdue</td>
-            <td>Shows all the overdue tasks</td>
-        </tr>
-        <tr class="odd">
-            <td><code>undo</code></td>
-            <td><code>undo</code></td>
-            <td>Undoes the most recent command</td>
-        </tr>
-        <tr class="even">
-            <td><code>redo</code></td>
-            <td><code>redo</code></td>
-            <td>Redoes the latest undo</td>
-        </tr>
-        <tr class="odd">
-            <td><code>find</code></td>
-            <td><code>find</code> <code>&lt;name&gt;</code></td>
-            <td>Finds a task with task name as <name></td>
-        </tr>
-        <tr class="even">
-            <td><code>clear</code></td>
-            <td><code>clear</code></td>
-            <td>Clears all the tasks in the task manager</td>
-        </tr>
-        <tr class="odd">
-            <td></td>
-            <td><code>clear done</code></td>
-            <td>Clears all the done tasks from the done list</td>
-        </tr>
-        <tr class="even">
-            <td><code>select</code></td>
-            <td><code>select</code> <code>&lt;index&gt;</code></td>
-            <td>Highlights the particular task at that index</td>
-        </tr>
-        <tr class="odd">
-            <td><code>setstorage</code></td>
-            <td><code>setstorage</code> <code>&lt;folder name&gt;</code></td>
-            <td>Set storage to a particular folder</td>
-        </tr>
-    </tbody>
+<colgroup>
+<col width="8%" />
+<col width="33%" />
+<col width="57%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th>Format</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>help</code></td>
+<td><code>help</code></td>
+<td>Opens a help page</td>
+</tr>
+<tr class="even">
+<td><code>add</code></td>
+<td><code>add</code> <code>&lt;name&gt;</code></td>
+<td>Adds a floating task</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>add</code> <code>&lt;name&gt;</code> at <code>&lt;start time&gt;</code></td>
+<td>Adds a task only with a start time</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>add</code> <code>&lt;name&gt;</code> by <code>&lt;end time&gt;</code></td>
+<td>Adds a deadline task</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>add</code> <code>&lt;name&gt;</code> from <code>&lt;start time&gt;</code> to <code>&lt;end time&gt;</code></td>
+<td>Adds an event task from start time to end time</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>add</code> <code>&lt;name&gt;</code> <code>&lt;time details&gt;</code> every <code>&lt;duration&gt;</code></td>
+<td>Adds 10 instances of a task with a specified duration in between</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>add</code> <code>&lt;name&gt;</code> <code>&lt;time details&gt;</code> every <code>&lt;duration&gt;</code> x<code>&lt;instances&gt;</code></td>
+<td>Adds the specified instances of a task with a specified duration in between</td>
+</tr>
+<tr class="even">
+<td><code>edit</code></td>
+<td><code>edit</code> <code>&lt;index&gt;</code> <code>&lt;New Parameters&gt;</code></td>
+<td>Edits a task with the new parameters</td>
+</tr>
+<tr class="odd">
+<td><code>done</code></td>
+<td><code>done</code> <code>&lt;index&gt;</code></td>
+<td>Marks a task as done</td>
+</tr>
+<tr class="even">
+<td><code>delete</code></td>
+<td><code>delete</code> <code>&lt;index&gt;</code></td>
+<td>Removes a task from the task manager</td>
+</tr>
+<tr class="odd">
+<td><code>show</code></td>
+<td><code>show</code></td>
+<td>Shows all the undone task</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>show</code> done</td>
+<td>Shows the done tasks</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>show</code> today</td>
+<td>Shows all tasks for today</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>show</code> tmr</td>
+<td>Shows all tasks for tomorrow</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>show</code> floating</td>
+<td>Shows all the floating tasks</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>show</code> overdue</td>
+<td>Shows all the overdue tasks</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>show</code> <code>&lt;date&gt;</code></td>
+<td>Shows all tasks for that particular date</td>
+</tr>
+<tr class="even">
+<td></td>
+<td><code>show</code> <code>&lt;parameter&gt;</code></td>
+<td>Shows all the tasks, due on the parameter (Eg: 5 days later)</td>
+</tr>
+<tr class="odd">
+<td><code>undo</code></td>
+<td><code>undo</code></td>
+<td>Undoes the most recent command</td>
+</tr>
+<tr class="even">
+<td><code>redo</code></td>
+<td><code>redo</code></td>
+<td>Redoes the latest undo</td>
+</tr>
+<tr class="odd">
+<td><code>find</code></td>
+<td><code>find</code> <code>&lt;name&gt;</code></td>
+<td>Finds a task with task name as <name></td>
+</tr>
+<tr class="even">
+<td><code>clear</code></td>
+<td><code>clear</code></td>
+<td>Clears all the tasks in the task manager</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><code>clear done</code></td>
+<td>Clears all the done tasks from the done list</td>
+</tr>
+<tr class="even">
+<td><code>select</code></td>
+<td><code>select</code> <code>&lt;index&gt;</code></td>
+<td>Goes to the particular task at that index</td>
+</tr>
+<tr class="odd">
+<td><code>setstorage</code></td>
+<td><code>setstorage</code> <code>&lt;folder name&gt;</code></td>
+<td>Set storage to a particular folder</td>
+</tr>
+<tr class="even">
+<td><code>exit</code></td>
+<td><code>exit</code></td>
+<td>Exits ForgetMeNot</td>
+</tr>
+</tbody>
 </table>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<p>Following is the list of keyboard shortcuts that ForgetMeNot has to offer:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Key</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>TAB</kbd> or <kbd>SPACEBAR</kbd></td>
+<td>Autocompletes any unfinished command</td>
+</tr>
+<tr class="even">
+<td><kbd>UP</kbd></td>
+<td>Displays the last older command</td>
+</tr>
+<tr class="odd">
+<td><kbd>DOWN</kbd></td>
+<td>Display the last newer command</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
