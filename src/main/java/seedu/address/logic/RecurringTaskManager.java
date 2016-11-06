@@ -87,7 +87,8 @@ public class RecurringTaskManager {
     private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate, LocalDate localDateCurrently) {
         LocalDate startDateInLocalDate = RecurringTaskUtil.getStartLocalDate(task.getLastAppendedComponent());
         LocalDate endDateInLocalDate = RecurringTaskUtil.getEndLocalDate(task.getLastAppendedComponent());
-        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToAppend(localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
+        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToAppend(localDateCurrently, 
+                startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
         for (int i = 0; i < elapsedPeriod; i++) {
             if (handleRecurringPeriod(task)) {
                 break;
@@ -196,7 +197,6 @@ public class RecurringTaskManager {
      * @param task Recurring task with recurring period.
      */
     private void appendRecurringTaskWithPeriod(Task task) {
-        TaskOccurrence occurrence = task.getLastAppendedComponent();
         if (task.getRecurringType().equals(RecurringType.NONE)
                 || task.getRecurringPeriod() == Task.NO_RECURRING_PERIOD) {
             return;
