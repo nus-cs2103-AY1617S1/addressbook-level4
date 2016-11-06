@@ -46,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getAllEntries());
         filteredTags = new FilteredList<>(addressBook.getTag());
+        updateFilteredListToShowAll();
     }
 
     public ModelManager() {
@@ -56,6 +57,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getAllEntries());
         filteredTags = new FilteredList<>(addressBook.getTag());
+        updateFilteredListToShowAll();
     }
 
     @Override
