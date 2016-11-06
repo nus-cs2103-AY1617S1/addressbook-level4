@@ -104,12 +104,12 @@ Each of the four components
 * Defines its [_API (Application program interface)_](#API) in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (see the class diagram in fig 2.1) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br>
 <img src="images/LogicClassDiagram.png" width="800"><br><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ shown in fig 2.2 shows how the components interact for the scenario where the user issues the
 command `delete t3`.
 <br>
 <img src="images\SDforDeleteTask.png" width="800">
@@ -117,7 +117,7 @@ command `delete t3`.
 >Note how the `Model` simply raises a `TaskBookChangedEvent` when Jimi's data changes,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The diagram shown in fig 2.3 shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. 
 <br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
@@ -139,7 +139,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/jimi/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+As shown in fig 3.1, the UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `AgendarPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`. 
 
@@ -170,7 +170,7 @@ The `Logic` component:
 * Changes the model (e.g. when adding a task) and/or raise events along with the command execution.
 * Encapsulates the result of the command execution as a `CommandResult` object and passes it back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete t1")`
+Shown in fig 4.1 is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete t1")`
  API call.<br>
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br><br>
 
