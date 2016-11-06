@@ -254,9 +254,9 @@ Examples:
 * `delete 2`<br>
   `undo`<br>
   Restores task which had an index of 2 back to the list
-* `add do housework`<br>
+* `add "do housework"`<br>
   `undo`<br>
-  Deletes task of "add do housework"
+  Deletes task of "do housework"
 
 
 <br>
