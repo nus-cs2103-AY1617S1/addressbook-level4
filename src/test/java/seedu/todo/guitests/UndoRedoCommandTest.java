@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +38,9 @@ public class UndoRedoCommandTest extends GuiTest {
     
     @Before
     public void resetDB() {
+        // Make sure there's something to clear, so that `clear` will have an undo state.
+        // Otherwise the testing environment may depend on the order of the running tests.
+        console.runCommand(commandAdd1);
         console.runCommand("clear");
     }
     
@@ -61,13 +65,14 @@ public class UndoRedoCommandTest extends GuiTest {
         assertTaskNotVisibleAfterCmd("undo", task1);
         console.runCommand("undo");
         console.runCommand("undo");
+        console.runCommand("undo");
         assertEquals(console.getConsoleTextArea(), "There is no command to undo!");
     }
     
     @Test
     public void undo_multiple_notavailable() {
-        console.runCommand("undo 2");
-        assertEquals(console.getConsoleTextArea(), "We cannot undo 2 commands! At most, you can undo 1 command.");
+        console.runCommand("undo 3");
+        assertEquals(console.getConsoleTextArea(), "We cannot undo 3 commands! At most, you can undo 2 commands.");
     }
     
     @Test
