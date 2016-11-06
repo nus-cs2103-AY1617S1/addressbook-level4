@@ -254,7 +254,7 @@ public class DoDoBird implements ReadOnlyToDoList {
                 LocalDate onDate = t.getOnDate().getDate();
                 LocalDate byDate = t.getByDate().getDate();
                 if ((onDate != null && onDate.isBefore(LocalDate.now()))
-                  || byDate != null && byDate.isBefore(LocalDate.now())) {
+                     || byDate != null && byDate.isBefore(LocalDate.now())) {
                     t.getRecurrence().updateTaskDate(t);
                 }
             }
@@ -339,7 +339,6 @@ public class DoDoBird implements ReadOnlyToDoList {
     public String toString() {
         return tasksHistory.peek().getInternalList().size() + " tasks, " 
                 + tagsHistory.peek().getInternalList().size() +  " tags";
-        // TODO: refine later
     }
     
     @Override

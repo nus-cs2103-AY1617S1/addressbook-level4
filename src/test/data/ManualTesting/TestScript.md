@@ -1,10 +1,6 @@
 # Manual Test Script
 This document will provide the steps to perform manual testing.
 
-Should cover all functionality of the product.
-Should specify the command to type and the expected result (screenshots not required).
-Limit the test cases to about 20 minutes worth of testing.
-
 ## Loading of sample data
 You can find the sample data at `SampleData.xml` in the same folder as this document.
 To load sample data, follow the steps below:

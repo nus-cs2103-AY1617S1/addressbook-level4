@@ -104,19 +104,6 @@ public class TaskCard extends UiPart{
     }
     
     
-    private void initPriority() {
-        if (task.getPriority().toString().equals(Priority.LOW)) {
-            priorityLevel.setFill(Color.web("#b2ff59"));
-            priorityLevel.setStroke(Color.LIMEGREEN);
-        } else if (task.getPriority().toString().equals(Priority.MID)) {
-            priorityLevel.setFill(Color.web("#fff59d"));
-            priorityLevel.setStroke(Color.web("#ffff00"));
-        } else {
-            priorityLevel.setFill(Color.web("#ef5350"));
-            priorityLevel.setStroke(Color.web("#c62828"));
-        }
-    }
-    
     private void initRecurrence() {
         if (task.isRecurring()) {
             recurrence.setText("Every: " + task.getRecurrence().toString());
@@ -143,18 +130,30 @@ public class TaskCard extends UiPart{
     }
     
     //@@author A0121643R
-    private void styleForOverdue() {
-    	name.setFill(Color.RED);
-        name.setOpacity(50);
-        
-        details.setFill(Color.RED);
-        onDate.setFill(Color.RED);
-        byDate.setFill(Color.RED);
-        recurrence.setFill(Color.RED);
-        tags.setFill(Color.RED);
 
-        priorityLevel.setFill(Color.WHITE);
-        priorityLevel.setStroke(Color.WHITE);
+    private void initPriority() {
+        if (task.getPriority().toString().equals(Priority.LOW)) {
+            priorityLevel.setFill(Color.web("#b2ff59"));
+            priorityLevel.setStroke(Color.LIMEGREEN);
+        } else if (task.getPriority().toString().equals(Priority.MID)) {
+            priorityLevel.setFill(Color.web("#fff59d"));
+            priorityLevel.setStroke(Color.web("#ffff00"));
+        } else {
+            priorityLevel.setFill(Color.web("#ef5350"));
+            priorityLevel.setStroke(Color.web("#c62828"));
+        }
+    }
+    
+
+    private void styleForOverdue() {
+    	name.setFill(Color.web("#ef5350"));
+        
+        details.setFill(Color.web("#ef5350"));
+        onDate.setFill(Color.web("#ef5350"));
+        byDate.setFill(Color.web("#ef5350"));
+        recurrence.setFill(Color.web("#ef5350"));
+        tags.setFill(Color.web("#ef5350"));
+
     	
     }
 }

@@ -189,7 +189,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListOnDate(LocalDateTime datetime, boolean hasTimeField, SearchCompletedOption option) {
+    public void updateFilteredTaskListOnDate(LocalDateTime datetime, boolean hasTimeField, 
+            SearchCompletedOption option) {
         updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime, hasTimeField, option)));
     }
     

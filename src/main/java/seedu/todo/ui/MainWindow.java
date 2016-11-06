@@ -28,28 +28,29 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
+    
     //@@author A0138967J
     private SummaryPanel summaryPanel;
     private WeekSummaryPanel weekSummaryPanel;
     //@@author
+    
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    
     //@@author A0142421X
     private TagListPanel tagListPanel;
     //@@author
-    
-
+   
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
     private String ToDoListName;
 
-    
     //@@author A0142421X
     @FXML
     private AnchorPane tagListPanelPlaceholder;
@@ -122,7 +123,6 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    //@@author A0142421X
     public void fillInnerParts() {
         //@@author A0138967J
         summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic.getUnmodifiableTodayTaskList());
@@ -145,8 +145,8 @@ public class MainWindow extends UiPart {
     private AnchorPane getTagListPanelPlaceholder() {
     	return tagListPanelPlaceholder;
     }
-
     //@@author
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
