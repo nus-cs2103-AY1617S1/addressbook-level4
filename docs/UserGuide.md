@@ -12,7 +12,7 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for your task manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="docs/images/task-manager-gui.png" width="300">
 
@@ -149,7 +149,7 @@ Format: `done TASKID`
 
 Example: `done 1`
 <!-- @@author -->
-
+<!-- @@author A0153751H -->
 <a id="edit_task" class="anchor" aria-hidden="true">
 #### Edit a task: `edit`
 Edit details to an existing task <br>
@@ -178,8 +178,8 @@ Examples:
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL c/COLOR...`
-Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE c/COLOR ts/TAGS`
+Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL c/COLOR ts/TAG...`
+Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE c/COLOR ts/TAG...`
 Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
@@ -204,4 +204,5 @@ INTERVAL      |  /i                |  Integer Number   		|   NO                 
 TIME_INTERVAL |  /ti               |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
 TASK_COLOR    |  /c                |  Text                  |   NO                              | Color code of a task
 NEW_FORMAT    |  /f                |  Text                  |   YES                              | New format of customized command
+TAG           |  /ts               |  Text                  |   NO                               | Tag of a command
 <!-- //@@author -->

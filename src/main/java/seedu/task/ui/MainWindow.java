@@ -192,7 +192,7 @@ public class MainWindow extends UiPart {
 		if (!aTags.getText().isEmpty()) {
 			String[] temp = aTags.getText().split(" ");
 			for (String tag : temp) {
-				aHead = aHead + " t/" + tag;
+				aHead = aHead + " ts/" + tag;
 			}
 		}
 		return aHead;
