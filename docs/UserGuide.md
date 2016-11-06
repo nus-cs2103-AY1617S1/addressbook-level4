@@ -48,7 +48,6 @@ Need to unburden? Let's get started!
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will display the list of commands that can be used in the application.
-   > <img src="UserGuideImages/Main.JPG" width="500">
    
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -64,7 +63,7 @@ Need to unburden? Let's get started!
 
 ### Layout of Unburden 
 
-   > <img src="UserGuideImages/Layout.JPG" width="600">
+   > <img src="UserGuideImages/Layout2.JPG" width="700">
 
 <br>
 <br>
