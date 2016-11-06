@@ -5,7 +5,6 @@ import org.junit.Test;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.testutil.CollectionUtil;
 import seedu.todo.testutil.TaskBuilder;
 import seedu.todo.testutil.TaskFactory;
 
@@ -81,6 +80,7 @@ public class TagCommandTest extends TodoListGuiTest {
      * Asserts that there are no duplicate strings
      */
     private void assertNoDuplicate(List<String> strings) {
-        assertTrue(CollectionUtil.elementsAreUnique(strings));
+        Set<String> stringSet = new HashSet<>(strings);
+        assertTrue(strings.size() == stringSet.size());
     }
 }
