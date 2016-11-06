@@ -38,9 +38,9 @@ To get started, proceed to the Quick Start section below.
 > While typing commands, tooltips will appear to aid you. <br>
 5. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
-   * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `02:00pm,1 Jan 2015`.
+   * **`add`**` business proposal 17 nov 2pm` : adds a new task that has the deadline `02:00pm, 17 nov`.
    * **`view`** : lists all upcoming and uncompleted tasks.
-   * **`view`**` 1 Jan 2015` : lists all tasks for the specific date.
+   * **`view`**` 1 Jan` : lists all tasks for the specific date.
    * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -91,7 +91,7 @@ If `view today` is entered, today's tasks, events and deadlines up to today will
 
 Example:
 
-* `view 5 Nov`<br>
+* `view 7 Nov`<br>
   <img src="images/UIviewDate.png" width="900">
 
 
@@ -141,16 +141,16 @@ Adds a new task to the todo or deadlines list, or a new event to the event calen
 <!-- @@author A0130853L -->
 Examples:
 
-* `add study for test`<br>
-  Adds a `todo` task with `<name>` as `study for test`.<br>
+* `add buy new tie`<br>
+  Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
 
-* `add math assignment 17 Nov 2pm`<br>
-  Adds a `deadline` task with `<name>` as `math assignment`, `<datetime>` as `02:00pm, 17 Nov 2016`.<br>
+* `add submit proposal 17 Nov 2pm #work`<br>
+  Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`<br>
   <img src="images/UIdeadline.png" width="900">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
-  Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 5 Nov 2016`, `<end datetime>` as `06:00pm, 5 Nov 2016`.<br>
+  Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
   
 
@@ -163,11 +163,11 @@ Format: `find <keyword> [more keywords]...`
 Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`<br>
 
 Example: 
-* `find assign`<br>
+* `find prop`<br>
   <img src="images/UIfind.png" width="900">
   
 * `find #work`<br>
-
+  <img src="images/UIfindTag.png" width="900">
 
 <br>
 <!-- @@author A0135793W -->
@@ -187,8 +187,8 @@ Format depends on the type of task being edited. When only 1 `<time>` is provide
 Example:
 
 * `view`<br>
-  `edit d2 math assignment2 15 Nov 2016`<br>
-  Edits the 2nd task under the deadline tasks section. Changes the `<name>` to `math assignment2` and `<date>` to `15 Nov 2016`.<br>
+  `edit d2 15 Nov`<br>
+  Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `15 Nov 2016`.<br>
   <img src="images/UIedit.png" width="900">
 
 <br>
@@ -212,9 +212,9 @@ Examples:
   After:<br>
   <img src="images/UIdeleteAfter.png" width="900"><br>
   
-* `view 5 Nov 2016`<br>
+* `view 7 Nov`<br>
   `delete e1`<br>
-  Deletes the 1st task under the events section for `5 Nov 2016` as shown by the `view DATE` command.<br>
+  Deletes the 1st task under the events section for `7 Nov` as shown by the `view DATE` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBeforeDate.png" width="900"><br>
@@ -260,7 +260,7 @@ Example:
 <!-- @@author A0139052L --> 
  * `view all`<br>
   `done t1 t2 t3`<br>
-  Marks the 1st 3 task under the todo section shown by the `view all` command as completed.<br>
+  Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneMultipleBefore.png" width="900"><br>
