@@ -10,12 +10,12 @@ import seedu.address.model.activity.task.Task;
 /**
  * Test activities that match the data in testopen.xml.
  */
-public class TypicalOtherTestActivities {
+public class OpenCommandTestActivities {
     public static TestActivity findAlice2;
     public static TestTask findBenson2, findCarl2, findDaniel2; 
     public static TestEvent findElle2, findFiona2, findGeorge2;
 
-    public TypicalOtherTestActivities() {
+    public OpenCommandTestActivities() {
         try {
             //to test loading saved activity, tasks and events
             findAlice2 =  new ActivityBuilder().withName("find Alice2").withReminder("Sun, Dec 30, 2018 11:00 AM").withTags("lunch", "dinner").build();
