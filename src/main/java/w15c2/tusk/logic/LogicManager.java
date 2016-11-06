@@ -13,6 +13,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.TaskCommandsParser;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.storage.Storage;
@@ -58,7 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<String> getHelpList() {
+    public ObservableList<HelpGuide> getHelpList() {
         return model.getHelpList();
     }
     

@@ -5,6 +5,7 @@ import java.util.Date;
 import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
+import w15c2.tusk.commons.events.ui.JumpToListRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.DeadlineTask;
@@ -20,10 +21,11 @@ public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
     public static final String ALTERNATE_COMMAND_WORD = null;
-
-    public static final String HELP_MESSAGE_USAGE = "Add a task: \t" + "add <description> \n" +
-            "Add a deadline: \t" + "add <description> by <date> \n" +
-            "Add an event: \t" + "add <description> from <startDate> to <endDate>";
+    public static final String COMMAND_DESCRIPTION = "Add a Task\nAdd a Deadline\nAdd an Event";
+    public static final String COMMAND_FORMAT = "add <description> \n" +
+            "add <description> by <date> \n" +
+            "add <description> from <startDate> to <endDate>";
+    
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. \n"
             + "1) Parameters: DESCRIPTION \n"
@@ -104,12 +106,22 @@ public class AddTaskCommand extends TaskCommand {
         try {
             model.addTask(toAdd);
             model.clearTasksFilter();
+            
+            int indexToScrollTo = model.getCurrentFilteredTasks().lastIndexOf(toAdd);
+            raiseScrollTo(indexToScrollTo);
+            
             closeHelpWindow();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+    
+    
+    //@@author A0138978E
+    private void raiseScrollTo(int index) {
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }
 
 }

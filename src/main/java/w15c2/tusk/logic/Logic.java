@@ -3,6 +3,7 @@ package w15c2.tusk.logic;
 import javafx.collections.ObservableList;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.task.Task;
 
 /**
@@ -21,7 +22,7 @@ public interface Logic {
     
     ObservableList<Alias> getAlias();
     
-    ObservableList<String> getHelpList();
+    ObservableList<HelpGuide> getHelpList();
 
     //@@author A0138978E
     /** Returns the previous command in the command history */

@@ -62,8 +62,12 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      * Returns true if the list contains an equivalent item as the given argument.
      */
     public boolean contains(T toCheck) {
-        assert toCheck != null;
-        return internalList.contains(toCheck);
+        if (toCheck == null) {
+            return false;
+        }
+        
+        // Force no reference equality in the internal list
+        return internalList.stream().anyMatch(obj -> obj == toCheck);
     }
 
     /**

@@ -26,6 +26,9 @@ public class UpdateTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "update";
     public static final String ALTERNATE_COMMAND_WORD = "edit";
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + "<INDEX> task / description / date <UPDATED VALUE>";
+    public static final String COMMAND_DESCRIPTION = "Update a Task"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"

@@ -16,8 +16,9 @@ public class DeleteAliasCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "unalias";
     public static final String ALTERNATE_COMMAND_WORD = null;
-
-    public static final String HELP_MESSAGE_USAGE = "Delete Alias: \t" + "unalias <alias>"; 
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + "<alias>";
+    public static final String COMMAND_DESCRIPTION = "Delete an Alias"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the shortcut of the alias.\n"

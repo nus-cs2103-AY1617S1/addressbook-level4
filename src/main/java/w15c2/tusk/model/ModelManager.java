@@ -20,19 +20,11 @@ import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.commons.util.StringUtil;
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
-import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
+import w15c2.tusk.model.Alias;
+import w15c2.tusk.model.HelpGuide;
+import w15c2.tusk.model.ModelHistory;
+import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
 
 /**
@@ -295,21 +287,8 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	//@@author A0139708W
     @Override
-    public ObservableList<String> getHelpList() {
-        ObservableList<String> helpItems = FXCollections.observableArrayList ();
-        helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ClearTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(CompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UndoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(PinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(UnpinTaskCommand.HELP_MESSAGE_USAGE);
-        helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
+    public ObservableList<HelpGuide> getHelpList() {
+        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList (TaskCommandList.getHelpList());
         return helpItems;
     }
 	
