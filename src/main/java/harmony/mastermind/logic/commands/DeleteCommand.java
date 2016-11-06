@@ -1,9 +1,14 @@
 package harmony.mastermind.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
+import harmony.mastermind.memory.GenericMemory;
+import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
@@ -36,9 +41,15 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     public final int targetIndex;
 
     private ReadOnlyTask toDelete;
+    
+    public static GenericMemory detailedView = null;
+    public static ArrayList<GenericMemory> listView = null;
+    public static String listName = null;
+    Memory memory;
 
-    public DeleteCommand(int targetIndex) {
+    public DeleteCommand(int targetIndex, Memory mem) {
         this.targetIndex = targetIndex;
+        this.memory = mem;
     }
 
     @Override
@@ -83,7 +94,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     public CommandResult redo() {
         try {
             executeDelete();
-
+            
             model.pushToUndoHistory(this);
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
@@ -103,6 +114,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
         if (toDelete == null) {
             toDelete = lastShownList.get(targetIndex - 1);
+            deleteDirectly(toDelete.toString(), memory);
         }
 
         if (toDelete.isMarked()) {
@@ -111,5 +123,21 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.deleteTask(toDelete);
         }
     }
-
+    
+    //@@author A0143378Y
+    // Perform a delete by name operation
+    public static void deleteDirectly(String name, Memory memory) {
+        ArrayList<GenericMemory> searchResult = FindCommand.searchExact(name, memory);
+        if (searchResult.size() == 1){
+            deleteItem(searchResult.get(0), memory);
+            History.advance(memory);
+        } 
+    }
+    
+    //@@author A0143378Y
+    // Delete given GenericMemory item from memory
+    private static void deleteItem(GenericMemory item, Memory memory) {
+        assert item != null;
+        memory.remove(item);
+    }
 }
