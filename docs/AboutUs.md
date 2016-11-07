@@ -18,7 +18,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <!-- @@author A0146123R-->
 #### [Shi Xiyue](https://github.com/shixiyue)
 <img src="images/ShiXiyue.jpg" width="150"><br>
-* Components in charge of: [Model](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/model) and [Storage](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/storage)
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/toDoList/model) and [Storage](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/toDoList/storage)
 * Aspects/tools in charge of: Code quality
 * Features implemented:
   * [Change default storage location](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#changing-default-storage-location-change)
@@ -36,7 +36,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Li Xiaowei](https://github.com/LiXiaoooowei)
 <img src="images/LiXiaowei.jpg" width="150">
-* Components in charge of: [Logic](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/logic) and [Common] (https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/commons)
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/toDoList/logic) and [Common] (https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/toDoList/commons)
 * Aspects/tools in charge of: Testing
 * Features implemented:
   * [Flexi  addCommand for adding a task/event](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#adding-an-item-add)
@@ -54,11 +54,10 @@ We are a team based in the [School of Computing, National University of Singapor
 <!--@@author-->
 #### [Angeline Neoh Xing Yii](https://github.com/angellineeee)
 <img src="images/AngelineNeoh.jpg" width="150"><br>
-* Components in charge of: UI
+* Components in charge of: [UI](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/toDoList/ui)
 * Aspects/tool in charge of: Documentation and Integration
 * Features implemented:
-  * Edit a task/event field
-  * 
+* [Edit a task/event field](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#edit-a-todo-edit)
 * Code written: [<a href="../collated/main/A0138717X.md">functional code</a>][<a href="../collated/test/A0138717X.md">test code</a>][<a href="../collated/docs/A0138717X.md">docs</a>]
 * Other major contributions:
-  * 
+  
