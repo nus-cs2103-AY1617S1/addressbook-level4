@@ -342,7 +342,7 @@ Examples:
 * `cl`<kbd>TAB</kbd><br>
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
-  `unpin`, `unalias` and `undo` displayed on the screen as possible commands.
+  `unpin`, `unalias`, `undo` and `uncomplete` are autocompleted as possible commands one at a time on subsequent presses of <kbd>TAB</kbd>.
 * `unp`<kbd>TAB</kbd><br>
   `unpin` completed for you.
 
