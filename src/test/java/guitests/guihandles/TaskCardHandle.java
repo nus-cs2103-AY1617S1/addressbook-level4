@@ -8,7 +8,7 @@ import seedu.address.model.task.TaskDateTimeFormatter;
 import seedu.address.model.task.TaskType;
 
 /**
- * Provides a handle to a task card in the task list panel.
+ * Provides a handle to a task card in the list panel.
  */
 //@@author A0142184L
 public class TaskCardHandle extends GuiHandle {

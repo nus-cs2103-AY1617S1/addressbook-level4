@@ -1,9 +1,11 @@
-//@@author A0142184L
 package seedu.address.model.task;
 
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
+/**
+ * Provides different filters for filtering the lists of read only tasks
+ */
 public class ReadOnlyTaskFilter {
 	
 	public static Predicate<ReadOnlyTask> isTodayTask() {

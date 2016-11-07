@@ -5,6 +5,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import seedu.address.model.alias.ReadOnlyAlias;
+
+/**
+ * A ui component that displays the details of an alias
+ */
 //@@author A0142184L
 public class AliasCard extends UiPart{
 	
@@ -19,15 +23,15 @@ public class AliasCard extends UiPart{
     @FXML
     private Label id;
     
-
     private ReadOnlyAlias alias;
+    
     private int displayedIndex;
 
-    public AliasCard(){
+    public AliasCard() {
 
     }
 
-    public static AliasCard load(ReadOnlyAlias alias, int displayedIndex){
+    public static AliasCard load(ReadOnlyAlias alias, int displayedIndex) {
     	AliasCard card = new AliasCard();
         card.alias = alias;
         card.displayedIndex = displayedIndex;
@@ -36,11 +40,22 @@ public class AliasCard extends UiPart{
 
     @FXML
     public void initialize() {
-        id.setText(displayedIndex + ". ");
-        commandPhrase.setText(alias.getOriginalPhrase());
-        commandAlias.setText(alias.getAlias());
+        setId();
+        setCommandPhrase();
+        setCommandAlias();
     }
     
+	private void setId() {
+		id.setText(displayedIndex + ". ");
+	}
+
+	private void setCommandPhrase() {
+		commandPhrase.setText(alias.getOriginalPhrase());
+	}
+	
+	private void setCommandAlias() {
+		commandAlias.setText(alias.getAlias());
+	}
 
     public VBox getLayout() {
         return cardPane;

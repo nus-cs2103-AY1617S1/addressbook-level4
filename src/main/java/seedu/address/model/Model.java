@@ -74,21 +74,14 @@ public interface Model {
     /** Deletes the given aliases. */
     void deleteAliases(ArrayList<ReadOnlyAlias> targets) throws UniqueAliasList.AliasNotFoundException;
     //@@author
-    
-    //@@author A0142184L
-    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
-	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 	
 	/** Updates the task status overdue if not marked as done and end time is before now */
     void checkForOverdueTasks();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-	
-    /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
-
+    
+    //@@author A0142184L
     /** Returns the today task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList();
 
@@ -103,6 +96,9 @@ public interface Model {
 
     /** Returns the someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
+    
+    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
+	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 	
     //@@author A0139339W
     /** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

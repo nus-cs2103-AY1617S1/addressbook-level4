@@ -286,11 +286,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0142184L
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate()));
-    }
-
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isTodayTask())));
@@ -340,8 +335,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //=========== Filtered Alias List Accessors ===============================================================
     
-    //@@author A0142184L
-    
+    //@@author A0142184L    
     @Override
     public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
         return new UnmodifiableObservableList<>(filteredAliases);

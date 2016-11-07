@@ -1,10 +1,13 @@
-//@@author A0142184L
 package seedu.address.model.task;
 
 import java.util.function.Predicate;
 
 import java.time.LocalDateTime;
 
+/**
+ * Provides different filters for filtering the lists of tasks
+ */
+//@@author A0142184L
 public class TaskFilter {
 
 	public static Predicate<Task> isTodayTask() {

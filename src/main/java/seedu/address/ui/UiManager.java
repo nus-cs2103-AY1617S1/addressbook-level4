@@ -124,7 +124,7 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		ListPanel listPanel = MainWindow.getTaskListPanel();
 		if (!listPanel.isShowingTaskList()) {
-		    listPanel.setIsShowingTaskList(true);
+		    listPanel.setShowingTaskList(true);
 			listPanel = ListPanel.loadTaskList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
 		}
     }
@@ -134,7 +134,7 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         ListPanel listPanel = MainWindow.getTaskListPanel();
 		if (listPanel.isShowingTaskList()) {
-		    listPanel.setIsShowingTaskList(false);
+		    listPanel.setShowingTaskList(false);
 			listPanel = ListPanel.loadAliasList(MainWindow.primaryStage, MainWindow.getTaskListLeftPlaceholder(), event.list);
 		}
     }

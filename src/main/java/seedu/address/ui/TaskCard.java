@@ -8,8 +8,12 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.TaskDateTimeFormatter;
 import seedu.address.model.task.TaskType;
+
+/**
+ * A ui component that displays the details of a task
+ */
 //@@author A0142184L
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskCard.fxml";
 
@@ -35,14 +39,15 @@ public class TaskCard extends UiPart{
     private Label tags;
 
     private ReadOnlyTask task;
+    
     private int displayedIndex;
 
-    public TaskCard(){
-
+    public TaskCard() {
+    	
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-    	TaskCard card = new TaskCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
+        TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -59,11 +64,11 @@ public class TaskCard extends UiPart{
     }
 
 	private void setTaskName() {
-		taskName.setText(task.getName().value);
+        taskName.setText(task.getName().value);
 	}
 
 	private void setTaskType() {
-		taskType.setText(task.getTaskType().toString());
+	    taskType.setText(task.getTaskType().toString());
 		if (task.getTaskType().value.equals(TaskType.Type.EVENT)) {
 			setEventTaskTypeStyle();
 		} else if (task.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
@@ -101,50 +106,74 @@ public class TaskCard extends UiPart{
 
 	private void setEventTaskDateTime() {
 		if (task.getStartDate().get().toLocalDate().equals(task.getEndDate().get().toLocalDate())) {
-		    startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
-		    connector.setText(" — ");
-		    endDateAndTime.setText(TaskDateTimeFormatter.formatToShowTimeOnly(task.getEndDate().get().toLocalTime()));
+		    setStartDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+		    setConnector(" – ");
+		    setEndDateTime(TaskDateTimeFormatter.formatToShowTimeOnly(task.getEndDate().get().toLocalTime()));
 		} else {
-		    startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
-		    connector.setText(" — ");
-		    endDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
+		    setStartDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+		    setConnector(" – ");
+		    setEndDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
 		}
 	}
 	
 	private void setDeadlineTaskDateTime() {
-	    startDateAndTime.setText("");
-	    connector.setText("");
-        endDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));		
+		setStartDateTime("");
+	    setConnector("");
+	    setEndDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));		
 	}
 	
 	private void setSomedayTaskDateTime() {
-	    startDateAndTime.setText("");
-	    connector.setText("");
-        endDateAndTime.setText("");
+		setStartDateTime("");
+	    setConnector("");
+	    setEndDateTime("");
+	}
+	
+	private void setStartDateTime(String startDateTime) {
+		startDateAndTime.setText(startDateTime);
+	}
+	
+	private void setEndDateTime(String endDateTime) {
+		endDateAndTime.setText(endDateTime);
+	}
+	
+	private void setConnector(String connector) {
+		this.connector.setText(connector);
 	}
 
     private void setTaskStatus() {
 		if (task.getStatus().isDone()) {
-			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setStyle("-fx-font-size: 14");
-			taskStatus.setStyle("-fx-text-fill: green");
+			setTaskStatusText();
+			setDoneTaskStatusStyle();
 		} else if (task.getStatus().isOverdue()) {
-			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
-			taskStatus.setStyle("-fx-font-size: 14");
-			taskStatus.setStyle("-fx-text-fill: red");
+			setTaskStatusText();
+			setOverdueTaskStatusStyle();
 		}
+	}
+    
+	private void setTaskStatusText() {
+		taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+	}
+
+	private void setDoneTaskStatusStyle() {
+		taskStatus.setStyle("-fx-font-size: 14");
+		taskStatus.setStyle("-fx-text-fill: green");
+	}
+	
+	private void setOverdueTaskStatusStyle() {
+		taskStatus.setStyle("-fx-font-size: 14");
+		taskStatus.setStyle("-fx-text-fill: red");
 	}
     
 	private void setTags() {
 		tags.setText(task.tagsString());
-		adjustLayoutForSomedayTask();
+		if (task.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
+		    adjustTagLayoutForSomedayTask();
+		}
 	}
 
-	private void adjustLayoutForSomedayTask() {
-		if (task.getTaskType().value.equals(TaskType.Type.SOMEDAY)) {
-			tagHeader.setTranslateY(-10.0);
-			tags.setTranslateY(-10.0);
-		}
+	private void adjustTagLayoutForSomedayTask() {
+	    tagHeader.setTranslateY(-10.0);
+	    tags.setTranslateY(-10.0);
 	}
 
 	public VBox getLayout() {
