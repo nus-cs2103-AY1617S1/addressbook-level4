@@ -67,8 +67,7 @@ Method 2
 
 #### Testing Command: `add CS2103 Tutorial s/thu 1300`
 
-> A new event is added to the top of the list with the name `CS2103 Tutorial`, `From (upcoming Thursday's date) 1:00PM yo 2:00PM`. 
-> The default end time for an event is one hour after the start time.
+> A new event is added to the top of the list with name `CS2103 Tutorial` and `From (upcoming Thursday's date) 1:00PM to 2:00PM`.
 
 #### Testing Command: `add CS2103 Lecture s/every fri 1400 e/1500`
 
@@ -102,7 +101,7 @@ Method 2
 
 #### Testing Command: `add Project d/tomorrow p/1`
 
-> A new task is added to the top of the list with name `homework 4`, `Due on (tomorrow's date) 11:59PM` and <img src="priority3.png" width="15">.
+> A new task is added to the top of the list with name `homework 4`, `Due on (tomorrow's date) 11:59PM` and <img src="priority1 .png" width="15">.
 > The default deadline for a day if no time is given is 11:59PM.
 > The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
 
@@ -115,7 +114,7 @@ Method 2
 
 #### Testing Command: `add CS2103 Tutorial s/thu 1300`
 
-> A new event is added to the top of the list with name `CS2103 Tutorial` and `From (upcoming Thursday's date) 1:00PM to 2:00PM`.
+> The task cannot be added, as there is already a CS2103 Tutorial existing with the same start and end time
 
 #### Testing Command: `add IE2140 Lab s/11-11-2016 1300 e/11-11-2016 1500 r/10-11-2016 2200`
 
@@ -150,10 +149,6 @@ Method 2
 > If current time is 1400Hrs, the command should be `add tutorial 6 r/today 1401`
 > A new activity is add with name `tutorial 5` and reminder one minute from the current time.
 > Wait for one minute and a pop up will show to remind the user, click on `OK` to continue. 
-
-#### Testing Command: `add 345%^&`
-
-> An invalid error will be shown, prompting the user that `Task name should be space or alphanumeric characters`.
 
 #### Testing Command: `add MNO presentation s/tomorrow 1400 e/1100`
 
@@ -306,9 +301,9 @@ Method 2
 
 > The first entry that was deleted is added back again.
 
-#### Testing Command: `list`, <kbd>ENTER</kbd>, `undo`
+#### Testing Command: `add go to E2 r/today 2200`,  <kbd>ENTER</kbd>, `list`, <kbd>ENTER</kbd>, `undo`
 
-> Result Bar shows `There is no more commands to undo`, `list`, `find` and `findtag` cannot be undone.
+> `list`, `find` and `findtag` cannot be undone. It will undo the previous undo-able command, which in this case is the add command.
 
 ### Save Command
 
