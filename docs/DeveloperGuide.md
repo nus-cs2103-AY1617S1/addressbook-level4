@@ -71,7 +71,7 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `del 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
@@ -94,8 +94,8 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/tars/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `TaskCard`,
+`StatusBarFooter`, `TabPane` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
