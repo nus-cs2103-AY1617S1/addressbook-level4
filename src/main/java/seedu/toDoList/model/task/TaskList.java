@@ -33,12 +33,13 @@ public class TaskList implements Iterable<Task> {
     public TaskList() {}
 
     /**
-     * Adds a task to the list.
+     * Adds a task to the list and returns the index of the task.
      */
-    public void add(Task toAdd)  {
+    public int add(Task toAdd)  {
         assert toAdd != null;
 
         internalList.add(toAdd);
+        return internalList.size() - 1;
     }
 
     /**
@@ -55,14 +56,21 @@ public class TaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
 
-	public void edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
-		assert toEdit != null;
-		for(Task t : internalList) {
-        	if(t.equals(toEdit)) {
-        		t.editDetail(type, details);
-       	}
-       }
-	}
+    //@@author A0138717X
+    /**
+     * Edits a task in the list and returns the index of the task.
+     */
+    public int edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
+        assert toEdit != null;
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).equals(toEdit)) {
+                internalList.get(i).editDetail(type, details);
+                return i;
+            }
+        }
+        return 0;
+    }
+	//@@author
 
     public ObservableList<Task> getInternalList() {
         return internalList;

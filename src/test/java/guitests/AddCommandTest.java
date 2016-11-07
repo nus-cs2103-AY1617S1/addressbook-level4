@@ -4,9 +4,11 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.toDoList.commons.core.Messages;
+import seedu.toDoList.model.task.ReadOnlyTask;
 import seedu.toDoList.testutil.TestTask;
 import seedu.toDoList.testutil.TestUtil;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -39,6 +41,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         taskToAdd = td.project;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        int taskIndex = currentList.length;
+        assertItemSelected(taskIndex);
     }
     
     //add a task to list
@@ -48,6 +53,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
         taskToAdd = td.workshop;
         assertAddSuccess(taskToAdd, currentList);
         
+        int taskIndex = currentList.length + 1;
+        assertItemSelected(taskIndex);
     }
     
     //add item to an empty list
@@ -57,6 +64,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         assertAddSuccess(td.friend);
         
+        int taskIndex = 1;
+        assertItemSelected(taskIndex);
     }
     
     //use flexi add command
@@ -66,6 +75,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         taskToAdd = td.project;
         assertFlexiAddSuccess(taskToAdd, currentList);
+        
+        int taskIndex = currentList.length + 1;
+        assertItemSelected(taskIndex);
     }
     
     //-----------------------------invalid cases--------------------------------------------
@@ -117,6 +129,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         // person
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, personToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+    
+    private void assertItemSelected(int index) {
+        assertEquals(taskListPanel.getSelectedTasks().size(), 1);
+        ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
+        assertEquals(taskListPanel.getTask(index-1), selectedTask);
     }
 
 }

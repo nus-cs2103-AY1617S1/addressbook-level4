@@ -31,7 +31,7 @@ public interface Model {
 	void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException;
 	//@@author
 
-    /** Adds the given task */
+    /** Adds the given task. */ 
     void addTask(Task task);
 
     /** Marks the given task as done*/

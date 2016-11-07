@@ -6,6 +6,7 @@ import seedu.toDoList.commons.core.LogsCenter;
 import seedu.toDoList.commons.core.UnmodifiableObservableList;
 import seedu.toDoList.commons.events.model.TaskManagerChangedEvent;
 import seedu.toDoList.commons.events.ui.FilterPanelChangedEvent;
+import seedu.toDoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.toDoList.commons.events.ui.UpdateFilterPanelEvent;
 import seedu.toDoList.commons.exceptions.IllegalValueException;
 import seedu.toDoList.commons.exceptions.StateLimitException;
@@ -95,16 +96,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) {
-        taskManager.addTask(task);
+        int index = taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        raise(new JumpToListRequestEvent(index));
     }
+    
     //@@author A0138717X
 	@Override
 	public void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException {
-		taskManager.editTask(task, type, details);
+		int index = taskManager.editTask(task, type, details);
 		updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        raise(new JumpToListRequestEvent(index));
 	}
 
     //@@author A0142325R

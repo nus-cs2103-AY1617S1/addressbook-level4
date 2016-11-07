@@ -71,15 +71,15 @@ public class TaskManager implements ReadOnlyTaskManager {
 //// task-level operations
 
     /**
-     * Adds a task to the task manager.
+     * Adds a task to the task manager and returns the index of the task.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws TaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p)  {
+    public int addTask(Task p)  {
         syncTagsWithMasterList(p);
-        tasks.add(p);
+        return tasks.add(p);
     }
 
     /**
@@ -114,11 +114,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     //@@author A0146123R
+    /**
+     * Marks the given task as done.
+     */
     public void markTask(ReadOnlyTask p)  {
         p.markAsDone();
     }
 
     //@@author A0142325R
+    /**
+     * Refreshes dates of tasks.
+     */
     public void refreshTask(){
         for(Task e:tasks){
             if(e.isRecurring()){
@@ -128,8 +134,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     //@@author A0138717X
-	public void editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
-        tasks.edit(p, type, details);
+    /**
+     * Edits the given task and returns the index of the task.
+     */
+	public int editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
+        return tasks.edit(p, type, details);
 	}
 	//@@author
 
