@@ -22,6 +22,7 @@
     * [Undo Command](#10-undo-command)
     * [Redo Command](#11-redo-command)
     * [Exit Command](#12-exiting-the-program-exit)
+    * [Save to Directory](#13-saving-to-directory)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -370,9 +371,21 @@ To exit Unburden, you may use the command as shown below. <br>
 
 The application will be closed.
 
+## 13. Saving to Directory 
+If you wish to save your data to a specific directory on your computer, you may easily use the command line to do so. 
+Simply type the command format as shown below. <br>
+#### Format: ` savedir <DIRECTORY LOCATION>\<NAME OF FILE>.xml `
+  
+   Examples : <br>
+   savedir C:\Users\gauri9117\Documents\NUSY2SEM1\Unburden.xml
+   savedir C:\Users\garyGoh\Documents\NUSY2SEM1\Unburden.xml
+
+All changes made to the directory will be displayed at the bottom of the application as shown below. 
+
+   > <img src="UserGuideImages/savedir.JPG" width="500">
 
 
-#### Saving the data 
+## Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
