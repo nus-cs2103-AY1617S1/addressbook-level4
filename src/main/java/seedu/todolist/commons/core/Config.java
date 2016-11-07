@@ -17,10 +17,6 @@ public class Config {
     private String ToDoListFilePath = "data/todolist.xml";
     private String ToDoListName = "MyToDoList";
 
-
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }

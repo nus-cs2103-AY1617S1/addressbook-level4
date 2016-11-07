@@ -133,6 +133,7 @@ The `Model`,
 * Does not depend on any of the other three components.
 <!-- @@author -->
 
+<!-- @@author A0158963M -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -141,8 +142,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
+* can save the ToDoList data in xml format and read it back.
+<!-- @@author -->
 ### Common classes
 
 Classes used by multiple components are in the `seedu.todolist.commons` package. 
@@ -290,6 +291,7 @@ Use case ends.
 > 2b1. Task!t shows a 'the task already exist' message. <br>
 > Use case resumes at step 1
 
+<!-- @@author A0153736B -->
 #### Use case: View task
 
 **MSS**
@@ -308,12 +310,11 @@ Use case ends.
 > 2b1. Task!t shows a 'Task date provided is invalid!' message. <br>
 > Use case ends
 
-<!-- @@author A0153736B -->
 #### Use case: Find task
 
 **MSS**
 
-1. User requests to find tasks by keyword
+1. User requests to find tasks by keyword(s)
 2. Task!t displays the list of tasks that contains the keyword in the name<br>
 Use case ends.
 

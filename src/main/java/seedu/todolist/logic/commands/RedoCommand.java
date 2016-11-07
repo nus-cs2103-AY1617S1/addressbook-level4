@@ -19,9 +19,6 @@ public class RedoCommand extends Command {
     
     public static final String MESSAGE_WITHOUT_PREVIOUS_OPERATION = "There is no previous undo operation.";
 
-    public RedoCommand() {}
-
-
     @Override
     public CommandResult execute() {
         assert model != null; 

@@ -68,6 +68,7 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
         assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Overdue, expectedList.getOverdueList()));
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
     }
 }

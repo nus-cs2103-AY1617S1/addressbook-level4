@@ -64,7 +64,7 @@ public class LogicManagerTest {
     }
 
     @Before
-    public void setup() {
+    public void setUp() {
         model = new ModelManager();
         String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
@@ -78,7 +78,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -338,9 +338,9 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
+    private class TestDataHelper{
 
-        Task adam() throws Exception {
+        private Task adam() throws Exception {
             Name name = new Name("Dinner");
             Interval interval = new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm");
             Location location = new Location("home");
@@ -356,7 +356,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        private Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
                     new Interval(seed + " oct 2017", seed + "pm", seed + " oct 2017", (seed + 1) + "pm"),
@@ -366,7 +366,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        private String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
@@ -386,7 +386,7 @@ public class LogicManagerTest {
         /**
          * Generates an ToDoList with auto-generated tasks.
          */
-        ToDoList generateToDoList(int numGenerated) throws Exception{
+        private ToDoList generateToDoList(int numGenerated) throws Exception{
             ToDoList ToDoList = new ToDoList();
             addToToDoList(ToDoList, numGenerated);
             return ToDoList;
@@ -395,7 +395,7 @@ public class LogicManagerTest {
         /**
          * Generates an ToDoList based on the list of Tasks given.
          */
-        ToDoList generateToDoList(List<Task> tasks) throws Exception{
+        private ToDoList generateToDoList(List<Task> tasks) throws Exception{
             ToDoList ToDoList = new ToDoList();
             addToToDoList(ToDoList, tasks);
             return ToDoList;
@@ -405,14 +405,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given ToDoList
          * @param ToDoList The ToDoList to which the Tasks will be added
          */
-        void addToToDoList(ToDoList ToDoList, int numGenerated) throws Exception{
+        private void addToToDoList(ToDoList ToDoList, int numGenerated) throws Exception{
             addToToDoList(ToDoList, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given ToDoList
          */
-        void addToToDoList(ToDoList ToDoList, List<Task> tasksToAdd) throws Exception{
+        private void addToToDoList(ToDoList ToDoList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 ToDoList.addTask(p);
             }
@@ -422,14 +422,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        private void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        private void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }
@@ -438,7 +438,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        private List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
@@ -446,14 +446,14 @@ public class LogicManagerTest {
             return tasks;
         }
 
-        List<Task> generateTaskList(Task... tasks) {
+        private List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
 
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        private Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
                     new Interval("21 oct 2016", "3pm", "21 oct 2016", "4pm"),

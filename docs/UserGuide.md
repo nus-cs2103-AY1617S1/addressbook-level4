@@ -114,13 +114,12 @@ Examples:
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
 
-<!-- @@author A0146682X -->
+<!-- @@author A0153736B -->
 ### Finding all tasks containing keyword in the name: `find`
 Finds tasks whose names contain the given keywords.<br>
-Format: **`find`**` [findtype] [keywords]`
+Format: **`find`**` [findtype] [keyword 1 keyword 2 ...]`
 
 > The search is case insensitive. <br>
-> the order of the keywords does not matter. <br>
 > Only the task name is searched. <br>
 
 > [findtype] available: <br>
@@ -206,16 +205,17 @@ Format: **`redo`**
 
 >If the undo operation is overwritten by other operations, the to-do-list can't be redone.
 
-<!-- @@author A0138601M-->
+<!-- @@author A0158963M -->
 ### Setting the storage location : `setstorage`
 Sets the location of the storage file. <br>
 Format: **`setstorage`**` [filepath]`
 
-> Data file in the previously used storage path will be moved over to the new path.
+> Data file in the previously used storage path will be deleted and create a new file in the new path.
+>If the folder doesn't exist, creating a new one. 
 
 Examples: 
-* **`setstorage`**` C://user/documents/todolist`.<br>
-
+* **`setstorage`**` user/documents/todolist`.<br>
+     
 ### Clearing all entries : `clear`
 Clears all entries from Task!t.<br>
 Format: `clear`  
@@ -244,7 +244,7 @@ Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
 Edit | **`edit`**` [index] [optional parameter 1] [optional parameter 2]...`
 Exit | **`exit`**
-Find | **`find`**` [keywords]`
+Find | **`find`**` [findtype] [keyword 1 keyword 2 ...]`
 List | **`list`**` [filter]`
 Help | **`help`**
 Set storage | **`setstorage`**` [filepath]`

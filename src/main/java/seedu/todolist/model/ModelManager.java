@@ -6,6 +6,8 @@ import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.ToDoListChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
+import seedu.todolist.logic.commands.FindCommand;
+import seedu.todolist.logic.commands.ListCommand;
 import seedu.todolist.model.parser.DateParser;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
@@ -77,9 +79,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-    	ToDoListHistory.push(new ToDoList(this.ToDoList));
+    	ToDoList currentToDoList = new ToDoList(this.ToDoList);
+    	updateToDoListHistory(currentToDoList);
     	ToDoList.resetData(newData);
-    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
 
@@ -137,8 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void markTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.markTask(tasks);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         indicateToDoListChanged();
     }
 
@@ -146,8 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
         ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.removeTask(tasks);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         indicateToDoListChanged();
     }
 
@@ -155,8 +155,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.addTask(task);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
@@ -166,9 +165,18 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.editTask(target, replacement);
+    	updateToDoListHistory(previousToDoList);
+        indicateToDoListChanged();
+    }
+    
+    //@@author A0153736B
+    /**
+     * Update Stacks of ToDoListHistory and ToDoListUndoHistory when task list of ToDoList is going to be changed.
+     * @param previousToDoList
+     */
+    private void updateToDoListHistory(ToDoList previousToDoList) {
     	ToDoListHistory.push(previousToDoList);
     	ToDoListUndoHistory.clear();
-        indicateToDoListChanged();
     }
     //@@author
 
@@ -250,6 +258,10 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    //@@author A0153736B
+    /**
+     * Determine if task name contain any/all/phrase of provided keywords according to the provided findType.
+     */    
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
         private String findType;
@@ -259,10 +271,9 @@ public class ModelManager extends ComponentManager implements Model {
             this.findType = findType;
         }
 
-        //@@author A0153736B
         @Override
         public boolean run(ReadOnlyTask task) {
-            if ("all".equals(findType)) {
+            if (FindCommand.FINDTYPE_ALL.equals(findType)) {
             	for (String keyword : nameKeyWords) {
             		if (!StringUtil.containsIgnoreCase(task.getName().fullName, keyword)) {
             			return false;
@@ -270,7 +281,7 @@ public class ModelManager extends ComponentManager implements Model {
             	}
             	return true;
             }
-            else if ("phrase".equals(findType)) {
+            else if (FindCommand.FINDTYPE_PHRASE.equals(findType)) {
             	String keyword = String.join(" ", nameKeyWords).trim().toLowerCase();
             	return task.getName().fullName.toLowerCase().contains(keyword);
             }
@@ -281,15 +292,18 @@ public class ModelManager extends ComponentManager implements Model {
             			.isPresent();
             }
         }
-     	//@@author
 
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
-    //@@author A0153736B
+
+    /**
+     * Determine if task date is within the period of the provided dateFilter.
+     * 
+     * @throws DateTimeException if the date of the provided dateFilter is invalid
+     */  
     private class DateQualifier implements Qualifier {
         private String dateFilter;
 
@@ -313,39 +327,23 @@ public class ModelManager extends ComponentManager implements Model {
         	LocalDate currentMonthStart = currentDate.minusDays(currentDayOfMonth+1);
         	LocalDate currentMonthEnd = currentDate.plusDays(currentDate.lengthOfMonth()-currentDayOfMonth);
         	
-        	if (task.getInterval().isDeadlineWithTime() || task.getInterval().isDeadlineWithoutTime()) {
-            	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
-            	if ("today".equals(dateFilter)) {
-                	return taskEndDate.equals(currentDate);
-                }
-                else if ("week".equals(dateFilter)) {
-                	return (!taskEndDate.isBefore(currentWeekStart) && !taskEndDate.isAfter(currentWeekEnd));
-                }
-                else if ("month".equals(dateFilter)) {
-                	return (!taskEndDate.isBefore(currentMonthStart) && !taskEndDate.isAfter(currentMonthEnd));
-                } 
-                else {               
-                    LocalDate date = DateParser.parseDate(dateFilter);
-                    return taskEndDate.equals(date);
-                }
-        	}
-        	else {
-        		LocalDate taskStartDate = task.getInterval().getStartDate().getDate();
-            	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
-            	if ("today".equals(dateFilter)) {
-                	return (!taskEndDate.isBefore(currentDate) && !taskStartDate.isAfter(currentDate));
-                }
-                else if ("week".equals(dateFilter)) {
-                	return (!taskEndDate.isBefore(currentWeekStart) && !taskStartDate.isAfter(currentWeekEnd));
-                }
-                else if ("month".equals(dateFilter)) {
-                	return (!taskEndDate.isBefore(currentMonthStart) && !taskStartDate.isAfter(currentMonthEnd));
-                } 
-                else {
-                    LocalDate date = DateParser.parseDate(dateFilter);
-                    return (!taskEndDate.isBefore(date) && !taskStartDate.isAfter(date));
-                }  	
-        	}
+        	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
+        	LocalDate taskStartDate = (task.getInterval().getStartDate() == null? 
+        			taskEndDate: task.getInterval().getStartDate().getDate());
+
+            if (ListCommand.FILTER_TODAY.equals(dateFilter)) {
+               	return (!taskEndDate.isBefore(currentDate) && !taskStartDate.isAfter(currentDate));
+            }
+            else if (ListCommand.FILTER_WEEK.equals(dateFilter)) {
+               	return (!taskEndDate.isBefore(currentWeekStart) && !taskStartDate.isAfter(currentWeekEnd));
+            }
+            else if (ListCommand.FILTER_MONTH.equals(dateFilter)) {
+               	return (!taskEndDate.isBefore(currentMonthStart) && !taskStartDate.isAfter(currentMonthEnd));
+            } 
+            else {
+                LocalDate date = DateParser.parseDate(dateFilter);
+                return (!taskEndDate.isBefore(date) && !taskStartDate.isAfter(date));
+            }  	
         }
 
         @Override

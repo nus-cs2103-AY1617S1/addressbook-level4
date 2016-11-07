@@ -80,7 +80,7 @@ public class DeleteCommand extends Command {
      * @return true if all indexes are valid
      */
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
-        for (int index : targetIndexes) {
+        for (int index : targetIndex) {
             if (lastShownList.size() < index) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return false;

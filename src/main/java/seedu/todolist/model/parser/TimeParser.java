@@ -30,14 +30,14 @@ public class TimeParser {
         LocalTime parsedTime;
 
         //trim all spaces away
-        time = time.replaceAll("\\s+", "");
+        String trimmedTime = time.replaceAll("\\s+", "");
         
-        if (time.toUpperCase().contains("AM")) {
-            parsedTime = parseTimeWithAMFormat(time);
+        if (trimmedTime.toUpperCase().contains("AM")) {
+            parsedTime = parseTimeWithAMFormat(trimmedTime);
         } else if (time.toUpperCase().contains("PM")) {
-            parsedTime = parseTimeWithPMFormat(time);
+            parsedTime = parseTimeWithPMFormat(trimmedTime);
         } else {
-            parsedTime = parseTimeWithContinentalFormat(time);
+            parsedTime = parseTimeWithContinentalFormat(trimmedTime);
         }
         
         return parsedTime;
@@ -50,12 +50,12 @@ public class TimeParser {
      * @return LocalTime time based on the string time input
      */
     private static LocalTime parseTimeWithAMFormat(String time) throws DateTimeException {
-        time = removePeriod(time);
-        String[] timeComponents = time.split(":");
+        String timeWithoutPeriod = removePeriod(time);
+        String[] timeComponents = timeWithoutPeriod.split(":");
         
         int hour, minute;
         if (timeComponents.length < TIME_COMPONENT_TOTAL) {
-            hour = Integer.parseInt(time);
+            hour = Integer.parseInt(timeWithoutPeriod);
             minute = TIME_COMPONENT_MINUTE_DEFAULT;
         } else {
             hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
@@ -76,12 +76,12 @@ public class TimeParser {
      * @return LocalTime time based on the string time input
      */
     private static LocalTime parseTimeWithPMFormat(String time) throws DateTimeException {
-        time = removePeriod(time);
-        String[] timeComponents = time.split(TIME_DELIMITER);
+        String timeWithoutPeriod = removePeriod(time);
+        String[] timeComponents = timeWithoutPeriod.split(TIME_DELIMITER);
         
         int hour, minute;
         if (timeComponents.length < TIME_COMPONENT_TOTAL) {
-            hour = Integer.parseInt(time);
+            hour = Integer.parseInt(timeWithoutPeriod);
             minute = TIME_COMPONENT_MINUTE_DEFAULT;
         } else {
             hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
@@ -107,9 +107,8 @@ public class TimeParser {
     private static LocalTime parseTimeWithContinentalFormat(String time) throws DateTimeException {
         String[] timeComponents = time.split(":");
 
-        int hour, minute;
-        hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
-        minute = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_MINUTE]); 
+        int hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
+        int minute = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_MINUTE]); 
         
         return LocalTime.of(hour, minute);
     }

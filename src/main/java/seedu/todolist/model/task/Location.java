@@ -20,12 +20,15 @@ public class Location {
      */
     public Location(String location) throws IllegalValueException {
         if (location != null) {
-            location = location.trim();
-            if (!isValidLocation(location)) {
+            String trimmedLocation = location.trim();
+            if (!isValidLocation(trimmedLocation)) {
                 throw new IllegalValueException(MESSAGE_LOCATION_PARAMETER_CONSTRAINTS);
             }
+            this.location = trimmedLocation;
         }
-        this.location = location;
+        else {
+        	this.location = location;
+        }
     }
 
     /**

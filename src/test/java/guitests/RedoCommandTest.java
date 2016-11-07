@@ -56,6 +56,7 @@ public class RedoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("redo");
         assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
         assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
+        assertTrue(taskListPanel.isListMatching(Status.Type.Overdue, expectedList.getOverdueList()));
         assertResultMessage(RedoCommand.MESSAGE_SUCCESS);
     }
 }

@@ -20,19 +20,18 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
 
-    {
-        tasks = new ArrayList<>();
-    }
-
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableToDoList() {}
+    public XmlSerializableToDoList() {
+    	tasks = new ArrayList<>();
+    }
 
     /**
      * Conversion
      */
     public XmlSerializableToDoList(ReadOnlyToDoList src) {
+    	tasks = new ArrayList<>();
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
 
