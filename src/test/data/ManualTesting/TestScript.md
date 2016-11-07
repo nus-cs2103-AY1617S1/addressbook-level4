@@ -72,6 +72,23 @@ Example: delete 1
 **Command:** `searchbox`
 >**Expected Behaviour:** The command input box should now function as a search box. Any keywords typed (e.g. `est`) would match tasks with that particular keyword.
 
+### Listing Tasks
+
+**Command:** `list all`
+>**Expected Behaviour:** The task list should display all tasks that are in the XML file. The tasks should be ordered according to end date and name (end date takes priority). (If using `SampleData.xml`, there should be 54 tasks listed)
+
+**Command:** `list pending`
+>**Expected Behaviour:** The task list should display all tasks that are not marked as completed (i.e. no tasks in the list should have a strikethrough name). The tasks should be ordered according to end date and name (end date takes priority). (If using `SampleData.xml`, there should be 48 tasks listed)
+
+**Command:** `list completed`
+>**Expected Behaviour:** The task list should display all tasks that are marked as completed (i.e. all tasks displayed should have a faded effect and a strikethrough task name). The tasks should be ordered according to end date and name (end date takes priority). (If using `SampleData.xml`, there should be 6 tasks listed)
+
+**Command:** `list pinned`
+>**Expected Behaviour:** The task list should display all tasks that are pinned (i.e. all tasks listed should have a golden star). The tasks should be ordered according to end date and name (end date takes priority). (If using `SampleData.xml`, there should be 4 tasks listed)
+
+**Command:** `list overdue`
+>**Expected Behaviour:** The task list should display all tasks that have an end date that is before the current time. The tasks should be ordered according to end date and name (end date takes priority). (If using `SampleData.xml`, it is indeterminate, as it is dependent on the current clock)
+
 ### Pinning Tasks
 
 **Command:** `pin 48`
@@ -93,10 +110,27 @@ Example: delete 1
 **Command:** `complete 9`
 >**Expected Behaviour:** Task #9 should now be moved to the bottom of the task list. Amongst all other completed tasks, the position of Task #9 should be ordered. The task should appear faded and the name has a strikethrough. (If using `SampleData.xml`, Task #9 [guest lecture] should now be Task #50)
 
-## Uncompleting Tasks
+### Uncompleting Tasks
 
 **Command:** `uncomplete 49`
 >**Expected Behaviour:** Task #49 should no longer be in a faded colour and its name should not be struck. The Task would be positioned amongst all other non-completed tasks. (If using `SampleData.xml`, Task #49 [hackathon] should now be Task #5)
 
 **Command:** `uncomplete 5`
 >**Expected Behaviour:** This message should be shown: "The task is not marked as complete before!", as the task has not been marked as completed. (If using `SampleData.xml`, Task #5 [make personal website] should remain unchanged)
+
+### Undo Previous Command
+
+**Commands:** `undo` after running `add nonsense task`
+>**Expected Behaviour:** Before undoing, the "nonsense task" should be in the task list. After undo, the task "nonsense task" should not be in the list. (If using `SampleData.xml`, after adding, Task #46 should be "nonsense task". After undo, Task #46 should be "shopping" and the state of the task list should be the same as the initial `SampleData.xml`)
+
+**Commands:** `undo` after running `delete 6`
+>**Expected Behaviour:** Task #6, which was deleted, should be recovered with its details (e.g. start and end times and tags) intact. (If using `SampleData.xml`, Task #6 [find intern] should be deleted and "find intern" task should be reinstated as Task #6 after `undo`)
+
+**Commands:** `undo` after running `pin 5`
+>**Expected Behaviour:** After pin command is executed, Task #5 should be pinned (see pin tests for expected pinning behaviour). After the undo command, the task should be unpinned and returns to Task #5. (If using `SampleData.xml`, Task #10 [send birthday card to Esther] should be Task #1, after running pin. After the undo, the task should now be Task #10 and should not have any pinned. All other properties should remain the same throughout)
+
+### Help Window
+
+**Command:** `help`
+>**Expected Behaviour:** A popup should appear with a summary of all commands.
+
