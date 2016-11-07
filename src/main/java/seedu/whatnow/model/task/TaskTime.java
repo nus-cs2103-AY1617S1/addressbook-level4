@@ -45,7 +45,7 @@ public class TaskTime {
     //@@author A0139128A-reused
     private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
-    
+
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$",
@@ -183,12 +183,18 @@ public class TaskTime {
                 date = dateFormat.format(cal.getTime());
                 time = reqTime;
                 return true;
+            } else {
+                if(currEarlierThanInput) {
+                    time = reqTime;
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } else {
             time = reqTime;
             return true;
         }
-        return false;
     }
 
     /**

@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.whatnow.commons.core.EventsCenter;
 import seedu.whatnow.commons.core.Messages;
+import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.logic.Logic;
@@ -16,6 +17,7 @@ import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
+import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.*;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.storage.StorageManager;
@@ -24,10 +26,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.whatnow.commons.core.Messages.*;
@@ -102,15 +109,16 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage, ReadOnlyWhatNow expectedWhatNow, List<? extends ReadOnlyTask> expectedShownList) throws Exception {       
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
-        
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        
-        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD))
+
+        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD)
+                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD)) {
             assertEquals(expectedShownList, model.getAllTaskTypeList());
+        }
 
         // Confirm the state of data (saved and in-memory) is as expected
-        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD)) {
+        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD)&& !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD)) {
             assertEquals(expectedWhatNow, model.getWhatNow());
             //assertEquals(expectedWhatNow, latestSavedWhatNow);
         }
@@ -210,28 +218,216 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateModifiedWhatNow(1);
         List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
-        
-        
+
+
         //prepare WhatNow state
         helper.addToModel(model, 1);
         helper.doneToModel(model, 1);
-        
+
         assertCommandBehavior("list done", ListCommand.COMPLETE_MESSAGE_SUCCESS, expectedA, expectedList);
     }
     //@@author A0139128A
     @Test
-    public void executeListAllDone_correctArgument_showDownTasks() throws Exception {
+    public void executeListAll_correctArgument_showDownTasks() throws Exception {
         //prepare expectations
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateModifiedWhatNow(2);
-        
+
         List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
-        
+
         //prepare WhatNow state
         helper.addToModel(model, 2);
         helper.doneToModel(model, 1);
-        
+
         assertCommandBehavior("list all", ListCommand.MESSAGE_SUCCESS, expectedA, expectedList);
+    }
+
+    //@@author A0139128A
+    @Test
+    public void execute_undoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
+    }
+
+
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
+    }
+
+    //@@author A0139128A
+    @Test
+    public void execute_undoCommandForAdd_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedA = helper.generateWhatNow(1);
+        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
+
+        expectedA.removeTask(expectedList.get(0));
+
+        logic.execute("add \"Task 1\" on 23/02/2017 t/tag1 t/tag2");
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedA , expectedList);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommandForNewAddCommandAfterAnUndoAndRedo_FailureMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        Task toAdd = helper.generateTaskWithName("Dummy");
+        expectedAB.addTask(toAdd);
+        addThreeTasksToLogic();
+        logic.execute("undo");
+        logic.execute("redo");
+        logic.execute("add \"Dummy\"");
+        
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoTheUndoForAdd_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+
+        addThreeTasksToLogic();
+        logic.execute("undo");
+
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommandForAdd_FailMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+
+        addThreeTasksToLogic();
+        logic.execute("redo");
+
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB , expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_undoCommandForDelete_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        List<Task> expectedList = helper.generateTaskList(1);
+
+        WhatNow expectedA = helper.generateWhatNow(expectedList);
+        helper.addToModel(model, 1);
+        logic.execute("delete schedule 1");
+
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedA, expectedA.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommandForDelete_FailMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
+
+        logic.execute("delete schedule 2");
+
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_undoCommandForClear_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+
+        helper.addToModel(model, 3);
+        logic.execute("clear");
+
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoTwiceTheUndoForClear_FailMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        helper.addToModel(model, 3);
+        logic.execute("clear");
+        logic.execute("undo");
+        logic.execute("redo");
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), null);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_undoDoneCommand_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+
+        addThreeTasksToLogic();
+        logic.execute("done schedule 1");
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void excute_undoUndoneCommand_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+
+        addThreeTasksToLogic();
+
+        logic.execute("done schedule 1");
+        logic.execute("list done");
+        logic.execute("undone schedule 1");
+
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoTheUndoForDoneCommand_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        expectedAB.removeTask(threeTasks.get(2));
+        addThreeTasksToLogic();
+
+        logic.execute("done schedule 1");
+        logic.execute("undo");
+
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_undoDeleteCommand_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        addThreeTasksToLogic();
+
+        logic.execute("update schedule 1 tag help");
+
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_undoTheRedoCommand_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        Task toUpdate = new Task(threeTasks.get(0).getName(), threeTasks.get(0).getTaskDate(),
+                threeTasks.get(0).getStartDate(), threeTasks.get(0).getEndDate(), "5pm",
+                threeTasks.get(0).getStartTime(), threeTasks.get(0).getEndTime(), threeTasks.get(0).getPeriod(),
+                threeTasks.get(0).getEndPeriod(), threeTasks.get(0).getTags(),
+                threeTasks.get(0).getStatus(), threeTasks.get(0).getTaskType());
+        expectedAB.updateTask(threeTasks.get(0), toUpdate);
+        addThreeTasksToLogic();
+
+        logic.execute("update schedule 1 time 5pm");
+        logic.execute("undo");
+
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
     }
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
@@ -327,7 +523,14 @@ public class LogicManagerTest {
                 .format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate),
                 expectedAB, expectedAB.getTaskList());
     }
-
+    /**
+     * Manually adds 3 tasks to the logic
+     */
+    private void addThreeTasksToLogic() throws Exception {
+        logic.execute("add \"Task 1\" on 23/02/2017 t/tag1 t/tag2");
+        logic.execute("add \"Task 2\" on 23/02/2017 t/tag2 t/tag3");
+        logic.execute("add \"Task 3\" on 23/02/2017 t/tag4 t/tag3");
+    }
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.
@@ -402,7 +605,7 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)), expectedAB,
                 expectedAB.getTaskList());
     }
-    
+
     //@@author A0139128A
     @Test
     public void execute_markDoneInvalidIndexFormat_errorMessageShown() throws
@@ -411,60 +614,45 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("done", "todo 2",
                 expectedMessage);
     }
-    
+
     //@@author A0139128A
     @Test
     public void execute_markUndoneInvalidIndexFormat_ErrorMessageShown() throws Exception {
         String expectedMessage = String.format(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("undone", "todo 2", expectedMessage);
     }
-    
+
     //@@author A0139128A
     @Test
     public void execute_markUndoneMissingIndexFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_MISSING_INDEX);
         assertIncorrectIndexFormatBehaviorForCommand("undone", "todo", expectedMessage);
     }
-    
+
     //@@author A0141021H
     @Test
     public void execute_markUndone_markCorrectTask() throws Exception { 
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateCompletedTaskList(3);
-        
+
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
         expectedAB.markTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
-       
+
         assertCommandBehavior("undone schedule 2",
-        String.format(MarkUndoneCommand.MESSAGE_MARK_TASK_SUCCESS,
-        threeTasks.get(1)),
-        expectedAB,
-        expectedAB.getTaskList());
+                String.format(MarkUndoneCommand.MESSAGE_MARK_TASK_SUCCESS,
+                        threeTasks.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
     }
-    
+
     //@@author A0139128A
     @Test
     public void execute_markDoneIndexNotFound_errorMessageShown() throws
     Exception {
         assertIndexNotFoundBehaviorForCommand("done", "todo");
     }
-     
-//     @Test
-//     public void execute_markDone_marksCorrectTask() throws Exception {
-//     TestDataHelper helper = new TestDataHelper();
-//     List<Task> threeTasks = helper.generateTaskList(3);
-//    
-//     WhatNow expectedAB = helper.generateWhatNow(threeTasks);
-//     expectedAB.markTask(threeTasks.get(1));
-//     helper.addToModel(model, threeTasks);
-//    
-//     assertCommandBehavior("done schedule 2",
-//     String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
-//     threeTasks.get(1)),
-//     expectedAB,
-//     expectedAB.getTaskList());
-//     }
+
     /**
      * Confirms the 'invalid argument behaviour' for the given command
      * 
@@ -592,16 +780,17 @@ public class LogicManagerTest {
                 expectedAB, expectedList);
     }
 
+    //@@author A0139772U
     @Test
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
         assertCommandBehavior("freetime", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_farfarIntoTheFutureDate_freeSlotFound() throws Exception {
         assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_SUCCESS + "12/12/2222\n" + "[[12:00am, 11:59pm]]");
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_allFreeSlotsOnDateTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -609,51 +798,200 @@ public class LogicManagerTest {
         test.setTaskDate("12/12/2222");
         test.setStartTime("12:00am");
         test.setEndTime("11:59pm");
-        
+
         WhatNow expectedAB = new WhatNow();
         expectedAB.addTask(test);
-        
+
         model.addTask(test);
-        
+
         assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "12/12/2222", 
                 expectedAB, expectedAB.getTaskList());
         model.deleteTask(test);
     }
-    
+    //@@author A0139772U
     @Test
-    public void executeFreeTime_blockPeriodWithEndDateAlreadyTaken_freeSlotNotFound() throws Exception {
+    public void executeFreeTime_blockPeriodWithStartEndDateNotTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        
-        Task preloaded1 = helper.generateTask(1);
-        preloaded1.setTaskDate("12/12/2222");
-        preloaded1.setStartTime("08:00am");
-        preloaded1.setEndTime("09:00am");
-        
-        Task preloaded2 = helper.generateTask(2);
-        preloaded2.setTaskDate("14/12/2222");
-        preloaded2.setStartTime("08:00am");
-        preloaded2.setEndTime("09:00am");
-        
+
         Task test = helper.generateTask(0);
         test.setTaskDate(null);
         test.setStartDate("12/12/2222");
         test.setEndDate("14/12/2222");
         test.setStartTime("12:00am");
         test.setEndTime("11:59pm");
-        
-        WhatNow expectedAB = new WhatNow();
-        expectedAB.addTask(preloaded1);
-        expectedAB.addTask(preloaded2);
-        expectedAB.addTask(test);
-        
+
+        model.addTask(test);
+
+        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222");
+    }
+    //@@author A0139772U
+    @Test
+    public void executeFreeTime_blockPeriodWithStartAndEndDateTaken_freeSlotNotFound() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Task preloaded1 = helper.generateTask(1);
+        preloaded1.setTaskDate("12/12/2222");
+        preloaded1.setStartTime("08:00am");
+        preloaded1.setEndTime("09:00am");
+
+        Task preloaded2 = helper.generateTask(2);
+        preloaded2.setTaskDate("14/12/2222");
+        preloaded2.setStartTime("08:00am");
+        preloaded2.setEndTime("09:00am");
+
+        Task test = helper.generateTask(0);
+        test.setTaskDate(null);
+        test.setStartDate("12/12/2222");
+        test.setEndDate("14/12/2222");
+        test.setStartTime("12:00am");
+        test.setEndTime("11:59pm");
+
         model.addTask(preloaded1);
         model.addTask(preloaded2);
         model.addTask(test);
-        
-        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222", 
-                expectedAB, expectedAB.getTaskList());
+
+        assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222");
+        model.deleteTask(preloaded1);
+        model.deleteTask(preloaded2);
+        model.deleteTask(test);
+    }
+    //@@author A0139772U
+    @Test
+    public void getPinnedItems_pinByTag_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+
+        TestDataHelper helper = new TestDataHelper();
+
+        Task preload1 = helper.generateTask(0);
+        String preload1Tag = preload1.getTags().getInternalList().get(0).tagName;
+
+        Task preload2 = helper.generateTask(1);
+        preload2.setTags(new UniqueTagList(new Tag(preload1Tag)));
+        preload2.setTaskDate(null);        
+
+        model.addTask(preload1);
+        model.addTask(preload2);
+
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("tag", preload1Tag);
+        assertTrue(testList.size() == 2);
+
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+    }
+    //@@author A0139772U
+    @Test
+    public void getPinnedItems_pinToday_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+
+        TestDataHelper helper = new TestDataHelper();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate(today);
+
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+
+        model.addTask(preload1);
+        model.addTask(preload2);
+
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("date", "today");
+        assertTrue(testList.size() == 1);
+
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+    }
+    //@@author A0139772U
+    @Test
+    public void getPinnedItems_pinByDate_pinnedCorrectly() throws Exception {
+        model.updatePinnedItemsToShowMatchKeywords("date", "none");
+
+        TestDataHelper helper = new TestDataHelper();
+
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate("12/12/2222");
+
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+
+        Task preload3 = helper.generateTask(2);
+        preload3.setTaskDate("11/11/2222");
+
+        model.addTask(preload1);
+        model.addTask(preload2);
+        model.addTask(preload3);
+
+        UnmodifiableObservableList<ReadOnlyTask> testList = model.getPinnedItems("date", "12/12/2222");
+
+        assertTrue(testList.size() == 2);
+
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+        model.deleteTask(preload3);
     }
 
+    //@@author A0139772U
+    @Test
+    public void getPinnedItems_rubbishCondition_invalidCommandFeedback() throws Exception {
+        assertCommandBehavior("pin rubbish", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
+    }
+
+    //@@author A0139772U
+    @Test
+    public void list_listTodoTask_todoTaskDisplayedCorrectly() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate(null);
+        preload1.setTaskType("floating");
+
+        Task preload2 = helper.generateTask(1);
+        preload2.setTaskDate("12/12/2222");
+        preload2.setStartTime("04:00pm");
+        preload2.setEndTime("06:00pm");
+        preload2.setTaskType("not_floating");
+
+        model.addTask(preload1);
+        model.addTask(preload2);
+
+        UnmodifiableObservableList<ReadOnlyTask> todo = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> schedule = model.getFilteredScheduleList();
+
+        assertTrue(todo.size() == 1);
+        assertTrue(schedule.size() == 1);
+
+        model.deleteTask(preload1);
+        model.deleteTask(preload2);
+
+    }
+
+    //@@author A0139772U
+    @Test
+    public void getOverdueScheduleList_noOverdue_listSizeZero() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        Task preload1 = helper.generateTask(0);
+        preload1.setTaskDate("12/12/2222");
+
+        UnmodifiableObservableList<ReadOnlyTask> overdue = model.getOverdueScheduleList();
+        assertTrue(overdue.size() == 0);
+    }
+
+    //@@author A0139772U
+    @Test
+    public void addTask_duplicatedTag_exceptionThrown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task test = helper.generateTask(0);
+        try {
+            test.setTags(new UniqueTagList(new Tag("high"), new Tag("high")));
+        } catch (DuplicateTagException e) {
+            assertEquals(e.getMessage(), "Operation would result in duplicate tags");
+        }
+    }
+
+    //@@author A0126240W
     /**
      * A utility class to generate test data.
      */
@@ -766,7 +1104,7 @@ public class LogicManagerTest {
             addToWhatNow(whatNow, numGenerated);
             return whatNow;
         }
-        
+
         /**
          * Generates an WhatNow with 1 completed task 
          */
@@ -803,7 +1141,7 @@ public class LogicManagerTest {
                 whatNow.addTask(p);
             }
         }
-       
+
         /**
          * Adds auto-generated Task objects to the given model
          * 
@@ -850,7 +1188,7 @@ public class LogicManagerTest {
                 model.markTask(p);
             }
         }
-        
+
         /**
          * Generates a list of Tasks based on the flags.
          */
@@ -861,7 +1199,7 @@ public class LogicManagerTest {
             }
             return tasks;
         }
-        
+
         /**
          * Generates a list of completed Tasks based on the flags.
          */

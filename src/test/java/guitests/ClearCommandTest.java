@@ -17,6 +17,34 @@ public class ClearCommandTest extends WhatNowGuiTest {
         assertTrue(taskListPanel.isListMatching(td.h));
         commandBox.runCommand("delete schedule 1");
         assertListSize(0);
+        
+        //verify other commands can work after a clear command
+        commandBox.runCommand(td.a.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.a));
+        commandBox.runCommand("delete todo 1");
+        assertListSize(1);
+        
+        //verify other commands can work after a clear command
+        commandBox.runCommand(td.a.getAddCommand());
+        commandBox.runCommand(td.b.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.a, td.b));
+        commandBox.runCommand("delete todo 1");
+        assertListSize(2);
+        
+        //verify other commands can work after a clear command
+        commandBox.runCommand(td.a.getAddCommand());
+        commandBox.runCommand(td.b.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.a, td.b));
+        commandBox.runCommand("delete schedule 1");
+        assertListSize(1);
+        
+        //verify other commands can work after a clear command
+        commandBox.runCommand(td.a.getAddCommand());
+        commandBox.runCommand(td.b.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.a, td.b));
+        commandBox.runCommand("delete schedule 1");
+        commandBox.runCommand("delete schedule 1");
+        assertListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();

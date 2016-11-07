@@ -15,7 +15,6 @@ import seedu.whatnow.commons.events.model.AddTaskEvent;
 import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
-import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.Logic;
@@ -118,12 +117,6 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-    }
-
-    @Subscribe
     public void handleAddTaskEvent(AddTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, MESSAGE_TASK_ADDED));
         Task task = event.task;
@@ -132,7 +125,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(event.isUndo).indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
@@ -146,7 +139,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(false).indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
@@ -154,7 +147,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     public void handleWhatNowChangedEvent(WhatNowChangedEvent abce) {
         mainWindow.getStatusPanel().postMessage("Number of ongoing tasks in schedule: " 
-                + String.valueOf(logic.getFilteredScheduleList(false).size() 
+                + String.valueOf(logic.getFilteredScheduleList().size() 
                 + "\n"
                 + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
     }

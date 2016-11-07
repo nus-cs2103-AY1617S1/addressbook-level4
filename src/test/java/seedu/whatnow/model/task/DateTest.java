@@ -5,8 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.text.DateFormat;
 import java.text.ParseException;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import org.junit.Test;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -29,6 +31,82 @@ public class DateTest {
         } catch (IllegalValueException e) { 
             assertEquals(e.getMessage(), TaskDate.INVALID_TASK_DATE);
         }
+    }
+
+    @Test
+    public void isValidDate_validMon_returnTrue() {
+        assertTrue(TaskDate.isDay("mon"));
+    }
+
+    @Test
+    public void isValidDate_validTue_returnTrue() {
+        assertTrue(TaskDate.isDay("tue"));
+    }
+
+    @Test
+    public void isValidDate_validWed_returnTrue() {
+        assertTrue(TaskDate.isDay("wed"));
+    }
+
+    @Test
+    public void isValidDate_validThur_returnTrue() {
+        assertTrue(TaskDate.isDay("thur"));
+    }
+
+    @Test
+    public void isValidDate_validFri_returnTrue() {
+        assertTrue(TaskDate.isDay("fri"));
+    }
+
+    @Test
+    public void isValidDate_validSat_returnTrue() {
+        assertTrue(TaskDate.isDay("sat"));
+    }
+
+    @Test
+    public void isValidDate_validSun_returnTrue() {
+        assertTrue(TaskDate.isDay("sun"));
+    }
+    @Test
+    public void isValidDate_validMonDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("mon") != null);
+        assertTrue(TaskDate.formatDayToDate("monday") != null);
+    }
+
+    @Test
+    public void isValidDate_validTueDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("tue") != null);
+        assertTrue(TaskDate.formatDayToDate("tuesday") != null);
+    }
+
+    @Test
+    public void isValidDate_validWedDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("wed") != null);
+        assertTrue(TaskDate.formatDayToDate("wednesday") != null);
+    }
+
+    @Test
+    public void isValidDate_validThurDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("thur") != null);
+        assertTrue(TaskDate.formatDayToDate("thursday") != null);
+    }
+
+    @Test
+    public void isValidDate_validFriDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("fri") != null);
+        assertTrue(TaskDate.formatDayToDate("friday") != null);
+    }
+
+    @Test
+    public void isValidDate_validSatDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("sat") != null);
+        assertTrue(TaskDate.formatDayToDate("saturday") != null);
+    }
+
+    @Test
+    public void isValidDate_validSunDayToDate_returnTrue() throws ParseException {
+        assertTrue(TaskDate.formatDayToDate("sun") != null);
+        assertTrue(TaskDate.formatDayToDate("sunday") != null);
     }
 
     @Test
@@ -188,5 +266,122 @@ public class DateTest {
     public void isValidDate_invalidDateRange_returnFalse() throws ParseException {
         assertFalse(TaskDate.getIsValidDateRange("12/12/2016", "23/11/2015"));
         assertFalse(TaskDate.getIsValidDateRange("12/11/2019", "23/09/2017"));
+    }
+
+    @Test
+    public void isValidDate_beforeAfter_returnTrue() throws ParseException {
+        assertTrue(TaskDate.getIsValidDateRange("mon", "wed"));
+        assertTrue(TaskDate.getIsValidDateRange("wed", "mon"));
+    }
+
+    @Test
+    public void isValidDate_tmrDate_returnTrue() throws ParseException {
+        String tmrDate;
+        DateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        tmrDate = dateFormat.format(cal.getTime());
+        assertEquals(tmrDate, TaskDate.assignTmrDate());
+    }
+
+    @Test
+    public void isValidDate_startDateTdy_returnTrue() throws ParseException, IllegalValueException {
+        String todayDate;
+        DateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        Calendar cal = Calendar.getInstance();
+        todayDate = dateFormat.format(cal.getTime());
+        TaskDate taskDate = new TaskDate(null, "tdy", "12/12/2020");
+        assertEquals(taskDate.assignTodayDate(), todayDate);
+    }
+
+    @Test
+    public void isValidDate_endDateTdy_returnTrue() throws ParseException, IllegalValueException {
+        try{
+            TaskDate taskDate = new TaskDate(null, "12/12/2020", "tdy");
+        } catch (IllegalValueException e) {
+            assertEquals(e.getMessage(), TaskDate.INVALID_TASK_DATE_RANGE_FORMAT);
+        }
+    }
+
+    @Test
+    public void isValidDate_taskDateTdy_returnTrue() throws ParseException, IllegalValueException {
+        String todayDate;
+        DateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        Calendar cal = Calendar.getInstance();
+        todayDate = dateFormat.format(cal.getTime());
+        TaskDate taskDate = new TaskDate("tdy", null, null);
+        assertEquals(taskDate.assignTodayDate(), todayDate);
+    }
+
+    @Test
+    public void isValidDate_taskDateTmr_returnTrue() throws ParseException, IllegalValueException {
+        String tmrDate;
+        DateFormat dateFormat = new SimpleDateFormat(TaskDate.DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        tmrDate = dateFormat.format(cal.getTime());
+        TaskDate taskDate = new TaskDate("tmr", null, null);
+        assertEquals(taskDate.assignTmrDate(), tmrDate);
+    }
+    
+    //@@author A0139772U
+    @Test
+    public void getFullDateOneDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        TaskDate taskDate = new TaskDate(today, null, null);
+        assertEquals(taskDate.toString(), today);
+    }
+    
+    @Test
+    public void getFullDateTwoDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        taskDate.setFullDate(null);
+        assertEquals(taskDate.toString(), "12/04/2018 15/06/2019");
+    }
+    
+    @Test
+    public void getStartDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        assertEquals(taskDate.getStartDate(), "12/04/2018");
+    }
+    
+    @Test
+    public void getEndDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        assertEquals(taskDate.getEndDate(), "15/06/2019");
+    }
+    
+    @Test
+    public void isValidDate_validDate_dateIsValid() throws IllegalValueException, ParseException {
+        assertTrue(TaskDate.getIsValidDate("12/12/2222"));
+    }
+    
+    @Test
+    public void isEqual_twoValidEqualDates_datesAreEqual() throws IllegalValueException, ParseException {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        TaskDate taskDate1 = new TaskDate(today, null, null);
+        TaskDate taskDate2 = new TaskDate(today, null, null);
+        assertEquals(taskDate1, taskDate2);
+    }
+    
+    @Test
+    public void formatDayToDate_today_dateofDayReturned() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        assertEquals(TaskDate.formatDayToDate("today"), today);
+    }
+    
+    @Test
+    public void formatDayToDate_tomorrow_dateofDayReturned() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        String tomorrow = df.format(cal.getTime());
+        assertEquals(TaskDate.formatDayToDate("tomorrow"), tomorrow);
     }
 }

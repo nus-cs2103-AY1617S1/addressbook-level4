@@ -9,6 +9,7 @@ import seedu.whatnow.testutil.TestTask;
 import seedu.whatnow.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
 
@@ -66,9 +67,13 @@ public class AddCommandTest extends WhatNowGuiTest {
         commandBox.runCommand("clear");
         assertAddSuccess(td.a);
 
-        //invalid command
+        //unknown command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //invalid command
+        commandBox.runCommand("add 'workwork'");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
