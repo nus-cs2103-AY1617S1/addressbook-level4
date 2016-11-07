@@ -30,42 +30,41 @@ public class DoneCommand extends Command {
 		this.targetIndex = targetIndex;
 	}
 
-	@Override
-	public CommandResult execute() {
+    @Override
+    public CommandResult execute() {
 
-		UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyActivity> lastShownList = model.getFilteredTaskList();
 
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-		}
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
 
-		ReadOnlyActivity taskToMark = lastShownList.get(targetIndex - 1);
+        ReadOnlyActivity taskToMark = lastShownList.get(targetIndex - 1);
 
-		if(taskToMark.getClass().getSimpleName().equalsIgnoreCase("event")){
-		    return new CommandResult(MESSAGE_EVENT_INVALID);
-		}
-		    
-		
-		if (taskToMark.getCompletionStatus() == false) {
+        if (taskToMark.getClass().getSimpleName().equalsIgnoreCase("event")) {
+            return new CommandResult(MESSAGE_EVENT_INVALID);
+        }
 
-			Activity unmarkedTask = Activity.create(taskToMark);
-			
-			boolean isComplete = true;
-			try {
-				model.markTask(unmarkedTask, isComplete);
+        if (taskToMark.getCompletionStatus() == false) {
 
-				PreviousCommand doneCommand = new PreviousCommand(COMMAND_WORD, unmarkedTask);
-				PreviousCommandsStack.push(doneCommand);
+            Activity unmarkedTask = Activity.create(taskToMark);
 
-			} catch (TaskNotFoundException tnfe) {
-				assert false : "The target task cannot be missing";
-			}
-			return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));
+            boolean isComplete = true;
+            try {
+                model.markTask(unmarkedTask, isComplete);
 
-		} else {
-			return new CommandResult(String.format(MESSAGE_TASK_COMPLETED));
-		}
-	}
+                PreviousCommand doneCommand = new PreviousCommand(COMMAND_WORD, unmarkedTask);
+                PreviousCommandsStack.push(doneCommand);
+
+            } catch (TaskNotFoundException tnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));
+
+        } else {
+            return new CommandResult(MESSAGE_TASK_COMPLETED);
+        }
+    }
 }
 

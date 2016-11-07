@@ -21,36 +21,36 @@ import seedu.lifekeeper.model.tag.UniqueTagList;
  */
 public class PreviousCommand {
 
-	public String COMMAND_WORD;
-	public Activity updatedTask;
-	public Activity oldTask;
+	public String commandWord;
+	public Activity updatedActivity;
+	public Activity oldActivity;
 	public int index;
 
 	
-	public PreviousCommand(String command, Activity task)
+	public PreviousCommand(String command, Activity activity)
 	{
-		COMMAND_WORD = command;
-		updatedTask = task;
-		oldTask = null;
+		commandWord = command;
+		updatedActivity = activity;
+		oldActivity = null;
 	}
 	
-	public PreviousCommand(String command, int index, ReadOnlyActivity task)
+	public PreviousCommand(String command, int index, ReadOnlyActivity activity)
 	{
-		COMMAND_WORD = command;
+		commandWord = command;
 		this.index = index;
-		String type = task.getClass().getSimpleName().toLowerCase();
+		String type = activity.getClass().getSimpleName().toLowerCase();
 			
 		switch (type) {
         case "activity":
-    		updatedTask = new Activity(task);
+    		updatedActivity = new Activity(activity);
             break;
         
         case "task":
-        	updatedTask = new Task((ReadOnlyTask) task);
+        	updatedActivity = new Task((ReadOnlyTask) activity);
             break;
         
         case "event":
-        	updatedTask = new Event((ReadOnlyEvent) task);
+        	updatedActivity = new Event((ReadOnlyEvent) activity);
             break;
         
         default:
@@ -58,30 +58,30 @@ public class PreviousCommand {
         }
 		
 		
-		oldTask = null;
+		oldActivity = null;
 	}
 		
 	public PreviousCommand(String command, Activity originalActivity, Activity editedActivity) {
-        COMMAND_WORD = command;
-        updatedTask = editedActivity;
+        commandWord = command;
+        updatedActivity = editedActivity;
                 
-            oldTask = originalActivity;
+            oldActivity = originalActivity;
 
 	}
 
 	public String getCommand()
 	{
-		return COMMAND_WORD;
+		return commandWord;
 	}
 	
 	public Activity getUpdatedTask()
 	{
-		return updatedTask;
+		return updatedActivity;
 	}
 	  
 	public Activity getOldTask()
 	{
-	    return oldTask;
+	    return oldActivity;
     }
 	   
 	public int getIndex()
