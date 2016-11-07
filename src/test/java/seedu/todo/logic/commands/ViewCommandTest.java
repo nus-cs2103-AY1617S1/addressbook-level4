@@ -28,7 +28,7 @@ public class ViewCommandTest extends CommandTest {
     @Before
     public void setUp() throws Exception {
         //TODO Set this to be fixed instance, due to the times sensitive nature of Today tasks.
-        LocalDateTime now = LocalDateTime.of(2016, 10, 28, 7, 0);
+        LocalDateTime now = LocalDateTime.now(); 
         
         tasks = ImmutableList.of(
             TaskBuilder.name("0. Completed, no deadline")
