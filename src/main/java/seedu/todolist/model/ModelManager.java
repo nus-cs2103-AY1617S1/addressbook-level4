@@ -77,9 +77,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyToDoList newData) {
-    	ToDoListHistory.push(new ToDoList(this.ToDoList));
+    	ToDoList currentToDoList = new ToDoList(this.ToDoList);
+    	updateToDoListHistory(currentToDoList);
     	ToDoList.resetData(newData);
-    	ToDoListUndoHistory.clear();
         indicateToDoListChanged();
     }
 
@@ -137,8 +137,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void markTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.markTask(tasks);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         indicateToDoListChanged();
     }
 
@@ -146,8 +145,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask... tasks) throws TaskNotFoundException {
         ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.removeTask(tasks);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         indicateToDoListChanged();
     }
 
@@ -155,8 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.addTask(task);
-    	ToDoListHistory.push(previousToDoList);
-    	ToDoListUndoHistory.clear();
+    	updateToDoListHistory(previousToDoList);
         updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
@@ -166,9 +163,18 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
     	ToDoList previousToDoList = new ToDoList(this.ToDoList);
     	ToDoList.editTask(target, replacement);
+    	updateToDoListHistory(previousToDoList);
+        indicateToDoListChanged();
+    }
+    
+    //@@author A0153736B
+    /**
+     * Update Stacks of ToDoListHistory and ToDoListUndoHistory when task list of ToDoList is going to be changed.
+     * @param previousToDoList
+     */
+    private void updateToDoListHistory(ToDoList previousToDoList) {
     	ToDoListHistory.push(previousToDoList);
     	ToDoListUndoHistory.clear();
-        indicateToDoListChanged();
     }
     //@@author
 
