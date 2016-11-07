@@ -52,6 +52,7 @@ Other major contributions:
 * Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
 * Other major contributions:
   * Initial refactoring from AddressBook to ToDoList
+  * Compiled SampleData and TestScript for manual testing
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)
