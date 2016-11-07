@@ -170,7 +170,7 @@ public class ToDoListParser {
 
         return new DeleteCommand(index.get());
     }
-
+    //@@author A0138967J
     /**
      * Parses arguments in the context of the mark task command.
      *
@@ -187,7 +187,7 @@ public class ToDoListParser {
 
         return new MarkCommand(index.get());
     }
-
+    //@@author A0093896H
     /**
      * Parses arguments in the context of the unmark task command.
      *
@@ -204,7 +204,7 @@ public class ToDoListParser {
 
         return new UnmarkCommand(index.get());
     }
-//@@author A0142421X
+    //@@author A0142421X
     /**
      * Parses arguments in the context of the tag task command.
      *
@@ -258,7 +258,7 @@ public class ToDoListParser {
         }
 
     }
-  //@@author 
+    //@@author 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
      * integer is given as the index. Returns an {@code Optional.empty()}
@@ -277,7 +277,7 @@ public class ToDoListParser {
         return Optional.of(Integer.parseInt(index));
 
     }
-  //@@author A0093896H
+    //@@author A0093896H
     /**
      * Parses arguments in the context of the update task command.
      *
@@ -319,7 +319,7 @@ public class ToDoListParser {
         
 
     }
-    
+    //@@author A0121643R
     /**
      * Parses arguments in the context of the search task command.
      *
@@ -413,7 +413,7 @@ public class ToDoListParser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
     }
-    
+    //@@author A0093896H
     /**
      * Parses arguments in the context of the store command.
      *

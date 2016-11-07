@@ -13,7 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
     * Add Command
     * Delete Command
     * Update Command
-    * Search Command
+    * Unmark Command
     * Recurring Tasks
     * Store and Reset Commands
 * Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0093896H.md)
@@ -39,7 +39,7 @@ We are a team based in the [School of Computing, National University of Singapor
     
 * Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0142421X.md)
 [[test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0142421X.md)
-[[unused test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0142421X-unused.md)
+[[unused test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0142421Xunused.md)
 [[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0142421X.md)
 
 * Other major contributions
@@ -55,11 +55,10 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: Eclipse, Git <br>
 * Features Implemented:
     * Undo Command
-    * Mark Command
-    * Unmark Command
+    * Search Command
     * Task priorities
 * Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0121643R.md)
-[[unused functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0121643R-unused.md)
+[[unused functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0121643Runused.md)
 [[test code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/test/A0121643R.md)
 [[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0121643R.md)
 
@@ -75,6 +74,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: UI, Model <br>
 * Aspects/tools in charge of: Eclipse, Git <br>
 * Features Implemented:
+	* Mark Command
     * Today Task Panel
     * Weekly Task Panel
 * Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0138967J.md)

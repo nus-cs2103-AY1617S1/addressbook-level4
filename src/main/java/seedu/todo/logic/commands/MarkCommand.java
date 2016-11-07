@@ -6,7 +6,7 @@ import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
-//@@author A0093896H
+//@@author A0138967J
 /**
  * Marks a task identified using it's last displayed index from the to do list.
  */
