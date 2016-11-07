@@ -8,6 +8,7 @@ import pyautogui
 DEBUG = False
 
 VERBS = ["Meet", "Lunch with", "Dinner with", "Call", "Kill", "Meeting with", "Talk to"]
+TAGS = ['meditation', 'summertime', 'goodtime', 'comedy', 'homesweethome', 'gymtime', 'games', 'monochrome']
 
 fake = faker.Faker()
 
@@ -23,7 +24,6 @@ def random_time_pair():
     end = start + datetime.timedelta(hours = 2)
     return start.strftime('%Y-%m-%d %H:%M'), \
            end.strftime('%Y-%m-%d %H:%M')
-           
 
 def enter_command(command):
     if DEBUG:
@@ -58,11 +58,20 @@ def generate_events(n):
                   % (random.choice(VERBS), fake.name(), time_pair[0], time_pair[1])
         enter_command(command)
 
+def tag(max_i, max_tags):
+    for i in range(max_i):
+        num_tags = random.randint(0, max_tags)
+        tags = random.sample(TAGS, num_tags)
+        for tag in tags:
+            command = "tag %s %s" % (i, tag)
+            enter_command(command)
+
 def run():
     NUM_DEADLINED_TASKS = 50
     NUM_FLOATING_TASKS = 5
     NUM_COMPLETE_TASKS = 25
     NUM_EVENTS = 50
+    NUM_MAX_TAGS = 3
     
     PREAMBLE_TIME = 3
 
@@ -74,3 +83,4 @@ def run():
     generate_floating_tasks(NUM_FLOATING_TASKS)
     complete_tasks(NUM_COMPLETE_TASKS, NUM_DEADLINED_TASKS + NUM_FLOATING_TASKS)
     generate_events(NUM_EVENTS)
+    tag(NUM_DEADLINED_TASKS + NUM_FLOATING_TASKS + NUM_EVENTS, NUM_MAX_TAGS)
