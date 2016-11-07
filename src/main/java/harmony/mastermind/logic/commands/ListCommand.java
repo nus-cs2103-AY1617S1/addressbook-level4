@@ -153,13 +153,4 @@ public class ListCommand extends Command {
             displayDetailed(list.get(0));
         }
     }
-
-    //@author A0143378Y
-    // Redisplays item view or list view to reflect changes such as updates, marks, or deletes
-    public static void refreshDisplay() {
-        if(detailedView != null) { 
-            displayDetailed(detailedView);
-        }
-    }
-
 }
