@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import w15c2.tusk.TestApp;
 
+//@@author A0138978E-reused
 /**
  * A handler for the ResultDisplay of the UI
  */

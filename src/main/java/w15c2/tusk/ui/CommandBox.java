@@ -23,7 +23,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private static final String FXML = "CommandBox_Task.fxml";
+    private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -104,7 +104,7 @@ public class CommandBox extends UiPart {
     	commandTextField.setOnKeyPressed(keyListener);
     }
     
-    /*
+    /**
      * Handles Up/Down keys to replace commandbox content with previous/next commands.
      * Makes sure that this isn't part of a control-up/down combination.
      * Handles Tab key by autocompleting command in the current box if it's a new command,

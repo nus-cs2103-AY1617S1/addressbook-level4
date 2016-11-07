@@ -9,6 +9,9 @@ import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.IncorrectCommandParser;
 
+/**
+ * Tests Incorrect Command Parser
+ */
 //@@author A0143107U
 public class IncorrectCommandParserTest {
 	IncorrectCommandParser parser = new IncorrectCommandParser();

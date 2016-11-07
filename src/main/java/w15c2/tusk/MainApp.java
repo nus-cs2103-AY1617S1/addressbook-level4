@@ -105,9 +105,7 @@ public class MainApp extends Application {
             initialData = new UniqueItemCollection<Task>();
             initialAliasData = new UniqueItemCollection<Alias>();
         }
-
-        // TODO: Actually pass in data to use
-        return new ModelManager(initialData, initialAliasData, userPrefs);
+        return new ModelManager(initialData, initialAliasData);
     }
 
     private void initLogging(TaskConfig config) {
@@ -204,7 +202,7 @@ public class MainApp extends Application {
     }
     
     //@@author A0138978E
-    /*
+    /**
      * Handles the event when a command indicates that the storage location should
      * be changed
      */

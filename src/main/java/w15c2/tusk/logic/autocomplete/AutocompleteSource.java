@@ -8,7 +8,7 @@ import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.logic.parser.CommandParserList;
 
 //@@author A0138978E
-/*
+/**
  * Returns a set of words for autocomplete purposes based on the requested
  * source
  */

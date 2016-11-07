@@ -11,6 +11,9 @@ import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.testutil.TestUtil;
 
+/**
+ * Tests CompleteTask Command 
+ */
 //@@author A0143107U
 public class CompleteTaskCommandTest {
 

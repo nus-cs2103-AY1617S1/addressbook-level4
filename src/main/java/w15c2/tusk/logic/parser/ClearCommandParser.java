@@ -6,10 +6,10 @@ import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
+//@@author A0139817U
 /*
  * Parses Clear commands
  */
-//@@author A0139817U
 public class ClearCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = ClearTaskCommand.COMMAND_WORD;
 	public static final String ALTERNATE_COMMAND_WORD = ClearTaskCommand.ALTERNATE_COMMAND_WORD;

@@ -120,6 +120,10 @@ public class AddTaskCommand extends TaskCommand {
     
     
     //@@author A0138978E
+    /**
+     * Raises an event to scroll to a particular event in the main task list
+     * @param index the index in the list to scroll to
+     */
     private void raiseScrollTo(int index) {
         EventsCenter.getInstance().post(new JumpToListRequestEvent(index));
     }

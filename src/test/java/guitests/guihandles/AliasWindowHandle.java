@@ -47,7 +47,6 @@ public class AliasWindowHandle extends GuiHandle {
     }
     
     public AliasCardHandle getTaskCardHandle(int index) {
-        // TODO: check if having this to not be a new Task(..) etc is dangerous
         return getAliasCardHandle(getListView().getItems().get(index));
     }
 

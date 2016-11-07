@@ -5,6 +5,10 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import w15c2.tusk.model.Alias;
 
+//@@author A0138978E
+/**
+ * Provides a handle to a particular alias card
+ */
 public class AliasCardHandle extends GuiHandle {
     private static final String ALIAS_SHORTCUT_FIELD_ID = "#cardAlias";
     private static final String ALIAS_COMMAND_FIELD_ID = "#command";

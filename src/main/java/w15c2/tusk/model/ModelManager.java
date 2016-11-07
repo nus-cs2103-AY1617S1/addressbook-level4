@@ -1,5 +1,6 @@
 package w15c2.tusk.model;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -24,7 +25,6 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.ModelHistory;
-import w15c2.tusk.model.UserPrefs;
 import w15c2.tusk.model.task.Task;
 
 /**
@@ -38,10 +38,10 @@ public class ModelManager extends ComponentManager implements Model {
 	private final ModelHistory modelHistory; // Stores tasks & aliases to support undo & redo commands
 
 	public ModelManager() {
-		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
+		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>());		
 	}
 	
-	public ModelManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases, UserPrefs userPrefs) {
+	public ModelManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases) {
 		this.tasks = tasks;
 		this.aliases = aliases;
 		this.modelHistory = new ModelHistory();
@@ -53,6 +53,11 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public UniqueItemCollection<Task> getTasks(){
 		return tasks;
+	}
+	
+	@Override
+	public UniqueItemCollection<Alias> getAliasCollection() {
+		return aliases;
 	}
 	
 	@Override
@@ -173,10 +178,15 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-	public synchronized void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException{
+	public synchronized void addAlias(Alias toAdd) throws UniqueItemCollection.DuplicateItemException {
 		// Create a temporary storage of tasks and update the global copy only when add alias is successful
 		UniqueItemCollection<Alias> tempAliases = aliases.copyCollection();
 		 
+		// Ensure that we don't match any other aliases in the task list
+		if (tempAliases.getInternalList().stream().anyMatch(alias -> alias.equals(toAdd))) {
+		    throw new UniqueItemCollection.DuplicateItemException();
+		}
+		
 		aliases.add(toAdd);
 		
 		// Update stored values of aliases
@@ -406,5 +416,51 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    @Override
+    public boolean equals(Object obj){
+    	if(obj == this){
+    		return true;
+    	}
+    	if(!(obj instanceof ModelManager)){
+    		return false;
+    	}
+    	ModelManager other = (ModelManager)obj;
+    	Iterator<Task> itr = tasks.iterator();
+    	boolean contains;
+		while(itr.hasNext()){
+			contains = false;
+			Task task = itr.next();
+			Iterator<Task> itr2 = other.getTasks().iterator();
+			while(itr2.hasNext()){
+				Task task2 = itr2.next();
+				if(task2.getDescription().toString().equals(task.getDescription().toString())){
+					contains = true;
+					break;
+				}
+	    	}
+			if(!contains){
+				return false;
+			}
+		}
+		
+		Iterator<Alias> aliasItr = aliases.iterator();
+		while(aliasItr.hasNext()){
+			contains = false;
+			Alias alias = aliasItr.next();
+			Iterator<Alias> aliasItr2 = other.getAliasCollection().iterator();
+			while(aliasItr2.hasNext()){
+				Alias alias2 = aliasItr2.next();
+				if(alias2.toString().equals(alias.toString())){
+					contains = true;
+					break;
+				}
+	    	}
+			if(!contains){
+				return false;
+			}
+		}
+		return true;
     }
 }

@@ -18,10 +18,11 @@ import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.Task;
 
-/**
- * Parses update commands
- */
 //@@author A0139817U
+/**
+ * Parses arguments and create the appropriate update commands. 
+ * Format: <target index> <update type> <updated value>
+ */
 public class UpdateCommandParser extends CommandParser {
 	public static final String COMMAND_WORD = UpdateTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = UpdateTaskCommand.ALTERNATE_COMMAND_WORD;
@@ -37,8 +38,8 @@ public class UpdateCommandParser extends CommandParser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
-     * @return the prepared command
+     * @param arguments 	Target index, update type and updated value.
+     * @return 				A prepared update command.
      */
 	public TaskCommand prepareCommand(String arguments) {
 		TaskCommand taskCommand;
@@ -46,15 +47,13 @@ public class UpdateCommandParser extends CommandParser {
 		// Matches the arguments to the update command format
         matcher = UPDATE_COMMAND_FORMAT.matcher(arguments.trim());
         
-        // Checks validity of index and update type using the matcher
-        taskCommand = checkIndexAndUpdateType();
-        if (taskCommand != null) {
-        	return taskCommand;
-        }
-
         try {
-	        // Creates an appropriate UpdateTaskCommand or IncorrectTaskCommand using the matcher
+        	// Checks validity of index and update type using the matcher
+        	checkIndexAndUpdateType();
+        	
+        	// Creates an appropriate UpdateTaskCommand or IncorrectTaskCommand using the matcher
 		    taskCommand = createAppropriateTaskCommand();
+		    
         } catch (IllegalValueException ive) {
         	return new IncorrectTaskCommand(ive.getMessage());
         }
@@ -67,6 +66,9 @@ public class UpdateCommandParser extends CommandParser {
 	 * the task, description or date.
 	 * Then, return the appropriate UpdateTaskCommand by calling the corresponding constructor or
 	 * the IncorrectTaskCommand.
+	 * 
+	 * @return 	A prepared update command.
+	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
 	private TaskCommand createAppropriateTaskCommand() throws IllegalValueException {
 		TaskCommand taskCommand = null;
@@ -75,24 +77,30 @@ public class UpdateCommandParser extends CommandParser {
 		String arguments = matcher.group("arguments");
 		
 		// Depending on the update type, choose an appropriate TaskCommand
-		if (updateType.equals("task")) {
-			taskCommand = createTaskUpdateTaskCommand(index, arguments);
-			
-		} else if (updateType.equals("description")) {
-			taskCommand = createDescriptionUpdateTaskCommand(index, arguments);
-			
-		} else if (updateType.equals("date")) {
-			taskCommand = createDateUpdateTaskCommand(index, arguments);
-			
-		} else {
-			assert false : MESSAGE_INVALID_UPDATE_TYPE;
+		switch(updateType) {
+			case "task": 
+				taskCommand = createTaskUpdateTaskCommand(index, arguments);
+				break;
+			case "description":
+				taskCommand = createDescriptionUpdateTaskCommand(index, arguments);
+				break;
+			case "date":
+				taskCommand = createDateUpdateTaskCommand(index, arguments);
+				break;
+			default:
+				throw new IllegalValueException(MESSAGE_INVALID_UPDATE_TYPE);
 		}
 		
 		return taskCommand;
 	}
 	
 	/**
-	 * Creates an UpdateTaskCommand to update the entire task
+	 * Creates an UpdateTaskCommand to update the entire task.
+	 * 
+	 * @param index		Targeted index of the task to update.
+	 * @param arguments	Updated task to replace the old task.
+	 * @return 			A prepared update task command.
+	 * @throws IllegalValueException	When update task constructor fails.
 	 */
 	private TaskCommand createTaskUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		// Use AddCommandParser to create the new task that the user wants
@@ -102,7 +110,12 @@ public class UpdateCommandParser extends CommandParser {
 	}
 	
 	/**
-	 * Creates an UpdateTaskCommand to update the description
+	 * Creates an UpdateTaskCommand to update the description.
+	 * 
+	 * @param index		Targeted index of the task to update.
+	 * @param arguments	Updated description for the task.
+	 * @return 			A prepared update description command.
+	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
 	private TaskCommand createDescriptionUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		Description description = new Description(arguments);
@@ -110,7 +123,12 @@ public class UpdateCommandParser extends CommandParser {
 	}
 	
 	/**
-	 * Creates an UpdateTaskCommand to update the date
+	 * Creates an UpdateTaskCommand to update the date.
+	 * 
+	 * @param index		Targeted index of the task to update.
+	 * @param arguments	Updated date for the task.
+	 * @return 			A prepared update date command.
+	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
 	private TaskCommand createDateUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		// Check if the arguments that the user provided is a valid date or a valid date range.
@@ -133,24 +151,25 @@ public class UpdateCommandParser extends CommandParser {
 	/**
 	 * Determines if the index and update type is valid. If it is, return null.
 	 * Else, return an IncorrectTaskCommand.
+	 * 
+	 * @throws IllegalValueException	When format, target index or update type is not valid.
 	 */
-	private IncorrectTaskCommand checkIndexAndUpdateType() {
+	private void checkIndexAndUpdateType() throws IllegalValueException {
 		if (!matcher.matches()) {
-            return new IncorrectTaskCommand(
+            throw new IllegalValueException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTaskCommand.MESSAGE_USAGE));
         }
 
         // Check if the index that user gave is valid
         String index = matcher.group("targetIndex");
         if(!StringUtil.isUnsignedInteger(index)){
-            return new IncorrectTaskCommand(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
         // Check if the updateType that user gave is valid
         String updateType = matcher.group("updateType");
         if(!updateType.equals("task") && !updateType.equals("description") && !updateType.equals("date")) {
-        	return new IncorrectTaskCommand(MESSAGE_INVALID_UPDATE_TYPE);
+        	throw new IllegalValueException(MESSAGE_INVALID_UPDATE_TYPE);
         }
-        return null;
 	}
 }

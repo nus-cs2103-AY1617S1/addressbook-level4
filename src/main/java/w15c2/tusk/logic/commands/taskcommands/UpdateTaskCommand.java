@@ -18,17 +18,18 @@ import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0139817U
 /**
  * Updates a task identified using it's last displayed index from TaskManager.
  */
-//@@author A0139817U
 public class UpdateTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "update";
     public static final String ALTERNATE_COMMAND_WORD = "edit";
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + "<INDEX> task / description / date <UPDATED VALUE>";
-    public static final String COMMAND_DESCRIPTION = "Update a Task"; 
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX> task <UPDATED VALUE>\n"
+            + COMMAND_WORD + " <INDEX> description <UPDATED VALUE>\n" + COMMAND_WORD + " <INDEX> date <UPDATED VALUE>";
+    public static final String COMMAND_DESCRIPTION = "Update the whole task\nUpdate description\nUpdate date"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"
@@ -131,6 +132,10 @@ public class UpdateTaskCommand extends TaskCommand {
     	// Retain pin status
 		if (taskToUpdate.isPinned()) {
 			updatedTask.setAsPin();
+		}
+		// Retain edited status
+		if (taskToUpdate.isCompleted()) {
+			updatedTask.setAsComplete();
 		}
     }
     

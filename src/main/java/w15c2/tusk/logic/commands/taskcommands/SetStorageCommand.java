@@ -41,6 +41,12 @@ public class SetStorageCommand extends TaskCommand {
 	}
 
 	@Override
+	/*
+	 * Checks if the path that the user provided is a directory, readble and writable, and if so,
+	 * requests to change the current storage location to the given path through an event.
+	 * (non-Javadoc)
+	 * @see w15c2.tusk.logic.commands.taskcommands.TaskCommand#execute()
+	 */
 	public CommandResult execute() {
 		Optional<Path> path = getValidPath(storageLocation);
 		if (!path.isPresent()) {
@@ -58,13 +64,12 @@ public class SetStorageCommand extends TaskCommand {
 		}
 		Path actualPath = path.get();
 		EventsCenter.getInstance().post(new StorageChangedEvent(storageLocation));
-		EventsCenter.getInstance().post(new HideHelpRequestEvent());
+		closeHelpWindow();
 		return new CommandResult(String.format(MESSAGE_SET_STORAGE_SUCCESS, actualPath.toAbsolutePath()));
 	}
 	
-	/*z
-	 * Checks if a provided folder path from the user is a valid directory
-	 * Should be a directory, writable and readable
+	/*
+	 * Checks if a provided folder path from the user is a valid path
 	 */
 	private Optional<Path> getValidPath(String folderpath) {
 		if (folderpath == null || folderpath.isEmpty()) {

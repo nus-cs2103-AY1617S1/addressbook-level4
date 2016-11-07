@@ -25,13 +25,12 @@ import w15c2.tusk.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
-    private static final String INACTIVE_CSS = "-fx-background-color: derive(#1d1d1d, 20%);";
-    private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius:  10 10 10 10; "
-            + "-fx-background-radius:  10 10 10 10;";
-    private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "MainWindow_Task.fxml";
+    private static final String INACTIVE_CSS = "-fx-background-color: #633914;";
+    private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;";
+    private static final String ICON = "/images/TuskLogo.png";
+    private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 700;
-    public static final int MIN_WIDTH = 700;
+    public static final int MIN_WIDTH = 1000;
 
     private Logic logic;
 
@@ -118,6 +117,10 @@ public class MainWindow extends UiPart {
     }
 
     //@@author A0138978E
+    /**
+     * Captures control up/down events and scrolls up/down the task list as required
+     * @param scene
+     */
     private void setSceneHandlers(Scene scene) {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
 			@Override

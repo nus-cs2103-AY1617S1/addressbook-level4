@@ -49,7 +49,8 @@ public class ResultDisplay extends UiPart {
         setSelectableCharacteristics();
     }
     
-    /*
+    //@@author A0138978E
+    /**
      * Consume all events except for scrolling and scrollevents from control up/down
      */
     private void setSelectableCharacteristics() {
@@ -64,6 +65,7 @@ public class ResultDisplay extends UiPart {
         });
     }
 
+    //@@author
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;

@@ -7,11 +7,10 @@ import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.Alias;
-
+//@@author A0143107U
 /**
  * Deletes an alias identified using it's shortcut.
  */
-//@@author A0143107U
 public class DeleteAliasCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "unalias";
@@ -38,24 +37,28 @@ public class DeleteAliasCommand extends TaskCommand {
         this.shortcut = shortcut;
     }
 
+    /*
+     * Deletes the alias based on its shortcut and 
+     * returns CommandResult to indicate whether it is successful
+     */
     @Override
     public CommandResult execute() {
     	Alias aliasToDelete = new Alias();
 	    ObservableList<Alias> aliasList = model.getAlias();
+	    
 	    for(int i=0; i<aliasList.size(); i++){
 	    	if(shortcut.equals(aliasList.get(i).getShortcut())){
 	    		aliasToDelete = aliasList.get(i);
 	    		break;
 	    	}
 	    }
+	    
 	    try {
 	        model.deleteAlias(aliasToDelete);   
 	        closeHelpWindow();
 	        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, aliasToDelete));
 	    } catch (ItemNotFoundException tnfe) {
         	return new CommandResult(MESSAGE_ALIAS_NOT_FOUND);
-	    }
-
+	    }   
     }
-
 }

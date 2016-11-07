@@ -10,7 +10,7 @@ import java.util.List;
 import com.joestelmach.natty.*;
 
 /**
- * Utility class to parse strings into Dates with checks on inputs and outputs
+ * Utility class to parse strings into Dates (using library Natty) with checks on inputs and outputs.
  */
 //@@author A0139817U
 public class DateUtil {
@@ -46,7 +46,7 @@ public class DateUtil {
 		
 		relativeWords = new HashSet<String>();
 		String[] relativeWordsArray = { 
-    			"today", "tdy", "tomorrow", "tmr", "mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", 
+    			"today", "tomorrow", "tmr", "mon", "monday", "tue", "tues", "tuesday", "wed", "wednesday", 
     			"thu", "thurs", "thursday", "fri", "friday", "sat", "saturday", "sun", "sunday"	
     	};
 		for (int i = 0; i < relativeWordsArray.length; i++) {
@@ -55,8 +55,13 @@ public class DateUtil {
 	}
 	
 	/**
-	 * Creates a Date object that is "daysAfterToday" days from today's date for testing relative dates.
+	 * Creates a Date object that is "daysAfterToday" days from today's date in order to test for relative dates.
 	 * Hours and minutes of the Date object can also be specified.
+	 * 
+	 * @param daysAfterToday	Number of days after today's date.
+	 * @param hours				Hours for the created date.
+	 * @param minutes			Minutes for the created date.
+	 * @return 					Date with specified days from today and specified time.
 	 */
 	public static Date createDateAfterToday(int daysAfterToday, int hours, int minutes) {
 		Calendar newDate = Calendar.getInstance();
@@ -69,6 +74,9 @@ public class DateUtil {
 	
 	/**
      * Given a dateString, will return whether the words in the string are all valid words
+     * 
+     * @param dateString	String that may contain valid date words only.
+     * @return				Whether the string contains valid date words only.
      */
     public static boolean areValidWords(String dateString) {
     	// Add spaces between numbers and words before processing
@@ -95,6 +103,9 @@ public class DateUtil {
      * ("00:00" or "00.00". "23:59" or "23.59").
      * 2) Hours and minutes followed by morning or night descriptor.
      * ("12 am", "12:30am", "1.35 pm", "23.59pm")
+     * 
+     * @param timeString	String that may be a valid time.
+     * @return				Whether the string is a valid time. 
      */
     public static boolean isValidTimeFormat(String timeString) {
     	// Time should not have more than 2 tokens
@@ -129,7 +140,10 @@ public class DateUtil {
     }
     
     /**
-     * Checks if a String lies between 0 (inclusive) and 59 (inclusive)
+     * Checks if a String lies between 0 (inclusive) and 59 (inclusive).
+     * 
+     * @param timeString 	String representing minutes.
+     * @return				Whether the string is within minutes range.
      */
     public static boolean isWithinMinutesRange(String timeString) {
     	try {
@@ -141,7 +155,10 @@ public class DateUtil {
     }
     
     /**
-     * Checks if a String lies between 0 (inclusive) and 23 (inclusive)
+     * Checks if a String lies between 0 (inclusive) and 23 (inclusive).
+     * 
+     * @param timeString	String representing hours.
+     * @return				Whether the string is within hours range.
      */
     public static boolean isWithinHoursRange(String timeString) {
     	try {
@@ -154,7 +171,11 @@ public class DateUtil {
     
     /**
      * Given 2 dates, retrieve the date from the first date and the time from the second date to
-     * form a new date
+     * form a new date.
+     * 
+     * @param firstDate		Date object to retrieve the date value from.
+     * @param secondDate	Date object to retrieve the time value from.
+     * @return				Combined date object with date and time values from 2 different dates.
      */
     public static Date retrieveDateTime(Date first, Date second) {
     	Calendar start = Calendar.getInstance();
@@ -173,6 +194,9 @@ public class DateUtil {
      * The following examples are all valid and similar dates: 
      * "Oct 31". "31 Oct".
      * "31 Oct 2016". "Oct 31 2016".
+     * 
+     * @param dateString 	String that may be a valid date.
+     * @return				Whether the string is a valid date.
      */
     public static boolean isValidDateFormat(String dateString) {
     	Date date = getDate(dateString);
@@ -186,6 +210,9 @@ public class DateUtil {
      * The following examples are all valid and similar illustrations: 
      * "Sep 31 - Oct 31". "31 Sep 2016 - 31 Oct 2016". 
      * "Sep 31 to Oct 31". "31 Sep 2016 to 31 Oct 2016".
+     * 
+     * @param dateString	String that contains both valid start and end date.
+     * @return				Whether the string contains both valid start and end date.
      */
     public static boolean isValidStartDateToEndDateFormat(String dateString) {
     	Date[] dates = getStartAndEndDates(dateString);
@@ -209,7 +236,11 @@ public class DateUtil {
      * day after tomorrow") instead of absolute dates (E.g. "31 Oct", "1 August 2017"), we will not need to 
      * perform such checks. 
      * 
-     * Caution: This is just a heuristic to check if Natty processed properly
+     * Caution: This is just a heuristic to check if Natty processed properly.
+     * 
+     * @param date			Date that Natty has interpreted from dateString.
+     * @param dateString	String input passed to Natty.
+     * @return				Whether the date interpreted by Natty is sensible.
      */
     public static boolean isDateSensible(Date date, String dateString) {
     	// If it is a valid time format, the date will be sensible
@@ -246,6 +277,9 @@ public class DateUtil {
 
     /**
      * Retrieve the date from a string that represents some date using Natty library.
+     * 
+     * @param dateString	String that may be a valid date.
+     * @return 				Date object represented by the string if it is a valid date.
      */
     public static Date getDate(String dateString) {
     	// Add spaces between numbers and words in order for Natty to process it correctly
@@ -291,6 +325,9 @@ public class DateUtil {
     /**
      * Retrieve the start date and end date from a string that says "from (start date) to/- (end date)".
      * Stores the dates in a Date[] with start date as the 1st value and end date as the 2nd value.
+     * 
+     * @param dateString	String that contains both valid start and end date.
+     * @return 				Start date and end date represented by the date string if it is valid.
      */
 	public static Date[] getStartAndEndDates(String dateString) {
 		Date[] dates = new Date[2];

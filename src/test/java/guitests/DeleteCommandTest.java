@@ -11,6 +11,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 import static org.junit.Assert.*;
 
+//@@author A0138978E
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test

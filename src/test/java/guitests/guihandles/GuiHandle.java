@@ -13,6 +13,7 @@ import javafx.stage.Window;
 import w15c2.tusk.TestApp;
 import w15c2.tusk.commons.core.LogsCenter;
 
+//@@author A0138978E-reused
 /**
  * Base class for all GUI Handles used in testing.
  */

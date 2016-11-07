@@ -40,7 +40,7 @@ public abstract class TaskCommand {
         this.model = model;
     }
     
-    /*
+    /**
      * Raises an event to close the help window
      */
     protected void closeHelpWindow() {

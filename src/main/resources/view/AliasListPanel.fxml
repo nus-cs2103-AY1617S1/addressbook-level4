@@ -11,6 +11,6 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-        <ListView fx:id="aliasListView" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="aliasListView" styleClass="anchor-pane" style="-fx-border-color: #633914;" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

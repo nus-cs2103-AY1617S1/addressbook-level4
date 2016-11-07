@@ -5,10 +5,10 @@ import java.util.Date;
 import w15c2.tusk.commons.util.DateUtil;
 import w15c2.tusk.model.Copiable;
 
+//@@author A0139817U
 /**
  * A DeadlineTask is a task that holds a date as the deadline
  */
-//@@author A0139817U
 public class DeadlineTask extends Task {
 
 	private Date deadline;
@@ -18,10 +18,20 @@ public class DeadlineTask extends Task {
 		this.deadline = deadline;
 	}
 		
+	/**
+	 * Retrieves the deadline that is stored within the task.
+	 * 
+	 * @return	Deadline of the task.
+	 */
 	public Date getDeadline() {
 		return deadline;
 	}
 	
+	/**
+	 * Make an exact duplicate of the task, including its pin and completion status.
+	 * 
+	 * @return 	Duplicate of the task.
+	 */
 	@Override
 	public DeadlineTask copy() {
 		String newDescription = this.description.getContent();
@@ -44,6 +54,11 @@ public class DeadlineTask extends Task {
 		return newTask;
 	}
 	
+	/**
+	 * Returns the string representation of the task, given by its description.
+	 * 
+	 * @return String representation of the task.
+	 */
 	@Override
 	public String toString() {
 		return description.toString();
@@ -61,6 +76,11 @@ public class DeadlineTask extends Task {
 		}
 	}
 	
+	/**
+	 * Checks if the deadline has passed the current time.
+	 * 
+	 * @return Whether the deadline is over.
+	 */
 	@Override
 	public boolean isOverdue() {
 	    return deadline.before(new Date());

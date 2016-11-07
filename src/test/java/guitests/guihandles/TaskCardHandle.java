@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0138978E
 /**
  * Provides a handle to a person card in the person list panel.
  */
