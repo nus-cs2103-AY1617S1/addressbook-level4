@@ -112,7 +112,7 @@ public class LogicManagerTest {
         // Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
 
-        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) 
+        if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD)
                 && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD)) {
             assertEquals(expectedShownList, model.getAllTaskTypeList());
         }
@@ -260,15 +260,55 @@ public class LogicManagerTest {
 
     //@@author A0139128A
     @Test
-    public void execute_RedoCommand_UndoCommandDoesNotExist_ErrorMessageShown() throws Exception {
+    public void execute_undoCommandForAdd_SuccessMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedList = helper.generateTaskList(1);
+        WhatNow expectedA = helper.generateWhatNow(1);
+        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
+
+        expectedA.removeTask(expectedList.get(0));
         
-        WhatNow expectedAB = helper.generateWhatNow(expectedList);
+        logic.execute("add \"Task 1\" on 23/02/2017 t/tag1 t/tag2");
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedA , expectedList);
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoTheUndoForAdd_SuccessMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedA = helper.generateWhatNow(1);
+        
+        logic.execute("add \"Task 1\" on 23/02/2017 t/tag1 t/tag2");
+        logic.execute("undo");
+        
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedA, expectedA.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommandForAdd_FailMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedA = helper.generateWhatNow(1);
+
+        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
+
+        helper.addToModel(model, 1);
+        logic.execute("redo");
+        
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedA , expectedList);
+    }
+    
+    //@@author A0139128A
+    @Test
+    public void execute_redoCommandForDelete_FailMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
+        
+        logic.execute("delete schedule 2");
         
         assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
     }
-    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given
      * command targeting a single task in the shown list, using visible index.

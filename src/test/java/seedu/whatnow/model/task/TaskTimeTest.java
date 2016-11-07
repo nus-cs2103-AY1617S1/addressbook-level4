@@ -157,6 +157,4 @@ public class TaskTimeTest {
       assertEquals("14/12/2222", test.getEndDate());
       assertEquals("null 12/12/2222 14/12/2222 null 11:58pm 11:59pm", test.getFullString());
   }
-  
-  
 }

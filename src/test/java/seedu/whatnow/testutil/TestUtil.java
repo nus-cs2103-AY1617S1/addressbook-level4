@@ -68,15 +68,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Boris Mueller"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Carl Kurz"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Daniel Meier"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Elle Meyer"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Fiona Kunz"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("George Best"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Hoon Meier"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
-                    new Task(new Name("Ida Mueller"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null)
+                    new Task(new Name("Apricot & Vanilla Shake"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Business meeting"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Chocolate cake mix"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Doggie food"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Economics Class"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Family Day Outing"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Grape juice"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Homemade avacado toast"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("International Finance Forum"), null, null, null, null, null, null, null, null, new UniqueTagList(), null, null)
             };
         } catch (IllegalValueException e) {
             assert false;

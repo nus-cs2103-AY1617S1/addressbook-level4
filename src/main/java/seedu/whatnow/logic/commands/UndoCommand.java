@@ -83,7 +83,6 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
         } else {
             try {
-                System.out.println("Entered here in undoCommand");
                 ReadOnlyTask reqTask = model.getDeletedStackOfTasksAdd().pop();
                 model.getDeletedStackOfTasksAddRedo().push(reqTask);
                 model.deleteTask(reqTask);
