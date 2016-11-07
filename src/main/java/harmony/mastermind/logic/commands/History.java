@@ -33,8 +33,11 @@ public class History {
                     memory.get(i).getState()));
         }
     }
-
-    //@@author A0143378Y
+    
+    /*
+     * Unused code: 
+     * Reason: For future implementations of Memory 
+    //@@author A0143378Y-unused
     // Retrieves most recent snapshot in the forward stack and swap it with current memory. Current memory gets pushed into back stack
     public static void redo(Memory memory) {
         if (forward.isEmpty() || (forward.peek() == null)) {
@@ -93,5 +96,6 @@ public class History {
         }
         return temp;
     }
+    */
 
 }
