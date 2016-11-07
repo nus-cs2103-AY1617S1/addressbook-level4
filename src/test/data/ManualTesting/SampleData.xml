@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <floatingTasks>
+        <name>Buy breakfast</name>
+        <createdDate>2016-11-07T19:45:53.744+08:00</createdDate>
+        <tagged>FOOD</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>find out about DBS game jam</name>
+        <createdDate>2016-11-07T19:54:14.636+08:00</createdDate>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Buy mos burger</name>
+        <createdDate>2016-11-07T19:58:25.248+08:00</createdDate>
+        <tagged>treat</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>find out more about Global Game Jam 2017</name>
+        <createdDate>2016-11-07T20:00:17.951+08:00</createdDate>
+        <tagged>HACKATHON</tagged>
+        <tagged>MORE</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>buy snacks for reading week</name>
+        <createdDate>2016-11-07T20:01:46.586+08:00</createdDate>
+        <tagged>chiong</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Watch kimi no na wa</name>
+        <createdDate>2016-11-07T20:05:47.627+08:00</createdDate>
+        <tagged>Movie</tagged>
+        <tagged>life</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>wash my laptop cover</name>
+        <createdDate>2016-11-07T20:08:16.020+08:00</createdDate>
+        <tagged>finals</tagged>
+        <tagged>after</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>watch random videos on youtube</name>
+        <createdDate>2016-11-07T20:15:13.660+08:00</createdDate>
+    </floatingTasks>
+    <floatingTasks>
+        <name>Buy more maggi mee</name>
+        <createdDate>2016-11-07T20:18:52.661+08:00</createdDate>
+        <tagged>sleepover</tagged>
+        <tagged>study</tagged>
+    </floatingTasks>
+    <floatingTasks>
+        <name>watch MOANA</name>
+        <createdDate>2016-11-07T20:23:31.434+08:00</createdDate>
+    </floatingTasks>
+    <floatingTasks>
+        <name>start excercising again</name>
+        <createdDate>2016-11-07T20:26:34.693+08:00</createdDate>
+        <tagged>health</tagged>
+    </floatingTasks>
+    <events>
+        <name>Prepare for finals!</name>
+        <startDate>2016-11-07T19:44:28.403+08:00</startDate>
+        <endDate>2016-12-01T19:44:28.404+08:00</endDate>
+        <createdDate>2016-11-07T19:44:28.406+08:00</createdDate>
+    </events>
+    <events>
+        <name>Gamecraft</name>
+        <startDate>2016-12-02T19:46:34.326+08:00</startDate>
+        <endDate>2016-12-03T19:46:34.326+08:00</endDate>
+        <createdDate>2016-11-07T19:46:34.327+08:00</createdDate>
+    </events>
+    <events>
+        <name>Badminton</name>
+        <startDate>2016-11-08T08:00:00+08:00</startDate>
+        <endDate>2016-11-08T10:00:00+08:00</endDate>
+        <recur>weekly</recur>
+        <createdDate>2016-11-07T19:50:19.468+08:00</createdDate>
+    </events>
+    <events>
+        <name>OP2</name>
+        <startDate>2016-11-04T19:52:34.910+08:00</startDate>
+        <endDate>2016-11-04T19:52:34.910+08:00</endDate>
+        <createdDate>2016-11-07T19:52:34.910+08:00</createdDate>
+    </events>
+    <events>
+        <name>Macdonalds Monopoly event</name>
+        <startDate>2016-11-07T19:53:28.806+08:00</startDate>
+        <endDate>2016-12-25T19:53:28.806+08:00</endDate>
+        <createdDate>2016-11-07T19:53:28.806+08:00</createdDate>
+    </events>
+    <events>
+        <name>last CS2105 lecture</name>
+        <startDate>2016-10-31T14:00:00+08:00</startDate>
+        <endDate>2016-10-31T16:00:00+08:00</endDate>
+        <createdDate>2016-11-07T19:54:53.724+08:00</createdDate>
+    </events>
+    <events>
+        <name>CS2103T project meeting</name>
+        <startDate>2016-11-07T18:00:00+08:00</startDate>
+        <endDate>2016-11-07T20:00:00+08:00</endDate>
+        <createdDate>2016-11-07T19:59:09.899+08:00</createdDate>
+    </events>
+    <events>
+        <name>do Japan video montage</name>
+        <startDate>2016-12-05T20:13:42.195+08:00</startDate>
+        <endDate>2016-12-31T20:13:42.195+08:00</endDate>
+        <createdDate>2016-11-07T20:13:42.195+08:00</createdDate>
+    </events>
+    <events>
+        <name>finish uni and survive</name>
+        <startDate>2015-08-01T20:16:08.312+08:00</startDate>
+        <endDate>2019-08-01T20:16:08.312+08:00</endDate>
+        <createdDate>2016-11-07T20:16:08.312+08:00</createdDate>
+        <tagged>tahan</tagged>
+        <tagged>must</tagged>
+    </events>
+    <events>
+        <name>study for CS2103T finals</name>
+        <startDate>2016-11-14T20:18:06.619+08:00</startDate>
+        <endDate>2016-11-18T20:18:06.619+08:00</endDate>
+        <createdDate>2016-11-07T20:18:06.619+08:00</createdDate>
+    </events>
+    <deadlines>
+        <name>Buy spectacle pouch for grandma</name>
+        <endDate>2016-11-11T19:44:56.708+08:00</endDate>
+        <createdDate>2016-11-07T19:44:56.708+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>CS2010 PS6</name>
+        <endDate>2016-11-09T19:48:19.844+08:00</endDate>
+        <createdDate>2016-11-07T19:48:19.844+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>CS2010 PS5</name>
+        <endDate>2016-10-29T19:49:22.104+08:00</endDate>
+        <createdDate>2016-11-07T19:49:22.105+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>CS3241 Lab 4</name>
+        <endDate>2016-10-28T19:49:45.219+08:00</endDate>
+        <createdDate>2016-11-07T19:49:45.219+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Finish CS2103T project retrospective</name>
+        <endDate>2016-11-14T19:51:13.484+08:00</endDate>
+        <createdDate>2016-11-07T19:51:13.484+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>finish CS2105 revision notes</name>
+        <endDate>2016-11-16T19:51:48.841+08:00</endDate>
+        <createdDate>2016-11-07T19:51:48.841+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>CS2010 tutorial</name>
+        <endDate>2016-11-08T19:52:01.696+08:00</endDate>
+        <createdDate>2016-11-07T19:52:01.696+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Study for Online quiz 2</name>
+        <endDate>2016-10-20T19:54:00.299+08:00</endDate>
+        <createdDate>2016-11-07T19:54:00.299+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>More test cases for project</name>
+        <endDate>2016-11-02T19:55:45.914+08:00</endDate>
+        <createdDate>2016-11-07T19:55:45.914+08:00</createdDate>
+        <tagged>CS2103</tagged>
+    </deadlines>
+    <deadlines>
+        <name>laundry</name>
+        <endDate>2016-11-08T19:56:20.903+08:00</endDate>
+        <recur>daily</recur>
+        <createdDate>2016-11-07T19:56:20.903+08:00</createdDate>
+        <tagged>chores</tagged>
+    </deadlines>
+    <deadlines>
+        <name>finish CS2010 notes</name>
+        <endDate>2016-11-16T19:58:45.712+08:00</endDate>
+        <createdDate>2016-11-07T19:58:45.712+08:00</createdDate>
+        <tagged>revision</tagged>
+    </deadlines>
+    <deadlines>
+        <name>Bezier curve assignment</name>
+        <endDate>2016-11-04T19:59:38.066+08:00</endDate>
+        <createdDate>2016-11-07T19:59:38.066+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>submit CS2101 UG</name>
+        <endDate>2016-11-07T20:01:15.447+08:00</endDate>
+        <createdDate>2016-11-07T20:01:15.447+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>submit 2101 DG</name>
+        <endDate>2016-11-07T20:01:22.820+08:00</endDate>
+        <createdDate>2016-11-07T20:01:22.820+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>wipe the floor</name>
+        <endDate>2016-11-14T20:04:05.331+08:00</endDate>
+        <recur>weekly</recur>
+        <createdDate>2016-11-07T20:04:05.331+08:00</createdDate>
+        <tagged>cleaning</tagged>
+        <tagged>health</tagged>
+    </deadlines>
+    <deadlines>
+        <name>Practice for wild card</name>
+        <endDate>2016-11-07T20:00:00+08:00</endDate>
+        <createdDate>2016-11-07T20:04:37.921+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Machine learning testing</name>
+        <endDate>2016-11-08T20:04:54.632+08:00</endDate>
+        <createdDate>2016-11-07T20:04:54.632+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>TEAMMATES review</name>
+        <endDate>2016-11-14T20:05:15.124+08:00</endDate>
+        <createdDate>2016-11-07T20:05:15.124+08:00</createdDate>
+        <tagged>review</tagged>
+    </deadlines>
+    <deadlines>
+        <name>sync steps tracker</name>
+        <endDate>2016-11-13T20:06:21.336+08:00</endDate>
+        <recur>weekly</recur>
+        <createdDate>2016-11-07T20:06:21.336+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Check when finals are</name>
+        <endDate>2016-11-18T20:06:48.996+08:00</endDate>
+        <createdDate>2016-11-07T20:06:48.996+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>check final's location</name>
+        <endDate>2016-11-18T20:07:03.784+08:00</endDate>
+        <createdDate>2016-11-07T20:07:03.784+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Srub my bottle</name>
+        <endDate>2016-11-14T20:07:32.164+08:00</endDate>
+        <createdDate>2016-11-07T20:07:32.165+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>Cs2105 assignment</name>
+        <endDate>2016-10-24T20:10:15.049+08:00</endDate>
+        <createdDate>2016-11-07T20:10:15.049+08:00</createdDate>
+        <tagged>crypto</tagged>
+    </deadlines>
+    <deadlines>
+        <name>find out why relocate got bug</name>
+        <endDate>2016-10-24T20:10:41.926+08:00</endDate>
+        <createdDate>2016-11-07T20:10:41.926+08:00</createdDate>
+        <tagged>BUG</tagged>
+    </deadlines>
+    <deadlines>
+        <name>OP2 ppt</name>
+        <endDate>2016-10-31T20:11:09.911+08:00</endDate>
+        <createdDate>2016-11-07T20:11:09.911+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>OP2 script</name>
+        <endDate>2016-10-31T20:11:17.100+08:00</endDate>
+        <createdDate>2016-11-07T20:11:17.100+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>CS3241 notes</name>
+        <endDate>2016-11-18T20:14:02.116+08:00</endDate>
+        <createdDate>2016-11-07T20:14:02.116+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>generate script for OP2</name>
+        <endDate>2016-11-01T20:14:55.894+08:00</endDate>
+        <createdDate>2016-11-07T20:14:55.894+08:00</createdDate>
+        <tagged>OP2</tagged>
+    </deadlines>
+    <deadlines>
+        <name>plan for next semester</name>
+        <endDate>2016-11-20T20:17:08.268+08:00</endDate>
+        <createdDate>2016-11-07T20:17:08.268+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>find movies to watch</name>
+        <endDate>2016-11-04T20:20:44.923+08:00</endDate>
+        <createdDate>2016-11-07T20:20:44.923+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>find out about HacknRoll 2017</name>
+        <endDate>2016-11-03T20:21:44.053+08:00</endDate>
+        <createdDate>2016-11-07T20:21:44.053+08:00</createdDate>
+        <tagged>HACKATHON</tagged>
+    </deadlines>
+    <deadlines>
+        <name>wash my jacket</name>
+        <endDate>2016-10-31T20:22:13.154+08:00</endDate>
+        <createdDate>2016-11-07T20:22:13.154+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>start bringing back stuff</name>
+        <endDate>2016-11-18T20:22:30.308+08:00</endDate>
+        <createdDate>2016-11-07T20:22:30.308+08:00</createdDate>
+    </deadlines>
+    <deadlines>
+        <name>find out who win US elections</name>
+        <endDate>2016-11-08T20:26:55.807+08:00</endDate>
+        <createdDate>2016-11-07T20:26:55.807+08:00</createdDate>
+    </deadlines>
+    <archives>
+        <name>Eat kBBQ</name>
+        <endDate>2016-11-06T20:24:26.827+08:00</endDate>
+        <createdDate>2016-11-07T20:24:26.827+08:00</createdDate>
+    </archives>
+    <archives>
+        <name>bring formal clothes</name>
+        <endDate>2016-10-30T20:08:52.474+08:00</endDate>
+        <createdDate>2016-11-07T20:08:52.474+08:00</createdDate>
+    </archives>
+    <archives>
+        <name>Ray tracing tutorial</name>
+        <endDate>2016-11-03T19:57:49.134+08:00</endDate>
+        <createdDate>2016-11-07T19:57:49.134+08:00</createdDate>
+        <tagged>tutorial</tagged>
+    </archives>
+    <archives>
+        <name>Charge my steps tracker</name>
+        <endDate>2016-11-05T20:25:36.334+08:00</endDate>
+        <createdDate>2016-11-07T20:25:36.334+08:00</createdDate>
+    </archives>
+    <archives>
+        <name>refine help command</name>
+        <createdDate>2016-11-07T20:26:10.593+08:00</createdDate>
+        <tagged>project</tagged>
+    </archives>
+    <tags>
+        <tagName>FOOD</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2103</tagName>
+    </tags>
+    <tags>
+        <tagName>chores</tagName>
+    </tags>
+    <tags>
+        <tagName>tutorial</tagName>
+    </tags>
+    <tags>
+        <tagName>treat</tagName>
+    </tags>
+    <tags>
+        <tagName>revision</tagName>
+    </tags>
+    <tags>
+        <tagName>HACKATHON</tagName>
+    </tags>
+    <tags>
+        <tagName>MORE</tagName>
+    </tags>
+    <tags>
+        <tagName>chiong</tagName>
+    </tags>
+    <tags>
+        <tagName>1</tagName>
+    </tags>
+    <tags>
+        <tagName>cleaning</tagName>
+    </tags>
+    <tags>
+        <tagName>health</tagName>
+    </tags>
+    <tags>
+        <tagName>review</tagName>
+    </tags>
+    <tags>
+        <tagName>Movie</tagName>
+    </tags>
+    <tags>
+        <tagName>life</tagName>
+    </tags>
+    <tags>
+        <tagName>finals</tagName>
+    </tags>
+    <tags>
+        <tagName>after</tagName>
+    </tags>
+    <tags>
+        <tagName>crypto</tagName>
+    </tags>
+    <tags>
+        <tagName>BUG</tagName>
+    </tags>
+    <tags>
+        <tagName>OP2</tagName>
+    </tags>
+    <tags>
+        <tagName>tahan</tagName>
+    </tags>
+    <tags>
+        <tagName>must</tagName>
+    </tags>
+    <tags>
+        <tagName>sleepover</tagName>
+    </tags>
+    <tags>
+        <tagName>study</tagName>
+    </tags>
+    <tags>
+        <tagName>project</tagName>
+    </tags>
+</taskmanager>
