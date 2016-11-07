@@ -1,6 +1,5 @@
 package guitests;
 
-//@@author A0142325R
 import org.junit.Test;
 
 import seedu.toDoList.commons.core.Messages;
@@ -8,10 +7,11 @@ import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0142325R
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void find_nonEmptyList_success() {
         assertFindResult("find Mark"); // no results
         assertFindResult("find friends", td.friend, td.friendEvent, td.lunch); // multiple results
 
@@ -21,7 +21,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void find_emptyList() {
+    public void find_emptyList_success() {
         commandBox.runCommand("clear");
         assertFindResult("find project"); // no results
     }

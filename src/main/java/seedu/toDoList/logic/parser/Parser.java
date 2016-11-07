@@ -361,7 +361,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the deleteCommand.
      *
      * @param args
      *            full command args string
@@ -383,7 +383,7 @@ public class Parser {
     // @@author
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select command.
      *
      * @param args
      *            full command args string
@@ -417,7 +417,7 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the find person command.
+     * Parses arguments in the context of the find command.
      *
      * @param args
      *            full command args string

@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * use cases: 1) delete by index 2) delete by name
  *  
  */
-
 public class DeleteCommandTest extends TaskManagerGuiTest {
     
     //----------------------------------valid cases-----------------------------------------
@@ -29,7 +28,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     //test for use scenario 1: delete by index
 
     @Test
-    public void deleteByIndex_successful() {
+    public void delete_byIndex_success() {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -54,7 +53,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     //test for use scenario 2: delete by name
     
     @Test
-    public void deleteByName_successful(){
+    public void delete_byName_success(){
     	TestTask[] currentList=td.getTypicalTasks();
     	
     	//delete task with an unique name
@@ -68,7 +67,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     //test for invalid index entered
     
     @Test
-    public void deleteByInvalidIndex_fail(){
+    public void delete_byInvalidIndex_fail(){
         TestTask[] currentList=td.getTypicalTasks();
         commandBox.runCommand("delete " + currentList.length + 1);
         assertResultMessage("The index provided is invalid");
@@ -79,7 +78,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     //test for delete task or event name that does not exist
     
     @Test
-    public void deleteByNonExistantName_fail(){
+    public void delete_byNonExistantName_fail(){
         commandBox.runCommand("delete bason");
         assertResultMessage(DeleteCommand.MESSAGE_DELETE_NOT_FOUND);
     }
@@ -88,8 +87,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * Runs the delete command to delete the task or event at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
-     */
-    
+     */   
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
@@ -105,9 +103,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * or events with one or more of the input parameters will be shown.
      * @param taskName
      * @param currentList
-     */
-
-   
+     */ 
     private void assertDeleteSuccess(String taskName,final TestTask[] currentList){
     	ArrayList<TestTask> tasksToDelete=new ArrayList<TestTask>();
     	for(TestTask e:currentList){

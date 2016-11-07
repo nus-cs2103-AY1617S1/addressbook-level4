@@ -33,7 +33,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list all tasks
 
     @Test
-    public void listAllTasks_successful(){
+    public void list_allTasks_successful(){
         assertListResult("list tasks",td.friend,td.friendEvent,td.lunch,
                 td.book,td.work,td.movie);
         assertResultMessage(String.format(ListCommand.MESSAGE_TASK_SUCCESS));
@@ -43,7 +43,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list all events
     
     @Test
-    public void listAllEvents_successful(){
+    public void list_allEvents_successful(){
         assertListResult("list events", td.meeting,td.travel);
         assertResultMessage(String.format(ListCommand.MESSAGE_EVENT_SUCCESS));
         
@@ -52,7 +52,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list all tasks and events
     
     @Test
-    public void listAllTasksAndEvents_successful(){
+    public void list_allTasksAndEvents_successful(){
         assertListResult("list",currentList);
         assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS));
         
@@ -62,7 +62,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list all done items
     
     @Test
-    public void listAllDoneTasksAndEvents_successful(){
+    public void list_allDoneTasksAndEvents_successful(){
         commandBox.runCommand("done 1");
         td.friend.markAsDone();
         assertListResult("list done", td.friend);
@@ -73,7 +73,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list all undone items
     
     @Test
-    public void listAllUndoneTasksAndEvents_successful(){
+    public void list_allUndoneTasksAndEvents_successful(){
         
         assertListResult("list undone", td.friend,td.friendEvent, td.lunch, td.book, td.work, td.movie, td.meeting, td.travel);
         assertResultMessage(String.format(ListCommand.MESSAGE_LIST_UNDONE_TASK_SUCCESS));
@@ -82,7 +82,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //list empty list
     
     @Test
-    public void listEmptyLists_successful(){
+    public void list_emptyLists_successful(){
         commandBox.runCommand("clear");
         assertListResult("list");
         
@@ -94,7 +94,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     //invalid command
     
     @Test
-    public void listInvalidDataField_fail(){
+    public void list_invalidDataField_fail(){
         commandBox.runCommand("lists");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         commandBox.runCommand("list unknown");
