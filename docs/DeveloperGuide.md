@@ -423,7 +423,7 @@ Use case ends
 
 **MSS**
 
-1. User requests to undo last command
+1. User requests to undo last command or multiple undo command
 2. Task Manager successfully reverts to previous state, showing command undone in message panel <br>
 Use case ends
 

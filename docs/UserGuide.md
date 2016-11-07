@@ -34,7 +34,7 @@
 #### Viewing help : `help`
 Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
-
+  [//]: # "@@author A0152958R"
 #### Adding a task: `add`
 Adds a task to the TaskManager.<br>
 Format: `add TASKNAME[, at START_TIME]] [#TAG...]` `add TASKNAME[, from START_TIME to END_TIME]] [#TAG...]` 
@@ -48,7 +48,7 @@ Examples:
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
 * `add cs2103 assignment, by 11.59pm #CS2103`
 * `add do homework, at today 3pm`
-
+  [//]: # "@@author A0152958R"
 #### Editing a task: `edit` `e`
 Edit task information in the TaskManager<br>
 Format: `edit INDEX TASK_PROPERTY, NEW_VALUE`
@@ -62,7 +62,7 @@ Examples:
 * `edit 2 start, 08.00am` 
 * `edit 4 tag, school`
 * `e 5 n, meet Jack for lunch`
-
+ [//]: # "@@author "
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
 Format: `delete INDEX`
@@ -111,8 +111,8 @@ Examples:
 * `s overdue`, `s over` or `s o` Sorts tasks in the TaskManager with overdue tasks first
 
 #### Undo the modification : `undo`
-Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
-Format: `undo`  
+Undo the modification in the last step. Only includes add, delete, edit, clear, done, undone, favorite, unfavorite, sort and refresh commands. Can undo multiple times.<br>
+Format: `undo` or  `undo INDEX`
 
 #### Done a specific task : `done`
 Done a task to show that it is completed with a green marker.<br>
@@ -194,9 +194,9 @@ Delete | `delete INDEX`
 Find | `find KEYWORD`
 List | `list`
 Sort | `sort [PARAMETER]`  `s [PARAMETER]`
-Undo | `undo`
-Done | `done`  `undone`
-Favorite | `fav`  `unfav`
+Undo | `undo [INDEX]`
+Done | `done INDEX`  `undone INDEX`
+Favorite | `fav INDEX`  `unfav INDEX`
 Repeat | `repeat INDEX INTERVAL`
 Backup | `backup [PATH]`  `b [PATH]`
 Change Directory | `directory [PATH]`  `dir [PATH]`
