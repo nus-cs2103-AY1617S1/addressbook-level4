@@ -221,7 +221,7 @@ The `Logic` component
 
 > <img src="DeveloperGuideImages/LogicDelete.png" width="600">
 
-The sequence diagram above shows the interactions between the `Logic` component for the calling the execute() on "delete 1".
+The diagram in figure 6 shows the interactions between the `Logic` component for the calling the execute() method on "delete 1". 
 
 ###**Model component**
 
