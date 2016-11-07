@@ -17,12 +17,12 @@ import seedu.todo.ui.UiManager;
  */
 public class UndoController extends Controller {
 
-    private static final String UNDO_TEMPLATE = "undo %s";
-    private static final String INDEX_FIELD = "<index>";
     private static final String NAME = "Undo";
     private static final String DESCRIPTION = "Undo your last action(s) to the list of tasks/events.";
     private static final String COMMAND_SYNTAX = "undo <times>";
     private static final String COMMAND_KEYWORD = "undo";
+    private static final String UNDO_TEMPLATE = "undo %s";
+    private static final String INDEX_FIELD = "<index>";
     
     private static final String MESSAGE_SUCCESS = "Successfully undid %s %s!\nTo redo, type \"redo\".";
     private static final String MESSAGE_MULTIPLE_FAILURE = "We cannot undo %s %s! At most, you can undo %s %s.";

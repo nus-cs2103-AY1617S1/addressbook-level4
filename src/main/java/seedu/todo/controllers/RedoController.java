@@ -21,10 +21,13 @@ public class RedoController extends Controller {
     private static final String DESCRIPTION = "Redo your last undo(s).";
     private static final String COMMAND_SYNTAX = "redo <times>";
     private static final String COMMAND_KEYWORD = "redo";
+    private static final String REDO_TEMPLATE = "redo %s";
+    private static final String INDEX_FIELD = "<index>";
     
     private static final String MESSAGE_SUCCESS = "Successfully redid %s %s!\nTo undo, type \"undo\".";
     private static final String MESSAGE_MULTIPLE_FAILURE = "We cannot redo %s %s! At most, you can redo %s %s.";
     private static final String MESSAGE_FAILURE = "There is no command to redo!";
+    private static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX, COMMAND_KEYWORD); 
@@ -55,7 +58,12 @@ public class RedoController extends Controller {
         
         int numRedo = 1;
         if (parsedResult.get("default")[1] != null) {
-            numRedo = Integer.parseInt(parsedResult.get("default")[1]);
+            try {
+                numRedo = Integer.parseInt(parsedResult.get("default")[1]);
+            } catch (NumberFormatException e) {
+                Renderer.renderDisambiguation(String.format(REDO_TEMPLATE, INDEX_FIELD), MESSAGE_INDEX_NOT_NUMBER);
+                return;
+            }
         }
         
         // We don't really have a nice way to support SQL transactions, so yeah >_<
