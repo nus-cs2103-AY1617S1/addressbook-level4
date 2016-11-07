@@ -292,7 +292,7 @@ Command | Format
 ## Keyboard Shortcuts
 
 Key Codes | Function | Command Box Input 
--------- | :-------- 
+-------- | :--------  | :-------- 
 [ESC] | Toggle to show/hide a list of keyboard shortcuts | -
 [Ctrl-D](#clearing-all-entries--clear) | Clear all entries | `clear`
 [Ctrl-Q](#exiting-the-program--exit) | Exit | `exit`
