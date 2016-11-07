@@ -266,8 +266,8 @@ Add task named "pjm" to task list
 
 
 #### Week Selection
-[LEFT]: Display previous week’s daily task list
-[RIGHT]: Display next week’s daily task list
+[Ctrl-LEFT]: Display previous week’s daily task list
+[Ctrl-RIGHT]: Display next week’s daily task list
 
 ## Command Summary
 
@@ -306,5 +306,5 @@ Key Codes | Function | Command Box Input
 [Ctrl-Y](#redo-the-most-recent-undo-operation--redo) | `redo`
 [UP](#command-stack-history) | Return last user input command in command box | -
 [DOWN](#command-stack-history) | Return (if any) next user input command in command box | -
-[LEFT](#week-selection) | Display previous week’s daily task list | -
-[RIGHT](#week-selection) | Display next week’s daily task list | -
+[Ctrl-LEFT](#week-selection) | Display previous week’s daily task list | -
+[Ctrl-RIGHT](#week-selection) | Display next week’s daily task list | -
