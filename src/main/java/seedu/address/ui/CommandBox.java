@@ -53,14 +53,17 @@ public class CommandBox extends UiPart {
         registerAsAnEventHandler(this);
     }
     
-    //@@author A0141019U
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
-        
-        commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        setKeyPressHandler();
+    }
+    
+    //@@author A0141019U
+    private void setKeyPressHandler() {
+    	commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
     		@Override
     		public void handle(KeyEvent event) {
     			if (event.getCode().equals(KeyCode.UP)) {
@@ -72,8 +75,8 @@ public class CommandBox extends UiPart {
     		}
         });
     }
-    
     //@@author
+    
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;

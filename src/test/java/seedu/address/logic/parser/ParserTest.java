@@ -260,6 +260,14 @@ public class ParserTest {
 	}
 	
 	@Test
+	public void parseCommand_addSomeday3Quotes_incorrectCommandReturned() {
+		String userInput = "add 'so'meday'";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
 	public void parseCommand_addSomedayWhitespaceName_incorrectCommandReturned() {
 		String userInput = "add ' '";
 		Command command = parser.parseCommand(userInput);
@@ -362,7 +370,7 @@ public class ParserTest {
 	 */
 	@Test
 	public void parseCommand_delNonIntegerIndex_incorrectCommandReturned() {
-		String userInput = "delete 1 r 5";
+		String userInput = "del 1 r 5";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -370,7 +378,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delNegativeIndex_incorrectCommandReturned() {
-		String userInput = "delete -3";
+		String userInput = "del -3";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -378,7 +386,7 @@ public class ParserTest {
 	
 	@Test
 	public void parseCommand_delZeroIndex_incorrectCommandReturned() {
-		String userInput = "delete 0";
+		String userInput = "del 0";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
@@ -546,7 +554,6 @@ public class ParserTest {
 	 * Tests for the `undo` and `redo` commands
 	 */
 	// Any extra arguments to undo are ignored
-	// TODO note this in user guide
 	@Test
 	public void parseCommand_undoExtraArgs_undoCommandReturned() {
 		String userInput = "undo blah";
@@ -564,7 +571,6 @@ public class ParserTest {
 	}
 	
 	// Any extra arguments to redo are ignored
-	// TODO note this in user guide
 	@Test
 	public void parseCommand_redoExtraArgs_redoCommandReturned() {
 		String userInput = "redo blah";
@@ -639,6 +645,14 @@ public class ParserTest {
 	@Test
 	public void parseCommand_tabValid2_tabCommandReturned() {
 		String userInput = "tab someday";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(tabCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_tabValid3ShortcutWord_tabCommandReturned() {
+		String userInput = "tab tmr";
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(tabCommand.getClass(), command.getClass());
