@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.controllers.CompleteTaskController;
 import seedu.todo.controllers.UncompleteTaskController;
+import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
@@ -123,6 +124,34 @@ public class CompleteUncompleteTaskTest extends GuiTest {
     public void uncomplete_wrongIndex_error() {
         console.runCommand("uncomplete 10");
         String consoleMessage = UncompleteTaskController.MESSAGE_INVALID_ITEM;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void complete_missingIndex_error() {
+        console.runCommand("complete");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n" + CompleteTaskController.MESSAGE_MISSING_INDEX;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void uncomplete_missingIndex_error() {
+        console.runCommand("uncomplete");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n" + UncompleteTaskController.MESSAGE_MISSING_INDEX;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void complete_indexNotNumber_error() {
+        console.runCommand("complete this");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n" + CompleteTaskController.MESSAGE_INDEX_NOT_NUMBER;
+        assertEquals(consoleMessage, console.getConsoleTextArea());
+    }
+    
+    @Test
+    public void uncomplete_indexNotNumber_error() {
+        console.runCommand("uncomplete this");
+        String consoleMessage = Renderer.MESSAGE_DISAMBIGUATE + "\n\n" + UncompleteTaskController.MESSAGE_INDEX_NOT_NUMBER;
         assertEquals(consoleMessage, console.getConsoleTextArea());
     }
 }

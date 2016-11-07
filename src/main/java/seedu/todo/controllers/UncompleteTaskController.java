@@ -19,6 +19,8 @@ public class UncompleteTaskController extends Controller {
     private static final String COMMAND_KEYWORD = "uncomplete";
 
     public static final String MESSAGE_SUCCESS = "Task marked as incomplete!";
+    public static final String MESSAGE_MISSING_INDEX = "Please specify the index of the item to delete.";
+    public static final String MESSAGE_INDEX_NOT_NUMBER = "Index has to be a number!";
     public static final String MESSAGE_INVALID_ITEM = "Could not mark task as incomplete: Invalid index provided!";
     public static final String MESSAGE_CANNOT_UNCOMPLETE_EVENT = "An event cannot be marked as incomplete!";
     public static final String MESSAGE_ALREADY_INCOMPLETE = "Could not mark task as incomplete: Task is not completed!";
@@ -35,10 +37,24 @@ public class UncompleteTaskController extends Controller {
 
     @Override
     public void process(String args) {
-        // TODO: Example of last minute work
+        // Get index.
+        String param = args.replaceFirst(COMMAND_KEYWORD, "").trim();
+        
+        if (param.length() <= 0) {
+            Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_MISSING_INDEX);
+            return;
+        }
+        
+        assert param.length() > 0;
         
         // Get index.
-        int index = Integer.decode(args.replaceFirst("uncomplete", "").trim());
+        int index = 0;
+        try {
+            index = Integer.decode(param);
+        } catch (NumberFormatException e) {
+            Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_INDEX_NOT_NUMBER);
+            return;
+        }
         
         // Get record
         EphemeralDB edb = EphemeralDB.getInstance();
