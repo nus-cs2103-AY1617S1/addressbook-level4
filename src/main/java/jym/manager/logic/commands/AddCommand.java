@@ -45,17 +45,20 @@ public class AddCommand extends Command {
         );
     }
 //@@author A0153440R
+    /**
+     * Variable constructor with any number of inputs of dates, addresses, or priorities.
+     * @param description Task description
+     * @param objects List of objects to initialize task with
+     * @throws IllegalValueException
+     */
     public AddCommand(String description, Object ... objects) throws IllegalValueException{
     	if(objects.length > 3){//this should never happen b/c we control parser. max args is date(s), location, priority
     		throw new IllegalArgumentException();
     	}
-    	boolean isTask = true; //by default
     	for(Object o : objects){
     		if(o instanceof List){
     			List<LocalDateTime> d = (List<LocalDateTime>)o;
-    			if(d.size() > 1)
-    				isTask = false;
-    			else
+    			if(d.size() == 1)
     				o = d.get(0);
     		}
     	}
@@ -63,27 +66,13 @@ public class AddCommand extends Command {
         this.toAdd = new Task(new Description(description), objects);
 
     }
-    public AddCommand(String description, Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
+    public AddCommand(String description) throws IllegalValueException {
+
         this.toAdd = new Task(
-                new Description(description),
-                new UniqueTagList(tagSet)
+                new Description(description)
         );
     }
-    public AddCommand(String description, LocalDateTime deadline, Set<String> tags) throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
-        this.toAdd = new Task(
-                new Description(description),
-                deadline,
-                new UniqueTagList(tagSet)
-        );
-    }
+
     public AddCommand(String description, LocalDateTime deadline) throws IllegalValueException {
      
         this.toAdd = new Task(
