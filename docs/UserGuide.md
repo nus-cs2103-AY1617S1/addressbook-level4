@@ -49,15 +49,16 @@ A task/event that is completed or passed will be hidden from the list by default
 
 
 #### Calendar Features
-The events and tasks will be both sync to your calendar. You are not able to do any modification through the calendar. 
+The events and tasks will be both synchronised to your calendar. You are not able to do any modification through the calendar.
+
 * Select on an event /task
-  Your selection on task / event will be sync to calendar. When you select a task /event, the calendar will jump to the correct time frame to show the task / event as highlighted. 
+> Your selection on task /event will be sync to calendar. When you select a task /event, the calendar will jump to the correct time frame to show the task /event as highlighted. 
 
 * Current time
-  The red line shows the current time.
+> The red line shows the current time.
 
 * Toggle Calendar view
-  With the `show` calendar, you can jump to any valid time frame such as "today, tomorrow 9pm". You can also toggle the view between week view(5 days by default) and day view. 
+> With the `show` calendar, you can jump to any valid time frame such as "today, tomorrow 9pm". You can also toggle the view between week view(5 days by default) and day view. 
 
 <img src="images/Calendar_Day.png" width="400"> <img src="images/Calendar_Week.png" width="400">
 
