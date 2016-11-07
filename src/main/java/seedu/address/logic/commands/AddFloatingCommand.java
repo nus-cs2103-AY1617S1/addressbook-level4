@@ -16,7 +16,6 @@ import java.util.Set;
  * Adds a floating task to the task list.
  */
 public class AddFloatingCommand extends AddCommand {
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task list. "
             + "Parameters: TASK_NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
@@ -36,10 +35,7 @@ public class AddFloatingCommand extends AddCommand {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
-                new Name(name),
-                new UniqueTagList(tagSet)
-        );
+        this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet));
     }
 
     @Override
@@ -49,7 +45,7 @@ public class AddFloatingCommand extends AddCommand {
             model.addTask(toAdd);
             CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
             int targetIndex = model.getFilteredTaskComponentList().size();
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - INDEX_OFFSET));
             return result;
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	indicateAttemptToExecuteFailedCommand();
@@ -59,7 +55,5 @@ public class AddFloatingCommand extends AddCommand {
 			assert false: "not possible";
         	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		}
-
     }
-
 }

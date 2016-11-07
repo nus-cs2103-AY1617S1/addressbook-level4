@@ -17,14 +17,15 @@ import seedu.address.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
+    private static final int PERIOD_DECREMENT = 1;
+    private static final int INDEX_OFFSET = 1;
     public static final int NO_RECURRING_PERIOD = -1;
+    
     private Name name;
     private UniqueTagList tags;
     private TaskType taskType;
     private RecurringType recurringType;
     private int recurringPeriod;
-
     private List<TaskOccurrence> recurringDates;
 
     /**
@@ -69,7 +70,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags(), 
-                source.getRecurringType(), source.getRecurringPeriod());
+             source.getRecurringType(), source.getRecurringPeriod());
         this.recurringDates = source.getTaskDateComponent();
         this.taskType = source.getTaskType();
     }
@@ -196,7 +197,7 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public TaskOccurrence getLastAppendedComponent() {
-        return recurringDates.get(recurringDates.size() - 1);
+        return recurringDates.get(recurringDates.size() - INDEX_OFFSET);
     }
 
     /**
@@ -207,7 +208,7 @@ public class Task implements ReadOnlyTask {
     public void appendRecurringDate(TaskOccurrence componentToBeAdded) {
         assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
         recurringDates.add(componentToBeAdded);
-        recurringDates.get(recurringDates.size() - 1).setTaskReferrence(this);
+        recurringDates.get(recurringDates.size() - INDEX_OFFSET).setTaskReferrence(this);
     }
     
     /**
@@ -223,7 +224,7 @@ public class Task implements ReadOnlyTask {
     }
     
     public int decrementRecurringPeriod() {
-        recurringPeriod -= 1;
+        recurringPeriod -= PERIOD_DECREMENT;
         return recurringPeriod;
     }
     // @@author

@@ -141,17 +141,15 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException
-     *             If the task is a non recurring task is a duplicate of an
-     *             existing task in the list.
-     * @throws TimeslotOverlapException
-     *             If the task is cutting into an overlapped slot.
+     * @throws DuplicateTaskException 
+     *                 If the task is a non recurring task is a duplicate of an existing task in the list.
+     * @throws TimeslotOverlapException 
+     *                 If the task is cutting into an overlapped slot.
      */
     public void add(Task toAdd) throws DuplicateTaskException, TimeslotOverlapException {
         assert toAdd != null;
         if (contains(toAdd)) {
             if (!toAdd.getRecurringType().equals(RecurringType.NONE)) {
-                // append this "task" as date component to the task
                 appendDuplicateRecurringDatesToTask(toAdd);
                 return;
             }

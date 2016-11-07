@@ -6,10 +6,8 @@ import seedu.address.commons.util.CollectionUtil;
 /** 
 * This class served as the occurrence portion in an abstraction occurrence pattern.
 * The abstraction is the Task and the occurrence is the TaskDateComponent.
-*
 */
 public class TaskOccurrence {
-
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;
@@ -129,25 +127,24 @@ public class TaskOccurrence {
     }
     //@@author
     
+    //@@author A0135782Y
     public boolean isArchived() {
         return isArchived;
     }
     
     private boolean isSameStateAs(TaskOccurrence other) {
         return other == this // short circuit if same object
-            || (other != null // this is first to avoid NPE below
-            && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
-            && other.getTaskReference().getTaskType().equals(this.getTaskReference().getTaskType())
-            && other.getStartDate().equals(this.getStartDate())
-            && other.getEndDate().equals(this.getEndDate())
-            );
+               || (other != null // this is first to avoid NPE below
+                   && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
+                   && other.getTaskReference().getTaskType().equals(this.getTaskReference().getTaskType())
+                   && other.getStartDate().equals(this.getStartDate())
+                   && other.getEndDate().equals(this.getEndDate()));
     }
     
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskOccurrence // instanceof handles nulls
-                && this.isSameStateAs((TaskOccurrence) other));        
+               || (other instanceof TaskOccurrence // instanceof handles nulls
+                   && this.isSameStateAs((TaskOccurrence) other));        
     }
-    
 }

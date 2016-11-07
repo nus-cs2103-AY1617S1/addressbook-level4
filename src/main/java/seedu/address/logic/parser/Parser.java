@@ -46,7 +46,6 @@ import seedu.address.model.task.TaskDate;
  * Parses user input.
  */
 public class Parser {
-
     private static final int RECURRING_PERIOD_OFFSET = 1;
 
     /**
@@ -221,7 +220,6 @@ public class Parser {
      */
     private Command prepareAdd(String args) {
         final Matcher matcherNonFloating = NON_FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
         if (!matcherNonFloating.matches()) {
             return prepareAddFloating(args);
         }
@@ -238,11 +236,12 @@ public class Parser {
     private Command prepareAddFloating(String args) {
         final Matcher matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddFloatingCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                                      AddFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")));
+            return new AddFloatingCommand(matcher.group("name"), 
+                                          getTagsFromArgs(matcher.group("tagArguments")));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -309,10 +308,11 @@ public class Parser {
         }
         final int repeatCount = extractRecurringTaskPeriod(endInput);
         try {
-            return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(TaskDate.DATE_NOT_PRESENT), 
-                    new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()),
-                    recurringType, repeatCount);
+            return new AddNonFloatingCommand(
+                   matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
+                   new TaskDate(TaskDate.DATE_NOT_PRESENT), 
+                   new TaskDate(DateParser.getInstance().getDateFromString(endInput).getTime()),
+                   recurringType, repeatCount);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -339,10 +339,11 @@ public class Parser {
         final int repeatCount = extractRecurringTaskPeriod(endInput);        
         try {
             List<Date> datesToAdd = DateParser.getInstance().getFromToDatesFromString(startInput);
-            return new AddNonFloatingCommand(matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
-                    new TaskDate(datesToAdd.get(START_TIME_INDEX)),
-                    new TaskDate(datesToAdd.get(END_TIME_INDEX)), 
-                    recurringType, repeatCount);
+            return new AddNonFloatingCommand(
+                   matcher.group("name"), getTagsFromArgs(matcher.group("tagArguments")),
+                   new TaskDate(datesToAdd.get(START_TIME_INDEX)),
+                   new TaskDate(datesToAdd.get(END_TIME_INDEX)), 
+                   recurringType, repeatCount);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

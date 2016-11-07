@@ -17,12 +17,14 @@ import seedu.address.model.task.RecurringType;
  * DateParser is a singleton, use getInstance() to gain access to this class.
  */
 public class DateParser {
+    private static final int FIRST_PARSED_DATE = 0;
+
     private static DateParser instance;
     
     private HashSet<RecurringType> recurringTypes;
     private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
     
-    private DateParser () {
+    private DateParser() {
         populateSupportedRecurringTypes();
     }
 
@@ -31,7 +33,7 @@ public class DateParser {
      */
     private void populateSupportedRecurringTypes() {
         recurringTypes = new HashSet<RecurringType>();
-        for(RecurringType t : RecurringType.values()) {
+        for (RecurringType t : RecurringType.values()) {
             recurringTypes.add(t);
         }
         recurringTypes.remove(RecurringType.IGNORED);
@@ -75,7 +77,7 @@ public class DateParser {
     public Date getDateFromString(String dateInput) throws IllegalValueException {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         try {
-            return dateGroups.get(0).getDates().get(0);
+            return dateGroups.get(FIRST_PARSED_DATE).getDates().get(FIRST_PARSED_DATE);
         } catch (Exception e) {
             throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
         }
@@ -92,7 +94,7 @@ public class DateParser {
     public List<Date> getFromToDatesFromString(String dateInput) throws IllegalValueException {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
         try {
-            return dateGroups.get(0).getDates();
+            return dateGroups.get(FIRST_PARSED_DATE).getDates();
         } catch (Exception e) {
             throw new IllegalValueException(MESSAGE_ILLEGAL_DATE_INPUT);
         }
