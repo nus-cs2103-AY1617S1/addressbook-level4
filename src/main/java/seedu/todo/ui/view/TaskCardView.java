@@ -194,6 +194,14 @@ public class TaskCardView extends UiPart {
             FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
         }
     }
+    
+    public void setCardCollapsing(boolean isCollapsing) {
+        if (isTaskCollapsible()) {
+            ViewStyleUtil.addRemoveClassStyles(isCollapsing, taskCard, ViewStyleUtil.STYLE_COLLAPSED);
+            FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
+        }
+    }
+    
 
     /**
      * Displays in the Ui whether this card is selected

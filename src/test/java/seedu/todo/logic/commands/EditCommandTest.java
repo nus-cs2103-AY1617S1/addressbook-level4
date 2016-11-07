@@ -89,7 +89,6 @@ public class EditCommandTest extends CommandTest {
         setParameter("3");
         setParameter("l", "NTU");
         execute(true);
-
         ImmutableTask task = getTaskAt(3);
         assertEquals("Task 3", task.getTitle());
         assertEquals("NTU", task.getLocation().get());

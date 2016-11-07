@@ -58,6 +58,8 @@ public class ViewCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
+        //dismisses find if present
+        model.find(null);
         model.view(viewSpecified);
         String feedback = String.format(ViewCommand.FEEDBACK_FORMAT, viewSpecified);
         return new CommandResult(feedback);
