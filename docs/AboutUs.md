@@ -40,13 +40,15 @@ Responsibilities: Code Integration
 Components in charge of: Logic
 * Features Implemented:<br>
 	* Add task commands
+	* Select commands
+	* DateTime support
 
 Code written: [[functional code](A0138993L.md)][[test](A0138993L.md)][[docs](A0138993L.md)]
 
 * Other major contributions:<br>
-	* Implemented DateTime support
-	* Implemented Parser
+	* Editing Parser for task manager
 	* Wrote test cases
+	* Wrote GUI test cases
 
 -----
 
@@ -60,11 +62,13 @@ Components in charge of: Model
 	* Find task
 	* Delete task
 	* Edit task
+	* Add tag
 	
 Code written: [[functional code](A0139430L JingRui.md)][[test](A0139430L JingRui.md)][[docs](A0139430L JingRui.md)]
 
 * Other major contributions:<br>
 	* Wrote test cases
+	* Sorting of task lists
 
 -----
 
