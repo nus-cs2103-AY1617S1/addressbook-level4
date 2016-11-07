@@ -6,7 +6,9 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.PriorityQueue;
+import java.util.logging.Logger;
 
+import seedu.lifekeeper.commons.core.LogsCenter;
 import seedu.lifekeeper.model.activity.Activity;
 
 
@@ -21,6 +23,8 @@ public class UpcomingReminders {
     private static final int DEFAULT_SIZE = 50;
 
     private static PriorityQueue<ReadOnlyActivity> reminderQueue;
+    
+    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
 
     {
         reminderQueue = new PriorityQueue<>(DEFAULT_SIZE, new Comparator<ReadOnlyActivity>() {
@@ -42,6 +46,7 @@ public class UpcomingReminders {
         
         for (ReadOnlyActivity activity : activities) {
             if (activity.getReminder().getCalendarValue() != null && !activity.hasReminderPassed()) {
+                logger.info("Activity added to reminder queue: " + activity.toString());
                 reminderQueue.add(activity);
             }
         }
@@ -85,6 +90,7 @@ public class UpcomingReminders {
         while (!reminderQueue.isEmpty()
                 && reminderQueue.peek().getReminder().getCalendarValue().getTime().before(offset10Secs)) {
             ReadOnlyActivity toBeReminded = reminderQueue.poll();
+            logger.info("Activity removed from reminder queue: " + toBeReminded.toString());
             nextRemindedActivities.add(toBeReminded);
             toBeReminded.getReminder().resetTime();
         }

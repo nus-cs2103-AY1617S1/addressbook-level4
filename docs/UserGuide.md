@@ -190,12 +190,43 @@ Format: `undo`
 Clears all entries from Lifekeeper.<br>
 Format: `clear`  
 
+<!-- @@author A0125680H -->
+#### Opening a data file : `open`
+Loads data from an existing data file into the program. 
+
+* If no filepath or an invalid filepath is specified, or the specified file does not exist, the file chooser will be brought up instead.<br>
+* '/' or '\' can be used to separate components of a file path.
+* The `.xml` file suffix may or may not be specified. 
+* Format: `open [FILE_PATH]`
+
+> File name cannot consist of any of the following characters: '<', '>', ':', '"', '|', '?', '*'
+
+Examples: 
+* `open data/toopen.xml`<br>
+  Loads data from the file `toopen.xml`, in the folder `data` that is in the same directory as the executable JAR file.
+
+<!-- @@author A0125680H -->
+#### Saving into a new file : `save`
+Saves the Lifekeeper data into a file specified by the user. 
+
+* If no filepath or an invalid filepath is specified, the file chooser will be brought up instead.<br>
+* '/' or '\' can be used to separate components of a file path.
+* The `.xml` file suffix may or may not be specified. 
+* Format: `save [FILE_PATH]`
+
+> File name cannot consist of any of the following characters: '<', '>', ':', '"', '|', '?', '*'
+
+Examples: 
+* `save data/tosave.xml`<br>
+  Creates a new folder named `data` in the same directory as the executable JAR file, and saves the Lifekeeper data in the file `tosave.xml` in that folder.   
+
+
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
-Lifekeeper data are saved in the hard disk automatically after any command that changes the data.<br>
+#### Autosaving of data 
+Lifekeeper data are saved in the hard disk automatically after any command that changes the data (add, edit, delete).<br>
 There is no need to save manually.
 
 ## FAQ
@@ -206,16 +237,18 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
-Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
+Command | Format | Sample Input  
+-------- | :-------- | :-------- 
+Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | add Dinner with friends s/tomorrow 1800 e/1930 r/today 1800 t/dinner
+Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | edit 2 n/assignment d/tuesday 1800 r/monday 1800 t/
 Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
+Delete | `delete INDEX` | delete 2
+Find | `find KEYWORD [MORE_KEYWORDS]` | find assignment
 List | `list`
-Find Tags | `findtag`
-Done | `done INDEX`
+Find Tags | `findtag` | findtag dinner
+Done | `done INDEX` | done 2
 Undo | `undo`
 Help | `help`
+Open | `open [FILE_PATH]` | open data/savefile.xml
+Save | `save [FILE_PATH]` | save work/schedule.xml
 Exit | `exit`
