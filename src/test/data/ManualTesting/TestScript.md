@@ -160,65 +160,36 @@
 ## 6. Edit Command
 ------
 ### 6.1 Edit name of task
-> **Command:** `edit read Harry Potter n/Read a book`<br>
+> **Command:** `edit tomb sweeping n/do housework`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: Read a book`
+`This task has been edited: do housework Deadline: 05.03.2016 done`
 - TaskList panel updates and shows the the last shown list with the updated field.
 
 ### 6.2 Edit time of task
-#### 6.2.1 Edit a floating task to a deadline
-> **Command:** `edit read Harry Potter d/by next monday 11pm`<br>
+> **Command:** `edit watch an old movie d/next monday 11pm`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: read Harry Potter Deadline: [Formatted date of next monday] 11.00PM Tags: [reading]`
-- TaskList panel navigates to newly edited task card with task date changed.
-- Task card background changes from light blue to gradient blue colour to indicate type change.
+`This task has been edited: watch an old movie Deadline: 14.11.2016-23`
+- TaskList panel shows the newly edited task card with task date changed.
 - Note: Similarly:
 - 1. convert the original floating task to a time slot,
 - 2. or convert the deadline to a time slot, and vice versa,
 - are also supported.
 
-#### 6.2.2 Edit the time slot for a recurring task with recurring period specified
-> **Command:** `edit civ r/daily`<br>
+### 6.3 Edit recurring frequency of task
+> **Command:** `edit learn korea r/daily`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: civ recurring daily`
-- TaskList panel navigates to newly edited task card with task date changed.
-- Agenda panel displays the newly edited task in new position.
-- Note: Only the selected instance of the recurring task will be affected.
+`This task has been edited: learn korea Deadline: 02.03.2016 recurring daily`
+- TaskList panel shows the newly edited task card with recurring frequency changed.
 
-#### 6.2.3 Edit the start date for a event
-> **Command:** `edit project s/20.10.2016`<br>
+#### 6.4 Edit the priority level of task
+> **Command:** `edit watch an old movie p/2`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This event has been edited: project Event Date: 20.10.2016 to 11.11.2016`
-- Note: Initially event date was 11.10.2016 to 11.11.2016
-- TaskList panel navigates to newly edited task card with event start date changed.
-
-#### 6.2.4 Edit the end date for a event
-> **Command:** `edit project e/20.11.2016`<br>
-> **Result:**<br>
-- Result display panel posts message:<br>
-`This event has been edited: project Event Date: 20.10.2016 to 20.11.2016`
-- Note: Initially event date was 20.10.2016 to 11.11.2016
-- TaskList panel navigates to newly edited task card with event start date changed.
-
-### 6.3 Edit priority level of task
-> **Command:** `edit civ p/2`<br>
-> **Result:**<br>
-- Result display panel posts message:<br>
-`This task has been edited: civ Priority Level: 2`
-- TaskList panel navigates to newly edited task card with task priority level type changed.
-
-### 6.4 Edit priority level of task of multiple occurrence of a task/event name
-> **Command:** `edit civ p/3 i/2`<br>
-> **Result:**<br>
-- Result display panel posts message:<br>
-`This task has been edited: civ Priority Level: 3`
-- Note: The list has two task of the same name "civ", therefore index is required to identify the task to edit
-- Note: i/ is a index prefix to specify the index shown on the list
-- TaskList panel navigates to newly edited task card with task priority level type changed.
+`This task has been edited: watch an old movie Deadline: 14.11.2016-23 Priority Level: 2`
+- TaskList panel shows the newly edited task card with priority level changed.
 
 <!--@@author A0146123R-->
 ------
