@@ -360,7 +360,7 @@
 - All data is deleted.
 
 ------
-## 13. Clear Command
+## 13. Change Storage Command
 ------
 ### 13.1 Change storage
 > **Command:** `cs newfile`<br>
