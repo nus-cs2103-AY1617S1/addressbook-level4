@@ -58,6 +58,12 @@ public class BrowserPanel extends UiPart{
         browser.getEngine().load(url);
     }
 
+    //@@author A0139072H
+    public void loadPage(){
+        browser.getEngine().load("http://calendar.google.com");
+    }
+    
+    //@@author addressbook-level4
     /**
      * Frees resources allocated to the browser.
      */

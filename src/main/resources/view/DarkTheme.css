@@ -1,31 +1,31 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#D4C390, 100%);
 }
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Calibri";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Calibri";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Calibri";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Calibri";
 }
 
 .tab-pane {
@@ -93,34 +93,38 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: #010504;
+    /*-fx-text-fill: #010504;*/
 }
 
 .cell_priority_label {
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: derive(green, 20%);
+    -fx-stroke: black;
+    -fx-stroke-width: 20;
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 20px;
+    -fx-fill: red;
     -fx-text-fill: #010504;
 }
 
 // @@author A0139072H
 .cell_date_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 15px;
+    -fx-text-fill: #174157;
 }
 
 .cell_check_label {
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: derive(red,20%);
 }
 
 // @@author addressbook-level4
 .cell_small_label {
-    -fx-font-size: 12px;
-    -fx-text-fill: #020605;
+    -fx-font-size: 13px;
+    -fx-fill: red;
+    /*-fx-text-fill: #020605;*/
 }
 
 .anchor-pane {
@@ -184,7 +188,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Calibri";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
