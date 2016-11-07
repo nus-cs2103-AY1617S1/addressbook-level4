@@ -271,27 +271,42 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
+    public void execute_redoCommandForNewAddCommandAfterAnUndoAndRedo_FailureMessageShown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+        Task toAdd = helper.generateTaskWithName("Dummy");
+        expectedAB.addTask(toAdd);
+        addThreeTasksToLogic();
+        logic.execute("undo");
+        logic.execute("redo");
+        logic.execute("add \"Dummy\"");
+        
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
+    }
+    //@@author A0139128A
+    @Test
     public void execute_redoTheUndoForAdd_SuccessMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        WhatNow expectedA = helper.generateWhatNow(1);
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
 
-        logic.execute("add \"Task 1\" on 23/02/2017 t/tag1 t/tag2");
+        addThreeTasksToLogic();
         logic.execute("undo");
 
-        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedA, expectedA.getTaskList());
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
     }
     //@@author A0139128A
     @Test
     public void execute_redoCommandForAdd_FailMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        WhatNow expectedA = helper.generateWhatNow(1);
+        List<Task> threeTasks = helper.generateTaskList(3);
+        WhatNow expectedAB = helper.generateWhatNow(threeTasks);
 
-        List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
-
-        helper.addToModel(model, 1);
+        addThreeTasksToLogic();
         logic.execute("redo");
 
-        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedA , expectedList);
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB , expectedAB.getTaskList());
     }
     //@@author A0139128A
     @Test
@@ -303,7 +318,6 @@ public class LogicManagerTest {
         WhatNow expectedA = helper.generateWhatNow(expectedList);
         helper.addToModel(model, 1);
         logic.execute("delete schedule 1");
-
 
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedA, expectedA.getTaskList());
     }
@@ -639,21 +653,21 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("done", "todo");
     }
 
-    //     @Test
-    //     public void execute_markDone_marksCorrectTask() throws Exception {
-    //     TestDataHelper helper = new TestDataHelper();
-    //     List<Task> threeTasks = helper.generateTaskList(3);
-    //    
-    //     WhatNow expectedAB = helper.generateWhatNow(threeTasks);
-    //     expectedAB.markTask(threeTasks.get(1));
-    //     helper.addToModel(model, threeTasks);
-    //    
-    //     assertCommandBehavior("done schedule 2",
-    //     String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
-    //     threeTasks.get(1)),
-    //     expectedAB,
-    //     expectedAB.getTaskList());
-    //     }
+//         @Test
+//         public void execute_markDone_marksCorrectTask() throws Exception {
+//         TestDataHelper helper = new TestDataHelper();
+//         List<Task> threeTasks = helper.generateTaskList(3);
+//        
+//         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
+//         expectedAB.markTask(threeTasks.get(1));
+//         helper.addToModel(model, threeTasks);
+//        
+//         assertCommandBehavior("done schedule 2",
+//         String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
+//         threeTasks.get(1)),
+//         expectedAB,
+//         expectedAB.getTaskList());
+//         }
     /**
      * Confirms the 'invalid argument behaviour' for the given command
      * 
