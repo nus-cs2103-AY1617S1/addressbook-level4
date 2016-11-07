@@ -11,10 +11,10 @@
 
 1. Add command  
    - Add an event: `add Sam's birthday /dt 20/11/2016 5pm to 20/11/2016 9pm /p m`  
-   > Task will appear on the left panel with events that happen on the same day.
+   > 1 Task will appear on the left panel with events that happen on the same day.
    
    - Add a deadline: `add Finish assignment /dt 20 Nov 5pm /p m`
-   > Task will appear on the left panel with events that happen on the same day.
+   > 2 Tasks will appear on the left panel with events that happen on the same day.
    
    - Add a floating task: `add Buy clothes`
    > Task will appear on the left panel with index 58.
@@ -33,7 +33,7 @@
    > Task without any priority will be listed at the top.
    
    - list by priority (high to low): `ls /p dsc`
-   > Task with high riority will be listed at the top.
+   > Task with high priority will be listed at the top.
 
 3. Find command  
    - Find task by name: `find talk`  
@@ -41,13 +41,13 @@
    >  Results display indicate quick search is performed as no prefixes are specified.
    
    - Find tasks by tags: `find /t Jeremy`  
-   > Events which has the tag [jeremy] will be listed.
+   > 30 Events which has the tag [jeremy] will be listed.
    
    - Find tasks by priority: `find /p h`  
-   > Tasks with high priority will be listed.
+   > 4 Tasks with high priority will be listed.
    
    - Find tasks which are done `find /do`  
-   > Three tasks (Collect Welfare pack, Cut hair and Push SMS Subscription) which are done are listed.
+   > 3 tasks (Collect Welfare pack, Cut hair and Push SMS Subscription) which are done are listed.
    
    - Find tasks which are undone `find /ud`  
    > Remaining undone tasks will be listed.
