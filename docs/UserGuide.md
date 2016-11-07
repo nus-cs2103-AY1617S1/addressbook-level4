@@ -387,3 +387,7 @@ Following is the list of keyboard shortcuts that ForgetMeNot has to offer:
 | <kbd>TAB</kbd> or <kbd>SPACEBAR</kbd> | Autocompletes any unfinished command |
 | <kbd>UP</kbd>   | Displays the last older command      |
 | <kbd>DOWN</kbd> | Display the last newer command       |
+
+## Glossary
+
+1. Upcoming - Refers to days starting from the current day up to 7 days later, inclusive.
