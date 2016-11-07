@@ -1,6 +1,7 @@
 # User Guide
 <!-- @@author A0139211R -->
 * [Introduction](#introduction)
+* [Overview](#overview)
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Adding a Task: `add`](#adding-a-task-add)
@@ -34,6 +35,13 @@ This user guide aims to allow any user to seamlessly use the product, as intende
 Eager and excited? Let's go!
 
 [Back To Top](#user-guide)
+
+## Overview
+
+This is how ForgetMeNot looks like:
+
+<img src="images/Overview.png" width="600"><br>
+
 <!-- @@author A0139671X -->
 ## Quick Start
 
