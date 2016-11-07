@@ -214,12 +214,22 @@ Format: `complete INDEX`
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > Completed tasks can be accessed with `list complete[d]`.
 
+Examples:
+* `list`
+* `complete 2` <br>
+  Mark the 2nd task on the list as completed
+
 <br>
 #### Marking a task as incomplete: `uncomplete`
 Marks the specified task as incomplete<br>
 Format: `uncomplete INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+
+Examples:
+* `list`
+* `uncomplete 2` <br>
+  Marks the 2nd task on the list as incomplete
 
 <br>
 #### Listing Completed Tasks: `list complete[d]`
@@ -293,6 +303,7 @@ Examples:
 * `unalias am` <br>
   Typing `am` no longer translates into `add Meeting`
 
+<br>
 #### Listing aliases: `list alias[es]`
 Lists all the aliases that you have created. <br>
 Format: `list alias[es]`
@@ -308,14 +319,14 @@ Examples:
 Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
 Format: `setstorage PATH` <br>
 
+Examples:
+* `setstorage C:/Users/Bob/Documents`
+* `setstorage relativefolder`
+
 <br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`
-
-Examples:
-* `setstorage C:/Users/Bob/Documents`
-* `setstorage relativefolder`
 
 <br>
 #### Saving the data
