@@ -360,6 +360,7 @@ public class MainWindow extends UiPart {
     }
     
     // @@author A0138862W
+    @Subscribe
     public void highlightLastActionedRow(Task task){
         homeTableView.getTableView().getSelectionModel().select(task);
         homeTableView.getTableView().scrollTo(task);

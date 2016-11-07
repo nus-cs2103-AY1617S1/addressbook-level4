@@ -70,8 +70,6 @@ public class ConfigUtilTest {
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
-        System.out.println(expected);
-        System.out.println(actual);
         assertEquals(expected, actual);
     }
 
