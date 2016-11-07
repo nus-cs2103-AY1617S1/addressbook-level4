@@ -104,15 +104,15 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane tasksTableViewPlaceholder;
-    private DefaultTableView tasksTableView;
+    private TasksTableView tasksTableView;
 
     @FXML
     private AnchorPane eventsTableViewPlaceholder;
-    private DefaultTableView eventsTableView;
+    private EventsTableView eventsTableView;
 
     @FXML
     private AnchorPane deadlinesTableViewPlaceholder;
-    private DefaultTableView deadlinesTableView;
+    private DeadlinesTableView deadlinesTableView;
 
     @FXML
     private AnchorPane archivesTableViewPlaceholder;
@@ -236,9 +236,13 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, commandBoxPlaceholder, logic);
         actionHistoryPane = ActionHistoryPane.load(primaryStage, actionHistoryPanePlaceholder, logic);
         homeTableView = HomeTableView.load(primaryStage, homeTableViewPlaceholder, logic);
-        tasksTableView = DefaultTableView.load(primaryStage, tasksTableViewPlaceholder, logic);
-        eventsTableView = DefaultTableView.load(primaryStage, eventsTableViewPlaceholder, logic);
-        deadlinesTableView = DefaultTableView.load(primaryStage, deadlinesTableViewPlaceholder, logic);
+        
+        tasksTableView = TasksTableView.load(primaryStage, tasksTableViewPlaceholder, logic);
+        
+        eventsTableView = EventsTableView.load(primaryStage, eventsTableViewPlaceholder, logic);
+        
+        deadlinesTableView = DeadlinesTableView.load(primaryStage, deadlinesTableViewPlaceholder, logic);
+        
         archivesTableView = ArchivesTableView.load(primaryStage, archivesTableViewPlaceholder, logic);
     }
     //@@author
@@ -252,41 +256,6 @@ public class MainWindow extends UiPart {
 
     public void show() {
         primaryStage.show();
-    }
-
-    // @@author A0138862W
-    public CommandBox getCommandBox() {
-        return commandBox;
-    }
-
-    // @@author A0138862W
-    public ActionHistoryPane getActionHistoryPane() {
-        return actionHistoryPane;
-    }
-
-    // @@author A0138862W
-    public HomeTableView getHomeTableView() {
-        return homeTableView;
-    }
-
-    // @@author A0138862W
-    public DefaultTableView getTasksTableView() {
-        return tasksTableView;
-    }
-
-    // @@author A0138862W
-    public DefaultTableView getEventsTableView() {
-        return eventsTableView;
-    }
-
-    // @@author
-    public DefaultTableView getDeadlinesTableView() {
-        return deadlinesTableView;
-    }
-
-    // @@author A0138862W
-    public ArchivesTableView getArchivesTableView() {
-        return archivesTableView;
     }
 
     // @@author A0124797R
@@ -357,13 +326,6 @@ public class MainWindow extends UiPart {
     @Subscribe
     private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
         updateTabTitle();
-    }
-    
-    // @@author A0138862W
-    @Subscribe
-    public void highlightLastActionedRow(HighlightLastActionedRowRequestEvent event){
-        homeTableView.getTableView().getSelectionModel().select(event.task);
-        homeTableView.getTableView().scrollTo(event.task);
     }
    
 }

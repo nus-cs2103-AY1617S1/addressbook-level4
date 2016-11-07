@@ -5,8 +5,8 @@
 <?import javafx.scene.control.TableView?>
 
 <TableView
-	fx:id="defaultTableView"
-	fx:controller="harmony.mastermind.ui.DefaultTableView"
+	fx:id="deadlinesTableView"
+	fx:controller="harmony.mastermind.ui.DeadlinesTableView"
 	stylesheets="@MainWindow.css"
 	prefHeight="200.0"
 	prefWidth="200.0"

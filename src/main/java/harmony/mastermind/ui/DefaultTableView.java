@@ -1,5 +1,7 @@
 package harmony.mastermind.ui;
 
+import java.util.Date;
+
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.time.DurationFormatUtils;
 
@@ -27,102 +29,21 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-public class DefaultTableView extends UiPart {
+public abstract class DefaultTableView extends UiPart {
 
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.049;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.28;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.19;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.19;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.175;
-    private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
+    protected static final double WIDTH_MULTIPLIER_INDEX = 0.049;
+    protected static final double WIDTH_MULTIPLIER_NAME = 0.28;
+    protected static final double WIDTH_MULTIPLIER_STARTDATE = 0.19;
+    protected static final double WIDTH_MULTIPLIER_ENDDATE = 0.19;
+    protected static final double WIDTH_MULTIPLIER_TAGS = 0.175;
+    protected static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
-    private static final String FXML = "DefaultTableView.fxml";
+    protected static final PrettyTime prettyTime = new PrettyTime();
     
-    private static final PrettyTime prettyTime = new PrettyTime();
+    public abstract TableView getTableView();
     
-    private AnchorPane placeholder;
-    
-    private Logic logic;
-    
-    @FXML
-    private TableView<ReadOnlyTask> defaultTableView;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexColumn;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, ReadOnlyTask> nameColumn;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateColumn;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateColumn;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsColumn;
-
-    @FXML
-    private TableColumn<ReadOnlyTask, Boolean> recurColumn;
-
-    
-    public static DefaultTableView load(Stage primaryStage, AnchorPane defaultTableViewPlaceholder, Logic logic){
-        DefaultTableView ui = UiPartLoader.loadUiPart(primaryStage, defaultTableViewPlaceholder, new DefaultTableView());
-        ui.configure(logic);
-        return ui;
-    }
-    
-    /**
-     * Initialize the displaying of tabs
-     */
-    @FXML
-    private void initialize() {
-        this.initIndex();
-        this.initName();
-        this.initStartDate();
-        this.initEndDate();
-        this.initTags();
-        this.initRecur();
-    }
-    
-    
-    @Override
-    public void setPlaceholder(AnchorPane placeholder){
-        this.placeholder = placeholder;
-    }
-    
-    @SuppressWarnings("unchecked")
-    @Override
-    public void setNode(Node node) {
-        this.defaultTableView = (TableView<ReadOnlyTask>) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-    
-    protected void configure(Logic logic){
-        this.logic = logic;
-        this.addToPlaceholder();
-        this.registerAsAnEventHandler(this);
-    }
-
-    private void addToPlaceholder(){
-        placeholder.getChildren().add(defaultTableView);
-        FxViewUtil.applyAnchorBoundaryParameters(defaultTableView, 0, 0, 0, 0);
-    }
-    
-    public TableView<ReadOnlyTask> getTableView(){
-        return defaultTableView;
-    }
-
-    /**
-     * Initializes the indexing of tasks
-     */
-    protected void initIndex() {
-        indexColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
-        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
+    protected TableCell<ReadOnlyTask, ReadOnlyTask> renderIndexCell() {
+        return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
             @Override
             public void updateIndex(int index) {
                 super.updateIndex(index);
@@ -130,25 +51,18 @@ public class DefaultTableView extends UiPart {
                 Text indexText = new Text(Integer.toString(index + 1)+ ".");
                 indexText.getStyleClass().add("index-column");
 
-                if (isEmpty()
-                    || index < 0) {
+                if (isEmpty() || index < 0) {
                     this.setGraphic(null);
                 } else {
                     this.setGraphic(indexText);
                 }
             }
 
-        });
+        };
     }
-
-    /**
-     * Initialize the Names of the tasks
-     */
-    protected void initName() {
-        nameColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
-        nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
-
-        nameColumn.setCellFactory(col -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
+    
+    protected TableCell<ReadOnlyTask, ReadOnlyTask> renderNameCell() {
+        return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
             @Override
             public void updateItem(ReadOnlyTask readOnlyTask, boolean isEmpty) {
@@ -162,35 +76,7 @@ public class DefaultTableView extends UiPart {
                     taskName.getStyleClass().add("task-name-column");
                     vBox.getChildren().add(taskName);
 
-                    HBox hBox = new HBox(5);
-
-                    Button status = new Button();
-                    if (readOnlyTask.isHappening()) {
-                        status.setText("HAPPENING");
-                        status.getStyleClass().add("tag-happening");
-                        hBox.getChildren().add(status);
-                    } else if (readOnlyTask.isDue()) {
-                        status.setText("DUE");
-                        status.getStyleClass().add("tag-overdue");
-                        hBox.getChildren().add(status);
-                    }
-
-                    if (readOnlyTask.isEvent()) {
-                        Button eventDuration = new Button();
-                        eventDuration.setText("DURATION: "
-                                              + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
-                        eventDuration.getStyleClass().add("tag-event-duration");
-                        hBox.getChildren().add(eventDuration);
-                    } else if (readOnlyTask.isDeadline()
-                               && !readOnlyTask.isDue()) {
-                        Button dueDuration = new Button();
-                        dueDuration.setText("DUE IN "
-                                            + DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
-                        dueDuration.getStyleClass().add("tag-due-duration");
-                        hBox.getChildren().add(dueDuration);
-                    }
-
-                    vBox.getChildren().add(hBox);
+                    generateSpecialTag(readOnlyTask, vBox);
 
                     this.setGraphic(vBox);
                     this.setPrefHeight(50);
@@ -200,18 +86,12 @@ public class DefaultTableView extends UiPart {
                 }
 
             }
-        });
 
+        };
     }
-
-    /**
-     * Initialize the start dates of the tasks
-     */
-    protected void initStartDate() {
-        startDateColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
-        startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
-
-        startDateColumn.setCellFactory(col -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
+    
+    protected TableCell<ReadOnlyTask, ReadOnlyTask> renderStartDateCell() {
+        return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
             @Override
             public void updateItem(ReadOnlyTask readOnlyTask, boolean isEmpty) {
@@ -219,20 +99,7 @@ public class DefaultTableView extends UiPart {
                 if (!isEmpty()
                     && readOnlyTask.getStartDate() != null) {
 
-                    TextFlow textFlow = new TextFlow();
-
-                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getStartDate()));
-                    prettyDate.getStyleClass().add("pretty-date");
-
-                    Text lineBreak = new Text("\n\n");
-                    lineBreak.setStyle("-fx-font-size:2px;");
-
-                    Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(readOnlyTask.getStartDate()));
-                    uglyDate.getStyleClass().add("ugly-date");
-
-                    textFlow.getChildren().add(prettyDate);
-                    textFlow.getChildren().add(lineBreak);
-                    textFlow.getChildren().add(uglyDate);
+                    TextFlow textFlow = generateStyledDate(readOnlyTask, readOnlyTask.getStartDate());
 
                     this.setGraphic(textFlow);
                     this.setPrefHeight(50);
@@ -242,18 +109,12 @@ public class DefaultTableView extends UiPart {
                 }
 
             }
-        });
 
+        };
     }
-
-    /**
-     * Initialize the end dates of the tasks
-     */
-    protected void initEndDate() {
-        endDateColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
-        endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
-
-        endDateColumn.setCellFactory(col -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
+    
+    protected TableCell<ReadOnlyTask, ReadOnlyTask> renderEndDateCell() {
+        return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
             @Override
             public void updateItem(ReadOnlyTask readOnlyTask, boolean isEmpty) {
@@ -261,20 +122,7 @@ public class DefaultTableView extends UiPart {
                 if (!isEmpty()
                     && readOnlyTask.getEndDate() != null) {
 
-                    TextFlow textFlow = new TextFlow();
-
-                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getEndDate()));
-                    prettyDate.getStyleClass().add("pretty-date");
-
-                    Text lineBreak = new Text("\n\n");
-                    lineBreak.setStyle("-fx-font-size:2px;");
-
-                    Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(readOnlyTask.getEndDate()));
-                    uglyDate.getStyleClass().add("ugly-date");
-
-                    textFlow.getChildren().add(prettyDate);
-                    textFlow.getChildren().add(lineBreak);
-                    textFlow.getChildren().add(uglyDate);
+                    TextFlow textFlow = generateStyledDate(readOnlyTask, readOnlyTask.getEndDate());
 
                     this.setGraphic(textFlow);
                     this.setPrefHeight(50);
@@ -284,18 +132,11 @@ public class DefaultTableView extends UiPart {
                 }
 
             }
-        });
-
+        };
     }
-
-    /**
-     * Initialize the tags of the tasks
-     */
-    protected void initTags() {
-        tagsColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
-        tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
-
-        tagsColumn.setCellFactory(col -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
+    
+    protected TableCell<ReadOnlyTask, ReadOnlyTask> renderTagsCell() {
+        return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
             @Override
             public void updateItem(ReadOnlyTask readOnlyTask, boolean isEmpty) {
@@ -317,18 +158,11 @@ public class DefaultTableView extends UiPart {
                     this.setGraphic(null);
                 }
             }
-        });
-
+        };
     }
-
-    /**
-     * Initialize a checkbox to determine whether task is recurring
-     */
-    protected void initRecur() {
-        recurColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
-        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
-        recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
-        recurColumn.setCellFactory(col -> new TableCell<ReadOnlyTask, Boolean>() {
+    
+    protected TableCell<ReadOnlyTask, Boolean> renderRecurCell() {
+        return new TableCell<ReadOnlyTask, Boolean>() {
 
             @Override
             public void updateItem(Boolean isRecur, boolean isEmpty) {
@@ -346,15 +180,16 @@ public class DefaultTableView extends UiPart {
                     ;
                 }
             }
-        });
+        };
     }
 
+    // @@author A0138862W
     /*
      * Generate styled row base on the task status: due(red), happening(orange),
      * normal(blue)
      * 
      */
-    private Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
+    protected Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
         Text taskName = new Text(text);
 
         if (readOnlyTask.isHappening()) {
@@ -366,5 +201,70 @@ public class DefaultTableView extends UiPart {
         }
         return taskName;
     }
+
+    // @@author A0138862W
+    /**
+     * THis method generate Due, Happening, and duration depend on the nature of the task
+     * 
+     * @param readOnlyTask the task object
+     * @param vBox The container
+     */
+    protected void generateSpecialTag(ReadOnlyTask readOnlyTask, VBox vBox) {
+        HBox hBox = new HBox(5);
+
+        Button status = new Button();
+        if (readOnlyTask.isHappening()) {
+            status.setText("HAPPENING");
+            status.getStyleClass().add("tag-happening");
+            hBox.getChildren().add(status);
+        } else if (readOnlyTask.isDue()) {
+            status.setText("DUE");
+            status.getStyleClass().add("tag-overdue");
+            hBox.getChildren().add(status);
+        }
+
+        if (readOnlyTask.isEvent()) {
+            Button eventDuration = new Button();
+            eventDuration.setText("DURATION: " + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
+            eventDuration.getStyleClass().add("tag-event-duration");
+            hBox.getChildren().add(eventDuration);
+        } else if (readOnlyTask.isDeadline()
+                   && !readOnlyTask.isDue()) {
+            Button dueDuration = new Button();
+            dueDuration.setText("DUE IN " + DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
+            dueDuration.getStyleClass().add("tag-due-duration");
+            hBox.getChildren().add(dueDuration);
+        }
+
+        vBox.getChildren().add(hBox);
+    }
+    
+    
+    // @@author A0138862W
+    /**
+     * 
+     * This method generate the double-line text for date column
+     * 
+     * @param readOnlyTask the task object
+     * @return TextFlow the styled text
+     */
+    protected TextFlow generateStyledDate(ReadOnlyTask readOnlyTask, Date date) {
+        TextFlow textFlow = new TextFlow();
+
+        Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(date));
+        prettyDate.getStyleClass().add("pretty-date");
+
+        Text lineBreak = new Text("\n\n");
+        lineBreak.setStyle("-fx-font-size:2px;");
+
+        Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(date));
+        uglyDate.getStyleClass().add("ugly-date");
+
+        textFlow.getChildren().add(prettyDate);
+        textFlow.getChildren().add(lineBreak);
+        textFlow.getChildren().add(uglyDate);
+        return textFlow;
+    }
+    
 }
 

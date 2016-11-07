@@ -2,9 +2,6 @@ package harmony.mastermind.ui;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
-import com.google.common.eventbus.Subscribe;
-
-import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.util.FxViewUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -18,10 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-//@@author A0138862W
-public class HomeTableView extends DefaultTableView {
+public class DeadlinesTableView extends DefaultTableView {
     
-    private static final String FXML = "HomeTableView.fxml";
+    private static final String FXML = "DeadlinesTableView.fxml";
     
     private static final PrettyTime prettyTime = new PrettyTime();
     
@@ -30,7 +26,7 @@ public class HomeTableView extends DefaultTableView {
     private Logic logic;
     
     @FXML
-    private TableView<ReadOnlyTask> homeTableView;
+    private TableView<ReadOnlyTask> deadlinesTableView;
 
     @FXML
     private TableColumn<ReadOnlyTask, ReadOnlyTask> indexColumn;
@@ -51,13 +47,12 @@ public class HomeTableView extends DefaultTableView {
     private TableColumn<ReadOnlyTask, Boolean> recurColumn;
 
     
-    public static HomeTableView load(Stage primaryStage, AnchorPane defaultTableViewPlaceholder, Logic logic){
-        HomeTableView ui = UiPartLoader.loadUiPart(primaryStage, defaultTableViewPlaceholder, new HomeTableView());
+    public static DeadlinesTableView load(Stage primaryStage, AnchorPane defaultTableViewPlaceholder, Logic logic){
+        DeadlinesTableView ui = UiPartLoader.loadUiPart(primaryStage, defaultTableViewPlaceholder, new DeadlinesTableView());
         ui.configure(logic);
         return ui;
     }
     
-    // @@author A0124797R
     /**
      * Initialize the displaying of tabs
      */
@@ -70,7 +65,6 @@ public class HomeTableView extends DefaultTableView {
         this.initTags();
         this.initRecur();
     }
-    //@@author
     
     
     @Override
@@ -81,7 +75,7 @@ public class HomeTableView extends DefaultTableView {
     @SuppressWarnings("unchecked")
     @Override
     public void setNode(Node node) {
-        this.homeTableView = (TableView<ReadOnlyTask>) node;
+        this.deadlinesTableView = (TableView<ReadOnlyTask>) node;
     }
 
     @Override
@@ -96,86 +90,75 @@ public class HomeTableView extends DefaultTableView {
     }
 
     private void addToPlaceholder(){
-        placeholder.getChildren().add(homeTableView);
-        FxViewUtil.applyAnchorBoundaryParameters(homeTableView, 0, 0, 0, 0);
+        placeholder.getChildren().add(deadlinesTableView);
+        FxViewUtil.applyAnchorBoundaryParameters(deadlinesTableView, 0, 0, 0, 0);
     }
     
     @Override
     public TableView<ReadOnlyTask> getTableView(){
-        return homeTableView;
+        return deadlinesTableView;
     }
 
-    // @@author A0138862W
     /**
      * Initializes the indexing of tasks
      */
     protected void initIndex() {
-        indexColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
+        indexColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         indexColumn.setCellFactory(column -> renderIndexCell());
     }
 
-    // @@author A0138862W
     /**
      * Initialize the Names of the tasks
      */
     protected void initName() {
-        nameColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
+        nameColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         nameColumn.setCellFactory(col -> renderNameCell());
     }
 
-    // @@author A0138862W
     /**
      * Initialize the start dates of the tasks
      */
     protected void initStartDate() {
-        startDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
+        startDateColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
         startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
         startDateColumn.setCellFactory(col -> renderStartDateCell());
 
     }
 
-    // @@author A0138862W
     /**
      * Initialize the end dates of the tasks
      */
     protected void initEndDate() {
-        endDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
+        endDateColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
         endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
         endDateColumn.setCellFactory(col -> renderEndDateCell());
 
     }
 
-    // @@author A0138862W
+
     /**
      * Initialize the tags of the tasks
      */
     protected void initTags() {
-        tagsColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
+        tagsColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
         tagsColumn.setCellFactory(col -> renderTagsCell());
 
     }
 
-    // @@author A0124797R
+
     /**
      * Initialize a checkbox to determine whether task is recurring
      */
     protected void initRecur() {
-        recurColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
+        recurColumn.prefWidthProperty().bind(deadlinesTableView.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
         recurColumn.setCellFactory(col -> renderRecurCell());
-    }
-    
- // @@author A0138862W
-    @Subscribe
-    public void highlightLastActionedRow(HighlightLastActionedRowRequestEvent event){
-        homeTableView.getSelectionModel().select(event.task);
-        homeTableView.scrollTo(event.task);
     }
 }
 

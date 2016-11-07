@@ -90,11 +90,4 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
-
-    // @@author A0138862W
-    @Subscribe
-    private void handleExecuteCommandEvent(ExecuteCommandEvent event){
-        mainWindow.getActionHistoryPane().pushToActionHistory(event.title, event.description);
-    }
-    //@@author
 }

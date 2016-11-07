@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import com.google.common.eventbus.Subscribe;
 
+import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.ToggleActionHistoryEvent;
 import harmony.mastermind.commons.util.FxViewUtil;
