@@ -5,7 +5,6 @@ import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.StringUtil;
-import seedu.todo.storage.FixedStorage;
 import seedu.todo.storage.UserPrefsStorage;
 
 import java.io.IOException;
