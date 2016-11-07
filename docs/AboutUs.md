@@ -16,7 +16,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * [Undo Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#10-undo-command)
   * [Redo Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#11-redo-command)
   * [SetDirectory Command]()
-* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0139714B.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0139714B.md)][[docs](A0139714B.md)]
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0139714B.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0139714B.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0139714B.md)]
 * Other Major Contributions:
  * Did the initial refactoring from AddressBook to Unburden [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
  * Set up Travis and Coveralls
@@ -45,10 +45,10 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented: 
   * [Done Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#5-done-command)
   * [UnDone Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#6-undone-command)
-* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0143095H.md)][test code](A0143095H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0139678J.md)]
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0143095H.md)][test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0143095H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0143095H.md)]
 * Other major contributions: 
-  * Created the various classes for seedu.unburden.model.task package (e.g Date, Name, Time, Task and Task Description classed)
-  * Redesigned the GUI for the application, Unburden
+ * Created the various classes for seedu.unburden.model.task package (e.g Date, Name, Time, Task and Task Description classed)
+ * Redesigned the GUI for the application, Unburden
 -----
 
 #### [Lu Hua]
