@@ -54,5 +54,15 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Wang Xien Dong](http://github.com/xdrawks) @xdrawks
 <img src="images/Xiendong.jpg" width="150"><br>
 **Role**: Frontend Developer <br>
-**Responsibilities**: User Interface
 
+* Components in charge of: User Interface
+* Aspects/tools in charge of: JavaFX, Scene Builder, TestFX
+* Features implemented:
+    * Major GUI components such as `TaskCardView`, `CommandXView` and `HelpView`
+    * Tagging system: adding, renaming, removing of tags
+* Code written: [functional code] [test code] [docs]
+* Other major contributions:
+    * Did the app sketch for GUI
+    * Provided app screenshots for documentation
+    * Designed graphics for GUI itself
+    * Rewrote GUI tests for newly implemented GUI view elements
