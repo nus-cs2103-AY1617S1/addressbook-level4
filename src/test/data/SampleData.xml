@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <taskName>ps4</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Thu, 20 Oct 16</endDate>
+        <endTime>10:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>midterm revise</taskName>
+        <startDate>Fri, 21 Oct 16</startDate>
+        <startTime>7:00 PM</startTime>
+        <endDate>Sat, 22 Oct 16</endDate>
+        <endTime>7:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>remember to dye hair black</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>watch movie</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>watch quantico</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 02 Nov 16</endDate>
+        <endTime>7:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>buy vitamins</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Thu, 20 Oct 16</endDate>
+        <endTime>1:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>work posting</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <taskName>dance practice</taskName>
+        <startDate>Fri, 21 Oct 16</startDate>
+        <startTime>6:00 PM</startTime>
+        <endDate>Fri, 21 Oct 16</endDate>
+        <endTime>9:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>buy desktop monitor</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 22 Oct 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>meet adam for lunch</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sun, 23 Oct 16</endDate>
+        <endTime>12:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>project meeting at leah house</taskName>
+        <startDate>Wed, 26 Oct 16</startDate>
+        <startTime>10:00 AM</startTime>
+        <endDate>Wed, 26 Oct 16</endDate>
+        <endTime>12:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>project preparation</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Tue, 25 Oct 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>Have dinner with gf</taskName>
+        <startDate>Tue, 25 Oct 16</startDate>
+        <startTime>12:00 PM</startTime>
+        <endDate>Tue, 25 Oct 16</endDate>
+        <endTime>11:59 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>clean the filthy house</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 26 Oct 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>watch webcast for ma1101r</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Thu, 27 Oct 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>run errand for mum</taskName>
+        <startDate>Thu, 03 Nov 16</startDate>
+        <startTime>3:00 PM</startTime>
+        <endDate>Thu, 03 Nov 16</endDate>
+        <endTime>4:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>write reflection</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 05 Nov 16</endDate>
+        <endTime>8:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>whole day rushing assignment</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 05 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>lunch with family</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sun, 06 Nov 16</endDate>
+        <endTime>1:00 PM</endTime>
+        <done>false</done>
+        <overdue>true</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>complete UG/DG</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sun, 06 Nov 16</endDate>
+        <endTime>5:00 PM</endTime>
+        <done>false</done>
+        <overdue>true</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>research for ges1010 essay</taskName>
+        <startDate>Thu, 03 Nov 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Fri, 04 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>complete GES1010 essay</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Mon, 07 Nov 16</endDate>
+        <endTime>11:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <taskName>sweep room</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Tue, 08 Nov 16</endDate>
+        <endTime>11:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>revise for cs2103 finals</taskName>
+        <startDate>Tue, 08 Nov 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 23 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <taskName>picnic at ECP</taskName>
+        <startDate>Sun, 20 Nov 16</startDate>
+        <startTime>1:00 PM</startTime>
+        <endDate>Sun, 20 Nov 16</endDate>
+        <endTime>5:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>revise PC</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sun, 20 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>bbq</taskName>
+        <startDate>Sat, 19 Nov 16</startDate>
+        <startTime>6:00 PM</startTime>
+        <endDate>Sat, 19 Nov 16</endDate>
+        <endTime>11:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <taskName>meet tutor</taskName>
+        <startDate>Wed, 23 Nov 16</startDate>
+        <startTime>3:00 PM</startTime>
+        <endDate>Thu, 24 Nov 16</endDate>
+        <endTime>4:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>apply for US visa</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 26 Nov 16</endDate>
+        <endTime>10:00 AM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>revise physics</taskName>
+        <startDate>Tue, 22 Nov 16</startDate>
+        <startTime>2:00 PM</startTime>
+        <endDate>Tue, 22 Nov 16</endDate>
+        <endTime>3:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>my birthday!!!</taskName>
+        <startDate>Tue, 22 Nov 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Tue, 22 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>meet tutor</taskName>
+        <startDate>Thu, 10 Nov 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Fri, 11 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <taskName>meet up friends finally</taskName>
+        <startDate>Sat, 12 Nov 16</startDate>
+        <startTime>12:00 PM</startTime>
+        <endDate>Sat, 12 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>watch suits</taskName>
+        <startDate>Thu, 10 Nov 16</startDate>
+        <startTime>1:00 PM</startTime>
+        <endDate>Fri, 11 Nov 16</endDate>
+        <endTime>2:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>mug for ma1101r</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 16 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>project meeting</taskName>
+        <startDate>Wed, 16 Nov 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sun, 20 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>purdue module application</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>go for a run</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 19 Oct 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>complete ps4</taskName>
+        <startDate>Wed, 19 Oct 16</startDate>
+        <startTime>10:00 AM</startTime>
+        <endDate>Wed, 19 Oct 16</endDate>
+        <endTime>10:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <taskName>dance prac</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Fri, 04 Nov 16</endDate>
+        <endTime>4:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>demo for 2103</taskName>
+        <startDate>Wed, 02 Nov 16</startDate>
+        <startTime>1:00 PM</startTime>
+        <endDate>Wed, 02 Nov 16</endDate>
+        <endTime>2:00 PM</endTime>
+        <done>true</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>do v0.5 test cases</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 09 Nov 16</endDate>
+        <endTime>12:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>critical reflection</taskName>
+        <startDate>Mon, 07 Nov 16</startDate>
+        <startTime>10:00 AM</startTime>
+        <endDate>Mon, 07 Nov 16</endDate>
+        <endTime>11:30 AM</endTime>
+        <done>false</done>
+        <overdue>true</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>go watch movie</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Fri, 11 Nov 16</endDate>
+        <endTime>9:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>Celebrate Christmas</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 24 Dec 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>buy milk for real</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Tue, 29 Nov 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>steamboat dinner with family</taskName>
+        <startDate>Fri, 02 Dec 16</startDate>
+        <startTime>9:00 PM</startTime>
+        <endDate>Fri, 02 Dec 16</endDate>
+        <endTime>10:00 PM</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>travel to China</taskName>
+        <startDate>Mon, 05 Dec 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Mon, 05 Dec 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>go back Singapore</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Sat, 31 Dec 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>No priority level set</priority>
+    </tasks>
+    <tasks>
+        <taskName>module bidding</taskName>
+        <startDate>Thu, 01 Dec 16</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Wed, 21 Dec 16</endDate>
+        <endTime>No end time set</endTime>
+        <done>false</done>
+        <overdue>false</overdue>
+        <priority>high</priority>
+    </tasks>
+</taskmanager>
