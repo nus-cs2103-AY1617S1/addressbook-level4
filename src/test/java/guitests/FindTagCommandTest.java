@@ -1,9 +1,11 @@
+//@@author A0141052Y
 package guitests;
 
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,11 +14,11 @@ public class FindTagCommandTest extends TaskManagerGuiTest {
     @Test
     public void findTagNonEmptyList() {
         assertFindTagResult("find-tag notimportant");
-        assertFindTagResult("find-tag friends", td.cs2103, td.carl);
+        assertFindTagResult("find-tag friends", TypicalTestTasks.cs2103, TypicalTestTasks.carl);
 
         // Find a tag after deletion
         commandBox.runCommand("delete 1");
-        assertFindTagResult("find-tag friends", td.carl);
+        assertFindTagResult("find-tag friends", TypicalTestTasks.carl);
     }
 
     @Test
