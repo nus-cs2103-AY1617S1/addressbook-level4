@@ -1,28 +1,22 @@
 package harmony.mastermind.logic.commands;
 
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import javax.activation.MimetypesFileTypeMap;
-
-import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
 import harmony.mastermind.commons.exceptions.InvalidEventDateException;
-import harmony.mastermind.model.tag.Tag;
-import harmony.mastermind.model.tag.UniqueTagList;
-import harmony.mastermind.model.tag.UniqueTagList.DuplicateTagException;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.TaskBuilder;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
@@ -33,7 +27,12 @@ import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
  * Reads either ics/csv/txt file and import the tasks into Mastermind
  */
 public class ImportCommand extends Command {
-    private static final int COUNT_ONE = 1;
+    private static final int HEADER_LINE = 1;
+    private static final int INDEX_NAME = 0;
+    private static final int INDEX_START_DATE = 1;
+    private static final int INDEX_START_TIME = 2;
+    private static final int INDEX_END_DATE = 3;
+    private static final int INDEX_END_TIME = 4;
 
     public static final String COMMAND_WORD = "import";
 
@@ -53,7 +52,7 @@ public class ImportCommand extends Command {
     
     public static final String MESSAGE_READ_SUCCESS = "Read success on imported file";
     public static final String MESSAGE_READ_FAILURE = "Invalid file path: %1$s";
-    private static final String MESSAGE_CSV_READ_FAILURE = "Header in csv File is invalid\n" 
+    public static final String MESSAGE_CSV_READ_FAILURE = "Header in csv File is invalid\n" 
                                                             + "First row of your csv file should include headers "
                                                             + "like Subject, Start Date, Start Time, End Date, End Time";
     public static final String MESSAGE_IMPORT_TXT_SUCCESS = "Import success: %1$s tasks added";
@@ -63,18 +62,22 @@ public class ImportCommand extends Command {
     
     public static final String MESSAGE_FAILURE_DUPLICATE_TASK = "Failed to import ics. Duplicate task detected when importing.";
 
-    public static final String COMMAND_FORMAT = COMMAND_WORD + " <file_path>";
+    public static final String COMMAND_FORMAT = "import <File Location>";
     public static final String COMMAND_DESCRIPTION = "Reads file and add all task from file into Mastermind";
+
+    public static final String HEADER_NAME = "Subject";
+    public static final String HEADER_START_DATE = "Start Date";
+    public static final String HEADER_START_TIME = "Start Time";
+    public static final String HEADER_END_DATE = "End Date";
+    public static final String HEADER_END_TIME = "End Time";
+    
     
     public static final String EXT_CSV = "csv";
     public static final String EXT_ICS = "ics";
-    public static final String EXT_TXT = "txt";
     
     public static final String REGEX_COMMA = ",";
     
-    public static final int NUMBER_TASK_ARGUMENTS = 5;
-    
-    public static final MimetypesFileTypeMap fileTypeMap = new MimetypesFileTypeMap();
+    public static final String EMPTY_ARG = "";
     
     private String fileToImport;
     private String extension;
@@ -85,7 +88,7 @@ public class ImportCommand extends Command {
         this.extension = extension;
         lstOfCmd = new ArrayList<String>();
     }
-    
+
     //@@author A0124797R
     @Override
     public CommandResult execute() {
@@ -101,11 +104,7 @@ public class ImportCommand extends Command {
             case EXT_CSV:
                 result = importCsvFile();
                 break;
-            case EXT_TXT:
-                result = importTxtFile();
-                break;
         }
-        
         return result;
         
     }
@@ -118,39 +117,55 @@ public class ImportCommand extends Command {
     private CommandResult importCsvFile() {
         int currLine = 0;
         int errCount = 0;
-        String errLines = ""; 
-        
+        String errLines = "";
         try {
-            BufferedReader br = model.importFile(fileToImport);
-            String line = br.readLine();
-            String[] taskArgs = parseCsvRow(line);
+            Iterable<CSVRecord> records = CSVFormat.RFC4180
+                    .withHeader(HEADER_NAME, HEADER_START_DATE, HEADER_START_TIME, HEADER_END_DATE, HEADER_END_TIME)
+                    .parse(new FileReader(fileToImport));
             
-            if (taskArgs.length != NUMBER_TASK_ARGUMENTS) {
-                return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
-            }
-            
-            while ((line = br.readLine()) != null) {
-                currLine += 1;
-                taskArgs = parseCsvRow(line);
-                Optional<Task> task = parseCsvArgs(taskArgs);
-                if (task.isPresent()) {
+            boolean isTask = false;
+            for (CSVRecord record : records) {
+                if (isTask) {
+                    currLine++;
                     try {
-                        model.addTask(task.get());
-                    } catch (DuplicateTaskException dte) {
-                        errCount += 1;
-                        errLines += Integer.toString(currLine + 1) + ","; 
+                        Optional<Task> taskToAdd = parseCsvRecord(record);
+                        if (taskToAdd.isPresent()) {
+                            model.addTask(taskToAdd.get());
+                        } else {
+                            errCount++;
+                            errLines += Integer.toString(currLine) + ","; 
+                        }
+                    } catch (IllegalValueException | InvalidEventDateException | IllegalArgumentException e) {
+                        errCount++;
+                        errLines += Integer.toString(currLine) + ","; 
                     }
+                    
                 } else {
-                    errCount += 1;
-                    errLines += Integer.toString(currLine + 1) + ",";
+                    currLine++;
+                    isTask = true;
+                    if (!record.get(INDEX_NAME).equals(HEADER_NAME)) {
+                        return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
+                    }
+                    if (!record.get(INDEX_START_DATE).equals(HEADER_START_DATE)) {
+                        return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
+                    }
+                    if (!record.get(INDEX_START_TIME).equals(HEADER_START_TIME)) {
+                        return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
+                    }
+                    if (!record.get(INDEX_END_DATE).equals(HEADER_END_DATE)) {
+                        return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
+                    }
+                    if (!record.get(INDEX_END_TIME).equals(HEADER_END_TIME)) {
+                        return new CommandResult(COMMAND_WORD, MESSAGE_CSV_READ_FAILURE);
+                    }
                 }
             }
             
-        } catch (IOException | IllegalValueException e) {
+        } catch (IOException e) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_READ_FAILURE, fileToImport));
         }
 
-        int addCount = currLine - errCount;
+        int addCount = currLine - errCount - HEADER_LINE;
         if (errLines.isEmpty()) {
             return new CommandResult(ImportCommand.COMMAND_WORD, String.format(MESSAGE_IMPORT_TXT_SUCCESS, addCount));
         } else {
@@ -160,70 +175,68 @@ public class ImportCommand extends Command {
     }
     
     /**
-     * reads a csv row and return an array of the row split by ','
+     * reads a csv record and return a Task if its valid else an empty Optional
+     * @return Parsed Task object
+     * @throws IllegalValueException 
+     * @throws InvalidEventDateException 
      */
-    private String[] parseCsvRow(String row) {
-        int startIndex = 0;
-        int argIndex = 0;
-        String[] taskArgs = new String[NUMBER_TASK_ARGUMENTS];
-        String s;
-        for (int i=0;i<row.length();i++) {
-            if (row.charAt(i) == REGEX_COMMA.charAt(0)) {
-                if (argIndex==3 && i-startIndex != 0) {
-                    s = row.substring(startIndex, row.length());
-                    taskArgs[argIndex] = s;
-                    break;
-                }
-                if (i-startIndex != 0 || startIndex == 0) {
-                    s = row.substring(startIndex, i);
-                    taskArgs[argIndex] = s;
-                }
-                argIndex += 1;
-                startIndex = i+1;
-            }
-        }
-        return taskArgs;
-    }
-    
-    private Optional<Task> parseCsvArgs(String[] args) throws DuplicateTagException, IllegalValueException {
-        Optional<String> name = Optional.ofNullable(args[0]);
+    private Optional<Task> parseCsvRecord(CSVRecord record) throws IllegalValueException, InvalidEventDateException {
+        Optional<String> name;
         Optional<String> startDate;
         Optional<String> endDate;
-        Task task;
         
-        if (args[1] == null) {
-            startDate = Optional.empty();
-        } else {
-            startDate = Optional.ofNullable(args[1] + " " + args[2]);
-        }
-        
-        if (args[3] == null) {
-            endDate = Optional.empty();
-        } else {
-            endDate = Optional.ofNullable(args[3] + " " + args[4]);
-        }
-        
-        if (!name.isPresent()) {
+        if (record.get(HEADER_NAME).equals(EMPTY_ARG)) {
             return Optional.empty();
+        } else {
+            name = Optional.ofNullable(record.get(HEADER_NAME));
         }
-        
+
+        if (record.get(HEADER_START_DATE).equals(EMPTY_ARG)) {
+            startDate = Optional.empty();
+        } else if (record.get(HEADER_START_TIME).equals(EMPTY_ARG)) {
+            return Optional.empty();
+        } else {
+            System.out.println("start");
+            startDate = Optional.ofNullable(record.get(HEADER_START_DATE) + " " + record.get(HEADER_START_TIME));
+        }
+        if (record.get(HEADER_END_DATE).equals(EMPTY_ARG)) {
+            endDate = Optional.empty();
+        } else if (record.get(HEADER_END_TIME).equals(EMPTY_ARG)) {
+            return Optional.empty();            
+        } else {
+            System.out.println("end");
+            endDate = Optional.ofNullable(record.get(HEADER_END_DATE) + " " + record.get(HEADER_END_TIME));
+        }
         if (startDate.isPresent() && !endDate.isPresent()) {
             return Optional.empty();
-        } else if (startDate.isPresent() && endDate.isPresent()) {
-            task = new Task(name.get(), prettyTimeParser.parse(startDate.get()).get(0), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(new Tag("IMPORTED")), null, new Date());
-            return Optional.ofNullable(task);
+        }
+        
+        
+        Set<String> tags = new HashSet<String>();
+        tags.add("CSVIMPORT");
+
+        TaskBuilder taskBuilder = new TaskBuilder(name.get());
+        taskBuilder.withTags(tags);
+        
+        if (startDate.isPresent() && endDate.isPresent()) {
+            taskBuilder.asEvent(prettyTimeParser.parse(startDate.get()).get(0), prettyTimeParser.parse(endDate.get()).get(0));
+            return Optional.ofNullable(taskBuilder.build());
         } else if (endDate.isPresent()) {
-            task = new Task(name.get(), prettyTimeParser.parse(endDate.get()).get(0), new UniqueTagList(new Tag("IMPORTED")), null, new Date());
-            return Optional.ofNullable(task);
+            taskBuilder.asDeadline(prettyTimeParser.parse(endDate.get()).get(0));
+            return Optional.ofNullable(taskBuilder.build());
         } else if (!endDate.isPresent()) {
-            task = new Task(name.get(), new UniqueTagList(new Tag("IMPORTED")), new Date());
-            return Optional.ofNullable(task);
+            taskBuilder.asFloating();
+            return Optional.ofNullable(taskBuilder.build());
         } else {
             return Optional.empty();
         }
         
     }
     
+    //@@author A0124797R-unused
+    // find that it does not make sense to import a txt file of commands,
+    // instead user could have 
+    /*
     private CommandResult importTxtFile() {
         try {
             BufferedReader br = model.importFile(fileToImport);
@@ -239,7 +252,7 @@ public class ImportCommand extends Command {
         }
         
         return new CommandResult(COMMAND_WORD, MESSAGE_READ_SUCCESS);
-    }
+    }*/
 
 
     //@@author A0138862W
@@ -271,7 +284,7 @@ public class ImportCommand extends Command {
      */
     private Task parseTask(VEvent event) throws InvalidEventDateException, IllegalValueException {
         Set<String> tags = new HashSet<String>();
-        tags.add("IMPORTED");
+        tags.add("ICALIMPORT");
         
         TaskBuilder taskBuilder = new TaskBuilder(event.getSummary().getValue());
         taskBuilder.asEvent(event.getDateStart().getValue(), event.getDateEnd().getValue());
