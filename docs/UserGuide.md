@@ -36,11 +36,10 @@ This app will not work with earlier versions of Java 8.
 <br><br>
 ### Viewing help : `help`
 Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`<br><br><br>
+* Help is also shown if you enter an incorrect command e.g. `abcd`<br><br><br>
 <!-- @@author A0130677A -->
 
-## Adding a person: `add`
+### Adding a person: `add`
 **Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
 * Adds a task to the task list in a flexible format (in any order).
 * All parameters except name are optional.
@@ -68,6 +67,7 @@ Format: `list [done]`
 Shows a list of all tasks done or not done in the task list.<br>
 * `list` shows all tasks not done
 * `list done` shows all tasks done
+<br><br><br>
 
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose descriptions contain any of the given keywords.<br>
