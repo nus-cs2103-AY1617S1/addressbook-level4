@@ -19,7 +19,7 @@ public class ScrollCommand extends Command {
 	@Override
 	public CommandResult execute() {
 		if(direction.equalsIgnoreCase("bottom")){
-			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredPersonList().size() - 1));
+			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size() - 1));
 		} else if(direction.equalsIgnoreCase("top")) {
 			EventsCenter.getInstance().post(new JumpToListRequestEvent(0));
 		} else {

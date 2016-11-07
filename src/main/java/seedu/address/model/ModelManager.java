@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.FinishStateException;
 import seedu.address.commons.util.StringUtil;
@@ -30,18 +30,18 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data. All changes to any
+ * Represents the in-memory model of the task manager data. All changes to any
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
 	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-	private final TaskManager addressBook;
-	private final FilteredList<Task> filteredPersons;
+	private final TaskManager taskManager;
+	private final FilteredList<Task> filteredTasks;
 	private final StateManager stateManager;
 
 	/**
-	 * Initializes a ModelManager with the given AddressBook AddressBook and its
+	 * Initializes a ModelManager with the given TaskManager and its
 	 * variables should not be null
 	 */
 	public ModelManager(TaskManager src, UserPrefs userPrefs) {
@@ -51,9 +51,9 @@ public class ModelManager extends ComponentManager implements Model {
 
 		logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-		addressBook = new TaskManager(src);
-		filteredPersons = new FilteredList<>(addressBook.getTasks());
-		stateManager = new StateManager(new TaskCommandState(addressBook, ""));
+		taskManager = new TaskManager(src);
+		filteredTasks = new FilteredList<>(taskManager.getTasks());
+		stateManager = new StateManager(new TaskCommandState(taskManager, ""));
 	}
 
 	public ModelManager() {
@@ -61,43 +61,43 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-		addressBook = new TaskManager(initialData);
-		filteredPersons = new FilteredList<>(addressBook.getTasks());
-		stateManager = new StateManager(new TaskCommandState(addressBook, ""));
+		taskManager = new TaskManager(initialData);
+		filteredTasks = new FilteredList<>(taskManager.getTasks());
+		stateManager = new StateManager(new TaskCommandState(taskManager, ""));
 	}
 
 	@Override
 	public void resetData(ReadOnlyTaskManager newData) {
-		addressBook.resetData(newData);
-		indicateAddressBookChanged();
+		taskManager.resetData(newData);
+		indicateTaskManagerChanged();
 	}
 
 	@Override
-	public ReadOnlyTaskManager getAddressBook() {
-		return addressBook;
+	public ReadOnlyTaskManager getTaskManager() {
+		return taskManager;
 	}
 
 	/** Raises an event to indicate the model has changed */
-	private void indicateAddressBookChanged() {
-		raise(new AddressBookChangedEvent(addressBook));
+	private void indicateTaskManagerChanged() {
+		raise(new TaskManagerChangedEvent(taskManager));
 	}
 
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-		addressBook.removeTask(target);
-		indicateAddressBookChanged();
+		taskManager.removeTask(target);
+		indicateTaskManagerChanged();
 	}
 
 	@Override
-	public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
-		addressBook.addTask(person);
+	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+		taskManager.addTask(task);
 		updateFilteredListToShowAll();
-		indicateAddressBookChanged();
+		indicateTaskManagerChanged();
 	}
 	
 	@Override
 	public void currentState(String command) {
-		stateManager.currentState(new TaskCommandState(addressBook, command));	
+		stateManager.currentState(new TaskCommandState(taskManager, command));	
 	}
 
 	@Override
@@ -121,38 +121,38 @@ public class ModelManager extends ComponentManager implements Model {
 	// ===============================================================
 
 	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
-		return new UnmodifiableObservableList<>(filteredPersons);
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
 	@Override
 	public void updateFilteredListToShowAll() {
-		filteredPersons.setPredicate(null);
+		filteredTasks.setPredicate(null);
 	}
 
 	@Override
-	public void updateFilteredPersonList(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+	public void updateFilteredTaskList(Set<String> keywords) {
+		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
 	
 	@Override
-	public void updateFilteredPersonGroup(String keywords) {
-		updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));
+	public void updateFilteredTaskGroup(String keywords) {
+		updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
 	}
 
-	private void updateFilteredPersonList(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
+	private void updateFilteredTaskList(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
 	}
 
 	public void updateFilteredListToShowClashing() throws DuplicateTaskException {
 
 		TaskManager taskmanager = new TaskManager();
-		for (int i = 0; i < filteredPersons.size() - 1; i++) {
+		for (int i = 0; i < filteredTasks.size() - 1; i++) {
 			boolean isClashing = false;
-			Task task = filteredPersons.get(i);
+			Task task = filteredTasks.get(i);
 			Deadline deadline = task.getDeadline();
-			for (int j = i + 1; j < filteredPersons.size(); j++) {
-				Task task2 = filteredPersons.get(j);
+			for (int j = i + 1; j < filteredTasks.size(); j++) {
+				Task task2 = filteredTasks.get(j);
 				Deadline deadline2 = task2.getDeadline();
 				if (deadline.calendar != null && deadline2.calendar != null && deadline.equals(deadline2)) {
 					if (!taskmanager.contains(task2))
@@ -166,15 +166,15 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		}
 		FilteredList<Task> clashingTasks = new FilteredList<Task>(taskmanager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(clashingTasks)));
+		updateFilteredTaskList(new PredicateExpression(new ClashQualifier(clashingTasks)));
 	}
 	
 	public void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
 		
-		for (int i = 0; i <= filteredPersons.size() - 1; i++){
+		for (int i = 0; i <= filteredTasks.size() - 1; i++){
 			boolean isIncompleted = false;
-			Task task = filteredPersons.get(i);
+			Task task = filteredTasks.get(i);
 			if (!task.getName().toString().contains(" is completed")) isIncompleted = true;
 			if (isIncompleted) {
 				if (!taskmanager.contains(task))
@@ -183,10 +183,10 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 		
 		FilteredList<Task> incompleteTasks = new FilteredList<Task>(taskmanager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
+		updateFilteredTaskList(new PredicateExpression(new ClashQualifier(incompleteTasks)));
 	}
 	
-	/**
+	/**@@author A0144202Y
 	 * Filters the list in the context of the List "keyword" commmand.
 	 * @param keyword
 	 * @throws DuplicateTaskException
@@ -195,17 +195,17 @@ public class ModelManager extends ComponentManager implements Model {
 		TaskManager uncompletedTaskManager = getUncompletedTaskManager();
 		TaskManager uncompletedAndKeywordTaskManager = getUncompletedAndKeywordTaskManager(keyword, uncompletedTaskManager);
 		FilteredList<Task> uncompletedandKeywordTasks = new FilteredList<Task>(uncompletedAndKeywordTaskManager.getTasks());
-		updateFilteredPersonList(new PredicateExpression(new ClashQualifier(uncompletedandKeywordTasks)));
+		updateFilteredTaskList(new PredicateExpression(new ClashQualifier(uncompletedandKeywordTasks)));
 	}
 	
-	/**
+	/**@@author A0144202Y
 	 * Gets a TaskManager from the current FilteredList which shows uncompleted tasks.
 	 * @return a TaskManager with only uncompleted tasks.
 	 * @throws DuplicateTaskException
 	 */
 	private TaskManager getUncompletedTaskManager() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
-		for(Task t: filteredPersons) {
+		for(Task t: filteredTasks) {
 			boolean isIncompleted = false;
 			if (!t.getName().toString().contains(" is completed")) isIncompleted = true;
 			if (isIncompleted) {
@@ -259,7 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
 	// ==================================================
 
 	interface Expression {
-		boolean satisfies(ReadOnlyTask person);
+		boolean satisfies(ReadOnlyTask task);
 
 		String toString();
 	}
@@ -336,9 +336,8 @@ public class ModelManager extends ComponentManager implements Model {
 			return false;
 		}
 	}
-	
-	// @@author A0144202Y
-	/**
+
+	/**@@author A0144202Y
 	 * Allows user to find tagName case insensitively 
 	 *
 	 */
@@ -351,10 +350,10 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override // for loop embedded
-		public boolean run(ReadOnlyTask person) {
+		public boolean run(ReadOnlyTask task) {
 			
 			boolean isContains = false;
-			for (Tag temp:person.getTags()){
+			for (Tag temp:task.getTags()){
 			    if (temp.getTagName().equalsIgnoreCase(keyWords)) 	
 				    isContains = true;
 			}
@@ -369,15 +368,5 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 	}
 
-	private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
-		// no tags
-		if (deadlineArguments.isEmpty()) {
-			return Collections.emptySet();
-		}
-		// replace first delimiter prefix, then split
-		final Collection<String> deadlineStrings = Arrays
-				.asList(deadlineArguments.replaceFirst(" d/", "").split(" t/"));
-		return new HashSet<>(deadlineStrings);
-	}
-
+	
 }

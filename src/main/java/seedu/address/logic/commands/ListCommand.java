@@ -45,6 +45,6 @@ public class ListCommand extends Command {
     		e.printStackTrace();
     	}
     	
-    	return new CommandResult(String.format(KEYWORD_TASKS_SUCCESS, model.getFilteredPersonList().size()) + keyword + ".");
+    	return new CommandResult(String.format(KEYWORD_TASKS_SUCCESS, model.getFilteredTaskList().size()) + keyword + ".");
     }
 }

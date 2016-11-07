@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.Logic;
@@ -51,7 +51,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
         latestSavedAddressBook = new TaskManager(abce.data);
     }
 
@@ -74,7 +74,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile), new Config());
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -117,10 +117,10 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredPersonList());
+        assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedAddressBook, model.getTaskManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
@@ -145,9 +145,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1));
-        model.addPerson(helper.generatePerson(2));
-        model.addPerson(helper.generatePerson(3));
+        model.addTask(helper.generatePerson(1));
+        model.addTask(helper.generatePerson(2));
+        model.addTask(helper.generatePerson(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
@@ -204,7 +204,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -259,10 +259,10 @@ public class LogicManagerTest {
         // set AB state to 2 persons
         model.resetData(new TaskManager());
         for (Task p : personList) {
-            model.addPerson(p);
+            model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), personList);
     }
 
     @Test
@@ -289,7 +289,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
 
 
@@ -487,7 +487,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                model.addPerson(p);
+                model.addTask(p);
             }
         }
 
