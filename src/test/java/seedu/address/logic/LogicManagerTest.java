@@ -148,16 +148,34 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Emeraldo(), Collections.emptyList());
     }
 
-    /* TODO
+    //@@author A0139749L
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_addInvalidDateTimeInputFormat_errorMesssageShown() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] a/valid, address", Description.MESSAGE_NAME_CONSTRAINTS);
+                "add \"task\" on 23dec", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
+                "add \"task\" on 23 dec, 14:00", DateTime.MESSAGE_KEYWORD_ON_CONSTRAINTS);
+        assertCommandBehavior(
+                "add \"task\" by 23 dec", DateTime.MESSAGE_KEYWORD_BY_CONSTRAINTS);
+        assertCommandBehavior(
+                "add \"task\" from 23 dec", DateTime.MESSAGE_KEYWORD_FROM_CONSTRAINTS);
     }
-    */
+    
+    @Test
+    public void execute_addInvalidDateTimeInputs_errorMesssageShown() throws Exception {
+        assertCommandBehavior(
+                "add \"task\" on 30 Feb", DateTimeParser.MESSAGE_INVALID_DATE);
+        assertCommandBehavior(
+                "add \"task\" on 30 Mah", DateTimeParser.MESSAGE_INVALID_MONTH_IN_WORDS);
+        assertCommandBehavior(
+                "add \"task\" by 30 Mar, 13am", DateTimeParser.MESSAGE_INVALID_HOUR);
+        assertCommandBehavior(
+                "add \"task\" by 30 Mar, 13", DateTimeParser.MESSAGE_TIME_FORMAT_UNINTERPRETABLE);
+        assertCommandBehavior(
+                "add \"task\" from 23 dec, 2pm to 23 dec, 1pm", DateTime.MESSAGE_PERIOD_INVALID);
+    }
+    //@@author
+    
 
     @Test
     public void execute_add_successful() throws Exception {

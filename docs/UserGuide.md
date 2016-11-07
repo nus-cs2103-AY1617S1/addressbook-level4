@@ -50,7 +50,7 @@ Format: `help`
 [](@@author A0139749L)
 #### Adding a task: `add`
 Adds a task to the Emeraldo <br>
-Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME] [#TAGS]...`
+Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME] [#TAGS]...`
 
 
 <br>
@@ -181,7 +181,7 @@ Examples:
 [](@@author A0142290N)
 #### Editing a task: `edit`
 Edits the specified task from Emeraldo.<br>
-Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from START_DATE START_TIME] [to END_DATE AND_TIME]`
+Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME]`
 
 
 > * Task will be edited given the new parameter(s), and updated instantly.<br>
@@ -199,12 +199,12 @@ Examples:
 
 <br>
 [](@@author A0139196U)
-#### Editing a task’s tag: `tag add/delete/clear`
-Edits the specified task’s tag in Emeraldo.<br>
+#### Editing a task's tag: `tag add/delete/clear`
+Edits the specified task's tag in Emeraldo.<br>
 Format: `tag add/delete/clear INDEX [#TAGS]`
 
 
-> * Task’s tags will be edited given the new parameter, and updated instantly.<br>
+> * Task's tags will be edited given the new parameter, and updated instantly.<br>
 > * Parameters cannot be one of the following reserved words: today, tomorrow, completed, thisweek, nextweek, thismonth, nextmonth.<br>
 > * For add/delete, requires one parameter to be passed in as tag.<br>
 > * For clear, parameter to be passed in is not required.
@@ -278,11 +278,6 @@ Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
 
 <br>
-#### Motivate Me: `motivateme`
-Generates random quote to motivate a stressed user <br>
-Format: `motivateme`
-
-<br>
 [](@@author A0139342H)
 
 #### Change save location command: `saveto`
@@ -341,20 +336,20 @@ There is no need to save manually.
 ## FAQ
 
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q: How do I transfer my data to another Computer?**<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task Manager folder.
 
 
-**Q**: How do I upload Emeraldo to the latest version? <br>
-**A**: Download the latest ‘.jar’ file from the [releases](../../../releases) tab and replace your current ‘.jar’ file with it.
+**Q: How do I upload Emeraldo to the latest version?** <br>
+**A**: Download the latest '.jar' file from the [releases](../../../releases) tab and replace your current '.jar' file with it.
 
 
-**Q**: I cannot access the Help document.<br>
+**Q: I cannot access the Help document.**<br>
 **A**: Check your internet access. Internet connection is required to access the help document.
 
 
-**Q**: How do I scroll through tasks without using the mouse?<br>
+**Q: How do I scroll through tasks without using the mouse?**<br>
 **A**: Use alt + Tab to navigate the various fields to the box containing the tasks, then use the up and down arrow keys to scroll through the tasks.
 
 
@@ -375,8 +370,8 @@ Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 FindAll | `findall KEYWORD [MORE_KEYWORDS]`
 Help | `help`
-List | `list [CATEGORIES]` or `list [TAGS]`
-ListAll | `listall [CATEGORIES]` or `listall [TAGS]`
+List | `list [CATEGORY]` or `list [TAGS]`
+ListAll | `listall [CATEGORY]` or `listall [TAGS]`
 SaveTo | `saveto FILEPATH`
 Tag | `tag add/delete/clear INDEX [#TAGS]`
 Undo | `undo`

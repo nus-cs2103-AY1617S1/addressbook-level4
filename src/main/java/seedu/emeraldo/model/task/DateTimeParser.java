@@ -90,12 +90,16 @@ public class DateTimeParser {
             + "(?<timePostFix>(([a]|[p])[m]))"
     		);
 
-	private static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
+	public static final String MESSAGE_INVALID_MONTH_IN_WORDS = "Invalid month! Check your spelling";
 
-	private static final String MESSAGE_INVALID_TIME = "Invalid inputs for time!";
-
-	private static final String MESSAGE_INVALID_DATE = "Invalid inputs for date! Check that the day, month and year matches\n"
+	public static final String MESSAGE_INVALID_DATE = "Invalid inputs for date! Check that the day, month and year matches\n"
 			+ "Possible mistakes: having 31 as the day for a month with 30 days, e.g. 31 Nov";
+
+	public static final String MESSAGE_TIME_FORMAT_UNINTERPRETABLE = "Invalid inputs for time!\n"
+			+ " am or pm needs to be specified when only hour is entered";
+
+	public static final String MESSAGE_INVALID_HOUR = "Invalid hour!\n"
+			+ "Hour cannot be greater than 12 for time expressed in 12 hours format";
     
 	/*
      * Format the date for creation of LocalDate object
@@ -165,7 +169,7 @@ public class DateTimeParser {
         }
         
         if(timePostFix.isEmpty() && minute.isEmpty())
-        	throw new DateTimeException(MESSAGE_INVALID_TIME);
+        	throw new DateTimeException(MESSAGE_TIME_FORMAT_UNINTERPRETABLE);
         
         if(minute.isEmpty())
         	minute = "00";
@@ -175,11 +179,8 @@ public class DateTimeParser {
         
         if(!timePostFix.isEmpty())
         	hourParsed = convert12HoursFormatTo24HoursFormat(hourParsed, timePostFix);
-        try {
+        
         	return LocalTime.of(hourParsed, minuteParsed);
-        } catch(DateTimeException dte) {
-        	throw new DateTimeException(MESSAGE_INVALID_TIME);
-        }
     }
     
     /*
@@ -389,7 +390,10 @@ public class DateTimeParser {
      * @param String timePostFix
      * @return int convertedHour
      */
-    private static int convert12HoursFormatTo24HoursFormat(int hour, String timePostFix){
+    private static int convert12HoursFormatTo24HoursFormat(int hour, String timePostFix) throws DateTimeException{
+    	
+    	if(hour >= 13 || hour == 0)
+    		throw new DateTimeException(MESSAGE_INVALID_HOUR);
     	
     	if(timePostFix.equalsIgnoreCase("pm") && hour != 12)
     		return hour + 12;
