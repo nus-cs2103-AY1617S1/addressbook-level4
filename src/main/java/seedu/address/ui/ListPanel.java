@@ -53,11 +53,11 @@ public class ListPanel extends UiPart {
     
     //@@author A0142184L
     public boolean isShowingTaskList() {
-    	return isShowingTaskList;
+        return isShowingTaskList;
     }
     
-    public void setIsShowingTaskList(boolean value) {
-    	this.isShowingTaskList = value;
+    public void setShowingTaskList(boolean value) {
+        this.isShowingTaskList = value;
     }
     
     //@@author
@@ -87,7 +87,7 @@ public class ListPanel extends UiPart {
     
     //@@author A0142184L
     private void hideAliasListViewSize() {
-    	aliasListView.setMaxHeight(0.0);
+        aliasListView.setMaxHeight(0.0);
 	}
 
 	public static ListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,

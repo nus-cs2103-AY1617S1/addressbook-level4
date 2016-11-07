@@ -48,6 +48,18 @@ public class TaskType {
 		}
 	}
 	
+	public boolean isEventTask() {
+		return value.equals(Type.EVENT);
+	}
+	
+	public boolean isDeadlineTask() {
+		return value.equals(Type.DEADLINE);
+	}
+	
+	public boolean isSomedayTask() {
+		return value.equals(Type.SOMEDAY);
+	}
+	
 	@Override
     public String toString() {
         return value.toString();

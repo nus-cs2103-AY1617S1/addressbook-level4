@@ -35,7 +35,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.isUnsignedInteger("1"));
         assertTrue(StringUtil.isUnsignedInteger("10"));
     }
-
+        
     @Test
     public void getDetails_exceptionGiven(){
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
@@ -47,6 +47,18 @@ public class StringUtilTest {
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }
-
-
+    
+    //@@author A0141019U
+    @Test
+    public void removeFirstAndLastChars_anyString_valueAsExpected() {
+    	assertEquals("b", StringUtil.removeFirstAndLastChars("aba"));
+    	assertEquals("hello", StringUtil.removeFirstAndLastChars("'hello'"));
+    }
+    
+    @Test
+    public void countOcurrences_anyString_valueAsExpected() {
+    	assertEquals(0, StringUtil.countOccurrences('f', "char isn't here"));
+    	assertEquals(1, StringUtil.countOccurrences('\'', "char is here! '"));
+    	assertEquals(7, StringUtil.countOccurrences('a', "aaaaaaa"));
+    }
 }

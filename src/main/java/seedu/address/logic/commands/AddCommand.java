@@ -22,16 +22,16 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday to the task manager.\n"
-            + "Event Parameters: event 'NAME' from hh:mm to hh:mm on dd-mm-yy\n"
-            + "Event Example: " + COMMAND_WORD
-            + " event 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
-            + "Deadline Parameters: deadline 'NAME' by hh:mm dd-mm-yy\n"
-            + "Deadline Example: " + COMMAND_WORD
-            + " deadline 'lab report' by 16:00 03-03-15\n"
-            + "Task to Be Done Someday Parameters: someday 'NAME'\n"
-            + "Task to Be Done Someday Example: " + COMMAND_WORD
-            + " someday 'water the plants'";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/deadline/someday task.\n"
+            + "Event parameters: 'NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS]...\n"
+            + "Event example: " + COMMAND_WORD
+            + " 'Dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
+            + "Deadline parameters: 'NAME' by TIME [DATE] [#TAGS]...\n"
+            + "Deadline example: " + COMMAND_WORD
+            + " 'lab report' by 16:00 03-03-15\n"
+            + "Task to be done someday parameters: 'NAME' [#TAGS]...\n"
+            + "Task to be done someday example: " + COMMAND_WORD
+            + " 'water the plants'";
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
@@ -40,6 +40,7 @@ public class AddCommand extends Command {
     //@@author A0141019U    
     public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) 
     		throws IllegalValueException, IllegalArgumentException {
+    	
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));

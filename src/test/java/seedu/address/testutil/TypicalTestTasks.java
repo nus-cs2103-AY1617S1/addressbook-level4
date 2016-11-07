@@ -7,7 +7,7 @@ import seedu.address.model.TaskManager;
 import seedu.address.model.task.*;
 
 /**
- *
+ * Provides test tasks to test functionality
  */
 //@@author A0142184L
 public class TypicalTestTasks {

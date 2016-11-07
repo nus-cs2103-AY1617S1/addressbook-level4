@@ -12,7 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.function.Predicate;
 
 import javafx.util.Pair;
@@ -43,10 +45,16 @@ public interface Model {
     
     /** Redoes an action after an undo. */
     void loadNextState();
+    
+    /** Returns the state history of the task manager. Use for testing only. */
+    public Stack<TaskManager> getStateHistoryStack();
+    
+    /** Returns the undo history of the task manager. Use for testing only. */
+    public Stack<TaskManager> getUndoHistoryStack();
     //@@author
     
     /** Deletes the given tasks. */
-    void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -74,21 +82,14 @@ public interface Model {
     /** Deletes the given aliases. */
     void deleteAliases(ArrayList<ReadOnlyAlias> targets) throws UniqueAliasList.AliasNotFoundException;
     //@@author
-    
-    //@@author A0142184L
-    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
-	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 	
 	/** Updates the task status overdue if not marked as done and end time is before now */
     void checkForOverdueTasks();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
-	
-    /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
-
+    
+    //@@author A0142184L    
     /** Returns the today task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList();
 
@@ -103,6 +104,9 @@ public interface Model {
 
     /** Returns the someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
+    
+    /** Returns the filtered list of aliases as an {@code UnmodifiableObservableList<ReadOnlyTask>}*/
+	UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList();
 	
     //@@author A0139339W
     /** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
@@ -117,5 +121,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    //@@author A0141019U
+    /** Returns the internal list of tasks stored in the task manager*/
+	List<ReadOnlyTask> getInternalTaskList();
 }

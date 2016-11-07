@@ -1,15 +1,17 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.DisplayTaskListEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0141019U-reused
 /**
  * Deletes a task identified using its displayed index in the last task listing .
  */
@@ -25,46 +27,60 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted tasks: %1$s";
 
     private final int[] targetIndices;
-    private ArrayList<Task> recentDeletedTasks;
 
+    
     public DeleteCommand(int[] targetIndices) {
         this.targetIndices = targetIndices;
     }
 
-
     @Override
     public CommandResult execute() {
+    	doExecutionSetup();
+
+        try {
+        	List<ReadOnlyTask> tasksToDelete = getTasksToDelete();
+            deleteTasks(tasksToDelete);
+            return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
+        } 
+        catch (IllegalValueException e) {
+        	indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(e.getMessage());
+        }
+        catch (TaskNotFoundException pnfe) {
+        	undoModelSaveState();
+        	return new CommandResult(Messages.MESSAGE_INDEX_NOT_IN_LIST);
+        }
+    }
+    
+    private void doExecutionSetup() {
     	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
 
     	model.checkForOverdueTasks();
     	model.saveState();
-    	
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        ArrayList<ReadOnlyTask> tasksToDelete = new ArrayList<>();
+    }
+    
+    
+    private List<ReadOnlyTask> getTasksToDelete() throws IllegalValueException {
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        List<ReadOnlyTask> tasksToDelete = new ArrayList<>();
         
         for (int i=0; i<targetIndices.length; i++) {
         	if (lastShownList.size() < targetIndices[i]) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+        		throw new IllegalValueException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
             }
 
             tasksToDelete.add(lastShownList.get(targetIndices[i] - 1));
         }
         
-        try {
-            model.deleteTasks(tasksToDelete);
-        } catch (TaskNotFoundException pnfe) {
-        	model.undoSaveState();
-        	// TODO use variable instead
-        	return new CommandResult("Task index does not exist in displayed list.");
-        }
-        
-        recentDeletedTasks = new ArrayList<>();
-        for (ReadOnlyTask task : tasksToDelete) {
-        	recentDeletedTasks.add(new Task(task));
-        }
-        
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
+        return tasksToDelete;
+    }
+    
+    
+    private void deleteTasks(List<ReadOnlyTask> tasksToDelete) throws TaskNotFoundException {
+    	model.deleteTasks(tasksToDelete);
+    }
+    
+    private void undoModelSaveState() {
+    	model.undoSaveState();
     }
 }
