@@ -19,8 +19,8 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all tasks
-   * **`add`**` add Visit Dentist d/18-11-2016 l/Mount Elizabeth` : 
+   * **`list`** : lists all tasks to be done
+   * **`add`**` add Visit Dentist d/18-11-2016 a/Mount Elizabeth` : 
      adds a task named `Visit Dentist` to the Address Book.
    * **`delete`**` 3` : deletes the 3rd contact shown in the current list
    * **`exit`** : exits the app
@@ -39,15 +39,29 @@
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
- 
+<!-- @@author A0130677A --> 
 #### Adding a person: `add`
-Adds a task to the task list<br>
-Format: `add NAME before/by/due duedate at location [t/TAG]...` 
+Adds a task to the task list in a flexible format (in any order). All parameters except name are optional.<br>
+This command supports 3 types of tasks: floating tasks, event tasks and deadline tasks.<br>
+Format: `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]` 
 
 > Persons can have any number of tags (including 0)
 
 Examples: 
-* `add Visit Dentist before 18-11-2016 at Mount Elizabeth'
+* Floating task: `add Visit Dentist`
+* Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
+* Deadline task: `add submit tutorial d/monday p/5`
+
+Field Type Constraints:<br>
+
+**Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
+* Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
+* Relaxed dates: The 31st of April in the year 2008, Fri, 21 Nov 1997, Jan 21, '97, Sun, Nov 21, jan 1st, february twenty-eighth 
+* Relative dates: next thursday, last wednesday, today, tomorrow, yesterday, next week, next month, next year, 3 days from * now, three weeks ago 
+* Prefixes: day after, the day before, the monday after, the monday before, 2 fridays before, 4 tuesdays after 
+* Time: 0600h, 06:00 hours, 6pm, 5:30 a.m., 5, 12:59, 23:59, 8p, noon, afternoon, midnight 
+* Relative times: 10 seconds ago, in 5 minutes, 4 minutes from now.
+
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task list.<br>
