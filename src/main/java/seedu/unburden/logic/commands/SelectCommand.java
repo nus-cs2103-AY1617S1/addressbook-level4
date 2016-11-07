@@ -5,9 +5,10 @@ import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.events.ui.JumpToListRequestEvent;
 import seedu.unburden.model.task.ReadOnlyTask;
 
-
+//@@author A0147986H-unused
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the address book.
+ * the user will be able to see the details in the specific task
  */
 public class SelectCommand extends Command {
 
@@ -16,8 +17,8 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the person identified by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Selects the task identified by the index number used in the last task listing.\n"
+            + "Format: select INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
@@ -37,7 +38,7 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
+        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, lastShownList.get(targetIndex)));
 
     }
 }
