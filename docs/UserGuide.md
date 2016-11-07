@@ -31,7 +31,6 @@
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
 
 ### Viewing help : `help`
 Format: `help`
