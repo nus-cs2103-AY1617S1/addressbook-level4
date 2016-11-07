@@ -16,11 +16,11 @@ import java.util.logging.Logger;
 public class HelpWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL = HelpWindow.class.getClassLoader().getResource("command-summary/CommandSummary.html").toExternalForm();
-
+    //@@author A0153467Y
+    private static final String COMMANDSUMMARY_URL = HelpWindow.class.getClassLoader().getResource("command-summary/CommandSummary.html").toExternalForm();
+    //@@author
     private AnchorPane mainPane;
 
     private Stage dialogStage;
@@ -41,20 +41,19 @@ public class HelpWindow extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    //@@author A0153467Y
     private void configure(){
-        Scene scene = new Scene(mainPane);
+        Scene scene = new Scene(mainPane, 700, 600);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
+        browser.getEngine().load(COMMANDSUMMARY_URL);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
-
+    //@@author
     public void show() {
         dialogStage.showAndWait();
     }
