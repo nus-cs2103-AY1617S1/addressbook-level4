@@ -215,6 +215,41 @@ Examples:
 
 <br><br>
 
+#### <a id="find"></a>Finding all tasks relevant to keywords you input: `find`
+Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
+Format: `find "KEYWORD [MORE_KEYWORDS]"`
+
+> * The keywords must be specified in quotes.
+> * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
+> * Task details, tags and priorities can be search. e.g. `find "high"` will cover high priority tasks too.
+> * Searching takes into account typos too, to a certain extent. e.g. `find "apolet"` will match `apple`.
+> * Tasks with details/tags/priorities matching at least one keyword will be returned.
+    e.g. `Writing` will match `Writing essay`
+
+Examples: 
+* `find "Jimmy"`
+* `find "buy attend do get"`
+
+> <img src="images/Find.png" width="800">
+
+<!-- @@author A0138915X -->
+#### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
+Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
+Format: `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
+
+> * You can also input just a single date to search for tasks and events relevant to that day.
+> * You can search the tasks and events by dates along with keywords as well.
+> * Simply append the dates to the keywords.
+
+Examples:
+* `find from tuesday to wednesday`
+* `find "attend" from tomorrow to next month`
+
+> <img src="images/FindDate.PNG" width="800">
+
+<br><br>
+<!-- @@author A0138915X -->
+
 #### <a id="com"></a>Marking a task as complete: `complete`
 Marks an existing task as complete. <br>
 Format: `complete TASK_INDEX`
@@ -332,41 +367,6 @@ Format: `redo` <br>
 Only actions that make changes to the data of Jimi are redo-able. i.e. [`add`](#add), [`delete`](#del), [`edit`](#edit), [`clear`](#clear), [`complete`](#com)
 
 <br><br>
-
-#### <a id="find"></a>Finding all tasks relevant to keywords you input: `find`
-Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
-Format: `find "KEYWORD [MORE_KEYWORDS]"`
-
-> * The keywords must be specified in quotes.
-> * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
-> * Task details, tags and priorities can be search. e.g. `find "high"` will cover high priority tasks too.
-> * Searching takes into account typos too, to a certain extent. e.g. `find "apolet"` will match `apple`.
-> * Tasks with details/tags/priorities matching at least one keyword will be returned.
-    e.g. `Writing` will match `Writing essay`
-
-Examples: 
-* `find "Jimmy"`
-* `find "buy attend do get"`
-
-> <img src="images/Find.png" width="800">
-
-<!-- @@author A0138915X -->
-#### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
-Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
-Format: `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
-
-> * You can also input just a single date to search for tasks and events relevant to that day.
-> * You can search the tasks and events by dates along with keywords as well.
-> * Simply append the dates to the keywords.
-
-Examples:
-* `find from tuesday to wednesday`
-* `find "attend" from tomorrow to next month`
-
-> <img src="images/FindDate.PNG" width="800">
-
-<br><br>
-<!-- @@author A0138915X -->
 
 <!--- @@author A0143471L -->
 #### <a id="saveas"></a>Setting save directory : `saveas`
