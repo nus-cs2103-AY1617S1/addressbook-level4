@@ -3,14 +3,12 @@ This document will provide the steps to perform manual testing.
 
 ## Loading of sample data
 You can find the sample data at `SampleData.xml` in the same folder as this document.
-To load sample data, follow the steps below:
+To load sample data, follow the steps below: <br>
 1. Download dodobird.jar from our release <br>
 2. Place dodobird.jar at a directory of your preference <br>
-3. Run dodobird.jar at that directory <br>
-4. Exit dodobird <br>
-5. Delete the data file at the subdirectory `./data/dodobird.xml` <br>
+3. Create a subdirectory with name `data`
 6. Copy SampleData.xml to the `./data/` subdirectory and rename it `dodobird.xml` <br>
-7. Rerun dodobird.jar <br>
+7. Run dodobird.jar <br>
 8. You now have the sample data loaded <br>
 
 ## Add command
@@ -31,7 +29,7 @@ mark 3 | `task2` will be mark as completed <br> `task2` will be hidden from the 
 ## Unmark command
 Command | Expected Results |
 ------- | :--------------
-search done <br> | The GUI should update showing all completed tasks 
+search done <br> | The GUI should update showing all completed tasks
 unmark 1| `task2` at the very top of the list of completed tasks is mark as not completed <br> The GUI should update with `task2` hidden from the list of completed tasks
 
 ## Delete command
