@@ -1,5 +1,7 @@
 [TOC]
+
 <!-- @@author A0135805H -->
+
 ## Introduction
 
 In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.
@@ -12,18 +14,19 @@ Moreover, we know that you understand your activities better. So Uncle Jim allow
 
 Sounds exciting? Then let's get started!
 
-<!-- @@author -->
+<!-- @@author A0135817B-reused -->
+
 ## Quick Start
 
 1. Ensure you have [**Java version 8 update 60**][java]{: .print-url } or later installed on your computer.
 
     !!! warning "This application will not work with earlier versions of Java 8"
 
-2. Download the latest copy of `UJDTDL.jar` from our [releases][releases]{: .print-url } page.
+2. Download the latest copy of `Uncle_Jim.jar` from our [releases][releases]{: .print-url } page.
 3. Save the file to the folder you want to use for this application.
 4. Double-click the file to start the application. You should see something like this
 
-    <img src="images/app_screenshot.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
+    <img src="images/app_empty.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
 
 5. Type in the command box and press <kbd>Enter</kbd> to execute it. 
 6. Here are some example commands you can try:
@@ -44,14 +47,15 @@ You can refer to the section below for the full list of commands that are availa
 
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
-* To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. `/f`) for short flags and double dash for long flags (eg. `--all`)
+* To specify parameters, such as the deadline for a task, use flags. Flags follow the Windows DOS command format - single dash (eg. `/f`) for short flags.
 * Items with `...` within each parameter means you can add more items within the same parameters than specified.
 * Most commands that refer to a particular task or event in the list require an `INDEX`. This is a number indicated on the left of a task or event as shown in the screenshot below:
 
-<img src="images/app_screenshot_index.png" width="700" alt="Index Number Location" />
+<img src="images/app_index.png" width="560" alt="Index Number Location" />
 
 <figcaption>Use the number on the side to choose the task for your command</figcaption>
 
+<!-- @@author A0092382A -->
 ### Entering in dates 
 
 Uncle Jim supports flexible date formats so you can enter dates in the formats specified below:
@@ -90,8 +94,14 @@ Uncle Jim supports flexible date formats so you can enter dates in the formats s
 Format: **`help`**
 
 Help allows you to have a quick reference of the commands in case you forgot the format to follow.  
+
+<img src="images/app_help.png" width="700" alt="Help view" />
+
+<figcaption>The help view for Uncle Jim</figcaption>
+
+<!-- @@author A0135817B -->
  
-### Adding a task or event: **`add`**
+#### Adding a task or event: **`add`**
 
 Format:  
 **`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`  
@@ -99,7 +109,7 @@ Format:
 
 You can add new tasks or events to the To-do List using the `add` command.  
 
-Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. 
+Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag.
 
 Here are some common scenarios where you would use the various parameters:
 
@@ -108,7 +118,15 @@ Here are some common scenarios where you would use the various parameters:
 You can add a task by simply giving a name.
 
 !!! example
-    **`add`**` Finish up developer guide for CS2101` 
+    **`add`**` Finish up developer guide for CS2101`
+
+<img src="images/app_add_task.png" width="700" alt="Example of adding a task" />
+
+<figcaption>How the newly added task is displayed on Uncle Jim</figcaption>
+    
+!!! note 
+    Try to keep titles short. If you need more details, do put them in the [description](#adding-descriptions-to-a-task). 
+
 
 #### Adding an event
 
@@ -122,7 +140,7 @@ You can add events by specifying a start time and end time with the `/d` flag. E
 If you need something done by a specific time, add a deadline to your task by specifying a single date and time with the `/d` flag.
 
 !!! example
-    **`add`**` Submit V.0.0 /d 5 Oct 2359`
+    **`add`**` Submit Project Proposal V0.0 /d 5 Oct 2359`
 
 #### Adding descriptions to a task
 
@@ -175,21 +193,31 @@ This allows you to delete the task specified by the `INDEX` parameter. The index
     **`delete`**` 1`  
     :    Deletes the 1st task in the results of the **`find`**` Y2S1` command.
 
+<!-- @@author A0139021U -->
+
 ### Marking a task complete: **`complete`**
 
 Format:  
 **`complete`**` INDEX`  
-**`complete`**` --all`
+**`complete`**` /all`
 
 After finishing a task, you can mark it complete by specifying the index of the task you wish to mark complete in the `INDEX` parameter. Completed tasks have their title struckthrough. 
 
-If you wish to mark a batch of task in the current view as complete, you can use the `--all` flag to mark them all as complete. 
+If you wish to mark a batch of task in the current view as complete, you can use the `/all` flag to mark them all as complete. 
 
-Note that this is a toggle command, so if `INDEX` specified is an 
+<img src="images/app_completed.png" width="700" alt="Example of a Completed Task" />
 
-<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task" />
+<figcaption>The satisfying view of a completed task</figcaption>
 
-<figcaption>Enjoy the satisfaction of marking completed tasks</figcaption>
+Note that this is a toggle command, so if the specified task is already completed, running this will mark the task as incomplete again. 
+
+
+### Clearing tasks: **`clear`**
+
+Format:  
+**`clear`**
+
+If you start to have a lot of completed tasks building up, you can clear the clutter by deleting all of them with  `clear`. Note that this only clears completed tasks in the current view. 
 
 ### Pinning a task: **`pin`**
 
@@ -197,7 +225,7 @@ Format: **`pin`**` INDEX`
 
 If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. 
 
-<img src="images/app_screenshot_pinning.png" width="700" alt="Pinned Task">
+<img src="images/app_pin.png" width="540" alt="Pinned Task">
 
 <figcaption>Prioritize important tasks with pinned tasks.</figcaption>
 
@@ -211,42 +239,49 @@ You can edit tasks or events using the `edit` command. This command accepts the 
 
 Note that edits are automatically saved, and any errors can be undone using `undo`. 
 
-### Manage tags: **`tag`** 
+<!-- @@author A0135805H -->
 
-Add, edit and delete tags.  
+### Managing tags: **`tag`** 
+  
 Format:   
-**`tag`**` INDEX TAG 1, TAG 2, ...`  
-**`tag`**` INDEX /a NEW TAG, ...`  
-**`tag`**` /e OLD NEW`  
+**`tag`**  
+**`tag`**` INDEX TAG1, TAG2, ...`  
+**`tag`**` [INDEX] /r OLD NEW`  
 **`tag`**` [INDEX] /d TAG`  
 
-You can use tags to organize your tasks easily. Tags are case insensitive, and each task can have up to five of them. Use the `tag` command to add, edit or delete tags from one or all of the tasks. Here are the scenarios you would use each format of the `tag` command: 
+You can use tags to organize your tasks easily. Each task may have up to 5 tags. Tags are alpha-numeric and case-insensitive, and you can use hyphens "-" and underscores "\_" in your tags too. You can use the `tag` command to add, edit or delete tags from one or all of the tasks. Here are some of the examples of what you can do with the `tag` command:
 
-#### Retagging a task 
+#### Viewing all tags used so far
 
-You can replace the tags on a task with new ones using the `INDEX` with the list of new tags:
+Sometimes you might not want to reuse tags you have used for other tasks previously. To check what tags are already used, simply type `tag` with no flags, and Uncle Jim will show you all tags that are used in the app. 
 
-!!! example
-    **`tag`**` 1 nus, cs2101, cs2103t` 
-    :     Replace the tags on the first task with `nus`, `cs2101` and `cs2103t`
+<img src="images/app_tag.png" width="700" alt="Global Tag List" />
+
+<figcaption>All your tags in one place</figcaption>
+
 
 #### Adding tags to a task 
 
-If you wish to add more tags to a task, use `/a`:
+If you wish to add tags to a task, simply type `tag` with the `INDEX` and the tag names you wish to add to a task. This does not overwite any existing tags on a task:
 
 !!! example
-    **`tag`**` 1 /a cs2103T`
+    **`tag`**` 1 cs2103T`
     :    Adds the `cs2103T` tag to the first task on the list
 
 
-#### Editing tags 
+#### Editing tags  
 
-You can also rename tags using `/e`:
+You can rename tags for either a single task, or all tasks using `/r`:
 
 !!! example
-    **`tag`**` /e Business Pleasure` 
+    **`tag`**` /r Business Pleasure` 
     :    Renames the `Business` tag to `Pleasure` 
     
+    **`tag`**` 1 /r Business Pleasure` 
+    :    Renames the `Business` tag to `Pleasure` only in task 1. 
+
+!!! note 
+    Note that without the *INDEX* parameter, this will affect all tasks tagged with the specified tag, such as *Business* in the example above.
 
 #### Deleting tags 
 
@@ -260,14 +295,19 @@ You can also remove a tag from either a single task, or all tasks at once with `
     :    Removes the `important` tag from **all** tasks. Remember you can always `undo` if you make a mistake. 
 
 !!! note "Keep it simple!"
-    Tags are only really necessary if you have a *lot* of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks.
+    Tags are only really necessary if you have a *lot* of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks. In this manner, we have imposed a maximum of **five** tags per task.
     
 ### Showing details of a task: **`show`**
 
   
 Format: **`show`**` INDEX`
 
-Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form.
+Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form, as shown below:
+
+<img src="images/app_collapse.png" width="700" alt="Expanding a task for more details" />
+
+<figcaption>Get details of any task you need easily</figcaption>
+
 
 
 ### Switching views: **`view`**
@@ -294,30 +334,37 @@ You can also use the underlined character in the view's name as the shortcut whe
 
 ### Finding tasks: **`find`**
 
-Format: **`find`**` KEYWORD [MORE KEYWORDS]`
+Format: **`find`**` KEYWORD [MORE KEYWORDS] [/t TAGS]`
 
-You can search for tasks using the `find` command. The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and any tasks matching at least one keyword will be returned.
+You can search for tasks using the `find` command. The search is case insensitive and the order of the keywords does not matter. Add the `/t` flag allows you to specifically search for those tags. 
 
 !!! note 
     Keywords are separated by spaces, not comma
 
 !!! example  
-    **`find`**` John`  
-    :    Returns **Meet John for lunch**
+
+    **`find`**`Github`  
+    :    Returns tasks with ** Fix Github Issue #119 **
     
-    **`find`**` Jo`  
-    :    Returns any task with **Jo** in the title, such as **Meet John for lunch**, 
-         **Jogging at the park**, or **Jousting fights at the gym**
+    **`find`**` /t code`  
+    :    Returns any task tagged with **code** in the tags
     
-    **`find`**` Jo Ja`  
-    :    Returns any task with either **Jo** or **Ja** in the title, such as 
-         **Meet John for lunch**, **Meet Jane for lunch**, or **Jack and Jane's wedding**
+    **`find`**` git development code`  
+    :    Returns any task with either **git**, **development**, or **code** in the title, such as 
+         **Fix the app bug in Github #119**, **Watch Tutorial on iOS development**, **Improve code quality with SLAP** and so on and so forth.
+    
+<img src="images/app_find.png" width="700" alt="Find results view" />
+
+<figcaption>How the above search result using `find` would look like.</figcaption>
+    
 
 ### Exiting the app: **`exit`**
   
 Format: **`exit`**  
 
 If you wish to exit the program, simply type `exit`.
+
+<!-- @@author A0135817B -->
 
 ### Undoing an action: **`undo`**
 
@@ -355,11 +402,48 @@ The `save` command will show you the location of the current save file if you us
 !!! note "Autosave"
     Your to-do list is saved automatically every time it is updated. There is no need to save manually after each edit. 
 
+<!-- @@author A0092382A -->
+
+## Other Features
+
+### Visual Feedback
+
+Our user interface is very interactive and features a lot of visual feedback to the user. For example, for commands such as add, edit and show, you can see upon which task your action acts upon by viewing which task is highlighted.
+
+Also, Uncle Jim distinguishes between tasks and events, not only by different tag colors but by also handling them differently. For example, if you have a task that is overdue, Uncle Jim will instantly highlight it <strong class="text-red">red</strong>. 
+
+For events which are ongoing, they will be highlighted <strong class="text-green">green</strong>.
+
+For events which have passed, they will be <strong class="text-faded">faded</strong>, but we leave it to you to mark the events complete.
+
+### Intelligent Command™
+
+As you get more advanced with Uncle Jim, you might find typing the full command slightly slow. But you can actually type less than required, because our Intelligent Command™ system can recognise commands even if you do not type them out fully.
+
+!!! example
+    **`com`**`1`
+    :    Marks the first task on the current lsit as complete. Our system recognises it as the complete command
+
+If the commands are ambiguous, our system will ask you for clarification of which command you wish to execute.
+
+For example, typing just `e` could refer to `edit` or `exit` so a message as shown below will be displayed to you.
+
+<img src="images/app_ambiguous.png" width="700" alt="Feedback when an ambiguous command is entered" />
+
+<figcaption>The app will prompt you if it cannot figure out the command you are entering</figcaption>
+
+### Command Preview™
+
+We also understand that it takes time for new users to remember all the commands. As such, we have a CommandPreview™ which tells you the parameters of the command you have to enter. For example, if you type `ad` the system will process your keypresses and display to you what commands it thinks you are going to execute and displays them as shown below:
+
+<img src="images/app_command_preview.png" width="700" alt="CommandPreview™" />
+
+<figcaption>No need for remembering commands when Uncle Jim does the remembering for you.</figcaption>
 
 ## FAQ
 
 **Q**: Is my data secure?  
-**A**: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. 
+**A**: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your To-do list. 
 
 **Q**: How do I back up my data?  
 **A**: As your data is saved to the file that you specified, you can simply copy this file to a back up storage of your choice.
@@ -375,14 +459,15 @@ The `save` command will show you the location of the current save file if you us
 Command  | Format  
 -------- | :-------- 
 Help     | **`help`**
-Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]` 
+Add      | **`add`**` NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`
+Clear    | **`clear`** 
 Delete   | **`delete`**` INDEX`
 Complete | **`complete`**` INDEX` or `/all`
 Pin      | **`pin`**` INDEX`
 Show     | **`show`**` INDEX`
-Edit     | **`edit`**` INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]`
-Tag      | **`tag`**` INDEX TAG 1, [TAG 2...]` or `INDEX a/ NEW TAG` or `/e OLD NEW` or `[INDEX] /d TAG`
-Find     | **`find`**` KEYWORD [MORE KEYWORDS...]`
+Edit     | **`edit`**` INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/p]`
+Tag      | **`tag`**` INDEX TAG 1, [TAG 2...]` or `[INDEX] /r OLD NEW` or `[INDEX] /d TAG`
+Find     | **`find`**` KEYWORD [MORE KEYWORDS...] or /t TAG [MORE TAGS ...] or both`
 Undo     | **`undo`**
 Redo     | **`redo`**
 Load     | **`load`**` FILENAME`
