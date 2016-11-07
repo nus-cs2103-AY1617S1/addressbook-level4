@@ -117,7 +117,9 @@ public class DateTimeUtilTest {
     	assertEquals(DateTimeUtil.combineLocalDateAndTime(date, null), expectedCombineLocalDateAndTime);
     }
     
-    @Test
+  //@@author A0142421X-unused
+    /*
+     *@Test
     public void testBeforeOther_onDate_null_true() throws IllegalValueException {
     	TaskDate byDate = new TaskDate("8-12-2000", "by");
     	assertTrue(DateTimeUtil.beforeOther(null, byDate));
@@ -129,9 +131,7 @@ public class DateTimeUtilTest {
     	assertTrue(DateTimeUtil.beforeOther(onDate, null));
     }
     
-    //@@author A0142421X-unused
-    /*
-     * @Test
+    @Test
     public void testBeforeOther_onDate_null_byDate_null_true() throws IllegalValueException {
     	assertTrue(DateTimeUtil.beforeOther(null, null));
     }
