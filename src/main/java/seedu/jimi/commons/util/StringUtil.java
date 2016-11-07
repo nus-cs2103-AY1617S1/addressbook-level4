@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 //@@author A0140133B
 /**
@@ -131,6 +133,19 @@ public class StringUtil {
         } else {
             return trimmed; // Text is the first word itself.
         }
+    }
+    
+    /**
+     * Returns a string that has all items in {@code items} on its own indexed new line.
+     * @param items items to be indexed.
+     * @return a string that has all items on an indexed new line.
+     */
+    public static <T> String toIndexedListString(List<T> items) {
+        assert items != null;
+        CollectionUtil.assertNoNullElements(items);
+        return IntStream.range(0, items.size())
+                .mapToObj(i -> (i + 1) + ". " + items.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
     
     /** 

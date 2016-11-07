@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.commons.util.StringUtil;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -70,7 +71,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         actualEndIdx = Math.min(actualEndIdx, lastShownList.size());
         
         List<ReadOnlyTask> toDelete = lastShownList.subList(actualStartIdx - 1, actualEndIdx);
-        String deletedFeedback = getListOfTasksAsText(toDelete);
+        String deletedFeedback = StringUtil.toIndexedListString(toDelete);
         deleteListOfTasks(toDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deletedFeedback));
     }
@@ -112,13 +113,6 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         return startIdx.toLowerCase().charAt(0) == endIdx.toLowerCase().charAt(0);
     }
     
-    /** Converts {@code list} to a string with each task on an indexed newline. */
-    private String getListOfTasksAsText(List<ReadOnlyTask> list) {
-        return IntStream.range(0, list.size())
-                .mapToObj(i -> (i + 1) + ". " + list.get(i).toString())
-                .collect(Collectors.joining("\n"));
-    }
-
     /** Deletes everything in {@code toDelete} from {@code model}. */
     private void deleteListOfTasks(List<ReadOnlyTask> toDelete) {
         for (int i = toDelete.size(); i > 0; i--) {
