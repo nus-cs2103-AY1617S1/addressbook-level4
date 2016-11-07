@@ -3,11 +3,10 @@ package w15c2.tusk.testutil;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0143107U
 /**
  * A mutable task object. For testing only.
  */
-//@@author A0143107U
-
 public class TestTask extends Task {
 
 	private Description description;

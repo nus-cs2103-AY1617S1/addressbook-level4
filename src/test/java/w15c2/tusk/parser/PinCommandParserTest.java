@@ -9,11 +9,10 @@ import org.junit.Test;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
 import w15c2.tusk.logic.parser.PinCommandParser;
-
+//@@author A0143107U
 /**
  * Tests Pin Command Parser
  */
-//@@author A0143107U
 public class PinCommandParserTest {
 	// Initialized to support the tests
 	PinCommandParser parser = new PinCommandParser();

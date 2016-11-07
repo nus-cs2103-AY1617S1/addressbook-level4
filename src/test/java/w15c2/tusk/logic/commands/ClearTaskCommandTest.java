@@ -15,6 +15,9 @@ import w15c2.tusk.model.Model;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139817U
+/**
+ * Tests ClearTask Command 
+ */
 public class ClearTaskCommandTest {
 
 	// Initialized to support the tests

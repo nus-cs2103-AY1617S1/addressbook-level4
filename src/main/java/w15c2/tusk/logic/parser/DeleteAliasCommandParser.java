@@ -6,7 +6,7 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0143107U
-/*
+/**
  * Parses delete alias commands
  */
 public class DeleteAliasCommandParser extends CommandParser{

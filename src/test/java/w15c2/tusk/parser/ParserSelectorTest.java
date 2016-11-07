@@ -7,11 +7,10 @@ import org.junit.Test;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.parser.*;
-
+//@@author A0143107U
 /**
  * Tests ParserSelector
  */
-//@@author A0143107U
 public class ParserSelectorTest {
 
 	/**

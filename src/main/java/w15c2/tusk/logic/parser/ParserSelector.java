@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import w15c2.tusk.commons.core.LogsCenter;
 
 //@@author A0143107U
-/*
+/**
  * Responsible for selecting an appropriate parser from a pre-specified list
  */
 public class ParserSelector {
