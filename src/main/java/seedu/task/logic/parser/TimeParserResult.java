@@ -44,8 +44,7 @@ public class TimeParserResult {
     }
 
     /**
-     * Update date and time with default setting
-     * e.g. from today 1pm to 3pm. End date is initially null. The method will set end date as today.
+     * Update the DateTimeStatus
      */
     public void updateDateTime() {
         rawDateTimeStatus = getDateTimeStatus();
