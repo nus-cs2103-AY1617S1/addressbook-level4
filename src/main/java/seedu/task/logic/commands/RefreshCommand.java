@@ -19,6 +19,8 @@ import seedu.task.model.task.Task;
 public class RefreshCommand extends Command {
 
     public static final String COMMAND_WORD = "refresh";
+    public static final String COMMAND_WORD_ALT = "r";
+    
     public static final String MESSAGE_SUCCESS = "Task manager has been refreshed!";
     public static final String EMPTY_STRING = "";
 

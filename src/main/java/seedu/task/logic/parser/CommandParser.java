@@ -41,6 +41,7 @@ public class CommandParser {
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD_ALT:
             return AddCommandParser.prepareAdd(arguments);
 
         case EditCommand.COMMAND_WORD:
@@ -51,24 +52,29 @@ public class CommandParser {
             return SelectCommandParser.prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD_ALT:
             return DeleteCommandParser.prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD_ALT:
             return FindCommandParser.prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD_ALT:
             return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD_ALT:
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD_ALT:
             return UndoCommandParser.prepareUndo(arguments);
 
         case DirectoryCommand.COMMAND_WORD:
@@ -93,12 +99,17 @@ public class CommandParser {
             return DoneCommandParser.prepareUndone(arguments);
 
         case FavoriteCommand.COMMAND_WORD:
+        case FavoriteCommand.COMMAND_WORD_ALT_1:
+        case FavoriteCommand.COMMAND_WORD_ALT_2:
             return FavouriteCommandParser.prepareFavorite(arguments);
 
         case UnfavoriteCommand.COMMAND_WORD:
+        case UnfavoriteCommand.COMMAND_WORD_ALT_1:
+        case UnfavoriteCommand.COMMAND_WORD_ALT_2:
             return FavouriteCommandParser.prepareUnfavorite(arguments);
 
         case RefreshCommand.COMMAND_WORD:
+        case RefreshCommand.COMMAND_WORD_ALT:
             return new RefreshCommand();
 
         default:

@@ -16,7 +16,12 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  * Unfavorite a task from the task manager.
  */
 public class UnfavoriteCommand extends Command {
-    public static final String COMMAND_WORD = "unfav";
+    
+    // @@author A0147944U
+    public static final String COMMAND_WORD = "unfavorite";
+    public static final String COMMAND_WORD_ALT_1 = "unfavourite";
+    public static final String COMMAND_WORD_ALT_2 = "unfav";
+    // @@author A0147335E
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unfavorite the task identified by the index number used in the last task listing.\n"
