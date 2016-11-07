@@ -15,6 +15,8 @@ import java.util.Date;
 //@@author A0139915W
 public class SmartDefaultDatesTest {
 
+    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmmss");
+    
     @Test
     public void smartDefaultDates_parseStart() {
         DateParser dateParser = new DateParser();
@@ -29,10 +31,9 @@ public class SmartDefaultDatesTest {
         SmartDefaultDates sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // specifying only start date, assumed to on the given date at 12am
         // and to end on the given date at 2359:59
-        Date expectedStartTime = getDate("31/12/2016 000000");
-        Date expectedEndTime = getDate("31/12/2016 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate("31/12/2016 000000"), getDate("31/12/2016 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date today = today(0, 0);
@@ -45,10 +46,9 @@ public class SmartDefaultDatesTest {
         sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // specifying only start time, assumed to start today at the given time
         // and to end today 2359:59
-        expectedStartTime = getDate(sdf.format(today) + " 150000");
-        expectedEndTime = getDate(sdf.format(today) + " 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 150000"), getDate(sdf.format(today) + " 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
     }
 
     @Test
@@ -67,10 +67,9 @@ public class SmartDefaultDatesTest {
         SmartDefaultDates sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // specified only the end date, assumed to start today at 12am
         // and to end on the given date at 2359:59
-        Date expectedStartTime = getDate(sdf.format(today) + " 000000");
-        Date expectedEndTime = getDate("31/12/2016 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 000000"), getDate("31/12/2016 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
         
         try {
             //use MM-dd-yyyy
@@ -81,10 +80,9 @@ public class SmartDefaultDatesTest {
         sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // specified only the end time, assumed to start today at 12am
         // and to end at the given time today
-        expectedStartTime = getDate(sdf.format(today) + " 000000");
-        expectedEndTime = getDate(sdf.format(today) + " 150000");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 000000"), getDate(sdf.format(today) + " 150000"), 
+                sdd.getStartDate(), sdd.getEndDate());
 
         
         try {
@@ -96,10 +94,9 @@ public class SmartDefaultDatesTest {
         sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // specified only the end date in the past, start date will be null
         // and to end on the given date at 2359:59
-        expectedStartTime = null;
-        expectedEndTime = getDate("31/12/2000 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                null, getDate("31/12/2000 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
     }
 
     @Test
@@ -126,10 +123,9 @@ public class SmartDefaultDatesTest {
         // no time supplied for start and end
         // start defaults to 0000
         // end defaults to 2359:59
-        Date expectedStartTime = getDate("31/12/2016 000000");
-        Date expectedEndTime = getDate("31/12/2016 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate("31/12/2016 000000"), getDate("31/12/2016 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
 
         inferredStart = null;
         inferredEnd = null;
@@ -145,10 +141,9 @@ public class SmartDefaultDatesTest {
         // start defaults to 0000
         // end defaults to 2359:59
         // no restrictions imposed on end time earlier than start time
-        expectedStartTime = getDate("31/12/2016 000000");
-        expectedEndTime = getDate("30/12/2016 235959");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate("31/12/2016 000000"), getDate("30/12/2016 235959"), 
+                sdd.getStartDate(), sdd.getEndDate());
 
         inferredStart = null;
         inferredEnd = null;
@@ -162,10 +157,9 @@ public class SmartDefaultDatesTest {
         sdd = new SmartDefaultDates(inferredStart, inferredEnd);
         // no date supplied for start and end
         // start and end defaults to the given time today
-        expectedStartTime = getDate(sdf.format(today) + " 100000");
-        expectedEndTime = getDate(sdf.format(today) + " 220000");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 100000"), getDate(sdf.format(today) + " 220000"), 
+                sdd.getStartDate(), sdd.getEndDate());
 
         inferredStart = null;
         inferredEnd = null;
@@ -180,10 +174,9 @@ public class SmartDefaultDatesTest {
         // no date supplied for start and end, end time ends before start time
         // start and end defaults to the given time today
         // no restrictions imposed on end time being earlier
-        expectedStartTime = getDate(sdf.format(today) + " 220000");
-        expectedEndTime = getDate(sdf.format(today) + " 100000");
-        assertEquals(expectedStartTime, sdd.getStartDate());
-        assertEquals(expectedEndTime, sdd.getEndDate());
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 220000"), getDate(sdf.format(today) + " 100000"), 
+                sdd.getStartDate(), sdd.getEndDate());
     }
 
     @Test
@@ -194,10 +187,8 @@ public class SmartDefaultDatesTest {
         SmartDefaultDates sdd = new SmartDefaultDates(null, null);
         Date actualStart = sdd.getStart(dateParser.new InferredDate(new Date(), true, true));
         Date actualEnd = sdd.getEnd(dateParser.new InferredDate(new Date(), true, true));
-        Date expectedStart = null;
-        Date expectedEnd = null;
-        assertEquals(expectedStart, actualStart);
-        assertEquals(expectedEnd, actualEnd);
+        assertStartEndEquals(null, null, 
+                actualStart, actualEnd);
         
         try {
             //use MM-dd-yyyy
@@ -206,10 +197,9 @@ public class SmartDefaultDatesTest {
         } catch (ParseException e) {
             assert false; //won't get here
         }
-        expectedStart = getDate(sdf.format(today) + " 220000");
-        expectedEnd = getDate(sdf.format(today) + " 100000");
-        assertEquals(expectedStart, actualStart);
-        assertEquals(expectedEnd, actualEnd);
+        assertStartEndEquals(
+                getDate(sdf.format(today) + " 220000"), getDate(sdf.format(today) + " 100000"), 
+                actualStart, actualEnd);
         
         try {
             //use MM-dd-yyyy
@@ -218,13 +208,16 @@ public class SmartDefaultDatesTest {
         } catch (ParseException e) {
             assert false; //won't get here
         }
-        expectedStart = getDate("31/12/2016 000000");
-        expectedEnd = getDate("31/12/2016 235959");
+        assertStartEndEquals(getDate("31/12/2016 000000"), getDate("31/12/2016 235959"), 
+                actualStart, actualEnd);
+    }
+    
+    private void assertStartEndEquals(Date expectedStart, Date expectedEnd,
+            Date actualStart, Date actualEnd) {
         assertEquals(expectedStart, actualStart);
         assertEquals(expectedEnd, actualEnd);
     }
 
-    private SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HHmmss");
     private Date getDate(String ddmmyyyy) {
         try {
             return format.parse(ddmmyyyy);

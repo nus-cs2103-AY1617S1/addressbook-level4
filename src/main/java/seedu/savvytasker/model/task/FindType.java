@@ -38,8 +38,9 @@ public enum FindType {
      */
     public static FindType valueOfIgnoreCase(String name) {
         for (FindType type : FindType.values()) {
-            if (type.toString().equalsIgnoreCase(name))
+            if (type.toString().equalsIgnoreCase(name)) {
                 return type;
+            }
         }
         
         throw new IllegalArgumentException("Unknown find type: " + name);

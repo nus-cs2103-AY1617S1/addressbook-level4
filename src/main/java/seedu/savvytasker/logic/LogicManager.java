@@ -1,13 +1,14 @@
 package seedu.savvytasker.logic;
 
+import java.util.Date;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
-import seedu.savvytasker.MainApp;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.LogsCenter;
@@ -37,26 +38,26 @@ import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
-import seedu.savvytasker.ui.Ui;
 
 /**
  * The main LogicManager of the app.
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
+    private final int MAX_UNDO_REDO_QUEUE_SIZE = 50;
+    
     private final Model model;
     private final Storage storage;
     private final MasterParser parser;
-    private final Stack<Command> undoStack;
-    private final Stack<Command> redoStack;
+    private final Deque<Command> undoDeque;
+    private final Deque<Command> redoDeque;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         this.parser = new MasterParser();
-        this.undoStack = new Stack<Command>();
-        this.redoStack = new Stack<Command>();
+        this.undoDeque = new LinkedList<Command>();
+        this.redoDeque = new LinkedList<Command>();
         
         registerAllDefaultCommandParsers();
         loadAllAliasSymbols();
@@ -89,23 +90,48 @@ public class LogicManager extends ComponentManager implements Logic {
             }
         }
         else if (command.canUndo()){
-            undoStack.push(command);
-            redoStack.clear();
+            //@@author A0139916U
+            undoDeque.addLast(command);
+            if (undoDeque.size() > MAX_UNDO_REDO_QUEUE_SIZE) {
+                undoDeque.removeFirst();
+            }
+            redoDeque.clear();
         }
         //@@author
         
         return result;
     }
-
+    
     //@@author A0139915W
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-
     @Override
     public ObservableList<AliasSymbol> getAliasSymbolList() {
         return parser.getAliasSymbolList();
+    }    
+    //@@author
+
+    //@@author A0138431L
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredOverdueTasks() {
+        return model.getFilteredOverdueTasks();
+    }
+
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredFloatingTasks() {
+        return model.getFilteredFloatingTasks();
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredDailyTasks(int i, Date date) {
+        return model.getFilteredDailyTasks(i, date);
+    }
+    
+    @Override
+    public ObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date) {
+        return model.getFilteredUpcomingTasks(date);
     }
     //@@author
     
@@ -135,26 +161,34 @@ public class LogicManager extends ComponentManager implements Logic {
         }
     }
     
+    /**
+     * Undo last command and add it to the redo deque.
+     * @return true if undone successfully, false otherwise
+     */
     private boolean undo() {
         boolean undone = false;
         
-        if (!undoStack.isEmpty()) {
-            Command command = undoStack.pop();
+        if (!undoDeque.isEmpty()) {
+            Command command = undoDeque.removeLast();
             command.undo();
-            redoStack.push(command);
+            redoDeque.addLast(command);
             undone = true;
         }
         
         return undone;
     }
 
+    /**
+     * Redo last command and add it to undone deque.
+     * @return true if redone successfully, false otherwise
+     */
     private boolean redo() {
         boolean redone = false;
         
-        if (!redoStack.isEmpty()) {
-            Command command = redoStack.pop();
+        if (!redoDeque.isEmpty()) {
+            Command command = redoDeque.removeLast();
             command.redo();
-            undoStack.push(command);
+            undoDeque.addLast(command);
             redone = true;
         }
         

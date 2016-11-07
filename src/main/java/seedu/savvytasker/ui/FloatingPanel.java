@@ -16,25 +16,29 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0138431L
+
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list floating task.
+ * @author A0138431L
+ * 
  */
-public class TaskListPanel extends UiPart {
+public class FloatingPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "FloatingList.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
+    public FloatingPanel() {
+        super();
+    }
+
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
-    }
-    
-    public Node getNode() {
-        return panel;
     }
 
     @Override
@@ -47,12 +51,12 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static FloatingPanel load(Stage primaryStage, AnchorPane floatingListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
-        personListPanel.configure(taskList);
-        return personListPanel;
+    	FloatingPanel floatingPanel =
+                UiPartLoader.loadUiPart(primaryStage, floatingListPlaceholder, new FloatingPanel());
+    	floatingPanel.configure(taskList);
+        return floatingPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -74,7 +78,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in floating task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
@@ -88,6 +92,9 @@ public class TaskListPanel extends UiPart {
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
+
+        public TaskListViewCell() {
+        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

@@ -76,15 +76,15 @@ public class DateParser {
         List<DateGroup> dateGroups = this.nattyParser.parse(input);
         int totalDates = countDates(dateGroups);
         
-        if (totalDates == 0)
+        if (totalDates == 0) {
             throw new ParseException(input, "Failed to understand given date.");
+        }
         
-        if (totalDates > 1)
+        if (totalDates > 1) {
             throw new ParseException(input, "Too many dates entered.");
+        }
         
         DateGroup group = dateGroups.get(0);
-        
-        
         
         return new InferredDate(
                 group.getDates().get(0),

@@ -16,25 +16,29 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
+//@@author A0138431L
+
 /**
- * Panel containing the list of tasks.
- */
-public class TaskListPanel extends UiPart {
+* Panel containing the list overdue task.
+* @author A0138431L
+* 
+*/
+public class OverduePanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "OverdueList.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
+    public OverduePanel() {
+        super();
+    }
+
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
-    }
-    
-    public Node getNode() {
-        return panel;
     }
 
     @Override
@@ -47,12 +51,12 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static OverduePanel load(Stage primaryStage, AnchorPane overdueListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
-        personListPanel.configure(taskList);
-        return personListPanel;
+    	OverduePanel oveduePanel =
+                UiPartLoader.loadUiPart(primaryStage, overdueListPlaceholder, new OverduePanel());
+    	oveduePanel.configure(taskList);
+        return oveduePanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -74,7 +78,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in overdue task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
@@ -88,6 +92,9 @@ public class TaskListPanel extends UiPart {
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
+
+        public TaskListViewCell() {
+        }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {

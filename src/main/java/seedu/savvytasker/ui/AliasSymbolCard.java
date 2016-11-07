@@ -22,10 +22,6 @@ public class AliasSymbolCard extends UiPart{
     private AliasSymbol symbol;
     private int displayedIndex;
 
-    public AliasSymbolCard(){
-
-    }
-
     public static AliasSymbolCard load(AliasSymbol symbol, int displayedIndex){
         AliasSymbolCard card = new AliasSymbolCard();
         card.symbol = symbol;

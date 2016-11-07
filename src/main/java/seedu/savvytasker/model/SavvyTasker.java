@@ -202,8 +202,10 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
             }
             break;
         case None:
+            //fall through
         default:
             assert false; // should not come here
+            break;
         }
         t.setStartDateTime(startDate);
         t.setEndDateTime(endDate);

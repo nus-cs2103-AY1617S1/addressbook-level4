@@ -3,7 +3,7 @@ package seedu.savvytasker.commons.events.storage;
 import seedu.savvytasker.commons.events.BaseEvent;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 
-//@@author A0139915W
+//@@author A0138431L
 /**
  * Indicates a change in location of the storage
  */

@@ -46,7 +46,7 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
     protected static MainApp instance;
-
+    
     public MainApp() {}
 
     @Override
@@ -54,7 +54,7 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing Savvy Tasker ]===========================");
         super.init();
         instance = this;
-        
+
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getSavvyTaskerFilePath(), config.getUserPrefsFilePath());
 
@@ -69,8 +69,9 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
+        
     }
-
+    
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
@@ -183,7 +184,7 @@ public class MainApp extends Application {
         System.exit(0);
     }
     
-    //@@author A0139915W
+    //@@author A0138431L
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {
         try {

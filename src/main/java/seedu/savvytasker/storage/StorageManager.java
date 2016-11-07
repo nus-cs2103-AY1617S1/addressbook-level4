@@ -84,7 +84,7 @@ public class StorageManager extends ComponentManager implements Storage {
         savvyTaskerStorage.saveSavvyTasker(savvyTasker, filePath);
     }
 
-    //@@author A0139915W
+    //@@author A0138431L
     @Override
     @Subscribe
     public void handleSavvyTaskerSaveLocationChangedEvent(DataSavingLocationChangedEvent dslce) {

@@ -17,7 +17,6 @@ public class Config {
     private String savvyTaskerFilePath = "data/savvytasker.xml";
     private String savvyTaskerListName = "MyTaskList";
 
-
     public Config() {
     }
 
@@ -60,7 +59,6 @@ public class Config {
     public void setSavvyTaskerName(String savvyTaskerName) {
         this.savvyTaskerListName = savvyTaskerName;
     }
-
 
     @Override
     public boolean equals(Object other) {

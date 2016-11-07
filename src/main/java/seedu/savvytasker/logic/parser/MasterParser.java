@@ -149,8 +149,9 @@ public class MasterParser {
             String spaces = matcher.group(2); // Preserves the amount of spaces as that may be what user wants
             
             AliasSymbol symbol = aliasingSymbols.get(keyword);
-            if (symbol != null)
+            if (symbol != null) {
                 keyword = symbol.getRepresentation();
+            }
             
             builder.append(keyword);
             builder.append(spaces);            
@@ -176,10 +177,12 @@ public class MasterParser {
     public boolean registerCommandParser(CommandParser<? extends Command> commandParser) {
         assert commandParser != null;
         
-        if (commandParsers.containsKey(commandParser.getHeader()))
+        if (commandParsers.containsKey(commandParser.getHeader())) {
             return false;
-        if (aliasingSymbols.containsKey(commandParser.getHeader()))
+        }
+        if (aliasingSymbols.containsKey(commandParser.getHeader())) {
             return false;
+        }
         
         commandParsers.put(commandParser.getHeader(), commandParser);   
         return true;
@@ -219,10 +222,12 @@ public class MasterParser {
     public boolean addAliasSymbol(AliasSymbol symbol) {
         assert symbol != null;
         
-        if (aliasingSymbols.containsKey(symbol.getKeyword()))
+        if (aliasingSymbols.containsKey(symbol.getKeyword())) {
             return false;
-        if (isCommandParserRegistered(symbol.getKeyword()))
+        }
+        if (isCommandParserRegistered(symbol.getKeyword())) {
             return false;
+        }
 
         aliasList.add(symbol);
         aliasingSymbols.put(symbol.getKeyword(), symbol);
