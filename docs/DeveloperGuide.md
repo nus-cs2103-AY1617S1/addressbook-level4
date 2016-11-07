@@ -386,7 +386,7 @@ Use case resumes from step 3.
 5. Should have clear documentations
 6. Should be user-friendly with neat layout
 7. Output should be exportable to another computer (example through XML files)
-
+<!-- @@author A0131813R -->
 ## Appendix D Glossary
 
 
