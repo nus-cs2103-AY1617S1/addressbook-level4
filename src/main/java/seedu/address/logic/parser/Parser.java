@@ -404,10 +404,11 @@ public class Parser {
      * Parse the arguments into taskType, status and date
      */
     private Command prepareList(String arguments) {
-		if (arguments.trim().equals("")) {
+		// Empty arguments return ListCommand without parameters
+    	if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-		
+		// 
 		String[] args = arguments.split(" ");
 		if(!isValidListArguments(args)) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
