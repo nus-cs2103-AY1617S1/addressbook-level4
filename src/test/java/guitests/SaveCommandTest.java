@@ -12,10 +12,10 @@ import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.storage.JsonConfigStorage;
 
 //@@author A0125534L
+
 /**
  * Responsible for testing the GUI execution of SaveCommand
  * 
- * @@author Yee Heng
  */
 
 //------------------------Tests for Valid arguments----------------
