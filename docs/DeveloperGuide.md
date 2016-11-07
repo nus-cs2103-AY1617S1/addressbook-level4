@@ -61,7 +61,7 @@ This guide describes the design and implementation of *DearJim*. It will help yo
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
-<!-- @author A0093960X -->
+<!-- @@author A0093960X -->
 ## Design
 
 ### Architecture
