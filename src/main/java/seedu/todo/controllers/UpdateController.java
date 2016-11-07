@@ -105,14 +105,13 @@ public class UpdateController extends Controller {
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
         try {
-            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            // Allow exception for "null"
+            dateFrom = (naturalFrom == null || STRING_NULL.equals(naturalFrom.trim()))
+                    ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            // Allow exception for "null"
-            if (!naturalFrom.trim().equals(STRING_NULL)) {
-                renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
-                return;
-            }
+            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
+            return;
         }
 
         // Validate isTask, name and times.
