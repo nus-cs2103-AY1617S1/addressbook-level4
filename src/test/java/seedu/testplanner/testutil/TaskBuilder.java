@@ -1,6 +1,7 @@
 package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
+import seedu.dailyplanner.logic.parser.nattyParser;
 import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.task.*;
 
@@ -9,48 +10,64 @@ import seedu.dailyplanner.model.task.*;
  */
 public class TaskBuilder {
 
-    private TestTask task;
+	private TestTask task;
+	nattyParser np;
 
-    public TaskBuilder() {
-        this.task = new TestTask();
-    }
+	public TaskBuilder() {
+		this.task = new TestTask();
+		np = new nattyParser();
+	}
 
-    public TaskBuilder withName(String name) throws IllegalValueException {
-        this.task.setName(name);
-        return this;
-    }
+	public TaskBuilder withName(String name) throws IllegalValueException {
+		this.task.setName(name);
+		return this;
+	}
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
-        return this;
-    }
+	public TaskBuilder withStartDateAndTime(String st) throws IllegalValueException {
+		String convertedSt = np.parse(st);
+		String[] dateTimeArray = convertedSt.split(" ");
+		this.task.setStart(new DateTime(new Date(dateTimeArray[0]), new Time(dateTimeArray[1])));
+		return this;
+	}
 
-    public TaskBuilder withAddress(String address) throws IllegalValueException {
+	public TaskBuilder withStartDate(String st) throws IllegalValueException {
+		String convertedSt = np.parse(st);
+		this.task.setStart(new DateTime(new Date(convertedSt), new Time("")));
+		return this;
+	}
 
-        this.task.setStart(new EndTime(address));
-        return this;
-    }
+	public TaskBuilder withEndDateAndTime(String et) throws IllegalValueException {
+		String convertedEt = np.parse(et);
+		String[] dateTimeArray = convertedEt.split(" ");
+		this.task.setEnd(new DateTime(new Date(dateTimeArray[0]), new Time(dateTimeArray[1])));
+		return this;
+	}
+	
+	public TaskBuilder withEndDate(String et) throws IllegalValueException {
+		String convertedEt = np.parse(et);
+		this.task.setStart(new DateTime(new Date(convertedEt), new Time("")));
+		return this;
+	}
+	
+	public TaskBuilder withCompletion(boolean completion) throws IllegalValueException {
+		this.task.setCompletion(completion);
+		return this;
+	}
+	
+	public TaskBuilder withPin(boolean pinStatus){
+		this.task.setPin(pinStatus);
+		return this;
+	}
 
-    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-        this.task.setDate(new Date1(phone));
-        return this;
-    }
+	public TaskBuilder withCategories(String... cats) throws IllegalValueException {
+		for (String cat : cats) {
+			task.getTags().add(new Tag(cat));
+		}
+		return this;
+	}
 
-    public TaskBuilder withEmail(String email) throws IllegalValueException {
-        this.task.setEnd(new StartTime(email));
-        return this;
-    }
-    
-    public TaskBuilder withCompletion(boolean completion) throws IllegalValueException {
-        return this;
-    }
-  
-
-
-    public TestTask build() {
-        return this.task;
-    }
+	public TestTask build() {
+		return this.task;
+	}
 
 }
