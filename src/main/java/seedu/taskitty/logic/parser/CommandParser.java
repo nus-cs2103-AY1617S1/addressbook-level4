@@ -43,7 +43,7 @@ public class CommandParser {
     public static final int MONTH_COMPONENT_INDEX = 1;
     
     //the time must match approx to the second.
-    private static final String TIME_APPROX = "HH:mm:ss:S";
+    private static final String TIME_APPROX = "HH:mm:ss";
 
     /**
      * Used for initial separation of command word and args.
@@ -442,7 +442,6 @@ public class CommandParser {
         String currentTime = timeFormat.format(new Date());
         String inputTime = timeFormat.format(date);
         
-        System.out.println(currentTime + "=" + inputTime);
         return currentTime.equals(inputTime);
     }
 
