@@ -974,6 +974,31 @@ public class LogicManagerTest {
 			assertEquals(1, targetedJumpIndex);
 			assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
 		}
+				
+		@Test
+		public void execute_deleteInvalidArgsFormat_errorMessageShown_Original() throws Exception {
+			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+			assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+		}
+
+		@Test
+		public void execute_deleteIndexNotFound_errorMessageShown_Original() throws Exception {
+			assertIndexNotFoundBehaviorForCommand("delete");
+		}
+
+		@Test
+		public void execute_delete_removesCorrectPerson() throws Exception {
+			TestDataHelper helper = new TestDataHelper();
+			List<Task> threeTasks = helper.generateTaskList(3);
+
+			ListOfTask expectedAB = helper.generateListOfTask(threeTasks);
+			expectedAB.removeTask(threeTasks.get(1));
+			helper.addToModel(model, threeTasks);
+
+			assertCommandBehavior("delete 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+					expectedAB, expectedAB.getTaskList());
+		}
+
 		
 		//@@author A0147986H-unused
 		/**test the multiple delete command. 
