@@ -125,7 +125,7 @@ public class DoneCommand extends Command {
     }
     
     /**
-     * Jumps to the task before the deleted task.
+     * Jumps to the task before the task to be marked as done.
      */
     private void jumpToTaskBefore(int index) {
         if (targetIndex >= 2) {
