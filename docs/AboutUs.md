@@ -41,7 +41,7 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/Gauri_Joshi.PNG" width="150"><br>
  
 * Role: Developer <br>
-* Component in charge of: Storage
+* Component in charge of: Storage, UI
 * Features implemented: 
   * [Done Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#5-done-command)
   * [UnDone Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#6-undone-command)
