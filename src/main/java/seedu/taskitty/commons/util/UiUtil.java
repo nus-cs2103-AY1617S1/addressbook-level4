@@ -10,16 +10,20 @@ import javafx.scene.control.Alert.AlertType;
  *
  */
 public class UiUtil {
+    public static ButtonType load = new ButtonType("Load");
+    public static ButtonType save = new ButtonType("Save");
     
     /**
-     * Creates an alert asking user whether to overwrite an existing file
-     * @return false if NO is selected and true otherwise
+     * Creates an alert asking user whether to load or overwrite an existing file
+     * @return selected button
      */
-    public static boolean createAlertToOverwriteExistingFile() {
+    public static ButtonType createAlertToOverwriteExistingFile(String filename) {
+        
         Alert alert = new Alert(AlertType.CONFIRMATION,
-                "Overwrite existing file?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+                "File/Directory " + filename + " exists. Would you like to overwrite existing file or load existing file?", 
+                load, save, ButtonType.CANCEL);
         alert.showAndWait();
 
-        return alert.getResult() != ButtonType.NO;
+        return alert.getResult();
     }
 }

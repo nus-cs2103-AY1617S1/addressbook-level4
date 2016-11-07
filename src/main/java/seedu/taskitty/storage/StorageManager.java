@@ -2,6 +2,7 @@ package seedu.taskitty.storage;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.scene.control.ButtonType;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
@@ -42,12 +43,12 @@ public class StorageManager extends ComponentManager implements Storage {
      * Sets appropriate filepath in TaskManagerStorage using an internal method
      * ({@link #changeTaskManager(String, Optional)})
      */
-    public void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException {
+    public void setFilePath(String taskManagerFilePath, boolean isLoad) throws DataConversionException, IOException {
         Optional<ReadOnlyTaskManager> data;
         try {
             data = taskManagerStorage.readTaskManager();
             taskManagerStorage.setFilePath(taskManagerFilePath);
-            if (data.isPresent()) {
+            if (!isLoad && data.isPresent()) {
                 changeTaskManager(taskManagerFilePath, data);
             } 
         } catch (DataConversionException e) {
@@ -55,6 +56,10 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             throw new IOException(e);
         }     
+    }
+    
+    public void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException {
+        setFilePath(taskManagerFilePath, false);
     }
     
     /**
@@ -72,28 +77,20 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     /**
-     * Allows users to decide whether or not to overwrite an existing file. 
-     * There are 2 cases:
-     * 1) There is new data on the current task manager.
-     *    In this case, users will be prompted as to whether or not they want to overwrite
-     *    the existing file with the new data on the current task manager.
-     *    @return false if user chooses not to overwrite the existing file.
-     * 2) There is no data on the current task manager (task manager is empty). 
-     *    In this case, since users are at no risk of losing existing data, users will not 
-     *    be alerted that there is an existing file
-     *    @return true by default ('overwriting empty content').
+     * Allows users to decide whether to load or overwrite an existing file. 
+     * @return button type chosen by user
      */
-    public boolean isOverwrite(File file) throws DataConversionException, IOException {
+    public ButtonType getButton(File file) throws DataConversionException, IOException {
         assert file != null;
         Optional<ReadOnlyTaskManager> data;
-        boolean isOverwrite = true;
+        ButtonType userResponse = UiUtil.load;
         try {
             data = taskManagerStorage.readTaskManager();
-            //current file exists and there is data present in the current task manager
+            //data present in the current task manager
             if (data.isPresent()) {
-                isOverwrite = UiUtil.createAlertToOverwriteExistingFile(); 
+                userResponse = UiUtil.createAlertToOverwriteExistingFile(file.toString()); 
             }
-            return isOverwrite;
+            return userResponse;
         } catch (DataConversionException e) {
             throw new DataConversionException(e);
         } catch (IOException e) {

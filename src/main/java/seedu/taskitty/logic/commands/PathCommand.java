@@ -3,9 +3,11 @@ package seedu.taskitty.logic.commands;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.scene.control.ButtonType;
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.FileUtil;
 import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.commons.util.UiUtil;
 import seedu.taskitty.model.Model;
 import seedu.taskitty.storage.Storage;
 import seedu.taskitty.ui.MainWindow;
@@ -30,7 +32,8 @@ public class PathCommand extends Command {
     public static final String MESSAGE_USAGE = "This command saves data to/loads data from a location of your choice, Meow!\n";
     public static final String MESSAGE_VALID_FILEPATH_USAGE = "Filepath must end with .xml";
 
-    public static final String MESSAGE_SUCCESS = "Data saved to: %1$s";
+    public static final String MESSAGE_SAVE_SUCCESS = "Data saved to: %1$s";
+    public static final String MESSAGE_LOAD_SUCCESS = "Data loaded from: %1$s";
     public static final String MESSAGE_CANCELLED = "Save function cancelled.";
     public static final String MESSAGE_FAILED = "Failed to save data to: %1$s";
     public static final String MESSAGE_INVALID_FILEPATH = "Filepath is invalid. \n%1$s";
@@ -55,27 +58,14 @@ public class PathCommand extends Command {
             boolean isFileExist = FileUtil.isFileExists(file);
             
             if (isFileExist) {
-                boolean userResponse = isUserChooseToOverwrite(file);
-                
-                if (!userResponse) {
-                    return new CommandResult(MESSAGE_CANCELLED);
-                }
+                return manageUserResponse(file);
             }
             
-            config.setTaskManagerFilePath(filepath);
-            ConfigUtil.saveConfig(config, configFile);
+            changeConfigAndStorageFilePath(false);
 
-            storage.setFilePath(config.getTaskManagerFilePath());
+            updateMainWindowAndEventCenter();
 
-            if (storage.readTaskManager().isPresent()) {
-                model.resetData(storage.readTaskManager().get());
-            }
-
-            MainWindow.getStatusBarFooter().setSaveLocation(config.getTaskManagerFilePath());
-
-            EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
+            return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, filepath));
         } catch (IOException io) {
             return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(io));
         } catch (DataConversionException dc) {
@@ -85,7 +75,64 @@ public class PathCommand extends Command {
         }
     }
 
-    private boolean isUserChooseToOverwrite(File file) throws DataConversionException, IOException {
-        return !storage.isOverwrite(file);
+    /**
+     * Manages path command execution based on user response if a particular file exists
+     * @param file
+     * @return CommandResult based on user response
+     * @throws DataConversionException
+     * @throws IOException
+     */
+    private CommandResult manageUserResponse(File file) throws DataConversionException, IOException {
+        ButtonType isUserResponseOverwrite = getUserButtonChoice(file);
+        
+        if (isUserResponseOverwrite == ButtonType.CANCEL) {
+            return new CommandResult(MESSAGE_CANCELLED);
+        } else if (isUserResponseOverwrite == UiUtil.load) {
+            changeConfigAndStorageFilePath(true);
+            if (storage.readTaskManager().isPresent()) {
+                model.resetData(storage.readTaskManager().get());
+            } 
+            updateMainWindowAndEventCenter();
+
+            return new CommandResult(String.format(MESSAGE_LOAD_SUCCESS, filepath));
+        } else {
+            changeConfigAndStorageFilePath(false);
+            updateMainWindowAndEventCenter();
+
+            return new CommandResult(String.format(MESSAGE_SAVE_SUCCESS, filepath));
+        }
+    }
+
+    /**
+     * Updates Main Window and Event Center after path command has been run
+     */
+    private void updateMainWindowAndEventCenter() {
+        MainWindow.getStatusBarFooter().setSaveLocation(config.getTaskManagerFilePath());
+
+        EventsCenter.getInstance().post(new PathLocationChangedEvent(config.getTaskManagerFilePath()));
+    }
+
+    /**
+     * Changes file path in config and storage
+     * @param isLoad
+     * @throws IOException
+     * @throws DataConversionException
+     */
+    private void changeConfigAndStorageFilePath(boolean isLoad) throws IOException, DataConversionException {
+        config.setTaskManagerFilePath(filepath);
+        ConfigUtil.saveConfig(config, configFile);
+
+        storage.setFilePath(config.getTaskManagerFilePath(), isLoad);
+    }
+
+    /**
+     * Gets the button result after user has chosen
+     * @param file
+     * @return
+     * @throws DataConversionException
+     * @throws IOException
+     */
+    private ButtonType getUserButtonChoice(File file) throws DataConversionException, IOException {
+        return storage.getButton(file);
     }
 }

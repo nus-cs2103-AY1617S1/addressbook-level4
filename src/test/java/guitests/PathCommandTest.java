@@ -20,7 +20,7 @@ public class PathCommandTest extends TaskManagerGuiTest {
         tempFile.delete();
         
         commandBox.runCommand("path temp.xml");
-        assertResultMessage(String.format(PathCommand.MESSAGE_SUCCESS, "temp.xml"));
+        assertResultMessage(String.format(PathCommand.MESSAGE_SAVE_SUCCESS, "temp.xml"));
         
         // check that the temp file is successfully created
         // and delete temp file after testing is complete
