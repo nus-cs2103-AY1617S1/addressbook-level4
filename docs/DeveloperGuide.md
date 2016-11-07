@@ -126,13 +126,14 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-1. `Logic` uses the `ParserManager` class to parse the user command.
-2. `ParserManager` will pass the parsing of arguments to respective Command parsers which all implement `Parser` interface.
-3. This results in a `Command` object which is executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
-6. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
-7. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
+The `Logic` component,
+* Uses the `Parser` class to parse the user command.
+* Results in a `Command` object which is executed by the `LogicManager`.
+* Command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* Result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+* `UndoableCommandHistory` applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
+* `UndoableCommandHistory` does not store a list of events/tasks, or copies of `Dowat` as a history. Instead, it stores a stack of commands which are more lightweighted, and occupy less storage. 
+
 <!-- @@author  -->
 <!-- @@author A0127570H -->
 
@@ -160,6 +161,7 @@ The `Storage` component,
 * can save `Dowat` data in xml format and read it back.
 <!-- @@author  -->
 <!-- @@author A0144702N -->
+
 ### Common classes
 
 Classes used by multiple components are in the `seedu.taskbook.commons` package.
