@@ -43,50 +43,10 @@ public class StartTime extends DateTime {
         }
 
     }
-
-    public void setDate(String date) throws IllegalValueException {
-        String[] recur = date.split(" ", 2);
-        String recurfreq = recur[0];
-        if (recur.length == 1)
-            throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
-        if (recurfreq.equals("day")) {
-            date = "today " + recur[1];
-        }
-        if (!date.equals("")) {
-            Date taskDate = DateUtil.convertDate(date);
-            if (!DateUtil.isValidDate(date)) {
-                throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
-            }
-            if (taskDate == null) {
-                assert false : "Date should not be null";
-            } /*
-               * else if (DateUtil.hasPassed(taskDate)) { throw new
-               * IllegalValueException(MESSAGE_STARTTIME_INVALID); }
-               */
-
-            this.value.setTime(taskDate);
-            this.value.set(Calendar.MILLISECOND, 0);
-            this.value.set(Calendar.SECOND, 0);
-        }
-    }
     
     public StartTime(Calendar date, boolean isRecurring, String recurringMessage) {
         super(date);
         this.recurring = isRecurring;
         this.RecurringMessage = recurringMessage;
-    }
-
-    public String forDisplay() {
-        if (this.value == null) {
-            return "Start:\t\t-";
-        } else {
-            if(!recurring) {
-                return "Start:\t\t".concat(this.toString());
-            }
-            else {
-                SimpleDateFormat sdfRecurr = new SimpleDateFormat("EEEE, h:mm aa");
-                return "Every ".concat(sdfRecurr.format(this.value.getTime()));
-            }
-        }
     }
 }

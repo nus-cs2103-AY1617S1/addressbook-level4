@@ -158,12 +158,4 @@ public class EndTime extends DateTime {
             this.value = DateUtil.setDate(date);
         }
     }
-
-    public String forDisplay() {
-        if (this.value == null) {
-            return "End:\t\t\t-";
-        } else {
-            return "End:\t\t\t".concat(this.toString());
-        }
-    }
 }
