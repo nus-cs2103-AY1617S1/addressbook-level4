@@ -6,6 +6,7 @@ import org.junit.Test;
 
 public class CommandBoxTest extends TaskManagerGuiTest {
 
+	//@@author A0147619W
     @Test
     public void commandBox_commandSucceeds_textCleared() {
         commandBox.runCommand(td.bananas.getAddCommand());

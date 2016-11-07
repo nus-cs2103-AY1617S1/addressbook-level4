@@ -166,15 +166,16 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
+    //@@author A0147619W
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = Messages.MESSAGE_UNKNOWN_COMMAND;
         assertCommandBehavior(
-                "adds Valid Name 12345 s/5:00pm e/5:00am", expectedMessage);
+                "adds finish homework by 5pm", expectedMessage);
         assertCommandBehavior(
-                "adds Valid Name d/01/01/10 valid@start.butNoPrefix e/5:00am from asasd", expectedMessage);
+                "adds meet Jim at 2pm", expectedMessage);
         assertCommandBehavior(
-                "adds Valid Name d/01/01/10 s/5:00pm valid, address from asd", expectedMessage);
+                "adds buy milk", expectedMessage);
 
     }
 
