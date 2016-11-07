@@ -37,13 +37,17 @@ I	<li>Type: add pay electricity bill; 27.12.16; 2pm</li>
 	<li>Expected result: task added in the event list in the left panel with the index of `E12`.</li> 
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 "New event added: group presentation Date: 10-01-17 Start: local time End: 2359 end overdue: 0 category:1 complete: false Tags:[CS2101]"</li></ol>
->Note: the start time will reflect the current time on your computer.<br>
+
+Note: the start time will reflect the current time on your computer.<br>
+
 <li><ol><li>Adding a tag:</li>
 	<li>Type: add T9 #friends</li>
 	<li>Expected result: the todo with the index T9 will have a tag "friends" added to it.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Edited task: T9       Changes: add #friends"</li></ol></ol>
->Note: Tags can be updated in all categories.<br>
+
+Note: Tags can be updated in all categories.<br>
+
 <b>Deleting Command</b><br>
 <ol>
 <li><ol><li>Deleting an event:</li>
@@ -56,13 +60,16 @@ I	<li>Type: add pay electricity bill; 27.12.16; 2pm</li>
 	<li>Expected result: the event with the index E1, deadline with the index D1, todo with the index T1 will disappear.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Delete task: [E1, D1, T1]"</li></ol>
->Note: This is able to work for deleting multiple events, deadlines and todos individually.<br>		
+
+Note: This is able to work for deleting multiple events, deadlines and todos individually.<br>		
+
 <li><ol><li>Deleting a range of tasks:</li>
 	<li>Type: delete T1-T3</li>
 	<li>Expected result: the todos with the index T1 to T3 will disappear.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Delete task: [T1, T2, T3]"</li></ol></ol>
->Note: This is able to work for events and deadlines too.<br>	
+
+Note: This is able to work for events and deadlines too.<br>	
 	
 <b>Edit Command</b><br>
 <ol>
@@ -71,13 +78,16 @@ I	<li>Type: add pay electricity bill; 27.12.16; 2pm</li>
 	<li>Expected result: the event with the index E1 will have the new updated description.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Edited task: E1    Changes: des movie @ JP"</li></ol>
->Note: Other variables can be changed by changing the variable name from des to date, start and end.<br>
+
+Note: Other variables can be changed by changing the variable name from des to date, start and end.<br>
+
 <li><ol><li>Editing a tag:</li>
 	<li>Type: edit E1 tag leisure>family</li>
 	<li>Expected result: the event with the index E1 will have the leisure tag updated to family.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Edit task: E1     Changes: tag leisure>family"</li></ol></ol>
->Note: Tags can be edited for events and deadlines.<br>
+
+Note: Tags can be edited for events and deadlines.<br>
 
 <b>Find Command</b><br>
 <ol>
@@ -86,7 +96,8 @@ I	<li>Type: add pay electricity bill; 27.12.16; 2pm</li>
 <li>Expected result: Tasks containing the word `school` will be shown.</li>
 <li>In the result display box, directly below the command box, there will be a message printed<br>
 "Found 4 events! Found 6 deadines! Found 1 Todo!"<li></ol>
->Note: The date, start time and end time can also be included for searching.<br>
+
+Note: The date, start time and end time can also be included for searching.<br>
 
 <b>List Command</b><br>
 <ol>
@@ -113,13 +124,16 @@ I	<li>Type: add pay electricity bill; 27.12.16; 2pm</li>
 	<li>Expected result: The todo with the index T1, deadline with the index D1, event with the index E1 will be hidden away.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Marked task as done:[T1, E1, D1]"</li></ol>
->Note: This is able to work for completing multiple events, deadlines and todos individually.<br>
+
+Note: This is able to work for completing multiple events, deadlines and todos individually.<br>
+
 <li><ol><li>Completing range of task:</li>
 	<li>Type: done D1-D3</li>
 	<li>Expected result: The deadline with the index D1-D4 will be hidden away.</li>
 	<li>In the result display box, directly below the command box, there will be a message printed<br>
 	"Marked task as done:[D1, D2, D3, D4]"</li></ol></ol>
->Note: This is able to work for events and deadlines too.<br>
+
+Note: This is able to work for events and deadlines too.<br>
 
 
 	
