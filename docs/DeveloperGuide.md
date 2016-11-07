@@ -545,7 +545,7 @@ Use case ends.
 **MSS**
 
 1. User requests to change storage file location
-2. MESS changes storage file location and saves in that location
+2. MESS changes storage file location and saves in that location/loads from that location if file already contains data
 
 **Extensions**
 2a. The file path may not be valid
