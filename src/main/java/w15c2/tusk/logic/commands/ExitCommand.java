@@ -19,6 +19,12 @@ public class ExitCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exits Tusk Manager.\n"
             + "Example: " + COMMAND_WORD;
     
+    
+    /**
+     * Exits Tusk
+     * 
+     * @return CommandResult Result of the execution of the exit command.
+     */
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());

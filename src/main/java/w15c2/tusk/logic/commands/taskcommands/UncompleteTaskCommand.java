@@ -10,7 +10,7 @@ import w15c2.tusk.model.task.Task;
 
 //@@author A0143107U
 /**
- * Unpins a task identified using it's last displayed index from TaskManager.
+ * Uncompletes a task identified using it's last displayed index from TaskManager.
  */
 public class UncompleteTaskCommand extends Command {
 
@@ -29,13 +29,19 @@ public class UncompleteTaskCommand extends Command {
 
     public final int targetIndex;
 
+    /**
+     * This UncompleteTaskCommand constructor takes in a targetIndex and uncompletes the task.
+     *
+     * @param targetIndex 	Index of the task to be uncompleted.
+     */
     public UncompleteTaskCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
-    /*
-     * Uncompletes the task using its index and 
-     * returns CommandResult to indicate whether it is successful
+    /**
+     * Uncompletes the task in Model
+     * 
+     * @return CommandResult Result of the execution of the uncomplete command.
      */
     @Override
     public CommandResult execute() {

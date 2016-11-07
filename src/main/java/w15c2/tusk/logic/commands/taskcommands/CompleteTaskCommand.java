@@ -32,11 +32,20 @@ public class CompleteTaskCommand extends Command {
 
     public final int targetIndex;
 
+    /**
+     * This CompleteTaskCommand constructor takes in a targetIndex and completes the task.
+     *
+     * @param targetIndex 	Index of the task to be completed.
+     */
     public CompleteTaskCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
-
+    /**
+     * Completes the task in Model
+     * 
+     * @return CommandResult Result of the execution of the complete command.
+     */
     @Override
     public CommandResult execute() {
 
