@@ -66,18 +66,20 @@ public class DoneCommand extends Command {
 
         if (oldStatus == taskToDone.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_DONE);
-        } else {
-            // @@author A0147944U
+        }
+        // @@author A0147944U
+        else {
             // Attempt to repeat the recurring task if done status successfully changed
             model.repeatRecurringTask(new Task(currentTask));
-            // @@author
+            
         }
-        // @@author A0147335E
+        
 
         
-        // @@author A0147944U
+        
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
+        
         // @@author A0147335E
         int index = model.getTaskManager().getTaskList().indexOf(taskToDone);
         if (!isUndo) {
@@ -85,5 +87,5 @@ public class DoneCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone.getName()));
     }
-
+    
 }

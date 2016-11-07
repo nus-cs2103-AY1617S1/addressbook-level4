@@ -1,4 +1,3 @@
-// @@author A0147335E
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-
+//@@author A0147335E
 /**
  * Favorite a task from the task manager.
  */

@@ -39,6 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    
+    private final String currentSortPreference;
 
     /**
      * Initializes a ModelManager with the given TaskManager TaskManager and its
@@ -53,6 +55,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+        }
+        currentSortPreference = config.getsortPreference();
     }
 
     public ModelManager() {
@@ -62,6 +72,14 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        
+        Config config = new Config();
+        File configFile = new File("config.json");
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+        }
+        currentSortPreference = config.getsortPreference();
     }
 
     @Override
@@ -154,6 +172,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private boolean isDeadlineExist(Task task) {
         return task.getDeadline().toString().isEmpty();
+    }
+    
+    public String getCurrentSortPreference() {
+        return currentSortPreference;
     }
     // @@author
 
@@ -327,9 +349,9 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (IOException e) {
             logger.warning("Error reading from config file " + "config.json" + " : " + e);
         }
-        String CurrentSortPreference = config.getsortPreference();
-        if (!"None".equals(CurrentSortPreference)) {
-            sortFilteredTaskList(CurrentSortPreference);
+        String currentSortPreference = config.getsortPreference();
+        if (!"None".equals(currentSortPreference)) {
+            sortFilteredTaskList(currentSortPreference);
         }
     }
     // @@author
@@ -389,5 +411,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    
 }

@@ -51,5 +51,7 @@ public interface Model {
     /** Repeats a task with time added to it based on the interval it is set to*/
     public void repeatRecurringTask(Task recurringTask);
     //@@author
+    
+    public String getCurrentSortPreference();
 
 }

@@ -53,9 +53,9 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
-    // @@author A0147335E-reused
+   
 	private ArrayList<RollBackCommand> getUndoList() {
 		return history.getUndoList();
 	}
-
+	// @@author 
 }

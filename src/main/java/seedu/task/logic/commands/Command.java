@@ -44,7 +44,7 @@ public abstract class Command {
     public void setHistory(HistoryManager history) {
         this.history = history;
     }
-
+    // @@author 
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */

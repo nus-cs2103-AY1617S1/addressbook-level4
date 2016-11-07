@@ -1,9 +1,16 @@
 package seedu.task.logic.commands;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+
+import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.FileUtil;
 import seedu.task.logic.RollBackCommand;
+import seedu.task.model.Model;
+import seedu.task.model.ModelManager;
 import seedu.task.model.tag.Tag;
 
 // @@author A0147335E
@@ -37,6 +44,8 @@ public class UndoCommand extends Command {
     public final int numOfTimes;
 
     public final boolean isMultiUndo;
+    
+
 
     /**
      * Constructor for undo one command only
@@ -191,23 +200,26 @@ public class UndoCommand extends Command {
     private void prepareUndoSortCommand(String result) {
         int undoIndex = lastIndexOfUndoList();
         String currentSort = EMPTY_STRING;
+        String currentSortPreference = model.getCurrentSortPreference();
         Command command = null;
-        if(getUndoList().size() > 1) {
-            currentSort = getUndoList().get(undoIndex - 1).getCurrentSort(); 
-            if(currentSort != null) {
-                command = new SortCommand(currentSort);
+        boolean isSort = false;
+        
+        for(int i = undoIndex - 1; i >= 0; i--){
+            if(getUndoList().get(i).getCommandWord().equals(SortCommand.COMMAND_WORD)){
+                currentSort = getUndoList().get(i).getCurrentSort();
+                isSort = true;
+                break;
             }
-            else {
-                command = new SortCommand(EMPTY_STRING);
-            }
-
-
+         }
+        if(isSort) {
+            command = new SortCommand(currentSort.replace(DELIMITER, EMPTY_STRING).toLowerCase());
         }
         else {
-            command = new SortCommand(currentSort);
+            command = new SortCommand(currentSortPreference.replace(DELIMITER, EMPTY_STRING).toLowerCase());
         }
-
+        
         runCommand(command);
+        
     }
     private void prepareUndoDone(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
