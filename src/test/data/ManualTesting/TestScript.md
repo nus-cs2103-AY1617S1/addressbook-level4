@@ -55,12 +55,12 @@
 ### Undo commands
 
 - Undo last command: `undo` or <kbd>Ctrl</kbd> + <kbd>Z</kbd>
-
 > The last 'delete 1 2 3' command is undone, and all 3 deleted tasks are added back.
 
 ### Redo commands
 
 - Redo the last undone command: `redo` or <kbd>Ctrl</kbd> + <kbd>Y</kbd><br>
+
 > The last undone `delete 1 2 3` command is redone, so all 3 tasks are deleted again.
 
 ### Modify tasks
