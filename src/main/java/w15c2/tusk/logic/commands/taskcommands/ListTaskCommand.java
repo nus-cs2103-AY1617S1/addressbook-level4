@@ -10,7 +10,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0139708W
 /**
- * Lists all tasks in the TaskManager to the user.
+ * Lists relevant tasks based on arguments.
  */
 public class ListTaskCommand extends TaskCommand {
     
@@ -31,22 +31,33 @@ public class ListTaskCommand extends TaskCommand {
     public static final String MESSAGE_COMPLETED_SUCCESS = "Listed all completed tasks";
     public static final String MESSAGE_NO_COMPLETED_TASKS = "No completed tasks to list";
     
-    public final String argument;
+    private final String argument;
     
+    /**
+     * Constructor for list command, based on argument.
+     * 
+     * @param argument                  argument provided by user.
+     * @throws IllegalValueException    if argument does not equal alias, complete, completed or empty string.
+     */
     public ListTaskCommand(String argument) 
     		throws IllegalValueException {
 
         this.argument = argument;
-        if(!argument.equals("") && !argument.equals("alias") && !argument.equals("completed") &&!argument.equals("complete")){
+        if (!argument.equals("") 
+                && !argument.equals("alias") 
+                && !argument.equals("completed")
+                && !argument.equals("complete")) {
     		throw new IllegalValueException(MESSAGE_USAGE);
         }
     }
     
     /**
-     * Shows appropriate list based on argument
-     * alias -> show alias window
-     * complete -> show completed tasks
-     * else display incomplete tasks
+     * Shows appropriate list based on argument.
+     * if argument is alias, alias list is shown.
+     * if argument is complete[d], completed tasks is shown.
+     * else display incomplete tasks.
+     * 
+     * @return  Result based on appropriate list shown.
      */
     @Override
     public CommandResult execute() {
@@ -77,7 +88,7 @@ public class ListTaskCommand extends TaskCommand {
         }
 
     }
-    
+    //@@author
     public String getType(){
     	return argument;
     }
