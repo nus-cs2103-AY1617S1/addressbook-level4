@@ -327,7 +327,7 @@ Help goes to those who call for it!
 
 	help
     
-![alt text](./images/userguide/12.png "")
+![alt text](./images/userguide/121.png "")
 
 A pop up help box with the command summary will appear below the command bar for your reference while you type in commands into the command bar.
 
