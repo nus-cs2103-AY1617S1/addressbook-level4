@@ -667,16 +667,47 @@ public class CommandParser {
         assert userInput != null;
         
         userInput = userInput.trim();
-        String[] splitIndexFromOtherArgs = userInput.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
+        String[] splitIndexFromOtherArgs = splitEditIndexFromOtherArgs(userInput);
         String indexToEdit = splitIndexFromOtherArgs[ZERO];
         
         try {
             Integer.parseInt(indexToEdit);
         } catch (NumberFormatException e) {
-            return EditCommand.TOOL_TIP + "\n" + "Please enter a number for the index.\n";
+            return EditCommand.TOOL_TIP + "\nPlease enter a number for the index.\n";
         }
         
 
+        String argumentsWithoutIndex = getArgumentsWithoutIndex(splitIndexFromOtherArgs);
+        
+        String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
+        
+        String beforeResetSplitString = getInputBeforeResetStringIfPresent(resetSplit);
+        
+        String resetField = getTheResetFieldsIfPresent(resetSplit);
+        
+        HashMap<String, Boolean> resetMap = generateResetMapFromInput(resetField);
+
+        return generateEditDetailedTooltipFromMap(userInput, indexToEdit, beforeResetSplitString, resetMap);
+        
+    }
+
+    /**
+     * Returns a String array that splits the edit index from the other arguments in the input String.
+     * 
+     * @param userInput The input String to split
+     * @return The split String array
+     */
+    private String[] splitEditIndexFromOtherArgs(String userInput) {
+        return userInput.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
+    }
+
+    /**
+     * Returns the part of the input without the specified edit index.
+     * 
+     * @param splitIndexFromOtherArgs The String array that splits the String by the index
+     * @return The part of the input without the specified edit index
+     */
+    private String getArgumentsWithoutIndex(String[] splitIndexFromOtherArgs) {
         String argumentsWithoutIndex;
         if (splitIndexFromOtherArgs.length == 1) {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ZERO];
@@ -684,26 +715,34 @@ public class CommandParser {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ONE];
 
         }
-        
-        
-        String resetField = null;
-        String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
- 
-        
+        return argumentsWithoutIndex;
+    }
+
+    /**
+     * Returns the part of the input before the reset keyword String, if present.
+     * 
+     * @param resetSplit The reset split String array
+     * @return The String containing the input before the reset keyword
+     */
+    private String getInputBeforeResetStringIfPresent(String[] resetSplit) {
         String beforeResetSplitString = "";
         if (resetSplit.length != 0) {
             beforeResetSplitString = resetSplit[0];
         }
-        
-        
-        if(resetSplit.length == TWO){
-            resetField = resetSplit[ONE];
-        }
-        
-        HashMap<String, Boolean> resetMap = generateResetMapFromInput(resetField);
+        return beforeResetSplitString;
+    }
 
-        return generateEditDetailedTooltipFromMap(userInput, indexToEdit, beforeResetSplitString, resetMap);
-        
+    /**
+     * Returns the reset fields String, if present.
+     * 
+     * @param resetSplit The reset split String array
+     * @return The reset fields String
+     */
+    private String getTheResetFieldsIfPresent(String[] resetSplit) {
+        if (resetSplit.length == TWO){
+            return resetSplit[ONE];
+        }
+        return null;
     }
 
     /**
@@ -878,11 +917,23 @@ public class CommandParser {
             StringBuilder sb) {
         Optional<String> name = fieldMap.get(MAP_NAME);
 
-        if (name.isPresent() && trimmedArgs.length() > 1 && !name.get().isEmpty()) {
+        if (isEditingName(trimmedArgs, name)) {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
         } else {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
         }
+    }
+
+    /**
+     * Returns whether the user is editing the name from the specified arguments and Optional String name.
+     * @param trimmedArgs The trimmed user input arguments
+     * @param name The parsed name String from the user input
+     * @return A boolean representing the above.
+     */
+    private boolean isEditingName(String trimmedArgs, Optional<String> name) {
+        return name.isPresent() 
+                && (trimmedArgs.length() > 1) 
+                && (!name.get().isEmpty());
     }
 
     /**
