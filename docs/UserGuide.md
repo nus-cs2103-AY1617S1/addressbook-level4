@@ -73,17 +73,17 @@ Figure 2: The storage location is changed
 
 //@@author A0139128A
 ### Adding a task: `add`
-Adds everyday tasks, deadlines and events to WhatNow. Everyday tasks are listed under Todo and the others are listed under Schedule.
+Adds everyday tasks, deadlines and events to WhatNow. Any task without date or time is considered a Todo task, otherwise it is considered a Schedule task. 
 
 
-#### Adds a task to WhatNow
+#### Adds a todo task to WhatNow
 Format: `add "DESCRIPTION" [t/TAG]...`
 > * All description should be written within double quotation marks.
-> * Tasks without date and time specified will be added to WhatNow as a Todo task and will be displayed under the heading "Todo".
+> * Except for the double quotation marks, you can add any special character in the description or tag.
 
 Example:
 * `add "Buy chocolate milk"`
-Adds a Todo task "Buy choclate milk".
+Adds a Todo task "Buy chocolate milk".
 
 <p align="center">
 
@@ -95,21 +95,21 @@ Figure 3: A task without date and time specified added under Todo
 
 
 #### Adds a deadline to WhatNow
-Format: `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]...`
-> * The format for date must be day month year where year is optional. If no year is specified, it is assumed to be the current year.
-Eg: 10 Oct, 4 november, 11 August 2017, 12/12/2016.
-* If no date is specified, it is assumed to be today.
-* Time should be in the 12 hour format.
-Eg: 10am, 6PM, 7.30pm, 7:30pm.
-* Tasks with date and time specified will be added to WhatNow as a deadline task and will be displayed under the header "Schedule".
+Format: `add "DESCRIPTION" [DATE] [TIME] [every day/week/month/year till DATE][t/TAG]...`
+> * All description should be written within double quotation marks.
+> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
+> * The order for date and time is reversible. You can add an event with time followed by the date too.
 
 Examples:
-* `add "CS2103 Project" by 20/11/2016 t/low`
+* `add "register for salsa class!" by 20-11-2016 6pm`
+Adds a Schedule task "register for salsa class" by 20 November 2016 6pm.
+* `add "CS2103 Project" by 20.11.2016 t/low`
 Adds a Schedule task "CS2103 Project" of low priority on 20 November 2016.
 * `add "Pay School Fees" by 11am t/medium`
 Adds a Schedule task "Pay School Fees" of high priority on today 11am.
-* `add "Submit CS2101 User Guide" by 12/12/2016 t/high`
-Adds a Schedule task "Submit CS2101 User Guide" of medium priority on 12 December 2016.
+* `add "Submit CS2101 User Guide" by 9:30pm 12/12/2016 t/high`
+Adds a Schedule task "Submit CS2101 User Guide" of high priority by 12 December 2016 9.30pm.
 
 <p align="center">
 
@@ -120,26 +120,19 @@ Figure 4: A deadline task with date, time and priority specified added under Sch
 </p>
 
 
-#### Adds an event to WhatNow
-Format: `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...`
-
-Format: `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...`
-
-Format: `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
-> * The format for date must be day month year where year is optional. If no year is specified, it is assumed to be the current year.
-Eg: 10 Oct, 4 november, 11 August 2017, 12/12/2016.
-* If no date is specified, it is assumed to be today.
-* Time should be in the 12 hour format.
-Eg: 10am, 6PM, 7.30pm, 7:30pm.
-* Tasks with date and time specified will be added to WhatNow as a deadline task and will be displayed under the header "Schedule".
+#### Adds a one-day event to WhatNow
+Format: `add "DESCRIPTION" [DATE] [TIME] [TIME] [every day/week/month/year till DATE] [t/TAG]...`
+> * All description should be written within double quotation marks.
+> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
 
 Examples:
 * `add "CS2016 Tutorial" every Tuesday from 12pm to 2.30pm t/medium`
 Adds a Schedule task "CS2106 Tutorial" of medium priority on every Tuesday from 12pm to 2.30pm.
 * `add "Drashti's Birthday" every 30 Aug t/high`
-Adds a Schedule task "Drashti's Birthday" of high priority every 30 Aug.
-* `add "Java Workshop" from 12/12/2016 8am to 15/12/2016 5pm t/high`
-Adds a Schedule task "Java Workshop" of high priority from 12 December 2016 8am to 15 December 2016 5pm.
+Adds a Schedule task "Drashti's Birthday" of high priority every 30 Aug for the entire day.
+* `add "Java Workshop" from 8am to 5pm t/high`
+Adds a Schedule task "Java Workshop" of high priority from 8am to 5pm.
 
 <p align="center">
 
@@ -149,19 +142,46 @@ Figure 5: An event task with period and priority added under Schedule tasks
 
 </p>
 
+
+#### Adds a multiple-day event to WhatNow
+Format: `add "DESCRIPTION" [DATE] [TIME] [DATE] [TIME] [every day/week/month/year till DATE] [t/TAG]...`
+> * All description should be written within double quotation marks.
+> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
+
+Examples:
+* `add "NUS Freshmen Computing Camp" from 12/8/2016 10am to 16/8/2016 8pm t/high`
+Adds a Schedule task "NUS Freshmen Computing Camp" of high priority from 12/8/2016 10am to 16/8/2016 8pm.
+* `add "Cousin sister's wedding in Spain!" from 20.12.2016 to 26.12.2016 t/high`
+Adds a Schedule task "Cousin sister's wedding in Spain!" of high priority from 20/12/2016 to 26/12/2016.
+* `add "French Beginner's Workshop" from 6-4-2017 to 8-4-2017 9pm`
+Adds a Schedule task "French Beginner's Workshop" from 6-4-2017 to 8-4-2017 9pm.
+
+<p align="center">
+
+<img src="images/UI_Actual/addEvent.PNG" width="600"><br>
+
+Figure 5: An event task with period and priority added under Schedule tasks
+
+</p>
+
+
+> You can add a recurring task for a deadline, one-day event or multiple-day event as shown above.
+
+
 //@@author A0139772U
 ###Marking a task as completed: done
 Marks a task from WhatNow as completed.
 
 Format: `done todo/schedule INDEX`
 > * Marks the task at the specified INDEX from Todo or Schedule as completed.
-* Completed tasks will be hidden from the current view.
-* The index refers to the index number shown in the current listing.
-* The index must be a **positive integer** 1, 2, 3, ...
+> * Completed tasks will be hidden from the current view.
+> * The index refers to the index number shown in the current listing.
+> * The index must be a **positive integer** 1, 2, 3, ...
 
 Examples:
 * `done todo 1`
-Marks the 1st Todo task from the displayed list in WhatNow as completed
+Marks the 1st Todo task from the displayed list in WhatNow as completed.
 * `done schedule 2`
 Marks the 2nd Schedule task from the displayed list in WhatNow as completed.
 
@@ -176,13 +196,8 @@ Figure 6: Display after a task is marked done
 ### Listing all tasks: `list`
 Shows a list of all tasks that match task type, date, time and priority requested by you.
 
-Format: `list [all/completed] [on/at/with] [DATE/PRIORITY]`
-> * If all/completed is not stated, then only ongoing (i.e. incomplete) tasks will be displayed.
-* The format for date must be day month year where year is optional. If no year is specified, it is assumed to be the current year.
-Eg: 10 Oct, 4 November, 11 August 2017, 12/12/2016.
-* If no date is specified, it is assumed to be today.
-* Time should be in the 12 hour format.
-Eg: 10am, 6PM, 7.30pm, 7:30pm.
+Format: `list [all/done]`
+> * If all/done is not stated, then only the ongoing (i.e. incomplete) tasks will be displayed.
 
 Examples:
 * `list`
@@ -197,18 +212,6 @@ Figure 7: Display with ongoing task listed
 </p>
 
 
-* `list all`
-Returns the lists of all incomplete and completed tasks.
-
-<p align="center">
-
-<img src="images/UI_Actual/all.PNG" width="600"><br>
-
-Figure 8: Display with all tasks listed
-
-</p>
-
-
 * `list done`
 Returns the lists of all completed tasks.
 
@@ -216,40 +219,55 @@ Returns the lists of all completed tasks.
 
 <img src="images/UI_Actual/done.PNG" width="600"><br>
 
-Figure 9: Display with all completed tasks listed
+Figure 8: Display with all completed tasks listed
 
 </p>
 
+
+* `list all`
+Returns the lists of all incomplete and completed tasks.
+
+<p align="center">
+
+<img src="images/UI_Actual/all.PNG" width="600"><br>
+
+Figure 9: Display with all tasks listed
+
+</p>
+
+
 //@@author A0141021H
-###Marking a task as incompleted: undone
-Marks a task from WhatNow as incompleted.
+###Marking a task as incomplete: undone
+Marks a task from WhatNow as incomplete.
 
 Format: `undone todo/schedule INDEX`
-> * Marks the task at the specified INDEX from Todo or Schedule as incompleted.
+> * Marks the task at the specified INDEX from Todo or Schedule as incomplete.
 * The index refers to the index number shown in the current listing.
 * The index must be a **positive integer** 1, 2, 3, ...
-* "list done" should be typed first then use the undone command to mark a particular task incompeleted.
+* "list done" should be typed first followed by the undone command to mark a particular task incomplete.
 
 Examples:
 * `undone todo 1`
-Marks the 1st Todo task from the displayed list in WhatNow as incompleted
+Marks the 1st Todo task from the displayed list in WhatNow as incomplete.
 * `undone schedule 2`
-Marks the 2nd Schedule task from the displayed list in WhatNow as incompleted.
+Marks the 2nd Schedule task from the displayed list in WhatNow as incomplete.
 
 <p align="center">
 
 <img src="images/UI_Actual/Undone_pic1.PNG" width="600"><br>
 
-Figure 6: Display of completed tasks.
+Figure 10: Display of completed tasks.
 
 <img src="images/UI_Actual/Undone_pic2.PNG" width="600"><br>
 
-Figure 6: Display of completed tasks after undone command.
+Figure 11: Display of completed tasks after undone command.
 
 <img src="images/UI_Actual/Undone_pic3.PNG" width="600"><br>
 
-Figure 6: Display of incompleted tasks.
+Figure 12: Display of incomplete tasks.
 </p>
+
+> * The total number of ongoing and overdue tasks can be viewed on the panel above the "Pinned Items" panel.
 
 ### Deleting a task: `delete`
 Deletes a task from WhatNow.
@@ -269,9 +287,10 @@ Deletes the 2nd Schedule task from the displayed list in WhatNow.
 
 <img src="images/UI_Actual/delete.PNG" width="600"><br>
 
-Figure 10: Display after delete
+Figure 13: Display after delete
 
 </p>
+
 
 //@@author A0126240W
 ### Updating a task: `update`
@@ -289,12 +308,18 @@ Selects the 3rd Todo task from the displayed list and changes the task descripti
 Selects the 4th Todo task from the displayed list and changes the type of task from Todo to Schedule.
 * `update schedule 1 date 15/12/2016`
 Selects the 1st Schedule task from the displayed list and changes the date to 15/12/2016.
+* `update schedule 4 time 10.30am`
+Selects the 4th Schedule task from the displayed list and changes the date to 15/12/2016.
+* `update schedule 2 time 9am to 5pm`
+Selects the 2nd Schedule task from the displayed list and changes the time to the period from 9am to 5pm.
+* `update schedule 3 date 15/8/2017 to 20/9/2017`
+Selects the 3rd Schedule task from the displayed list and changes the date to the period from 15/8/2017 to 20/9/2017.
 
 <p align="center">
 
 <img src="images/UI_Actual/update.PNG" width="600"><br>
 
-Figure 11: Display after the update
+Figure 14: Display after the update
 
 </p>
 
@@ -308,17 +333,21 @@ Example:
 * `undo`
 Undo the previous action.
 
+> * Undo is supported in the add, delete, clear, list, change, done, undone, update command.
+
 <p align="center">
 
 <img src="images/UI_Actual/undo.PNG" width="600"><br>
 
-Figure 12: Display after an update action is undone
+Figure 15: Display after an undo is called after an update
 
 </p>
 
 
 ### Redoing the previous action: `redo`
 There can be multiple redoes to revert to the previous state.
+
+> * Redo is supported in the add, delete, clear, list, change, done, undone, update command.
 
 Format: `redo`
 
@@ -330,7 +359,7 @@ Redo the previous action.
 
 <img src="images/UI_Actual/redo.PNG" width="600"><br>
 
-Figure 13: Display after a redo is called after an undo
+Figure 16: Display after a redo is called after an undo
 
 </p>
 
@@ -346,22 +375,71 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Read Study will match Read books.
 
 Examples:
-* find Read
+* `find Read`
 Returns Read books and read.
-* find Read books lecture notes
-Return any tasks having the description Read, books, lecture or notes (case insensitive).
-* find CS2101
+* `find Read books lecture notes`
+Returns any tasks having the description Read, books, lecture or notes (case insensitive).
+* `find CS2101`
 Returns any tasks having the description CS2101.
 
 <p align="center">
 
 <img src="images/UI_Actual/find.PNG" width="600"><br>
 
-Figure 14: Display result after find is executed
+Figure 17: Display result after the find command is executed
 
 </p>
 
 //@@author A0141021H
+### Find Freetime: `freetime`
+You can now search for your freetime on a particular date without manually finding for your freetime.
+
+Format: `freetime [DATE/DAY]`
+> * Refer to the Date Format below for the various ways of typing date. 
+
+Examples:
+* `freetime 11/10/2017`
+Returns all the free time blocks for the day 11/10/2017.
+* `freetime 9/3/2019`
+Returns no free time blocks on the day 9/3/2019.
+
+<p align="center">
+
+<img src="images/UI_Actual/.PNG" width="600"><br>
+
+Figure 18: Display result after the freetime command is executed
+
+</p>
+
+
+### Pin Items: `pin`
+Pin the items of the selected date or tag onto the "Pinned Items" panel on the left.
+
+Format: `pin [tag\date] [TAG\DATE]`
+> * Refer to the Date Format below for the various ways of typing date. 
+
+Examples:
+* `pin date 6-4-2018`
+Pins all tasks on 6/4/2018.
+
+<p align="center">
+
+<img src="images/UI_Actual/.PNG" width="600"><br>
+
+Figure 19: Display result after the pin command for date 6/4/8/2018 is executed
+
+</p>
+
+* `pin tag high`
+Pins all tasks with a high tag.
+<p align="center">
+
+<img src="images/UI_Actual/.PNG" width="600"><br>
+
+Figure 20: Display result after the pin command for the high tag is executed
+
+</p>
+
 ### Viewing help: `help`
 Opens the help page.
 
@@ -381,7 +459,7 @@ Format: `clear`
 
 <img src="images/UI_Actual/clear.PNG" width="600"><br>
 
-Figure 15: Display cleared after command executed
+Figure 21: Display cleared after the clear command is executed
 
 </p>
 
@@ -396,19 +474,29 @@ Format: `exit`
 Q: How do I transfer my data to another Computer?
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous WhatNow folder.
 
+## Date Format
+* If you type in a time without date, then it is assumed to be today's date or tomorrow's date depending on the time you add the task and the time of the task. Eg. If the current time is 5pm and I add a task: add "study" 1pm then it is assumed to be tomorrow's date.
+* The various ways you could type in the date for the 7th of March 2016 is: 7/3/2016, 07/03/2016, 07/3/2016, 7/03/2016, 7-3-2016, 07-03-2016, 7.3.2016, 07.03.2016, 07.3.2016, 7 3 2016, 07 03 2016, 07 3 2016, 7 03 2016, 7th March 2016, 7 March 2016, 7 Mar 2016, 7th Mar 2016, 7 mar 2016, 7th mar 2016, 7 MAR 2016, 7th MARCH 2016, 7 MAR 2016, 7TH MAR 2016. 
+
+
+## Time Format
+* Please use the 12 hour format is used for any time inputs.
+* The various ways you could type in the time for 5pm is: 5pm, 05pm, 5:00pm, 05:00pm, 05.00pm
 
 ## Command Summary
 Command | Format
 -------- | :--------
-Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...` <br> `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...` <br> `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
+Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [DATE] [TIME] [TIME] [every day/week/month/year till DATE] [t/TAG]...` <br> ``add "DESCRIPTION" [DATE] [TIME] [DATE] [TIME] [every day/week/month/year till DATE] [t/TAG]...` 
 Change | `change location to PATH`
 Clear | `clear`
 Delete | `delete todo/schedule INDEX`
 Done | `done todo/schedule INDEX`
 Exit | `exit`
 Find | `find KEYWORD [MORE_KEYWORDS]`
+Freetime | `freetime [DATE/DAY]`
 Help | `help`
-List | `list [all/completed] [on/at/with] [DATE/TIME/PRIORITY]`
+List | `list [all/done]`
+Pin | `pin [tag/date] [TAG/DATE]`
 Redo | `redo`
 Undo | `undo`
 Undone | `undone`
