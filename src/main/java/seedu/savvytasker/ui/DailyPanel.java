@@ -176,7 +176,7 @@ public class DailyPanel extends UiPart {
 				setGraphic(null);
 				setText(null);
 			} else {
-				setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+				setGraphic(TaskCard.load(task, 0, false).getLayout());
 			}
 		}
 	}

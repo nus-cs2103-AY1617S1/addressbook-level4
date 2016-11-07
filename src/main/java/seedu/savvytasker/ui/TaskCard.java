@@ -34,11 +34,16 @@ public class TaskCard extends UiPart{
     @FXML
 	private ImageView overdueIcon;
 
+    private boolean isShowingIndex;
     private ReadOnlyTask task;
     private int displayedIndex;
+    
+    public TaskCard(boolean isShowingIndex){
+        this.isShowingIndex = isShowingIndex;
+    }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
-        TaskCard card = new TaskCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex, boolean isShowingIndex){
+        TaskCard card = new TaskCard(isShowingIndex);
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -48,7 +53,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         
     	taskName.setText(task.getTaskName());
-        id.setText(displayedIndex + ". ");
+    	if (isShowingIndex) {
+            id.setText(displayedIndex + ". ");
+    	}
         details.setText(task.getTextForUi());
         setCardBackground();
 		setOverdue();
