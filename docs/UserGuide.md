@@ -267,6 +267,10 @@ Change the storage location for the data file.<br>
 
 Format: `store location`
 
+Examples:
+* **`store`** C:/Users/user/Documents/myList <br>
+Stores the Do-Do Bird Data to the specified location
+
 ## Undoing : `undo`
 Undo the last operation.<br>
 
@@ -276,7 +280,6 @@ Format: `undo`
 Resets user's config to default.<br>
 
 Format: `reset`
-
 
 ## Clearing all entries : `clear`
 Clears all entries from the Do-Do Bird.<br>
@@ -291,6 +294,8 @@ Format: `exit`
 #### Saving the data
 To-do list data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+> *the keyboard shortcut Ctrl + Q can also be used to exit the program
 
 ## FAQ
 
