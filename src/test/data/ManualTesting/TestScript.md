@@ -12,7 +12,8 @@
 
 1. List tasks
 
-- List all tasks: `list` or <kbd>Ctrl</kbd> + <kbd>L</kbd>
+* List all tasks: `list` or <kbd>Ctrl</kbd> + <kbd>L</kbd>
+
 > Lists all currently unmarked/ongoing tasks, according to due date.
 > All floating tasks are listed after tasks with dates, according to the order they were entered.
 
