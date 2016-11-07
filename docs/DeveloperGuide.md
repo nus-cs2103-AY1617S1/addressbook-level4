@@ -71,7 +71,7 @@ Component Name | Purpose | Interface | Implementation |
 -------- | :----------- | :----------- |:-----------
 [**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | [`UIManager.java`](../src/main/java/w15c2/tusk/ui/UiManager.java)
 [**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | [`LogicManager.java`](../src/main/java/w15c2/tusk/logic/LogicManager.java)
-[**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/task/Model.java) | [`TaskManager.java`](../src/main/java/w15c2/tusk/model/task/TaskManager.java)
+[**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/Model.java) | [`ModelManager.java`](../src/main/java/w15c2/tusk/model/ModelManager.java)
 [**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) <br> [`AliasStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | [`StorageManager.java`](../src/main/java/w15c2/tusk/storage/StorageManager.java)
 <!--@@author A0139708W -->
 ### Integrated Behavior
@@ -145,7 +145,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Task Manager data.
+* stores all task and alias data.
 * exposes a `UnmodifiableObservableList<Task>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -279,7 +279,7 @@ Here are the steps to create a new release.
 
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Task Manager depends on the
+A project often depends on third-party libraries. For example, Tusk depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
