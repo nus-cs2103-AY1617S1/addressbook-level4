@@ -62,7 +62,7 @@ Here is the main window you will be greeted with. Initially the task panels are 
 
 <img src="images/userguide/launch.png" width="800"><br>
 
-[comment]: # (@@author A013367E)
+[comment]: # (@@author A0133367E)
 ### Visual Introduction
 
 Here is what Agendum may look like with some tasks added and completed.
