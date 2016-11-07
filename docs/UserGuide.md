@@ -172,7 +172,7 @@ Examples:
 * `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
 
 <a id="color_coding" class="anchor" aria-hidden="true">
-### Coloring a task
+#### Coloring a task
 Color can be added or edited with the add or edit commands and the c/ parameter. <br>
 The available colors are "red", "blue", "green", and "none". None represents no color/white.
 Examples: 
