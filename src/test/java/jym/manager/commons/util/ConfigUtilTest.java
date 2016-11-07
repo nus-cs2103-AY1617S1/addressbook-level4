@@ -75,7 +75,7 @@ public class ConfigUtilTest {
 
     private Config getTypicalConfig() {
         Config config = new Config();
-        config.setAppTitle("JYM Task Manager");
+        config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
         config.setTaskManagerFilePath("taskmanager.xml");

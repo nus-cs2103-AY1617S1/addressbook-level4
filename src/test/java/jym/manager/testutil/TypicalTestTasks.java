@@ -26,23 +26,23 @@ public class TypicalTestTasks {
                     .build();
             washCar = new TaskBuilder().withDescription("Wash Car")
             		.withLocation("10th street")
-            		.withDeadline("12-12-2017 14:20")
+            		.withDeadline("12-12-2017 10 PM")
             		.build();
             writeProgram = new TaskBuilder().withDescription("finish homework and Write Program")
             		.withLocation("10th street")
-            		.withDeadline("12-12-2017 14:20")
+            		.withDeadline("12 PM tomorrow")
             		.build();
             goShopping = new TaskBuilder().withDescription("Go Shopping")
             		.withLocation("michegan ave")
-            		.withDeadline("07-06-2016 12:30")
+            		.withDeadline("12:30 PM next week Monday")
             		.build();
             eatWithFriends = new TaskBuilder().withDescription("Eat Japanese food")
             		.withLocation("little tokyo")
-            		.withDeadline("01-01-1023 14:10")
+            		.withDeadline("next Sunday 11:00 AM")
             		.build();
             unpackThings = new TaskBuilder().withDescription("Unpack Apartment")
             		.withLocation("4th street")
-            		.withDeadline("09-09-2011 09:10")
+            		.withDeadline("Tomorrow 9:10 AM")
             		.build();
 
             //Manually added

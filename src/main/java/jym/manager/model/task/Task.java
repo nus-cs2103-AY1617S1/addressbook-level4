@@ -32,7 +32,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 
     
     /**
-     * Only Name field must be present and not null. Other fields can be null.
+     * Only Description and status fields must be present and not null. Other fields can be null.
      */
     public Task(Description descr, Location loc, Deadline dueDate, Priority pri, Status status) {
         assert descr != null;
@@ -99,6 +99,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 		this.dueDate = due;
 		this.loc = location;
 		this.status = status;
+		this.endTime = null;
 	
 	}
     /**
@@ -143,10 +144,11 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     public Task(Description description, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(description, tags);
         this.descr = description;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.loc = new Location();
         this.dueDate = new Deadline();
         this.pri = new Priority();
+        this.status = new Status(false);
+        this.endTime = null;
     }
 
     @Override
@@ -180,7 +182,7 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
     
     @Override
     public Status getStatus() {
-        return status;
+        return this.status;
     }
 
     /**

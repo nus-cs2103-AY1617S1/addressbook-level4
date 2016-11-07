@@ -47,6 +47,9 @@ public class TaskBuilder {
 //    }
 
     public TestTask build() {
+    	if(this.task.getStatus() == null){
+    		this.task.setStatus(new Status(false));
+    	}
         return this.task;
     }
 
