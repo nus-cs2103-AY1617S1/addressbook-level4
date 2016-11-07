@@ -93,7 +93,7 @@ public interface Model {
 	void undoLatestCommand() throws EmptyStackException;
 
 	/** Mark the given task as undone */
-	void undoneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
+	void undoneTask(ReadOnlyTask target, String dataType, int undoTarget) throws UniqueTaskList.TaskNotFoundException;
 
 	/**
 	 * Returns the filtered task list as an
