@@ -24,7 +24,7 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
-//@@author A0144202Y
+//@@author A0139516B
 public class CompleteCommand extends Command {
 
 	public static final String COMMAND_WORD = "complete";

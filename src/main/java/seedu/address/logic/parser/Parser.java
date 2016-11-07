@@ -357,7 +357,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+    //@@author
+    //@@A0139097U
     private String getNameFromArgs(String args) {
     	if (args.isEmpty()) {
             return "0";

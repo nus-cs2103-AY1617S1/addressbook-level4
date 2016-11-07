@@ -2,10 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.FinishStateException;
 
+//@@author A0139516B
 /**
  * Reverts back to the initial state in the task manager before undo occurs.
- * 
- * @@author A0139516B
  */
 public class RevertCommand extends Command {
 	

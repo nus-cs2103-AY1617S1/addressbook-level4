@@ -1,9 +1,8 @@
 package seedu.address.logic.commands;
 
+//@@author A0144202Y
 /**
  * Lists all tasks regardless it is completed or not  in the task manager to the user.
- * 
- * @@author A0144202Y
  */
 public class ListAllCommand extends Command{
      public static final String COMMAND_WORD = "listall";
