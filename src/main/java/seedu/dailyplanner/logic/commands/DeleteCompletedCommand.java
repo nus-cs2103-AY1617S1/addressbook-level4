@@ -18,39 +18,39 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
  */
 public class DeleteCompletedCommand extends Command {
 
-	public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD
-			+ ": Deletes the task identified by the index number used in the last person listing.\n"
-			+ "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
+    public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + ": Deletes all completed tasks.\n"
+            + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD
+            + " completed";
 
-	public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 
-	public DeleteCompletedCommand() {
-	}
+    public DeleteCompletedCommand() {
+    }
 
-	@Override
-	public CommandResult execute() {
+    @Override
+    public CommandResult execute() {
 
-		final Set<String> keywordSet = new HashSet<>(Arrays.asList(new String[] { "complete" }));
-		model.updateFilteredPersonListByCompletion(keywordSet);
-		UnmodifiableObservableList<ReadOnlyTask> completedList = model.getFilteredPersonList();
-		
-		int size = completedList.size();
-		for (int i = 0; i < size; i++) {
-			ReadOnlyTask taskToDelete = completedList.get(0);
+        final Set<String> keywordSet = new HashSet<>(Arrays.asList(new String[] { "complete" }));
+        model.updateFilteredPersonListByCompletion(keywordSet);
+        UnmodifiableObservableList<ReadOnlyTask> completedList = model.getFilteredPersonList();
 
-			try {
-				model.getHistory().stackAddInstruction(taskToDelete);
-				model.deletePerson(taskToDelete);
-				model.updatePinBoard();
+        int size = completedList.size();
+        for (int i = 0; i < size; i++) {
+            ReadOnlyTask taskToDelete = completedList.get(0);
 
-			} catch (PersonNotFoundException pnfe) {
-				assert false : "The target task cannot be missing";
-			}
-		}
-		
-		model.updateFilteredListToShowAll();
-		model.setLastShowDate(StringUtil.EMPTY_STRING);
-		return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, "all completed"));
-	}
+            try {
+                model.getHistory().stackAddInstruction(taskToDelete);
+                model.deletePerson(taskToDelete);
+                model.updatePinBoard();
+
+            } catch (PersonNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+        }
+
+        model.updateFilteredListToShowAll();
+        model.setLastShowDate(StringUtil.EMPTY_STRING);
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, "all completed"));
+    }
 
 }
