@@ -167,8 +167,8 @@ You can use this command to navigate through your list of tasks.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.13 Exiting sTask </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After a hectic long day, it is time to rest, so you <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;can exit the program by typing<br>
->> `exit`<br><br>
-
+>> `exit`<br>
+<br>
 Now that you have seen how fast, simple and smart sTask can be in managing your mundane tasks, start using it now and become a Champion of your life!<br> 
 <!--@@author-->
 <!--@@author A0139145E-->
