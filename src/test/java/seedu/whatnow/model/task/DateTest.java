@@ -163,7 +163,6 @@ public class DateTest {
         assertTrue(TaskDate.getIsValidDate("today"));
         assertTrue(TaskDate.getIsValidDate("tdy"));
         assertTrue(TaskDate.getIsValidDate("TDY"));
-        System.out.println(TaskDate.formatDayToDate("mon"));
     }
 
     @Test
@@ -323,5 +322,66 @@ public class DateTest {
         tmrDate = dateFormat.format(cal.getTime());
         TaskDate taskDate = new TaskDate("tmr", null, null);
         assertEquals(taskDate.assignTmrDate(), tmrDate);
+    }
+    
+    //@@author A0139772U
+    @Test
+    public void getFullDateOneDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        TaskDate taskDate = new TaskDate(today, null, null);
+        assertEquals(taskDate.toString(), today);
+    }
+    
+    @Test
+    public void getFullDateTwoDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        taskDate.setFullDate(null);
+        assertEquals(taskDate.toString(), "12/04/2018 15/06/2019");
+    }
+    
+    @Test
+    public void getStartDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        assertEquals(taskDate.getStartDate(), "12/04/2018");
+    }
+    
+    @Test
+    public void getEndDate_validDate_fullDateReturned() throws IllegalValueException, ParseException {
+        TaskDate taskDate = new TaskDate(null, "12/04/2018", "15/06/2019");
+        assertEquals(taskDate.getEndDate(), "15/06/2019");
+    }
+    
+    @Test
+    public void isValidDate_validDate_dateIsValid() throws IllegalValueException, ParseException {
+        assertTrue(TaskDate.getIsValidDate("12/12/2222"));
+    }
+    
+    @Test
+    public void isEqual_twoValidEqualDates_datesAreEqual() throws IllegalValueException, ParseException {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        TaskDate taskDate1 = new TaskDate(today, null, null);
+        TaskDate taskDate2 = new TaskDate(today, null, null);
+        assertEquals(taskDate1, taskDate2);
+    }
+    
+    @Test
+    public void formatDayToDate_today_dateofDayReturned() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        String today = df.format(cal.getTime());
+        assertEquals(TaskDate.formatDayToDate("today"), today);
+    }
+    
+    @Test
+    public void formatDayToDate_tomorrow_dateofDayReturned() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        String tomorrow = df.format(cal.getTime());
+        assertEquals(TaskDate.formatDayToDate("tomorrow"), tomorrow);
     }
 }
