@@ -40,7 +40,7 @@
                             </children>
                         </HBox>
                           <Label fx:id="tags" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$tags" />
-                        <Label fx:id="datetime" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$datetime" />
+                        <Label fx:id="dateTime" style="-fx-font-size: 13;" styleClass="cell_small_label" text="\$dateTime" />
                         <Label fx:id="reminder" styleClass="cell_small_label" text="\$reminder" />
                     </children>
                 </VBox>

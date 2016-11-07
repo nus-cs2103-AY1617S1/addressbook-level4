@@ -1,6 +1,5 @@
 package seedu.lifekeeper.logic.commands;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +8,6 @@ import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.Name;
-import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.Reminder;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
@@ -38,62 +36,70 @@ public class EditCommand extends Command {
     public static final String MESSAGE_ACTIVITY_MISMATCH = "Task cannot be changed to event and vice versa.";
 
     public final int targetIndex;
-    
+
     private final String newParamsType;
-    
+
     public final Activity newParams;
 
     /**
      * Set parameters to null if they are not provided.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException
+     *             if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String duedate, String priority, String start, String end, String reminder, Set<String> tags)
-            throws IllegalValueException {
+    public EditCommand(int targetIndex, String name, String duedate, String priority, String start, String end,
+            String reminder, Set<String> tags) throws IllegalValueException {
         this.targetIndex = targetIndex;
-        
+
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
+
         newParamsType = identifyActivityType(duedate, priority, start, end);
-        
-        if (newParamsType.equalsIgnoreCase("float")) {
+
+        switch (newParamsType.toLowerCase()) {
+        case ("float"):
             this.newParams = new Activity(
-                    new Name(name),
-                    new Reminder(reminder),
+                    new Name(name), 
+                    new Reminder(reminder), 
                     new UniqueTagList(tagSet)
-            );
-        } else if (newParamsType.equalsIgnoreCase("task")) {
+                    );
+        
+            break;
+        case ("task"):
             this.newParams = new Task(
-                    new Name(name),
-                    new DueDate(duedate),
+                    new Name(name), 
+                    new DueDate(duedate), 
                     new Priority(priority),
-                    new Reminder(reminder),
+                    new Reminder(reminder), 
                     new UniqueTagList(tagSet)
-            );
-            if (duedate.length() > 0)
-                if (((Task) newParams).getDueDate().value.before(Calendar.getInstance())) 
+                    );
+
+            if (duedate.length() > 0) {
+                if (((Task) newParams).getDueDate().isBeforeNow()) {
                     throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_INVALID);
-        } else if (newParamsType.equalsIgnoreCase("event")) {
+                }
+            }
+            break;
+        case ("event"):
             this.newParams = new Event(
-                    new Name(name),
-                    new StartTime(start),
+                    new Name(name), 
+                    new StartTime(start), 
                     new EndTime(new StartTime(start), end),
-                    new Reminder(reminder),
+                    new Reminder(reminder), 
                     new UniqueTagList(tagSet)
-            );
-            if(((Event)newParams).getStartTime().value.before(Calendar.getInstance())){
+                    );
+
+            if (((Event) newParams).getStartTime().isBeforeNow()) {
                 throw new IllegalValueException(StartTime.MESSAGE_STARTTIME_INVALID);
             }
-        } else {
+
+            break;
+        default:
             assert false : "Invalid method output: identifyActivityType";
             throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
         }
-        if(reminder.length()>0)
-            if(this.newParams.getReminder().value.before(Calendar.getInstance()))
-                    throw new IllegalValueException(Reminder.MESSAGE_REMINDER_INVALID);
     }
 
     @Override
@@ -107,7 +113,7 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
+
         if (taskToEditType.equalsIgnoreCase("task") && newParamsType.equalsIgnoreCase("event")
                 || taskToEditType.equalsIgnoreCase("event") && newParamsType.equalsIgnoreCase("task")) {
             return new CommandResult(MESSAGE_ACTIVITY_MISMATCH);
@@ -129,19 +135,18 @@ public class EditCommand extends Command {
         }
     }
 
-    private Activity produceNewActivityObject(Activity original){
-    String type = original.getClass().getSimpleName().toLowerCase();
-    
-    switch(type){
-    case "activity":
-    	return new Activity(original);
-    case "task":
-    	return new Task((ReadOnlyTask) original);
-    default: //case "event":
-    	return new Event((ReadOnlyEvent) original);	
+    private Activity produceNewActivityObject(Activity original) {
+        String type = original.getClass().getSimpleName().toLowerCase();
+
+        switch (type) {
+        case "activity":
+            return new Activity(original);
+        case "task":
+            return new Task((ReadOnlyTask) original);
+        default: // case "event":
+            return new Event((ReadOnlyEvent) original);
+        }
+
     }
 
-    	
-    }
-    
 }
