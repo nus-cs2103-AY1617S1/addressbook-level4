@@ -279,7 +279,8 @@ public class UpdateController extends Controller {
     }
 
     /**
-     * Renders disambiguation with best-effort input matching to template.
+     * Disambiguate an ambiguous input by auto-populating a templated command on
+     * a best-effort basis.
      * 
      * @param isTask
      * @param name

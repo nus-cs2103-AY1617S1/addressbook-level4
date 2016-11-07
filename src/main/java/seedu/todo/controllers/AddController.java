@@ -199,6 +199,15 @@ public class AddController extends Controller {
         return isTask;
     }
     
+    /**
+     * Disambiguate an ambiguous input by auto-populating a templated command on
+     * a best-effort basis.
+     * 
+     * @param isTask
+     * @param name
+     * @param naturalFrom
+     * @param naturalTo
+     */
     private void renderDisambiguation(boolean isTask, String name, String naturalFrom, String naturalTo) {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
 

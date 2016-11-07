@@ -117,6 +117,14 @@ public class AliasController extends Controller {
         return alias.chars().allMatch(Character::isLetter);
     }
     
+    /**
+     * Disambiguate an ambiguous input by auto-populating a templated command on
+     * a best-effort basis.
+     * 
+     * @param aliasKey
+     * @param aliasValue
+     * @param message
+     */
     private static void renderDisambiguation(String aliasKey, String aliasValue, String message) {
         String sanitizedAliasKey = StringUtil.sanitize(aliasKey);
         sanitizedAliasKey = StringUtil.replaceEmpty(sanitizedAliasKey, ALIAS_KEY_FIELD);

@@ -108,6 +108,16 @@ public class ClearController extends Controller {
         Renderer.renderIndex(db, consoleMessage);
     }
     
+    
+    /**
+     * Disambiguate an ambiguous input by auto-populating a templated command on
+     * a best-effort basis.
+     * 
+     * @param parsedResult
+     * @param filterTask
+     * @param filterEvent
+     * @param errorMessage
+     */
     private void renderDisambiguation(Map<String, String[]> parsedResult, boolean filterTask, boolean filterEvent, String errorMessage) {
         Map<String, String> extractedTokens = Disambiguator.extractParsedTokens(parsedResult);
         String consoleCommand;

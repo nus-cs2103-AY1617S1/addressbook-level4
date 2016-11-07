@@ -108,9 +108,13 @@ public class ListController extends Controller {
     }
     
     /**
-     * Controller-specific utility method to render disambiguation based on what was parsed.
+     * Disambiguate an ambiguous input by auto-populating a templated command on
+     * a best-effort basis.
      * 
-     * @param parsedResult    Result of the tokens being parsed.
+     * @param parsedResult
+     * @param isTask
+     * @param isEvent
+     * @param errorMessage
      */
     private void renderDisambiguation(Map<String, String[]> parsedResult, boolean isTask, boolean isEvent, String errorMessage) {
         Map<String, String> extractedTokens = Disambiguator.extractParsedTokens(parsedResult);
