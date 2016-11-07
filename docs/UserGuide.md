@@ -23,7 +23,7 @@
 <!-- @@author A0153467Y -->
 ## Introduction
 
-Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forget your schedule? MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid of forgetting your tasks anymore! You can easily use MESS by typing only one line of command. MESS can be used offline and even in your office computer. It helps you to manage and organise your tasks and so as your time. 
+Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forgotten your schedule? If so, MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to be afraid of forgetting your tasks anymore! You can easily use MESS through your keyboard by typing only simple and short commands. MESS can be used offline and even on your office computer. It helps you manage and organise both your tasks and your time.
 
 Want to use MESS immediately? Let's get started!
 <!-- @@author -->
@@ -73,7 +73,7 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
-> Use ISO date-time format for typing exact date. e.g. 2016/9/1 represents 1st September 2016
+> Use ISO date-time format if you wish to type exact date. e.g. 2016/9/1 represents 1st September 2016
 
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
