@@ -181,7 +181,6 @@ public class Parser {
 
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
-			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
@@ -313,8 +312,7 @@ public class Parser {
 		argsTokenizer.tokenize(arguments);
 		
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
-		
-		// TODO better approach than using nulls as flag values
+
 		return getAddCommand(taskName, taskType, null, null, tagSet);
 	}
 	

@@ -31,6 +31,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -123,7 +124,17 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskManagerChanged();
     }
     
+    @Override
+    public Stack<TaskManager> getStateHistoryStack() {
+    	return this.stateHistory;
+    }
+    
+    @Override
+    public Stack<TaskManager> getUndoHistoryStack() {
+    	return this.undoHistory;
+    }
     //@@author
+    
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -153,7 +164,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTasks(ArrayList<ReadOnlyTask> targets) throws TaskNotFoundException {
+    public synchronized void deleteTasks(List<ReadOnlyTask> targets) throws TaskNotFoundException {
         for(ReadOnlyTask target : targets) {
         	taskManager.removeTask(target);
         	indicateTaskManagerChanged();
@@ -279,7 +290,13 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0141019U
+    @Override
+    public List<ReadOnlyTask> getInternalTaskList() {
+    	return taskManager.getTaskList();
+    }    
     //@@author
+    
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
         return new UnmodifiableObservableList<>(taskManager.getFilteredTasks());
