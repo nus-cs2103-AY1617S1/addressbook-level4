@@ -57,8 +57,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Role: Developer <br>
 * Component in charge of: UI
 * Unused Features implemented:
-
-* Code Written: [[functional code](* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0147986H.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0147986H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0147986H.md)]
+ * Enhanced delete command
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0147986H.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0147986H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0147986H.md)]
  
 -----
 
