@@ -102,50 +102,40 @@ Examples:
 
 ### Listing all tasks : `list`
 Shows the list of all tasks sorted temporally with the most recent ones displayed first.<br>
-Format: **`list`**` [filter]`<br>
-> [filters] available: <br>
+Format: **`list`**` [optional filter]`<br>
+> [optional filter] available: <br>
 > * today - shows the list of tasks for today's date
-> * week - shows the list of tasks for this week
+> * week - shows the list of tasks for this week (from Sunday to Saturday)
 > * month - shows the list of tasks for the current month
 > * date (e.g. 12 Oct 2016) - shows the list of tasks for the specified date
 
 Examples:
+* **`list`**
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
+
 <!-- @@author A0146682X -->
 ### Finding all tasks containing keyword in the name: `find`
-Finds tasks whose names contain any of the given keywords.<br>
+Finds tasks whose names contain the given keywords.<br>
 Format: **`find`**` [findtype] [keywords]`
 
 > The search is case insensitive. <br>
 > the order of the keywords does not matter. <br>
 > Only the task name is searched. <br>
-> Tasks matching at least one keyword will be returned. <br>
-> More relevant tasks (i.e. those matching more keywords) are displayed first.
 
-Examples: 
-* `find mom`<br>
-  Returns both `dinner with mom` and `dinner with Mom`
-* `find mom dad sister`<br>
+> [findtype] available: <br>
+> * either - demands that tasks containing at least one keyword will be returned
+> * all - demands that only tasks containing all keywords will be returned
+> * phrase - demands that only tasks containing all the keywords in the exact order will be returned
+
+Examples:
+* **`find`**` either mom dad sister`<br>
   Returns Any task having `mom`, `dad`, or `sister`in its name
+* **`find`**` all mom dad sister` <br>
+  Returns `dinner with mom, dad and sister` but not `dinner with mom and dad`
+* **`find`**` phrase mom and dad` <br>
+  Returns `dinner with mom and dad` but not `dinner with dad and mom`
 
-> ##### Optional specifiers:
-
-> ###### Find tasks that contain all keywords: `all`
-> This specifier demands that only tasks containing all, not just some, keywords will be returned. <br>
-> Format: **`find all`**` [keywords]`<br>
-
-> Examples:
-> * `find all mom dad sister` <br>
-> Returns `dinner with mom, dad and sister` but not `dinner with mom and dad`
-
-> ###### Find by an exact phrase: `exactly`
-> This specifier demands that only tasks containing all the keywords in the exact order will be returned. <br>
-> Format: **`find exactly`**` [keywords]`<br>
-
-> Examples:
-> * `find exactly mom and dad` <br>
-> Returns `dinner with mom and dad` but not `dinner with mom`
 <!-- @@author A0138601M -->
 ### Deleting a task : `delete`
 Delete the specified tasks from the to-do list.<br>

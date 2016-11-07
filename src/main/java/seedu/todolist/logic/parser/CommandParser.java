@@ -472,12 +472,8 @@ public class CommandParser {
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        String findType = "null";
-        if (keywords[0].equals("all") || keywords[0].equals("exactly")) {
-            findType = keywords[0];
-            keywordSet.remove(keywords[0]);
-        }
-        return new FindCommand(keywordSet, findType);
+        keywordSet.remove(keywords[0]);
+        return new FindCommand(keywordSet, keywords[0]);
     }
 
     /**
@@ -490,7 +486,6 @@ public class CommandParser {
         final String dateFilter = args.trim();    
         return new ListCommand(dateFilter);
     }
-    //@@author
 
     //@@author A0158963M 
     /**
@@ -507,7 +502,6 @@ public class CommandParser {
 
         return new SetstorageCommand(args.trim());
     }
-    //@@author
     
     //@@author A0153736B    
     /**
