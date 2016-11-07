@@ -197,7 +197,7 @@
 
  ### 4.4 Edit date of event
 > **Before:** `03-Nov-2016 09:00 to 10:00`<br>
-> **Command:** `edit B7 date/20-Dec-2016 9am to 10am`<br>
+> **Command:** `edit B6 date/20-Dec-2016 9am to 10am`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
     `Edited Task: breakfast with 2103 team Date: 20-Dec-2016 Time: 09:00 to 10:00 Tags: [BestTeam]`
