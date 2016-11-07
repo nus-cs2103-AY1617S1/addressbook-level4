@@ -107,3 +107,21 @@ Command | Expected behavior
 `create task Buy durians by 4pm` | Task is added, since we aliased `create` to `add`.
 `unalias create` | Alias list shows up with the alias mapping removed
 `unalias` | Disambiguate
+
+### Undo / Redo
+
+Since we cleared all the calendar items earlier, we need to re-create some test fixtures.
+
+* `add task Buy clothes by tmr 5pm`
+* `add task Submit CS1231 assignment by today 3pm`
+* `add task Submit CS2103 project by yesterday 4pm`
+* `add task "Take a break from life"`
+
+Command | Expected behavior
+------- | -----------------
+`undo` | The last task added ("Take a break from life" should be removed
+`undo` | The second last task added ("Submit CS2103 project") should be removed
+`redo` | "Submit CS2103 project" should be re-added
+`redo 2` | Error message explaining that there is only 1 command that can be redone
+`undo 100` | Error message explaining that there is only (a large number) of commands that can be undone
+`redo` | "Take a break from life" should be re-added
