@@ -61,11 +61,12 @@ This guide describes the design and implementation of *DearJim*. It will help yo
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+<!-- @author A0093960X -->
 ## Design
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/ArchitectureDiagram.png" width="600"><br>
 >_The Architecture Diagram of DearJim_
 
 
@@ -101,7 +102,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SDforDeleteTask.PNG" width="800">
+<img src="images\SDforDeleteTaskFinal.PNG" width="800">
 > _The sequence diagram for the scenario `delete 1`_
 
 
@@ -111,7 +112,7 @@ command `delete 1`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<img src="images\SDForDeleteTaskEventHandlingFinal.png" width="800">
 > _The sequence diagram showing the `TaskManagerChangedEvent` and effects on `Storage` and `UI`_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
