@@ -1,8 +1,7 @@
 package seedu.dailyplanner.commons.util;
 
-
 public class ArgumentFormatUtil {
-	
+
 	public static boolean isValidAddArgumentFormat(String trimmedArgs) {
 		if (trimmedArgs.length() != 1 && trimmedArgs.charAt(1) == '/') {
 			return false;
@@ -22,41 +21,40 @@ public class ArgumentFormatUtil {
 		}
 		return true;
 	}
-	
-	
-	public static boolean isValidEditArgumentFormat(String args){
-			String trimmedArgs = args.trim();
-		
-			if(!(trimmedArgs.contains(" "))){
-				return false;
-			}			
-			else {
-				String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));						
-				if(!(onlyIndex.matches("^-?\\d+$"))){
+
+	public static boolean isValidEditArgumentFormat(String args) {
+		String trimmedArgs = args.trim();
+
+		if (!(trimmedArgs.contains(" "))) {
+			return false;
+		}
+		String[] checkFormat = trimmedArgs.split(" ");
+		// String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));
+		if(!checkFormat[0].matches("\\d+")){
+			return false;
+		}
+		for (int k = 0; k < trimmedArgs.length(); k++) {
+			if ((checkFormat[k].length() != 2) && (checkFormat[k].substring(0, 2).equals("s/"))) {
+				if ((checkFormat[k].charAt(2) == 'e') || !(checkFormat[k].charAt(2) == 'c')) {
 					return false;
 				}
 			}
-			
-			
-			if (args.charAt(args.length() -1) == '/')
-				return false;
-			
-			for (int k = 0; k < args.length(); k++) {
-				if (args.charAt(k) == '/') {
-					if (!(k + 3 == trimmedArgs.length())) {
-						if (args.charAt(k + 2) == '/') {
-								return false;
-						}
-					} 
-					
+			if (checkFormat[k].substring(0, 2).equals("e/")) {
+				if ((checkFormat[k].length() != 2) && (checkFormat[k].charAt(2) == 'e')
+						|| !(checkFormat[k].charAt(2) == 'c')) {
+					return false;
 				}
-			}							
-			
-		
+			}
+			if (checkFormat[k].substring(0, 2).equals("c/")) {
+				if ((checkFormat[k].length() != 2) && (checkFormat[k].charAt(2) == 's')
+						|| !(checkFormat[k].charAt(2) == 'e')) {
+					return false;
+				}
+			}
+
+		}
+
 		return true;
 	}
-	
-	
-	
 
 }
