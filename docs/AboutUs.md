@@ -37,6 +37,7 @@ We are a team based in the [School of Computing, National University of Singapor
         - [Morph Test package] (https://github.com/CS2103AUG2016-F09-C4/Main/pull/11)
       - Prepared preliminary MockUI layout [#3] (https://github.com/CS2103AUG2016-F09-C4/main/issues/3)
       - Implemented an Event List Panel [#35] (https://github.com/CS2103AUG2016-F09-C4/Main/pull/35)
+      - [Prepared TestScript for manual testing] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/src/test/data/ManualTesting/TestScript.md)
     
 3. Poh Yee Heng Keith [@Yeehengg] (https://github.com/Yeehengg)  
   <img src="images/Keith.jpg" width="150">  
