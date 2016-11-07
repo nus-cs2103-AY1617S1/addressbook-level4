@@ -67,7 +67,7 @@ public class Parser {
     public static final Prefix intervalPrefix = new Prefix(" i/","interval", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", "time interval",true);
     public static final Prefix tagArgumentsPrefix = new Prefix(" ts/", "tag arguments");
-	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/", "format custom command");
+	public static final Prefix formatCustomCommandPrefix = new Prefix(" f/", "format custom command", true);
 	// @@author
     //@@author A0153751H
     public static final Prefix taskColorPrefix = new Prefix(" c/","task color", true);
@@ -260,6 +260,8 @@ public class Parser {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(formatCustomCommandPrefix);
 		argsTokenizer.tokenize(args);
 		try {
+			if(!argsTokenizer.hasPreamble())
+				return new CustomizeCommand();
 			return new CustomizeCommand(argsTokenizer.getPreamble(), argsTokenizer.getValue(formatCustomCommandPrefix));
 		} catch (NoSuchElementException nsee) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CustomizeCommand.MESSAGE_USAGE));

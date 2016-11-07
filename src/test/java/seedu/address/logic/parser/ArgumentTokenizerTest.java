@@ -15,8 +15,6 @@ public class ArgumentTokenizerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    //---------------- Tests for isUnsignedPositiveInteger --------------------------------------
-
     public static final Prefix descriptionPrefix = new Prefix(" d/", "description");
     
 	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix);
@@ -73,7 +71,8 @@ public class ArgumentTokenizerTest {
     		inputedValue = "title d/description1 d/description2";
     		argsTokenizer.tokenize(inputedValue);
     		exceptedValue = "description2";
-            assertEquals(exceptedValue, argsTokenizer.getValue(descriptionPrefix));
-            
+            assertEquals(exceptedValue, argsTokenizer.getValue(descriptionPrefix));   
     }
+    
+  //@@author
 }

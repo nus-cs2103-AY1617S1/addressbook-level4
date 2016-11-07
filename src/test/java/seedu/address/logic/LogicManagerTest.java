@@ -39,6 +39,8 @@ import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.ExitCommand;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
+import seedu.task.logic.commands.HistoryCommand;
+import seedu.task.logic.commands.RedoCommand;
 import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
@@ -161,10 +163,8 @@ public class LogicManagerTest {
 	private void assertUndoAndRedoCommandBehavior(ReadOnlyTaskManager expectedTaskManager, List<? extends ReadOnlyTask> expectedShownList) throws ParseException{
 		logic.execute("undo");
 		logic.execute("redo");
-		
 		// Confirm the ui display elements should contain the right data
 		assertEquals(expectedShownList, model.getFilteredTaskList());
-
 		// Confirm the state of data (saved and in-memory) is as expected
 		assertEquals(expectedTaskManager, model.getTaskManager());
 		assertEquals(expectedTaskManager, latestSavedTaskManager);
@@ -253,6 +253,19 @@ public class LogicManagerTest {
 		Task toBeAdded = helper.homework();
 
 		addTaskToManagerHelper(toBeAdded, expectedManager);
+		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
+	}
+	
+	@Test
+	public void execute_redo_delete_successful() throws Exception {
+		TaskManager expectedManager = new TaskManager();
+		Task toBeAdded = helper.homework();
+		
+		//Add task to manager
+		addTaskToManagerHelper(toBeAdded, expectedManager);
+
+		logic.execute(helper.generateDeleteCommand(0));
+		
 		assertAddAndUndoBehaviour(toBeAdded, expectedManager);
 	}
 
@@ -373,6 +386,20 @@ public class LogicManagerTest {
 		// execute command and verify result
 		assertCommandBehavior(helper.generateDoneCommand(CUSTOM_DONE_WORD_COMMAND, 1), expectedMessage, expectedManager,
 				expectedManager.getTaskList());
+	}
+	
+	@Test
+	public void execute_history_successful() throws Exception{
+		StringBuilder history = new StringBuilder();
+		for(int i =0; i<6;i++){
+			executeAndAppendCommand("command "+i, history);
+		}
+		assertCommandBehavior(helper.generateHistoryCommand(), history.toString());	
+	}
+	
+	private void executeAndAppendCommand(String command, StringBuilder history) throws ParseException{
+		history.insert(0, command +"\n");
+		logic.execute(command);
 	}
 	// @@author
 
@@ -774,17 +801,17 @@ public class LogicManagerTest {
 	
 		/** Generates the correct done command based on the index given */
 		String generateDoneCommand(int index) {
-			return "done "+index;
+			return DoneCommand.COMMAND_WORD+" "+index;
 		}
 		
 		/** Generates the correct done command based on the index given */
 		String generateDoneCommand(String customWord, int index) {
-			return "done "+index;
+			return customWord+" "+index;
 		}
 		
 		/** Generates the correct delete command based on the index given */
 		String generateDeleteCommand(int index) {
-			return "delete "+index;
+			return DeleteCommand.COMMAND_WORD+" "+index;
 		}
 		
 		/** Generates the correct delete command based on the index given */
@@ -794,18 +821,23 @@ public class LogicManagerTest {
 		
 		/** Generates the correct delete command based on the index given */
 		String generateClearCommand() {
-			return "clear";
+			return ClearCommand.COMMAND_WORD;
 		}
 		// @@author
 
 		/** Generates the correct undo command */
 		String generateUndoCommand() {
-			return "undo";
+			return UndoCommand.COMMAND_WORD;
 		}
 
 		/** Generates the correct undo command */
 		String generateRedoCommand() {
-			return "redo";
+			return RedoCommand.COMMAND_WORD;
+		}
+		
+		/** Generates the history command */
+		String generateHistoryCommand() {
+			return HistoryCommand.COMMAND_WORD;
 		}
 
 		/**

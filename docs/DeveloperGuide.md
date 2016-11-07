@@ -285,10 +285,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* *`| user | custom my commands' formats | use customized commands
 `* *`| user | color code a task | group my task easily
 `* *`| user | keep track my task | check which task have completed or on going
-`*`|user | set reminder for my task | can complete the task on time. 
-`* *` |user |add category to a task | view task in a more organize manner. 
-`* *`| user | set priority to each of my task | prioritize which task to focus on. 
-
+`* *`| user | see history of last executed commands | remember what commands were executed 
+`*`| user | redo the last undo executed command | restore the task manager to the state before undo command was executed 
 
 
 
@@ -465,6 +463,8 @@ Use Case ends
     Use Case ends. 
 <!-- @@author -->    
 
+<!-- @@author A0153411W -->
+
 #### Use case: UC08 Create duplicated tasks
    Actor: User
 
@@ -492,21 +492,9 @@ Use Case end.
     >1d1. System shows an error message
     Use case resume at step 1.
 
-#### Use case: UC09 Undo last executed command
-   Actor: User
-
-**MSS**
-
-1. User requests to undo last executed command 
-2. System will restore task manager before command was executed 
-Use Case end.
-
-**Extension**
-
-    1a. There is nothing to undo
-    >1a1. System shows an error message
-    Use case finishes.
 <!-- @@author -->
+
+<!-- @@author A0153411W -->
 
 #### Use case: UC09 Undo last executed command
    Actor: User
@@ -549,7 +537,7 @@ Use Case end.
 **MSS**
 
 1. User request to customize command
-2. System will update the command format on the config
+2. System updates the command format on the config
 
 **Extension**
 
@@ -591,7 +579,42 @@ Use Case end.
 	3b. User entered index of a completed task
 	>3b1. System display task is already completed message
 	Use case resume at step 2
-	
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
+
+#### Use case: UC13 See history of last executed commands
+   Actor:User
+   
+**MSS**
+
+1. User request to see last executed commands
+2. System displays last executed commands
+
+**Extension**
+
+	1a. History is empty
+	>1a1. System shows an error message
+	Use case ends.
+
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
+
+#### Use case: UC14 Redo the last undo executed command
+   Actor:User
+   
+**MSS**
+
+1. User requests to redo last executed undo command 
+2. System will restore task manager before undo command was executed 
+Use Case end.
+
+**Extension**
+
+    1a. There is nothing to redo
+    >1a1. System shows an error message
+    Use case finishes.
 <!-- @@author -->
 
 ## Appendix C : Non Functional Requirements

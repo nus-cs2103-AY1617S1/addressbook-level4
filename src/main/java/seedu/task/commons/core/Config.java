@@ -22,12 +22,15 @@ public class Config {
 	private String taskManagerName = "MyTaskManager";
 	// @@author A0153411W
 	private HashMap<String, String> customCommands = new HashMap<String, String>();
-
 	// @@author
+	
 	public Config() {
 	}
 
 	// @@author A0153411W
+	/**
+	 * Get instance of Config to get current user preferences
+	 */
 	public static Config getInstance() {
 		if (instance == null) {
 			instance = new Config();
@@ -38,8 +41,8 @@ public class Config {
 	public static void setInstance(Config instance) {
 		Config.instance = instance;
 	}
-
 	// @@author
+	
 	public String getAppTitle() {
 		return appTitle;
 	}
@@ -81,6 +84,10 @@ public class Config {
 	}
 
 	// @@author A0153411W
+	
+	/**
+	 * Set custom user value command
+	 */
 	public void setCustomCommandFormat(String commandWord, String userCommand)
 			throws DublicatedValueCustomCommandsException {
 		for (String key : customCommands.keySet()) {
@@ -90,6 +97,9 @@ public class Config {
 		customCommands.put(commandWord, userCommand);
 	}
 
+	/**
+	 * Get default command format by custom value
+	 */
 	public String getCommandbyCustomValue(String userCommand) {
 		for (String key : customCommands.keySet()) {
 			if (customCommands.get(key).equals(userCommand))
@@ -98,6 +108,20 @@ public class Config {
 		return "";
 	}
 	
+	/**
+	 * Get all custom user current commands
+	 */
+	public String getCustomCommands(){
+		StringBuilder commands = new StringBuilder();
+		for (String key : customCommands.keySet()) {
+			commands.append("Command "+key+": "+customCommands.get(key)+"\n");
+		}
+		return commands.toString(); 
+	}
+	
+	/**
+	 * Find custom command by it's custom value
+	 */
 	public String getCustomValuebyCommand(String command) {
 		return customCommands.get(command);
 	}
@@ -137,6 +161,9 @@ public class Config {
 	}
 
 	// @@author A0153411W
+	/**
+	 * Throw when custom value is already used
+	 */
 	@SuppressWarnings("serial")
 	public class DublicatedValueCustomCommandsException extends Exception {
 		public DublicatedValueCustomCommandsException(String message) {

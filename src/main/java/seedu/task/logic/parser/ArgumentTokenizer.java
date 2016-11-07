@@ -173,7 +173,19 @@ public class ArgumentTokenizer {
 			throw new NoSuchElementException();
 		return preambleValue.trim();
 	}
-
+	
+	// @@author A0153411W
+	/**
+	 * Check if there is preamble (text before the first valid prefix) present
+	 */
+	public boolean hasPreamble() throws NoValueForRequiredTagException{
+		String preambleValue = getValue(new Prefix("", ""));
+		if (preambleValue.isEmpty())
+			return false;
+		return true;
+	}
+	// @@author
+	
 	private void resetTokenizerState() {
 		this.tokenizedArguments.clear();
 	}

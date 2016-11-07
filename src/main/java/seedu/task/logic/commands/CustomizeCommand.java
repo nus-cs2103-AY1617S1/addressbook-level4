@@ -9,17 +9,22 @@ import seedu.task.commons.util.ConfigUtil;
 import seedu.task.storage.StorageManager;
 
 //@@author A0153411W
+/**
+ * Customize available commands with user's command formats 
+ */
 public class CustomizeCommand extends Command {
 
 	public static final String COMMAND_WORD = "customize";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add customized format for specified command"
-			+ " Parameters: command_format" + " Example: " + COMMAND_WORD + " LIST f/ls";
+			+ " Parameters: command_format" + "\n Example: " + COMMAND_WORD + " LIST f/ls \n";
 
 	private String commandWord;
 	private String userCommand;
-	private String userCommandForUndo; 
 
+	public CustomizeCommand() {
+	}
+	
 	public CustomizeCommand(String commandWord, String userCommand) {
 		this.commandWord = commandWord.toLowerCase();
 		this.userCommand = userCommand.toLowerCase();
@@ -29,16 +34,19 @@ public class CustomizeCommand extends Command {
 	public CommandResult execute() {
 		Config config = Config.getInstance();
 		String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+		
+		if(commandWord==null && userCommand==null)
+			return showCustomCommands(config);
+		
+		//Check if default command format is available 
 		if (!isCommandWordPresent(commandWord))
 			return new CommandResult("Command:" + commandWord + " is not found.");
 		try {
-			//prepareCommandForUndo(config);
 			config.setCustomCommandFormat(commandWord, userCommand);
 			ConfigUtil.saveConfig(config, configFilePathUsed);
 			new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
 			return new CommandResult("Add customized format: " + userCommand + " for command: " + commandWord);
 		} catch (IOException e) {
-			// remove this command from list for undo
 			return new CommandResult(
 					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		} catch (DublicatedValueCustomCommandsException e) {
@@ -46,25 +54,25 @@ public class CustomizeCommand extends Command {
 					"Failed to add customized format: " + userCommand + " for command: " + commandWord);
 		}
 	}
-
-	private void prepareCommandForUndo(Config config){
-		userCommandForUndo = config.getCustomValuebyCommand(commandWord);
-	}
 	
+	/**
+	 * Show All available custom user's commands
+	 */
+	private CommandResult showCustomCommands(Config config){
+		return new CommandResult(MESSAGE_USAGE+"Current custom commands: \n"+config.getCustomCommands());
+	}
+
+	/**
+	 * Check if default command format is available 
+	 */
 	private boolean isCommandWordPresent(String commandWord) {
 		List<String> commands = Command.getAllCommands();
 		return commands.contains(commandWord);
 	}
 
-	/**
-	 * Save Command is not reversible.
-	 */
 	@Override
 	public CommandResult executeUndo() {
-		if(userCommandForUndo == null)
-			return new CommandResult("Method cannot be undone because command: "+commandWord+" didn't have set previous custom command format");
-		this.userCommand = userCommandForUndo;
-		return this.execute();
+		return null;
 	}
 
 	@Override
