@@ -62,7 +62,7 @@ Command | Expected behavior
 `update 3 by tmr 4pm` | Task deadline is changed to 4pm
 `update 3 from tmr 4pm to tmr 5pm` | Disambiguation: A task only has a single deadline
 
-### List query
+### List by query
 
 The following should be displayed on the screen:
 1. CS1010FC meeting, 16:00 - 17:00
@@ -79,3 +79,21 @@ Command | Expected behavior
 `list events` | Only the two events show up
 `list events before tmr 5.30pm`| Only "CS1010FC meeting" shows up
 `list before tmr 7pm` | Only tasks and events before tomorrow 7pm show up, which are "CS1010FC meeting", "Go to the zoo", and "Buy baby milk"
+
+### Clear by query
+
+Filtering queries like "complete", "incomplete", "before", etc. are shared with the List command. Hence all queries that work with List will work with Clear.
+
+The following should be displayed on the screen:
+1. CS1010FC meeting, 16:00 - 17:00
+2. Go to the zoo, 16:00 - 18:00
+3. Buy baby milk, 16:00
+
+If the numbering differs from this order, please use the correct numbering in the commands.
+
+Command | Expected behavior
+------- | -----------------
+`clear completed` | The console message should show that a task has been deleted, but since the task is the completed floating task which is not on the screen, the list shown does not change
+`clear incomplete` | The remaining task "Buy baby milk" is deleted
+`clear events before tmr 5.30pm` | CS1010FC meeting is deleted
+`clear` | All calendar items are deleted
