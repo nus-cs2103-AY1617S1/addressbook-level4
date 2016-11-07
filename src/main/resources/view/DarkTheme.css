@@ -88,12 +88,14 @@
     -fx-border-insets: 0 10 1 0;
 }
 
+
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
+    
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
@@ -102,7 +104,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-background-color: transparent, derive(#ff0000, 100%);
 }
 
 .split-pane {
