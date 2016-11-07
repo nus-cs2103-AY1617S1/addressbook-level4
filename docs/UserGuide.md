@@ -293,8 +293,8 @@ Command | Format
 
 Key Codes | Function | Command Box Input 
 -------- | :--------  | :-------- 
-[ESC] | Toggle to show/hide a list of keyboard shortcuts | -
-[Ctrl-D](#clearing-all-entries--clear) | Clear all entries | `clear`
+<kbd>Esc</kbd> | Toggle to show/hide a list of keyboard shortcuts | -
+<kbd>Ctrl</kbd> + <kbd>D</kbd>[Ctrl-D](#clearing-all-entries--clear) | Clear all entries | `clear`
 [Ctrl-Q](#exiting-the-program--exit) | Exit | `exit`
 [Ctrl-L](#listing-all-tasks-list) | List all unmarked task by date, earliest task first | `list`
 [Ctrl-A](#listing-all-tasks-list) | List archived tasks | `list archived`
