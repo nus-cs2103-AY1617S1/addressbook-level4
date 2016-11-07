@@ -251,9 +251,33 @@ Method 2
 
 
 
-###Test Findtag Command
+###Test Find tag Command
 
+#### Testing Command: `findtag IE3100`
 
+> The command returns all the entries with the tag IE3100
+
+### Test Done Command
+
+#### Testing Command: `add speak to Prof r/today 2300`, <kbd>Enter</kbd> , 'done'
+
+> The newly added activity `speak to Prof` will be marked as a done task. 
+> It will be removed from the list and moved to the done list.
+
+#### Testing Command: `add speak to ISE Department d/today 1700`, <kbd>Enter</kbd> , 'done'
+
+> The newly added task `speak to ISE Department` will be marked as a done task. 
+> It will be removed from the list and moved to the done list.
+
+### Test List Command
+
+#### Testing Command: `list all`
+
+> Listing command that shows all the tasks inside the Lifekeeper
+
+#### Testing Command: `list`
+
+> The default listing with all the tasks excluding completed
 
 
 
