@@ -190,7 +190,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
           // floating tasks or deadline tasks
           return;
       } else if (haveStartTime && haveEndTime && !haveDeadline) {
-          // event task
+          checkValidEvent(t.getStartTime(), t.getEndTime());// event task
           return;
       } else if (!haveDeadline) {
           // there is a start/end time, but no end/start time
@@ -203,9 +203,27 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
           throw new IllegalValueException("If a task has a deadline, it should not have a start or end time specified.");
       }
   }
+    
+
     //@@author
 
     //@@author A0138848M
+    /**
+     * Auxiliary method to checkValidTaskTime. Checks if startTime <= endTime  
+     * 
+     * @param startTime the start time of the event
+     * @param endTime the end time of the event
+     * 
+     * @throws IllegalValueException if startTime > endTime
+     */
+    private static void checkValidEvent(TaskTime startTime, TaskTime endTime) throws IllegalValueException {
+        if (startTime.compareTo(endTime) <= 0){
+            return;
+        } else {
+            throw new IllegalValueException("Start time of event should be before end time.");
+        }
+    }
+    
     /**
      * Returns a new Task with all fields of the current task duplicated and 
      * with its tag updated to newTag
