@@ -157,8 +157,8 @@ The `Model`,
 **API** : [`Storage.java`](../src/main/java/seedu/task/storage/Storage.java)
 
 The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save `Dowat` data in xml format and read it back.
+* Saves `UserPref` objects in json format and read it back.
+* Saves `Dowat` data in xml format and read it back.
 <!-- @@author  -->
 <!-- @@author A0144702N -->
 
