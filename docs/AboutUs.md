@@ -62,6 +62,8 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Other major contributions:
   *  Wrote JUnit test cases for Clear and Show commands
   *  Implementation of recurring tasks and checking for overlapping tasks
+  *  General bug fixes
+  *  Maintenance of documentation
 
 -----
 

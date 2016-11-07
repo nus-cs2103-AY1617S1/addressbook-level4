@@ -77,8 +77,7 @@ public class UndoCommand extends Command {
         try {
             String filePath = model.changeFileStorageUndo(undoInfo.getFilePath());
             undoInfo.setFilePath(filePath);
-    	} 
-    	catch (IOException | ParseException | JSONException e) {
+    	} catch (IOException | ParseException | JSONException e) {
     	    e.printStackTrace();
     	}
     }
@@ -86,31 +85,28 @@ public class UndoCommand extends Command {
     private void undoClear(ArrayList<Task> tasks) {
         try {
             model.clearTaskUndo(tasks);
-        }
-        catch (TaskNotFoundException e) {
+        } catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
     }
 
-    private void undoAdd(Task task){
+    private void undoAdd(Task task) {
         try {
             model.deleteTaskUndo(task);
-        }
-        catch (TaskNotFoundException e) {
+        } catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
     }
     
-    private void undoDelete(Task task){
+    private void undoDelete(Task task) {
         try {
             model.addTaskUndo(task);  
-        } 
-        catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }
     }
 
-    private void undoUpdate(Task newTask, Task originalTask){
+    private void undoUpdate(Task newTask, Task originalTask) {
         Task stubTask = new Task (newTask.getTaskDetails(), newTask.getStartTime(), newTask.getEndTime(), newTask.getPriority(), newTask.getRecurringFrequency());
         try {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getRecurringFrequency());
@@ -120,11 +116,10 @@ public class UndoCommand extends Command {
 		}
     }
 
-    private void undoDone(ReadOnlyTask task){
+    private void undoDone(ReadOnlyTask task) {
         try {
             model.markTaskAsIncomplete(task);
-        } 
-        catch (TaskNotFoundException e) {
+        } catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
     }

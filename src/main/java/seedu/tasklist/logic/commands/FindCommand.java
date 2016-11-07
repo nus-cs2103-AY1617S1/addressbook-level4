@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredTaskList();
         
         // No tasks match string
-        if (matchingTasks.isEmpty()){
+        if (matchingTasks.isEmpty()) {
             model.updateFilteredListToShowAll();
             return new CommandResult(String.format(MESSAGE_FIND_TASK_FAILURE));
         }

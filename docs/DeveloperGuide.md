@@ -43,7 +43,7 @@
 
 ## Design
 
-/* @@author A0135769N */
+[comment]: # (@@author A0135769N)
 
 ### Architecture
 
@@ -151,7 +151,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Task list data in xml format and read it back.
 
-/* @@author */
+[comment]: # (@@author)
 
 ### Common classes
 
@@ -179,7 +179,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
-/* @@author A0144919W */
+[comment]: # (@@author A0144919W)
 
 ### Undo
 
@@ -199,11 +199,12 @@ The information in an `UndoInfo` instance is used to undo the relevant operation
 * We use a redo stack to store a list of all those `UndoInfo` instances that were popped from the undo stack and pushed into this stack. These changes are redone in a manner similar to how changes are undone in Undo operation. 
 * Note that if an operation following an undo operation mutates the list, then the redo stack is cleared at that point.
 
-/* @@author A0142102E */
-### Recurring Tasks
-The recurring feature allows a task to recur in a specified frequency, and its dates will be updated to the next recurring date once it is marked as done. `RecurringUtil` is used to check and update a task's start and end dates. The `Task` class also contains information on whether this particular task is a recurring one and its relevant recurring frequency (daily, weekly, monthly or yearly). The checking and updating of a recurring task's dates occurs when the task is updated, marked as done, or when it undergoes undo and redo operations.
+[comment]: # (@@author A0142102E)
 
-/* @@author */
+### Recurring Tasks
+The recurring feature allows a task to recur in a specified frequency, and its dates will be updated to the next recurring date once it is marked as done. The `Task` class contains information on whether this particular task is a recurring one and its relevant recurring frequency (daily, weekly, monthly or yearly). The checking and updating of a recurring task's dates occurs when the task is updated, marked as done, or when it undergoes undo and redo operations.
+
+[comment]: # (@@author)
 
 ## Testing
 
@@ -299,7 +300,8 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
-/* @@author A0142102E */
+[comment]: # (@@author A0142102E)
+
 #### Use case UC01 - Add a task/event/deadline
 
 **MSS**
@@ -318,7 +320,8 @@ Guarantees:
 > 1a1. System will identify the clash and will display to the user the list of actions to be taken.
 User can ignore collision or replace existing task with current task or reschedule task or cancel operation.
 
-/* @@author A0146107M */
+[comment]: # (@@author A0146107M)
+
 #### Use case UC02 - Show tasks
 
 **MSS**
@@ -329,7 +332,7 @@ Precondition: Task category entered should be valid
 2. System shows list of tasks under the category entered.
 Use case ends.
 
-/* @@author A0144919W */
+[comment]: # (@@author A0144919W)
 
 #### Use case UC03 - Delete task
 
@@ -407,7 +410,7 @@ Guarantees:
 > 3a1. The system shows an error message <br>
   Use case resumes at Step 2
 
-/* @@author A0135769N */
+[comment]: # (@@author A0135769N)
 
 #### Use case UC06 - Set storage directory
 
@@ -425,7 +428,8 @@ Guarantees:
 4. System will process the file path and will create a copy of the file in the new directory.
 5. File in the old directory will be removed. 
 
-/* @@author A0146107M */
+[comment]: # (@@author A0146107M)
+
 #### Use case UC07 - Autocomplete command feature
 
 **MSS**
@@ -464,7 +468,8 @@ Guarantees:
 2a. No commands were entered before the use case
 > Use case ends
 
-/* @@author A0135769N */
+[comment]: # (@@author A0135769N)
+
 #### Use case UC09 - Help Command (Command Summary)
 
 **MSS**
@@ -478,8 +483,7 @@ Guarantees:
 2. A browser window with a list of Command summary will open.
 3. Press ENTER key to close the browser and return to the command line interface.
 
-
-/* @@author */
+[comment]: # (@@author)
 
 ##Appendix C: Non Functional Requirements
 
@@ -512,7 +516,7 @@ More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs21
 
 ##Appendix E: Product Survey
 
-/* @@author A0144919W */
+[comment]: # (@@author A0144919W)
 
 #### Google Calendar (studied by Pankaj Bhootra)
 
@@ -532,7 +536,7 @@ Weaknesses:
 4. Unavailable in places with no internet connectivity
 5. Does not provide the feature to block multiple slots for unconfirmed tasks
 
-/* @@author */
+[comment]: # (@@author A0135769N)
 
 #### Todoist (studied by R Dheeraj)
 
@@ -554,7 +558,8 @@ Weaknesses:
 1. Reminder feature could only be utilized by premium members.
 2. Additional features such as backups and productivity trackers are only available in the premium version.
 
-/* @@author A0146107M */
+[comment]: # (@@author A0146107M)
+
 #### Todo.txt (studied by Lester Tan)
 
 Strengths:
@@ -574,7 +579,8 @@ Weaknesses:
 2. Fixed format for entering dates, thus users have to remember a specific format each time they enter a date.
 3. No feature to search for free slots, thus users have to manually look for an empty slot before adding a task in.
 
-/* @@author A0142102E*/
+[comment]: # (@@author A0142102E)
+
 #### Fantastical (studied by Fionna Tong)
 
 Strengths:
@@ -592,3 +598,5 @@ Weaknesses:
 2. Does not have a way to "block" multiple time slots for an event when the timing is uncertain, and release the blocked slots when the time is finalised.
 3. Allows scheduling for different events at the same time without prompting the user.
 4. No CLI.
+
+[comment]: # (@@author)
