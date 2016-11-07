@@ -41,14 +41,6 @@ public abstract class ListPanel extends UiPart {
         //Do nothing by default.
     }
 
-	public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-		                            	ObservableList<ReadOnlyActivity> personList) {
-		ActivityListPanel personListPanel = 
-				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
-		personListPanel.configure(personList);
-		return personListPanel;
-	}
-
     protected void configure(ObservableList<ReadOnlyActivity> personList) {
         setConnections(personList);
         addToPlaceholder();
@@ -71,6 +63,7 @@ public abstract class ListPanel extends UiPart {
         });
     }
     
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/ui/ListPanel.java
 
     class ActivityListViewCell extends ListCell<ReadOnlyActivity> {
 
@@ -89,6 +82,8 @@ public abstract class ListPanel extends UiPart {
             }
         }
     }
+=======
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/ui/ListPanel.java
     
     public void refresh(){
         ObservableList<ReadOnlyActivity> items = activityListView.<ReadOnlyActivity>getItems();

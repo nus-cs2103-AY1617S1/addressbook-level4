@@ -1,5 +1,6 @@
 package seedu.lifekeeper.model;
 
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/model/Model.java
 import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
@@ -7,8 +8,20 @@ import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.lifekeeper.model.activity.task.Task;
+=======
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/model/Model.java
 
 import java.util.Set;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -42,6 +55,12 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyActivity> getFilteredTaskList();
+
+    /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
+    
+    /** Returns the filtered overdue task list as an {@code UnmodifiableObservableList<ReadOnlyActivity>} */
+    UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList();
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
@@ -65,7 +84,12 @@ public interface Model {
 
     void updateFilteredDoneListToShowAll();
 
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/model/Model.java
     void updateAllListToShowAll();
+=======
+	
+
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/model/Model.java
 
 	UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
 

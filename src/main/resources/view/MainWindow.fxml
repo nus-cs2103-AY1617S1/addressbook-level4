@@ -2,6 +2,7 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -46,24 +47,31 @@
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5314900153609831" prefWidth="653.0" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
                <children>
-                  <AnchorPane fx:id="activityListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+                  <AnchorPane fx:id="activityListPanelPlaceholder" prefHeight="580.0" prefWidth="422.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <VBox fx:id="dashboardDisplay" minWidth="200.0" prefWidth="200.0">
+            <VBox fx:id="dashboardDisplay" minWidth="300.0" prefHeight="600.0" prefWidth="301.0">
                <children>
-                  <VBox fx:id="overdueTaskList" prefHeight="200.0" prefWidth="200.0">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="100.0" text="Overdue List" />
+                  <VBox fx:id="overdueTaskList" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="90.0" prefHeight="540.0" prefWidth="180.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <AnchorPane fx:id="overdueTaskDisplayPlaceHolder" />
+                        <AnchorPane fx:id="overdueListDisplayPlaceHolder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="164.0" VBox.vgrow="ALWAYS" />
                      </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
                   </VBox>
                </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
             </VBox>
          </items>
       </SplitPane>

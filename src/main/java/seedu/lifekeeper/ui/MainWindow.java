@@ -39,7 +39,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
-    private OverdueListPanel overdueListPanel;
+    private OverdueTaskListPanel overdueListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -70,11 +70,11 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
     
-//    @FXML
-//    private AnchorPane upcomingListPanelPlaceholder;
+    @FXML
+    private AnchorPane upcomingListPanelPlaceholder;
     
-//    @FXML
-//    private AnchorPane overdueListPanelPlaceholder;
+    @FXML
+    private AnchorPane overdueListDisplayPlaceHolder;
 
     public MainWindow() {
         super();
@@ -123,10 +123,17 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	//fill main activities display panel
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/ui/MainWindow.java
         activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
         //fill dash board
 //        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredActivityList());
         
+=======
+        activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
+
+        //fill dash board
+        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/ui/MainWindow.java
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
@@ -148,15 +155,15 @@ public class MainWindow extends UiPart {
     public AnchorPane getActivityListPlaceholder() {
         return activityListPanelPlaceholder;
     }
-/*    
+    
     public AnchorPane getOverdueListPlaceholder() {
-    	return overdueListPanelPlaceholder;
+    	return overdueListDisplayPlaceHolder;
     }
     
     public AnchorPane getUpcomingListPlaceholder() {
     	return upcomingListPanelPlaceholder;
     }
-*/
+
     public void hide() {
         primaryStage.hide();
     }

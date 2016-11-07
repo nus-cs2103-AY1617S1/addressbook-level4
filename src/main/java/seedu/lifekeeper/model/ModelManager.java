@@ -1,6 +1,8 @@
 package seedu.lifekeeper.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/model/ModelManager.java
 import seedu.lifekeeper.commons.core.ComponentManager;
 import seedu.lifekeeper.commons.core.LogsCenter;
 import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
@@ -15,6 +17,24 @@ import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.model.tag.UniqueTagList;
+=======
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
+import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.core.ComponentManager;
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/model/ModelManager.java
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -143,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
   	@Override
   	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/model/ModelManager.java
   		FilteredList<Activity> filteredOverdueTaskList = new FilteredList<>(lifeKeeper.getAllEntries());
 
   		filteredOverdueTaskList.setPredicate(p->
@@ -156,6 +177,49 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredActivities.setPredicate(p->
         p.getCompletionStatus() == false && p.getisOver() == false);
+=======
+  		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
+  		
+  		filteredList.setPredicate(p->
+  		p.getClass().getSimpleName().equalsIgnoreCase("Task")
+  		 && (p.getCompletionStatus() == false && p.hasPassedDueDate() == true));
+  		
+  		
+  		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
+  	}
+  	
+  	//@@Author A0125284H
+	@Override
+	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredUpcomingList() {
+  		
+		/*FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
+		
+		//obtain a filtered list of all tasks and events.
+		filteredList.setPredicate(p->
+		p.getClass().getSimpleName().equalsIgnoreCase("Event") || p.getClass().getSimpleName().equalsIgnoreCase("Task"));
+		
+		//filter out tasks/events that are over, or not yet upcoming.
+		return new UnmodifiableObservableList(createUpcomingList(filteredList));
+		
+		*/
+		//obtain a filtered list of upcoming events.
+		FilteredList<Activity> filteredList = new FilteredList<>(addressBook.getAllEntries());
+  
+		filteredList.setPredicate(p->
+		(p.getClass().getSimpleName().equalsIgnoreCase("Event") && ((Event) p).isUpcoming())
+		|| ( p.getClass().getSimpleName().equalsIgnoreCase("Task") && ((Task) p).isDueDateApproaching()));
+		
+		return new UnmodifiableObservableList<ReadOnlyActivity>(filteredList);
+	}
+
+  	
+  //@@author A0131813R
+    @Override
+    public void updateFilteredListToShowAll() {
+    	filteredPersons.setPredicate(p->
+    	p.getCompletionStatus() == false && p.getisOver() == false);
+    	
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/model/ModelManager.java
     }
     
     @Override
@@ -201,6 +265,52 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredActivityList(Expression expression) {
         filteredActivities.setPredicate(expression::satisfies);
     }
+    /**
+     * Method to remove any Tasks and Events that are irrelevant for Upcoming Dashboard.
+     * @param filteredList
+     * @return filteredList
+     */
+    //@@ author A0125284H
+    private FilteredList<Activity> createUpcomingList(FilteredList<Activity> filteredList) {
+    	return filteredList;
+    	/*
+    	FilteredList<Activity> listOfEvents = new FilteredList<Activity> (filteredList);
+    	
+    	listOfEvents.setPredicate(p->
+		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
+    	
+    	(FilteredList<Events>) listOfEvents.setPredicate(p.);
+    	
+  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>( ervableList<? extends ReadOnlyTask>) filteredList);
+
+    	
+		for (int i=0; i<filteredList.size(); i++) {
+			
+			switch (filteredList.get(i).getClass().getSimpleName()) {
+			case "Event": {
+				Event listItem = (Event) filteredList.get(i);
+				if (!listItem.isUpcoming()) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+			case "Task": {
+				Task listItem = (Task) filteredList.get(i);
+				if (listItem.isDueDateApproaching() && !(listItem.hasPassedDueDate())) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+
+			default: break;
+			}
+		}
+		return filteredList;
+		*/
+    }
+        
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -253,6 +363,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 
 

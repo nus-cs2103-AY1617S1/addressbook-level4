@@ -127,7 +127,11 @@ public class UiManager extends ComponentManager implements Ui {
     private void showReminderDialog(ArrayList<ReadOnlyActivity> activities) {
         ImageIcon reminderIcon = new ImageIcon(getClass().getResource("/images/ringing.png"),
                 "Reminder Bell");
+<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/ui/UiManager.java
         
+=======
+                
+>>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/ui/UiManager.java
         for (ReadOnlyActivity activity : activities) {
             JOptionPane.showMessageDialog(new JFrame(),
                     textForReminderDialog(activity, activity.getClass().getSimpleName()),
