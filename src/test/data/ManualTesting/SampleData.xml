@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<todolist>
+    <tasks>
+        <name>Thailand trip</name>
+        <startDate>11 Oct 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>13 Oct 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <remarks>pack luggage</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>submit proposal to boss</name>
+        <endDate>11 Oct 2016</endDate>
+        <endTime>11:59PM</endTime>
+        <remarks>print hardcopy</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>celebrate Mary birthday</name>
+        <startDate>12 Oct 2016</startDate>
+        <startTime>12:00PM</startTime>
+        <endDate>12 Oct 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <location>cafe</location>
+        <remarks>buy presents</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>clean room</name>
+        <endDate>12 Oct 2016</endDate>
+        <endTime>5:00PM</endTime>
+        <location>home</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>dinner with dad</name>
+        <startDate>12 Oct 2016</startDate>
+        <startTime>7:00PM</startTime>
+        <endDate>12 Oct 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <location>home</location>
+        <remarks>buy food</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>prepare meeting agenda</name>
+        <endDate>13 Oct 2016</endDate>
+        <endTime>11:00AM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>group project meeting</name>
+        <startDate>13 Oct 2016</startDate>
+        <startTime>2:00PM</startTime>
+        <endDate>13 Oct 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <location>discussion room</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>make cake with Mary</name>
+        <startDate>13 Oct 2016</startDate>
+        <startTime>5:00PM</startTime>
+        <endDate>13 Oct 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <location>home</location>
+        <remarks>buy ingredients</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>searching hotel on the internet</name>
+        <endDate>14 Oct 2016</endDate>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>haircut</name>
+        <startDate>16 Oct 2016</startDate>
+        <startTime>3:00PM</startTime>
+        <endDate>16 Oct 2016</endDate>
+        <endTime>3:30PM</endTime>
+        <location>salon</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>doing exercises</name>
+        <startDate>16 Oct 2016</startDate>
+        <startTime>5:00PM</startTime>
+        <endDate>16 Oct 2016</endDate>
+        <endTime>5:30PM</endTime>
+        <location>gym room</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>trip to Malaysia</name>
+        <startDate>17 Oct 2016</startDate>
+        <startTime>12:00PM</startTime>
+        <endDate>21 Oct 2016</endDate>
+        <endTime>6:00PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>visit Tom</name>
+        <startDate>18 Oct 2016</startDate>
+        <startTime>3:00PM</startTime>
+        <endDate>18 Oct 2016</endDate>
+        <endTime>5:00PM</endTime>
+        <location>Malaysia</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>buy shoes</name>
+        <endDate>20 Oct 2016</endDate>
+        <location>online shop</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>midterm exam</name>
+        <startDate>21 Oct 2016</startDate>
+        <startTime>6:30PM</startTime>
+        <endDate>21 Oct 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <location>Lecture Hall</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>buy airticket</name>
+        <endDate>22 Oct 2016</endDate>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>project deadline</name>
+        <endDate>23 Oct 2016</endDate>
+        <endTime>5:00PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>watch movie</name>
+        <startDate>23 Oct 2016</startDate>
+        <startTime>7:30PM</startTime>
+        <endDate>23 Oct 2016</endDate>
+        <endTime>10:00PM</endTime>
+        <location>cinema</location>
+        <remarks>bring 3D glasses</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>hiking</name>
+        <startDate>25 Oct 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>25 Oct 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <location>Habourfront</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>Revision on CS2103</name>
+        <startDate>26 Oct 2016</startDate>
+        <startTime>10:00PM</startTime>
+        <endDate>26 Oct 2016</endDate>
+        <endTime>11:00PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>attend tutorial</name>
+        <startDate>27 Oct 2016</startDate>
+        <startTime>3:00PM</startTime>
+        <endDate>27 Oct 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <location>NUS</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>lecture quiz</name>
+        <startDate>27 Oct 2016</startDate>
+        <startTime>5:00PM</startTime>
+        <endDate>27 Oct 2016</endDate>
+        <endTime>6:00PM</endTime>
+        <remarks>bring pen</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>dinner with Sally</name>
+        <startDate>28 Oct 2016</startDate>
+        <startTime>6:00PM</startTime>
+        <endDate>28 Oct 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <location>Bugis</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>submit homework</name>
+        <endDate>28 Oct 2016</endDate>
+        <endTime>11:59PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>wash clothes</name>
+        <endDate>29 Oct 2016</endDate>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>buy breakfast</name>
+        <endDate>30 Oct 2016</endDate>
+        <location>Fairprice</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>Presentation</name>
+        <startDate>31 Oct 2016</startDate>
+        <startTime>8:00AM</startTime>
+        <endDate>31 Oct 2016</endDate>
+        <endTime>9:00AM</endTime>
+        <location>NUS</location>
+        <remarks>prepare script</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>lab demo</name>
+        <startDate>31 Oct 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>31 Oct 2016</endDate>
+        <endTime>11:00AM</endTime>
+        <location>Com1</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>hand in lab assignment</name>
+        <endDate>31 Oct 2016</endDate>
+        <endTime>5:00PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>make reservation for dinner</name>
+        <endDate>31 Oct 2016</endDate>
+        <endTime>10:00PM</endTime>
+        <remarks>want a table near window</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>Help sister buy shampoo</name>
+        <endDate>31 Oct 2016</endDate>
+        <status>overdue</status>
+    </tasks>
+    <tasks>
+        <name>ABC project meeting</name>
+        <startDate>1 Nov 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>1 Nov 2016</endDate>
+        <endTime>11:30AM</endTime>
+        <location>Orchard</location>
+        <remarks>prepare agenda</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>mom visiting</name>
+        <startDate>1 Nov 2016</startDate>
+        <startTime>12:00PM</startTime>
+        <endDate>3 Nov 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>submit lab report</name>
+        <endDate>1 Nov 2016</endDate>
+        <endTime>11:59PM</endTime>
+        <location>IVLE</location>
+        <remarks>follow report format</remarks>
+        <status>overdue</status>
+    </tasks>
+    <tasks>
+        <name>Go gym</name>
+        <endDate>2 Nov 2016</endDate>
+        <remarks>bring towel</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>prepare tutorial tasks</name>
+        <endDate>3 Nov 2016</endDate>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>prepare make breakfast for brother</name>
+        <startDate>4 Nov 2016</startDate>
+        <startTime>7:00AM</startTime>
+        <endDate>4 Nov 2016</endDate>
+        <endTime>8:00AM</endTime>
+        <location>home</location>
+        <remarks>buy eggs</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>attend lecture</name>
+        <startDate>4 Nov 2016</startDate>
+        <startTime>2:00PM</startTime>
+        <endDate>4 Nov 2016</endDate>
+        <endTime>4:00PM</endTime>
+        <remarks>bring laptop</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>go dancing class</name>
+        <startDate>4 Nov 2016</startDate>
+        <startTime>6:00PM</startTime>
+        <endDate>4 Nov 2016</endDate>
+        <endTime>7:30PM</endTime>
+        <location>esplanade</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>calling mom</name>
+        <startDate>5 Nov 2016</startDate>
+        <startTime>11:00AM</startTime>
+        <endDate>5 Nov 2016</endDate>
+        <endTime>11:30AM</endTime>
+        <remarks>tell her I will not be back for dinner tomorrow</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>go to church</name>
+        <startDate>5 Nov 2016</startDate>
+        <startTime>5:00PM</startTime>
+        <endDate>5 Nov 2016</endDate>
+        <endTime>7:00PM</endTime>
+        <location>CityHall</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>meet up with Mary</name>
+        <startDate>6 Nov 2016</startDate>
+        <startTime>12:00PM</startTime>
+        <endDate>6 Nov 2016</endDate>
+        <endTime>1:00PM</endTime>
+        <location>East Coast</location>
+        <remarks>buy present</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>finding food recipe</name>
+        <startDate>7 Nov 2016</startDate>
+        <startTime>11:00AM</startTime>
+        <endDate>7 Nov 2016</endDate>
+        <endTime>11:30AM</endTime>
+        <remarks>no spicy food</remarks>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>appointment with doctor</name>
+        <startDate>7 Nov 2016</startDate>
+        <startTime>3:30PM</startTime>
+        <endDate>7 Nov 2016</endDate>
+        <endTime>4:30PM</endTime>
+        <location>VivoCity</location>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <name>record TV show</name>
+        <endDate>7 Nov 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <status>overdue</status>
+    </tasks>
+    <tasks>
+        <name>play football</name>
+        <startDate>9 Nov 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>9 Nov 2016</endDate>
+        <endTime>11:00AM</endTime>
+        <location>playground</location>
+        <remarks>bring ball</remarks>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>cooking dinner myself</name>
+        <startDate>9 Nov 2016</startDate>
+        <startTime>6:00PM</startTime>
+        <endDate>9 Nov 2016</endDate>
+        <endTime>6:30PM</endTime>
+        <location>home</location>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>football competition</name>
+        <startDate>10 Nov 2016</startDate>
+        <startTime>12:00PM</startTime>
+        <endDate>10 Nov 2016</endDate>
+        <endTime>2:00PM</endTime>
+        <location>playground</location>
+        <remarks>invite friends</remarks>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>attend Jimmy 21st birthday celebration</name>
+        <startDate>15 Nov 2016</startDate>
+        <startTime>7:00PM</startTime>
+        <endDate>15 Nov 2016</endDate>
+        <endTime>10:00PM</endTime>
+        <location>Aloha Loyang</location>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>submit module feedback</name>
+        <endDate>18 Nov 2016</endDate>
+        <endTime>6:00PM</endTime>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Mary wedding</name>
+        <startDate>1 Dec 2016</startDate>
+        <startTime>10:00AM</startTime>
+        <endDate>1 Dec 2016</endDate>
+        <endTime>2:00PM</endTime>
+        <location>Trinity Church</location>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>high school homecoming dinner</name>
+        <startDate>10 Dec 2016</startDate>
+        <startTime>6:30PM</startTime>
+        <endDate>10 Dec 2016</endDate>
+        <endTime>8:00PM</endTime>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>buy movie ticket</name>
+        <endDate>20 Dec 2016</endDate>
+        <location>NEX shaw</location>
+        <remarks>with popcorn combo</remarks>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>prepare christmas present</name>
+        <endDate>24 Dec 2016</endDate>
+        <remarks>buy for elder sis</remarks>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Prepare for Seattle trip</name>
+        <status>incomplete</status>
+    </tasks>
+</todolist>
