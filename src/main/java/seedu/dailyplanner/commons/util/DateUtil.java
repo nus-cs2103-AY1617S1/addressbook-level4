@@ -46,8 +46,10 @@ public class DateUtil {
 	/** Returns current time as DateTime object */
      public static DateTime nowAsDateTime() {
             nattyParser natty = new nattyParser();
-            Date nowDate = new Date(natty.parseDate(STRING_REPRESENTING_NOW));
-            Time nowTime = new Time(natty.parseTime(STRING_REPRESENTING_NOW));
+            String dateTimeAsString = natty.parse(STRING_REPRESENTING_NOW);
+            String[] dateTimeArray = dateTimeAsString.split(" ");
+            Date nowDate = new Date(dateTimeArray[0]);
+            Time nowTime = new Time(dateTimeArray[1]);
             return new DateTime(nowDate,nowTime);
         }
      
