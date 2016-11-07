@@ -14,13 +14,12 @@
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your task manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="docs/images/task-manager-gui.png" width="300">
-
+   > <img src="sask-manager-gui.png" width="300">
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Homework  d/MathTut sd/08-01-2012 10:00 dd/08-01-2012 23:00` : 
+   * **`**` Homework  d/MathTut sd/08-01-2012 10:00 dd/08-01-2012 23:00` : 
      adds a task named `Homework` to the Task Management Tool.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
