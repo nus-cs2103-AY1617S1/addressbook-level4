@@ -17,6 +17,7 @@
 * The code base was based on [addressbook-level4](https://github.com/se-edu/addressbook-level4). 
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
+  [//]: # "@@author A0152958R"
 * We use [Natty Library](http://natty.joestelmach.com/) to parse the user input time.
 
 #### Licence : [MIT](LICENSE)
