@@ -39,6 +39,7 @@ import seedu.flexitrack.logic.commands.RedoCommand;
 import seedu.flexitrack.logic.commands.UndoCommand;
 import seedu.flexitrack.logic.commands.UnmarkCommand;
 import seedu.flexitrack.model.Model;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.DateTimeInfoParser;
 
 
@@ -641,7 +642,9 @@ public class Parser {
             
         } else if (recurringType.equalsIgnoreCase("task")) {
             String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
-            Date initialDueDate = new DateTimeInfoParser(matcher.group("dueDate")).getParsedDateTime();
+            DateTimeInfo dueDateTimeInfo = new DateTimeInfo (matcher.group("dueDate"));
+            dueDateTimeInfo.checkDueDateOrStartTime(); 
+            Date initialDueDate = new DateTimeInfoParser(dueDateTimeInfo.toString()).getParsedDateTime();
             
             switch (occurrenceType.toLowerCase()) {
             case "week": case "weekly":
@@ -680,8 +683,13 @@ public class Parser {
             
         } else {  // Recurring Event
             String occurrenceType = matcher.group("occurrenceType").trim().toLowerCase();
-            Date initialStartTime = new DateTimeInfoParser(matcher.group("startTime")).getParsedDateTime();
-            Date initialEndTime = new DateTimeInfoParser(matcher.group("endTime")).getParsedDateTime();
+            DateTimeInfo startDateTimeInfo = new DateTimeInfo (matcher.group("startTime"));
+            startDateTimeInfo.checkDueDateOrStartTime(); 
+            DateTimeInfo endDateTimeInfo = new DateTimeInfo (matcher.group("endTime"));
+            endDateTimeInfo.checkEndTime(startDateTimeInfo); 
+
+            Date initialStartTime = new DateTimeInfoParser(startDateTimeInfo.toString()).getParsedDateTime();
+            Date initialEndTime = new DateTimeInfoParser(endDateTimeInfo.toString()).getParsedDateTime();
             
             switch (occurrenceType.toLowerCase()) {
             case "week": case "weekly":
