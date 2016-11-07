@@ -224,7 +224,7 @@ and logging destinations.
 <!-- @@author A0139198N -->
 ### Model implementation
 
-The model componenet model the data of the application.
+The model component model the data of the application.
 
 #### The `ModelManager` class
 
@@ -232,7 +232,7 @@ The `ModelManager` class implements the `Model` interface, and provides access t
 
 #### The `TaskManager` class
 
-The `TaskManager` class stores the list of `UniqueTaskList`. It is an internal class of the Model component. The external componenet can only access its data through the `ReadOnlyTaskManager` or `Model` interface.
+The `TaskManager` class stores the list of `UniqueTaskList`. It is an internal class of the Model component. The external component can only access its data through the `ReadOnlyTaskManager` or `Model` interface.
 
 #### The `ReadOnlyTaskManager` class
 
