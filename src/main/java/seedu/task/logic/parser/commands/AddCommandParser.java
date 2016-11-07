@@ -19,7 +19,7 @@ import seedu.task.logic.parser.TimeParser;
 import seedu.task.logic.parser.TimeParserResult;
 import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
 
-// @@author A0147335E
+// @@author A0152958R
 public class AddCommandParser {
 
     // @@author A0147944U
@@ -45,7 +45,7 @@ public class AddCommandParser {
             .compile("(?<name>[^,#]+)" + ", from (?<startTime>[^@#]+)" + "to (?<endTime>[^@#]+)"
                     + "by (?<deadline>[^@#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
 
-    // @@author A0147335E
+    // @@author A0152958R
     private static final String EMPTY_STRING = "";
 
     /**
