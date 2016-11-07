@@ -143,7 +143,7 @@ public class EditCommandTest extends CommandTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("edit" + " Read book" + " d/11.10.2016" + " i/2",
-                String.format(EditCommand.MESSAGE_EVENT_SUCCESS, threeTasks.get(1)),
+                String.format(EditCommand.MESSAGE_EVENT_SUCCESS, threeTasks.get(0)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
