@@ -25,12 +25,12 @@ public class ArgumentFormatUtil {
 	public static boolean isValidEditArgumentFormat(String args) {
 		String trimmedArgs = args.trim();
 
-		if (!(trimmedArgs.contains(" "))) {
+		if (!(trimmedArgs.contains(" "))) { //check for empty edits with index
 			return false;
 		}
 		String[] checkFormat = trimmedArgs.split(" ");
 		// String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));
-		if(!checkFormat[0].matches("\\d+")){
+		if(!checkFormat[0].matches("\\d+")){ //check if it is an index
 			return false;
 		}
 		for (int k = 0; k < trimmedArgs.length(); k++) {
@@ -56,5 +56,4 @@ public class ArgumentFormatUtil {
 
 		return true;
 	}
-
 }
