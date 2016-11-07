@@ -310,7 +310,7 @@ public class TestUtil {
     public static String generateDisplayString(Object... items) {
         String toDisplay = "";
         for (Object item : items) {
-            toDisplay = StringUtil.appendOnNewLine(toDisplay, item.toString());
+            toDisplay += "\n" + item.toString();
         }
         return toDisplay;
     }

@@ -15,7 +15,7 @@ public class ListUtil {
     public static String generateDisplayString(List<?> items) {
         String toDisplay = "";
         for (Object item : items) {
-            toDisplay = StringUtil.appendOnNewLine(toDisplay, item.toString());
+            toDisplay += "\n" + item.toString();
         }
         return toDisplay;
     }

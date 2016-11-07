@@ -101,25 +101,20 @@ public class DateTimeTest {
     }
     
     @Test
-    public void isValidDate_noDateTimeValues() {
+    public void isValidDate() {
+        // EP: no date time values
         assertFalse(DateTime.isValidDate("the beach"));
-    }
-    
-    @Test
-    public void isValidDate_wrongValuesBeforeDateTimeValues() {
+        
+        // EP: wrong values before date time values
         assertFalse(DateTime.isValidDate("meh 11th Sep 10am"));
-    }
-    
-    @Test
-    public void isValidDate_validDateTimeValues() {
+        
+        // EP: valid date time values
         assertTrue(DateTime.isValidDate("11th Sep 10am"));
-    }
-    
-    @Test
-    public void isValidDate_validRelativeDate() {
+        
+        // EP: valid relative date
         assertTrue(DateTime.isValidDate("one week later"));
     }
-    
+
     @Test
     public void setTimeToStartOfDay() {
         Date dateActual = DateTime.setTimeToStartOfDay(Calendar.getInstance().getTime());
@@ -154,11 +149,12 @@ public class DateTimeTest {
     }
     
     @Test
-    public void updateDateByRecurrenceRate_forTimePeriods() {
+    public void updateDateByRecurrenceRate() {
+        // EP: For time periods e.g repeat every month
         Calendar calendar = generateCalendarWithTimeValues(2016, Calendar.OCTOBER, 24, 10, 00);
         
         try {
-            RecurrenceRate recurrenceRate = new RecurrenceRate("1", "month");
+            RecurrenceRate recurrenceRate = new RecurrenceRate("month");
             Date date = calendar.getTime();
             date = DateTime.updateDateByRecurrenceRate(date, recurrenceRate);
             calendar.setTime(date);
@@ -170,21 +166,9 @@ public class DateTimeTest {
         } catch (IllegalValueException ive) {
             assert false;
         }
-    }
-
-    private Calendar generateCalendarWithTimeValues(Integer... timeValues) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, timeValues[0]);
-        calendar.set(Calendar.MONTH, timeValues[1]);
-        calendar.set(Calendar.DAY_OF_MONTH, timeValues[2]);
-        calendar.set(Calendar.HOUR_OF_DAY, timeValues[3]);
-        calendar.set(Calendar.MINUTE, timeValues[4]);
-        return calendar;
-    }
-    
-    @Test
-    public void updateDateByRecurrenceRate_forWeekdays() {
-        Calendar calendar = generateCalendarWithTimeValues(2016, Calendar.OCTOBER, 24, 10, 00);
+        
+        // EP: for time values e.g repeat every 2 wednesday
+        calendar = generateCalendarWithTimeValues(2016, Calendar.OCTOBER, 24, 10, 00);
         
         try {
             RecurrenceRate recurrenceRate = new RecurrenceRate("2", "wednesday");
@@ -199,5 +183,15 @@ public class DateTimeTest {
         } catch (IllegalValueException e) {
             assert false;
         }
+    }
+
+    private Calendar generateCalendarWithTimeValues(Integer... timeValues) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, timeValues[0]);
+        calendar.set(Calendar.MONTH, timeValues[1]);
+        calendar.set(Calendar.DAY_OF_MONTH, timeValues[2]);
+        calendar.set(Calendar.HOUR_OF_DAY, timeValues[3]);
+        calendar.set(Calendar.MINUTE, timeValues[4]);
+        return calendar;
     }
 }

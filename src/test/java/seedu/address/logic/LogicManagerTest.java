@@ -6,10 +6,14 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.history.UndoableCommandHistory;
 import seedu.address.history.UndoableCommandHistoryManager;
@@ -23,6 +27,7 @@ import seedu.address.storage.StorageManager;
 import seedu.address.testutil.StorageStub;
 import seedu.address.testutil.TestUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -121,7 +126,7 @@ public class LogicManagerTest {
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
-    private void assertCommandBehaviorAndVerifyData(String inputCommand, String expectedMessage,
+    private void assertCommandBehaviorOnAllData(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskManager expectedTaskManager,
                                        List<? extends ReadOnlyTask> expectedUndoneList,
                                        List<? extends ReadOnlyTask> expectedDoneList) throws Exception {
@@ -139,30 +144,6 @@ public class LogicManagerTest {
         assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
     
-    /**
-     * Executes the done command and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     *      - the backing lists shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
-     */
-    private void assertDoneCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskManager expectedTaskManager,
-                                       List<? extends ReadOnlyTask> expectedShownUndoneList,
-                                       List<? extends ReadOnlyTask> expectedShownDoneList) throws Exception {
-
-        //Execute the command
-        CommandResult result = logic.execute(inputCommand);
-
-        //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownUndoneList, model.getFilteredUndoneTaskList());
-        assertEquals(expectedShownDoneList, model.getFilteredDoneTaskList());
-
-        //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedTaskManager, model.getTaskManager());
-        assertEquals(expectedTaskManager, latestSavedTaskManager);
-    }
     
     @Test
     public void execute_help() throws Exception {
@@ -184,11 +165,11 @@ public class LogicManagerTest {
         List<Task> doneTasks = helper.generateFloatingTaskList(3);
         model.addDoneTasks(doneTasks);
 
-        TaskManager expectedAB = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
+        TaskManager expectedTM = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
                 doneTasks);
 
-        assertCommandBehaviorAndVerifyData("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, expectedAB,
-                expectedAB.getUndoneTaskList(), expectedAB.getDoneTaskList());
+        assertCommandBehaviorOnAllData("clear", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST, expectedTM,
+                expectedTM.getUndoneTaskList(), expectedTM.getDoneTaskList());
     }
 
     @Test
@@ -202,10 +183,10 @@ public class LogicManagerTest {
         List<Task> undoneTasks = helper.generateFloatingTaskList(3);
         model.addTasks(undoneTasks);
 
-        TaskManager expectedAB = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+        TaskManager expectedTM = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
                 Collections.emptyList());
-        assertCommandBehaviorAndVerifyData("clear", ClearCommand.MESSAGE_SUCCESS_DONE_LIST, expectedAB,
-                expectedAB.getUndoneTaskList(), expectedAB.getDoneTaskList());
+        assertCommandBehaviorOnAllData("clear", ClearCommand.MESSAGE_SUCCESS_DONE_LIST, expectedTM,
+                expectedTM.getUndoneTaskList(), expectedTM.getDoneTaskList());
     }
 
     @Test
@@ -214,17 +195,17 @@ public class LogicManagerTest {
         while (!history.isEarliestCommand()) {
             history.undoStep();
         }
-        assertCommandBehaviorAndVerifyData("undo", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
+        assertCommandBehaviorOnAllData("undo", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
                 Collections.emptyList(), Collections.emptyList());
-        assertCommandBehaviorAndVerifyData("undo 23", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
+        assertCommandBehaviorOnAllData("undo 23", UndoCommand.MESSAGE_FAILURE, new TaskManager(),
                 Collections.emptyList(), Collections.emptyList());
     }
 
     @Test
     public void execute_redoWithNoPreviousUndo_nothingToRedo() throws Exception {
-        assertCommandBehaviorAndVerifyData("redo", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
+        assertCommandBehaviorOnAllData("redo", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
                 Collections.emptyList(), Collections.emptyList());
-        assertCommandBehaviorAndVerifyData("redo 123", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
+        assertCommandBehaviorOnAllData("redo 123", RedoCommand.MESSAGE_FAILURE, new TaskManager(),
                 Collections.emptyList(), Collections.emptyList());
     }
 
@@ -236,14 +217,14 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(toAdd);
         logic.execute(helper.generateAddCommand(toAdd));
 
-        TaskManager expectedABAfterAdd = helper.generateTaskManagerUndoneAndDoneList(taskList,
+        TaskManager expectedTMAfterAdd = helper.generateTaskManagerUndoneAndDoneList(taskList,
                 Collections.emptyList());
 
-        assertCommandBehaviorAndVerifyData("undo", "Undid add item: " + toAdd.toString(), new TaskManager(),
+        assertCommandBehaviorOnAllData("undo", "Undid add item: " + toAdd.toString(), new TaskManager(),
                 Collections.emptyList(), Collections.emptyList());
-        assertCommandBehaviorAndVerifyData("redo", String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
-                expectedABAfterAdd, expectedABAfterAdd.getUndoneTaskList(),
-                expectedABAfterAdd.getDoneTaskList());
+        assertCommandBehaviorOnAllData("redo", String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTMAfterAdd, expectedTMAfterAdd.getUndoneTaskList(),
+                expectedTMAfterAdd.getDoneTaskList());
     }
     
     @Test
@@ -255,17 +236,17 @@ public class LogicManagerTest {
         List<Task> doneTasks = helper.generateFloatingTaskList(3);
         model.addDoneTasks(doneTasks);
 
-        TaskManager expectedABBeforeClear = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+        TaskManager expectedTMBeforeClear = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
                 doneTasks);
-        TaskManager expectedABAfterClear = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
+        TaskManager expectedTMAfterClear = helper.generateTaskManagerUndoneAndDoneList(Collections.emptyList(),
                 doneTasks);
         
         logic.execute("clear");
-        assertCommandBehaviorAndVerifyData("undo", ClearCommand.MESSAGE_UNDO_SUCCESS_UNDONE_LIST, expectedABBeforeClear,
-                expectedABBeforeClear.getUndoneTaskList(), expectedABBeforeClear.getDoneTaskList());
-        assertCommandBehaviorAndVerifyData("redo", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST,
-                expectedABAfterClear, expectedABAfterClear.getUndoneTaskList(),
-                expectedABAfterClear.getDoneTaskList());
+        assertCommandBehaviorOnAllData("undo", ClearCommand.MESSAGE_UNDO_SUCCESS_UNDONE_LIST, expectedTMBeforeClear,
+                expectedTMBeforeClear.getUndoneTaskList(), expectedTMBeforeClear.getDoneTaskList());
+        assertCommandBehaviorOnAllData("redo", ClearCommand.MESSAGE_SUCCESS_UNDONE_LIST,
+                expectedTMAfterClear, expectedTMAfterClear.getUndoneTaskList(),
+                expectedTMAfterClear.getDoneTaskList());
     }
     
     @Test
@@ -286,21 +267,21 @@ public class LogicManagerTest {
         RecurrenceRate recurrenceRate = new RecurrenceRate("1","day");
         
         List<Task> taskList = helper.generateTaskList(toEdit);
-        TaskManager expectedABBeforeEdit = helper.generateTaskManagerUndoneAndDoneList(taskListBeforeEdit,
+        TaskManager expectedTMBeforeEdit = helper.generateTaskManagerUndoneAndDoneList(taskListBeforeEdit,
                 Collections.emptyList());
         
-        TaskManager expectedABAfterEdit = helper.generateTaskManagerUndoneAndDoneList(taskList,
+        TaskManager expectedTMAfterEdit = helper.generateTaskManagerUndoneAndDoneList(taskList,
                 Collections.emptyList());
-        expectedABAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
+        expectedTMAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
 
 
-        assertCommandBehaviorAndVerifyData("undo", String.format(EditCommand.MESSAGE_UNDO_SUCCESS, toEdit, beforeEdit), expectedABBeforeEdit,
-                expectedABBeforeEdit.getUndoneTaskList(), expectedABBeforeEdit.getDoneTaskList());
+        assertCommandBehaviorOnAllData("undo", String.format(EditCommand.MESSAGE_UNDO_SUCCESS, toEdit, beforeEdit), expectedTMBeforeEdit,
+                expectedTMBeforeEdit.getUndoneTaskList(), expectedTMBeforeEdit.getDoneTaskList());
         
-        expectedABAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
-        assertCommandBehaviorAndVerifyData("redo", String.format(EditCommand.MESSAGE_SUCCESS, toEdit),
-                expectedABAfterEdit, expectedABAfterEdit.getUndoneTaskList(),
-                expectedABAfterEdit.getDoneTaskList());
+        expectedTMAfterEdit.editFloatingTask(toEdit, name, startDate, endDate, priority, recurrenceRate);
+        assertCommandBehaviorOnAllData("redo", String.format(EditCommand.MESSAGE_SUCCESS, toEdit),
+                expectedTMAfterEdit, expectedTMAfterEdit.getUndoneTaskList(),
+                expectedTMAfterEdit.getDoneTaskList());
     }
     
     @Test
@@ -310,21 +291,21 @@ public class LogicManagerTest {
         List<Task> undoneTasks = helper.generateFloatingTaskList(1);
         model.addTasks(undoneTasks);
 
-        TaskManager expectedABBeforeDelete = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+        TaskManager expectedTMBeforeDelete = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
                 Collections.emptyList());
 
-        TaskManager expectedABAfterDelete = helper
+        TaskManager expectedTMAfterDelete = helper
                 .generateTaskManagerUndoneAndDoneList(Collections.emptyList(), Collections.emptyList());
 
         logic.execute("delete 1");
 
-        assertCommandBehaviorAndVerifyData("undo",
-                String.format(DeleteCommand.MESSAGE_UNDO_SUCCESS, undoneTasks), expectedABBeforeDelete,
-                expectedABBeforeDelete.getUndoneTaskList(), expectedABBeforeDelete.getDoneTaskList());
+        assertCommandBehaviorOnAllData("undo",
+                String.format(DeleteCommand.MESSAGE_UNDO_SUCCESS, undoneTasks), expectedTMBeforeDelete,
+                expectedTMBeforeDelete.getUndoneTaskList(), expectedTMBeforeDelete.getDoneTaskList());
         
-        assertCommandBehaviorAndVerifyData("redo",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedABAfterDelete,
-                expectedABAfterDelete.getUndoneTaskList(), expectedABAfterDelete.getDoneTaskList());
+        assertCommandBehaviorOnAllData("redo",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedTMAfterDelete,
+                expectedTMAfterDelete.getUndoneTaskList(), expectedTMAfterDelete.getDoneTaskList());
     }
     
     @Test
@@ -334,21 +315,21 @@ public class LogicManagerTest {
         List<Task> undoneTasks = helper.generateFloatingTaskList(1);
         model.addTasks(undoneTasks);
 
-        TaskManager expectedABBeforeDone = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
+        TaskManager expectedTMBeforeDone = helper.generateTaskManagerUndoneAndDoneList(undoneTasks,
                 Collections.emptyList());
 
-        TaskManager expectedABAfterDone = helper
+        TaskManager expectedTMAfterDone = helper
                 .generateTaskManagerUndoneAndDoneList(Collections.emptyList(), undoneTasks);
 
         logic.execute("done 1");
 
-        assertCommandBehaviorAndVerifyData("undo",
-                String.format(DoneCommand.MESSAGE_DONE_UNDO_SUCCESS, undoneTasks), expectedABBeforeDone,
-                expectedABBeforeDone.getUndoneTaskList(), expectedABBeforeDone.getDoneTaskList());
+        assertCommandBehaviorOnAllData("undo",
+                String.format(DoneCommand.MESSAGE_DONE_UNDO_SUCCESS, undoneTasks), expectedTMBeforeDone,
+                expectedTMBeforeDone.getUndoneTaskList(), expectedTMBeforeDone.getDoneTaskList());
         
-        assertCommandBehaviorAndVerifyData("redo",
-                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedABAfterDone,
-                expectedABAfterDone.getUndoneTaskList(), expectedABAfterDone.getDoneTaskList());
+        assertCommandBehaviorOnAllData("redo",
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, ListUtil.generateDisplayString(undoneTasks)), expectedTMAfterDone,
+                expectedTMAfterDone.getUndoneTaskList(), expectedTMAfterDone.getDoneTaskList());
     }
 
     //@@author
@@ -357,14 +338,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
 
     }
     
@@ -374,14 +355,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.adam();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeEdited);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeEdited);
         
         // execute add command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeEdited),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
         
         //assign parameters for expectations
         Name name = new Name("Do stuff later");
@@ -389,13 +370,13 @@ public class LogicManagerTest {
         Date endDate = DateTime.convertStringToDate("12pm");
         Priority priority = Priority.HIGH;
         RecurrenceRate recurrenceRate = new RecurrenceRate("1","day");
-        expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
+        expectedTM.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
 
         // execute edit command and verify result
         assertCommandBehavior(helper.generateEditCommand(),
                 String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
 
     }
     
@@ -404,14 +385,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.read();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeEdited);
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeEdited);
         
         // execute add command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeEdited),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
         
         //assign parameters for expectations
         Name name = new Name("Read a book");
@@ -419,13 +400,13 @@ public class LogicManagerTest {
         Date endDate = null;
         Priority priority = Priority.MEDIUM;
         RecurrenceRate recurrenceRate = null;
-        expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
+        expectedTM.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
 
         // execute edit command and verify result
         assertCommandBehavior(helper.generateEditCommandRemove(toBeEdited),
                 String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
 
     }
 
@@ -434,15 +415,15 @@ public class LogicManagerTest {
     public void execute_list_showsAllUndoneTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getUndoneTaskList();
+        TaskManager expectedTM = helper.generateTaskManager(2);
+        List<? extends ReadOnlyTask> expectedList = expectedTM.getUndoneTaskList();
 
         // prepare task manager state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
+                expectedTM,
                 expectedList);
     }
 
@@ -450,21 +431,43 @@ public class LogicManagerTest {
     public void execute_listDone_showsAllDoneTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedUndoneList = expectedAB.getUndoneTaskList();
-        List<? extends ReadOnlyTask> expectedDoneList = expectedAB.getDoneTaskList();
+        TaskManager expectedTM = helper.generateTaskManager(2);
+        List<? extends ReadOnlyTask> expectedUndoneList = expectedTM.getUndoneTaskList();
+        List<? extends ReadOnlyTask> expectedDoneList = expectedTM.getDoneTaskList();
 
         // prepare task manager state
         helper.addToModel(model, 2);
 
-        assertDoneCommandBehavior("list done",
+        assertCommandBehaviorOnAllData("list done",
                 ListCommand.DONE_MESSAGE_SUCCESS,
-                expectedAB,
+                expectedTM,
                 expectedUndoneList, 
                 expectedDoneList);
     }
-    //@@author
     
+    @Test
+    public void execute_listTodayOnUndoneList_showsAllTasksTodayOnUndoneList() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasksWithTodayTask = helper.generateFloatingTaskList(3);    
+        Task todayTask = helper.generateTaskWithTodayDate("todayTask");
+        threeTasksWithTodayTask.add(todayTask);
+        TaskManager expectedTM = helper.generateTaskManager(threeTasksWithTodayTask); 
+        List<Task> expectedList = new ArrayList<Task>();
+        expectedList.add(todayTask);
+        
+        // prepare task manager state
+        helper.addToModel(model, threeTasksWithTodayTask);
+        
+        assertCommandBehavior("list today",
+                String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, 1),
+                expectedTM,
+                expectedList);
+    }
+    
+    //@@author
+   
+
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -516,17 +519,18 @@ public class LogicManagerTest {
         List<Task> threePersons = helper.generateFloatingTaskList(3);
         Collections.sort(threePersons);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedTM = helper.generateTaskManager(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredUndoneTaskList().get(1), threePersons.get(1));
     }
-
+    
+    //@@author A0139498J
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -540,23 +544,22 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateFloatingTaskList(3);
         Collections.sort(threePersons);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedTM = helper.generateTaskManager(threePersons);
         
-        expectedAB.deleteUndoneTask(threePersons.get(1));
+        expectedTM.deleteUndoneTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, TestUtil.generateDisplayString(threePersons.get(1))),
-                expectedAB,
-                expectedAB.getUndoneTaskList());
+                expectedTM,
+                expectedTM.getUndoneTaskList());
     }
 
-    //@@author A0139498J
     @Test
     public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
@@ -569,41 +572,41 @@ public class LogicManagerTest {
         List<Task> threeTasks = helper.generateFloatingTaskList(3);
         Collections.sort(threeTasks);
         
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        TaskManager expectedTM = helper.generateTaskManager(threeTasks);
         
-        expectedAB.deleteUndoneTask(threeTasks.get(1));
-        expectedAB.addDoneTask(threeTasks.get(1));
+        expectedTM.deleteUndoneTask(threeTasks.get(1));
+        expectedTM.addDoneTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
-        assertDoneCommandBehavior("done 2",
+        assertCommandBehaviorOnAllData("done 2",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(threeTasks.get(1))),
-                expectedAB,
-                expectedAB.getUndoneTaskList(),
-                expectedAB.getDoneTaskList());       
+                expectedTM,
+                expectedTM.getUndoneTaskList(),
+                expectedTM.getDoneTaskList());       
     }
     
     @Test
-    public void execute_doneMultipleIndexes_ArchivesCorrectTasks() throws Exception {
+    public void execute_doneMultipleIndexes_archivesCorrectTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateFloatingTaskList(3);
         Collections.sort(threeTasks);
         
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        TaskManager expectedTM = helper.generateTaskManager(threeTasks);
         
-        expectedAB.deleteUndoneTask(threeTasks.get(0));
-        expectedAB.addDoneTask(threeTasks.get(0));
-        expectedAB.deleteUndoneTask(threeTasks.get(1));
-        expectedAB.addDoneTask(threeTasks.get(1));
-        expectedAB.deleteUndoneTask(threeTasks.get(2));
-        expectedAB.addDoneTask(threeTasks.get(2));
+        expectedTM.deleteUndoneTask(threeTasks.get(0));
+        expectedTM.addDoneTask(threeTasks.get(0));
+        expectedTM.deleteUndoneTask(threeTasks.get(1));
+        expectedTM.addDoneTask(threeTasks.get(1));
+        expectedTM.deleteUndoneTask(threeTasks.get(2));
+        expectedTM.addDoneTask(threeTasks.get(2));
         helper.addToModel(model, threeTasks);
 
-        assertDoneCommandBehavior("done 1 2 3",
+        assertCommandBehaviorOnAllData("done 1 2 3",
                 String.format(DoneCommand.MESSAGE_DONE_TASKS_SUCCESS, 
                         TestUtil.generateDisplayString(threeTasks.get(0), threeTasks.get(1), threeTasks.get(2))),
-                expectedAB,
-                expectedAB.getUndoneTaskList(),
-                expectedAB.getDoneTaskList()); 
+                expectedTM,
+                expectedTM.getUndoneTaskList(),
+                expectedTM.getDoneTaskList()); 
     }
     
     @Test
@@ -615,23 +618,46 @@ public class LogicManagerTest {
         Task updatedRecurringTask = new Task(recurringTask);
 
         updatedRecurringTask.updateRecurringTask();
-        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        TaskManager expectedTM = helper.generateTaskManager(threeTasks);
         
-        expectedAB.deleteUndoneTask(recurringTask);
-        expectedAB.addTask(updatedRecurringTask);
-        expectedAB.addDoneTask(recurringTask);
+        expectedTM.deleteUndoneTask(recurringTask);
+        expectedTM.addTask(updatedRecurringTask);
+        expectedTM.addDoneTask(recurringTask);
         helper.addToModel(model, threeTasks);
 
-        assertDoneCommandBehavior("done 1",
+        assertCommandBehaviorOnAllData("done 1",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, TestUtil.generateDisplayString(recurringTask)),
-                expectedAB,
-                expectedAB.getUndoneTaskList(),
-                expectedAB.getDoneTaskList()); 
+                expectedTM,
+                expectedTM.getUndoneTaskList(),
+                expectedTM.getDoneTaskList()); 
     }
     
     @Test
     public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_store_changesStorageFilePath() throws Exception {
+        // get folder path of the temporary folder
+        String saveFolderPath = saveFolder.getRoot().toString();
+
+        // get current user's storage location
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        String currentStorageLocation = config.getTaskManagerFilePath();
+        String currentStorageLocationWithoutExtension = 
+                currentStorageLocation.substring(0, currentStorageLocation.lastIndexOf("."));
+        
+        // change storage location
+        logic.execute("store " + saveFolderPath + "/test");
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        String newStorageLocation = config.getTaskManagerFilePath();
+        
+        // revert storage location
+        logic.execute("store " + currentStorageLocationWithoutExtension);
+        
+        // check if the storage location was changed earlier
+        assertEquals(newStorageLocation, saveFolderPath + "/test.xml");
     }
     
     //@@author
@@ -651,14 +677,14 @@ public class LogicManagerTest {
 
         List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         Collections.sort(fourPersons);
-        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
+        TaskManager expectedTM = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         Collections.sort(expectedList);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedTM,
                 expectedList);
     }
 
@@ -672,13 +698,13 @@ public class LogicManagerTest {
 
         List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
         Collections.sort(fourPersons);
-        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
+        TaskManager expectedTM = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedTM,
                 expectedList);
     }
 
@@ -691,13 +717,13 @@ public class LogicManagerTest {
         Task p1 = helper.generateFloatingTaskWithName("sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
+        TaskManager expectedTM = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedTM,
                 expectedList);
     }
 
@@ -895,5 +921,19 @@ public class LogicManagerTest {
                     Priority.LOW
             );
         }
+        
+        /**
+         * Generates a Task object with current date. Other fields will have some dummy values.
+         */
+        Task generateTaskWithTodayDate(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Date(),
+                    new Date(),
+                    null,
+                    Priority.LOW
+            );
+        }
+        
     }
 }
