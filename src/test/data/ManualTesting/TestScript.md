@@ -2,11 +2,11 @@
 
 ## Load Sample Data
 1. Download the zip file [F10-C3][Tary].zip
-2. Extract all contents of the zip file into the same folder, if done right<br> 
-  > Config.json<br>
-  > Preferences.json<br>
-  > Taryapp.jar<br>
-  > and a folder named data should be in the same folder.
+2. Extract all contents of the zip file into the same folder, if done right, the following should be in the same folder:
+  * Config.json
+  * Preferences.json
+  * [F10-C3][Tary].jar
+  * folder named 'data'
 3. Launch [F10-C3][Tary].jar 
 
 
