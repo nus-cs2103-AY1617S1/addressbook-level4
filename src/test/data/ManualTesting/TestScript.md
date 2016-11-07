@@ -1,6 +1,11 @@
 1. Loading Sample Data
 
-1.1 
+1.1 Overwriting default data file with Sample Data:
+1.1.1 Rename the SampleData.xml to jimi.xml (Copy and rename if original copy is desired)
+1.1.2 Navigate to where Jimi.jar executable is.
+1.1.3 Create a folder named `data` if not created already.
+1.1.4 Copy the renamed jimi.xml into the data folder.
+1.1.5 Run Jimi.jar; All the sample tasks and events should be loaded.
 
 2. Add Command
 
