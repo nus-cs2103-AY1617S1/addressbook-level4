@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>CS2103 demo</name>
+        <openTime>1478757600000</openTime>
+        <closeTime>1478761200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>true</isImportant>
+    </tasks>
+    <tasks>
+        <name>maths homework</name>
+        <closeTime>1478848740000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>CS3230</tagged>
+        <tagged>difficult</tagged>
+    </tasks>
+    <tasks>
+        <name>clean my room</name>
+        <closeTime>1478527200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>farewell party with friends</name>
+        <openTime>1478602800000</openTime>
+        <closeTime>1478610000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>shopping</name>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>friends</tagged>
+    </tasks>
+    <tasks>
+        <name>submit report</name>
+        <openTime>1477977960000</openTime>
+        <closeTime>1478582760000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>buy books</name>
+        <openTime>1470029280000</openTime>
+        <closeTime>1470115680000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>CS3230</tagged>
+    </tasks>
+    <tasks>
+        <name>documentation for CS2103</name>
+        <openTime>1478064720000</openTime>
+        <closeTime>1478530800000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>dating</name>
+        <openTime>1479106800000</openTime>
+        <closeTime>1479117600000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>buy dinner for roommate</name>
+        <openTime>1478685600000</openTime>
+        <closeTime>1478689200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>noodle</tagged>
+    </tasks>
+    <tasks>
+        <name>buy movie tickets</name>
+        <closeTime>1481088900000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>watch Doctor Strange</name>
+        <openTime>1481176800000</openTime>
+        <closeTime>1481184000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>meet with auntie</name>
+        <openTime>1483772400000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>book a restaurant</name>
+        <openTime>1473213600000</openTime>
+        <closeTime>1473228000000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>thai</tagged>
+    </tasks>
+    <tasks>
+        <name>revise final exam</name>
+        <openTime>1478497140000</openTime>
+        <closeTime>1479706740000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>true</isImportant>
+        <tagged>CS3230</tagged>
+        <tagged>study</tagged>
+        <tagged>CS2105</tagged>
+        <tagged>CS2103</tagged>
+    </tasks>
+    <tasks>
+        <name>write cheatsheet</name>
+        <openTime>1478559600000</openTime>
+        <closeTime>1478581200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>CS3230</tagged>
+    </tasks>
+    <tasks>
+        <name>go to supermarket</name>
+        <openTime>1481434860000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>fix bugs for project</name>
+        <openTime>1477263600000</openTime>
+        <closeTime>1477285200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>CS2103</tagged>
+    </tasks>
+    <tasks>
+        <name>meet with old friends in City Hall</name>
+        <openTime>1478930400000</openTime>
+        <closeTime>1478937600000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>go to pc common</name>
+        <openTime>1473487200000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>make personal website</name>
+        <openTime>1451627760000</openTime>
+        <closeTime>1456811760000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>get goodie bag</name>
+        <openTime>1478152800000</openTime>
+        <closeTime>1478325600000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>SoC</tagged>
+    </tasks>
+    <tasks>
+        <name>halloween party</name>
+        <openTime>1477904400000</openTime>
+        <closeTime>1477918800000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>utown</tagged>
+    </tasks>
+    <tasks>
+        <name>body check</name>
+        <openTime>1481504400000</openTime>
+        <closeTime>1481508000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>visit uncle new house</name>
+        <openTime>1465290000000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>guest lecture</name>
+        <openTime>1470553200000</openTime>
+        <closeTime>1470560400000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>LT19</tagged>
+        <tagged>Microsoft</tagged>
+        <tagged>CS2102</tagged>
+    </tasks>
+    <tasks>
+        <name>gym</name>
+        <openTime>1479708300000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>utown</tagged>
+    </tasks>
+    <tasks>
+        <name>trip</name>
+        <openTime>1482645900000</openTime>
+        <closeTime>1482905100000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>Taiwan</tagged>
+        <tagged>fun</tagged>
+    </tasks>
+    <tasks>
+        <name>book hotel</name>
+        <closeTime>1467871560000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>Taiwan</tagged>
+        <tagged>family</tagged>
+    </tasks>
+    <tasks>
+        <name>hackathon</name>
+        <closeTime>1446876420000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>apply for exchange</name>
+        <openTime>1454311320000</openTime>
+        <closeTime>1458026520000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>Singapore</tagged>
+        <tagged>NUS</tagged>
+    </tasks>
+    <tasks>
+        <name>back to Hong Kong</name>
+        <openTime>1480824000000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>true</isImportant>
+    </tasks>
+    <tasks>
+        <name>online check in for flight</name>
+        <openTime>1480737600000</openTime>
+        <closeTime>1480813200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>true</isImportant>
+        <tagged>Cathay</tagged>
+    </tasks>
+    <tasks>
+        <name>tune guitar</name>
+        <openTime>1481101200000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>send birthday card to Esther</name>
+        <closeTime>1475907240000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>HK</tagged>
+    </tasks>
+    <tasks>
+        <name>fix computer</name>
+        <openTime>1481870580000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>buy new clothes</name>
+        <openTime>1473066000000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>Bugis</tagged>
+    </tasks>
+    <tasks>
+        <name>change password</name>
+        <openTime>1510020000000</openTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>Facebook</tagged>
+    </tasks>
+    <tasks>
+        <name>buy shoes</name>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>sneakers</tagged>
+    </tasks>
+    <tasks>
+        <name>find intern</name>
+        <openTime>1462429860000</openTime>
+        <closeTime>1464762660000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>Emily wedding party</name>
+        <openTime>1499407200000</openTime>
+        <closeTime>1499432400000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>CS2103 individual report</name>
+        <openTime>1478500380000</openTime>
+        <closeTime>1479110400000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>ivle</tagged>
+    </tasks>
+    <tasks>
+        <name>final exam CS2103</name>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>openbook</tagged>
+    </tasks>
+    <tasks>
+        <name>nap</name>
+        <openTime>1478581200000</openTime>
+        <closeTime>1478584800000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>go to Science Museum</name>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>exhibition</tagged>
+    </tasks>
+    <tasks>
+        <name>buy souvenir for family and friends</name>
+        <closeTime>1480770000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>go to consultation hour</name>
+        <openTime>1478577600000</openTime>
+        <closeTime>1478581200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>CS3230</tagged>
+    </tasks>
+    <tasks>
+        <name>play guitar</name>
+        <openTime>1481781600000</openTime>
+        <closeTime>1481788800000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>hobby</tagged>
+    </tasks>
+    <tasks>
+        <name>finish one novel</name>
+        <closeTime>1483279200000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>reg courses</name>
+        <closeTime>1483339440000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+    </tasks>
+    <tasks>
+        <name>send postcard</name>
+        <openTime>1476773040000</openTime>
+        <closeTime>1476859440000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>HK</tagged>
+    </tasks>
+    <tasks>
+        <name>dinner</name>
+        <openTime>1478426400000</openTime>
+        <closeTime>1478430000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>utown</tagged>
+    </tasks>
+    <tasks>
+        <name>quick lunch</name>
+        <openTime>1478059200000</openTime>
+        <closeTime>1478061000000</closeTime>
+        <isComplete>false</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>subway</tagged>
+    </tasks>
+    <tasks>
+        <name>movie night</name>
+        <openTime>1472115600000</openTime>
+        <closeTime>1472126400000</closeTime>
+        <isComplete>true</isComplete>
+        <isImportant>false</isImportant>
+        <tagged>utown</tagged>
+    </tasks>
+    <tags>
+        <tagName>CS3230</tagName>
+    </tags>
+    <tags>
+        <tagName>difficult</tagName>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+    </tags>
+    <tags>
+        <tagName>noodle</tagName>
+    </tags>
+    <tags>
+        <tagName>thai</tagName>
+    </tags>
+    <tags>
+        <tagName>study</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2105</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2103</tagName>
+    </tags>
+    <tags>
+        <tagName>SoC</tagName>
+    </tags>
+    <tags>
+        <tagName>utown</tagName>
+    </tags>
+    <tags>
+        <tagName>LT19</tagName>
+    </tags>
+    <tags>
+        <tagName>Microsoft</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2102</tagName>
+    </tags>
+    <tags>
+        <tagName>Taiwan</tagName>
+    </tags>
+    <tags>
+        <tagName>fun</tagName>
+    </tags>
+    <tags>
+        <tagName>family</tagName>
+    </tags>
+    <tags>
+        <tagName>NUS</tagName>
+    </tags>
+    <tags>
+        <tagName>Singapore</tagName>
+    </tags>
+    <tags>
+        <tagName>Cathay</tagName>
+    </tags>
+    <tags>
+        <tagName>HK</tagName>
+    </tags>
+    <tags>
+        <tagName>Bugis</tagName>
+    </tags>
+    <tags>
+        <tagName>Facebook</tagName>
+    </tags>
+    <tags>
+        <tagName>sneakers</tagName>
+    </tags>
+    <tags>
+        <tagName>ivle</tagName>
+    </tags>
+    <tags>
+        <tagName>openbook</tagName>
+    </tags>
+    <tags>
+        <tagName>exhibition</tagName>
+    </tags>
+    <tags>
+        <tagName>hobby</tagName>
+    </tags>
+    <tags>
+        <tagName>hk</tagName>
+    </tags>
+    <tags>
+        <tagName>subway</tagName>
+    </tags>
+</taskmanager>
