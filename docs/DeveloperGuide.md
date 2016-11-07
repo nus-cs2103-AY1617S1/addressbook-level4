@@ -344,6 +344,10 @@ The SD for editing an event is similar to editing a task.
 
   Use case ends.
 
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+
+<img src="images/SDMarkTask.png" width="700"><br>
+  
 **Extensions**<br>
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the task cannot be found
@@ -363,6 +367,12 @@ The SD for editing an event is similar to editing a task.
 
   Use case ends.
 
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+
+<img src="images/SDforDeleteTask.png" width="700"><br>
+
+The SD for delete event is similiar to delete task. 
+  
 **Extensions**<br>
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the task or event cannot be found
@@ -496,7 +506,13 @@ Since it does not need to retrieve or modidfy data in the model.
  4. `Dowat` displays the updated list of tasks or events
 
   Use case ends.
+  
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
+<img src="images/SDClearTasks.png" width="700"><br>
+
+The SD for clear past events is similiar to clear completed tasks.
+  
 <!-- Clearing an empty list of completed tasks and past events does not change `Dowat` behavior --> 
 #### Use case 13: Clear completed tasks and past events
 
@@ -507,7 +523,12 @@ Since it does not need to retrieve or modidfy data in the model.
  4. `Dowat` displays the updated list of tasks and events
 
   Use case ends.
+  
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
+<img src="images/SDClearTasksEvents.png" width="700"><br>
+
+  
 <!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
 #### Use case 14: Clear all tasks or all events
 
@@ -518,6 +539,12 @@ Since it does not need to retrieve or modidfy data in the model.
  4. `Dowat` displays the updated list of tasks or events
 
   Use case ends.
+  
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+
+<img src="images/SDClearAllEvents.png" width="700"><br>
+
+The SD for clear all tasks is similiar to clear all events.
   
 <!-- Clearing an empty list of tasks and events does not change `Dowat` behavior --> 
 #### Use case 15: Clear all tasks and all events
@@ -530,6 +557,11 @@ Since it does not need to retrieve or modidfy data in the model.
 
   Use case ends.
 
+The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+
+<img src="images/SDClearAll.png" width="700"><br>
+
+The SD for clear all tasks is similiar to clear all events.
   
 #### Use case 16: Accessing Command history in Command Box
 
