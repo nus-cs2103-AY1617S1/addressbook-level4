@@ -78,6 +78,8 @@ public class TaskCardViewHandle extends GuiHandle {
         return getTextFromLabel(TYPE_LABEL_ID);
     }
 
+    //@@author A0135805H-unused
+    //For future testing use
     public Set<String> getDisplayedTags() {
         FlowPane tagsBox = (FlowPane) getNode(TITLE_PANE_ID);
         List<Node> displayedTagNodes = tagsBox.getChildren()
@@ -87,6 +89,7 @@ public class TaskCardViewHandle extends GuiHandle {
                 .map(node -> ((Label) node).getText()).collect(Collectors.toSet());
     }
 
+    //@@author A0135805H
     public boolean getMoreInfoLabelVisibility() {
         Node moreInfoLabel = getNode(MOREINFO_LABEL_ID);
         return UiTestUtil.isDisplayed(moreInfoLabel);

@@ -71,6 +71,8 @@ public class TodoListViewHandle extends GuiHandle {
         return getImmutableTaskList().get(listIndex);
     }
 
+    //@@author A0135805H-unused
+    //For future testing use
     /**
      * Gets the first occurring element from {@link #getImmutableTaskList()}
      * where the detail matches the {@code task} param.
@@ -89,6 +91,7 @@ public class TodoListViewHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
+    //@@author A0135805H
     /**
      * Gets a {@link TaskCardViewHandle} object with the position {@code listIndex} located in the to-do list view.
      * Guaranteed unique result for identical tasks.

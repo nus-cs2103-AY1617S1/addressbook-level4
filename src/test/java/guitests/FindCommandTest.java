@@ -1,6 +1,6 @@
-package guitests.guihandles;
+package guitests;
 
-import guitests.TodoListGuiTest;
+import guitests.guihandles.SearchStatusViewHandle;
 import org.junit.Test;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
@@ -46,6 +46,7 @@ public class FindCommandTest extends TodoListGuiTest {
         runCommand("find happy birthday to you");
 
         assertEquals("happy, birthday, to, you", searchStatusView.getSearchTermText());
+        assertTrue(searchStatusView.isVisible());
         assertTrue(searchStatusView.doesSearchCountMatch(0));
     }
 
@@ -54,6 +55,7 @@ public class FindCommandTest extends TodoListGuiTest {
         runCommand("f dynamite");
 
         assertEquals("dynamite", searchStatusView.getSearchTermText());
+        assertTrue(searchStatusView.isVisible());
         assertTrue(searchStatusView.doesSearchCountMatch(2));
     }
 
@@ -62,6 +64,7 @@ public class FindCommandTest extends TodoListGuiTest {
         runCommand("f /t pika dynamite");
 
         assertEquals("pika, dynamite", searchStatusView.getSearchTermText());
+        assertTrue(searchStatusView.isVisible());
         assertTrue(searchStatusView.doesSearchCountMatch(1));
     }
 }

@@ -39,13 +39,8 @@ public class CommandFeedbackViewHandle extends GuiHandle {
         return getFeedbackLabel().getText();
     }
 
-    /**
-     * Returns true if the {@code feedbackMessage} matches the displayed message in the view.
-     */
-    public boolean doesFeedbackMessageMatch(String feedbackMessage) {
-        return this.getText().equals(feedbackMessage);
-    }
-
+    //@@author A0135805-unused
+    //Lack of time to implement this inside GUI tests.
     /**
      * Returns true if this feedback view has error style applied.
      */
