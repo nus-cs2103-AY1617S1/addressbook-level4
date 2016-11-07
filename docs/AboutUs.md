@@ -76,6 +76,6 @@ Component SME: [UI](DeveloperGuide.md#UI-component)
    * [Unmark task](UserGuide.md#unmark-a-task-as-done--unmark)
    * [Undo task](UserGuide.md#undo-the-most-recent-operation--undo)
    * [Redo task](UserGuide.md#redo-the-most-recent-undo-operation--redo)
-* Code written: [[functional code](../collated/main/A0097627N.md)][[docs](../collated/docs/A0097627N.md)]
+* Code written: [[functional code](../collated/main/A0097627N.md)][[test code](../collated/test/A0097627N.md)][[docs](../collated/docs/A0097627N.md)]
  
  -----
