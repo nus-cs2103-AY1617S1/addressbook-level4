@@ -5,7 +5,7 @@ blah de blah<br>
 
 ## Open help window
 
-1. Type `help` or press F1.<br>
+1. Type `help` or press F1<br>
 
 > Note: Click away from command box before pressing F1.<br>
 
@@ -13,19 +13,19 @@ Result: A new window pops-up with a help window image, listing out all commands 
 
 ## Add new Todo task
 
-1. Type `have coffee with Prof Damith`.<br>
+1. Type `have coffee with Prof Damith`<br>
 
 Result: A new todo task for `have coffee with Prof Damith` is added into the todo list panel. (index T5)<br>
 
 ## Add new Deadline task
 
-1. Type `finish user guide 10 dec 2pm`.<br>
+1. Type `finish user guide 10 dec 2pm`<br>
 
 Result: A new deadline task `finish user guide` with `Sat, 10 Dec 02:00pm` is added into deadlines list panel (index D12)<br>
 
 ## Add new Event task
 
-1. Type `internship interview with Uncle Soo 2 dec 3 to 3.30pm`.<br>
+1. Type `internship interview with Uncle Soo 2 dec 3 to 3.30pm`<br>
 
 Result: A new event task `internship interview with Uncle Soo` with `Fri, 02 Dec 03:00PM to Fri, 02 Dec 03:30PM` is added into events list panel (index E9)<br>
 
