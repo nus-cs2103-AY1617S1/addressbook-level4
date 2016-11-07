@@ -69,7 +69,6 @@ public class LogicManagerTest {
         String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         storage = new StorageManager(tempToDoListFile, tempPreferencesFile);
-        //logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile));
         logic = new LogicManager(model, storage);
         EventsCenter.getInstance().registerHandler(this);
 
@@ -122,25 +121,25 @@ public class LogicManagerTest {
         assertEquals(expectedToDoList, latestSavedToDoList);
     }
     
-  //@@author A0158963M 
-    private void assertsetStorageCommandBehavior(String inputCommand, String expectedMessage,
-            String expectfilePath) throws Exception {
+	// @@author A0158963M
+	private void assertsetStorageCommandBehavior(String inputCommand, String expectedMessage, String expectfilePath)
+			throws Exception {
 
-		//Execute the command
+		// Execute the command
 		CommandResult result = logic.execute(inputCommand);
-		
-		//Confirm the ui display elements should contain the right data
+
+		// Confirm the storage should contain the right data
 		assertEquals(expectedMessage, result.feedbackToUser);
 		assertEquals(expectfilePath, storage.getToDoListFilePath());
-	
+
 	}
-    
-    @Test
-    public void execute_setstorage() throws Exception {
-        String setstorageCommand = "setstorage NewData";
-        assertsetStorageCommandBehavior(setstorageCommand, SetstorageCommand.MESSAGE_SUCCESS, "NewData/todolist.xml");
-    }
-  //@@
+
+	@Test
+	public void execute_setstorage() throws Exception {
+		String setstorageCommand = "setstorage NewData";
+		assertsetStorageCommandBehavior(setstorageCommand, SetstorageCommand.MESSAGE_SUCCESS, "NewData/todolist.xml");
+	}
+	// @@
     
     @Test
     public void execute_unknownCommandWord() throws Exception {
