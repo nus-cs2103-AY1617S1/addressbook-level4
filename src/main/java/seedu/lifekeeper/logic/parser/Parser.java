@@ -3,6 +3,7 @@ package seedu.lifekeeper.logic.parser;
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.commons.util.StringUtil;
 import seedu.lifekeeper.logic.commands.*;
+import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.model.tag.UniqueTagList;
 
 import static seedu.lifekeeper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -96,7 +97,7 @@ public class Parser {
             return prepareList(arguments);
             
         case FindTagCommand.COMMAND_WORD:
-            return new FindTagCommand(arguments);
+            return prepareFindTag(arguments);
         
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -316,6 +317,16 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    private Command prepareFindTag(String args) {
+        final Matcher matcher = Pattern.compile(Tag.TAG_VALIDATION_REGEX).matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindTagCommand.MESSAGE_USAGE));
+        }
+        
+        return new FindTagCommand(args);
     }
 
     
