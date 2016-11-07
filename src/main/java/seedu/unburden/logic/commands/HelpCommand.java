@@ -41,9 +41,9 @@ public class HelpCommand extends Command {
 			+ "4) Delete : Deletes a single exisiting \n" + "task task in Unburden \n"
 			+ "5) List : Lists all exisiting tasks in Unburden \n" + "6) Clear : To delete ALL tasks within Unburden \n"
 			+ "7) Undo : To Undo any previous command \n" + "8) Redo : To redo any previous command \n"
-			+ "9) Done : Marks a task as done and \n" + "undone marks it as undone \n"
-			+ "10) Help : To get some information on \n" + " how to use the application \n"
-			+ "11) Exit : To exit and close the application \n";
+			+ "9) Done : Marks a task as done and \n" + "10) UnDone: marks a task as undone \n"
+			+ "11) Help : To get some information on \n" + " how to use the application \n"
+			+ "12) Exit : To exit and close the application \n";
 
 	public static final String HELP_MESSAGE_UNDO = "To undo a previous executed command, type \"undo\"";
 
@@ -82,6 +82,8 @@ public class HelpCommand extends Command {
 			return new CommandResult(HELP_MESSAGE_REDO);
 		case DoneCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_DONE);
+		case UnDoneCommand.COMMAND_WORD:
+			return new CommandResult(HELP_MESSAGE_UNDONE);
 		case ExitCommand.COMMAND_WORD:
 			return new CommandResult(HELP_MESSAGE_EXIT);
 		default:
