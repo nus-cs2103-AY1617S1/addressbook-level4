@@ -11,23 +11,23 @@ blah de blah<br>
 
 Result: A new window pops-up with a help window image, listing out all commands available.<br>
 
-## Add new todo task
+## Add new Todo task
 
 1. Type `have coffee with Prof Damith`.<br>
 
 Result: A new todo task for `have coffee with Prof Damith` is added into the todo list panel. (index T5)<br>
 
-## Add new deadline task
+## Add new Deadline task
 
 1. Type `finish user guide 10 dec 2pm`.<br>
 
-Result: A new deadline task `finish user guide` with `Sat, 10 dec 02:00pm` is added into deadlines list panel (index D12)<br>
+Result: A new deadline task `finish user guide` with `Sat, 10 Dec 02:00pm` is added into deadlines list panel (index D12)<br>
 
-## Add new event task
+## Add new Event task
 
 1. Type `internship interview with Uncle Soo 2 dec 3 to 3.30pm`.<br>
 
-Result: A new event task `internship interview with Uncle Soo` with `Fri, 02 dec 03:00PM to Fri, 02 Dec 03:30PM` is added into events list panel (index E9)<br>
+Result: A new event task `internship interview with Uncle Soo` with `Fri, 02 Dec 03:00PM to Fri, 02 Dec 03:30PM` is added into events list panel (index E9)<br>
 
 ## Add a task with tag
 
@@ -73,7 +73,8 @@ Result: The task list will show all tasks with the tag `#work`in the current tas
 
 ## Edit the name of a Todo task
 
-1. Type `edit t3 buy new blue tie`<br>
+1. Type `view`
+2. Type `edit t3 buy new blue tie`<br>
 
 Result: The name of the todo task will be changed to `buy new blue tie`. (index T3) <br>
 
@@ -87,7 +88,7 @@ Result: The task will have it's due date changed to `Mon, 14 Nov 02:00PM`. (inde
 
 1. Type `edit e6 14 Nov 5 to 6pm`<br>
 
-Result: The task will have it's period changed to `Mon, 14Nov 05:00PM to Mon, 14 Nov 06:00PM`.(index E7)<br>
+Result: The task will have it's period changed to `Mon, 14 Nov 05:00PM to Mon, 14 Nov 06:00PM`.(index E7)<br>
 
 ## Edit a Deadline task to a Todo task
 
@@ -99,7 +100,31 @@ Result: The task will be moved from the deadline list panel to the todo list pan
 
 1. Type `edit t8 12 Nov 2pm`<br>
 
-Result: The task will be moved frmo the todo list panel to the deadline list panel and with a due date `Sat, 12Nov 02:00PM`.(index D8)<br>
+Result: The task will be moved frmo the todo list panel to the deadline list panel and with a due date `Sat, 12 Nov 02:00PM`.(index D8)<br>
+
+## Edit an Event task to a Todo task
+
+1. Type `edit e10 go shopping with Mary`<br>
+
+Result: The task will be moved from the event list panel to the todo list panel and with its period removed. (index T5)<br>
+
+## Edit a Todo task to an Event task
+
+1. Type `edit t11 25 Nov 3 to 5pm`<br>
+
+Result: The task will be moved from the todo list panel to the event list panel and with a period `Fri, 25 Nov 03:00PM to Fri, 25 Nov 05:00PM`. (index E9)<br>
+
+## Edit a Deadline task to an Event task
+
+1. Type `edit d9 14 Nov 9 to 10am`<br>
+
+Result: The task will be moved from the deadline list panel to the event list panel with it's time parameter changed from a due date to a period of `Mon, 14 Nov 09:00AM to Mon, 14 Nov 10:00AM`. (index E6)<br>
+
+## Edit an Event task to a Deadline task
+
+1. Type `edit e4 11 Nov 4pm`<br>
+
+Result: The task will be moved from the event list panel to the deadline list panel with it's time parameter changed from a period to a due date of `Fri, 11 Nov 04:00PM`.<br>
 
 ## Mark a single task as done
 
@@ -137,6 +162,12 @@ Result: The command box will display the name of all the tasks deleted and those
 
 Result: The tasks from index T4 to T6 will be deleted. <br>
 
+## Clear out all tasks in task manager
+
+1. Type `clear` or press `Ctrl` + `Shift` + `C`<br>
+
+Result: All tasks will be cleared out and the task manager will be empty. <br>
+
 ## Undo when no valid commands have been executed yet
 
 1. Ensure the task manager has just been opened<br>
@@ -146,14 +177,14 @@ Result: The command box will display that there is no more previous command in t
 
 ## Undo a command
 
-1. Type `add todo`<br>
+1. Type `clear`<br>
 2. Type `undo` or press `Ctrl` + `Shift` + `U`<br>
 
 Result: The command box will display the previous action undone and the task manager will revert back to the previous state.<br>
 
 ## Redo a command previously undone
 
-1. Type `dont delete me`<br>
+1. Type `add don't delete me`<br>
 2. Type `undo` or press `Ctrl` + `Shift` + `U`<br>
 3. Type `redo` or press `Ctrl` + `Shift` + `Y`<br>
 
@@ -168,10 +199,15 @@ Result: The command box will display that there is no recent undone command in t
 
 ## Redo when a new valid command have been executed
 
-1. Tyoe `add cant redo me`
+1. Tyoe `add can't redo me`
 2. Type `undo` or press `Ctrl` + `Shift` + `U`<br>
-3. Type `add remove redo`
+3. Type `add don't believe me?`
 4. Type `redo` or press `Ctrl` + `Shift` + `Y`<br>
 
 Result: The command box will display that there is no recent undone command in this session and the task manager remains in the same state.<br> 
 
+## Close the task manager
+
+1. Type `exit` or press `Esc`
+
+Result: The task manager app will close.<br>
