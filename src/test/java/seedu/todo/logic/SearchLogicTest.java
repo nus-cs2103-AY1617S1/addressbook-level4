@@ -133,6 +133,22 @@ public class SearchLogicTest extends CommandLogicTest {
                       + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
+        
+        t1.setCompletion(new Completion(true));
+        List<Task> expectedListDone = helper.generateReverseTaskList(t1);
+        assertCommandBehavior("search before 12/12/2019 done",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.DONE,
+                        SearchIndex.BEFORE, "12/12/2019")
+                      + Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                expectedTDL,
+                expectedListDone);
+        
+        assertCommandBehavior("search before 12/12/2019 all",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.ALL,
+                        SearchIndex.BEFORE, "12/12/2019 ")
+                      + Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTDL,
+                expectedList);
     }
     
     @Test
@@ -145,6 +161,22 @@ public class SearchLogicTest extends CommandLogicTest {
         assertCommandBehavior("search after 12/12/2013",
                 String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.UNDONE,
                         SearchIndex.AFTER, "12/12/2013")
+                      + Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedTDL,
+                expectedList);
+        
+        t1.setCompletion(new Completion(true));
+        List<Task> expectedListDone = helper.generateReverseTaskList(t1);
+        assertCommandBehavior("search after 12/12/2013 done",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.DONE,
+                        SearchIndex.AFTER, "12/12/2013")
+                      + Command.getMessageForTaskListShownSummary(expectedListDone.size()),
+                expectedTDL,
+                expectedListDone);
+        
+        assertCommandBehavior("search after 12/12/2013 all",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.ALL,
+                        SearchIndex.AFTER, "12/12/2013 ")
                       + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
@@ -186,6 +218,13 @@ public class SearchLogicTest extends CommandLogicTest {
                       + Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedTDL,
                 expectedList);
+        
+        assertCommandBehavior("search on today 1400",
+                String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.UNDONE,
+                        SearchIndex.ON, "today 1400")
+                      + Command.getMessageForTaskListShownSummary(0),
+                expectedTDL,
+                (new DoDoBird()).getTaskList());
         
         assertCommandBehavior("search on today done",
                 String.format(SearchCommand.MESSAGE_SUCCESS, SearchCompletedOption.DONE,

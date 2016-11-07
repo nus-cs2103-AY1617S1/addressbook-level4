@@ -25,6 +25,9 @@ public class AddLogicTest extends CommandLogicTest {
         assertCommandBehavior(
                 "add Valid Name on 12/12/1234 by asdasdsad ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
 
+        assertCommandBehavior(
+                "add ;;", Name.MESSAGE_NAME_CONSTRAINTS);
+
     }
 
     @Test
