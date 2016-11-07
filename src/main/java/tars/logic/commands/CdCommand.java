@@ -45,8 +45,9 @@ public class CdCommand extends Command {
     public static final String MESSAGE_FAILURE_READ_FILE =
             "Unable to read from location, please choose another directory";
 
+    private static final String xmlFileExt = "xml";;
+    
     private final String newFilePath;
-    private final static String xmlFileExt = "xml";;
     private Storage storageUpdater = new StorageManager();
     private Config newConfig = new Config();
 
@@ -77,7 +78,7 @@ public class CdCommand extends Command {
     private CommandResult saveTarsToNewFilePath() {
         try {
             // try to save TARS data into new file
-            storageUpdater.saveTarsInNewFilePath(model.getTars(), newFilePath); 
+            storageUpdater.saveTarsInNewFilePath(model.getTars(), newFilePath);
             if (storageUpdater.isFileSavedSuccessfully(newFilePath)) {
                 updateTarsSystemWithNewFilePath();
                 return new CommandResult(

@@ -20,24 +20,21 @@ import tars.ui.formatter.Formatter;
  */
 public class TagCommand extends UndoableCommand {
 
-    private static final int TAG_SECOND_INDEX = 1;
-
-    private static final int TAG_FIRST_INDEX = 0;
-
     public static final String COMMAND_WORD = "tag";
-
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": [/ls] [/e <INDEX> <TAG_NAME>] [/del <INDEX>]";
     public static final String MESSAGE_RENAME_TAG_SUCCESS =
             "%1$s renamed to [%2$s]";
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
 
-    private final Prefix prefix;
-    private final String[] args;
-
+    private static final int TAG_SECOND_INDEX = 1;
+    private static final int TAG_FIRST_INDEX = 0;
     private static final Prefix listPrefix = new Prefix("/ls");
     private static final Prefix editPrefix = new Prefix("/e");
     private static final Prefix deletePrefix = new Prefix("/del");
+
+    private final Prefix prefix;
+    private final String[] args;
 
     private ReadOnlyTag toBeRenamed;
     private ReadOnlyTag toBeDeleted;

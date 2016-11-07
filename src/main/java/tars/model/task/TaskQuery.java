@@ -12,13 +12,14 @@ import tars.model.task.DateTime.IllegalDateException;
 // @@author A0124333U
 public class TaskQuery extends Task {
 
-    private String tagQuery = "";
-    private String statusString = "";
     public final static String MESSAGE_BOTH_STATUS_SEARCHED_ERROR =
             "Both '-do (Done)' and '-ud (Undone)' flags "
                     + "have been detected.\n"
                     + "Please search for either '-do (Done)' or '-ud (Undone)' status";
 
+    private String tagQuery = "";
+    private String statusString = "";
+    
     public TaskQuery() {}
 
     public TaskQuery(Name name, DateTime dateTime, Priority priority,

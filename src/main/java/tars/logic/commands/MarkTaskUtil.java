@@ -16,11 +16,6 @@ import tars.model.task.Status;
  */
 public class MarkTaskUtil {
 
-    private ArrayList<Integer> markDoneTasks;
-    private ArrayList<Integer> markUndoneTasks;
-    private ArrayList<Integer> alreadyDoneTasks;
-    private ArrayList<Integer> alreadyUndoneTasks;
-
     public static final String SUCCESS_DONE =
             "Task: %1$s marked done successfully.\n";
     public static final String SUCCESS_UNDONE =
@@ -29,6 +24,11 @@ public class MarkTaskUtil {
             "Task: %1$s already marked done.\n";
     public static final String ALREADY_UNDONE =
             "Task: %1$s already marked undone.\n";
+
+    private ArrayList<Integer> markDoneTasks;
+    private ArrayList<Integer> markUndoneTasks;
+    private ArrayList<Integer> alreadyDoneTasks;
+    private ArrayList<Integer> alreadyUndoneTasks;
 
     /**
      * Constructor
@@ -80,8 +80,8 @@ public class MarkTaskUtil {
     }
 
     /**
-     * Main results formatter that will perform the formatting for all 4 cases
-     * i.e. Mark Done, Mark Undone, Already Done and Already Undone
+     * Main results formatter that will perform the formatting for all 4 cases i.e. Mark Done, Mark
+     * Undone, Already Done and Already Undone
      */
     private String formatResults(String markDoneTasksString,
             String markUndoneTasksString, String alreadyDoneTasksString,

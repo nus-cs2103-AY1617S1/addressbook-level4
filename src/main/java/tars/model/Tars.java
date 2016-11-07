@@ -34,12 +34,12 @@ import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
  */
 public class Tars implements ReadOnlyTars {
 
+    private static String TARS_COMPONENTS_SIZES =
+            "%1$s tasks, %2$s reserved tasks, %3$s tags";
+    
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
     private final UniqueRsvTaskList rsvTasks;
-
-    private static String TARS_COMPONENTS_SIZES =
-            "%1$s tasks, %2$s reserved tasks, %3$s tags";
 
     {
         tasks = new UniqueTaskList();

@@ -13,8 +13,9 @@ public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
     private static final String LOG_EVENT_POSTED =
             "------[Event Posted] %1$s: %2$s";
-    private final EventBus eventBus;
+
     private static EventsCenter instance;
+    private final EventBus eventBus;
 
     public static EventsCenter getInstance() {
         if (instance == null) {

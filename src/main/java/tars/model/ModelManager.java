@@ -40,20 +40,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     private static final Logger logger =
             LogsCenter.getLogger(ModelManager.class);
+    private static final String LIST_ARG_DATETIME = "/dt";
+    private static final String LIST_ARG_PRIORITY = "/p";
+    private static final String LIST_KEYWORD_DESCENDING = "dsc";
+
+    private static String MESSAGE_INITIALIZING_TARS =
+            "Initializing with tars %1$s and user prefs %2$s";
+    private static String CONFLICTING_TASK = "\nTask %1$s: %2$s";
+    private static String CONFLICTING_RSV_TASK = "\nRsvTask %1$s: %2$s";
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<RsvTask> filteredRsvTasks;
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
-
-    private static final String LIST_ARG_DATETIME = "/dt";
-    private static final String LIST_ARG_PRIORITY = "/p";
-    private static final String LIST_KEYWORD_DESCENDING = "dsc";
-    private static String MESSAGE_INITIALIZING_TARS =
-            "Initializing with tars %1$s and user prefs %2$s";
-    private static String CONFLICTING_TASK = "\nTask %1$s: %2$s";
-    private static String CONFLICTING_RSV_TASK = "\nRsvTask %1$s: %2$s";
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables should not be null
@@ -277,7 +277,7 @@ public class ModelManager extends ComponentManager implements Model {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }
-    
+
     // @@author
 
     // =========== Filtered Task List Accessors ===========
@@ -336,7 +336,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     // @@author
 
     // ========== Inner classes/interfaces used for filtering ==========
