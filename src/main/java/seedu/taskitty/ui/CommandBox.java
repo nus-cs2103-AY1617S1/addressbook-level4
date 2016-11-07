@@ -106,6 +106,8 @@ public class CommandBox extends UiPart {
         emptyCommandText(command);
         if (isInputValid) {
             setCatImage(ResultDisplay.IMAGE_CAT_HAPPY);
+        } else {
+            isInputValid = true;
         }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
@@ -116,6 +118,7 @@ public class CommandBox extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
         restoreCommandText();
         setStyleToIndicateIncorrectCommand();
+        isInputValid = false;
     }
     
     //@@author A0139930B
@@ -123,8 +126,8 @@ public class CommandBox extends UiPart {
     private void handleShowToolTip(ShowToolTipEvent event) {
         resultDisplay.postMessage(event.getToolTipMessage(), event.getToolTipDescription());
         
-        isInputValid = event.isUserInputValid() && isInputValid;
-        if (isInputValid) {
+        boolean isCorrect = event.isUserInputValid() && isInputValid;
+        if (isCorrect) {
             setStyleToIndicateCorrectCommand();
         } else {
             setStyleToIndicateIncorrectCommand();
@@ -145,7 +148,6 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
         setCatImage(ResultDisplay.IMAGE_CAT_NORMAL);
-        isInputValid = true;
     }
 
     /**
@@ -162,10 +164,6 @@ public class CommandBox extends UiPart {
         if (!commandTextField.getStyleClass().contains("error")) {
             commandTextField.getStyleClass().add("error"); 
             setCatImage(ResultDisplay.IMAGE_CAT_SAD);
-            isInputValid = false;
-        } else {
-            //reset flag if style is already error
-            isInputValid = true;
         }
     }
     
