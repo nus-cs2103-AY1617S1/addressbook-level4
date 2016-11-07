@@ -649,7 +649,7 @@ public class Parser {
         }
 
         arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
-
+        
         if (!isValidAddFormat(arguments)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -658,18 +658,14 @@ public class Parser {
             taskToAdd.setName(new Name(arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim()));
             
             if (isTodoTask(arguments)) {
-                try {
-                    return new AddCommand(taskToAdd, Collections.emptySet());
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                } catch (ParseException e) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
+                return new AddCommand(taskToAdd, Collections.emptySet());
             }
             
             argComponents = arguments[arguments.length - ONE].trim().split(DELIMITER_BLANK_SPACE);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (ParseException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         for (int i = 0; i < argComponents.length; i++) {
