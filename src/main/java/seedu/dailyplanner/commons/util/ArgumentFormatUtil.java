@@ -27,7 +27,7 @@ public class ArgumentFormatUtil {
 	public static boolean isValidEditArgumentFormat(String args) {
 		args = args.trim();
 	    //If no index, return invalid
-	    if(!Character.isDigit(args.charAt(0))) {
+	    if(noIndexInArgs(args)) {
 	        return false;
 	    }
 	    
@@ -38,28 +38,31 @@ public class ArgumentFormatUtil {
 	    
 	    //Return false if no space before s/
 	    if(args.contains("s/")) {
-	        int indexOfStart = args.indexOf("s/");
-	        if (args.charAt(indexOfStart-1) != ' ') {
+	        if (ifNoWhiteSpaceBeforeParameter(args, "s/")) {
 	            return false;
 	        }
 	    }
 	    
 	  //Return false if no space before e/
 	    if(args.contains("e/")) {
-            int indexOfStart = args.indexOf("e/");
-            if (args.charAt(indexOfStart-1) != ' ') {
+	        if (ifNoWhiteSpaceBeforeParameter(args, "e/")) {
                 return false;
             }
         }
 	  //Return false if no space before c/
 	    if(args.contains("c/")) {
-            int indexOfStart = args.indexOf("c/");
-            if (args.charAt(indexOfStart-1) != ' ') {
+	        if (ifNoWhiteSpaceBeforeParameter(args, "c/")) {
                 return false;
             }
-        }
-	    
-	    return true;
-	    
+        }    
+	    return true;  
 	}
+
+    private static boolean ifNoWhiteSpaceBeforeParameter(String args, String parameter) {
+        return args.charAt(args.indexOf(parameter)-1) != ' ';
+    }
+
+    private static boolean noIndexInArgs(String args) {
+        return !Character.isDigit(args.charAt(0));
+    }
 }
