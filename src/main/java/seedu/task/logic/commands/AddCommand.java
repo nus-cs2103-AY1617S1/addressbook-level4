@@ -20,7 +20,10 @@ import seedu.task.model.task.UniqueTaskList;
  */
 public class AddCommand extends UndoableCommand {
 
+    //@@author A0153467Y-unused
+    // Recurring tasks scrapped due to lack of time (and unforseen circumstances)
     private static final int MAX_NUMBER_OF_RECURRENCE_WEEK=20;
+    //@@author
     
     public static final String COMMAND_WORD = "add";
 
@@ -31,11 +34,14 @@ public class AddCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_ROLLBACK_SUCCESS = "Added task removed: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
+    
+    //@@author A0153467Y-unused
+    // Recurring tasks scrapped due to lack of time (and unforseen circumstances)
     public static final String MESSAGE_WRONG_NUMBER_OF_RECURRENCE = "Maximum number of recurrence is 20!";
     public static final String MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE = "The number recurrence should be positive!";
-    
+    //@@author
     private final Task toAdd;
-    private final int amountRecurring;
+    
     
 
     /**
@@ -43,15 +49,13 @@ public class AddCommand extends UndoableCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String openTime, String closeTime, Set<String> tags, int recurrence) 
+    public AddCommand(String name, String openTime, String closeTime, Set<String> tags) 
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
-        this.amountRecurring = recurrence;
-        
+                
         this.toAdd = new Task(
                 new Name(name),
                 DateTime.fromUserInput(openTime),
@@ -62,28 +66,21 @@ public class AddCommand extends UndoableCommand {
                 );
     }
 
-    //@@author A0153467Y
     @Override
     public CommandResult execute() {
         assert model != null;
         
-        if (this.amountRecurring > MAX_NUMBER_OF_RECURRENCE_WEEK) {
-            return new CommandResult(false, MESSAGE_WRONG_NUMBER_OF_RECURRENCE);
-        } else if (this.amountRecurring < 0) {
-            return new CommandResult(false, MESSAGE_NEGATIVE_NUMBER_OF_RECURRENCE);
-        }
-        
         try {
-            createRecurringTask(this.amountRecurring + 1);
+            model.addTask(this.toAdd);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
-        } catch (IllegalValueException e) {
-            assert false : "Not possible!";
         }
+        
         return new CommandResult(true, String.format(MESSAGE_SUCCESS, toAdd));
     }
     
-    //@@author A0141052Y
+    //@@author A0141052Y-unused
+    // Recurring tasks scrapped due to lack of time (and unforseen circumstances)
     /**
      * Creates a set number of Tasks, with distance between two adjacent tasks being 1 week, and adds it to the
      * TaskList.

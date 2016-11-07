@@ -267,12 +267,14 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` |user | undo my previous action | recover from commands entered by mistake
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
 `* * *` | user | update a task | change the specifications of a specific task
-`* * *` | user | see the entire to-do list | know the number of task/ event that I have
+`* * *` | user | filter a list of pinned tasks or task which are pending | Know what tasks need to be done and what tasks are important
 `* * *` | user | specify the file location of the task list | store the list in a more convenient location
+`* *` | user | see the entire to-do list | know the number of task/ event that I have
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
 `* *` | user | alias commands to symbols
 `* *` | user | do a live search for commands
+`* *` | user | find task by their tag
 `*` | user | unmark a completed task| change my mind if that task is actullay not completed
 `*` | user | unpin a pinned task| change my mind if that task is not important anymore
 

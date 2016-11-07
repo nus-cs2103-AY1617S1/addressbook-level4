@@ -6,6 +6,7 @@ import static seedu.task.model.task.Task.MESSAGE_DATETIME_CONSTRAINTS;
 
 import java.time.temporal.ChronoUnit;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
@@ -79,8 +80,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
     
-    //@@author A0153467Y
-    @Test
+    //@@author A0153467Y-unused
+    @Ignore @Test
     public void add_recurring_task() {
         TestTask[] currentList = td.getTypicalTasks();
         
