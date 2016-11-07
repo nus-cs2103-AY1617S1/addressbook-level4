@@ -57,7 +57,7 @@ Need to _Unburden_? Let's get started!
 ### Command Format
 
 1. Commands are not case sensitive and can be entered as both "Add" or "add."
-2. Dates can be entered in the format DD-MM-YYYY or in words limited to "todaY" or "tomorrow."
+2. Dates can be entered in the format DD-MM-YYYY or in words limited to "today" or "tomorrow."
 3. Time should be entered in the 24 hour clock format such as "2330" to represent 11:30pm or "0520" to represent 05:20am.
 
 
@@ -77,9 +77,6 @@ If you wish to know all of the commands and their formats, you may type in the c
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
- Examples : <br>
-   help <br>
-   Help <br>   
     > <img src="UserGuideImages/Help_0.JPG" width="400">
 
 <br>
@@ -104,7 +101,7 @@ This command will show you the command format of the specific command you have e
 
 ## 2. Add Command: `add`
 
-The add command enables you to add 4 different type of tasks : Floating, deadline, deadline with end time and an event.  You may also enter in a task description for longer task names and tags which can help you identify similar tasks. For all task types, adding task description and tags are optional. <br>
+The add command enables you to add 4 different type of tasks : floating, deadline, deadline with end time and an event.  You may also enter in a task description for longer task names and tags which can help you identify similar tasks. For all task types, adding task description and tags are optional. <br>
 
 
 Upon entering your command, the task will be displayed in the task list panel and the entry will also be shown in the result display panel as shown below. <br>
@@ -130,9 +127,9 @@ If you wish to add tasks with only a deadline for tasks that are supposed to be 
 #### Format: `add <Task Name> i/<Task Description> d/<Deadline> t/<Tags>`
    
    Examples : <br>
-   add Orbital Splashdown i/ Create the userguide d/18-06-2016 t/Orbital <br>
-   add Music Talent show d/28-04-2008 t/Show <br>
-   add Complete Workout d/13-03-2009 <br>
+   add Orbital Splashdown i/ Create the userguide d/18-12-2016 t/Orbital <br>
+   add Music Talent show d/28-04-2017 t/Show <br>
+   add Complete Workout d/13-03-2017 <br>
 
 <br>
 
@@ -141,9 +138,9 @@ If you wish to add tasks with a deadline and end time for tasks that are suppose
 #### Format: `add <Task Name> i/<Task Description> d/<Deadline> e/<End time> t/<Tags>`
    
    Examples : <br>
-   add Orbital Splashdown i/ Create the userguide d/18-06-2016 t/Orbital <br>
-   add Music Talent show d/28-04-2008 t/Show <br>
-   add Complete Workout d/13-03-2009 <br>
+   add Book airline tickets i/Tiger airways d/09-11-2016 e/1800 
+   add EE2021 assignment d/11-11-2016 e/1700 
+   add Complete teammates survey d/14-11-2016 e/1200 
 
 <br>
 
@@ -182,26 +179,33 @@ If you have entered an entry wrongly or if the date of your event has changed, U
    Edit 1 CS2101 UserGuide <br>
    Edit 5 Plan trip to Vegas <br>
    Edit 3 i/Oranges,apples and pears <br> 
-   Edit 2 d/12-11-2016 <br>
+   Edit 6 d/12-11-2016 <br>
    Edit 4 s/1300 e/1900 <br>
-   Edit 2 Buy vegetables i/oranges d/12-11-2016 s/1800 e/1900 <br>
+   Edit 2 Cs2103 UserGuide d/12-11-2016 s/1800 e/1900 <br>
 		
-Upon entering your command, you will be able to view the updated task in the task list panel. 
+Upon entering your command, you will be able to view the updated task in the task list panel. For example, the initial task 2 is as shown below. 
+
+   > <img src="UserGuideImages/Edit_1.JPG" width="500"> <br>
    
+To edit the task, you can enter ` Edit 2 Cs2103 UserGuide d/12-11-2016 s/1800 e/1900` Upon entering, the task will be automatically updated to show you the updated task as shown below. 
+
+   > <img src="UserGuideImages/Edit_2.JPG" width="500"> <br>
 
 <br>
 <br>
 
 ## 5. Done Command
 
-If you have completed a task and you wish to remove it from your list in the task list panel, you can simply mark the task as done. The index shown below refers to the index of the task you wish to mark as done. Once you have marked a task as done, it will disappear from the task list panel.  <br>
+If you have completed a task and you wish to remove it from your list in the task list panel, you can simply mark the task as done. The index shown below refers to the index of the task you wish to mark as done. Once you have marked a task as done, it will disappear from the task list panel. If you wish to mark all tasks as done instantly, you may make use of the done all command. <br> 
 #### Format: ` done <INDEX> `
    
    Examples : <br>
    done 1 <br>
    done 2 <br>
+
+#### Format: ` done all `
 				
-You can then view the color change in the task that you have marked as done.
+Upon entering your command, you will be able to view the updated task in the task list panel. 
 <br><br>
 
 
