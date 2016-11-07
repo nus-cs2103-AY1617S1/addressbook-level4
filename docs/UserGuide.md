@@ -446,5 +446,5 @@ Regarding your question, given the nature of natural language processing, it is 
 <br>
 A failsafe option, however, is to simply type proper calender dates i.e. `27 oct` or `1 feb 2pm`, Jimi will never get that wrong!
 <br><br>
-###Why is the find command so laggy sometimes? <br>
-We are experimenting with a near-match search agorithm to help better your experience. Please bear with us as it is a non-functional requirement for now. Improving the run-time of the [`find`](#find) command is definitely an important focus to us.
+###Why is the find command so slow sometimes? <br>
+We are experimenting with a near-match search agorithm to help better your experience. Please bear with us as it is a non-functional requirement for now. Improving the run-time of the [`find`](#find) command is definitely an important focus of ours.
