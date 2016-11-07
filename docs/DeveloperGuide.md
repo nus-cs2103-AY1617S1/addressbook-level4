@@ -44,6 +44,8 @@
 
 ## Design
 
+<!-- @@author A0139812A -->
+
 ### Architecture
 
 <img src="images/Architecture Diagram.png"><br>
@@ -60,6 +62,7 @@ Three of those classes play important roles at the architecture level.
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `ConfigCenter` : Used by many classes to access and save the config
 * `EphemeralDB` : Used by the UI as well as the Controller, so that the Controller is able to refer to items in the UI level. One example would be for the controller to get the index each item was listed, since the ordering of items is only determined at the UI level.
 
 The rest of the App consists of the following.
@@ -176,28 +179,21 @@ public void componentDidMount() {
 
 **API** : [`InputHandler.java`](../src/main/java/seedu/todo/ui/components/InputHandler.java)
 
-1. The console input field will pass the user commands to the relevant controller, and according to the `Controller` 
-   method `inputConfidence()`, a `Controller` will be best selected and returned based on the input.
-2. The `Controller` selected will process the commands accordingly.
+1. The console input field will find a `Controller` which matches the command keyword (defined to be the first space-delimited word in the command).
+2. The matched `Controller` selected will process the commands accordingly.
+3. The InputHandler also maps aliased commands back to their original command keyword.
+3. If no Controllers were matched, the console would display an error, to indicate an invalid command.
 
 ### Controller component
-
-<img src="images/LogicClassDiagram.png" width="800"><br>
 
 **API** : [`Controller.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 1. `Controller`s have a `process()` method which processes the command passed in by `InputHandler`.
-2. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+2. The command execution can affect the `Model` (e.g. adding a person), raise events, and/or have other auxilliary effects like updating the config or modifying the UI directly.
 3. After invoking `process()`, a new `View` will be created and loaded to `MainWindow` whether it was successful or an exception occured.
-
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
 <!--- @@author A0093907W -->
 ### Model component
-
-<img src="images/ModelClassDiagram.png" width="800"><br>
 
 **API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
 
@@ -214,8 +210,6 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <!--- @@author A0093907W -->
 ### Storage component
-
-<img src="images/StorageClassDiagram.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
@@ -258,7 +252,7 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g app title, database file path) through the configuration file 
 (default: `config.json`):
 
 
@@ -284,15 +278,15 @@ We have two types of tests:
    These are in the `guitests` package.
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
-  
+    1. _Unit tests_ targeting the lowest level methods/classes.
+       e.g. `seedu.address.commons.UrlUtilTest`
+    2. _Integration tests_ that are checking the integration of multiple code units 
+        (those code units are assumed to be working).
+        e.g. `seedu.address.storage.StorageManagerTest`
+    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+        how the are connected together.
+        e.g. `seedu.address.logic.LogicManagerTest`
+
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
@@ -322,12 +316,10 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+A project often depends on third-party libraries, such as [Jackson](http://wiki.fasterxml.com/JacksonHome) for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.
+
+  1. Include those libraries in the repo (this bloats the repo size)<br>
+  2. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
 
