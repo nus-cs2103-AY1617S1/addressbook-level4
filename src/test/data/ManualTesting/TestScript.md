@@ -42,7 +42,7 @@ List all items | `l[ist]` | `list` | Item list panel refreshes with all items di
 Notdone | `n[ot]d[one] INDEX` | `nd 1` | Item list panel refreshes with all not done items displayed
 Undo | `u[ndo]` | `undo` | Results panel shows action undone and item list panel refreshes
 Redo | `r[edo]` | `redo` | Results panel shows action redone and item list panel refreshes
-Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml` | File save location is refreshed at the bottom of the application
+Specify custom save location | `save VALID_FILE_PATH_NAME` | `save C:\Users\Jim\data.xml` | File save location is refreshed at the bottom of the application
 Select | `s[elect] INDEX` | `select 1` | Results panel shows selected item
 Clear | `cl[ear]` | `clear` | Application is cleared of data
 
