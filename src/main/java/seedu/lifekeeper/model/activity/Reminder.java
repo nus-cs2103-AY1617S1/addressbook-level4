@@ -45,7 +45,7 @@ public class Reminder extends DateTime {
             if (!DateUtil.isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
             }
-            this.value= DateUtil.setDate(date);
+                this.value = DateUtil.setDate(date);
         }
     }
 
@@ -64,8 +64,7 @@ public class Reminder extends DateTime {
         } else {
             if (!recurring) {
                 return "Reminder:\t".concat(this.toString());
-            }
-            else {
+            } else {
                 SimpleDateFormat sdfRecurr = new SimpleDateFormat("EEEE, h:mm aa");
                 return "Reminder:\t".concat("Every " + sdfRecurr.format(this.value.getTime()));
             }
