@@ -379,9 +379,9 @@ Use case ends
 
 **Extensions**
 
-* Name is invalid
+1a. Name is invalid
 
-> * Program returns error message, saying that name given is invalid<br>
+> 1a1. Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
 <br></br>
@@ -396,19 +396,19 @@ Use case ends
 
 **Extensions**
 
-* Name is invalid
+1a. Name is invalid
 
-> * Program returns error message, saying that name given is invalid<br>
+> 1a1. Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-* The date/time given is invalid
+1b. The date/time given is invalid
 
-> * Program returns error message, saying that date/time given is invalid<br>
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
   Use case resumes at step 1
 	
-* The date/time entered is already over
+1c. The date/time entered is already over
 
-> * Program displays the task as overdue.<br>
+> 1c1. Program displays the task as overdue<br>
   Use case resumes at step 1
 
 <br></br>
@@ -423,24 +423,24 @@ Use case ends
 
 **Extensions**
 
-* Name is invalid
+1a. Name is invalid
 
-> * Program returns error message, saying that name given is invalid<br>
+> 1a1. Program returns error message, saying that name given is invalid<br>
   Use case resumes at step 1
 
-* The date/time given is invalid
+1b. The date/time given is invalid
 
-> * Program returns error message, saying that date/time given is invalid<br>
+> 1b1. Program returns error message, saying that date/time given is invalid<br>
   Use case resumes at step 1
 	
-* The date/time entered is already over
+1c. The date/time entered is already over
 
-> * Program marks and displays the task as done.<br>
+> 1c1. Program marks and displays the task as done<br>
   Use case resumes at step 1
 
-* The start time is later then end time
+1d. The start time is later then end time
 
-> * Program returns error message, saying that the start time cannot be later then the end time<br>
+> 1d1. Program returns error message, saying that the start time cannot be later then the end time<br>
   Use case resumes at step 1
 
 <br></br>
@@ -476,9 +476,9 @@ Use case ends
 
 **Extensions**
 
-* Date is invalid
+1a. Date is invalid
 
-> * Program returns errors message, saying that date given is invalid<br>
+> 1a1. Program returns errors message, saying that date given is invalid<br>
   Use case resumes at step 1
 
 <br><br>
@@ -503,9 +503,9 @@ Use case ends
 
 **Extensions**
 
-* Keyword is invalid
+1a. Keyword is invalid
 
-> * Program returns errors message, saying that keyword given is invalid<br>
+> 1a1. Program returns errors message, saying that keyword given is invalid<br>
   Use case resumes at step 1
 
 <br><br>
@@ -521,29 +521,29 @@ Use case ends
 
 **Extension**
 
-* There are no tasks in the selected view status
+1a. There are no tasks in the selected view status
 
 > Use case ends
 
-* The given index is invalid
+2a. The given index is invalid
 
-> * Program returns error message, saying that index is invalid<br>
+> 2a1. Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
 
 <!-- @@author A0139052L -->
-* The given alphabet is invalid (not `t`, `d`, or `e`)
+2b. The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> * Program defaults to the todo list<br>
+> 2b1. Program defaults to the todo list<br>
   Use case resumes at step 3
   
-* No alphabet is given
+2c. No alphabet is given
 
-> * Program defaults to the todo list<br>
+> 2c1. Program defaults to the todo list<br>
   Use case resumes at step 3
   
-* Changes made are invalid
+3a. Changes made are invalid
 
-> * Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
+> 3a1. Program returns error message (similar to error messages when creating a new task), depending on type of error<br>
   Use case resumes at step 2
 
 <br></br>
@@ -560,34 +560,34 @@ Use case ends
 
 **Extension**
 
-* There are no tasks in the selected view status
+1a. There are no tasks in the selected view status
 
 > Use case ends.
 <!-- @@author A0139052L -->
 
-* First number is greater than second number provided for a range of index
+2a. First number is greater than second number provided for a range of index
 
-> * Program returns an error message, stating that an invalid format was given<br>
+> 2a1. Program returns an error message, stating that an invalid format was given<br>
   Use case resumes at step 2
   
-* The given index of any provided is invalid
+2b. The given index of any provided is invalid
 
-> * Program returns an error message, stating all invalid indexes that were provided<br>
+> 2b1. Program returns an error message, stating all invalid indexes that were provided<br>
   Use case resumes at step 2
   
-* Duplicate index was provided
+2c. Duplicate index was provided
 
-> * Program returns an error message, stating all indexes provided that has duplicates<br>
+> 2c1. Program returns an error message, stating all indexes provided that has duplicates<br>
   Use case resumes at step 2
 
-* The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
+2d. The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
 
-> * Program defaults to the default alphabet(`t`) for that index<br>
+> 2d1. Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
   
-* No alphabet is given for any provided index
+3a. No alphabet is given for any provided index
 
-> * Program defaults to the default alphabet(`t`) for that index<br>
+> 3a1. Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
 
 <br></br>
@@ -604,40 +604,40 @@ Use case ends
 
 **Extension**
 
-* There are no tasks in the selected view status
+1a. There are no tasks in the selected view status
 
 > Use case ends
 
 <!-- @@author A0139052L -->
 
-* First number is greater than second number provided for a range of index
+2a. First number is greater than second number provided for a range of index
 
-> * Program returns an error message, stating that an invalid format was given<br>
+> 2a1. Program returns an error message, stating that an invalid format was given<br>
   Use case resumes at step 2
   
-* The given index of any provided is invalid
+2b. The given index of any provided is invalid
 
-> * Program returns an error message, stating all invalid indexes that were provided<br>
+> 2b1. Program returns an error message, stating all invalid indexes that were provided<br>
   Use case resumes at step 2
   
-* Duplicate index was provided
+2c. Duplicate index was provided
 
-> * Program returns an error message, stating all indexes provided that has duplicates<br>
+> 2c1. Program returns an error message, stating all indexes provided that has duplicates<br>
   Use case resumes at step 2
 
-* The given index of any provided is for a task that is already marked done
+2d. The given index of any provided is for a task that is already marked done
 
-> * Program returns an error message, stating all indexes of tasks provided that were already marked done<br>
+> 2d1. Program returns an error message, stating all indexes of tasks provided that were already marked done<br>
   Use case resumes at step 2
   
-* The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
+2e. The given alphabet of any provided index is invalid (not `t`, `d`, or `e`)
 
-> * Program defaults to the default alphabet(`t`) for that index<br>
+> 2e1. Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
   
-* No alphabet is given for any provided index
+2f. No alphabet is given for any provided index
 
-> * Program defaults to the default alphabet(`t`) for that index<br>
+> 2f1. Program defaults to the default alphabet(`t`) for that index<br>
   Use case resumes at step 3
  
 <br></br> 
