@@ -42,5 +42,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<TaskOccurrence> getFilteredTaskList() {
         return model.getFilteredTaskComponentList();
     }
+    
+    @Override 
+    public void initializeUndoRedoManager(){
+        urManager.resetQueue();
+    }
 
 }

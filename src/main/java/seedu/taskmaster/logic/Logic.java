@@ -17,5 +17,8 @@ public interface Logic {
 
     /** Returns the filtered list of tasks. */
     ObservableList<TaskOccurrence> getFilteredTaskList();
+    
+    /** Initialize undoredomanager. */
+    void initializeUndoRedoManager();
 
 }

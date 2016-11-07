@@ -223,6 +223,7 @@ public class MainWindow extends UiPart {
     //@@author A0147967J
     public void switchToInitialTab() {
         logic.execute("view today");
+        logic.initializeUndoRedoManager();
     }
     
     
