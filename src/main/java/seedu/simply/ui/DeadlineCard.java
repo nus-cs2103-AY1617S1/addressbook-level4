@@ -44,7 +44,7 @@ public class DeadlineCard extends UiPart {
     
     @FXML
     public void initialize() {
-        String endTime =  twelveHourConvertor(deadline.getEnd().value);
+        String endTime = deadline.getEnd().value;
         
         name.setText(deadline.getName().taskDetails);
         id.setText("D" + displayedIndex + ". ");

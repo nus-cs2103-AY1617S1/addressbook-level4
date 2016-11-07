@@ -46,8 +46,8 @@ public class EventCard extends UiPart {
 
     @FXML
     public void initialize() {
-        String startTime = twelveHourConvertor(event.getStart().value);
-        String endTime = twelveHourConvertor(event.getEnd().value);
+        String startTime = event.getStart().value;
+        String endTime = event.getEnd().value;
 
         name.setText(event.getName().taskDetails);
         id.setText("E" + displayedIndex + ". ");
