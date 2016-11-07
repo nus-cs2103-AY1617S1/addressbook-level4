@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <TodoList>
     <tasks>
+        <name>buy Natural Heritage of Singapore book</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Captive portal mapping</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Implement edit and share</name>
+        <startDate>No Start Date</startDate>
+        <endDate>No End Date</endDate>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
         <name>Operationalize RPi images</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
@@ -15,20 +36,6 @@
         <isDone>true</isDone>
     </tasks>
     <tasks>
-        <name>Implement edit and share</name>
-        <startDate>No Start Date</startDate>
-        <endDate>No End Date</endDate>
-        <priority>1</priority>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>Captive portal mapping</name>
-        <startDate>No Start Date</startDate>
-        <endDate>No End Date</endDate>
-        <priority>1</priority>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
         <name>Prepare CS2103 v0.5rc demo</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
@@ -36,10 +43,10 @@
         <isDone>false</isDone>
     </tasks>
     <tasks>
-        <name>buy Natural Heritage of Singapore book</name>
+        <name>buy groceries</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
-        <priority>1</priority>
+        <priority>2</priority>
         <isDone>false</isDone>
     </tasks>
     <tasks>
@@ -51,13 +58,6 @@
     </tasks>
     <tasks>
         <name>fluentd mysql testing</name>
-        <startDate>No Start Date</startDate>
-        <endDate>No End Date</endDate>
-        <priority>2</priority>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>buy groceries</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
         <priority>2</priority>
