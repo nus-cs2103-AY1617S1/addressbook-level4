@@ -38,15 +38,15 @@ Test Cases:
 	* 2. del 2 5 3
 		* Response: Results panel displays details of deleted items in ascending index order and item list panel refreshes list of items.
 	* 3. delete 0
-		* Respone: Results panel displays "Invalid command format!"
+		* Response: Results panel displays "Invalid command format!"
 
 * Done Command
 	* 1. done 1
 		* Response: Item list panel refreshes list of items, with first item marked as done.
 	* 2. d 2
-		* Respone: Item list panel refreshes list of items, with second item marked as done.
+		* Response: Item list panel refreshes list of items, with second item marked as done.
 	* 3. d 0
-		* Respone: Results panel displays "Invalid command format!"
+		* Response: Results panel displays "Invalid command format!"
 
 * Not Done Command
     * 1. notdone 1
