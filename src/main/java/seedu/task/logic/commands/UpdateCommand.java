@@ -1,6 +1,7 @@
 package seedu.task.logic.commands;
 
 import java.util.HashSet;
+
 import java.util.Set;
 
 import seedu.task.commons.core.Messages;
@@ -11,7 +12,6 @@ import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.tag.UniqueTagList.TagNotFoundException;
 import seedu.task.model.task.*;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Updates a task in the task list.
@@ -102,7 +102,6 @@ public class UpdateCommand extends UndoableCommand {
         } catch (DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         }
-
         return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
     }
 
