@@ -40,7 +40,9 @@ Eager and excited? Let's go!
 
 This is how ForgetMeNot looks like:
 
-<img src="images/Overview.png" width="600"><br>
+<img src="images/Overview.png" width="800"><br>
+
+[Back To Top](#user-guide)
 
 <!-- @@author A0139671X -->
 ## Quick Start
