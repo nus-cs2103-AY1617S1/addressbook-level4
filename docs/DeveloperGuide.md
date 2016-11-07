@@ -130,7 +130,7 @@ interface and exposes its functionality using the `ModelManager.java` class.<br>
 
 ><img src="DeveloperGuideImages/SequenceDiagram2.png" width="600">
 
-In figure 2, the diagram below shows how the components interact when the user enters the command 'Done 1'.
+In figure 2, the diagram shows how the various components interact with one another when the user enters the command 'Done 1'.
 
 Note how the `Model` simply raises a `ListOfTaskChangedEvent` when the data in _Unburden_ is changed,
 instead of using `Storage` to save the updates to the hard disk. 
