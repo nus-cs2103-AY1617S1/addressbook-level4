@@ -66,14 +66,15 @@ Enter Do-Do Bird, an intelligent personal assistant that organises your tasks fo
 > The ID of a task is the index of the task as displayed on the screen
 
  **Task Fields**
+
 Field | Specifier | Format
 ------|:----------|:-------
-Task Name | | TASK_NAME
-'On' Date | on | on DATE [TIME]
-'By' Date | by | by DATE [TIME]
-Priority | priority | priority LEVEL
-Recurrence | every | every RECURRENCE
-Details | ; | ; DETAILS
+Task Name |		  | TASK_NAME
+'On' Date | `on` | on DATE [TIME]
+'By' Date | `by` | by DATE [TIME]
+Priority | `priority` | priority LEVEL
+Recurrence | `every` | every RECURRENCE
+Details | `;` | ; DETAILS
 
 ## Viewing help : `help`
 Directs user to the help page.<br>
