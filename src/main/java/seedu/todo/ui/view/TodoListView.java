@@ -123,7 +123,7 @@ public class TodoListView extends UiPart {
             TaskCardView taskCardView = TaskCardView.getTaskCard(task);
             if (taskCardView != null) {
                 int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
-                scrollAndSelect(listIndex); 
+                scrollAndSelect(listIndex);
             } else if (attempts > 0) {
                 scrollAndSelectHelper(task, attempts - 1);
             } else {
