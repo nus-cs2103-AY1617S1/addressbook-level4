@@ -166,6 +166,8 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |24Hr| `20.50`, `20:50`| 8.50pm|
 |AM/PM| `8.50pm`, `8:50pm`, `0850pm`| 8.50pm|
 |Preset|`midnight`<br> `noon`|12am<br>12pm|
+> DearJim does not support the following 24hr format: `2050`, as this input can be misinterpreted as the value of year.
+
 <br>
 
 Examples:
