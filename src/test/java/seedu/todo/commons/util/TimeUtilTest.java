@@ -2,10 +2,8 @@ package seedu.todo.commons.util;
 
 import org.junit.Test;
 
-import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.ZoneId;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -16,37 +14,14 @@ import static org.junit.Assert.assertFalse;
  * Tests the TimeUtil class
  */
 public class TimeUtilTest {
-
-    /**
-     * A subclass of TimeUtil that provides the ability to override the current system time, 
-     * so that time sensitive components can be conveniently tested. 
-     */
-    private class ModifiedTimeUtil extends TimeUtil {
-        
-        /**
-         * Construct a ModifiedTimeUtil object overriding the current time with Clock object.
-         * Is only used for dependency injection in testing time sensitive components.
-         */
-        private ModifiedTimeUtil(Clock clock) {
-            this.clock = clock;
-        }
-        
-        /**
-         * Construct a ModifiedTimeUtil object overriding the current time with LocalDateTime object.
-         * Is only used for dependency injection in testing time sensitive components.
-         */
-        public ModifiedTimeUtil(LocalDateTime pseudoCurrentTime) {
-            this(Clock.fixed(pseudoCurrentTime.toInstant(
-                    ZoneId.systemDefault().getRules().getOffset(pseudoCurrentTime)), ZoneId.systemDefault()));
-        }
-    }
     
     /**
      * Aids to test taskDeadlineText with a current time and due time, against an expected output.
      */
     private void testTaskDeadlineTextHelper(String expectedOutput, LocalDateTime currentTime,
                                             LocalDateTime dueTime) {
-        TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.setNow(currentTime);
         String generatedOutput = timeUtil.getTaskDeadlineText(dueTime);
         assertEquals(expectedOutput, generatedOutput);
     }
@@ -56,7 +31,8 @@ public class TimeUtilTest {
      */
     private void testEventTimeTextHelper(String expectedOutput, LocalDateTime currentTime,
                                          LocalDateTime startTime, LocalDateTime endTime) {
-        TimeUtil timeUtil = new ModifiedTimeUtil(currentTime);
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.setNow(currentTime);
         String generatedOutput = timeUtil.getEventTimeText(startTime, endTime);
         assertEquals(expectedOutput, generatedOutput);
     }
@@ -303,14 +279,16 @@ public class TimeUtilTest {
     
     @Test
     public void isOverdue_endTimeAfterNow() {
-        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 34));
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.setNow(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 34));
         LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
         assertFalse(timeUtil.isOverdue(laterEndTime));
     }
     
     @Test
     public void isOverdue_endTimeBeforeNow() {
-        TimeUtil timeUtil = new ModifiedTimeUtil(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 36));
+        TimeUtil timeUtil = new TimeUtil();
+        timeUtil.setNow(LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 36));
         LocalDateTime laterEndTime = LocalDateTime.of(2016, Month.DECEMBER, 12, 12, 35);
         assertTrue(timeUtil.isOverdue(laterEndTime));
     }

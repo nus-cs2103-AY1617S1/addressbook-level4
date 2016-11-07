@@ -16,7 +16,7 @@ import seedu.todo.testutil.TaskBuilder;
 
 //@@ author A0092382A
 public class ViewCommandTest extends CommandTest {
-    private int[] all, events, dueSoon, completed, incomplete;
+    private int[] all, events, dueSoon, completed, incomplete, today;
     
     private List<ImmutableTask> tasks;
     
@@ -27,7 +27,8 @@ public class ViewCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-        LocalDateTime now = LocalDateTime.now();
+        //TODO Set this to be fixed instance, due to the times sensitive nature of Today tasks.
+        LocalDateTime now = LocalDateTime.now(); 
         
         tasks = ImmutableList.of(
             TaskBuilder.name("0. Completed, no deadline")
@@ -48,7 +49,7 @@ public class ViewCommandTest extends CommandTest {
 
             TaskBuilder.name("4. Due today, completed")
                 .completed()
-                .due(now.plusHours(10))
+                .due(now.plusHours(4))
                 .build(),
 
             TaskBuilder.name("5. Event happening later")
@@ -56,7 +57,7 @@ public class ViewCommandTest extends CommandTest {
                 .build(),
 
             TaskBuilder.name("6. Event happened yesterday")
-                .event(now.minusHours(14), now.minusHours(12))
+                .event(now.minusHours(20), now.minusHours(18))
                 .completed()
                 .build()
         );
@@ -65,10 +66,11 @@ public class ViewCommandTest extends CommandTest {
         Thread.sleep(1);
 
         all = new int[]{ 3, 6, 5, 4, 2, 1, 0 };
-        events = new int[]{ 6, 5 };
+        events = new int[]{ 5, 6 };
         dueSoon = new int[]{ 2, 1 };
         completed = new int[]{ 6, 4, 0 };
         incomplete = new int[]{ 3, 5, 2, 1 };
+        today = new int[]{5, 2, 4};
     }
     
     private void assertViewChange(TaskViewFilter filter) {
@@ -148,6 +150,14 @@ public class ViewCommandTest extends CommandTest {
         
         assertViewChange(TaskViewFilter.EVENTS);
         assertTasksVisible(events);
+    }
+    
+    @Test
+    public void testToday() throws Exception {
+        setParameter("today"); 
+        execute(true);
+        assertViewChange(TaskViewFilter.TODAY);
+        assertTasksVisible(today);
     }
 
     @Test
