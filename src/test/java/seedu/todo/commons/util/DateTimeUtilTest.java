@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.commons.util;
 
 import org.junit.Rule;
@@ -20,12 +19,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtilTest {
-
+	//@@author A0093896H
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     
     @Test
-    public void isValidDateString_test() {
+    public void isValidDateString() {
         String[] validFormats = {
             "8 Oct 2015", "8/12/2014", "8-12-2000", 
             "2/October/2103", "13 March 2013", "4 May 2013"};
@@ -41,22 +40,23 @@ public class DateTimeUtilTest {
     }
     
     @Test
-    public void containsDateField_test() {
+    public void containsDateField() {
         assertTrue(DateTimeUtil.containsDateField("12/12/1234"));
         assertFalse(DateTimeUtil.containsDateField("12"));
         assertTrue(DateTimeUtil.containsDateField("12/12/1234 12:30"));
     }
     
     @Test
-    public void containsTimeField_test() {
+    public void containsTimeField() {
         assertFalse(DateTimeUtil.containsTimeField("12/12/1234"));
         assertTrue(DateTimeUtil.containsTimeField("12:30"));
         assertTrue(DateTimeUtil.containsTimeField("12"));
         assertTrue(DateTimeUtil.containsTimeField("12/12/1234 12:30"));
     }
     
+    //@@author A0121643R
     @Test
-    public void beforeOther_test() throws IllegalValueException {
+    public void beforeOther() throws IllegalValueException {
         TaskDate onDate = new TaskDate("today", TaskDate.TASK_DATE_ON);
         TaskDate byDate = new TaskDate("six days later", TaskDate.TASK_DATE_BY);
         
@@ -72,8 +72,9 @@ public class DateTimeUtilTest {
         assertFalse(DateTimeUtil.beforeOther(onSameDate, onSameDate));
     }
     
+    //@@author A0093896H
     @Test
-    public void parseDateTimeString_test() {
+    public void parseDateTimeString() {
         LocalDateTime ldt = LocalDateTime.of(1996, 1, 1, 20, 34);
         LocalDateTime ldtNoTime = LocalDateTime.of(1996, 1, 1, 0, 0);
         LocalDateTime ldtNoDate = LocalDateTime.now();

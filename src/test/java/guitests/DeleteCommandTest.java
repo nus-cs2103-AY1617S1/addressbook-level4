@@ -9,9 +9,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.todo.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends ToDoListGuiTest {
-
+	//@@author A0093896H
     @Test
-    public void delete_command_test() {
+    public void deleteCommandTest() {
                
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -37,7 +37,8 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         assertResultMessage("The task index provided is invalid");
 
     }
-
+    //@@author
+    
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
      * 

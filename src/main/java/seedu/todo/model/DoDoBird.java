@@ -60,23 +60,24 @@ public class DoDoBird implements ReadOnlyToDoList {
         return Collections.unmodifiableList(tasksHistory.peek().getInternalList());
     }
     
-    //@@author A0142421X
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tagsHistory.peek().getInternalList());
-    }
-    
     //@@author A0093896H
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasksHistory.peek();
     }
 
+    //@@author A0142421X
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tagsHistory.peek().getInternalList());
+    }
+    
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tagsHistory.peek();
     }
-    //@@author
+    
+    //@@author A0093896H
 
     public ObservableList<Task> getTasks() {
         return tasksHistory.peek().getInternalList();
@@ -86,18 +87,19 @@ public class DoDoBird implements ReadOnlyToDoList {
         return tagsHistory.peek().getInternalList();
     }
     
+    //@@author
     public void resetData(ReadOnlyToDoList newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
     
-    //@@author A0093896H
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
         
         this.updateTasksRecurrence();
     }
-
+    
+    //@@author A0093896H
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
             Collections.reverse(tasks);
@@ -109,7 +111,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
     }
     
-
+    //@@author A0142421X
     public void setTags(Collection<Tag> tags) {
         if (this.tagsHistory.isEmpty()) {
             UniqueTagList topList = this.copyTagList(tags);
@@ -120,6 +122,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
         updateTagTopList();
     }
+    //@@author
 
     /*************************
      * TASK-LEVEL OPERATIONS *
@@ -133,7 +136,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         assert index >= 0;    
         return this.getTasks().get(index);
     }
-    
+    //@@author A0093896H
     /**
      * Adds a task to the to do list.
      *
@@ -243,7 +246,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
         updateTagTopList();
     }
-    //@@author
+
     //@@author A0093896H
     /**
      * Updates the dates of a task based on the recurrence frequency.
@@ -260,7 +263,7 @@ public class DoDoBird implements ReadOnlyToDoList {
             }
         }
     }
-    
+    //@@author A0121643R
     /**
      * Pop the top most UniqueTaskList and UniqueTagList
      * Does not pop if there is only one state in history 
@@ -282,7 +285,7 @@ public class DoDoBird implements ReadOnlyToDoList {
         }
         return false;
     }
-    
+    //@@author
     
     /*************************
      *  TAG-LEVEL OPERATIONS *

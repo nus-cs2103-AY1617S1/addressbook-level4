@@ -1,10 +1,6 @@
-//@@author A0121643R
 package seedu.todo.model.qualifiers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
-import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +12,10 @@ import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Task;
 import seedu.todo.testutil.TestDataHelper;
-
+//@@author A0121643R
+/**
+ * Test class for priority Qualifier used in model
+ */
 public class PriorityQualifierTest {
     
     private TestDataHelper helper;

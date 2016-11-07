@@ -1,4 +1,3 @@
-//@@author A0138967J
 package seedu.todo.model.qualifiers;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +13,7 @@ import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.task.Task;
 import seedu.todo.testutil.TestDataHelper;
 
-
+//@@author A0138967J
 /**
  * Test class for TodayDateQualifier used in model when searching
  * for tasks that fall on today, and deciding whether to include it in today list

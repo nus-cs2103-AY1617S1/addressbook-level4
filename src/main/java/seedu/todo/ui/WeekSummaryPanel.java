@@ -1,4 +1,3 @@
-//@@author A0138967J
 package seedu.todo.ui;
 
 import javafx.application.Platform;
@@ -17,9 +16,9 @@ import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
-
+//@@author A0138967J
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of tasks for the next 7 days.
  */
 public class WeekSummaryPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(WeekSummaryPanel.class);

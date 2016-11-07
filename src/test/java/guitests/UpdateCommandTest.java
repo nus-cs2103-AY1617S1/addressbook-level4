@@ -1,4 +1,3 @@
-//@@author A0093896H
 package guitests;
 
 import org.junit.Test;
@@ -16,14 +15,14 @@ import seedu.todo.testutil.TestTask;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
-
+//@@author A0093896H
 public class UpdateCommandTest extends ToDoListGuiTest {
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     
     @Test
-    public void update_command_test() throws IllegalValueException {
+    public void updateCommandTest() throws IllegalValueException {
         
         TestTask[] currentList = td.getTypicalTasks();
         for (TestTask t : currentList) {

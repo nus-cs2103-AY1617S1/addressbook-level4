@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import org.junit.Before;
@@ -9,7 +8,7 @@ import seedu.todo.logic.commands.AddCommand;
 import seedu.todo.model.task.Name;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
-
+//@@author A0093896H
 /**
  * Test class for the add command's logic
  */

@@ -1,13 +1,12 @@
-//@@author A0093896H
 package seedu.todo.testutil;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.*;
 import seedu.todo.model.task.Recurrence.Frequency;
-
+//@@author A0093896H
 /**
- *
+ * class to generate typical tasks
  */
 public class TypicalTestTasks {
 

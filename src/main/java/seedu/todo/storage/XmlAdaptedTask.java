@@ -10,7 +10,6 @@ import seedu.todo.model.task.Recurrence.Frequency;
 
 import java.util.ArrayList;
 import java.util.List;
-//@@author A0093896H
 /**
  * JAXB-friendly version of the Task.
  */
@@ -38,7 +37,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask() {}
 
-
+    //@@author A0093896H
     /**
      * Converts a given Task into this class for JAXB use.
      *

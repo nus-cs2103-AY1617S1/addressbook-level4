@@ -8,7 +8,7 @@ import org.junit.Test;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import seedu.todo.ui.CardStyler;
-
+//@@author A0093896H
 public class CardStylerTest {
 
     private Text name;
@@ -26,8 +26,7 @@ public class CardStylerTest {
         onDate = new Text();
         byDate = new Text();
         tags = new Text();
-        recurrence = new Text();
-        
+        recurrence = new Text();       
         priorityLevel = new Circle();
     }
     

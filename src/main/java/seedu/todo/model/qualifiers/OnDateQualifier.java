@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.model.qualifiers;
 
 import java.time.LocalDateTime;
@@ -6,7 +5,7 @@ import java.time.LocalDateTime;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
-
+//@@author A0093896H
 /**
  * A qualifier that filter tasks based on whether their
  * starting date is on a certain date.

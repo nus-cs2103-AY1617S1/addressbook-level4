@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -9,7 +8,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.UntagCommand;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.Task;
-
+//@@author A0142421X
 /**
  * Test class for the untag command's logic
  */

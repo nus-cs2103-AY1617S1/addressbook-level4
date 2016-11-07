@@ -24,10 +24,10 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyToDoList newData);
     
-    //@@author A0093896H
+    //@@author A0121643R
     /** Move model back to previous state */
     boolean undo();
-    
+    //@@author A0093896H    
     /** Add the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
@@ -40,7 +40,7 @@ public interface Model {
     /** Update the given task */
     void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) 
             throws UniqueTaskList.TaskNotFoundException;
-    
+    //@@author A0142421X
     /** Add the given tags to the task*/
     void addTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) 
             throws UniqueTaskList.TaskNotFoundException;
@@ -48,7 +48,7 @@ public interface Model {
     /** Remove the given tags to the task*/
     void deleteTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) 
             throws UniqueTaskList.TaskNotFoundException;
-    
+    //@@author A0138967J
     /** Returns the filtered tasks list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -72,7 +72,6 @@ public interface Model {
     
     /** Updates today list to show all today tasks */
     void updateWeekListToShowAll();
-    //@@author
     
     //@@author A0093896H
     /** Updates the filter of the filtered task list to show all completed tasks */
@@ -103,9 +102,10 @@ public interface Model {
     void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime, 
             SearchCompletedOption option);
     
+    /** Refresh the current filtered task list*/
     void refreshCurrentFilteredTaskList();
-    //@@author
-    
+
+    //@@author A0138967J
     /** Updates the filter of the filtered task list to filter for today's date only */
     void updateFilteredTaskListTodayDate(LocalDateTime datetime);
     

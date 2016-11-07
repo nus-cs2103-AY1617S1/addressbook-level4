@@ -84,7 +84,7 @@ public class ToDoListParser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-    //@@author
+    //@@author A0121643R
     
     private String matchNameResult(Matcher matcher) {
         return matcher.group("name");
@@ -204,7 +204,7 @@ public class ToDoListParser {
 
         return new UnmarkCommand(index.get());
     }
-
+//@@author A0142421X
     /**
      * Parses arguments in the context of the tag task command.
      *
@@ -258,7 +258,7 @@ public class ToDoListParser {
         }
 
     }
-
+  //@@author 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned
      * integer is given as the index. Returns an {@code Optional.empty()}
@@ -277,7 +277,7 @@ public class ToDoListParser {
         return Optional.of(Integer.parseInt(index));
 
     }
-    
+  //@@author A0093896H
     /**
      * Parses arguments in the context of the update task command.
      *

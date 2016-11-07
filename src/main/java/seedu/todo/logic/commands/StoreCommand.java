@@ -1,13 +1,9 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import java.io.IOException;
-
-import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.events.storage.SaveLocationChangedEvent;
 import seedu.todo.commons.util.FileUtil;
 
-
+//@@author A0093896H
 /**
  * Change data storage location
  */

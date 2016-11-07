@@ -1,8 +1,7 @@
-//@@author A0093896H
 package seedu.todo.model.task;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-
+//@@author A0093896H
 /**
  * Represents a Task's name in the to do list.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}

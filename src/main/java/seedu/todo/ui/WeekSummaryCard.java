@@ -1,4 +1,3 @@
-//@@author A0138967J
 package seedu.todo.ui;
 
 import javafx.fxml.FXML;
@@ -10,7 +9,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
-
+//@@author A0138967J
+/**
+ * tasks to be done in the next 7 days
+ *
+ */
 public class WeekSummaryCard extends UiPart{
 
     private static final String FXML = "WeekSummaryCard.fxml";

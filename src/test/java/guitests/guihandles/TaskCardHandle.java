@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.todo.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the todo list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String TASK_NAME_FIELD_ID = "#name";

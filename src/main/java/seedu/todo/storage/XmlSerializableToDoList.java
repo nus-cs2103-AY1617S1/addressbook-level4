@@ -35,7 +35,6 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
      */
     public XmlSerializableToDoList() {}
     
-    //@@author A0093896H
     /**
      * Conversion
      */
@@ -43,7 +42,6 @@ public class XmlSerializableToDoList implements ReadOnlyToDoList {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
-    //@@author
 
     @Override
     public UniqueTagList getUniqueTagList() {

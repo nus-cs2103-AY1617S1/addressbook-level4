@@ -1,10 +1,7 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import org.junit.Test;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.TagCommand;
 import seedu.todo.model.tag.Tag;
@@ -12,7 +9,7 @@ import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
-
+//@@author A0142421X
 /**
  * Test class for the tag command's logic
  */

@@ -55,12 +55,12 @@ public class StringUtilTest {
     	assertFalse(StringUtil.containsIgnoreCase("Abcd", "ab"));
     }
     //@@author
-/*
+
     @Test
     public void getDetails_nullGiven_assertionError(){
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
-    }*/
+    }
 
 
 }

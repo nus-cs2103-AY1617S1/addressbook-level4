@@ -3,7 +3,11 @@ package seedu.todo.ui;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-
+//@@author A0093896H
+/**
+ * styling methods for taskcard 
+ *
+ */
 public class CardStyler {
     
     public static Color COMPLETION_COLOR = Color.LIGHTGREY;

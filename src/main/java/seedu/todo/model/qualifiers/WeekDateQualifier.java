@@ -1,11 +1,14 @@
-//@@author A0138967J
 package seedu.todo.model.qualifiers;
 
 import java.time.LocalDateTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
-
+//@@author A0138967J
+/**
+* filters tasks by whether they belong to next 7 days
+*
+*/
 public class WeekDateQualifier implements Qualifier{
     private LocalDateTime startDatetime;
     private LocalDateTime endDatetime;

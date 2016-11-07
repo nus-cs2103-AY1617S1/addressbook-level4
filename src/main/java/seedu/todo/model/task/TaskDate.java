@@ -83,8 +83,8 @@ public class TaskDate {
 			return this.getDate().compareTo(other.getDate());
 		}
 	}
-	//@@author
-
+	
+	//@@author A0093896H
     @Override
     public String toString() {
         String dateString;
@@ -114,7 +114,8 @@ public class TaskDate {
                 && DateTimeUtil.combineLocalDateAndTime(this.date, this.time)
                     .equals(DateTimeUtil.combineLocalDateAndTime(((TaskDate) other).date, ((TaskDate) other).time)))));
     }
-
+    
+    //@@author
     @Override
     public int hashCode() {
         return this.toString().hashCode();

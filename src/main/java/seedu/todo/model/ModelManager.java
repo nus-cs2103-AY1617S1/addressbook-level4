@@ -9,7 +9,6 @@ import seedu.todo.commons.events.ui.SummaryPanelSelectionEvent;
 import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
 import seedu.todo.commons.events.ui.WeekSummaryPanelSelectionEvent;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
-import seedu.todo.model.expressions.Expression;
 import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.qualifiers.*;
 import seedu.todo.model.tag.Tag;
@@ -35,10 +34,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final DoDoBird dodobird;
     private final FilteredList<Task> filteredTasks; //for main task list
+    //@@author A0138967J
     private final FilteredList<Task> todayTasks; //for today summary list
     private final FilteredList<Task> weekTasks; //for weekly summary list
+    //@@author A0142421X    
     private final FilteredList<Tag> tagList;
-    
+    //@@author
     private PredicateExpression pe;
     
     //@@author A0138967J
@@ -76,18 +77,19 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyToDoList getToDoList() {
         return dodobird;
     }
-    
+    //@@author A0093896H
     @Override
     public void resetData(ReadOnlyToDoList newData) {
         dodobird.resetData(newData);
         indicateToDoListChanged();
     }
+    //@@author
     
     /** Raises an event to indicate the model has changed */
     public void indicateToDoListChanged() {
         raise(new ToDoListChangedEvent(dodobird));
     }
-    
+    //@@author A0121643R
     @Override
     public boolean undo() {
         if (dodobird.undo()) {
@@ -96,7 +98,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return false;
     }
-
+    
+    //@@author A0093896H
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         dodobird.addTask(task);
@@ -109,7 +112,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     }
     
-    //@@author A0093896H
     @Override
     public synchronized Task getTask(ReadOnlyTask target) {
         return dodobird.getTask(dodobird.getTaskIndex(target));
@@ -121,6 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     }
     
+    //@@author A0142421X
     @Override
     public synchronized void addTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
         dodobird.addTaskTags(oldTask, newTagList);
@@ -133,6 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
         dodobird.deleteTaskTags(oldTask, newTagList);
         indicateToDoListChanged();
     }
+    //@@author
     
     //=========== Filtered Task List Accessors ===============================================================
     
@@ -229,7 +233,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority, option)));   
     }
 
-    //@@author A0138967J-unused
+    //@@author A0138967J
     @Override
     public void updateFilteredTaskListTodayDate(LocalDateTime datetime){
         updateFilteredTaskList(new PredicateExpression(new TodayDateQualifier(datetime)));
@@ -264,6 +268,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.updateFilteredTaskListByTag(tpse.tag.getName(), SearchCompletedOption.UNDONE);
     }
     
+    //@@author A0138967J
     @Subscribe
     private void handleSummaryPanelSelectionEvent(SummaryPanelSelectionEvent spse) {
         updateFilteredTaskList(new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())));

@@ -3,7 +3,6 @@ package seedu.todo.storage;
 import javax.xml.bind.annotation.XmlElement;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
-//@@author A0142421X
 /**
  * JAXB-friendly adapted version of the Tag.
  */
@@ -19,7 +18,7 @@ public class XmlAdaptedTag {
      * No-arg constructor for JAXB use.
      */
     public XmlAdaptedTag() {}
-
+    //@@author A0142421X
     /**
      * Converts a given Tag into this class for JAXB use.
      *

@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -10,7 +9,7 @@ import seedu.todo.logic.commands.UnmarkCommand;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.Task;
-
+//@@author A0138967J
 /**
  * Test class for the unmark command's logic
  */

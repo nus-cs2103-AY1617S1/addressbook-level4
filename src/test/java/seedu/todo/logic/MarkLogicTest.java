@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -10,7 +9,7 @@ import seedu.todo.logic.commands.MarkCommand;
 import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.Task;
-
+//@@author A0138967J
 /**
  * Test class for the mark command's logic
  */
@@ -30,7 +29,7 @@ public class MarkLogicTest extends CommandLogicTest {
                 (new DoDoBird()).getTaskList());
 
     }
-    //@@author A0138967J
+
     @Test
     public void execute_mark_successful_today() throws IllegalValueException {
         Task toBeMarkedToday = helper.generateFullTaskToday(0);
@@ -45,7 +44,7 @@ public class MarkLogicTest extends CommandLogicTest {
                 (new DoDoBird()).getTaskList());
 
     }
-  //@@author
+    //@@author
     @Test
     public void execute_markInvalidArgsFormat_errorMessageShown() throws IllegalValueException {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);

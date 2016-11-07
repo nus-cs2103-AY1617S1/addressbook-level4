@@ -1,6 +1,3 @@
-
-
-
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
@@ -14,11 +11,10 @@ import seedu.todo.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0093896H
 public class AddCommandTest extends ToDoListGuiTest {
-    
+	//@@author A0093896H    
     @Test
-    public void add_command_test() {
+    public void addCommandTest() {
         //add one task
         TestTask[] currentList = td.getEmptyTaskList();
         TestTask taskToAdd = TypicalTestTasks.buyMilk;
@@ -43,7 +39,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("adds go to town");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-//@@author
+    //@@author
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

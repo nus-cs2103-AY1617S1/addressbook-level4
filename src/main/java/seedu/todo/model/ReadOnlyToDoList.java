@@ -1,6 +1,5 @@
 package seedu.todo.model;
 
-
 import java.util.List;
 
 import seedu.todo.model.tag.Tag;

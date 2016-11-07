@@ -1,4 +1,3 @@
-//@@author A0142421X-unused
 package guitests.guihandles;
 
 import guitests.GuiRobot;
@@ -6,7 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ReadOnlyTask;
-
+//@@author A0142421X-unused
 /**
  * Provides a handle to a tag card in the tag list panel
  */

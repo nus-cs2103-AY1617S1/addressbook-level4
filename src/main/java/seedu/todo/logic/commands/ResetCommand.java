@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import java.io.IOException;
@@ -7,7 +6,7 @@ import java.util.Optional;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
-
+//@@author A0093896H
 /**
  * Reset Config to default
  */

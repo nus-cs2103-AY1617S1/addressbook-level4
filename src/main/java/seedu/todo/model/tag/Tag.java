@@ -68,7 +68,7 @@ public class Tag {
     public void setCount(int count) {
         this.tasksCount = count;
     }
-    
+    //@@author
     
     @Override
     public boolean equals(Object other) {
@@ -89,8 +89,4 @@ public class Tag {
         return '[' + tagName + ']';
     }
     
-    
-    
-    
-
 }

@@ -1,7 +1,6 @@
-//@@author A0093896H
 package seedu.todo.model.task;
 
-
+//@@author A0093896H
 /**
  * Represents a Task's details in the to do application. 
  * Guarantees: mutable; no constraints.

@@ -100,7 +100,6 @@ public class Task implements ReadOnlyTask {
     public Priority getPriority() {
         return this.priority;
     }
-    //@@author
     
     //@@author A0093896H
     @Override
@@ -127,8 +126,7 @@ public class Task implements ReadOnlyTask {
     public void setPriority(Priority p) {
         this.priority = p;
     }
-    //@@author
-    
+
     //@@author A0093896H
     public void setCompletion(Completion c) {
         this.completion = c;
@@ -138,6 +136,7 @@ public class Task implements ReadOnlyTask {
         this.recurrence = r;
     }
     
+  //@@author A0142421X
     /**
      * Add a tag to the task's tag list 
      */

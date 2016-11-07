@@ -1,14 +1,13 @@
 package seedu.todo.model.qualifiers;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-
-import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.logic.commands.SearchCommand.SearchCompletedOption;
 import seedu.todo.model.task.ReadOnlyTask;
 
 //@@author A0093896H
+/**
+ * A qualifier that filter floating tasks.
+ */
 public class FloatingQualifier implements Qualifier {
     
     private SearchCompletedOption option;

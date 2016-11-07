@@ -1,8 +1,7 @@
-//@@author A0093896H
 package seedu.todo.model.qualifiers;
 
 import seedu.todo.model.task.ReadOnlyTask;
-
+//@@author A0093896H
 /**
  * A qualifier that filter tasks depending on whether the task
  * is completed or not.

@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
@@ -14,7 +13,7 @@ import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
-
+//@@author A0093896H
 /**
  * Updates a task identified using it's last displayed index from the to do list.
  */
@@ -180,7 +179,10 @@ public class UpdateCommand extends Command {
         return newRecurrence;
     } 
     
-    //@@author A0121643R   
+    //@@author A0121643R 
+    /**
+     * Construct a new Priority based on user input
+     */
     private Priority makeNewPriority(ReadOnlyTask taskToUpdate) throws IllegalValueException {
         Priority newPriority;
         if (this.priority == null) {

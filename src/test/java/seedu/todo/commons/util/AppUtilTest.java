@@ -11,8 +11,6 @@ public class AppUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-
-
     @Test
     public void getImage_exitingImage(){
         assertNotNull(AppUtil.getImage("/images/dodobirdlogo.png"));

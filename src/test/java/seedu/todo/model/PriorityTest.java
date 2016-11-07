@@ -17,6 +17,9 @@ import org.junit.Rule;
 import static org.junit.Assert.assertEquals;
 
 //@@author A0121643R
+/**
+ * Test class for priority
+ */
 public class PriorityTest {
 
     @Rule

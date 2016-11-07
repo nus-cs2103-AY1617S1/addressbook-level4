@@ -9,11 +9,11 @@ import seedu.todo.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0093896H
+
 public class UndoCommandTest extends ToDoListGuiTest {
-    
+	//@@author A0121643R
     @Test
-    public void undo_command_test() {
+    public void undoCommandTest() {
         
         //initially no undo
         commandBox.runCommand("undo");
@@ -41,7 +41,7 @@ public class UndoCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("undo");
         assertUndoSuccess(reverseList);
     }
-    
+
     
     /**
      * Runs the undo command to move to the previous state and confirms the result is correct.

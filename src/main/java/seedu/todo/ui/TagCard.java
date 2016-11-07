@@ -1,11 +1,8 @@
 package seedu.todo.ui;
 
-import java.util.Random;
-
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -15,7 +12,6 @@ import javafx.scene.text.Text;
 import seedu.todo.model.tag.Tag;
 
 //@@author A0142421X
-
 /**
  * Tag Card controller for Tag Panel in GUI
  */

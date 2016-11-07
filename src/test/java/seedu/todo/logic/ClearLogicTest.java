@@ -1,4 +1,3 @@
- //@@author A0093896H
 package seedu.todo.logic;
 
 import java.util.Collections;
@@ -9,7 +8,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.ClearCommand;
 import seedu.todo.model.DoDoBird;
 
-
+//@@author A0121643R
 /**
  * Test class for the clear command's logic
  */

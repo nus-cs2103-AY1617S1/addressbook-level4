@@ -1,10 +1,9 @@
-//@@author A0093896H
 package seedu.todo.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-
+//@@author A0093896H
 public class PrettifyDate {
 
     public static final int THRESHOLD = 3;

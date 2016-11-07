@@ -59,8 +59,7 @@ public class TaskCard extends UiPart{
         initPriority();
         tags.setText(task.tagsString());
         
-        if(task.getByDate().getDate() != null && task.getByDate().getTime() != null && 
-        		task.getByDate().getDate().atTime(task.getByDate().getTime()).isBefore(LocalDateTime.now())) {
+        if(checkOverdue(task)) {
         	CardStyler.styleForOverdue(name, details, onDate, byDate, tags, recurrence);
         } 
         
@@ -69,7 +68,8 @@ public class TaskCard extends UiPart{
         }
         
     }
-
+    
+    //@@author 
     public HBox getLayout() {
         return cardPane;
     }
@@ -87,8 +87,9 @@ public class TaskCard extends UiPart{
     //@@author A0093896H
     private void initOnDate() {
         if (task.getOnDate().getDate() != null) {
-            onDate.setText("Start: " + PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
-                            + " @ " + task.getOnDate().getTime() + " hrs");
+            onDate.setText("Start: " 
+            			+ PrettifyDate.prettifyDate(task.getOnDate().getDate()) 
+                        + " @ " + task.getOnDate().getTime() + " hrs");
         } else {
             onDate.setText("");
         }
@@ -96,13 +97,13 @@ public class TaskCard extends UiPart{
     
     private void initByDate() {
         if (task.getByDate().getDate() != null) {
-            byDate.setText("End: " + PrettifyDate.prettifyDate(task.getByDate().getDate()) 
-                            + " @ " + task.getByDate().getTime() + " hrs");
+            byDate.setText("End: " 
+            			+ PrettifyDate.prettifyDate(task.getByDate().getDate()) 
+                        + " @ " + task.getByDate().getTime() + " hrs");
         } else {
             byDate.setText("");
         }
     }
-    
     
     private void initRecurrence() {
         if (task.isRecurring()) {
@@ -125,6 +126,15 @@ public class TaskCard extends UiPart{
             priorityLevel.setFill(Color.web("#ef5350"));
             priorityLevel.setStroke(Color.web("#c62828"));
         }
+    }
+    
+    /**
+     * return whether a task is overdue
+     */
+    private boolean checkOverdue(ReadOnlyTask task) {
+    	return task.getByDate().getDate() != null && task.getByDate().getTime() != null 
+    			&& task.getByDate().getDate().atTime(task.getByDate().getTime())
+    			.isBefore(LocalDateTime.now());
     }
     
 }

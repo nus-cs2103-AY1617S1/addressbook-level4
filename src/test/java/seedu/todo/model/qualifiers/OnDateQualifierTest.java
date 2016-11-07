@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.model.qualifiers;
 
 import static org.junit.Assert.assertEquals;
@@ -14,7 +13,7 @@ import seedu.todo.model.DoDoBird;
 import seedu.todo.model.expressions.PredicateExpression;
 import seedu.todo.model.task.Task;
 import seedu.todo.testutil.TestDataHelper;
-
+//@@author A0093896H
 /**
  * Test class for OnDateQualifier used in model 
  * when searching for tasks that fall on a certain date

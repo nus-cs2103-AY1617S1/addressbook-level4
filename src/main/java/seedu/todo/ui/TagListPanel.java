@@ -1,4 +1,3 @@
-//@@author A0142421X
 package seedu.todo.ui;
 
 import javafx.application.Platform;
@@ -14,6 +13,10 @@ import javafx.stage.Stage;
 import seedu.todo.commons.events.ui.TagPanelSelectionEvent;
 import seedu.todo.model.tag.Tag;
 
+//@@author A0142421X
+/**
+ * Panel displaying the list of tags
+ */
 public class TagListPanel extends UiPart {
 	private static final String FXML = "TagListPanel.fxml";
 	private VBox panel;

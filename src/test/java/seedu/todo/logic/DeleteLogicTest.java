@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic;
 
 import static seedu.todo.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -16,7 +15,7 @@ import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todo.testutil.TestDataHelper;
-
+//@@author A0093896H
 /**
  * Test class for the delete command's logic
  */

@@ -74,6 +74,7 @@
                         <Insets bottom="10" left="10" right="10" top="10" />
                      </padding>
                   </AnchorPane>
+                <!-- @@author -->
                </children>
             </VBox>
          </items>

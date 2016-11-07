@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
@@ -8,7 +7,7 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
-
+//@@author A0142421X
 /**
  * Tags a task identified using it's last displayed index from the to do list.
  * with tags

@@ -1,4 +1,3 @@
-//@@author A0138967J
 package seedu.todo.ui;
 
 import javafx.application.Platform;
@@ -10,15 +9,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.todo.commons.events.ui.SummaryPanelSelectionEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
-
+//@@author A0138967J
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of tasks today.
  */
 public class SummaryPanel extends UiPart {
     private static final String FXML = "SummaryPanel.fxml";

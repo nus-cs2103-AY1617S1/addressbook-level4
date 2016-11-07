@@ -1,4 +1,3 @@
-//@@author A0142421X-unused
 package guitests.guihandles;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
 import seedu.todo.model.tag.Tag;
-
+//@@author A0142421X-unused
 /**
  * Provides a handle for the panel containing tag List
  */

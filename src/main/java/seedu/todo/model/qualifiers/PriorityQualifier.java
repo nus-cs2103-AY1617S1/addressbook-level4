@@ -5,7 +5,10 @@ import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 
 //@@author A0121643R
-
+/**
+ * filters tasks by priority
+ *
+ */
 public class PriorityQualifier implements Qualifier {
     
     private Priority priority;

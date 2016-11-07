@@ -7,9 +7,9 @@ import seedu.todo.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ToDoListGuiTest {
-    
+	//@@author A0138967J    
     @Test
-    public void clear_command_test() {
+    public void clearCommandTest() {
 
         //verify a non-empty list can be cleared
         commandBox.runCommand(TypicalTestTasks.buyMilk.getAddCommand());
@@ -24,7 +24,8 @@ public class ClearCommandTest extends ToDoListGuiTest {
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
     }
-
+    
+    //@@author
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);

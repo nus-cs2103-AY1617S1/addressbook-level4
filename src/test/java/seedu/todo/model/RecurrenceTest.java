@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.model;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -15,7 +14,11 @@ import java.time.LocalDateTime;
 
 import org.junit.Rule;
 import static org.junit.Assert.assertEquals;
-
+//@@author A0093896H
+/**
+ * Test class for recurrence
+ *
+ */
 public class RecurrenceTest {
 
     @Rule

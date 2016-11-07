@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
@@ -7,7 +6,7 @@ import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
-
+//@@author A0093896H
 /**
  * Unmark a task identified using it's last displayed index from the to do list.
  */

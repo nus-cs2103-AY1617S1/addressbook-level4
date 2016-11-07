@@ -9,9 +9,11 @@ import org.junit.rules.ExpectedException;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
-
+//@@author A0121643R
+/**
+ * test class for unique taglist
+ */
 public class UniqueTagListTest {
-
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

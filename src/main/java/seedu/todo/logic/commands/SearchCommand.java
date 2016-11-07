@@ -1,4 +1,3 @@
-//@@author A0093896H
 package seedu.todo.logic.commands;
 
 import java.time.LocalDateTime;
@@ -12,7 +11,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.TaskDate;
-
+//@@author A0093896H
 /**
  * Finds and lists all the task in DoDoBird based on the search option and arguments
  * Keyword matching is case insensitive.
@@ -219,25 +218,7 @@ public class SearchCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.TAG, data) 
                 + getMessageForTaskListShownSummary(size));
     }
-    
-    
-    /**
-     * Search tasks that based on their priority level
-     */
-    private CommandResult searchPriority() {
-        try {
-            String priority = data.trim();                   
-            model.updateFilteredTaskListByPriority(new Priority(priority), this.option);
-           
-            int size = model.getFilteredTaskList().size();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.PRIORITY, data) 
-                    + getMessageForTaskListShownSummary(size));
-               
-        } catch (IllegalValueException e) {
-            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
-        }
-    }
-    
+        
     /**
      * Search floating tasks
      */
@@ -272,6 +253,22 @@ public class SearchCommand extends Command {
                 + getMessageForTaskListShownSummary(size));
     }
     
-    
+    //@@author A0121643R
+    /**
+     * Search tasks that based on their priority level
+     */
+    private CommandResult searchPriority() {
+        try {
+            String priority = data.trim();                   
+            model.updateFilteredTaskListByPriority(new Priority(priority), this.option);
+           
+            int size = model.getFilteredTaskList().size();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, option, SearchIndex.PRIORITY, data) 
+                    + getMessageForTaskListShownSummary(size));
+               
+        } catch (IllegalValueException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+        }
+    }
      
 }
