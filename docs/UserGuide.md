@@ -20,10 +20,10 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
-   * **`list`** : lists all todos
-   * **`add`**` Lecture s/7.10.2016-14 e/7.10.2016-16 t/CS2103 p/3` :
-     adds a event named `Lecture` to the Task Manager.
-   * **`delete`**` 3` : deletes the 3rd event/task shown in the current list
+   * **`list`** : lists all items
+   * **`add`**` n/Lecture s/Friday 2pm e/Friday 4pm r/weekly t/CS2103 p/3` :
+     adds an event named `Lecture` to the toDoList.
+   * **`delete`**` 3` : deletes the 3rd item shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -51,8 +51,7 @@ Add an event with a starting and ending date to the toDoList.<br>
 Format: `add n/EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
 
 Add a task (with or without deadline) to the toDoList.<br>
-Format: `add n/TASK_NAME d/DEADLINE [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`<br>
-Format: `add n/TASK_NAME [t/TAG]...[p/PRIORITY_LEVEL]`
+Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
 
 > With the exception of command word "add", the order of parameters are not fixed. START_DATE, END_DATE
 >and DEADLINE can be entered in natural language. For example, entering words like today, tommorrow, today
@@ -70,40 +69,40 @@ Examples:
 Shows a list of all items.<br>
 Format: `list`<br>
 Example:<br>
-*`list`<br>
+* `list`<br>
 
 Shows a list of all tasks.<br>
 Format: `list tasks`<br>
 Example:<br>
-*`list tasks`<br>
+* `list tasks`<br>
 
 Shows a list of all events.<br>
 Format: `list events`<br>
 Example:<br>
-*`list events`<br>
+* `list events`<br>
 
 Shows a list of all done items.<br>
 Format: `list done`<br>
 Example:<br>
-*`list done`<br>
+* `list done`<br>
 
 Shows a list of all undone items.<br>
 Format: `list undone`<br>
 Example:<br>
-*`list undone`<br>
+* `list undone`<br>
 
 #### Deleting items: `delete`
 Deletes an existing task or event from toDoList storage completely.<br>
 
 Format: `delete INDEX`<br>
 
-> Delete the task or event identified by the specific INDEX in the most recent listing.
+> Delete the task or event identified by the specific INDEX in the most recent listing.<br>
 > INDEX must be positive integers like 1 , 2 , 3 ...
 
 Format:`delete NAME...`<br>
 
-> all tasks or events with names matching one or more of the input parameters will be listed
-> user delete the task or event by index in the last shown listing
+> All tasks or events with names matching one or more of the input parameters will be listed.<br>
+> User deletes the task or event by index in the last shown listing.<br>
 
 Example:<br>
 * `delete do homework`<br>
@@ -205,13 +204,15 @@ Example:
 * `change /Desktop/folder/taskManager.xml clear`
 
 #### Undo operations: `undo`
-Undo the most recent action (up to 5 times).<br>
+Undo the most recent action.<br>
 Format: `undo`
 
-> Able to undo add, delete, edit, clear, done commands from this session.
+> Able to undo add, delete, edit, clear, done commands from this session up to 10 times.
 
-Undo the most recent change of the default storage location (up to 1 time) and clear data saved in the new location if specified.<br>
+Undo the most recent change of the default storage location and clear data saved in the new location if specified. 
 Format: `undochange [clear]` <br>
+
+> There is no limit on the number of times.<br>
 
 Example: 
 * `undochange clear`
@@ -228,6 +229,7 @@ Format: `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [p/PRIORITY_LEVEL] [t/T
 
 > * Only todos that matching all attributes will be returned (i.e. `AND` search).
 > * If the given start date, end date or deadline is a day without time, corresponding dates that are on that day will be considered as matched. e.g. `3 Nov` will match `03.11.2016-12`, but `3 Nov 12 noon` will not match `03.11.2016`
+> * `d/` will match tasks without deadline
 
 Examples:
 * `filter s/7.10.2016-14 t/CS2103` <br>
@@ -251,6 +253,12 @@ It provides a shortcut for user to filter and list todos. User can switch to the
 * t: Jump to the tags text field
 * p: Jump to the priority choice box
 
+> * Only items that matching all attributes will be returned (i.e. `AND` search).
+> * `NIL` in the deadline text field will match tasks without deadline.
+
+The filter panel will also be updated after `list` and `filter` commands.
+(Screen shot to be added)
+
 #### Todos Panel
 It is for displaying todos.
 <!-- @@author -->
@@ -265,11 +273,11 @@ It is for displaying todos.
 
 Command | Format  
 -------- | :--------
-Add | `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG][r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME d/DEADLINE [t/TAG] [r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME [t/TAG][p/PRIORITY_LEVEL]`
+Add | `add EVENT_NAME s/START_DATE e/END_DATE [r/RECURRING] [t/TAG] [p/PRIORITY_LEVEL]`<br> `add TASK_NAME [d/DEADLINE] [r/RECURRING] [t/TAG] [p/PRIORITY_LEVEL]`
 Change | `change FILE_PATH [clear]`<br> e.g. `change /Desktop/folder/taskManager.xml clear`
 Clear | `clear`
-Delete | `delete INDEX`<br> `delete EVENT_NAME/TASK_NAME`
-Done | `done INDEX`
+Delete | `delete INDEX`<br> `delete NAME`
+Done | `done INDEX`<br> `done NAME`
 Edit | `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [r/RECURRING_TASK] [p/PRIORITY_LEVEL]`<br> `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]`
 Filter | `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...`<br>  e.g. `filter s/7.10.2016-14 t/CS2103`
 Find | `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]` <br> e.g. `find CS2103 Software Project`, `find CS2103 AND Software Project`, `find lecture exact!`
@@ -277,5 +285,4 @@ Help | `help`
 Jump |  `s`, `e`, `d`, `r`, `t`, `p`
 List | `list`
 Redo | `redo` <br> `redochange`
-Refresh | `refresh` 
 Undo | `undo` <br> `undochange [clear]` e.g. `undochange clear`
