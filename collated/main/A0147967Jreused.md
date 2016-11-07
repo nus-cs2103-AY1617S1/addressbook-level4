@@ -1,5 +1,5 @@
 # A0147967Jreused
-###### \java\seedu\address\ui\AutocompleteTextField.java
+###### \java\seedu\taskmaster\ui\AutocompleteTextField.java
 ``` java
 /**
  * This class extends javafx text field for auto complete implementation for
@@ -121,7 +121,7 @@ public class AutocompleteTextField extends TextField {
     }
 }
 ```
-###### \java\seedu\address\ui\CommandBox.java
+###### \java\seedu\taskmaster\ui\CommandBox.java
 ``` java
     public void handleNavigationChanged(String command) {
         
