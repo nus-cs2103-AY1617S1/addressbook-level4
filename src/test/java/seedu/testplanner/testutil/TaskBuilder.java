@@ -31,7 +31,7 @@ public class TaskBuilder {
 	}
 
 	public TaskBuilder withStartDate(String st) {
-		String convertedSt = np.parse(st);
+		String convertedSt = np.parseDate(st);
 		this.task.setStart(new DateTime(new Date(convertedSt), new Time("")));
 		return this;
 	}
@@ -49,7 +49,7 @@ public class TaskBuilder {
 	}
 	
 	public TaskBuilder withEndDate(String et) {
-		String convertedEt = np.parse(et);
+		String convertedEt = np.parseDate(et);
 		this.task.setStart(new DateTime(new Date(convertedEt), new Time("")));
 		return this;
 	}
