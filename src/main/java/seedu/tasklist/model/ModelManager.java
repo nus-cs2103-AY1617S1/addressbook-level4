@@ -64,9 +64,8 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author
 	private final TaskList taskList;
 	private final FilteredList<Task> filteredTasks;
-	//@@author A0146107M
 	private final TaskCounter taskCounter;
-	//@@author
+	
 	/**
 	 * Initializes a ModelManager with the given TaskList TaskList and its
 	 * variables should not be null
@@ -487,15 +486,7 @@ public class ModelManager extends ComponentManager implements Model {
 		private String getRegexFromString() {
 			String result = "";
 			for (String keyword : nameKeyWords) {
-				for (char c : keyword.toCharArray()) {
-					switch (c) {
-					case '*':
-						result += ".*";
-						break;
-					default:
-						result += c;
-					}
-				}
+				result += keyword.replaceAll("\\*", ".*");
 			}
 			return result;
 		}

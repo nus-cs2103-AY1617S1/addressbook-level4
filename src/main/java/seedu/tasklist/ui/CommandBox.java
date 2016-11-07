@@ -57,6 +57,7 @@ public class CommandBox extends UiPart {
 		commandBox.addToPlaceholder();
 		return commandBox;
 	}
+	
 	//@@author A0146107M
 	public void configure(ResultDisplay resultDisplay, Logic logic) {
 		this.resultDisplay = resultDisplay;
@@ -68,6 +69,10 @@ public class CommandBox extends UiPart {
 		registerAsAnEventHandler(this);
 	}
 
+    /**
+     * Configures events for different keypresses
+     *
+     */
 	private void configureKeyEvents(){
 		commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(final KeyEvent keyEvent) {
@@ -91,6 +96,11 @@ public class CommandBox extends UiPart {
 		});
 	}
 	
+    /**
+     * Handler for button up keypress
+     * 
+     * @param isControlDown Boolean describing state of Control key
+     */
 	private void handleButtonUp(boolean isControlDown){
 		if(isControlDown){
 			EventsCenter.getInstance().post(new TaskListScrollEvent(TaskListPanel.Direction.UP));
@@ -99,7 +109,12 @@ public class CommandBox extends UiPart {
 			getUpLine();
 		}
 	}
-	
+
+    /**
+     * Handler for button down keypress
+     * 
+     * @param isControlDown Boolean describing state of Control key
+     */
 	private void handleButtonDown(boolean isControlDown){
 		if(isControlDown){
 			EventsCenter.getInstance().post(new TaskListScrollEvent(TaskListPanel.Direction.DOWN));
@@ -109,58 +124,78 @@ public class CommandBox extends UiPart {
 		}
 	}
 	
+    /**
+     * Display the previously entered command
+     * 
+     */
 	private void getUpLine(){
+		//Check if older commands exist
 		if(!upStack.isEmpty()){
+			//check if temporarily entered command has to be stored
 			if(downStack.isEmpty()){
 				hasTempEnd = true;
 			}
+			//temporarily store entered command
 			downStack.push(commandTextField.getText());
+			//display previous command
 			currHistLine = upStack.pop();
 			commandTextField.setText(currHistLine);
 			commandTextField.end();
 		}
 	}
 
+    /**
+     * Display the next entered command
+     * 
+     */
 	private void getDownLine(){
+		//check if newer commands exist
 		if(!downStack.isEmpty()){
+			//store currently displayed command
 			upStack.push(commandTextField.getText());
+			//display next command
 			currHistLine = downStack.pop();
 			commandTextField.setText(currHistLine);
 			commandTextField.end();
 		}
 	}
 
+    /**
+     * Autocomplete the current commandBox input
+     * 
+     */
 	private void autoComplete(){
 		String currentString = commandTextField.getText();
 		String completedCommand = commandTextField.getText();
 		boolean found = false;
 		for (String command: commands){
 			if (command.startsWith(currentString)){
-				if(found){
+				if(found){ //more than 1 match
 					return;
 				}
-				else{
+				else{ //no matches yet
 					completedCommand = command;
 					found = true;
 				}
 			}
 		}
-		if(!found){
+		if(!found){ //no matches found
 			return;
 		}
-		else{
+		else{ //replace text with command
 			commandTextField.setText(completedCommand);
 			commandTextField.end();
 		}
 	}
-
+	//@@author
+	
 	private void addToPlaceholder() {
 		SplitPane.setResizableWithParent(placeHolderPane, false);
 		placeHolderPane.getChildren().add(commandTextField);
 		FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
 		FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
 	}
-	//@@author
+	
 	@Override
 	public void setNode(Node node) {
 		commandPane = (AnchorPane) node;
@@ -176,21 +211,33 @@ public class CommandBox extends UiPart {
 		this.placeHolderPane = pane;
 	}
 
-
-	@FXML
-	private void handleCommandInputChanged() throws IOException, JSONException, ParseException {
-		//@@author A0146107M
+	//@@author A0146107M
+	/**
+	 * Prepare the upStack and downStack for addition of a new command
+	 * 
+	 */
+	private void prepareStacksForAddition(){
 		if(!downStack.isEmpty()){
+			//store current line
 			upStack.push(currHistLine);
+			//push downStack back into upStack
 			while(!downStack.isEmpty()){
 				upStack.push(downStack.pop());
 			}
+			//if half-entered command is temporarily stored
 			if(hasTempEnd){
+				//clear half-entered command
 				upStack.pop();
 				hasTempEnd = false;
 			}
 		}
+	}
+	//@@author
 
+	@FXML
+	private void handleCommandInputChanged() throws IOException, JSONException, ParseException {
+		prepareStacksForAddition();
+		
 		//Take a copy of the command text
 		previousCommandTest = commandTextField.getText();
 
@@ -199,7 +246,7 @@ public class CommandBox extends UiPart {
 		 */
 		setStyleToIndicateCorrectCommand();
 		upStack.push(previousCommandTest);
-		//@@author
+
 		mostRecentResult = logic.execute(previousCommandTest);
 		resultDisplay.postMessage(mostRecentResult.feedbackToUser);
 		logger.info("Result: " + mostRecentResult.feedbackToUser);
