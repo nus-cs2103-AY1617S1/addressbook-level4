@@ -85,7 +85,7 @@ Examples:
   Returns `John Doe` but not `john`
 * `find Homework Dentistry`<br>
   Returns Any person having names `Homework`, `Dentistry` or `Dentist`
-
+<br><br><br>
 #### Deleting a task : `delete`
 Deletes the specified task from the address book. Irreversible.<br>
 Format: `delete INDEX`
@@ -101,7 +101,7 @@ Examples:
 * `find Betsy`<br> 
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
-
+<br><br><br>
 #### Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
@@ -117,25 +117,26 @@ Examples:
 * `find Betsy` <br> 
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
-
+<br><br><br>
 #### Clearing all entries : `clear`
 Clears all entries from the task list.<br>
 Format: `clear` 
-
+<br><br><br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
-
+<br><br><br>
 #### Saving the data 
 Task List data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+<br><br><br>
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Tasks folder.
-       
+<br><br>       
 ## Command Summary
 
 Command | Format  
