@@ -188,7 +188,8 @@ You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRem
 Example: edit E1 #rememberToBuyPresent`>`#AbsolutelyRememberToBuyPresent
 
 If there is only one tag, you can use the following command instead to change the tag.
-Format: **edit** &ltindex&gt new tag 
+
+>Format: **edit** &ltindex&gt new tag 
 
 <br><br>
  
