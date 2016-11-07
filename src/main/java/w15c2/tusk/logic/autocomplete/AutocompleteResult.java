@@ -17,6 +17,7 @@ public class AutocompleteResult {
 		assert matchedWords != null;
 		assert matchedWords.size() > 0;
 		
+		// Infinite circular iterator for the list of matched words
 		this.matchIterator = Iterables.cycle(matchedWords).iterator();
 	}
 	

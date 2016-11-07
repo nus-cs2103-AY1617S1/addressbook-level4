@@ -12,7 +12,7 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 
 //@@author A0138978E
-/*
+/**
  * Parses Unpin commands
  */
 public class UnpinCommandParser extends CommandParser{

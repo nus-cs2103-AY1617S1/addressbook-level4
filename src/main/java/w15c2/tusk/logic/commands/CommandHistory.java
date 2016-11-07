@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //@@author A0138978E
-/*
+/**
  * Stores all previously entered commands (in textual form) and allows for specific access to previous/next commands
  */
 public class CommandHistory {

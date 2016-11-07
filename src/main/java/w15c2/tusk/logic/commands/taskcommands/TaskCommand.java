@@ -35,6 +35,7 @@ public abstract class TaskCommand {
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
+     * @param model the current internal state of the task manager for the command to refer to
      */
     public void setData(Model model) {
         this.model = model;

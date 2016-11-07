@@ -175,6 +175,9 @@ public class TaskListPanel extends UiPart {
 
         //@@author A0138978E
         @Override
+        /**
+         * Updates the task card's visual style based on the type of task it represents
+         */
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);
             

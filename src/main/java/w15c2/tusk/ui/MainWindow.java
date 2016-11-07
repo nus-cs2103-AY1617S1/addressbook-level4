@@ -119,7 +119,7 @@ public class MainWindow extends UiPart {
     //@@author A0138978E
     /**
      * Captures control up/down events and scrolls up/down the task list as required
-     * @param scene
+     * @param scene the scene to apply this handler to
      */
     private void setSceneHandlers(Scene scene) {
         scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
