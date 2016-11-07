@@ -661,7 +661,7 @@ Day:
 5. Steep learning curve.<br>
 6. Does not support categories.<br>
 
-<!-- @@author A0139671X-->
+<!-- @@author A0139671X -->
 
 ### Any.do
 ##### Strengths
