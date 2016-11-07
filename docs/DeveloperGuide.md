@@ -96,7 +96,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/NewLogicDiagram.png" width="800"><br>
 > _The class diagram for the Logic Component of DearJim_
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
@@ -144,7 +144,7 @@ The `UI` component,
 <!-- @@author A0139655U -->
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/NewLogicDiagram.png" width="800"><br>
 > _The class diagram for the Logic component of DearJim_
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
@@ -189,10 +189,13 @@ The `Storage` component,
 * can save the Task Manager data in xml format and read it back.
 <!-- @@author -->
 
+<!-- @@author A0093960X -->
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskmanager.commons` package.
+Classes used by multiple components are in the `seedu.taskmanager.commons` package.<br>
+Examples of these classes include the `StringUtil` class, which has the `containsIgnoreCase(String, String)` method, and `CollectionUtil` class, which has the `isAnyNull(Object...)` method.
 
+<!--@@author -->
 ## Implementation
 
 ### Logging
