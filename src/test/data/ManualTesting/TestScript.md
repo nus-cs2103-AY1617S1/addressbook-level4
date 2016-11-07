@@ -71,7 +71,7 @@
 > **Command:** `delete 1`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`Deleted Task: visit grandma Deadline: 20.11.2016 done recurring daily`
+`Deleted Task: visit grandma Deadline: 20.11.2016 done  recurring daily Priority Level: 3`
 - TaskList panel removes all occurrences of the task.
 
 ### 2.2 Delete task by name
@@ -87,10 +87,10 @@
 ## 3. Done Command
 ------
 ### 3.1 Mark task or event as done by index
-> **Command:** `done 3`<br>
+> **Command:** `list`<br> `done 14`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`Marked as done: women day speech Event Date: 08.03.2016-19 to 08.03.2016-21 done`
+`Marked as done: discuss project Deadline: 08.11.2016 done  recurring weekly Priority Level: 1`
 - TaskList panel reflects the "done" status of the task or event.
 
 ### 3.2 Mark task or event as done by name
