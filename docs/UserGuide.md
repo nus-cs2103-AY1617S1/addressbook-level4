@@ -93,14 +93,14 @@ Examples:
 * `customize list f/ls`
 
 <a id="undo-command" class="anchor" href="#undo-command" aria-hidden="true">
-#### Undo the last executed command: `undo`
+### Undo the last executed command: `undo`
 Restore the task manager to the state before command was executed. Can be executed if there was any command executed before.
 Format: `undo`
 Example:
 * `undo`
 
 <a id="redo-command" class="anchor" href="#redo-command" aria-hidden="true">
-#### Redo the last executed undone command: `redo`
+### Redo the last executed undone command: `redo`
 Restore the task manager to the state before undo command was executed. Can be executed if there was undo command executed before.
 Format: `redo`
 Example:
@@ -155,7 +155,7 @@ RETURNS any Title that contains 'work'
 <!-- @@author -->
 
 <!-- @@author A0148083A -->
-#### Complete a task: `done`
+### Complete a task: `done`
 Set Task as completed
 Format: `done TASKID`
 
@@ -163,7 +163,7 @@ Example: `done 1`
 <!-- @@author -->
 <!-- @@author A0153751H -->
 <a id="edit_task" class="anchor" aria-hidden="true">
-#### Edit a task: `edit`
+### Edit a task: `edit`
 Edit details to an existing task <br>
 One other parameter must be use other than the TASKID <br>
 Format: `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAGS]`
@@ -190,16 +190,18 @@ Examples:
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK d/DESCRIPTION dd/DUE_DATE i/INTERVAL ti/TIME_INTERVAL c/COLOR ts/TAG...`
-Edit | `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE c/COLOR ts/TAG...`
+Add | `add TASK d/DESCRIPTION [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [c/COLOR] [ts/TAG]...`
+Edit | `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAG]...`
 Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Undo | `undo` 
+Redo | `redo` 
+History | `history` 
 Save | `save`
 Help | `help`
-Customize | `help COMMAND f/NEW_FORMAT` 
+Customize | `help [COMMAND f/NEW_FORMAT]` 
 Done | `done TASKID`
 <!-- //@@author -->
 <!-- @@author A0153411W -->
@@ -215,6 +217,6 @@ DUE_DATE      |  /dd               |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DA
 INTERVAL      |  /i                |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
 TIME_INTERVAL |  /ti               |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
 TASK_COLOR    |  /c                |  Text                  |   NO                              | Color code of a task
-NEW_FORMAT    |  /f                |  Text                  |   YES                              | New format of customized command
+NEW_FORMAT    |  /f                |  Text                  |   YES(if COMMAND is specified)                              | New format of customized command
 TAG           |  /ts               |  Text                  |   NO                               | Tag of a command
 <!-- //@@author -->
