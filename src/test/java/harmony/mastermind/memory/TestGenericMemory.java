@@ -131,8 +131,8 @@ public class TestGenericMemory {
     //@@author A0143378Y
     private void taskToString() { 
         //Task
-        GenericMemory testTask = new GenericMemory("task", "name2", "description2");
-        String taskResult = "Type: task" + "\n" + "Name: name2" + "\n" + "Description : description2";
+        GenericMemory testTask = new GenericMemory("Task", "name2", "description2");
+        String taskResult = "Type: Task" + "\n" + "Name: name2" + "\n" + "Description : description2" + "\n" + "Status: Incomplete";
         assertEquals("Task to String", testTask.toString(), taskResult);
         
         //Task description
@@ -140,40 +140,61 @@ public class TestGenericMemory {
         assertEquals("Description", testTask.descriptionToString(testTask.getDescription()), descriptionResult);
         
         //Task deadline to string
-        String taskDeadline = "Type: task" + "\n" + "Name: name2" + "\n" + "Description : description2"
-                                + "\n" + "Status: Incomplete";
+        String taskDeadline = "Type: Task" + "\n" + "Name: name2" + "\n" + "Description : description2"
+                                + "\n" + "Status: Incomplete" + "\n" + "Status: Incomplete";
         assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline);
     }
     
     //@@author A0143378Y
     private void deadlineToString() { 
         //Deadline
-        GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
-        String deadlineResult = "Type: deadline" + "\n" + "Name: name1" + "\n" + "Description : description1";
+        GenericMemory testDeadline = new GenericMemory("Deadline", "name1", "description1", end);
+        String deadlineResult = "Type: Deadline" + "\n" + "Name: name1" + "\n" + "Description : description1" 
+                                    + "\n" + "Due by: 5/3/15 Thurs 07:11 AM" + "\n" + "Status: Incomplete";
         assertEquals("Deadline to String", testDeadline.toString(), deadlineResult);
         
         //Deadline date
         String deadlineEndDateResult = testDeadline.deadlineDateToString(testDeadline.getEnd().toString());
-        assertEquals("Deadline End Date", testDeadline.deadlineDateToString(testDeadline.getEnd().toString()), testDeadline.deadlineDateToString(testDeadline.getEnd().toString()));
+        assertEquals("Deadline End Date", testDeadline.deadlineDateToString(testDeadline.getEnd().toString()), deadlineEndDateResult);
         
     }
     
     //@@author A0143378Y
     private void eventToString() { 
         //Event
-        GenericMemory testEvent = new GenericMemory("event", "name", "description", start, end, 0);
-        String eventResult = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description";
+        GenericMemory testEvent = new GenericMemory("Event", "name", "description", start, end, 0);
+        String eventResult = "Type: Event" + "\n" + "Name: name" + "\n" + "Description : description"
+                              + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM"
+                              + "\n" + "Status: Upcoming";
         assertEquals("Event to String", testEvent.toString(), eventResult);
         
         //Event dates to string 
-        String eventDates = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description" 
-                                + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM";
+        String eventDates = "Type: Event" + "\n" + "Name: name" + "\n" + "Description : description" 
+                             + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM"
+                             + "\n" + "Status: Upcoming"
+                             + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM";
         assertEquals("Event dates to String", testEvent.eventDatesToString(testEvent.toString()), eventDates);
         
         //Event state to string 
-        String eventState = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description" + "\n"
-                                + "Status: Upcoming";
+        String eventState = "Type: Event" + "\n" + "Name: name" + "\n" + "Description : description" 
+                            + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM"
+                            + "\n" + "Status: Upcoming" + "\n" + "Status: Upcoming";
         assertEquals("Event state to String", testEvent.eventStateToString(testEvent.toString()), eventState);
+        
+        //Set State to over 
+        testEvent.setState(1);
+        String eventState2 = "Type: Event" + "\n" + "Name: name" + "\n" + "Description : description" 
+                + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM"
+                + "\n" + "Status: Over" + "\n" + "Status: Over";
+        assertEquals("Event state to String", testEvent.eventStateToString(testEvent.toString()), eventState2);
+        
+        //Set state to be ongoing
+        testEvent.setState(2);
+        String eventState3 = "Type: Event" + "\n" + "Name: name" + "\n" + "Description : description" 
+                + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM"
+                + "\n" + "Status: Ongoing" + "\n" + "Status: Ongoing";
+        assertEquals("Event state to String", testEvent.eventStateToString(testEvent.toString()), eventState3);
+        
         
         //test getDate
         assertEquals("Event date", testEvent.getDate(start), "27/4/14 Sun");
