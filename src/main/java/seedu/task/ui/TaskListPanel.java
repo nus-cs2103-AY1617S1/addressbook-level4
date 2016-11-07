@@ -58,6 +58,7 @@ public class TaskListPanel extends UiPart {
     private static final String YESTERDAY = "YESTERDAY AT ";
     private static final String TODAY = "TODAY AT ";
     private static final String TOMORROW = "TOMORROW AT ";
+    private static final String TIMESTYLE = "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;";
 
     @Override
     public void setNode(Node node) {
@@ -128,16 +129,13 @@ public class TaskListPanel extends UiPart {
                     	
                         setText(compareWithCurrentTime(item.toString()));
                         if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
 
                     }
@@ -165,16 +163,13 @@ public class TaskListPanel extends UiPart {
 
                         setText(compareWithCurrentTime(item.toString()));
                         if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
 
                     }
@@ -202,16 +197,13 @@ public class TaskListPanel extends UiPart {
 
                         setText(compareWithCurrentTime(item.toString()));
                         if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
                         if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
+                            setStyle(TIMESTYLE);
                         }
 
                     }
