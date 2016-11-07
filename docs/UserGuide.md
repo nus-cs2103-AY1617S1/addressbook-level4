@@ -111,8 +111,8 @@ Examples:
 * `s overdue`, `s over` or `s o` Sorts tasks in the TaskManager with overdue tasks first
 
 #### Undo the modification : `undo`
-Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands.<br>
-Format: `undo`  
+Undo the modification in the last step. Only includes add, delete, edit, clear, done, undone, favorite, unfavorite, sort and refresh commands. Can undo multiple times.<br>
+Format: `undo` or  `undo INDEX`
 
 #### Done a specific task : `done`
 Done a task to show that it is completed with a green marker.<br>
@@ -194,9 +194,9 @@ Delete | `delete INDEX`
 Find | `find KEYWORD`
 List | `list`
 Sort | `sort [PARAMETER]`  `s [PARAMETER]`
-Undo | `undo`
-Done | `done`  `undone`
-Favorite | `fav`  `unfav`
+Undo | `undo [INDEX]`
+Done | `done INDEX`  `undone INDEX`
+Favorite | `fav INDEX`  `unfav INDEX`
 Repeat | `repeat INDEX INTERVAL`
 Backup | `backup [PATH]`  `b [PATH]`
 Change Directory | `directory [PATH]`  `dir [PATH]`
