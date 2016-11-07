@@ -1,5 +1,5 @@
 # About Us
-<!-- @@author A0125284H -->
+
 We are team T13-C2 for the module CS2103 based in the [School of Computing, National University of Singapore]
 
 ## Project Mentor

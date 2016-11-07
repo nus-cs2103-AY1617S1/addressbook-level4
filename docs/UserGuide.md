@@ -241,14 +241,14 @@ Command | Format | Sample Input
 -------- | :-------- | :-------- 
 Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | add Dinner with friends s/tomorrow 1800 e/1930 r/today 1800 t/dinner
 Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | edit 2 n/assignment d/tuesday 1800 r/monday 1800 t/
-Clear | `clear`
+Clear | `clear` | clear
 Delete | `delete INDEX` | delete 2
 Find | `find KEYWORD [MORE_KEYWORDS]` | find assignment
-List | `list`
+List | `list` | list event
 Find Tags | `findtag` | findtag dinner
 Done | `done INDEX` | done 2
-Undo | `undo`
-Help | `help`
+Undo | `undo` | undo
+Help | `help` | help
 Open | `open [FILE_PATH]` | open data/savefile.xml
 Save | `save [FILE_PATH]` | save work/schedule.xml
-Exit | `exit`
+Exit | `exit` | exit

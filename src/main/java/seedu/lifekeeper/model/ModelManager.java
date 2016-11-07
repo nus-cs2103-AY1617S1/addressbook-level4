@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
+//@@author A0125097A
 /**
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
