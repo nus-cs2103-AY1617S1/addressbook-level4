@@ -301,9 +301,9 @@ Method 2
 
 > The first entry that was deleted is added back again.
 
-#### Testing Command: `list`, <kbd>ENTER</kbd>, `undo`
+#### Testing Command: `add go to E2 r/today 2200`,  <kbd>ENTER</kbd>, `list`, <kbd>ENTER</kbd>, `undo`
 
-> Result Bar shows `There is no more commands to undo`, `list`, `find` and `findtag` cannot be undone.
+> `list`, `find` and `findtag` cannot be undone. It will undo the previous undo-able command, which in this case is the add command.
 
 ### Save Command
 
