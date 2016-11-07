@@ -8,7 +8,7 @@ import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 import harmony.mastermind.logic.HelpPopupEntry;
 
 /**@@author A0139194X
- * Format full help instructions for every command for display.
+ * Formats full help instructions for every command for display.
  */
 public class HelpCommand extends Command {
 
@@ -31,6 +31,7 @@ public class HelpCommand extends Command {
     }
 
     private void initInfo() {
+        //if its already initialised, don't redo it
         if (helpEntries == null) {
             initCommandWords();
             initFormat();
@@ -39,6 +40,9 @@ public class HelpCommand extends Command {
         }
     }
     
+    /**
+     * Initialise the Entries that will be sent to the UI component
+     */
     private void initEntries() {
         helpEntries = new ArrayList<HelpPopupEntry>();
         for (int i = 0; i < commandList.size(); i++) {
@@ -46,6 +50,9 @@ public class HelpCommand extends Command {
         }
     }
 
+    /**
+     * Consolidate all the command words
+     */
     private void initCommandWords() {
         commandList = new ArrayList<String>();
         commandList.add(HelpCommand.COMMAND_WORD);
@@ -70,6 +77,9 @@ public class HelpCommand extends Command {
         commandList.add(ExitCommand.COMMAND_WORD);
     }
     
+    /**
+     * Consolidate all the formats for help
+     */
     private void initFormat() {
         formatList = new ArrayList<String>();
         formatList.add(HelpCommand.COMMAND_WORD);
@@ -92,6 +102,9 @@ public class HelpCommand extends Command {
         formatList.add(ExitCommand.COMMAND_WORD);
     }
     
+    /**
+     * Consolidate all the descriptions for help
+     */
     private void initDescription() {
         descriptionList = new ArrayList<String>();
         descriptionList.add(HelpCommand.COMMAND_DESCRIPTION);

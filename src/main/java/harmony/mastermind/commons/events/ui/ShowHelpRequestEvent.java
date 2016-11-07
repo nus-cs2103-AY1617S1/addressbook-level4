@@ -11,8 +11,6 @@ import harmony.mastermind.logic.HelpPopupEntry;
 public class ShowHelpRequestEvent extends BaseEvent {
 
     private final ArrayList<HelpPopupEntry> helpEntries;
-
-
     
     public ShowHelpRequestEvent(ArrayList<HelpPopupEntry> helpEntries) {
         this.helpEntries = helpEntries;

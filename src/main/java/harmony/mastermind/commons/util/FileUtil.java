@@ -99,7 +99,12 @@ public class FileUtil {
     }
     
     //@@author A0139194X
-    //Checks if directory is writable
+    /**
+     * Checks if directory is writable
+     * @param newFilePath
+     * @throws UnwrittableFolderException
+     */
+    
     public static void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
         assert newFilePath != null;
         File newFile = new File(newFilePath);
@@ -109,11 +114,14 @@ public class FileUtil {
     }
     
     //@@author A0139194X
-    //Checks if file path string exists
+    /**
+     * Checks if file path string exists
+     * @param newFilePath
+     * @throws FolderDoesNotExistException
+     */
     public static void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
         assert newFilePath != null;
         Path filePath = Paths.get(newFilePath);
-        
         if (!Files.exists(filePath)) {
             throw new FolderDoesNotExistException(newFilePath + " does not exist");
         }

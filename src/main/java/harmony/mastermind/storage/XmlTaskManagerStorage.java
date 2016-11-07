@@ -83,6 +83,12 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     //@author A0139194X
+    /**
+     * Moves the contents from the old path to the new path
+     * @param oldPath
+     * @param newPath
+     * @throws IOException
+     */
     public void migrateIntoNewFolder(String oldPath, String newPath) throws IOException {
         assert oldPath != null;
         assert newPath != null;
@@ -95,6 +101,11 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
     
     //@author A0139194X
+    /**
+     * Deletes the file specified in the file path
+     * @param filePath
+     * @return true if deleted, else false
+     */
     public boolean deleteFile(String filePath) {
         assert filePath != null;
         File toDelete = new File(filePath);

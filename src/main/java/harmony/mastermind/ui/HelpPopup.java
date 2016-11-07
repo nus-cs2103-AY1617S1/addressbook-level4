@@ -18,6 +18,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 //@@author A0139194X
+/**
+ * Class to initialise the Help Popup containing a table of information.
+ */
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
@@ -33,8 +36,6 @@ public class HelpPopup extends UiPart {
     
     private final int DEFAULT_X_POS = 200;
     private final int DEFAULT_Y_POS = 100;
-    private final int DEFAULT_HEIGHT = 800;
-    private final int DEFAULT_WIDTH = 1000;
 
     private Popup popup;
     private boolean isFirstKey;
@@ -79,12 +80,13 @@ public class HelpPopup extends UiPart {
         popup = new Popup();
 
         popup.getContent().add(table);
-        //properties();
 
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
     }
     
-    //@@author A0139194X
+    /**@@author A0139194X
+     * Initialise the table
+     */
     @FXML
     private void initTable() {
         logger.info("Initialising help popup's table");
@@ -93,27 +95,33 @@ public class HelpPopup extends UiPart {
         
         initCommandCol();
         initFormatCol();
-        initUsageCol();
+        initDescriptionCol();
         
         table.getColumns().addAll(commandCol, formatCol, descriptionCol);
     }
     
-    //@@author A0139194X
+    /**@@author A0139194X
+     * Initialise the Command word Column
+     */
     private void initCommandCol() {
         commandCol = new TableColumn<HelpPopupEntry, String>(COMMAND_COL_HEADER);
         commandCol.setMinWidth(COMMAND_COL_MIN_WIDTH);
         commandCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getCommandWord()));
     }
 
-    //@@author A0139194X
+    /**@@author A0139194X
+     * Initialise the format Column
+     */
     private void initFormatCol() {
         formatCol = new TableColumn<HelpPopupEntry, String>(FORMAT_COL_HEADER);
         formatCol.setMinWidth(FORMAT_COL_MIN_WIDTH);
         formatCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getFormat()));
     }
     
-    //@@author A0139194X
-    private void initUsageCol() {
+    /**@@author A0139194X
+     * Initialise the description Column
+     */
+    private void initDescriptionCol() {
         descriptionCol = new TableColumn<HelpPopupEntry, String>(DESCRIPTION_COL_HEADER);
         descriptionCol.setMinWidth(DESCRIPTION_COL_MIN_WIDTH);
         descriptionCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
@@ -132,24 +140,30 @@ public class HelpPopup extends UiPart {
     };
     
 
-//    //@@author A0143378Y
-//    public void properties() { 
-//        //Setting up the width and height
-//        content.setPrefHeight(DEFAULT_HEIGHT);
-//        content.setPrefWidth(DEFAULT_WIDTH);
-//        
-//        //Setting up wrapping of text in the content box 
-//        content.setWrapText(true);
-//        
-//        //Setting up the background, font and borders
-//        content.setStyle("-fx-background-color: #00BFFF;"
-//                + "-fx-padding:10px;"
-//                + "-fx-text-fill: #000080;"
-//                + "-fx-font-family: Fantasy;"
-//                + "-fx-alignment: center"
-//                + "-fx-font-size: 20px"
-//                );
-//    }
+    /**
+     * @@author A0143378Y-unused
+     * Styling for TextArea. Unused because we initially use a TextArea contained in a popup.
+     * But we changed it to a TableView instead.
+     */
+    /*
+    public void properties() { 
+        //Setting up the width and height
+        content.setPrefHeight(DEFAULT_HEIGHT);
+        content.setPrefWidth(DEFAULT_WIDTH);
+        
+        //Setting up wrapping of text in the content box 
+        content.setWrapText(true);
+        
+        //Setting up the background, font and borders
+        content.setStyle("-fx-background-color: #00BFFF;"
+                + "-fx-padding:10px;"
+                + "-fx-text-fill: #000080;"
+                + "-fx-font-family: Fantasy;"
+                + "-fx-alignment: center"
+                + "-fx-font-size: 20px"
+                );
+    }
+    */
 
     //@@author A0139194X
     //Sets the data to display

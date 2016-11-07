@@ -148,15 +148,6 @@ public class StorageManagerTest {
     public void reset() {
         storageManager.updateConfig(ORIGINAL_FOLDER);
     }
-    
-    //@@author
-//    //@@author A0139194X
-//    @Test
-//    public void updateConfig_success() {
-//        ConfigStub config = new ConfigStub(FILEPATH_NOT_ENDING_WITH_SLASH);
-//        storageManager.updateConfig(FILEPATH_NOT_ENDING_WITH_SLASH);
-//        assertEquals(config.getTaskManagerFilePath(), FILEPATH_NOT_ENDING_WITH_SLASH);
-//    }
 
     /**
      * A Stub class to throw an exception when the save method is called
