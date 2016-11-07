@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.task.Task;
 
-
+//@@author A0125097A
 public abstract class DashboardCard extends UiPart {
 
 	@FXML
