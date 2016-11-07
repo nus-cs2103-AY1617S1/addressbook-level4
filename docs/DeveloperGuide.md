@@ -461,27 +461,27 @@ More non functional requirements and project constraints can be found [here](htt
 
 > What you need to attend to with a specific deadline (e.g homework that requires submission)
 
-##### Task:
+##### Task
 
 > What you need to attend to that has no specific time/deadline (e.g call your mum to chat)
 
-##### Event:
+##### Event
 
 > What you need to attend to that has a start time and an end time (e.g lecture)
 
-##### Item:
+##### Item
 
 > A task, deadline, or event in TaskManager
 
-##### Date:
+##### Date
 
 > Date is given in format `YYYY-MM-DD`
 
-##### Time:
+##### Time
 
 > Time is given in format `HH:MM`
 
-##### Keyword:
+##### Keyword
 
 > A word that is in the name of a deadline, task, or event
 
@@ -494,6 +494,10 @@ More non functional requirements and project constraints can be found [here](htt
 > The components of Ivory Tasks are as follows:
 
 > <img src="images/app_component_names.png" width="600">
+
+##### File path relative to home folder
+
+> The location for which your data file is saved is navigated from the folder that your app is in.
 
 [comment]: # (@@author)
 
