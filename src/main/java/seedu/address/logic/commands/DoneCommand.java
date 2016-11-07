@@ -130,6 +130,8 @@ public class DoneCommand extends UndoableCommand {
 
     /**
      * Returns true if the done command is being executed on the done list.
+     * 
+     * @return A boolean representing if the done is executed on the done list.
      */
     private boolean attemptToExecuteDoneOnDoneList() {
         return isViewingDoneList && !isRedoAction;

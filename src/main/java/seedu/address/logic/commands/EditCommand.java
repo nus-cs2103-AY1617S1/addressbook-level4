@@ -313,7 +313,7 @@ public class EditCommand extends UndoableCommand {
     @Override
     public CommandResult undo() {
 
-        String taskBeforeUndoString = toEdit.toString();
+        String taskStringBeforeUndo = toEdit.toString();
 
         Name previousTaskName = beforeEdit.getName();
         Priority previousPriority = beforeEdit.getPriorityValue();
@@ -323,7 +323,7 @@ public class EditCommand extends UndoableCommand {
 
         model.editTask(toEdit, previousTaskName, previousStartDate, previousEndDate, previousPriority, previousRecurrenceRate);
         
-        String formattedResult = String.format(MESSAGE_UNDO_SUCCESS, taskBeforeUndoString, toEdit);
+        String formattedResult = String.format(MESSAGE_UNDO_SUCCESS, taskStringBeforeUndo, toEdit);
         return new CommandResult(formattedResult);
     }
 

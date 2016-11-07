@@ -25,9 +25,8 @@ We are a team based in the [School of Computing, National University of Singapor
   * Clear command
   * Help command
   * Tooltip
-  * Instant input task preview for Add and Edit commands
+  * Instant parser for `add` and `edit`
   * Input history navigation with Arrow Keys
-  * Switch view buttons
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)][[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)][docs]
 
 -----

@@ -116,7 +116,6 @@ public class MainWindow extends UiPart {
         viewButtons = SwitchViewButtons.load(primaryStage, getSwitchViewButtonsPlaceholder(), resultDisplay, logic, inputHistory);
     }
     
-    //@@author A0093960X
     public void swapTaskList(boolean isDoneList) {
         taskListPanel.reloadLists(logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList(), isDoneList);
     }

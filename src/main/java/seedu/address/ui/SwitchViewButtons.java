@@ -19,7 +19,6 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
-//@@author A0093960X
 /**
  * The controller for the buttons used to switch list views between showing
  * undone and done tasks.

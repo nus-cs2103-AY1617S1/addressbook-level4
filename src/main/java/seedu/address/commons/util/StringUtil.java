@@ -29,14 +29,15 @@ public class StringUtil {
     public static String applyStringAtPosition(String originalString, String stringToAdd, int position) {
         assert originalString != null && stringToAdd != null;
 
-        boolean isPositionBelowMinimumPosition = (position < 0);
-        boolean isPositionAboveMaximumPosition = (position > originalString.length());
+        int originalStringLen = originalString.length();
+        boolean isPositionBelowMinimum = (position < 0);
+        boolean isPositionAboveMaximum = (position > originalStringLen);
 
         
-        if (isPositionBelowMinimumPosition) {
+        if (isPositionBelowMinimum) {
             position = 0;
         }
-        else if (isPositionAboveMaximumPosition) {
+        else if (isPositionAboveMaximum) {
             position = originalString.length();
         }
 

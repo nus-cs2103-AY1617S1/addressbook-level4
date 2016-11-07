@@ -12,8 +12,6 @@ public interface ReadOnlyTask {
     Optional<Date> getEndDate();
     Optional<RecurrenceRate> getRecurrenceRate();
     
-    
-    //@@author A0093960X
     /**
      * Returns true if both have the same state. (interfaces cannot override
      * .equals) All fields must be equal.

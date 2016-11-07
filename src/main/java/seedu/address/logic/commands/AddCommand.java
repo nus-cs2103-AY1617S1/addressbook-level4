@@ -84,6 +84,11 @@ public class AddCommand extends UndoableCommand {
         return new CommandResult(formattedResult);
     }
 
+    /**
+     * Returns true if the add command is being executed on the done list.
+     * 
+     * @return A boolean representing if the add is executed on the done list.
+     */
     private boolean attemptToExecuteAddOnDoneList() {
         return model.isCurrentListDoneList() && (!isRedoAction);
     }
@@ -95,7 +100,7 @@ public class AddCommand extends UndoableCommand {
         String formattedResult;
         try {
             model.deleteUndoneTask(toAdd);
-            formattedResult = String.format(MESSAGE_UNDO_FAILURE, toAdd);
+            formattedResult = String.format(MESSAGE_UNDO_SUCCESS, toAdd);
             return new CommandResult(formattedResult);
 
         } catch (TaskNotFoundException e) {

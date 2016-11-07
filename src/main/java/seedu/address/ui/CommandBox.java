@@ -21,7 +21,6 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
-//@@author A0093960X
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -61,12 +60,16 @@ public class CommandBox extends UiPart {
         registerAsAnEventHandler(this);
     }
 
+    //@@author A0093960X
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        setupCommandBoxPosition();
+        setupKeyPressHandler();
+    }
 
+    /**
+     * Sets up the key press event handler for the command box.
+     */
+    private void setupKeyPressHandler() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
@@ -77,14 +80,24 @@ public class CommandBox extends UiPart {
                     keyEvent.consume();
                     handleUpDownArrow(keyEvent);
                     break;
-                default :
+                default:
                     break;
                 }
             }
         });
-
     }
 
+    /**
+     * Sets up the command box position at the placeholder position.
+     */
+    private void setupCommandBoxPosition() {
+        SplitPane.setResizableWithParent(placeHolderPane, false);
+        placeHolderPane.getChildren().add(commandTextField);
+        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+    }
+
+    //@@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
@@ -100,6 +113,7 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
+    //@@author A0093960X
     /**
      * Handles the event where the user enters an input in the command box.
      */
@@ -117,11 +131,22 @@ public class CommandBox extends UiPart {
 
     }
 
+    /**
+     * Returns whether the given keyInputAsString is an 'enter' key on Windows
+     * and Unix machines. <br>
+     * This is represented by CRLF on windows and LF on unix systems.
+     * 
+     * @param keyInputAsString The String to check
+     * @return A boolean representing if the String is a newline character
+     */
     private boolean isKeyPressedEnter(String keyInputAsString) {
-        // Enter is \r\n on windows, \n on unix
         return keyInputAsString.equals(CARRIAGE_RETURN) || keyInputAsString.equals(NEW_LINE);
     }
 
+    /**
+     * Handles the up or down arrow key event.
+     * @param event
+     */
     private void handleUpDownArrow(KeyEvent event) {
         KeyCode key = event.getCode();
 
@@ -172,10 +197,10 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Handles the event where the user is trying to navigate the input history.
-     * keyCode must either be up or down arrow key.
+     * Handles the event where the user is trying to navigate the input history.<br>
+     * Asserts that the KeyCode specified is either the UP or DOWN KeyCode.
      * 
-     * @param keyCode the keycode associated with this event
+     * @param keyCode The KeyCode associated with this event
      */
     private void handleInputHistoryNavigation(KeyCode keyCode) {
         assert (keyCode == KeyCode.UP) || (keyCode == KeyCode.DOWN);
@@ -198,11 +223,11 @@ public class CommandBox extends UiPart {
     /**
      * Returns whether the user is trying to access a previous or next input in
      * the input history but is already at the limit (either earliest history or
-     * latest history respectively). The caller should ensure that the KeyCode
-     * passed into this method is either an UP or DOWN only.
+     * latest history respectively). <br>
+     * Asserts that the KeyCode specified is either an UP or DOWN KeyCode.
      * 
-     * @param keyCode the KeyCode pressed
-     * @return boolean representing the above
+     * @param keyCode The KeyCode pressed
+     * @return The boolean representing the above
      */
     private boolean desiredInputHistoryUnavailable(KeyCode keyCode) {
         assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
@@ -214,8 +239,8 @@ public class CommandBox extends UiPart {
      * Returns whether the user is already at the latest input history state but
      * wants to access a next input.
      * 
-     * @param keyCode the KeyCode pressed
-     * @return boolean representing the above
+     * @param keyCode The KeyCode pressed
+     * @return The boolean representing the above
      */
     private boolean isAtLatestHistoryButWantNextInput(KeyCode keyCode) {
         return inputHistory.isLatestInput() && isAttemptingToGetNextInput(keyCode);
@@ -310,6 +335,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
+    //@@author
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
@@ -317,6 +343,7 @@ public class CommandBox extends UiPart {
         restoreCommandText();
     }
 
+    //@@author
     /**
      * Restores the command box text to the previously entered command
      */

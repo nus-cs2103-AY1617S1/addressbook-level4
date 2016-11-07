@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.item.RecurrenceRate;
+import seedu.address.model.item.TimePeriod;
 
 //@@author A0093960X
 public class XmlAdaptedRecurrenceRate {
@@ -29,9 +30,12 @@ public class XmlAdaptedRecurrenceRate {
      */
     public XmlAdaptedRecurrenceRate(RecurrenceRate source) {
         assert source.getRate() != null && source.getTimePeriod() != null;
+        
+        Integer sourceRate = source.getRate();
+        TimePeriod sourcePeriod = source.getTimePeriod();
 
-        rate = source.getRate().toString();
-        timePeriod = source.getTimePeriod().toString();
+        rate = sourceRate.toString();
+        timePeriod = sourcePeriod.toString();
 
     }
 

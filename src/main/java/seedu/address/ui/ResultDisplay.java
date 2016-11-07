@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 
-//@@author A0093960X
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
@@ -50,11 +49,13 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.textProperty().bind(displayed);
         resultDisplayArea.setPrefHeight(PREF_HEIGHT);
 
+        //@@author A0093960X
         resultDisplayArea.textProperty().addListener(e -> {
             int newHeight = computeNewHeight();
             setNewHeight(newHeight);
         });
 
+        //@@author
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -62,6 +63,7 @@ public class ResultDisplay extends UiPart {
 
     }
 
+    //@@author A0093960X
     /**
      * Sets the height of the result display to the specified newHeight
      * @param newHeight The new height to set the result display area to
@@ -92,6 +94,7 @@ public class ResultDisplay extends UiPart {
         return StringUtils.countMatches(displayedText, NEWLINE_STRING);
     }
 
+    //@@author
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;

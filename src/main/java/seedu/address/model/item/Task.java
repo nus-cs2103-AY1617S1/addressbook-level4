@@ -139,7 +139,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return builder.toString();
     }
 
-    // @@author A0093960X
+    //@@author
     @Override
     public boolean equals(Object other) {
 
