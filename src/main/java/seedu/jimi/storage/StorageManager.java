@@ -90,6 +90,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
+    // @@author A0143471L
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent spce) {
         logger.info(LogsCenter.getEventHandlingLogMessage(spce, "Storage file path changed"));
@@ -102,4 +103,5 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         } 
     }
+    // @@author A0143471L
 }
