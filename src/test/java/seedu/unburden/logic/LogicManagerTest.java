@@ -1701,7 +1701,27 @@ public class LogicManagerTest {
 							  expectedList);
 	}
 	
+	//@@author A0139714B
+	@Test
+	public void execute_setdir_reset() throws Exception {
+		logic.execute("setdir reset"); //reset directory to original file path
+		assertCommandBehavior("setdir reset", SetDirectoryCommand.MESSAGE_SAME_AS_CURRENT);
+	}
 	
+	//@@author A0139714B
+	@Test
+	public void execute_setdir_invalidpath() throws Exception {
+		logic.execute("setdir reset"); //reset directory to original file path
+		assertCommandBehavior("setdir C::/blah.xml", SetDirectoryCommand.MESSAGE_INVALID_PATH);
+	}
+	
+	//@@author A0139714B
+	@Test
+	public void execute_setdir_validpath() throws Exception {
+		logic.execute("setdir reset"); //reset directory to original file path
+		String filePath = "C:/blah.xml";
+		assertCommandBehavior("setdir C:/blah.xml", String.format(SetDirectoryCommand.MESSAGE_SUCCESS, filePath));
+	}
 	
 	
 	@Test
