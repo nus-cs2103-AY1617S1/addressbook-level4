@@ -97,3 +97,13 @@ Command | Expected behavior
 `clear incomplete` | The remaining task "Buy baby milk" is deleted
 `clear events before tmr 5.30pm` | CS1010FC meeting is deleted
 `clear` | All calendar items are deleted
+
+### Alias / Unalias command
+
+Command | Expected behavior
+------- | -----------------
+`alias` | The alias list shows up. It should be empty, if we started from a fresh instance
+`alias create add` | The alias mapping (`create` -> `add`) should show up on the list
+`create task Buy durians by 4pm` | Task is added, since we aliased `create` to `add`.
+`unalias create` | Alias list shows up with the alias mapping removed
+`unalias` | Disambiguate
