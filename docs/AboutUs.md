@@ -15,9 +15,9 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 * Components in charge of: [Storage] (https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Code Quality, Deliverables
 * Features Implemented
-  *[List Activities by type] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#list-activities--list)
-  *[Find by Tags] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#find-by-tag--findtag)
-  *[Add Activities] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#adding-an-activity--add)
+  * [List Activities by type] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#list-activities--list)
+  * [Find by Tags] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#find-by-tag--findtag)
+  * [Add Activities] (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#adding-an-activity--add)
 * Code Written: :[[functional code](A0131813R.md)][[test code](A0131813R.md)][[docs](A0131813R.md)]
 * Other major contributions:
   * Implemented recurring parameters
@@ -56,7 +56,7 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 * Components in charge of: [Test](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
 * Aspects/tools in charge of: Junit
 * Features Implemented
-  *
+  * [Test]
 * Code Written:[[functional code] (A0125284H.md)][[test code] (A0125284H.md)][[docs] (A0125284H.md)]
 * Other major contributions:
   * Created sub-classes for ListPanel
