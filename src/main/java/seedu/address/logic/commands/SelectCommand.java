@@ -7,7 +7,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.UnmodifiableObservableList;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects an item identified using it's last displayed index from the toDoList.
  */
 public class SelectCommand extends Command {
 
@@ -16,11 +16,11 @@ public class SelectCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the task identified by the index number used in the last task listing.\n"
+            + ": Selects the item identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected item: %1$s";
 
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;

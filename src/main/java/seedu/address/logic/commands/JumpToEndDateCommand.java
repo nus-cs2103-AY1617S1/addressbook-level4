@@ -4,8 +4,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.JumpToFilterPanelEvent;
 import seedu.address.commons.util.Types;
 
+//@@author A0146123R
 /**
- * Jumps to the end date text field in filter panel
+ * Jumps to the end date text field in filter panel.
  */
 public class JumpToEndDateCommand extends Command {
     

@@ -127,7 +127,7 @@ public class FilterPanel extends UiPart {
      */
     @Subscribe
     private void handleJumpFilterPanelEvent(JumpToFilterPanelEvent event) {
-        Types qualification = event.getQualification();
+        Types qualification = event.getAttribute();
         switch (qualification) {
         case DEADLINE:
             deadlineTextField.requestFocus();

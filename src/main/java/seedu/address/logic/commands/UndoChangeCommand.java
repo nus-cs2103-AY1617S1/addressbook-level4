@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.StateLimitException;
 
 //@@author A0146123R
 /**
- * Undoes change the storage location of the task manager.
+ * Undoes change the storage location of the toDoList.
  */
 public class UndoChangeCommand extends Command {
 
@@ -22,7 +22,6 @@ public class UndoChangeCommand extends Command {
             + " It must be abscent or \"clear\".";
 
     private static final String CLEAR = "clear";
-    private static final String EMPTY = "";
 
     private final String clear;
     private final boolean isToClearNew;
@@ -32,7 +31,7 @@ public class UndoChangeCommand extends Command {
      */
     public UndoChangeCommand(String clear) {
         this.clear = clear.trim();
-        this.isToClearNew = !this.clear.equals(EMPTY);
+        this.isToClearNew = !clear.isEmpty();
     }
 
     @Override
@@ -56,7 +55,7 @@ public class UndoChangeCommand extends Command {
      * Returns true if the given clear data argument is valid.
      */
     private static boolean isValidClear(String clear) {
-        return clear.equals(EMPTY) || clear.equals(CLEAR);
+        return clear.isEmpty() || clear.equals(CLEAR);
     }
 
 }

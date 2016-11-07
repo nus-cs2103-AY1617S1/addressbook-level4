@@ -4,7 +4,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.logic.commands.Command;
 
 /**
- * Indicates an attempt to execute an incorrect command
+ * Indicates an attempt to execute an incorrect command.
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 

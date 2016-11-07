@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.commons.util.Stemmer;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.Types;
@@ -434,7 +435,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.dateValue = dateValue.trim();
             this.dateType = dateType;
             this.isEvent = dateType.equals(Types.DEADLINE) ? false : true;
-            this.isDay = isDay(this.dateValue);
+            this.isDay = DateUtil.isDateFormat(this.dateValue);
         }
 
         @Override
@@ -462,10 +463,6 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "date type=" + dateType + " date=" + dateValue;
-        }
-
-        private boolean isDay(String date) {
-            return date.split(TIME_SEPERATOR).length == NUM_OF_PARTS_DAY;
         }
 
         private String getDay(String date) {

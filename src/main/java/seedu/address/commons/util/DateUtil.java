@@ -15,7 +15,7 @@ import com.joestelmach.natty.DateGroup;
 
 //@@author A0146123R
 /**
- * Utility methods related to Dates
+ * Utility methods related to Date.
  */
 public class DateUtil {
 
@@ -26,7 +26,6 @@ public class DateUtil {
     private static final DateFormat dateTimeFormat = new SimpleDateFormat("dd.MM.yyyy-HH");
     private static final DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
             .withLocale(Locale.GERMAN);
-    private static final String EMPTY = "";
     private static final String TIME_SEPERATOR = "-";
 
     /**
@@ -40,7 +39,7 @@ public class DateUtil {
      * Returns true if the given string is an empty deadline.
      */
     public static boolean isEmptyDate(String test) {
-        return test.equals(EMPTY);
+        return test.isEmpty();
     }
 
     /**
@@ -52,8 +51,7 @@ public class DateUtil {
      *             if the given date cannot be parsed
      */
     public static String parseDate(String date) throws IndexOutOfBoundsException {
-        String[] parts = date.split(TIME_SEPERATOR);
-        if (parts.length == 1) {
+        if (isDateFormat(date)) {
             try {
                 return dateFormat.format(dateFormat.parse(date));
             } catch (ParseException e) {

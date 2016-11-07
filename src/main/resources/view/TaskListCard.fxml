@@ -13,7 +13,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="73" minHeight="60" prefHeight="73" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="68" minHeight="60" prefHeight="68" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@LightTheme.css" />
                         <URL value="@Extensions.css" />

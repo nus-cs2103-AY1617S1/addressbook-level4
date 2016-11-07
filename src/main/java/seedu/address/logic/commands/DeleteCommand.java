@@ -2,14 +2,12 @@ package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,18 +23,18 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the  Task identified by the index number or specific name used in the last Task listing.\n"
+            + ": Deletes the item identified by the index number or specific name used in the most recent listing.\n"
             + "Parameters: INDEX (must be a positive integer) or NAME\n" + "Example: " + COMMAND_WORD
             + " 1 or horror night";
 
-    public static final String MESSAGE_DELETE_SAME_NAME = "Please select the Task identified "
+    public static final String MESSAGE_DELETE_SAME_NAME = "Please select the item identified "
             + "by the index number.\n" + "Parameters: INDEX(must be a positive integer)\n" + "Example: " + COMMAND_WORD
             + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
-    public static final String MESSAGE_DELETE_NOT_FOUND = "Task to delete is not found";
-    public static final String MESSAGE_DELETE_INVALID_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_DELETE_NOT_FOUND = "Item to delete is not found";
+    public static final String MESSAGE_DELETE_INVALID_INDEX = "The item index provided is invalid";
     // one or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 

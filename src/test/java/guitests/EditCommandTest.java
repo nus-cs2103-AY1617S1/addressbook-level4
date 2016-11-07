@@ -44,7 +44,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		if(type.equals("e/") || type.equals("d/") || type.equals("s/"))
 			taskListPanel.navigateToTask(name).getDate().equals(details);
 		else if(type.equals("n/"))
-			taskListPanel.navigateToTask(name).getName().equals(details);
+			taskListPanel.navigateToTask(details).getName().equals(details);
 		else
 			assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
 	}

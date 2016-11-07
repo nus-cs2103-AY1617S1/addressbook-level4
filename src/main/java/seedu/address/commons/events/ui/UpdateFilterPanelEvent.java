@@ -9,7 +9,7 @@ import seedu.address.commons.util.Types;
 //@@author A0146123R
 /**
  * Represents a change in the filtered tasks in model that requires the Filter
- * Panel to update correspondingly
+ * Panel to update correspondingly.
  */
 public class UpdateFilterPanelEvent extends BaseEvent {
 
