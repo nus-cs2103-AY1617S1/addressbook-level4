@@ -1,19 +1,16 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
-import javafx.collections.FXCollections;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.whatnow.TestApp;
-import seedu.whatnow.testutil.TestTask;
 import seedu.whatnow.testutil.TestUtil;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

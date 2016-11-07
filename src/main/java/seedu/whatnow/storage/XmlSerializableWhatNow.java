@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.CollectionUtil;
-import seedu.whatnow.logic.commands.ChangeCommand;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
