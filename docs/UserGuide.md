@@ -60,14 +60,14 @@ Command | Format
 [Add](#add) | `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "EVENT_DETAILS" on|from START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
+[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]..."`
+&nbsp;| `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 [Complete](#com)| `complete INDEX`
 [Delete](#del) | `delete INDEX`
 [Edit](#edit) | `edit INDEX NEW_DETAILS`
 [Show](#show) | `show SECTION`
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
-[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]..."`
-&nbsp;| `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 [SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
@@ -91,13 +91,13 @@ Command | Default Command Word | Shortcuts
 -------- | :-------- | :--------
 [Help](#help) | `help` | `h`, `he`, `hel`
 [Add](#add) | `add` | `a`, `ad`
+[Find](#find) | `find` | `f`, `fi`, `fin`
 [Complete](#com) | `complete` | `c`, `co`, `com`, ... , `complet`
 [Delete](#del) | `delete` | `d`, `de`, `del`, ... , `delet`
 [Edit](#edit) | `edit` | `e`, `ed`, `edi`
 [Show](#show) | `show` | `s`, `sh`, `sho`
 [Undo](#undo)  | `undo` | `u`, `un`, `und`
 [Redo](#redo) | `redo` | `r`, `re`, `red`
-[Find](#find) | `find` | `f`, `fi`, `fin`
 [SaveAs](#saveas) | `saveas` | None
 [Clear](#clear) | `clear` | None
 [Exit](#exit) | `exit` | None
@@ -233,7 +233,7 @@ Examples:
 > <img src="images/Find.png" width="800">
 
 <!-- @@author A0138915X -->
-#### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
+#### Finding all tasks according to the dates you specify: `find`
 Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
 Format: `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 
