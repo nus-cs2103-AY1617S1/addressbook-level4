@@ -38,11 +38,12 @@ public class HelpCommand extends Command {
         }
     }
     
-    private static boolean IsHelpAvailable(String helpUrl) {                                                                                                                                                                                                 
+    //reused
+    private static boolean isHelpAvailable(String helpUrl) {                                                                                                                                                                                                 
         try {                                                                                                                                                                                                                                 
             final URL url = new URL(helpUrl);                                                                                                                                                                                 
-            final URLConnection conn = url.openConnection();                                                                                                                                                                                  
-            conn.connect();                                                                                                                                                                                                                   
+            final URLConnection connection = url.openConnection();                                                                                                                                                                                  
+            connection.connect();                                                                                                                                                                                                                   
             return true;                                                                                                                                                                                                                      
         } catch (MalformedURLException e) {                                                                                                                                                                                                   
             throw new RuntimeException(e);                                                                                                                                                                                                    
