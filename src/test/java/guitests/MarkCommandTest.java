@@ -9,34 +9,50 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
 /**
- * Tests Mark Command for GUI Test.
  * @@author A0121608N
+ * Tests Mark Command for GUI Test.
+ * 
  */
 
 public class MarkCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void mark() {
-
-        //mark the first in the list
+    //mark the first in the list
+    public void mark_firstIndex_success(){
         TestTask[] currentTaskList = td.getTypicalTasks();
-        int targetIndex = 1;
-        assertMarkTaskSuccess(targetIndex, currentTaskList);
-
-        //mark the last in the list
-        currentTaskList = TestUtil.removeTaskFromList(currentTaskList, targetIndex);
-        targetIndex = currentTaskList.length;
-        assertMarkTaskSuccess(targetIndex, currentTaskList);
-
-        //mark from the middle of the list
-        currentTaskList = TestUtil.removeTaskFromList(currentTaskList, targetIndex);
-        targetIndex = currentTaskList.length/2;
-        assertMarkTaskSuccess(targetIndex, currentTaskList);
-
-        //invalid index
+        assertMarkTaskSuccess(1, currentTaskList);
+    }
+    
+    @Test
+    //mark the last in the list
+    public void mark_lastIndex_success(){
+        TestTask[] currentTaskList = td.getTypicalTasks();
+        assertMarkTaskSuccess(currentTaskList.length, currentTaskList);
+    }
+    
+    @Test
+    //mark the middle in the list
+    public void mark_middleIndex_success(){
+        TestTask[] currentTaskList = td.getTypicalTasks();
+        assertMarkTaskSuccess(currentTaskList.length/2, currentTaskList);
+    }
+    
+    @Test
+    //mark completed task in the list
+    public void mark_completedTask_success(){
+        TestTask[] currentTaskList = td.getTypicalTasks();
+        assertMarkTaskSuccess(1, currentTaskList);
+        commandBox.runCommand("list /t /a");
+        commandBox.runCommand("mark 1");
+        assertTrue(taskListPanel.isListMatching(currentTaskList));
+    }
+    
+    @Test
+    // mark an invalid index
+    public void mark_invalidIndex_errorMessageShown() {
+        TestTask[] currentTaskList = td.getTypicalTasks();
         commandBox.runCommand("mark " + currentTaskList.length + 1);
         assertResultMessage("The task index provided is invalid");
-
     }
 
     /**
@@ -45,7 +61,6 @@ public class MarkCommandTest extends TaskBookGuiTest {
      * @param currentList A copy of the current list of tasks (before deletion).
      */
     private void assertMarkTaskSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask taskToMark = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("mark " + targetIndexOneIndexed);

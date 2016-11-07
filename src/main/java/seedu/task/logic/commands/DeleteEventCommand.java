@@ -1,13 +1,18 @@
 package seedu.task.logic.commands;
 
-import seedu.task.commons.core.Messages;
-import seedu.task.commons.core.UnmodifiableObservableList;
+import java.util.logging.Logger;
+
+import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 
 /**
- * Deletes an Event identified using it's last displayed index from the address book.
  * @@author A0121608N
+ * Deletes an Event identified using it's last displayed index from the taskbook.
+ * 
  */
 public class DeleteEventCommand extends DeleteCommand {
 
@@ -15,29 +20,35 @@ public class DeleteEventCommand extends DeleteCommand {
     
     private ReadOnlyEvent eventToDelete;
     
+    private final Logger logger = LogsCenter.getLogger(DeleteEventCommand.class);
+    
     public DeleteEventCommand(int targetIndex) {
         this.lastShownListIndex = targetIndex;
     }
-    
-    public DeleteEventCommand(ReadOnlyEvent eventToDelete) {
-		this.eventToDelete = eventToDelete;
-	}
+
+
+    public DeleteEventCommand(Event eventToDelete) {
+        this.eventToDelete = eventToDelete;
+    }
 
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
-
-        if (lastShownList.size() < lastShownListIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        assert model != null;
+        
+        if(eventToDelete == null){
+            UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
+    
+            if (outOfBounds(lastShownList.size())) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+            }
+            
+            eventToDelete = lastShownList.get(lastShownListIndex - 1);
         }
         
-        if(lastShownListIndex != 0){
-        	eventToDelete = lastShownList.get(lastShownListIndex - 1);
-        }
-
+        logger.info("-------[Executing DeleteEventCommand] " + this.toString() );
+        
         try {
             model.deleteEvent(eventToDelete);
         } catch (EventNotFoundException tnfe) {
@@ -47,6 +58,9 @@ public class DeleteEventCommand extends DeleteCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_EVENT_SUCCESS, eventToDelete));
     }
 
+    private boolean outOfBounds(int listSize){
+        return listSize < lastShownListIndex || lastShownListIndex < 1;
+    }
 
 	@Override
 	public CommandResult undo() {

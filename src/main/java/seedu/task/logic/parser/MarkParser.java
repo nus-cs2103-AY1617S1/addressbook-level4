@@ -10,29 +10,34 @@ import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.MarkCommand;
 
 /**
- * Responsible for validating and preparing the arguments for MarkCommand execution
  * @@author A0121608N
+ * Responsible for validating and preparing the arguments for MarkCommand execution
+ * 
  */
 
 public class MarkParser implements Parser {
-    private static final Pattern MARK_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[1-9]{1}\\d*$)");
-	
+    private static final Pattern MARK_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)");
+    
     /**
      * Parses arguments in the context of the mark task command.
      *
+     * Regex matcher will ensure that the string parsed into an integer is valid, 
+     * hence there is no need to try and catch NumberFormatException
+     * 
      * @param args full command args string
      * @return the prepared command
      */
 	@Override
 	public Command prepare(String args) {
 	    final Matcher markMatcher = MARK_ARGS_FORMAT.matcher(args.trim());
-        if(!markMatcher.matches()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
-        }else{
+        if(markMatcher.matches()){
             int index = Integer.parseInt(markMatcher.group("targetIndex"));
-            return new MarkCommand(index);
+            if(index!=0){
+                return new MarkCommand(index);
+            }
         }
+        return new IncorrectCommand(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));  
 	}
 
 }

@@ -103,7 +103,10 @@ public class EventListPanel extends UiPart{
         }
     }
     
-    //@@author A0121608N
+    /** @@author A0121608N
+     * public function to get eventListView Node
+     *  used in focus traversal 
+     */
     public Node getEventListView(){
         return eventListView;
     }

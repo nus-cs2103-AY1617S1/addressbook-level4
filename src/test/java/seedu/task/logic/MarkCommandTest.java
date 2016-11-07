@@ -11,8 +11,9 @@ import seedu.task.model.TaskBook;
 import seedu.task.model.item.Task;
 
 /**
- * Responsible for testing the execution of MarkCommand
  * @@author A0121608N
+ * Responsible for testing the execution of MarkCommand
+ * 
  */
 
 public class MarkCommandTest extends CommandTest{
@@ -31,7 +32,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_MarkInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void mark_invalidArgs_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
         assertTaskIncorrectIndexFormatBehaviorForCommand("mark", expectedMessage);
     }
@@ -48,7 +49,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_MarkIndexNotFound_errorMessageShown() throws Exception {
+    public void mark_indexNotFound_errorMessageShown() throws Exception {
         assertTaskIndexNotFoundBehaviorForCommand("mark");
     }
     
@@ -67,7 +68,7 @@ public class MarkCommandTest extends CommandTest{
      */
     
     @Test
-    public void execute_mark_marksCorrectTask() throws Exception {
+    public void mark_secondIndex_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         
         Task t1 = helper.generateTask(1);
@@ -75,16 +76,16 @@ public class MarkCommandTest extends CommandTest{
         Task t3 = helper.generateTask(3);
         
         List<Task> threeTasks = helper.generateTaskList(3);
-        List<Task> expectedABList = helper.generateTaskList(3);
+        List<Task> expectedTBList = helper.generateTaskList(3);
         List<Task> expectedList = helper.generateTaskList(t1, t3);
         helper.addTaskToModel(model, threeTasks);
 
-        TaskBook expectedAB = helper.generateTaskBook_Tasks(expectedABList);
-        expectedAB.markTask(t2);
+        TaskBook expectedTB = helper.generateTaskBook_Tasks(expectedTBList);
+        expectedTB.markTask(t2);
 
 
         assertTaskCommandBehavior("mark 2",
                 String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 2),
-                expectedAB,expectedList);
+                expectedTB,expectedList);
     }
 }

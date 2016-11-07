@@ -6,9 +6,10 @@ import javafx.scene.input.KeyCode;
 
 import static org.junit.Assert.assertTrue;
 
-/*
- * GUI test for Main Window
- * //@@author A0121608N
+/**
+ *  @@author A0121608N
+ *  GUI test for Main Window
+ *  
  */
 
 public class MainWindowTest extends TaskBookGuiTest {
@@ -18,16 +19,17 @@ public class MainWindowTest extends TaskBookGuiTest {
     private static final String EVENTLIST_VIEW_ID = "#eventListView";
     
     
-    // test for TAB key press at commandTextField
+    // test for one TAB key press at commandTextField
     @Test
-    public void tabKeyPress_commandTextField_moveOne(){
+    public void tabKeyPress_moveToResultDisplay_success(){
         mainGui.mouseClick(COMMAND_TEXT_FIELD_ID);
         mainGui.keyPress(KeyCode.TAB);
         assertFocusSuccess(RESULT_DISPLAY_ID);
     }
     
+    // verify that TAB key still works after reaching a new focus window
     @Test
-    public void tabKeyPress_commandTextField_moveTwoOne(){
+    public void tabKeyPress_moveToListViews_success(){
         mainGui.mouseClick(COMMAND_TEXT_FIELD_ID);
         mainGui.keyPress(KeyCode.TAB);
         mainGui.keyPress(KeyCode.TAB);
@@ -36,8 +38,9 @@ public class MainWindowTest extends TaskBookGuiTest {
         assertFocusSuccess(EVENTLIST_VIEW_ID);
     }
     
+    // verify that TAB key can traverse windows in one loop
     @Test
-    public void tabKeyPress_commandTextField_moveFour(){
+    public void tabKeyPress_moveToCommandTextFieldLoop_success(){
         mainGui.mouseClick(COMMAND_TEXT_FIELD_ID);
         mainGui.keyPress(KeyCode.TAB);
         mainGui.keyPress(KeyCode.TAB);
@@ -46,9 +49,9 @@ public class MainWindowTest extends TaskBookGuiTest {
         assertFocusSuccess(COMMAND_TEXT_FIELD_ID);
     }
     
-    // test for 3 x TAB key press at resultDisplay
+    // verify that TAB key can work from another window
     @Test
-    public void tabKeyPress_resultDisplay_success(){
+    public void tabKeyPress_moveToCommandTextField_success(){
         mainGui.mouseClick(RESULT_DISPLAY_ID);
         mainGui.keyPress(KeyCode.TAB);
         mainGui.keyPress(KeyCode.TAB);
@@ -57,7 +60,7 @@ public class MainWindowTest extends TaskBookGuiTest {
     }
     
     
-    
+    // helper function to check if focus is on a specified window
     private void assertFocusSuccess(String query){
         assertTrue(mainGui.isFocused(query));
     }

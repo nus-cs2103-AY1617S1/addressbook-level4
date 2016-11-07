@@ -30,7 +30,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
     //@@author A0121608N
     // test for DELETE key press
     @Test
-    public void commandBox_del_keyPress(){
+    public void deleteKeyPress_success(){
         commandBox.enterCommand("please delete this");
         commandBox.keyPress(KeyCode.DELETE);
         assertEquals(commandBox.getCommandInput(), "");
@@ -39,7 +39,7 @@ public class CommandBoxTest extends TaskBookGuiTest {
     
     // test for UP key press
     @Test
-    public void commandBox_UP_keyPress(){
+    public void upKeyPress_success(){
         commandBox.runCommand(TypicalTestTasks.cs1020.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
         commandBox.keyPress(KeyCode.UP);
@@ -48,15 +48,22 @@ public class CommandBoxTest extends TaskBookGuiTest {
     
     // test for DOWN key press
     @Test
-    public void commandBox_DOWN_keyPress(){
+    public void downKeyPress_success(){
         commandBox.runCommand(TypicalTestTasks.cs1020.getAddCommand());
         commandBox.runCommand(TypicalTestTasks.engine.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
+        
+        // verify that the pointer will not go out of bounds
+        commandBox.keyPress(KeyCode.DOWN);
+        assertEquals(commandBox.getCommandInput(), "");
+        
+        // verify that the pointer will not go out of bounds after traversing command history
         commandBox.keyPress(KeyCode.UP);
         commandBox.keyPress(KeyCode.UP);
         assertEquals(commandBox.getCommandInput(), TypicalTestTasks.cs1020.getAddCommand());
         commandBox.keyPress(KeyCode.DOWN);
         assertEquals(commandBox.getCommandInput(), TypicalTestTasks.engine.getAddCommand());
+
         commandBox.keyPress(KeyCode.DOWN);
         commandBox.keyPress(KeyCode.DOWN);
         commandBox.keyPress(KeyCode.DOWN);

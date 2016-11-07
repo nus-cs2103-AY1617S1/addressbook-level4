@@ -72,7 +72,8 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
-
+    //@@author A0121608N
+    // handle Command input (i.e ENTER key press)
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
@@ -87,13 +88,13 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
-    
-    //@@author A0121608N
+    // helper function to add the new command into the command history
     private void addNewCommand() {
         record.add(previousCommandTest);
         index = record.size();
     }
 
+    // handle key press events, specifically DELETE, UP and DOWN keys
     @FXML
     private void handleKeyPress(KeyEvent event) {
         switch (event.getCode()){
@@ -124,6 +125,9 @@ public class CommandBox extends UiPart {
         
     }
     
+    /** public function to get commandTextField Node
+     *  used in focus traversal 
+     */
     public Node getCommandTextField(){
         return commandTextField;
     }

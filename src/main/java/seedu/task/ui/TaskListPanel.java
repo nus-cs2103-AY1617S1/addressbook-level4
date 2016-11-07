@@ -105,7 +105,10 @@ public class TaskListPanel extends UiPart {
         }
     }
     
-    //@@author A0121608N
+    /** @@author A0121608N
+     * public function to get taskListView Node
+     *  used in focus traversal 
+     */
     public Node getTaskListView(){
         return taskListView;
     }

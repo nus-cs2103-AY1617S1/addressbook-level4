@@ -91,13 +91,16 @@ public class UnmodifiableObservableListTest {
     }
     
     //@@author A0121608N
+    
     @Test
+    // test for nullPointerException during initialization
     public void initialize_null_nullPointerExceptionReturned(){
         backing = null;
         thrown.expect(NullPointerException.class);
         list = new UnmodifiableObservableList<>(FXCollections.observableList(backing));
     }
     
+    // test "contains" function of unmodifiableObservableList
     @Test
     public void contains_false(){
         assertFalse(list.contains(9));
@@ -108,6 +111,7 @@ public class UnmodifiableObservableListTest {
         assertTrue(list.contains(10));
     }
     
+    // test "containsAll" function of unmodifiableObservableList
     @Test
     public void containsAll_false(){
         ArrayList<Integer> testList = new ArrayList<Integer>();
@@ -123,17 +127,20 @@ public class UnmodifiableObservableListTest {
         assertTrue(list.containsAll(testList));
     }
 
+    // test "toArray" function of unmodifiableObservableList
     @Test
     public void toArray_equals(){
         assertArrayEquals(backing.toArray(), list.toArray());
     }
     
+    // test ".equals" function of unmodifiableObservableList
     @Test
     public void equals_true(){
         UnmodifiableObservableList<Integer> testList = new UnmodifiableObservableList<>(FXCollections.observableList(backing));
         assertTrue(list.equals(testList));
     }
     
+    // test "lastIndexOf" function of unmodifiableObservableList
     @Test
     public void lastIndexOf_indexReturned(){
         backing.add(15);
@@ -143,6 +150,7 @@ public class UnmodifiableObservableListTest {
         assertEquals(3, list.lastIndexOf(15));
     }
     
+    // test list iterator functions of unmodifiableObservableList
     @Test
     public void iteratorTest(){
         backing.add(15);
@@ -150,13 +158,18 @@ public class UnmodifiableObservableListTest {
         backing.add(15);
         list = new UnmodifiableObservableList<>(FXCollections.observableList(backing));
         final ListIterator<Integer> liter = list.listIterator();
+        
         assertTrue(liter.hasNext());
         assertFalse(liter.hasPrevious());
+        
         liter.next();
+        
         assertEquals((Integer) 15,liter.next());
         assertEquals((Integer) 15,liter.previous());
         assertEquals(1,liter.nextIndex());
+        
         liter.next();
+        
         assertEquals(1,liter.previousIndex());
         
         assertEquals(3, list.lastIndexOf(15));

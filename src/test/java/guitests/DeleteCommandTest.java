@@ -11,53 +11,71 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 
 /**
- * Tests Delete Command for GUI Test.
  * @@author A0121608N
+ * Tests Delete Command for GUI Test.
+ * 
  */
 
 public class DeleteCommandTest extends TaskBookGuiTest {
 
     @Test
-    public void delete() {
-
-        //delete the first in the list
+    //delete the first in the tasklist
+    public void deleteTask_firstIndex_success(){
         TestTask[] currentTaskList = td.getTypicalTasks();
-        int targetIndex = 1;
-        assertDeleteTaskSuccess(targetIndex, currentTaskList);
-
-        //delete the last in the list
-        currentTaskList = TestUtil.removeTaskFromList(currentTaskList, targetIndex);
-        targetIndex = currentTaskList.length;
-        assertDeleteTaskSuccess(targetIndex, currentTaskList);
-
-        //delete from the middle of the list
-        currentTaskList = TestUtil.removeTaskFromList(currentTaskList, targetIndex);
-        targetIndex = currentTaskList.length/2;
-        assertDeleteTaskSuccess(targetIndex, currentTaskList);
-
-        //invalid index
+        assertDeleteTaskSuccess(1, currentTaskList);
+    }
+    
+    @Test
+    //delete the last in the tasklist
+    public void deleteTask_lastIndex_success(){
+        TestTask[] currentTaskList = td.getTypicalTasks();
+        assertDeleteTaskSuccess(currentTaskList.length, currentTaskList);
+    }
+    
+    @Test
+    //delete the middle in the tasklist
+    public void deleteTask_middleIndex_success(){
+        TestTask[] currentTaskList = td.getTypicalTasks();
+        assertDeleteTaskSuccess(currentTaskList.length/2, currentTaskList);
+    }
+    
+    @Test
+    // delete an invalid index in tasklist
+    public void deleteTask_invalidIndex_errorMessageShown() {
+        TestTask[] currentTaskList = td.getTypicalTasks();
         commandBox.runCommand("delete /t " + currentTaskList.length + 1);
         assertResultMessage("The task index provided is invalid");
-        
-        commandBox.runCommand("clear /t /a");
-        
-        
-        
-        //delete the first in the list
+    }
+    
+    @Test
+    //delete the first in the eventlist
+    public void deleteEvent_firstIndex_success(){
         TestEvent[] currentEventList = te.getTypicalNotCompletedEvents();
-        targetIndex = 1;
-        assertDeleteEventSuccess(targetIndex, currentEventList);
-
-        //delete the last in the list
-        currentEventList = TestUtil.removeEventFromList(currentEventList, targetIndex);
-        targetIndex = currentEventList.length;
-        assertDeleteEventSuccess(targetIndex, currentEventList);
-
-        //invalid index
+        assertDeleteEventSuccess(1, currentEventList);
+    }
+    
+    @Test
+    //delete the last in the eventlist
+    public void deleteEvent_lastIndex_success(){
+        TestEvent[] currentEventList = te.getTypicalNotCompletedEvents();
+        assertDeleteEventSuccess(currentEventList.length, currentEventList);
+    }
+    
+    @Test
+    //delete the middle in the eventlist
+    public void deleteEvent_middleIndex_success(){
+        TestEvent[] currentEventList = te.getTypicalNotCompletedEvents();
+        assertDeleteEventSuccess(currentEventList.length/2, currentEventList);
+    }
+    
+    @Test
+    // delete an invalid index in eventlist
+    public void deleteEvent_invalidIndex_errorMessageShown() {
+        TestEvent[] currentEventList = te.getTypicalNotCompletedEvents();
         commandBox.runCommand("delete /e " + currentEventList.length + 1);
         assertResultMessage("The event index provided is invalid");
-
     }
+    
 
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.

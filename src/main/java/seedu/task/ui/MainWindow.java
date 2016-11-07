@@ -85,12 +85,15 @@ public class MainWindow extends UiPart {
     public MainWindow() {
         super();
     }
-
+    
+    /** @@author A0121608N
+     *  sets the node and establish 2 event filters to bypass default focus traversal hierarchy
+     *  and to handle mouse selection of windows
+     */
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;
-        
-        //@@author A0121608N
+
         // adds an event filter to bypass default focus traversal hierarchy
         rootLayout.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
@@ -118,9 +121,8 @@ public class MainWindow extends UiPart {
                 }
             }
         });
-
-        //@@author
     }
+    //@@author
 
     @Override
     public String getFxmlPath() {
@@ -159,8 +161,9 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
+    //@@author A0121608N
     void fillInnerParts() {
-//    	AquaFx.style();
+        //AquaFx.style();
     	calendarPanel = CalendarPanel.load(primaryStage, getCalendarPlaceholder(), logic.getAllEvents(), logic.getAllTasks());
     	eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -168,16 +171,15 @@ public class MainWindow extends UiPart {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         
-        //@@author A0121608N
         // define focus variables
         focusNumber = 0;
         focusElements.add(commandBox.getCommandTextField());
         focusElements.add(resultDisplay.getResultDisplayArea());
         focusElements.add(taskListPanel.getTaskListView());
         focusElements.add(eventListPanel.getEventListView());
-        //@@author
-        
+
     }
+    //@@author
 
     private AnchorPane getCalendarPlaceholder() {
 		return calendarPlaceholder;

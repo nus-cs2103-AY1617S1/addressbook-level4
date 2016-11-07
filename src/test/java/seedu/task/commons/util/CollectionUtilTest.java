@@ -11,17 +11,19 @@ import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 
 /**
- * Utility methods test cases
  * @@author A0121608N
+ * Utility methods test cases
+ * 
  */
 public class CollectionUtilTest {
 
     /**
      * Test for helper class CollectionUtil
+     * Test for null in collection
      */
 
     @Test
-    public void test() throws Exception{
+    public void collectionUtilTest() throws Exception{
         Name testName = new Name("Task 1");
         Description testDescription = new Description("finish my part");
         Deadline testDeadline = null;
