@@ -18,6 +18,7 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.SwapTaskListEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.history.InputHistory;
+import seedu.address.history.InputHistoryManager;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -36,12 +37,12 @@ public class UiManager extends ComponentManager implements Ui {
     private InputHistory history;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs, InputHistory history) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
-        this.history = history;
+        this.history = InputHistoryManager.getInstance();
     }
 
     @Override

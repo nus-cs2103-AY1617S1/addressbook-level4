@@ -2,9 +2,10 @@ package seedu.address.history;
 
 //@@author A0093960X
 /**
- * API of the InputHistory component
+ * Interface API for the InputHistory.
  */
 public interface InputHistory {
+    // Applying facade for the InputHistoryManager class.
 
     /**
      * Updates the input history with the given input and resets the input

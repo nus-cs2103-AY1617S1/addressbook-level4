@@ -160,8 +160,8 @@ public class TooltipTest {
      * will be compared against the expectedTooltip, assumes that the user is
      * currently viewing the undone list.
      * 
-     * @param userInput the user input
-     * @param expectedTooltip expected tool tip to be shown to user
+     * @param userInput The user input
+     * @param expectedTooltip Expected tool tip to be shown to user
      */
     private void assertTooltipBehaviorUndoneList(String userInput, String expectedToolTip) {
         String generatedToolTip = commandParser.parseForTooltip(userInput, false);
@@ -173,8 +173,8 @@ public class TooltipTest {
      * will be compared against the expectedTooltip, assumes that the user is
      * currently viewing the done list.
      * 
-     * @param userInput the user input
-     * @param expectedTooltip expected tool tip to be shown to user
+     * @param userInput The user input
+     * @param expectedTooltip Expected tool tip to be shown to user
      */
     private void assertToolTipBehaviorDoneList(String userInput, String expectedToolTip) {
         String generatedToolTip = commandParser.parseForTooltip(userInput, true);
@@ -186,11 +186,11 @@ public class TooltipTest {
      * parameter is passed null, that field will be assumed to be absent from
      * the tooltip.
      * 
-     * @param name the String that will appear in the name field
-     * @param priority the String that will appear in the priority field
-     * @param recurrence the String that will appear in the recurrence field
-     * @param startDate the String that will appear in the start date field
-     * @param endDate the String that will appear in the end date field
+     * @param name The String that will appear in the name field
+     * @param priority The String that will appear in the priority field
+     * @param recurrence The String that will appear in the recurrence field
+     * @param startDate The String that will appear in the start date field
+     * @param endDate The String that will appear in the end date field
      */
     private String buildAddTooltip(String name, String priority, String recurrence, String startDate, String endDate) {
         StringBuilder sb = new StringBuilder();
@@ -215,12 +215,12 @@ public class TooltipTest {
     /**
      * Helper method to build the edit tooltip for testing purposes.
      * 
-     * @param index the String that will appear in the index field
-     * @param name the String that will appear in the name field
-     * @param priority the String that will appear in the priority field
-     * @param recurrence the String that will appear in the recurrence field
-     * @param startDate the String that will appear in the start date field
-     * @param endDate the String that will appear in the end date field
+     * @param index The String that will appear in the index field
+     * @param name The String that will appear in the name field
+     * @param priority The String that will appear in the priority field
+     * @param recurrence The String that will appear in the recurrence field
+     * @param startDate The String that will appear in the start date field
+     * @param endDate The String that will appear in the end date field
      */
     private String buildEditTooltip(String index, String name, String priority, String recurrence, String startDate,
             String endDate) {

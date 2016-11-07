@@ -1,8 +1,11 @@
 package seedu.address.history;
 
 import java.util.Stack;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
+
+import seedu.address.commons.core.LogsCenter;
 
 //@@author A0093960X
 /**
@@ -11,6 +14,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class InputHistoryManager implements InputHistory {
 
+    private static final Logger logger = LogsCenter.getLogger(InputHistory.class);
+    
     private static InputHistoryManager theInputHistoryManager;
 
     // command inputs
@@ -36,7 +41,8 @@ public class InputHistoryManager implements InputHistory {
     @Override
     public void updateInputHistory(String userInput) {
         assert prevInputs != null && nextInputs != null && currentStoredInputShown != null;
-
+        
+        logger.info("Updating the input history with the given user input.");
         if (!isLatestInput()) {
             pushToPrevInput(currentStoredInputShown);
         }
@@ -60,20 +66,17 @@ public class InputHistoryManager implements InputHistory {
 
     @Override
     public String prevStep(String currentInput) {
-        String inputToStore;
+        logger.info("Executing the prevStep method to get the previous input from input history.");
 
-        if (isLatestInput()) {
-            inputToStore = currentInput;
-        } else {
-            inputToStore = currentStoredInputShown;
-        }
-
+        String inputToStore = decideInputToStore(currentInput);
         pushToNextInput(inputToStore);
         return popFromPrevInput();
     }
 
     @Override
     public String nextStep() {
+        logger.info("Executing the nextStep method to get the previous input from input history.");
+        
         pushToPrevInput(currentStoredInputShown);
         return popFromNextInput();
     }
@@ -81,9 +84,27 @@ public class InputHistoryManager implements InputHistory {
     // private helper methods below
 
     /**
+     * Returns the correct input to store depending on whether the current state
+     * is at the latest input state.
+     * 
+     * @param currentInput The current user input String
+     * @return The correct input to store into the input history
+     */
+    private String decideInputToStore(String currentInput) {
+        if (isLatestInput()) {
+            logger.info("Storing the given currentInput String to input history.");
+            return currentInput;
+        } else {
+            logger.info("Storing the currentStoredInputShown String to input history.");
+            return currentStoredInputShown;
+        }
+    }
+
+    /**
      * Resets the current stored input shown to an empty string.
      */
     private void resetCurrentStoredInputShown() {
+        logger.info("Resetting the current stored input shown.");
         currentStoredInputShown = StringUtils.EMPTY;
     }
 
@@ -92,6 +113,7 @@ public class InputHistoryManager implements InputHistory {
      * transferring all the valid next input into the previous input history.
      */
     private void resetInputHistoryToLatestState() {
+        logger.info("Resetting the input history to the latest state.");        
 
         boolean isEarliestNextInputValid = isLatestInput();
         String nextInputToTransfer;

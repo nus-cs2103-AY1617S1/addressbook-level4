@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.history.UndoableCommandHistory;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.CommandParser;
@@ -23,9 +24,9 @@ public class LogicManager extends ComponentManager implements Logic {
     private final UndoableCommandHistory history;
     private final CommandParser parser;
 
-    public LogicManager(Model model, Storage storage, UndoableCommandHistory history) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.history = history;
+        this.history = UndoableCommandHistoryManager.getInstance();
         this.parser = new CommandParser();
     }
 
@@ -47,7 +48,6 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredDoneTaskList();
     }
 
-    // @@author A0093960X
     /**
      * Generates the tool tip for the given user input.<br>
      * Asserts that the userInput is not null.
@@ -62,5 +62,4 @@ public class LogicManager extends ComponentManager implements Logic {
         boolean viewingDoneList = model.isCurrentListDoneList();
         return parser.parseForTooltip(userInput, viewingDoneList);
     }
-    // @@author
 }
