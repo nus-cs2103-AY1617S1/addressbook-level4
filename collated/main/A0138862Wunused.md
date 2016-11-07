@@ -1,5 +1,5 @@
 # A0138862Wunused
-###### \java\harmony\mastermind\logic\commands\AddCommand.java
+###### /java/harmony/mastermind/logic/commands/AddCommand.java
 ``` java
     /**
      * 
@@ -31,7 +31,7 @@
 
     // floating
 ```
-###### \java\harmony\mastermind\logic\commands\AddCommand.java
+###### /java/harmony/mastermind/logic/commands/AddCommand.java
 ``` java
     /**
      * The builder constructor has taken care of all the construction of event, floating and deadline

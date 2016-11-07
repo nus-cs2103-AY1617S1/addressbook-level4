@@ -1,5 +1,14 @@
 # generated
-###### \java\harmony\mastermind\testutil\TestTask.java
+###### /java/harmony/mastermind/testutil/TypicalTestTasks.java
+``` java
+    public TaskManager getTypicalTaskManager(){
+        TaskManager tm = new TaskManager();
+        loadTaskManagerWithSampleData(tm);
+        return tm;
+    }
+}
+```
+###### /java/harmony/mastermind/testutil/TestTask.java
 ``` java
     @Override
     public boolean isDue() {
@@ -19,25 +28,17 @@
     @Override
     public Duration getEventDuration(){
         return null;
-    }
-
-    @Override
-    public Date getCreatedDate() {
-        return null;
-    }
-    
-    
-    
+    } 
 }
 ```
-###### \java\harmony\mastermind\testutil\TestUtil.java
+###### /java/harmony/mastermind/testutil/TestUtil.java
 ``` java
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
 
 ```
-###### \java\harmony\mastermind\testutil\TestUtil.java
+###### /java/harmony/mastermind/testutil/TestUtil.java
 ``` java
     public static Tag[] getTagList(String tags) {
 
@@ -59,14 +60,5 @@
         return collect.toArray(new Tag[split.length]);
     }
 
-}
-```
-###### \java\harmony\mastermind\testutil\TypicalTestTasks.java
-``` java
-    public TaskManager getTypicalTaskManager(){
-        TaskManager tm = new TaskManager();
-        loadTaskManagerWithSampleData(tm);
-        return tm;
-    }
 }
 ```
