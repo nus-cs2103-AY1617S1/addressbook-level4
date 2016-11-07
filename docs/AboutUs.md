@@ -33,7 +33,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * [Find Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#8-find-command)
   * [List Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#7-list-command)
   * [Clear Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#9-clear-command)
-* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0139678J.md)][test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0139678J.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0139678J.md)]
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0139678J.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0139678J.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0139678J.md)]
  
 -----
 
@@ -45,7 +45,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented: 
   * [Done Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#5-done-command)
   * [UnDone Command](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/docs/UserGuide.md#6-undone-command)
-* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0143095H.md)][test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0143095H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0143095H.md)]
+* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0143095H.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0143095H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0143095H.md)]
 * Other major contributions: 
  * Created the various classes for seedu.unburden.model.task package (e.g Date, Name, Time, Task and Task Description classed)
  * Redesigned the GUI for the application, Unburden
@@ -58,7 +58,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Component in charge of: UI
 * Unused Features implemented:
 
-* Code Written: [[functional code](* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0143095H.md)][test code](A0143095H.md)][[docs](A0143095H.md)])][test code](A0143095H.md)][[docs](A0143095H.md)]
+* Code Written: [[functional code](* Code Written: [[functional code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/main/A0147986H.md)][[test code](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/test/A0147986H.md)][[docs](https://github.com/CS2103AUG2016-T09-C4/main/blob/master/collated/docs/A0147986H.md)]
  
 -----
 
