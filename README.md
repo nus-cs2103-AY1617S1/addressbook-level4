@@ -19,7 +19,8 @@
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
   
-* This program uses Natty Time(http://natty.joestelmach.com/)
+* This program uses Natty Time (http://natty.joestelmach.com/)
 
+* This program is build based off Address Book Level 4's code sample
 
 #### Licence : [MIT](LICENSE)
