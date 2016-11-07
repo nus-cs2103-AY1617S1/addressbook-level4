@@ -66,9 +66,9 @@ Command | Format
 [Show](#show) | `show SECTION`
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
-[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]"`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME to DATE_TIME`
+[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]..."`
+&nbsp;| `find "KEYWORD [MORE_KEYWORDS]..." from DATE_TIME`
+&nbsp;| `find "KEYWORD [MORE_KEYWORDS]..." from DATE_TIME to DATE_TIME`
 [SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
@@ -81,6 +81,7 @@ Command | Format
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
 * Items in `[]` are optional.
+* Items followed by ellipses, `...`, means you can have multiple instances of that item.
 * Items seperated by `|` simply means any of the items will work. E.g. `on|from`, typing `on` instead of `from` and vice versa are fine.
 * The order of your input text is fixed. For instance, `add DATE_TIME due "TASK_DETAILS"` is invalid. 
 * Some commands allow shorter command words for advanced users. Some commands, due to their critical nature e.g. `exit` or `clear`, you are required to type the full command word.
