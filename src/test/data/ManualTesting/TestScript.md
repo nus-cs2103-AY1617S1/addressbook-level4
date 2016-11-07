@@ -87,7 +87,7 @@
 ## 3. Done Command
 ------
 ### 3.1 Mark task or event as done by index
-> **Command:** `list`<br> `done 14`<br>
+> **Command:** `list`<br> `done 13`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
 `Marked as done: discuss project Deadline: 08.11.2016 done  recurring weekly Priority Level: 1`
@@ -163,7 +163,7 @@
 > **Command:** `edit tomb sweeping n/do housework`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: do housework Deadline: 05.03.2016 done`
+`This task has been edited: do housework Deadline: 04.04.2016 done`
 - TaskList panel updates and shows the the last shown list with the updated field.
 
 ### 6.2 Edit time of task
@@ -181,7 +181,7 @@
 > **Command:** `edit learn korea r/daily`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: learn korea Deadline: 02.03.2016 recurring daily`
+`This task has been edited: learn korea recurring daily`
 - TaskList panel shows the newly edited task card with recurring frequency changed.
 
 #### 6.4 Edit the priority level of task
@@ -227,7 +227,7 @@ The result is the same as `1`
 
 ### 8.2 Undo/Redo add and delete command
 > **Command:** <br>
-> 1. `add n/cs2103 testing d/tonight p/3`<br>
+> 1. `add n/cs2103 testing d/7.11.2016 p/3`<br>
 > 2. `delete cs2103` <br>
 > 3. `delete 1`<br>
 > 4. `undo`<br>
@@ -261,7 +261,7 @@ The result is the same as `1`
 > 7.
 - Result display panel posts message:<br>
 `Redid the most recent action that is undone.`<br>
-`Deleted Task: cs2103 testing Deadline: 07.11.2016-20 Priority Level: 3`
+`Deleted Event: cs2103 lecture Event Date: 11.11.2016 to 11.11.2016 recurring weekly Priority Level: 1`
 - TaskList panel displays 2 task cards, without the task card `cs2103 lecture 11.11.2016 to 11.11.2016`
 
 ------
@@ -312,23 +312,15 @@ The result is the same as `1`
 - Result display panel posts message:<br>
 `2 events and tasks listed!`
 - TaskList panel lists all events and tasks whose deadline is on 11.11.2016 and recurring frequency is weekly
-- The deadline text fiedd in filter panel shows `11.11.2016` 
+- The deadline text field in filter panel shows `11.11.2016` 
 
 ### 10.3 Filter by start date and end date
-> **Command:** `filter s/08.11.2016 e/08.11.2016`<br>
+> **Command:** `filter s/08.3.2016 e/08.3.2016`<br>
 > **Result:**
 - Result display panel posts message:<br>
 `1 events and tasks listed!`
-- TaskList panel lists all events whose start date and end date are on 08.11.2016
-- The start date and end date text fields in filter panel shows `08.11.2016`
-
-### 10.4 Filter by priority and tag
-> **Command:** `filter p/1 t/academic`<br>
-> **Result:**
-- Result display panel posts message:<br>
-`1 events and tasks listed!`
-- TaskList panel lists all events whose priority is 1 and has tag academic
-- The priority choice box in filter panel showss `1` and the tag text field shows `academic`
+- TaskList panel lists all events whose start date and end date are on 08.03.2016
+- The start date and end date text fields in filter panel shows `08.03.2016`
 
 ------
 ## 11. Change Directory Command
@@ -378,6 +370,12 @@ The result is the same as `1`
 - Status Foot Bar updates to show the `toDoList.xml`
 - Open the folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
 - Reboot the app, it will load the file under the new path.
+
+### 12.4 Changes the default storage location back to SampleData.xml
+> **Command:** `change data/SampleData.xml clear`<br>
+> **Result:**
+-Result display panell posts message:<br>
+`Storage location changed: data/SampleData.xml`
 
 ------
 ## 13. Exit Command
