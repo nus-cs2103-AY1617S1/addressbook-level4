@@ -7,6 +7,8 @@ import static seedu.unburden.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
@@ -22,7 +24,7 @@ public class Parser {
 	 * Used for initial separation of command word and args.
 	 */
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
+	
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	private static final Pattern KEYWORDS_NAME_FORMAT = Pattern.compile("(?<keywords>[A-Za-z0-9 \\-,.?!\'\"]+)");
@@ -74,6 +76,11 @@ public class Parser {
 	private static final Pattern SET_DIR_FORMAT = Pattern.compile("(?<filename>.+).xml");
 
 	private static final Pattern SET_DIR_FORMAT_RESET = Pattern.compile(SetDirectoryCommand.COMMAND_RESET);
+	
+	//@@author A0147986H-unused
+	private static final Pattern INDEX_PHASE_FORMAT = Pattern.compile("(?<targetIndex>\\d+-\\d+)");
+			
+	private static final Pattern INDEX_LIST_FORMAT = Pattern.compile("(?<targetIndex>\\d+(\\s+\\d+)*)");
 
 	//@@author A0139678J
 	private static final String BYTODAY = "by today";
@@ -165,6 +172,9 @@ public class Parser {
 		case UnDoneCommand.COMMAND_WORD:
 			return prepareUnDone(arguments);
 
+		case UnwantedDeleteCommand.COMMAND_WORD:
+		    return prepareUnwantedDelete(arguments);
+		
 		default:
 			if (AddCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
 				return prepareAdd(arguments);
@@ -368,6 +378,73 @@ public class Parser {
 		return new DeleteCommand(index.get());
 	}
 	
+	//@@author A0147986H-unused
+	/**
+	 * Parses arguments in the context of the delete person command.
+	 *
+	 * @param args
+	 *            full command args string
+	 * @return the prepared command
+	 * This is unused because I did not discuss with my teammates in advanced so they decided 
+     * not to include this method
+	 */
+	private Command prepareUnwantedDelete(String args) throws ParseException {
+		final Matcher matcherList = INDEX_LIST_FORMAT.matcher(args.trim());
+		final Matcher matcherPhase = INDEX_PHASE_FORMAT.matcher(args.trim());  
+
+		if(!matcherList.matches()&&!matcherPhase.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));		
+		}
+
+		if(matcherPhase.matches()){
+			String indexes_phase = matcherPhase.group("targetIndex");
+			String[] SeperateIndexes_phase = indexes_phase.trim().split("-");
+			ArrayList<Integer> sortList = new ArrayList<> ();
+			ArrayList<Integer> indexesInt_phase = new ArrayList<> ();
+			Optional<Integer> index_list = parseIndex(SeperateIndexes_phase[0]);
+
+			if (!index_list.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
+			}			
+			
+			Optional<Integer> index_list2 = parseIndex(SeperateIndexes_phase[1]);
+			if (!index_list2.isPresent()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
+			}
+
+			sortList.add(Integer.parseInt(SeperateIndexes_phase[0]));
+			sortList.add(Integer.parseInt(SeperateIndexes_phase[1]));
+
+			Collections.sort(sortList);
+
+			for(int i= sortList.get(0); i<=sortList.get(1); i++){   
+				indexesInt_phase.add(i);
+			}
+			Collections.sort(indexesInt_phase);
+			return new UnwantedDeleteCommand(indexesInt_phase);
+		}
+
+		else if(matcherList.matches()){
+			String indexes_list = matcherList.group("targetIndex");     
+			String[] SeperateIndexes_list = indexes_list.split(" ");
+			ArrayList<Integer> indexesInt_list = new ArrayList<> ();
+			
+			for(int i=0; i<(SeperateIndexes_list.length); i++){
+				Optional<Integer> index_list = parseIndex(SeperateIndexes_list[i]);
+				if (!index_list.isPresent()) {
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
+				}
+				indexesInt_list.add(Integer.parseInt(SeperateIndexes_list[i]));
+			}	
+			indexesInt_list = (ArrayList<Integer>) indexesInt_list.stream().distinct().collect(Collectors.toList());
+			Collections.sort(indexesInt_list);
+			return new UnwantedDeleteCommand(indexesInt_list); 
+		}
+
+		else
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));	
+
+	}
 	
 	//@@author A0139678J
 	private Command prepareList(String args) throws ParseException {
