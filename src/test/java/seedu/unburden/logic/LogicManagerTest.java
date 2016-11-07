@@ -1789,7 +1789,7 @@ public class LogicManagerTest {
 	@Test
 	public void execute_setdir_invalidpath() throws Exception {
 		logic.execute("setdir reset"); //reset directory to original file path
-		assertCommandBehavior("setdir C::/blah.xml", SetDirectoryCommand.MESSAGE_INVALID_PATH);
+		assertCommandBehavior("setdir C:::\\/blah.xml", SetDirectoryCommand.MESSAGE_INVALID_PATH);
 	}
 	
 	//@@author A0139714B
