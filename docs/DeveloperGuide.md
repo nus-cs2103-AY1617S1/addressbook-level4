@@ -177,6 +177,8 @@ public void componentDidMount() {
 
 ### InputHandler component
 
+<img src="images/InputHandler.png"><br>
+
 The InputHandler is the bridge facilitating the handoff from the View to the Controller when the user enters an input.
 
 **API** : [`InputHandler.java`](../src/main/java/seedu/todo/ui/components/InputHandler.java)
@@ -189,6 +191,8 @@ The InputHandler is the bridge facilitating the handoff from the View to the Con
 <!--- @@author A0093907W -->
 
 ### Controller component
+
+<img src="images/Controller.png"><br>
 
 The Controllers are responsible for most of the back-end logic responsible for processing the user's input. They take in the full input command, parse, process, and construct the response messages which are handed over to the Renderer to be rendered on the View.
 
@@ -228,6 +232,8 @@ A Model represents a single database record that is part of the persistent state
 * is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
 
 ### Storage component
+
+<img src="images/Storage.png"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
