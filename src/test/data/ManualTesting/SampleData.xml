@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <persons>
+        <name>Complete Tutorial</name>
+        <taskD>2020 question 3 and 6</taskD>
+        <date>28-10-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Project submission</name>
+        <taskD>1020 Lab work question 5</taskD>
+        <date>29-10-2016</date>
+        <startTime></startTime>
+        <endTime>2300</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Dinner with Gang</name>
+        <taskD></taskD>
+        <date>29-10-2016</date>
+        <startTime>2100</startTime>
+        <endTime>2359</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Submission for 2021 lab assignment</name>
+        <taskD></taskD>
+        <date>29-10-2016</date>
+        <startTime></startTime>
+        <endTime>2359</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Build JC cert from scratch</name>
+        <taskD></taskD>
+        <date>07-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Complete JC tutorial for math and science</name>
+        <taskD></taskD>
+        <date>07-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Go for lecture</name>
+        <taskD></taskD>
+        <date>08-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>wash dishes</name>
+        <taskD></taskD>
+        <date>08-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Get parents to sign report card</name>
+        <taskD>bring report card back</taskD>
+        <date>11-11-2016</date>
+        <startTime></startTime>
+        <endTime>1500</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Babysit Kimberly</name>
+        <taskD></taskD>
+        <date>11-11-2016</date>
+        <startTime></startTime>
+        <endTime>1900</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Apply for Paris visa</name>
+        <taskD>Visit the embassy and call them</taskD>
+        <date>12-11-2016</date>
+        <startTime></startTime>
+        <endTime>1600</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Watch Friends marathon</name>
+        <taskD></taskD>
+        <date>12-11-2016</date>
+        <startTime></startTime>
+        <endTime>2300</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Make a vending machine</name>
+        <taskD>On a paper</taskD>
+        <date>13-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy new laptop screen</name>
+        <taskD></taskD>
+        <date>14-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Go for dance rehearsal</name>
+        <taskD>Practice beforehand for choreo</taskD>
+        <date>14-11-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Paris Visa interview</name>
+        <taskD>Bring documentations</taskD>
+        <date>17-11-2016</date>
+        <startTime></startTime>
+        <endTime>1000</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>2103 Exam</name>
+        <taskD>50 MCQ questions</taskD>
+        <date>24-11-2016</date>
+        <startTime>1200</startTime>
+        <endTime>1400</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Bowling with friends</name>
+        <taskD>remember to wear socks and shoes</taskD>
+        <date>25-11-2016</date>
+        <startTime>0700</startTime>
+        <endTime>1400</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>2102 meeting with teacher</name>
+        <taskD>regarding UI and DG</taskD>
+        <date>29-11-2016</date>
+        <startTime>1200</startTime>
+        <endTime>1600</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Halloween Horror Nights</name>
+        <taskD>at USS must buy tickets</taskD>
+        <date>30-11-2016</date>
+        <startTime>1800</startTime>
+        <endTime>2300</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Ross and Rachel wedding</name>
+        <taskD></taskD>
+        <date>11-12-2016</date>
+        <startTime>1600</startTime>
+        <endTime>2300</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Go for tuition</name>
+        <taskD></taskD>
+        <date>12-12-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Autograph signing</name>
+        <taskD>Superwoman</taskD>
+        <date>13-12-2016</date>
+        <startTime>1300</startTime>
+        <endTime>1800</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Flight from Korea to LA</name>
+        <taskD></taskD>
+        <date>13-12-2016</date>
+        <startTime>1600</startTime>
+        <endTime>2200</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy Dustbin for room</name>
+        <taskD></taskD>
+        <date>15-12-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>Go to the playground</name>
+        <taskD>Play hide and seek</taskD>
+        <date>15-12-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy cards to play bridge</name>
+        <taskD>Remember to win!</taskD>
+        <date>15-12-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>Janice Birthday Party</name>
+        <taskD></taskD>
+        <date>23-12-2016</date>
+        <startTime>1200</startTime>
+        <endTime>2200</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy Candies for Christmas</name>
+        <taskD>Make a list of people to get for</taskD>
+        <date>24-12-2016</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>Consultation slot for meeting</name>
+        <taskD></taskD>
+        <date>27-12-2016</date>
+        <startTime>1500</startTime>
+        <endTime>1800</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy groceries</name>
+        <taskD></taskD>
+        <date>28-12-2016</date>
+        <startTime>1300</startTime>
+        <endTime>1500</endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>New year's party</name>
+        <taskD></taskD>
+        <date>31-12-2016</date>
+        <startTime>2300</startTime>
+        <endTime>2359</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Update status on website</name>
+        <taskD>Prepare beforehand</taskD>
+        <date>01-01-2017</date>
+        <startTime></startTime>
+        <endTime>1300</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Flight to Malaysia</name>
+        <taskD></taskD>
+        <date>02-01-2017</date>
+        <startTime>1400</startTime>
+        <endTime>1500</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>SEP interview</name>
+        <taskD></taskD>
+        <date>02-01-2017</date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Sarah birthday party</name>
+        <taskD></taskD>
+        <date>12-01-2017</date>
+        <startTime></startTime>
+        <endTime>1600</endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy Green Vegetable</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>Bring brother to the doctor</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Clean room</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Build a puzzle</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Go to the gym and do pull up bars</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>sign up for orbital with partner</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Draw card for birthday present</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>merge cs2103 tasks</name>
+        <taskD></taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Complete 2020 project</name>
+        <taskD>Frequency and Sine wave</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy drinks for supper</name>
+        <taskD>From the supermarket</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+        <tagged>Buy</tagged>
+    </persons>
+    <persons>
+        <name>Do laundry</name>
+        <taskD>Remember to use laundry bot to do</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Buy phone cover for mum</name>
+        <taskD>Remember to wrap it as well</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Prepare for presentation</name>
+        <taskD>Rehearse lines and dialogues</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Apply for job</name>
+        <taskD>Email them resume and write cert</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>File application for housing</name>
+        <taskD>From the housing agency website provided</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <persons>
+        <name>Get rid of bugs on code</name>
+        <taskD>Focus on taskCard and storage file</taskD>
+        <date></date>
+        <startTime></startTime>
+        <endTime></endTime>
+        <done>false</done>
+    </persons>
+    <tags>
+        <tagName>Buy</tagName>
+    </tags>
+</tasklist>
