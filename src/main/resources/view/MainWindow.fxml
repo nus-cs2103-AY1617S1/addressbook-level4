@@ -24,7 +24,7 @@
                   <Image url="@../images/TuskLogo.png" />
                </image>
             </ImageView>
-            <Label fx:id="notComplete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #9999;" text="Incompleted" textFill="WHITE">
+            <Label fx:id="notComplete" prefHeight="5.0" style="-fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10; -fx-background-color: #9999;" text="Incomplete" textFill="WHITE">
                <HBox.margin>
                   <Insets left="25.0" right="10.0" top="5.0" />
                </HBox.margin>
