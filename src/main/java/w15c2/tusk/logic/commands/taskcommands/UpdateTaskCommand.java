@@ -28,19 +28,20 @@ public class UpdateTaskCommand extends Command {
 	public static final String COMMAND_WORD = "update";
     public static final String ALTERNATE_COMMAND_WORD = "edit";
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + " <INDEX> task <UPDATED VALUE>\n"
-            + COMMAND_WORD + " <INDEX> description <UPDATED VALUE>\n" + COMMAND_WORD + " <INDEX> date <UPDATED VALUE>";
-    public static final String COMMAND_DESCRIPTION = "Update the whole task\nUpdate description\nUpdate date"; 
+    public static final String COMMAND_FORMAT = COMMAND_WORD + "/" + ALTERNATE_COMMAND_WORD + " <INDEX> task <UPDATED VALUE>\n"
+            + COMMAND_WORD + "/" + ALTERNATE_COMMAND_WORD + " <INDEX> desc <UPDATED VALUE>\n" 
+    		+ COMMAND_WORD + "/" + ALTERNATE_COMMAND_WORD + " <INDEX> date <UPDATED VALUE>";
+    public static final String COMMAND_DESCRIPTION = "Updates/Edits the whole task\nUpdate/Edits description\nUpdate/Edits date"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Updates the task identified by the index number used in the last task listing.\n"
-            + "Depending on whether 'task', 'description' or 'date' is stated, the task will be updated accordingly.\n"
-            + "1) Parameters: INDEX (must be a positive integer) task UPDATED_VALUE\n"
+            + ": Updates/Edits the task identified by the index number used in the last task listing.\n"
+            + "Depending on whether 'task', 'desc' or 'date' is stated, the task will be updated accordingly.\n"
+            + "1) Parameters: INDEX task UPDATED_VALUE\n"
             + "Example: " + COMMAND_WORD + " 1 task Meeting from Oct 31 to Nov 1\n"
-            + "2) Parameters: INDEX (must be a positive integer) description UPDATED_VALUE\n"
-            + "Example: " + COMMAND_WORD + " 1 description Meeting in town\n"
-            + "3) Parameters: INDEX (must be a positive integer) date UPDATED_VALUE\n"
-            + "Example: " + COMMAND_WORD + " 1 date Oct 31 to Nov 1";
+            + "2) Parameters: INDEX desc UPDATED_VALUE\n"
+            + "Example: " + ALTERNATE_COMMAND_WORD + " 1 description Meeting in town\n"
+            + "3) Parameters: INDEX date UPDATED_VALUE\n"
+            + "Example: " + ALTERNATE_COMMAND_WORD + " 1 date Oct 31 to Nov 1";
 
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated task: %1$s";
     public static final String MESSAGE_CANNOT_UPDATE_TASK = "Selected task's description cannot be updated";

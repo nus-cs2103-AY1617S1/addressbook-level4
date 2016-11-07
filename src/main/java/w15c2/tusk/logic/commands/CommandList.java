@@ -32,23 +32,24 @@ public class CommandList {
     private static Class<?>[] getList(){
         
         return new Class[]{
-                AddAliasCommand.class, 
+        		HelpCommand.class,
                 AddTaskCommand.class,
-                ClearTaskCommand.class, 
-                CompleteTaskCommand.class,
-                DeleteAliasCommand.class,
-                DeleteTaskCommand.class,
-                ExitCommand.class,
                 FindTaskCommand.class,
-                HelpCommand.class,
+                UpdateTaskCommand.class, 
+                DeleteTaskCommand.class,
+                ClearTaskCommand.class,
+                UndoCommand.class,
+                RedoCommand.class,
+                CompleteTaskCommand.class,
+                UncompleteTaskCommand.class,
                 ListTaskCommand.class,
                 PinTaskCommand.class,
-                RedoCommand.class,
-                SetStorageCommand.class, 
-                UncompleteTaskCommand.class,
-                UndoCommand.class,
                 UnpinTaskCommand.class,
-                UpdateTaskCommand.class};
+                AddAliasCommand.class, 
+                DeleteAliasCommand.class,
+                SetStorageCommand.class, 
+                ExitCommand.class
+        };
     }
     
     /**

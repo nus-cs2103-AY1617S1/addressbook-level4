@@ -18,7 +18,7 @@ public class ListTaskCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String ALTERNATE_COMMAND_WORD = null;
     
-    public static final String COMMAND_FORMAT = "list\nlist alias\nlist complete[d]";
+    public static final String COMMAND_FORMAT = "list\nlist alias[es]\nlist complete[d]";
     public static final String COMMAND_DESCRIPTION = "List Incomplete Tasks\nList Aliases\nList Completed Tasks"; 
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tasks/alias/completed tasks. \n"

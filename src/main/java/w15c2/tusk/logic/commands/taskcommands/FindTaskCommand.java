@@ -18,7 +18,7 @@ public class FindTaskCommand extends Command {
         public static final String COMMAND_WORD = "find";
         public static final String ALTERNATE_COMMAND_WORD = null;
         
-        public static final String COMMAND_FORMAT = COMMAND_WORD + " <keyword[s]>";
+        public static final String COMMAND_FORMAT = COMMAND_WORD + " <KEYWORD[s]>";
         public static final String COMMAND_DESCRIPTION = "Find Tasks"; 
         
         public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
