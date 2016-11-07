@@ -248,19 +248,19 @@ Finds tasks whose names contain any of the given keywords. The task list will be
 ## Listing all tasks
 List command can be done after task lists are filtered by the find command. It will display all the tasks stored in the storage. <br>
 
-## List all three task types:
+#### List all three task types:
 > Command: `list all`<br>
 > Expected Result: All task types are displayed. <br>
 
-## List all three task types:
+#### List all three task types:
 > Command: `list todo`<br>
 > Expected Result: All Todo tasks are displayed. <br>
 
-## List all three task types:
+#### List all three task types:
 > Command: `list event`<br>
 > Expected Result: All Event tasks are displayed. <br>
 
-## List all three task types:
+#### List all three task types:
 > Command: `list deadline`<br>
 > Expected Result: All Deadline tasks are displayed. <br>
 
