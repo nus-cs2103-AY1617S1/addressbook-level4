@@ -1,8 +1,9 @@
-// @@author A0147335E
+
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
@@ -11,7 +12,7 @@ import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
-
+//@@author A0147335E
 
 /**
  * Refresh the task manager.
@@ -29,7 +30,7 @@ public class RefreshCommand extends Command {
         assert model != null;
 
         ArrayList<RollBackCommand> taskList = new ArrayList<RollBackCommand>();
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        List<ReadOnlyTask> lastShownList = model.getTaskManager().getTaskList();
         for (int i = 0; i < lastShownList.size(); i++) {
             ReadOnlyTask taskToDelete = lastShownList.get(i);
             taskList.add(new RollBackCommand(COMMAND_WORD , (Task) taskToDelete, null));
