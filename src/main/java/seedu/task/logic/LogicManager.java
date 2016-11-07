@@ -46,7 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         logger.info("SUCCESS");
 
-        if (!isUndo(commandText)) {
+        if (!isUndo(commandText) || commandText.startsWith("undone")) {
             getPreviousCommandList().add(commandText);
             return command.execute(false);
         } else {

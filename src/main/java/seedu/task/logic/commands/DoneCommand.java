@@ -78,9 +78,9 @@ public class DoneCommand extends Command {
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        int currentIndex = model.getTaskManager().getTaskList().indexOf(taskToDone);
+        int index = model.getTaskManager().getTaskList().indexOf(taskToDone);
         if (!isUndo) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToDone, null, currentIndex));
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToDone, null, index));
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone.getName()));
     }

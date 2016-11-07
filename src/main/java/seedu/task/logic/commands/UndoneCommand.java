@@ -23,7 +23,7 @@ public class UndoneCommand extends Command {
             + ": Undone the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX TASKNAME\n" + "Example: " + COMMAND_WORD + " 4";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Undone Task: %1$s";
+    public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Undone Task: %1$s";
 
     public static final String MESSAGE_ALREADY_UNDONE = "Task has already been undone!";
 
@@ -64,7 +64,7 @@ public class UndoneCommand extends Command {
         } catch (DuplicateTaskException e) {
         }
 
-        if (isEqual(previousDoneStatus, taskToUndone.getStatus().getDoneStatus())) {
+        if (previousDoneStatus == taskToUndone.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_UNDONE);
         }
 
@@ -72,17 +72,14 @@ public class UndoneCommand extends Command {
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        int currentIndex = model.getTaskManager().getTaskList().indexOf(taskToUndone);
+        int index = model.getTaskManager().getTaskList().indexOf(taskToUndone);
 
         if (!isUndo) {
-            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null, currentIndex));
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUndone, null, index));
         }
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone.getName()));
+        return new CommandResult(String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToUndone.getName()));
     }
 
-    private boolean isEqual(boolean previousDoneStatus, boolean currentDoneStatus) {
-        return previousDoneStatus == currentDoneStatus;
-    }
 
     private ArrayList<RollBackCommand> getUndoList() {
         return history.getUndoList();
