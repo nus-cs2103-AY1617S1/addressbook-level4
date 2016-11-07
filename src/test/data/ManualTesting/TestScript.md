@@ -87,7 +87,7 @@
 `Duration of the event is: 9 hours.`<br>
 - TaskList panel displays the newly added card which is brown in color and contains the prefix '(Blocked)'. 
 
-### 2.asdfsadfasfasfs2 Add event over blocked time
+### 2.2 Add event over blocked time
 > **Command:** `add Shopping from/christmas 10am to/christmas 12pm`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
