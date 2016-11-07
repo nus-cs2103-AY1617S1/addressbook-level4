@@ -39,13 +39,13 @@ Enter Do-Do Bird, an intelligent personal assistant that organises your tasks fo
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
-
+<br>
 > **Priority Format**
 > * high, mid, low
-
+<br>
 > **Recurrence Format**
 > * day, week, month, year
-
+<br>
 > **Date and Time Format**
 > * **Date**
 >   * MM/DD/YYYY or MM-DD-YYYY <br>
@@ -60,20 +60,20 @@ Enter Do-Do Bird, an intelligent personal assistant that organises your tasks fo
 >   * 24-hours format: 0930
 >   * 12-hours format: 0930pm
 >   * Presets: morning, noon, evening, night, midnight
-
+<br>
 <!-- @@author A0142421X -->
 > **ID**
 > The ID of a task is the index of the task as displayed on the screen
 
-> **Task Fields**
->Field | Specifier | Format
->------|:----------|:-------
->Task Name | | TASK_NAME
->'On' Date | on | on DATE [TIME]
->'By' Date | by | by DATE [TIME]
->Priority | priority | priority LEVEL
->Recurrence | every | every RECURRENCE
->Details | ; | ; DETAILS
+ **Task Fields**
+Field | Specifier | Format
+------|:----------|:-------
+Task Name | | TASK_NAME
+'On' Date | on | on DATE [TIME]
+'By' Date | by | by DATE [TIME]
+Priority | priority | priority LEVEL
+Recurrence | every | every RECURRENCE
+Details | ; | ; DETAILS
 
 ## Viewing help : `help`
 Directs user to the help page.<br>
