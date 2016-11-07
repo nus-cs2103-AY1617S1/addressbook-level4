@@ -240,15 +240,6 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
     }
     //@@author A0139128A
-    @Test
-    public void execute_undoAddCommand_SuccessMessageShown() throws Exception {
-        List<Task> expectedList = null;
-        
-        TestDataHelper helper = new TestDataHelper();
-        
-        WhatNow expectedAB = helper.generateTaskList(1);
-    }
-    //@@author A0139128A
     public void execute_redoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
         List<Task> expectedList = null;
         assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
