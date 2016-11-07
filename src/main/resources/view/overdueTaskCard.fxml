@@ -6,8 +6,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<!-- @@author A0125097A -->
-
 <HBox id="overdueTaskCardPanel" fx:id="displayCardPanel" minHeight="40.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: derive( #800000,30%);" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="overdueTaskCard" prefHeight="56.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
