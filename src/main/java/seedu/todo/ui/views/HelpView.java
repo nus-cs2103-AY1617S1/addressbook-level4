@@ -9,10 +9,9 @@ import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.HelpCommandItem;
 
+//@@author A0139812A
 /**
  * Help View, which shows all the commands available.
- * 
- * @@author A0139812A
  */
 public class HelpView extends View {
 

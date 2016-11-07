@@ -10,9 +10,7 @@ import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.InputHandler;
 import seedu.todo.ui.UiManager;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class Console extends Component {
 
     private static final String FXML_PATH = "components/Console.fxml";

@@ -10,6 +10,7 @@ import seedu.todo.ui.UiPart;
 import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.views.View;
 
+//@@author A0139812A
 /**
  * The UI is predicated on the concept of a {@code Component}. 
  * A {@code Component} is a single sub-unit of the UI, and should preferably 
@@ -32,9 +33,6 @@ import seedu.todo.ui.views.View;
  * 
  * <em>Note: The concept of {@code Component}s and their associated behaviours came 
  * from React, a modern JavaScript library for the web.</em>
- * <br><br>
- * 
- * @@author A0139812A
  */
 public abstract class Component extends UiPart {
 
