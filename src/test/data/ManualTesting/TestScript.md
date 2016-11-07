@@ -15,12 +15,12 @@ This test script is to assist testers in testing `Dowat` by providing them with 
 1. Adding a task
 >  To type: `add computing project`
 	> * Added a task named 'computing project'
-	> * Newly added task is selected in both task list panel and calendar panel
+	> * Newly added task is selected in task list panel
 	
 2. Adding a task with description
 > To type: `add arts project /desc soci chapter 5`
 	> * Added a task named 'arts project' with description 'soci chapter 5'
-	> * Newly added task is selected in both task list panel and calendar panel
+	> * Newly added task is selected in task list panel
 
 3. Adding a task with deadline
 > To type: `add engineering project /by tomorrow 7pm`
@@ -52,22 +52,17 @@ This test script is to assist testers in testing `Dowat` by providing them with 
 	> * Newly added event named 'arts workshop' with duration from 2pm to 3pm on next Monday
 	> * Newly added event is selected in both event list panel and calendar panel
 
-2. Adding an event with end duration
-> To type: `add arts workshop 2 /to next monday 2pm` 
-	> * Newly added event named 'arts workshop 2' with duration from 1pm to 2pm on next Monday
-	> * Newly added event is selected in both event list panel and calendar panel
-
-3. Adding an event with description
+2. Adding an event with description
 > To type: `add arts workshop 3 /desc at AS7-01 /from next friday 2pm /to next friday 6 pm` 
 	> * Newly added event named 'arts workshop 3' with description 'at AS7-01' with duration from 2pm to 6pm on next Friday
 	> * Newly added event is selected in both event list panel and calendar panel
 
-4. Adding an event with description (Flexible Ordering)
+3. Adding an event with description (Flexible Ordering)
 > To type: `add arts workshop 4 /from next friday 2pm /desc at iCube Auditorium /to next friday 6 pm` 
 	> * Newly added event named 'arts workshop 4' with description 'at iCube Auditorium' with duration from 2pm to 6pm on next Friday
 	> * Newly added event is selected in both event list panel and calendar panel
 
-5. Undo recently added event
+4. Undo recently added event
 > To type: `undo` 
 	> * Newly added event named 'arts workshop 4' with description 'at iCube Auditorium' with duration from 2pm to 6pm on next Friday is removed
 
@@ -160,6 +155,7 @@ This test script is to assist testers in testing `Dowat` by providing them with 
 1. Marking an uncompleted task
 > To type: `mark 1` 
 	> * The task at index 1 is marked completed and will not appear in the task list
+	> * Task with a deadline will not appear in the calendar panel if it is previously appearing
 
 2. Undo recently marked task
 > To type: `undo` 
@@ -198,7 +194,7 @@ This test script is to assist testers in testing `Dowat` by providing them with 
 
 1. Changing save location
 > To type: `save D:\` 
-	> * New save location of 'Dowat.txt' in file path 'D:\'
+	> * New save location of 'Dowat.xml' in file path 'D:\'
 	> * Relaunching 'Dowat' will load data from new file location
 
 ### Viewing help
@@ -267,6 +263,7 @@ All commands applicable for undo are incorporated within each command text. Undo
 > To type: `list /t /a` followed by `clear /t` 
 	> * All uncompleted and completed tasks are first listed
 	> * Completed tasks are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Task list panel shows all uncompleted tasks
 
 2. Undo latest clearing
 > To type: `undo`
@@ -276,6 +273,7 @@ All commands applicable for undo are incorporated within each command text. Undo
 > To type: `list /t /a` followed by `clear /t /a` 
 	> * All uncompleted and completed tasks are first listed
 	> * All uncompleted and completed tasks are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Task list panel should be empty
 
 4. Undo latest clearing
 > To type: `undo` 
@@ -285,6 +283,7 @@ All commands applicable for undo are incorporated within each command text. Undo
 > To type: `list /e /a` followed by `clear /e` 
 	> * All past and upcoming events are first listed
 	> * All past events are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Event list panel should show only upcoming events
 
 6. Undo latest clearing
 > To type: `undo` 
@@ -294,6 +293,7 @@ All commands applicable for undo are incorporated within each command text. Undo
 > To type: `list /e /a` followed by `clear /e /a` 
 	> * All past and upcoming events are first listed
 	> * All past and upcoming events are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Event list panel should be empty
 
 8. Undo latest clearing
 > To type: `undo` 
@@ -303,6 +303,8 @@ All commands applicable for undo are incorporated within each command text. Undo
 > To type: `list` followed by `clear` 
 	> * All task and events are first listed
 	> * All completed tasks and past events are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Task list panel should show only uncompleted tasks
+	> * Event list panel should show only upcoming events
 
 10. Undo latest clearing
 > To type: `undo` 
@@ -311,7 +313,8 @@ All commands applicable for undo are incorporated within each command text. Undo
 11. Clearing ALL tasks and events
 > To type: `list` followed by `clear /a` 
 	> * ALL task and events are first listed
-	> * ALL ctasks and events are cleared from task list panel, calendar panel and `Dowat` memory
+	> * ALL tasks and events are cleared from task list panel, calendar panel and `Dowat` memory
+	> * Task and event list panel should be empty
 
 12. Undo latest clearing
 > To type: `undo` 
