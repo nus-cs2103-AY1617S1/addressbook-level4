@@ -148,7 +148,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 && this.isSameStateAs((ReadOnlyTask) other));
 
     }
-
+    
+    //@@author
     @Override
     public int compareTo(Task other) {
 
@@ -211,7 +212,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Optional.empty();
     }   
     
-    //@@author A0093960X
     /**
      * Compares this Task with other Task by date chronologically.
      * The result is a negative integer if this Task object chronologically precedes the argument Task.
