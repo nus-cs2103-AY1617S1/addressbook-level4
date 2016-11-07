@@ -218,17 +218,4 @@ public class TestTask implements ReadOnlyTask {
         
     }
 
-    @Override
-    public boolean hasNoEndDate() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean hasNoStartDate() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-
 }
