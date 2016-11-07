@@ -219,7 +219,7 @@
 }
 
 .taskCard.event .highlightedBackground {
-    -fx-background-color: #689f38;
+    -fx-background-color: #ff9800;
 }
 
 .taskCard .lightBackground {

@@ -14,11 +14,12 @@
              <children>
                 <AnchorPane fx:id="filterBarViewPlaceholder" />
                 <AnchorPane fx:id="searchStatusViewPlaceholder" maxWidth="Infinity" />
-                <AnchorPane fx:id="todoListViewPlaceholder" VBox.vgrow="ALWAYS">
-                   <VBox.margin>
-                      <Insets />
-                   </VBox.margin>
-                </AnchorPane>
+               <StackPane>
+                  <children>
+                      <AnchorPane fx:id="todoListViewPlaceholder" />
+                     <AnchorPane fx:id="emptyListPlaceholder" />
+                  </children>
+               </StackPane>
              </children>
           </VBox>
            <AnchorPane fx:id="commandPreviewViewPlaceholder" maxHeight="-Infinity" StackPane.alignment="BOTTOM_LEFT" />

@@ -1,6 +1,5 @@
 package seedu.todo.ui.view;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -11,10 +10,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.ui.UiPart;
-import seedu.todo.ui.util.UiPartLoaderUtil;
-import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.util.FxViewUtil;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 
 import java.util.logging.Logger;
 
@@ -28,11 +27,10 @@ public class TodoListView extends UiPart {
     
     /*Variables*/
     private final Logger logger = LogsCenter.getLogger(TodoListView.class);
-    private VBox panel;
     
     /*Layout Declarations*/
-    @FXML
-    private ListView<ImmutableTask> todoListView;
+    private VBox panel;
+    @FXML private ListView<ImmutableTask> todoListView;
 
     //@@author A0135805H-reused
     /**
@@ -47,38 +45,38 @@ public class TodoListView extends UiPart {
      *
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #todoListView} should be placed
+     * @param todoList the list of tasks to be displayed
      * @return an instance of this class
      */
     public static TodoListView load(Stage primaryStage, AnchorPane placeHolder,
-                                    ObservableList<ImmutableTask> todoList) {
+            ObservableList<ImmutableTask> todoList) {
         
-        TodoListView todoListView = UiPartLoaderUtil
-                .loadUiPart(primaryStage, placeHolder, new TodoListView());
+        TodoListView todoListView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
         todoListView.configure(todoList);
         return todoListView;
     }
 
+    //@@author A0135805H
     /**
      * Configures the {@link TodoListView}
      *
      * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
     private void configure(ObservableList<ImmutableTask> todoList) {
-        setConnections(todoList);
+        setTodoListConnections(todoList);
     }
 
+    /* To-do List Ui Methods */
     /**
-     * Links the list of {@link ImmutableTask} to the todoListView.
+     * Links the list of {@link ImmutableTask} to the {@link #todoListView}.
      *
      * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
-    private void setConnections(ObservableList<ImmutableTask> todoList) {
+    private void setTodoListConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
         todoListView.setCellFactory(param -> new TodoListViewCell());
     }
 
-    //@@author A0135805H
-    /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
      *
@@ -92,55 +90,15 @@ public class TodoListView extends UiPart {
     }
 
     /**
-     * Scrolls the {@link #todoListView} to the particular task card at the listIndex.
-     */
-    public void scrollAndSelect(int listIndex) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(listIndex);
-            todoListView.getSelectionModel().clearAndSelect(listIndex);
-        });
-    }
-
-    /**
-     * Scrolls the {@link #todoListView} to the particular task card, if the task card is available.
-     * However, this method has a bounded wait between 10ms to 1000ms.
+     * Scrolls the {@link #todoListView} to the particular task card.
      *
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
-        scrollAndSelectHelper(task, 100);
+        todoListView.getSelectionModel().clearSelection();
+        todoListView.getSelectionModel().select(task);
     }
 
-    /**
-     * Helper method for {@link #scrollAndSelect(ImmutableTask)}.
-     * Repeatedly and recursively tries to select for a task for finite number of times.
-     */
-    private void scrollAndSelectHelper(ImmutableTask task, int attempts) {
-        Runnable runnable = () -> {
-            TaskCardView taskCardView = TaskCardView.getTaskCard(task);
-            if (taskCardView != null) {
-                int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
-                scrollAndSelect(listIndex);
-            } else if (attempts > 0) {
-                scrollAndSelectHelper(task, attempts - 1);
-            } else {
-                logger.warning("Task Card View is null for task: " + task.getTitle());
-            }
-        };
-
-        //Tries to sleep first to wait for the ui, and then attempts the view.
-        Thread thread = new Thread(() -> {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } finally {
-                Platform.runLater(runnable);
-            }
-        });
-
-        thread.start();
-    }
 
     /* Override Methods */
     @Override

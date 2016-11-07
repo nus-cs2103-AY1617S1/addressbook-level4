@@ -47,20 +47,18 @@ public class TagCommand extends BaseCommand {
     private static final String SUCCESS_RENAME_TAGS = " renamed to ";
 
     private static final String MESSAGE_ENTER_TO_DISMISS = "Press [Enter] to dismiss.";
+    private static final String MESSAGE_NO_TAGS
+            = "You have no tags currently. Use the tag command to tag a task.";
 
     private static final String DESCRIPTION_SHOW_TAGS = "Shows all tags";
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
-    private static final String DESCRIPTION_DELETE_TAGS_TASK = "Remove tags from a task";
-    private static final String DESCRIPTION_DELETE_TAGS = "Remove tags from all tasks";
+    private static final String DESCRIPTION_DELETE_TAGS = "Remove tags";
     private static final String DESCRIPTION_RENAME_TAGS = "Rename a tag";
-    private static final String DESCRIPTION_RENAME_TAG_TASK = "Rename a tag from a task";
 
     private static final String ARGUMENTS_SHOW_TAGS = "";
     private static final String ARGUMENTS_ADD_TAGS = "index tag1 [, tag2, ...]";
-    private static final String ARGUMENTS_DELETE_TAGS_TASK = "index /d tag1 [, tag2, ...]";
-    private static final String ARGUMENTS_DELETE_TAGS = "/d tag1 [, tag2, ...]";
-    private static final String ARGUMENTS_RENAME_TAGS = "/r old_tag_name new_tag_name";
-    private static final String ARGUMENTS_RENAME_TAG_TASK = "index /r old_tag_name new_tag_name";
+    private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_RENAME_TAGS = "[index] /r old_tag_name new_tag_name";
 
     private static final int INDEX_OFFSET = 1;
     private static final int INDEX_RENAME_OLD_NAME = 0;
@@ -135,9 +133,7 @@ public class TagCommand extends BaseCommand {
         return ImmutableList.of(
             new CommandSummary(DESCRIPTION_SHOW_TAGS, getCommandName(), ARGUMENTS_SHOW_TAGS),
             new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
-            new CommandSummary(DESCRIPTION_DELETE_TAGS_TASK, getCommandName(), ARGUMENTS_DELETE_TAGS_TASK),
             new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS),
-            new CommandSummary(DESCRIPTION_RENAME_TAG_TASK, getCommandName(), ARGUMENTS_RENAME_TAG_TASK),
             new CommandSummary(DESCRIPTION_RENAME_TAGS, getCommandName(), ARGUMENTS_RENAME_TAGS)
         );
     }
@@ -198,7 +194,10 @@ public class TagCommand extends BaseCommand {
      *      Show a global list of tags
      */
     private CommandResult performShowTagsWhenApplicable() {
-        if (isShowTags()){
+        if (isShowTags() && model.getGlobalTagsList().isEmpty()) {
+            return new CommandResult(MESSAGE_NO_TAGS);
+
+        } else if (isShowTags()) {
             ShowTagsEvent tagsEvent = new ShowTagsEvent(model.getGlobalTagsList());
             EventsCenter.getInstance().post(tagsEvent);
             return new CommandResult(MESSAGE_ENTER_TO_DISMISS);

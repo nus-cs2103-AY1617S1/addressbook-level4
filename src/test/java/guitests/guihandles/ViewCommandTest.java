@@ -54,6 +54,9 @@ public class ViewCommandTest extends TodoListGuiTest {
         runCommand("view all");
         assertSelection(TaskViewFilter.DEFAULT);
 
+        runCommand("view today");
+        assertSelection(TaskViewFilter.TODAY);
+
         //With short forms, switching view works.
         runCommand("view c");
         assertSelection(TaskViewFilter.COMPLETED);
@@ -69,6 +72,9 @@ public class ViewCommandTest extends TodoListGuiTest {
 
         runCommand("view a");
         assertSelection(TaskViewFilter.DEFAULT);
+
+        runCommand("view t");
+        assertSelection(TaskViewFilter.TODAY);
     }
 
     /**

@@ -68,7 +68,7 @@ public class TaskViewFilter {
     
     public static TaskViewFilter[] all() {
         return new TaskViewFilter[]{
-            DEFAULT, COMPLETED, INCOMPLETE, EVENTS, DUE_SOON, TODAY
+            DEFAULT, TODAY, DUE_SOON, EVENTS, INCOMPLETE, COMPLETED
         };
     }
 

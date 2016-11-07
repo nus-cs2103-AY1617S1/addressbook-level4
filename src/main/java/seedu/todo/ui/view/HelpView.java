@@ -34,7 +34,6 @@ public class HelpView extends UiPart {
 
     /*Layouts*/
     private VBox helpPanelView;
-
     @FXML private GridPane helpGrid;
 
     /**
