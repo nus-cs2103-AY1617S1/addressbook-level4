@@ -57,6 +57,7 @@ public class CommandBox extends UiPart {
 		commandBox.addToPlaceholder();
 		return commandBox;
 	}
+	
 	//@@author A0146107M
 	public void configure(ResultDisplay resultDisplay, Logic logic) {
 		this.resultDisplay = resultDisplay;

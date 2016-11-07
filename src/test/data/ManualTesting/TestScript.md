@@ -60,47 +60,47 @@ Expected Output: `Unknown command`
 
 #### Show all
 Command: `show all` <br>
-Expected Output: `57 task(s) listed!`
+Expected: All tasks listed
 
 #### Show overdue
 Command: `show overdue` or `overdue` <br>
-Expected Output: `9 task(s) listed!`
+Expected: Overdue tasks listed
 
 #### Show done/complete
 Command: `show done` or `show complete` <br>
-Expected Output: `0 task(s) listed!`
+Expected: Completed tasks listed
 
 #### Show today
 Command: `show today` or `today` <br>
-Expected Output: `4 task(s) listed!`
+Expected: All tasks today listed
 
 #### Show tomorrow
 Command: `show tomorrow` or `tomorrow` <br>
-Expected Output: `4 task(s) listed!`
+Expected: All tasks tomorrow listed
 
 #### Show floating
 Command: `show floating` or `floating` <br>
-Expected Output: `9 task(s) listed!`
+Expected: Floating tasks listed
 
 #### Show for any random date
 Command: `show 25/12/2016` or `show xmas` <br>
-Expected Output: `5 task(s) listed!`
+Expected: Tasks on that date listed
 
 #### Show high priority tasks
 Command: `show p/high` <br>
-Expected Output: `6 task(s) listed!`
+Expected: High priority tasks listed
 
 #### Show medium priority tasks
 Command: `show p/med` <br>
-Expected Output: `3 task(s) listed!`
+Expected: Medium priority tasks listed
 
 #### Show low priority tasks
 Command: `show p/low` <br>
-Expected Output: `50 task(s) listed!`
+Expected: Low priority tasks tested
 
-#### Show upcoming/incomplete tasks
-Command: `show upcoming` or `show incomplete` or `show` <br>
-Expected Output: `57 task(s) listed!`
+#### Show incomplete tasks
+Command: `show incomplete` or `show` <br>
+Expected: Incomplete tasks listed
 
 ## Tests for Find command
 
