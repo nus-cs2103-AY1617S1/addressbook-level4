@@ -51,7 +51,7 @@ Format: `help`
 * Floating task: `add Visit Dentist`
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
-<br>
+<br><br>
 **Field Type Constraints**
 <br>
 **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
