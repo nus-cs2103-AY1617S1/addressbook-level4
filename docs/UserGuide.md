@@ -159,28 +159,28 @@ Examples:
 <!-- @@author A0144702N -->
 
 #### Listing tasks or events
-Shows a list of tasks that are not marked done. Or shows a list of all tasks. <br>
-Shows a list of events that are not completed. Or shows a list of all events. <br>
-Or shows a list of both events and tasks that are upcoming, or all items. <br>
+Shows a list of uncompleted tasks. Or shows a list of all tasks. <br>
+Shows a list of upcoming events. Or shows a list of all events. <br>
+Or shows a list of both upcoming events and uncompleted tasks, or all items. <br>
 
 Format: `list [/t] [/e] [/a]`
 
-> Tasks that are marked done will not be shown by default.
+> Tasks that are marked completed will not be shown by default.
 > An `/a` optional flag will request the TaskBook to list all, both completed or upcoming. 
 
 Examples: 
 * `list /t` <br>
-  Lists tasks that are not marked done.
+  Lists tasks that are uncompleted.
 * `list /t /a` <br>
   All tasks will be shown.
 
-* `list /e `<br>
-  Lists events that are not completed yet. 
+* `list /e ` <br>
+  Lists events that are upcoming. 
 * `list /e /a` <br>
   All events will be shown.
 
 * `list` or `list /t /e` <br>
-  Lists both events and tasks that are upcoming. 
+  Lists both upcoming events and uncompleted tasks. 
 * `list /a` or `list /t /e /a` <br>
   Lists everything in the app. 
 
