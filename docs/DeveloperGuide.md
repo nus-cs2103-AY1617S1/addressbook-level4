@@ -423,39 +423,22 @@ Use case ends.
 > 1b1. User specifies an invalid date deadline format.  
 Application shows an error message.
 Use case ends.
+<!-- @author -->
 
-#### Use case : UC04 - Find with specific keyword
+<!-- @author A0093907W -->
+#### Use case : UC04 - Find by keyword
 
 **MSS**
 
-1. User requests to find tasks with specific keyword/specific keywords.
-2. Application shows the list of tasks contains the specific keyword in its name or tag.  
-Use case ends.  
+1. User requests to find records with specified keyword(s)
+2. Application shows the list of records with the specified keyword(s)
+Use case ends.
 
 **Extensions**  
 
 2a. The list is empty.
 > 2a1. Application shows an error message.  
 Use case ends.
-
-2b. User did not provide any keyword
-> 2b1. Application shows an error message.  
-Use case ends.
-
-2c. User specifies a start date and end date
-> 2c1. User specifies an invalid date format for either start or end date.  
-Application shows an error message.  
-Use case ends.
-
-2d. User specifies a single date
-> 2d1. User specifies invalid date format.  
-Application shows an error message.  
-Use case ends.
-
-2e. User did not follow command syntax
-> 2e1. Application shows an error message.  
-Use case ends.
-
 <!-- @@author -->
 
 #### Use case : UC05 - List all tasks and events
