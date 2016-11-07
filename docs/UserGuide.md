@@ -61,7 +61,7 @@ Format: `change location to PATH`
 
 Example:
 * `change location to C:\Users\user\Desktop`
-Changes the data file storage location to C:\Users\user\Desktop
+Changes the data file storage location to C:\Users\user\Desktop.
 
 <p align="center">
 
@@ -79,7 +79,7 @@ Adds everyday tasks, deadlines and events to WhatNow. Any task without date or t
 #### Adds a todo task to WhatNow
 Format: `add "DESCRIPTION" [t/TAG]...`
 > * All description should be written within double quotation marks.
-> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Except for the double quotation marks, you can add any special character in the description.
 
 Example:
 * `add "Buy chocolate milk"`
@@ -97,7 +97,7 @@ Figure 3: A task without date and time specified added under Todo
 #### Adds a deadline to WhatNow
 Format: `add "DESCRIPTION" [DATE] [TIME] [every day/week/month/year till DATE][t/TAG]...`
 > * All description should be written within double quotation marks.
-> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Except for the double quotation marks, you can add any special character in the description.
 > * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
 > * The order for date and time is reversible. You can add an event with time followed by the date too.
 
@@ -123,7 +123,7 @@ Figure 4: A deadline task with date, time and priority specified added under Sch
 #### Adds a one-day event to WhatNow
 Format: `add "DESCRIPTION" [DATE] [TIME] [TIME] [every day/week/month/year till DATE] [t/TAG]...`
 > * All description should be written within double quotation marks.
-> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Except for the double quotation marks, you can add any special character in the description.
 > * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
 
 Examples:
@@ -146,7 +146,7 @@ Figure 5: An event task with period and priority added under Schedule tasks
 #### Adds a multiple-day event to WhatNow
 Format: `add "DESCRIPTION" [DATE] [TIME] [DATE] [TIME] [every day/week/month/year till DATE] [t/TAG]...`
 > * All description should be written within double quotation marks.
-> * Except for the double quotation marks, you can add any special character in the description or tag.
+> * Except for the double quotation marks, you can add any special character in the description.
 > * Refer to the Date Format and Time Format at the end of the User Guide below for the various date and time formats.
 
 Examples:
@@ -161,7 +161,7 @@ Adds a Schedule task "French Beginner's Workshop" from 6-4-2017 to 8-4-2017 9pm.
 
 <img src="images/UI_Actual/addEvent.PNG" width="600"><br>
 
-Figure 5: An event task with period and priority added under Schedule tasks
+Figure 6: An event task with period and priority added under Schedule tasks
 
 </p>
 
@@ -171,7 +171,7 @@ Figure 5: An event task with period and priority added under Schedule tasks
 
 //@@author A0139772U
 ###Marking a task as completed: done
-Marks a task from WhatNow as completed.
+Marks a task in WhatNow as completed.
 
 Format: `done todo/schedule INDEX`
 > * Marks the task at the specified INDEX from Todo or Schedule as completed.
@@ -189,12 +189,12 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as completed.
 
 <img src="images/UI_Actual/done.PNG" width="600"><br>
 
-Figure 6: Display after a task is marked done
+Figure 7: Display after a task is marked done
 
 </p>
 
 ### Listing all tasks: `list`
-Shows a list of all tasks that match task type, date, time and priority requested by you.
+Shows a list of all tasks that match task type, date and time requested by you.
 
 Format: `list [all/done]`
 > * If all/done is not stated, then only the ongoing (i.e. incomplete) tasks will be displayed.
@@ -207,7 +207,7 @@ Returns the lists of all incomplete tasks.
 
 <img src="images/UI_Actual/incomplete.PNG" width="600"><br>
 
-Figure 7: Display with ongoing task listed
+Figure 8: Display with ongoing task listed
 
 </p>
 
@@ -219,7 +219,7 @@ Returns the lists of all completed tasks.
 
 <img src="images/UI_Actual/done.PNG" width="600"><br>
 
-Figure 8: Display with all completed tasks listed
+Figure 9: Display with all completed tasks listed
 
 </p>
 
@@ -231,14 +231,14 @@ Returns the lists of all incomplete and completed tasks.
 
 <img src="images/UI_Actual/all.PNG" width="600"><br>
 
-Figure 9: Display with all tasks listed
+Figure 10: Display with all tasks listed
 
 </p>
 
 
 //@@author A0141021H
 ###Marking a task as incomplete: undone
-Marks a task from WhatNow as incomplete.
+Marks a task in WhatNow as incomplete.
 
 Format: `undone todo/schedule INDEX`
 > * Marks the task at the specified INDEX from Todo or Schedule as incomplete.
@@ -256,21 +256,21 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as incomplete.
 
 <img src="images/UI_Actual/Undone_pic1.PNG" width="600"><br>
 
-Figure 10: Display of completed tasks.
+Figure 11: Display of completed tasks.<br>
 
 <img src="images/UI_Actual/Undone_pic2.PNG" width="600"><br>
 
-Figure 11: Display of completed tasks after undone command.
+Figure 12: Display of completed tasks after undone command.<br>
 
 <img src="images/UI_Actual/Undone_pic3.PNG" width="600"><br>
 
-Figure 12: Display of incomplete tasks.
+Figure 13: Display of incomplete tasks.<br>
 </p>
 
 > * The total number of ongoing and overdue tasks can be viewed on the panel above the "Pinned Items" panel.
 
 ### Deleting a task: `delete`
-Deletes a task from WhatNow.
+Deletes a task in WhatNow.
 
 Format: `delete todo/schedule INDEX`
 > * Deletes the task at the specified `INDEX` from Todo or Schedule as specified.
@@ -287,7 +287,7 @@ Deletes the 2nd Schedule task from the displayed list in WhatNow.
 
 <img src="images/UI_Actual/delete.PNG" width="600"><br>
 
-Figure 13: Display after delete
+Figure 14: Display after delete
 
 </p>
 
@@ -319,7 +319,7 @@ Selects the 3rd Schedule task from the displayed list and changes the date to th
 
 <img src="images/UI_Actual/update.PNG" width="600"><br>
 
-Figure 14: Display after the update
+Figure 15: Display after the update
 
 </p>
 
@@ -331,7 +331,7 @@ Format: `undo`
 
 Example:
 * `undo`
-Undo the previous action.
+Undoes the previous action.
 
 > * Undo is supported in the add, delete, clear, list, change, done, undone, update command.
 
@@ -339,7 +339,7 @@ Undo the previous action.
 
 <img src="images/UI_Actual/undo.PNG" width="600"><br>
 
-Figure 15: Display after an undo is called after an update
+Figure 16: Display after an undo is called after an update
 
 </p>
 
@@ -353,13 +353,13 @@ Format: `redo`
 
 Example:
 * `redo`
-Redo the previous action.
+Redos the previous action.
 
 <p align="center">
 
 <img src="images/UI_Actual/redo.PNG" width="600"><br>
 
-Figure 16: Display after a redo is called after an undo
+Figure 17: Display after a redo is called after an undo
 
 </p>
 
@@ -386,7 +386,7 @@ Returns any tasks having the description CS2101.
 
 <img src="images/UI_Actual/find.PNG" width="600"><br>
 
-Figure 17: Display result after the find command is executed
+Figure 18: Display result after the find command is executed
 
 </p>
 
@@ -407,7 +407,7 @@ Returns no free time blocks on the day 9/3/2019.
 
 <img src="images/UI_Actual/.PNG" width="600"><br>
 
-Figure 18: Display result after the freetime command is executed
+Figure 19: Display result after the freetime command is executed
 
 </p>
 
@@ -426,7 +426,7 @@ Pins all tasks on 6/4/2018.
 
 <img src="images/UI_Actual/.PNG" width="600"><br>
 
-Figure 19: Display result after the pin command for date 6/4/8/2018 is executed
+Figure 20: Display result after the pin command for date 6/4/8/2018 is executed<br>
 
 </p>
 
@@ -436,7 +436,7 @@ Pins all tasks with a high tag.
 
 <img src="images/UI_Actual/.PNG" width="600"><br>
 
-Figure 20: Display result after the pin command for the high tag is executed
+Figure 21: Display result after the pin command for the high tag is executed<br>
 
 </p>
 
@@ -451,7 +451,7 @@ WhatNow data are saved in the hard disk automatically after any command that cha
 
 
 ### Clearing all tasks: `clear`
-Clears all tasks from WhatNow.
+Clears all tasks in WhatNow.
 
 Format: `clear`
 
@@ -459,7 +459,7 @@ Format: `clear`
 
 <img src="images/UI_Actual/clear.PNG" width="600"><br>
 
-Figure 21: Display cleared after the clear command is executed
+Figure 22: Display cleared after the clear command is executed
 
 </p>
 
