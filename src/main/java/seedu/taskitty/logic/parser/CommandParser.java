@@ -450,19 +450,18 @@ public class CommandParser {
 
     // @@author A0139052L
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        String dataArgs = args.trim();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);                
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        String messageParameter = Command.getDeleteCommandMessageParameter();
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(args);
         
-        if (listOfIndexes.contains(null)) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+        // if any of the index is null, there was an error in the indexes provided
+        if (listOfIndexes.contains(null)) { 
+            return createNewIncorrectCommand(messageParameter);
         }
 
         return new DeleteCommand(listOfIndexes, args);
@@ -475,11 +474,9 @@ public class CommandParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDone(String args) {        
-        String dataArgs = args.trim();            
+    private Command prepareDone(String args) {         
         String messageParameter = Command.getDoneCommandMessageParameter();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);        
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(args);
         
         // if any of the index is null, there was an error in the indexes provided
         if (listOfIndexes.contains(null)) { 
@@ -491,13 +488,13 @@ public class CommandParser {
     
     //@@author A0139052L
     /**
+     * Parses each index string in the array and adds them to a list
      * 
-     * Parses each index string in the array and adds them to a list if valid
-     * 
-     * @param indexes the string array of indexes separated
-     * @return a list of all valid indexes parsed or null if an invalid index was given
+     * @param arg full command args string
+     * @return a list of all indexes parsed, where a null value indicates an invalid index
      */
-    private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String[] indexes) {        
+    private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String args) {                   
+        String[] indexes = args.trim().split(WHITE_SPACE_REGEX_STRING); 
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
         for (String index: indexes) {
@@ -516,11 +513,7 @@ public class CommandParser {
      * @param index the index string to be checked and added to list
      */
     private void addSingleIndexToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
-        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);               
-        if (categoryAndIndex == null) {
-            listOfIndexes.add(null);
-            return;
-        }               
+        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);
         listOfIndexes.add(categoryAndIndex);
     }
 
@@ -552,7 +545,10 @@ public class CommandParser {
      * @param categoryIndex the category index for these range of indexes
      */
     private void addRangeOfIndexesToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, int firstIndex,
-            int secondIndex, int categoryIndex) {        
+            int secondIndex, int categoryIndex) {
+        
+        // if the first index is larger than second index, add a null value into the list
+        // to indicate an invalid index given
         if (firstIndex >= secondIndex) {
             listOfIndexes.add(null);
             return;
@@ -561,6 +557,9 @@ public class CommandParser {
         Pair<Integer, Integer> categoryAndIndex;
         String logMessage = Task.CATEGORIES[categoryIndex] + firstIndex + INDEX_RANGE_SYMBOL + secondIndex;
         logger.info("Adding indexes from " + logMessage + " to list");
+        
+        // add each index of the given category from the first index to the second 
+        // index into the list
         for (int currentIndex = firstIndex; currentIndex <= secondIndex; currentIndex++) {
             categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, currentIndex);
             listOfIndexes.add(categoryAndIndex);
@@ -600,9 +599,6 @@ public class CommandParser {
 
     /**
      * Formats arguments before being passed to command
-     * @param splitArgs
-     * @param arguments
-     * @return formatted argument
      */
     private String formatArguments(String[] splitArgs) {
         String formattedArgument = EMPTY_STRING;
@@ -643,8 +639,7 @@ public class CommandParser {
     /**
      * Parses the string and returns the categoryIndex and the index if a valid
      * one was given
-     * 
-     * @return an int array with categoryIndex and index in 0 and 1 index respectively
+     * @return an Integer Pair with the categoryIndex as the key and number index as the value
      */
     private Pair<Integer, Integer> getCategoryAndIndex(String args) {
 
@@ -668,6 +663,7 @@ public class CommandParser {
             categoryIndex = TaskUtil.getCategoryIndex(args.charAt(0));
         }
 
+        // if invalid number index given, return null to indicate invalid index
         if (!index.isPresent()) {
             return null;
         }
