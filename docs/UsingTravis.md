@@ -39,7 +39,7 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
       ![Commit build](images/build_pending.png)
 
     * As the build is run on a provided remote machine, we can only examine the logs it produces:<br>
-      ![Travis build](images/travis_build.png)
+      ![Travis build](images/travis_build.PNG)
 
 7. If the build is successful, you should be able to check the coverage details of the tests
    at [Coveralls](http://coveralls.io/)
