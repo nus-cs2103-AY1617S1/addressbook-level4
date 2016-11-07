@@ -56,7 +56,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     // ================ WhatNow methods ==============================
-
+    //@@author A0141021H
     @Override
     public String getWhatNowFilePath() {
         return xmlWhatNowStorage.getWhatNowFilePath();

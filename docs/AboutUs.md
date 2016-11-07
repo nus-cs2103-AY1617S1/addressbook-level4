@@ -1,10 +1,10 @@
-//@@author A0139128A
+<!--- //@@author A0139128A --->
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
-
+<!--- A0126240W --->
 #### [Verbena Ong](http://github.com/Verbena) 
 <img src="images/Verbena.jpg" width="150"><br>
 **Role**: Team Leader<br>  
@@ -17,7 +17,7 @@ Code written: [[functional code](A0126240W.md)][[test code](A0126240W.md)][[docs
 Other major contributions:<br>
 * Set up Travis and Coveralls 
 -----
-
+<!--- A0139128A --->
 #### [Lim Wei Jie](http://github.com/1o0p3r)
 <img src="images/Weijie.jpg" width="150"><br>
 **Role**: Developer<br>  
@@ -32,7 +32,7 @@ Other major contributions:<br>
 *Documentation review
 
 -----
-
+<!--- A0141021H --->
 #### [Patel Drashti](http://github.com/Drashti96)
 <img src="images/Drashti.jpg" width="150"><br>
 **Role**: Developer<br>  
@@ -46,7 +46,7 @@ Code written: [[functional code](A0141021H.md)][[test code](A0141021H.md)][[docs
 Other major contributions:<br>
 *JUnit tests
 -----
-
+<!--- A0139772U -->
 #### [Zachary Lim](http://github.com/zachylimwl)
 <img src="images/Zachary2.jpg" width="150"><br>
 **Role**: Developer<br>  
@@ -61,7 +61,7 @@ Code written: [[functional code](A0139772U.md)][[test code](A0139772U.md)][[docs
 Other major contributions:<br>
 * Did the initial refactoring from AddressBook to WhatNow
 -----
-
+<!---A0141021H --->
 ## Project Mentor
 
 #### [Akshay Narayan](https://github.com/okkhoy) 
