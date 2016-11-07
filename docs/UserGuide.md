@@ -1,5 +1,6 @@
 # User Guide
 
+<!-- @@author A0139655U -->
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Help](#viewing-help-help)
@@ -17,6 +18,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 <br>
+<!-- @@author -->
 
 ## Quick Start
 
