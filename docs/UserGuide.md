@@ -12,7 +12,7 @@
 3. Right click on the project
 4. Click `Run As` > `Java Application` and choose the `Main` class. The GUI should 	appear within split second.
 5. Type the command into the command box and press <kbd>Enter</kbd> to execute the 	command. <br>
-	List of commands:
+	List of commands:<br>
 	 	**`help`** : opens instruction<br>
 	 	**`add`** : adds a task<br>
 	 	**`show`** : shows all tasks<br>
@@ -74,19 +74,19 @@ show [DATE]/[COMPLETION](optional)
 ```
 
 Examples:<br>
-1. `show`
+`show`<br>
 >Shows schedule for today<br>
 
-2. `show today`
+`show today`<br>
 >Shows schedule for today <br>
 
-3. `show complete`
+`show complete`<br>
 >Shows completed tasks <br>
 
-4. `show not complete`
+`show not complete`<br>
 >Shows uncompleted tasks <br>
 
-5. `show next wednesday`
+`show next wednesday`<br>
 >Shows schedule for next wednesday <br>
 
 
@@ -218,7 +218,7 @@ Format: `clear`
     
 
 Examples: <br>
-```clear```
+`clear`
 >The list is now empty <br>
 
 
