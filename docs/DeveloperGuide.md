@@ -11,12 +11,12 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
-
+<!--@@author A0139817U -->
 ## Introduction
 Welcome to the <i>Tusk</i> codebase! This guide aims to get you up to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
 
 Let's get started!
-
+<!--@@author A0139817U-reused -->
 ## Setting up
 
 #### Prerequisites
@@ -73,7 +73,7 @@ Component Name | Purpose | Interface | Implementation |
 [**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | [`LogicManager.java`](../src/main/java/w15c2/tusk/logic/LogicManager.java)
 [**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/task/Model.java) | [`TaskManager.java`](../src/main/java/w15c2/tusk/model/task/TaskManager.java)
 [**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) <br> [`AliasStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | [`StorageManager.java`](../src/main/java/w15c2/tusk/storage/StorageManager.java)
-
+<!--@@author A0139708W -->
 ### Integrated Behavior
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
@@ -95,6 +95,7 @@ being saved to the hard disk. <br>
 The sections below give more details of each component.
 
 <br>
+
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -116,6 +117,7 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <br>
+<!--@@author A0139817U -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -134,6 +136,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 <br>
+<!--@@author A0138978E -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -148,6 +151,7 @@ The `Model` component,
 * does not depend on any of the other three components.
 
 <br>
+<!--@@author A0143107U -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -213,6 +217,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 * Before the execution of an undo command, the current `UniqueItemCollection` is saved to support redo.
 
 <br>
+<!--@@author A0139708W-reused -->
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
@@ -282,6 +287,7 @@ a. Include those libraries in the repository (this bloats the repository size)<b
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 <br>
+<!--@@author A0139817U -->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -304,6 +310,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | autocomplete the commands that I am typing | type commands faster
 
 <br>
+<!--@@author A0139708W -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
@@ -479,6 +486,7 @@ Use case ends.
 > Windows, Linux, Unix, OS-X
 
 <br>
+<!--@@author A0143107U -->
 ## Appendix E : Product Survey
 
 Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
