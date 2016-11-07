@@ -27,9 +27,6 @@ public interface Logic {
     /** */
     boolean canParseHeader(String keyword);
 
-    /** Returns the list of tasks that are overdue */
-	ObservableList<ReadOnlyTask> getFilteredOverdueTasks();
-
 	/** Returns the list of floating tasks */
 	ObservableList<ReadOnlyTask> getFilteredFloatingTasks();
 

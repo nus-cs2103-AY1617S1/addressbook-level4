@@ -23,6 +23,7 @@
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 * This is a sample project created by [SE-EDU](https://githubcom/se-edu/) initiative.
+* [Natty](http://natty.joestelmach.com/) for parsing user input dates
 
 
 #### Licence : [MIT](LICENSE)

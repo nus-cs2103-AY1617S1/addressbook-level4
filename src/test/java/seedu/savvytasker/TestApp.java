@@ -56,11 +56,10 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(1150.0, 700.0, (int) x, (int) y));
         return userPrefs;
     }
-
-
+    
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);

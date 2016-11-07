@@ -1,22 +1,27 @@
 package seedu.savvytasker.ui;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 //@@author A0138431L
@@ -39,8 +44,9 @@ public class DailyPanel extends UiPart {
 	private VBox panel;
 	private AnchorPane placeHolderPane;
 
+
 	@FXML 
-	private Label dayHeader;
+	private TextField header;
 
 	@FXML
 	private ListView<ReadOnlyTask> taskListView;
@@ -75,12 +81,19 @@ public class DailyPanel extends UiPart {
 	private void configure(ObservableList<ReadOnlyTask> taskList, int dayOfTheWeek, Date date) {
 
 		String dateHeader = generateHeader(dayOfTheWeek, date);
+		Date today = new Date();
+		if(date == today) {
+			placeHolderPane.setStyle("-fx-background-color:#FF0000");
+			header.setStyle("-fx-text-fill:#FF0000");
+		}
 		setConnections(taskList, dateHeader);
 		addToPlaceholder();
+		
 	}
 
 	private void setConnections(ObservableList<ReadOnlyTask> taskList, String dateHeader) {
-		dayHeader.setText(dateHeader);
+		header.clear();
+		header.setText(dateHeader);
 		taskListView.setItems(taskList);
 		taskListView.setCellFactory(listView -> new TaskListViewCell());
 		setEventHandlerForSelectionChangeEvent();
@@ -112,30 +125,43 @@ public class DailyPanel extends UiPart {
 		SimpleDateFormat dayFormatter = new SimpleDateFormat(DAY_PATTERN);
 		SimpleDateFormat dateFormatter = new SimpleDateFormat(DATE_PATTERN);
 
+		Date today = new Date();
+		Date tomorrow = new Date();
+		tomorrow = addDay(1, tomorrow);
+		
 		String day;
 
-		switch (dayOfTheWeek) {
-
-		case 0:
+		if(DateUtils.isSameDay(date, today)) {
 
 			day = TODAY_TITLE; 
-			break;
-
-		case 1:
+		
+		} else if (DateUtils.isSameDay(date, tomorrow)) {
 
 			day = TOMORROW_TITLE;
-			break;
-
-		default:
+		
+		} else {
 
 			day = dayFormatter.format(date);
-			break;
 
 		}
 		String header = String.format(DAY_DATE_FORMAT, day, dateFormatter.format(date));
 
 		return header;
 	}
+	
+	private Date addDay(int i, Date date) {
+		
+        //convert date object to calendar object and add 1 days
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        calendarExpectedDate.setTime(date);
+        
+        calendarExpectedDate.add(Calendar.DATE, i);
+			
+        //convert calendar object back to date object
+        date = calendarExpectedDate.getTime();
+			
+        return date;
+    }
 
 	class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
@@ -150,7 +176,7 @@ public class DailyPanel extends UiPart {
 				setGraphic(null);
 				setText(null);
 			} else {
-				setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+				setGraphic(TaskCard.load(task, 0, false).getLayout());
 			}
 		}
 	}

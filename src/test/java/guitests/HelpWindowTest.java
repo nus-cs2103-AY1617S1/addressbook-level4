@@ -10,14 +10,6 @@ public class HelpWindowTest extends SavvyTaskerGuiTest {
     @Test
     public void openHelpWindow() {
 
-        taskListPanel.clickOnListView();
-
-        // Feature removed
-        //assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
-        // Feature removed
-        //assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
-
         assertHelpWindowOpen(commandBox.runHelpCommand());
 
     }

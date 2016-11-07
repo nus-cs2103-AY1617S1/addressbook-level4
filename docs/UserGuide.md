@@ -60,7 +60,7 @@ Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVE
 > START_DATE (See [DATE](#date)) | `Optional` Specifies the starting date and time of the task.
 > END_DATE (See [DATE](#date)) | `Optional` Specifies the ending date and time of the task.
 > LOCATION | `Optional` Specifies the location where the task happens.
-> PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
+> PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `medium`
 > RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
 > NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs. <br>`Defaults` to `1`<br>`Ignored` if RECURRING_TYPE is `none`
 > CATEGORY | `Optional` Specifies a custom category for the task. This can be used for keeping track of similar tasks.
@@ -155,13 +155,13 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 
 #### Change storage location : `storage`
 Changes the storage location of Savvy Tasker.<br>
-Format: `storage PATH`
+Format: `storage NEW_FILEPATH`
 
 > Parameters | Description  
 > -------- | :-------- 
 > PATH | `Mandatory` Specifies the path where Savvy Tasker's task list is saved at.
 > <br>
-> If the new storage location specified by `PATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
+> If the new storage location specified by `NEW_FILEPATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
 
 [//]: # (@@author A0097627N)
 
@@ -258,6 +258,20 @@ Add task named "pjm" to task list
 
 [//]: # (@@author A0139915W)
 
+[//]: # (@@author A0138431L)
+
+#### Command stack history
+<kbd>UP</kbd>: Return last user input command in command box<br>
+<kbd>DOWN</kbd>: Return (if any) next user input command in command box<br>
+> Note that <kbd>DOWN</kbd> is only allowed after at least an <kbd>UP</kbd> is being entered
+
+
+#### Week Selection
+<kbd>Ctrl</kbd> + <kbd>LEFT</kbd>: Display previous week’s daily task list<br>
+<kbd>Ctrl</kbd> + <kbd>RIGHT</kbd>: Display next week’s daily task list
+
+[//]: # (@@author A0139915W)
+
 ## Command Summary
 
 Command | Format  
@@ -272,8 +286,30 @@ Command | Format
 [Help](#viewing-help--help) | `help`
 [Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
-[Storage](#change-storage-location--storage) | `storage PATH`<br>Example: `storage data/savvytasker.xml`
+[Storage](#change-storage-location--storage) | `storage NEW_FILEPATH`<br>Example: `storage data/savvytasker.xml`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
 [Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`
+
+[//]: # (@@author A0138431L)
+
+## Keyboard Shortcuts
+
+Key Codes | Function | Command Box Input 
+-------- | :--------  | :-------- 
+<kbd>Esc</kbd> | Toggle to show/hide a list of keyboard shortcuts | -
+<kbd>Ctrl</kbd> + <kbd>D</kbd> | [Clear](#clearing-all-entries--clear) all entries | `clear`
+<kbd>Ctrl</kbd> + <kbd>Q</kbd> | [Exit](#exiting-the-program--exit) | `exit`
+<kbd>Ctrl</kbd> + <kbd>L</kbd> | [List](#listing-all-tasks-list) all unmarked task by date, earliest task first | `list`
+<kbd>Ctrl</kbd> + <kbd>A</kbd> | [List](#listing-all-tasks-list) archived tasks | `list archived`
+<kbd>Ctrl</kbd> + <kbd>P</kbd> | [List](#listing-all-tasks-list) all unmarked task by priority level, high priority first | `list priorityLevel`
+<kbd>Ctrl</kbd> + <kbd>I</kbd> | [List](#listing-all-tasks-list) all alias keys | `list alias`
+<kbd>Ctrl</kbd> + <kbd>H</kbd> | [Help](#viewing-help--help) | `help`
+<kbd>Ctrl</kbd> + <kbd>S</kbd> | Popups a directory chooser dialog box to choose a new filepath | `storage NEW_FILEPATH`
+<kbd>Ctrl</kbd> + <kbd>Z</kbd> | [Undo](#undo-the-most-recent-operation--undo) | `undo`
+<kbd>Ctrl</kbd> + <kbd>Y</kbd> | [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
+<kbd>Ctrl</kbd> + <kbd>UP</kbd> | Return [last user input](#command-stack-history) command in command box | -
+<kbd>Ctrl</kbd> + <kbd>DOWN</kbd> | Return (if any) [next user input](#command-stack-history) command in command box | -
+<kbd>Ctrl</kbd> + <kbd>LEFT</kbd> | Displays [previous week’s](#week-selection) daily task list | -
+<kbd>Ctrl</kbd> + <kbd>RIGHT</kbd> | Display [next week’s](#week-selection) daily task list | -
