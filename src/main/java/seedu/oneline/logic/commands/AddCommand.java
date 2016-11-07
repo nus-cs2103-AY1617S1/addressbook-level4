@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -25,6 +25,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task book. \n"
+            + " === Add Task === \n"
             + "Parameters: <taskName> [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
             + " Acad meeting .from 2pm .to 4pm #acad";
@@ -77,7 +78,7 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            EventsCenter.getInstance().post(new ShowAllViewEvent());
+            EventsCenter.getInstance().post(new ChangeViewEvent(" "));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

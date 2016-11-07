@@ -100,13 +100,15 @@ public class TaskTime implements Comparable<TaskTime> {
         return value == null ? "" : value.toString();
     }
     
+    //@@author A0142605N 
     @Override
     public String toString() {
         if (value == null) { return ""; }
         SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM ''yy, hh:mm aaa");
         return df.format(value);
     }
-
+    
+  //@@author A0138848M
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -152,7 +154,7 @@ public class TaskTime implements Comparable<TaskTime> {
         } else if (o.value == null){
             return 1;
         } else {
-            return this.value.compareTo(o.value);
+            return (int) (this.value.getTime() - o.value.getTime());
         }
     }
     

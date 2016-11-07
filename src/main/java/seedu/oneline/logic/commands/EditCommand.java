@@ -24,7 +24,7 @@ public abstract class EditCommand extends Command {
             + " === Edit Task === \n"
             + "Parameters: INDEX (must be a positive integer), [taskName] [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
-            + " 1 Acad meeting .from 2pm .to 4pm #acad"
+            + " 1 Acad meeting .from 2pm .to 4pm #acad \n"
             + " === Edit Category === \n"
             + "Parameters: #cat [#newCatName] [color]\n"
             + "Example: " + COMMAND_WORD

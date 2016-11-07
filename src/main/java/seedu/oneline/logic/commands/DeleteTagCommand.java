@@ -34,8 +34,8 @@ public class DeleteTagCommand extends DeleteCommand {
     }
     
     /**
-     * Pre-condition: model.replaceTask removes the tag all together
-     * as long as all tasks tagged with the tag have their tags removed.
+     * Pre-condition: model.replaceTask removes the tag altogether from the internal taglist
+     * when all tasks tagged with the tag have their tags removed.
      */
     @Override
     public CommandResult execute() {

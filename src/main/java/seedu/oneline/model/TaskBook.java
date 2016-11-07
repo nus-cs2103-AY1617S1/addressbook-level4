@@ -44,8 +44,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     /**
      * Tasks and Tags are copied into this task book
      */
-    public TaskBook(UniqueTaskList persons, UniqueTagList tags, TagColorMap colorMap) {
-        resetData(persons.getInternalList(), tags.getInternalList(), colorMap.getInternalMap());
+    public TaskBook(UniqueTaskList tasks, UniqueTagList tags, TagColorMap colorMap) {
+        resetData(tasks.getInternalList(), tags.getInternalList(), colorMap.getInternalMap());
         updateTags();
     }
 
@@ -96,14 +96,14 @@ public class TaskBook implements ReadOnlyTaskBook {
         updateTags();
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
      * Adds a task to the task book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
@@ -112,7 +112,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */

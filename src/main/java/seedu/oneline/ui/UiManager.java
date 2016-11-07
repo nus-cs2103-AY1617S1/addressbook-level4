@@ -14,11 +14,8 @@ import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
 import seedu.oneline.commons.events.ui.JumpToListRequestEvent;
 import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
-import seedu.oneline.commons.events.ui.ShowHelpRequestEvent;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent; 
-import seedu.oneline.commons.events.ui.ShowDayViewEvent; 
-import seedu.oneline.commons.events.ui.ShowWeekViewEvent; 
-import seedu.oneline.commons.events.ui.ShowFloatViewEvent; 
+import seedu.oneline.commons.events.ui.ChangeViewEvent; 
+import seedu.oneline.commons.events.ui.TagPanelSelectionChangedEvent;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.Logic;
 import seedu.oneline.logic.commands.SelectCommand;
@@ -130,28 +127,33 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.postResult(message);
     }
     
-    @Subscribe
-    private void handleShowAllViewEvent(ShowAllViewEvent event) {
-        mainWindow.resetAllButtons();
-        mainWindow.getAllButton().setSelected(true); 
+    //@@author A0142605N
+    @Subscribe 
+    private void handleTagPanelSelectionChangedEvent(TagPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logic.execute("list " + event.getNewSelection().toString());
     }
     
     @Subscribe
-    private void handleShowDayViewEvent(ShowDayViewEvent event) {
+    private void handleChangeViewEvent(ChangeViewEvent event) {
         mainWindow.resetAllButtons();
-        mainWindow.getDayButton().setSelected(true); 
-    }
-    
-    @Subscribe
-    private void handleShowWeekViewEvent(ShowWeekViewEvent event) {
-        mainWindow.resetAllButtons();
-        mainWindow.getWeekButton().setSelected(true);
-    }
-    
-    @Subscribe
-    private void handleShowFloatViewEvent(ShowFloatViewEvent event) {
-        mainWindow.resetAllButtons();
-        mainWindow.getFloatButton().setSelected(true);
+        String view = event.getNewView(); 
+        switch(view) {
+            case " ": case "done": case "undone": 
+                mainWindow.getAllButton().setSelected(true); 
+                break;
+            case "today": 
+                mainWindow.getDayButton().setSelected(true); 
+                break;
+            case "week": 
+                mainWindow.getWeekButton().setSelected(true); 
+                break;
+            case "float": 
+                mainWindow.getFloatButton().setSelected(true); 
+                break;
+            default: 
+                assert false; 
+        }
     }
 
 }

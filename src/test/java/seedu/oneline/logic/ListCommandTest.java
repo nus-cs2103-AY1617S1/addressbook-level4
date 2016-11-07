@@ -49,7 +49,7 @@ public class ListCommandTest extends LogicTestManager {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                String.format(ListCommand.MESSAGE_SUCCESS, "all"),
                 expectedTB,
                 expectedList);
     }
@@ -70,7 +70,7 @@ public class ListCommandTest extends LogicTestManager {
         model.updateFilteredListToShowAllNotDone();
 
         assertCommandBehavior("list undone",
-                ListCommand.MESSAGE_SUCCESS,
+                String.format(ListCommand.MESSAGE_SUCCESS, "undone"),
                 expectedAB,
                 expectedList);
     }
@@ -91,7 +91,7 @@ public class ListCommandTest extends LogicTestManager {
         model.updateFilteredListToShowAllDone();
 
         assertCommandBehavior("list done",
-                ListCommand.MESSAGE_SUCCESS,
+                String.format(ListCommand.MESSAGE_SUCCESS, "done"),
                 expectedAB,
                 expectedList);
     }

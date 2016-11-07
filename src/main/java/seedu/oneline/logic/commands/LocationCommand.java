@@ -23,7 +23,9 @@ public class LocationCommand extends Command {
     public static final String COMMAND_WORD = "loc";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD 
-            + ": Sets the folder to be used for storage\n" 
+            + ": Sets the folder to be used for storage."
+            + " Entering loc without a parameter will show the current storage location.\n" 
+            + " === Storage location === \n"
             + "Parameters: FOLDERPATH\n"
             + "Example: " + COMMAND_WORD + " C:\\Users\\Jim\\Desktop\\";
 
