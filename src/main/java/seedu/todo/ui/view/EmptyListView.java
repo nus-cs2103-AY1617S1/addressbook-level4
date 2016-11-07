@@ -33,9 +33,9 @@ public class EmptyListView extends UiPart {
     private static final String EMPTY_MESSAGE_DEFAULT
             = "Hello. Type 'add' to add a new task or event.";
     private static final String EMPTY_MESSAGE_COMPLETED
-            = "You have no completed tasks or past events.";
+            = "You have no completed tasks and past events.";
     private static final String EMPTY_MESSAGE_INCOMPLETE
-            = "You have no incomplete tasks or upcoming events.";
+            = "You have no incomplete tasks and upcoming events.";
     private static final String EMPTY_MESSAGE_DUE_SOON
             = "You have no tasks due soon.";
     private static final String EMPTY_MESSAGE_EVENTS
@@ -129,6 +129,8 @@ public class EmptyListView extends UiPart {
         } else if (filter == TaskViewFilter.EVENTS) {
             setEmptyListContent(EMPTY_MESSAGE_EVENTS, EMOJI_EVENTS);
 
+        } else if (filter == TaskViewFilter.TODAY) {
+            setEmptyListContent(EMPTY_MESSAGE_TODAY, EMOJI_TODAY);
         }
     }
 
