@@ -74,7 +74,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "simplybook.jar"
+        archiveName = "simply.jar"
 
         manifest {
             attributes "Main-Class": "seedu.simply.MainApp"
