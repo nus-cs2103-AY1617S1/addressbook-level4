@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>floatingtask0</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>floating</tagged>
+    </tasks>
+    <tasks>
+        <name>floatingtask05</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask0e213</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask1</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask3</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask4</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask6</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>testcasefind cs</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 2</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-02-17 08:50</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 8</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-03-06 10:00</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask5</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-03-14 02:06</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask3</name>
+        <startTime>2016-04-16 05:42</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask2</name>
+        <startTime>2016-04-30 06:16</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask1</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-06-14 06:41</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>REPEATING Birthday</name>
+        <startTime>2016-06-19 18:04</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>yearly</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask1</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-08-05 07:59</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask0</name>
+        <startTime>2016-08-10 08:19</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask 9</name>
+        <startTime>2016-09-17 04:53</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask7</name>
+        <startTime>2016-09-22 06:09</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 5</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-10-07 06:52</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask8</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-10-10 06:40</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask9</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-10-11 00:27</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>REPEATING check emails</name>
+        <startTime>2016-11-07 21:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>daily</recurring>
+    </tasks>
+    <tasks>
+        <name>project submission</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-11-07 23:00</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>cs2103</tagged>
+    </tasks>
+    <tasks>
+        <name>deadlinetask 238</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-11-08 12:56</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>study for CS2103 finals</name>
+        <startTime>2016-11-12 12:00</startTime>
+        <endTime>2016-11-12 18:00</endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>cs2103</tagged>
+    </tasks>
+    <tasks>
+        <name>starttask100</name>
+        <startTime>2016-11-13 07:06</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>REPEATING do laundry</name>
+        <startTime>2016-11-13 20:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>weekly</recurring>
+    </tasks>
+    <tasks>
+        <name>study for CS2103 finals</name>
+        <startTime>2016-11-19 12:00</startTime>
+        <endTime>2016-11-19 18:00</endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>cs2103</tagged>
+    </tasks>
+    <tasks>
+        <name>CS1231 Discrete Structures finals</name>
+        <startTime>2016-11-23 17:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>cs1231</tagged>
+        <tagged>nus</tagged>
+    </tasks>
+    <tasks>
+        <name>CS2103 Software Engineering finals</name>
+        <startTime>2016-11-26 09:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>cs2103</tagged>
+        <tagged>nus</tagged>
+    </tasks>
+    <tasks>
+        <name>EE2021 Devices and Circuits finals</name>
+        <startTime>2016-11-29 09:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>ee2021</tagged>
+        <tagged>nus</tagged>
+    </tasks>
+    <tasks>
+        <name>MA1506 Mathematics II finals</name>
+        <startTime>2016-11-29 17:00</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>ma1506</tagged>
+        <tagged>nus</tagged>
+    </tasks>
+    <tasks>
+        <name>deadlinetask4</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-12-09 06:30</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask0</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-01-29 01:02</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+        <tagged>duetask</tagged>
+    </tasks>
+    <tasks>
+        <name>deadlinetask0</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-02-13 04:56</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 6</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-06-08 09:42</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttast6</name>
+        <startTime>2017-06-23 07:11</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask4</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-06-24 09:02</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 7</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-06-25 07:37</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask4</name>
+        <startTime>2017-07-06 08:46</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask7</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-08-10 06:25</deadline>
+        <doneStatus>false</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask123</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask2</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>floatingtask9</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask3</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-04-05 05:25</deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask8</name>
+        <startTime>2016-05-01 07:57</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask2</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2016-10-23 12:01</deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask5</name>
+        <startTime>2016-12-11 06:24</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>deadlinetask6</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-04-04 03:16</deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask3</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-05-07 09:42</deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>duetask 9</name>
+        <startTime></startTime>
+        <endTime></endTime>
+        <deadline>2017-06-12 06:19</deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tasks>
+        <name>starttask1</name>
+        <startTime>2017-06-12 11:31</startTime>
+        <endTime></endTime>
+        <deadline></deadline>
+        <doneStatus>true</doneStatus>
+        <favoriteStatus>false</favoriteStatus>
+        <recurring>false</recurring>
+    </tasks>
+    <tags>
+        <tagName>cs2103</tagName>
+    </tags>
+    <tags>
+        <tagName>nus</tagName>
+    </tags>
+    <tags>
+        <tagName>cs1231</tagName>
+    </tags>
+    <tags>
+        <tagName>ee2021</tagName>
+    </tags>
+    <tags>
+        <tagName>ma1506</tagName>
+    </tags>
+    <tags>
+        <tagName>duetask</tagName>
+    </tags>
+    <tags>
+        <tagName>floating</tagName>
+    </tags>
+</taskmanager>
