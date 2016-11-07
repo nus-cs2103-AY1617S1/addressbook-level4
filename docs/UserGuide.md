@@ -22,12 +22,12 @@
 <br>
 ## Introduction
 
-Frustrated with the repetitive number of mouse clicks when using task managers? Tired of cluttered windows? Need the ability to 
-easily categorise tasks? 
+Frustrated with the repetitive number of mouse clicks when using task managers? Tired of cluttered windows? Need the ability to easily categorise tasks? Don’t worry! Simply is here to save the day.
 
-Welcome to Simply.
+Introducing to you Simply, your everyday task manager.
 
 Gone are the repetitive mouse clicks other task managers require of you. With a single line command entry, you can easily create a task and categorize it as you desire. With its simple interface, gone are the cluttered windows of other task managers and tasks can be easily found at a glance.
+
 
 <br>
 ## Getting Started
@@ -183,19 +183,23 @@ You have been very busy and forgot to buy Samantha's present so you want to remi
 
 You can do so by changing the existing rememberToBuyPresent tag to AbsolutelyRememberToBuyPresent tag with the following command.
 
->Format: **Edit** &lt;index&gt; **tag** &lt;old_tag&gt;`>`&lt;new_tag&gt;
+>Format: **edit** &lt;index&gt; **tag** &lt;old_tag&gt;`>`&lt;new_tag&gt;
 
 Example: edit E1 #rememberToBuyPresent`>`#AbsolutelyRememberToBuyPresent
+
+If there is only one tag, you can use the following command instead to change the tag.
+Format: **edit** &ltindex&gt new tag 
+
 <br><br>
  
 ###3 Find Task by Keyword
 
 Should you need to find any task based on details which you only partially remember, the find by keyword command can help you in finding them. Partial keywords are allowed and you can search for tasks by date, time or description. 
 
-> Format: **Find** &lt;keyword&gt;
+> Format: **find** &lt;keyword&gt;
 
 
-Example: Find report
+Example: find report
 
 Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
@@ -204,24 +208,24 @@ Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
 Remember the report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course, if you want to, then we will show you how in the later part of this user guide. 
 
-> Format: Done &lt;index&gt;
+> Format: done &lt;index&gt;
 
-Example: Done D1
+Example: done D1
 
 This will hide the report that you have completed from the main screen.
 
 <br>
 You can also complete multiple tasks at once by following the formats below.
 
-> Format: Done &lt;index&gt;-&lt;index&gt;
+> Format: done &lt;index&gt;-&lt;index&gt;
 
-Example : Done T1-T3
+Example : done T1-T3
 
 This marks the range of tasks between the first index and the second index as done while this,
 
-> Format: Done &lt;index&gt;, &lt;index&gt;
+> Format: done &lt;index&gt;, &lt;index&gt;
 
-Example: Done T1, E2, D4
+Example: done T1, E2, D4
 
 marks the specified indexes as done.
 
@@ -248,18 +252,18 @@ Now that you have seen all the tasks that you have done, to return to the main d
 
 If you no longer need any tasks, simply delete them by using the delete command availabe in the following formats. 
 
-> Format: Delete &lt;index&gt;
+> Format: delete &lt;index&gt;
 
-> Format: Delete &lt;index&gt;-&lt;index&gt;
+> Format: delete &lt;index&gt;-&lt;index&gt;
 
-> Format: Delete &lt;index&gt;, &lt;index&gt; 
+> Format: delete &lt;index&gt;, &lt;index&gt; 
 
 
-Example: Delete T3
+Example: delete T3
 
-Example: Delete T1-T3
+Example: delete T1-T3
 
-Example: Delete T1, T3
+Example: delete T1, T3
 
 The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
@@ -268,9 +272,9 @@ The delete command is flexible and allows you to delete more than 1 task at a ti
 
 Oh no! What happens if you accidentally deleted something by mistake? In life, there are no undos but here, there are. The following undo command enables you to undo the most recent executed command, restoring anything lost.
 
-> Format: Undo &lt;number of operations&gt;
+> Format: undo &lt;number of operations&gt;
 
-Example: Undo 2
+Example: undo 2
 <br><br>
 >Note: If no number is entered, the default number of times the command will undo is 1.
 <br><br>
@@ -281,9 +285,9 @@ Example: Undo 2
 
 If after using the undo command, you realise that the command you just undid is correct. Simply, type the following command to redo it.
 
-> Format: Redo &lt;number of operations&gt;
+> Format: redo &lt;number of operations&gt;
 
-Example: Redo 2
+Example: redo 2
 <br><br>
 >Note: If no number is entered, the default number of times the command will redo is 1.
 
