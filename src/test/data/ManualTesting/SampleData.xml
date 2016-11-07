@@ -4,7 +4,7 @@
         <name>2103 demo 1</name>
         <description></description>
         <datetime>27-Oct-2016 11:00 to 27-Oct-2016 12:00</datetime>
-        <status>EXPIRE</status>
+        <status>DONE</status>
     </datedTasks>
     <datedTasks>
         <name>collect soc welfare pack</name>
@@ -60,7 +60,7 @@
         <name>2103 demo 2</name>
         <description></description>
         <datetime>03-Nov-2016 11:00 to 03-Nov-2016 12:00</datetime>
-        <status>DONE</status>
+        <status>EXPIRE</status>
     </datedTasks>
     <datedTasks>
         <name>demo event expired</name>
