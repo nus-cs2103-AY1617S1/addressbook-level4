@@ -291,6 +291,7 @@ Use case ends.
 > 2b1. Task!t shows a 'the task already exist' message. <br>
 > Use case resumes at step 1
 
+<!-- @@author A0153736B -->
 #### Use case: View task
 
 **MSS**
@@ -309,12 +310,11 @@ Use case ends.
 > 2b1. Task!t shows a 'Task date provided is invalid!' message. <br>
 > Use case ends
 
-<!-- @@author A0153736B -->
 #### Use case: Find task
 
 **MSS**
 
-1. User requests to find tasks by keyword
+1. User requests to find tasks by keyword(s)
 2. Task!t displays the list of tasks that contains the keyword in the name<br>
 Use case ends.
 
