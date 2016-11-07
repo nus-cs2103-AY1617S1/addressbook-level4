@@ -301,7 +301,7 @@ Key Codes | Function | Command Box Input
 [Ctrl-P](#listing-all-tasks-list) | List all unmarked task by priority level, high priority first | `list priorityLevel`
 [Ctrl-I](#listing-all-tasks-list) | List all alias keys | `list alias`
 [Ctrl-H](#viewing-help--help) | `help`
-[Ctrl-S](#change-storage-location--storage) | popup a directory chooser dialog box to choose new filepath |`storage NEW_FILEPATH`
+[Ctrl-S](#change-storage-location--storage) | popup a directory chooser dialog box to choose new filepath | `storage NEW_FILEPATH`
 [Ctrl-Z](#undo-the-most-recent-operation--undo) | `undo`
 [Ctrl-Y](#redo-the-most-recent-undo-operation--redo) | `redo`
 [UP](#command-stack-history) | Return last user input command in command box | -
