@@ -231,6 +231,8 @@ A Model represents a single database record that is part of the persistent state
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
+The `Storage` module should be considered to be a black box which provides read/write functionality and a few bonus features to the TodoListDB. This can be compared to a MySQL database implementation - no one needs to know how this is implemented, and in actual fact our implementation does little more than wrap around a serializer / deserializer in order to provide undo/redo functionality.
+
 The `Storage` component,
 * holds the logic for saving and loading the TodoListDB from disk
 * maintains the required information to undo/redo the state of the TodoListDB in steps. One step represents the changes made in a single atomic transaction
