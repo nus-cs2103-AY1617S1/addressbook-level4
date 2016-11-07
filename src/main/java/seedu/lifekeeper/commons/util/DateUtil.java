@@ -157,7 +157,6 @@ public class DateUtil {
      */
 
     public static String convertDateWhenDayOfTheWeekIsGiven(String date) throws IllegalValueException {
-        String[] timeparts = date.split(" ");
         Date today = new Date();
         String strDate;
         int dayIndex;
@@ -175,10 +174,11 @@ public class DateUtil {
         return concatDateTime(strDate, date);
 
     }
-
+    /**
+     * @return String that concatenate time with date.
+     */
     private static String concatDateTime(String strDate, String date) throws IllegalValueException {
         String[] timeparts = date.split(" ");
-        String part1 = strDate;
         String part2 = strDate;
         if (timeparts.length != 1) {
             part2 = timeparts[1];

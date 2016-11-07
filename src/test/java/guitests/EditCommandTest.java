@@ -2,19 +2,11 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 
-import java.awt.List;
 import java.util.Arrays;
 import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-import seedu.lifekeeper.model.activity.Activity;
-import seedu.lifekeeper.model.activity.Reminder;
-import seedu.lifekeeper.model.activity.event.Event;
-import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
-import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
-import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.testutil.*;
 

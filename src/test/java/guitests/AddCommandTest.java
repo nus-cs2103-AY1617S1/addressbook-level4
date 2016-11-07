@@ -8,6 +8,7 @@ import seedu.lifekeeper.logic.commands.AddCommand;
 import seedu.lifekeeper.testutil.TestActivity;
 import seedu.lifekeeper.testutil.TestEvent;
 import seedu.lifekeeper.testutil.TestUtil;
+import seedu.lifekeeper.testutil.TypicalTestActivities;
 
 import static org.junit.Assert.assertTrue;
 
@@ -20,34 +21,34 @@ public class AddCommandTest extends AddressBookGuiTest {
     	
     	//add an activity
         TestActivity[] currentList = td.getTypicalActivities();
-        TestActivity activityToAdd = td.findHoon;
+        TestActivity activityToAdd = TypicalTestActivities.findHoon;
 
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add a task
-        activityToAdd = td.findIda;
+        activityToAdd = TypicalTestActivities.findIda;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(currentList));
  
         //add an event
-        activityToAdd = td.findJodie;
+        activityToAdd = TypicalTestActivities.findJodie;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add an event without specifying end time
-        activityToAdd = td.findKenny;
+        activityToAdd = TypicalTestActivities.findKenny;
         assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
         currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
         //add a recurring event
-        activityToAdd = td.findMoney;
+        activityToAdd = TypicalTestActivities.findMoney;
         assertAddSuccess(activityToAdd.getAddCommand(),activityToAdd, currentList);
         commandBox.runCommand("delete 1");
 
       //add a recurring event without specifying end time
-        activityToAdd = td.findMoney;
+        activityToAdd = TypicalTestActivities.findMoney;
         assertAddSuccess(((TestEvent) activityToAdd).getAddCommandWithNoEndTime(),activityToAdd, currentList);
         currentList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 
@@ -55,16 +56,16 @@ public class AddCommandTest extends AddressBookGuiTest {
         //section 2: test for adding duplicates of activities, tasks and events/
         
         //add duplicate activity
-        commandBox.runCommand(td.findHoon.getAddCommand());
+        commandBox.runCommand(TypicalTestActivities.findHoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(activityListPanel.isListMatching(currentList));
 
         //add duplicate task
-        commandBox.runCommand(td.findIda.getAddCommand());
+        commandBox.runCommand(TypicalTestActivities.findIda.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 
         //add duplicate event
-        commandBox.runCommand(td.findJodie.getAddCommand());
+        commandBox.runCommand(TypicalTestActivities.findJodie.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(activityListPanel.isListMatching(currentList));
 
@@ -72,7 +73,7 @@ public class AddCommandTest extends AddressBookGuiTest {
  
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.findAlice.getAddCommand(),td.findAlice);
+        assertAddSuccess(TypicalTestActivities.findAlice.getAddCommand(),TypicalTestActivities.findAlice);
 
         //invalid command
         commandBox.runCommand("adds Johnny");

@@ -2,7 +2,6 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.lifekeeper.commons.core.Messages;
 import seedu.lifekeeper.logic.commands.Command;
 import seedu.lifekeeper.testutil.*;
 
