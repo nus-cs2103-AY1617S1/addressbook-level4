@@ -268,7 +268,7 @@ Change the storage location for the data file.<br>
 Format: `store location`
 
 Examples:
-* **`store`** C:/Users/user/Documents/myList
+* **`store`** C:/Users/user/Documents/myList <br>
 Stores the Do-Do Bird Data to the specified location
 
 ## Undoing : `undo`
@@ -280,7 +280,6 @@ Format: `undo`
 Resets user's config to default.<br>
 
 Format: `reset`
-
 
 ## Clearing all entries : `clear`
 Clears all entries from the Do-Do Bird.<br>
