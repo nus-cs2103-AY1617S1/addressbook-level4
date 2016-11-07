@@ -815,8 +815,8 @@ Use case ends.
 
 **MSS**
 
-1. User requests to clear all tasks and events
-2. Application clears all tasks and events  
+1. User requests to clear all tasks and events.
+2. Application clears all tasks and events.  
 Use case ends.
 
 #### Use case: UC22 - Clear by type
