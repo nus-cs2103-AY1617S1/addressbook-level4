@@ -49,6 +49,10 @@ public class CommandParser {
                     + "((\\bat\\b)(?<location>(.)+?))?" 
                     + "((\\bremarks\\b)(?<remarks>(.)+?))?");
     
+    private static final String RELATIVE_DATE_FILTER_ARGS_FORMAT = "(?<filter>\\S+)";
+    private static final Pattern DATE_FILTER_ARGS_FORMAT = 
+    		Pattern.compile(TaskDate.DATE_VALIDATION_REGEX_FORMAT + "|" + RELATIVE_DATE_FILTER_ARGS_FORMAT);
+    
     private static final Parser nattyParser = new Parser();
 
     public static final int INTERVAL_COMPONENT_COUNT = 2;
@@ -483,7 +487,14 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareList(String args) {
-        final String dateFilter = args.trim();    
+    	String dateFilter = args.trim();
+    	
+    	final Matcher matcher = DATE_FILTER_ARGS_FORMAT.matcher(dateFilter);
+    	if (!matcher.matches() && !dateFilter.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ListCommand.MESSAGE_USAGE));
+        }
+
         return new ListCommand(dateFilter);
     }
 

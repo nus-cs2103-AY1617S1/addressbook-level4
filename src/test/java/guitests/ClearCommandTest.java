@@ -44,6 +44,6 @@ public class ClearCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("clear");
         currentList.clear();
         assertAllListMatching(currentList);
-        assertResultMessage("Incomplete task has been cleared!");
+        assertResultMessage("All tasks have been cleared!");
     }
 }
