@@ -13,7 +13,6 @@ public interface ReadOnlyTask {
 	Deadline getDate();
 	Deadline getEndTime();
 	Priority getPriority();
-	Complete getComplete();
 	
 	String getDateString();
 
