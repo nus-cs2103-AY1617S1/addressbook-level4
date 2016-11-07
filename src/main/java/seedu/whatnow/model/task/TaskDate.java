@@ -437,7 +437,8 @@ public class TaskDate {
 
     //@@author A0139772U
     public static String formatDayToDate(String date) {
-        assert (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find());
+        assert (DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()
+                || TODAY.matcher(date).find() || TOMORROW.matcher(date).find());
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
         Calendar today = Calendar.getInstance();
@@ -506,5 +507,9 @@ public class TaskDate {
 
     public static boolean getIsValidDateRange(String start, String end) throws ParseException {
         return isValidDateRange(start, end);
+    }
+    
+    public void setFullDate(String fullDate) {
+        this.fullDate = fullDate;
     }
 }

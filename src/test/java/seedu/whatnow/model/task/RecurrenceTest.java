@@ -1,13 +1,13 @@
+//@@author A0139772U
 package seedu.whatnow.model.task;
 
 import org.junit.Test;
-
-import seedu.whatnow.commons.exceptions.IllegalValueException;
-import seedu.whatnow.model.tag.UniqueTagList;
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+
+import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.model.tag.UniqueTagList;
 
 public class RecurrenceTest {
     
