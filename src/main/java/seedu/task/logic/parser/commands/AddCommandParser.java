@@ -149,7 +149,7 @@ public class AddCommandParser {
                 && !matcherEndStart.matches();
     }
 
-    // @@ author A0152958R
+    //@@author A0152958R
     private static Command createCommandStart(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
@@ -169,7 +169,7 @@ public class AddCommandParser {
 
     }
 
-    // @@ author A0152958R
+    //@@author A0152958R
     private static Command createCommandStartEnd(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
@@ -224,7 +224,7 @@ public class AddCommandParser {
         return start.length() == 0 || end.length() == 0;
     }
 
-    // @@ author A0152958R
+    //@@author A0152958R
     private static Command createCommandStartEndDeadline(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
@@ -257,19 +257,19 @@ public class AddCommandParser {
             return new IncorrectCommand(i.getMessage());
         }
     }
-
+    //@@author A0152958R
     private static void buildSecondTime(TimeParserResult time, StringBuilder end) {
         end.append(time.getSecondDate().toString());
         end.append(" ");
         end.append(time.getSecondTime().toString().substring(0, 5));
     }
-
+    //@@author A0152958R
     private static void buildFirstTime(TimeParserResult time, StringBuilder start) {
         start.append(time.getFirstDate().toString());
         start.append(" ");
         start.append(time.getFirstTime().toString().substring(0, 5));
     }
-
+    //@@author A0152958R
     private static Command createCommandDeadline(String name, String startTime, String endTime, String deadline,
             Set<String> tags) {
         TimeParser parserTime = new TimeParser();
