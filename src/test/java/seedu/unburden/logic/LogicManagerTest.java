@@ -416,13 +416,8 @@ public class LogicManagerTest {
 		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
 		ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
 		
-		
 		helper.addToModel(model, fourTasks);
 
-<<<<<<< HEAD
-		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), 
-				expected, expected.getTaskList());
-=======
 		Task updatedTask = (Task) expectedAB.getTaskList().get(3);
 		List<Task> expectedList = helper.generateTaskList(0);
 		expectedAB.removeTask(p1);
@@ -433,7 +428,6 @@ public class LogicManagerTest {
 				String.format(ClearCommand.MESSAGE_SUCCESS),
 				expectedAB,
 				expectedList);
->>>>>>> 0abdfcf4c24d60993502f984e4bd205f102c3a09
 	}
 	
 	// @@author A0139714B
