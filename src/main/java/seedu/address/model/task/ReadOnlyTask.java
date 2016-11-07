@@ -35,7 +35,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getEndDate().equals(this.getEndDate())
                 && other.getTaskType().equals(this.getTaskType())
-                && other.getStatus().equals(getStatus()));
+                && other.getStatus().equals(getStatus()))
+                && other.getTags().equals(this.getTags());
     }
 
     /**

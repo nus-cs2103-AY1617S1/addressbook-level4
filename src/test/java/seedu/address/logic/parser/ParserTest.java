@@ -51,7 +51,7 @@ public class ParserTest {
 		changeStatusCommand = new ChangeStatusCommand(new int[]{1}, "done");
 		editCommand = new EditCommand(1, Optional.of("editing"), 
 				Optional.of(LocalDateTime.now()), Optional.of(LocalDateTime.now()),
-				false, false);
+				new HashSet<String>(), false, false);
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
 		addAliasCommand = new AddAliasCommand("ld", "list done");

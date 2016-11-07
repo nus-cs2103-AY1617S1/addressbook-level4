@@ -42,7 +42,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     	
     	validateDateTimeArgumentsWithTaskType(startDate, endDate, taskType);
     	
-    	if(startDate.isPresent() && endDate.isPresent()){
+    	if (startDate.isPresent() && endDate.isPresent()){
     		LocalDateTime startDateTime = startDate.get();
     		LocalDateTime endDateTime = endDate.get();
     		
@@ -86,7 +86,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     public void setStatus(Status status) {
         this.status = status;
-        if(this.status.equals(new Status("pending")) && 
+        if (this.status.equals(new Status("pending")) && 
         		getEndDate().orElse(LocalDateTime.MAX).isBefore(LocalDateTime.now())) {
         	this.status = new Status("overdue");
         }
@@ -124,7 +124,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     }
     
     public void removeEndDate() {
-    	if(startDate.isPresent()) {
+    	if (startDate.isPresent()) {
     		this.endDate = this.startDate;
     		this.startDate = Optional.empty();
     		this.taskType = new TaskType(Type.DEADLINE);
@@ -137,7 +137,7 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
     
     //@@author A0143756Y
     public static void validateEndDateTimeAfterStartDateTime(LocalDateTime startDateTime, LocalDateTime endDateTime){
-    	if(!endDateTime.isAfter(startDateTime)){
+    	if (!endDateTime.isAfter(startDateTime)){
     		throw new IllegalArgumentException(MESSAGE_END_DATE_TIME_NOT_AFTER_START_DATE_TIME);
     	}
     }
@@ -165,7 +165,9 @@ public class Task implements ReadOnlyTask, Comparable<ReadOnlyTask> {
      * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+        System.out.println("presettag: " + tags.getInternalList());
+    	tags.setTags(replacement);
+    	System.out.println("postsettag: " + tags.getInternalList());
     }
     
     @Override

@@ -82,7 +82,7 @@ public class TaskCardHandle extends GuiHandle {
 
 	@Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
+        if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getTaskName().equals(handle.getTaskName())
                     && getTaskType().equals(handle.getTaskType())

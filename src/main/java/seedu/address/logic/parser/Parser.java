@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDE
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -51,9 +52,6 @@ public class Parser {
 	private static final Logger logger = LogsCenter.getLogger(Parser.class);
 	
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-	//@@author A0139339W
-	private static final Pattern EDIT_ARGS_FORMAT = Pattern.compile(
-			"(?<index>\\d+)\\s+(?<editTaskArgs>.+)"); 
 	private static final Pattern ADD_ALIAS_COMMAND_FORMAT = Pattern
 			.compile("\\s*(?<alias>(\\s*\\S+)+)\\s*=\\s*(?<originalPhrase>(\\s*\\S+)+)\\s*");
 	//@@author A0143756Y
@@ -190,8 +188,7 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		String taskNameWithQuotes = StringUtil.getQuotedText(arguments);
-		String taskNameWithoutQuotes = StringUtil.removeFirstAndLastChars(taskNameWithQuotes);
+		String taskNameWithoutQuotes = getTaskName(arguments);
 		String args = StringUtil.getNonQuotedText(arguments);
 
 		System.out.println("name: " + taskNameWithoutQuotes);
@@ -407,10 +404,11 @@ public class Parser {
      * Parse the arguments into taskType, status and date
      */
     private Command prepareList(String arguments) {
-		if (arguments.trim().equals("")) {
+		// Empty arguments return ListCommand without parameters
+    	if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-		
+		// Check if input arguments is valid for ListCommand
 		String[] args = arguments.split(" ");
 		if(!isValidListArguments(args)) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
@@ -546,52 +544,38 @@ public class Parser {
 	//@@author A0139339W
 	/**
 	 * Parses arguments in the context of the edit task command.
-	 * Supports editing of task name, start date and time, end date and time.
+	 * Supports editing of task name, start date and time, end date and time, tags.
 	 *
-	 * @param args
-	 *            full command args string
-	 *            at least one of the three values are to be edited
+	 * @param arguments
+	 *            full command arguments string
+	 *            at least one of the four values are to be edited
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		Matcher matcher = EDIT_ARGS_FORMAT.matcher(arguments);
-		if(!matcher.matches()) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		int index;
+		try{
+		    index = getIndex(arguments);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
 		}
 		
-		int index = Integer.parseInt(matcher.group("index"));
-		String editTaskArgs = matcher.group("editTaskArgs");
+		Optional<String> taskNameWithoutQuotes = Optional.ofNullable(getTaskName(arguments));
+		// To exclude the quoted name from the arguments
+		String editArgs = StringUtil.getNonQuotedText(arguments);
+		List<String> datesAndTags = getDatesAndTags(editArgs);
 		
-		Optional<String> taskName;
-		String args;
-		if (editTaskArgs.contains("\'")) {
-			taskName = Optional.of(StringUtil.removeFirstAndLastChars(StringUtil.getQuotedText(editTaskArgs)));
-			args = StringUtil.getNonQuotedText(editTaskArgs);
-		} 
-		else {
-			taskName = Optional.empty();
-			args = editTaskArgs;
-		}
-		String argsLowerCase = args.toLowerCase();
-		
-		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
-				startDateTimePrefix, endDateTimePrefix, dlEndDateTimePrefix, tagsPrefix);
-		
-		argsTokenizer.tokenize(argsLowerCase);
-		Optional<String> startDateTimeString = argsTokenizer.getValue(startDateTimePrefix);
-		Optional<String> endDateTimeString = argsTokenizer.getValue(endDateTimePrefix);
-		if(!endDateTimeString.isPresent()) {
-			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
-		}
-		//TODO
-		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
-		
-		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
-		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
+		// To get the tagSet to be added to the task
+		Set<String> tagSet = getTagSetFromDatesAndTags(datesAndTags);
 		
 		Optional<LocalDateTime> startDateTime;
 		Optional<LocalDateTime> endDateTime;
 		
+		Optional<String> startDateTimeString = Optional.ofNullable(datesAndTags.get(0));
+		Optional<String> endDateTimeString = Optional.ofNullable(datesAndTags.get(1));
+		// To obtain whether start date or end date is to be removed
+		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
+		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
+		// To obtain the Optional<LocalDateTime> startDateTime and endDateTime
 		try {
 			startDateTime = isRemoveStartDateTime ? Optional.empty() : 
 				convertOptionalToLocalDateTime(startDateTimeString);
@@ -602,11 +586,69 @@ public class Parser {
 		}
 		
 		try {
-			return new EditCommand(index, taskName, startDateTime, endDateTime,
+			return new EditCommand(index, taskNameWithoutQuotes, startDateTime, endDateTime, tagSet,
 					isRemoveStartDateTime, isRemoveEndDateTime);
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+	}
+	
+	/**
+	 * Get the list of tags in datesAndTags
+	 * @param datesAndTags contains tags from index 2 onwards
+	 * @return
+	 */
+	private Set<String> getTagSetFromDatesAndTags(List<String> datesAndTags) {
+		List<String> tagList = datesAndTags.subList(2, datesAndTags.size());
+		Set<String> tagSet = toSet(Optional.ofNullable(tagList));
+		return tagSet;
+	}
+	
+	/**
+	 * To get the index of the arguments
+	 * @param arguments should contain index at the head
+	 * @return only the first index retrieved is returned
+	 * @throws IllegalArgumentException when index in the arguments is not unsigned integer
+	 */
+	private int getIndex(String arguments) throws IllegalArgumentException {
+		String indexString = arguments.split(" ", 2)[0];
+		int index = parseIndices(indexString)[0];
+		return index;
+	}
+	
+	/**
+	 * To get the task name in the arguments using the ' '
+	 * @return the task name without the ' ' if it exists and null otherwise
+	 */
+	private String getTaskName(String arguments) {
+		String nameInQuotes = StringUtil.getQuotedText(arguments);
+		String nameInNoQuotes = nameInQuotes.equals("") ? null :
+			StringUtil.removeFirstAndLastChars(nameInQuotes);
+		return nameInNoQuotes;
+	}
+	
+	/**
+	 * Parse the arguments into start date, end date and tags
+	 * @return a list of strings with
+	 *     index 0 as the start date
+	 *     index 1 as the end date
+	 *     the rest of the list as the tags
+	 */
+	private List<String> getDatesAndTags(String arguments) {
+		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
+				startDateTimePrefix, endDateTimePrefix, dlEndDateTimePrefix, tagsPrefix);
+		argsTokenizer.tokenize(arguments);
+		Optional<String> startDateTimeString = argsTokenizer.getValue(startDateTimePrefix);
+		Optional<String> endDateTimeString = argsTokenizer.getValue(endDateTimePrefix);
+		if (!endDateTimeString.isPresent()) {
+			endDateTimeString = argsTokenizer.getValue(dlEndDateTimePrefix);
+		}
+		Optional<List<String>> tagSet = argsTokenizer.getAllValues(tagsPrefix);
+		List<String> datesAndTags = new ArrayList<String>();
+		datesAndTags.add(startDateTimeString.orElse(null));
+		datesAndTags.add(endDateTimeString.orElse(null));
+		datesAndTags.addAll(tagSet.orElse(Collections.emptyList()));
+		return datesAndTags;
 	}
 	
 	//@@author A0143756Y
@@ -623,7 +665,7 @@ public class Parser {
 	private Command prepareSetStorage(String arguments){
 		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
 		
-		if(!matcher.matches()){
+		if (!matcher.matches()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
 		}
 		
@@ -640,21 +682,21 @@ public class Parser {
 	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
-		if(dateTimeString.isPresent()) {
+		if (dateTimeString.isPresent()) {
 			dateTime = Optional.of(DateParser.parse(dateTimeString.get()));
 		} 
 		return dateTime;
 	}
 	
 	private boolean isToRemoveDateTime (Optional<String> dateTimeString) {
-		if(dateTimeString.isPresent()) {
-			if(dateTimeString.get().equals("-")) {
+		if (dateTimeString.isPresent()) {
+			if (dateTimeString.get().equals("-")) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	/**
 	 * parse the arguments into indices for ChangeStatusCommand
 	 */
@@ -680,7 +722,7 @@ public class Parser {
     private Command prepareAddAlias(String arguments) {
         final Matcher matcher = ADD_ALIAS_COMMAND_FORMAT.matcher(arguments.trim());
     	
-    	if(!matcher.matches()){	
+    	if (!matcher.matches()){	
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAliasCommand.MESSAGE_USAGE));
         }
     	
@@ -758,7 +800,7 @@ public class Parser {
 	}
 	
 	private Set<String> toSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+		List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
 

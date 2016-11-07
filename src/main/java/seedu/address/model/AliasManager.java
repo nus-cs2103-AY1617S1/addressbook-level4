@@ -72,7 +72,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     }
     
     public boolean removeAlias(ReadOnlyAlias aliasToRemove) throws UniqueAliasList.AliasNotFoundException {
-    	if(aliases.remove(aliasToRemove)) {
+    	if (aliases.remove(aliasToRemove)) {
     		return true;
     	} 
     	

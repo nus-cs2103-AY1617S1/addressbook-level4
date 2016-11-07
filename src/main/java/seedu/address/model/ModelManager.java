@@ -206,8 +206,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0143756Y
-    
-    //@@author A0143756Y
     @Override
     public synchronized boolean validateAliasforAddAliasCommand(String alias) {
     	assert alias != null;
@@ -215,14 +213,13 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	ObservableList<Alias> aliasList = aliasManager.getFilteredAliases();
     	for(Alias currentAlias: aliasList){
-    		if(currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
+    		if (currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
     			return false;
     		}
     	}
     	
     	return true;
     }
-    //@@author
 
     //@@author A0141019U
     @Override
@@ -264,7 +261,8 @@ public class ModelManager extends ComponentManager implements Model {
     	setStorageCheckDataStorageLocationPreviouslySet(newStorageFileFilePath, oldStorageFileFilePath); 
     	
     	//Throws SecurityException, IllegalArgumentException
-    	setStorageCheckFileWithIdenticalNameExistsinUserSpecifiedStorageFolder(newStorageFileFilePath, userSpecifiedStorageFileName, userSpecifiedStorageFolder); 
+    	setStorageCheckFileWithIdenticalNameExistsinUserSpecifiedStorageFolder(newStorageFileFilePath, 
+    			userSpecifiedStorageFileName, userSpecifiedStorageFolder); 
     	
     	return new Pair<Path, Path>(newStorageFileFilePath, oldStorageFileFilePath);
     }

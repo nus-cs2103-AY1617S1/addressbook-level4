@@ -75,6 +75,6 @@ public class UnmodifiableObservableListTest {
         assertThrows(ex, liter::remove);
         assertThrows(ex, () -> liter.add(5));
         assertThrows(ex, () -> liter.set(3));
-        assertThrows(ex, () -> list.removeIf(i -> true));
+        assertThrows(ex, () -> list.removeIf (i -> true));
     }
 }
