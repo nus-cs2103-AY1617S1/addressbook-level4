@@ -1,5 +1,5 @@
 # generated
-###### \java\seedu\task\model\item\EventDuration.java
+###### /java/seedu/task/model/item/EventDuration.java
 ``` java
 	@Override
 	public int hashCode() {
@@ -21,16 +21,6 @@
 		
 		EventDuration other = (EventDuration) obj;
 		return this.toString().equals(other.toString());
-	}
-
-
-	@Override
-	public int compareTo(EventDuration o) {
-		if (this.startTime.compareTo(o.startTime) == 0) {
-			return this.endTime.compareTo(o.endTime);
-		} else {
-			return this.startTime.compareTo(o.startTime);
-		}
 	}
 }
 ```

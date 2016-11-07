@@ -1,5 +1,5 @@
 # A0144702Nreused
-###### \java\guitests\guihandles\EventCardHandle.java
+###### /java/guitests/guihandles/EventCardHandle.java
 ``` java
 /**
  * Provides a handle to an event card in the event list panel.
@@ -72,7 +72,7 @@ public class EventCardHandle extends GuiHandle {
     }
 }
 ```
-###### \java\guitests\guihandles\EventListPanelHandle.java
+###### /java/guitests/guihandles/EventListPanelHandle.java
 ``` java
 /**
  * Provides a handle for the panel containing the event list
@@ -232,7 +232,7 @@ public class EventListPanelHandle extends GuiHandle {
 	
 }
 ```
-###### \java\seedu\task\logic\LogicBasicTest.java
+###### /java/seedu/task/logic/LogicBasicTest.java
 ``` java
 public class LogicBasicTest {
 	 /**

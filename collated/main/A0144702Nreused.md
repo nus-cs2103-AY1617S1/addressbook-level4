@@ -1,5 +1,5 @@
 # A0144702Nreused
-###### \java\seedu\task\ui\EventCard.java
+###### /java/seedu/task/ui/EventCard.java
 ``` java
 public class EventCard extends UiPart {
     private static final String FXML = "EventListCard.fxml";
@@ -28,7 +28,7 @@ public class EventCard extends UiPart {
     }
 
 ```
-###### \java\seedu\task\ui\EventListPanel.java
+###### /java/seedu/task/ui/EventListPanel.java
 ``` java
 public class EventListPanel extends UiPart{
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
@@ -117,7 +117,7 @@ public class EventListPanel extends UiPart{
     }
     
 ```
-###### \resources\view\EventListCard.fxml
+###### /resources/view/EventListCard.fxml
 ``` fxml
 
 <?import javafx.scene.text.*?>
@@ -130,7 +130,7 @@ public class EventListPanel extends UiPart{
 <?import java.net.URL?>
 
 ```
-###### \resources\view\EventListPanel.fxml
+###### /resources/view/EventListPanel.fxml
 ``` fxml
 <?import java.lang.*?>
 <?import java.net.*?>
