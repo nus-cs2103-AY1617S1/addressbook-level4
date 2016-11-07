@@ -23,18 +23,23 @@ public class DateUtil {
 	}
 	
 	public static boolean withinDateRange(ReadOnlyTask task, String keyword) {
-        int keyDate = Integer.parseInt(keyword.substring(0, 2));
-        int keyMonth = Integer.parseInt(keyword.substring(3, 5));
-        int keyYear = Integer.parseInt(keyword.substring(6));
+        int keyDate = SubStringOfStringAsInt(0,2,keyword);
+        int keyMonth = SubStringOfStringAsInt(3,5,keyword);
+        int keyYear = SubStringOfStringAsInt(6,keyword);
         Date taskStart = task.getStart().m_date;
         Date taskEnd = task.getEnd().m_date;
-        if (taskStart.m_value.equals("") && taskEnd.m_value.equals("")) {
+        if (startDateTimeAndEndDateTimeIsEmpty(taskStart, taskEnd)) {
             return false;
-        } else if (taskStart.m_value.equals("")) {
+        } else if (dateTimeIsEmpty(taskStart)) {
             taskStart = taskEnd;
-        } else if (taskEnd.m_value.equals("")) {
+        } else if (dateTimeIsEmpty(taskEnd)) {
             taskEnd = taskStart;
         }
+        return isKeyBetweenStartAndEnd(keyDate, keyMonth, keyYear, taskStart, taskEnd);
+    }
+
+    private static boolean isKeyBetweenStartAndEnd(int keyDate, int keyMonth, int keyYear, Date taskStart,
+            Date taskEnd) {
         Calendar start = Calendar.getInstance();
         start.set(taskStart.m_year + 1900, taskStart.m_month, taskStart.m_day);
         Calendar searchKey = Calendar.getInstance();
@@ -43,33 +48,36 @@ public class DateUtil {
         end.set(taskEnd.m_year + 1900, taskEnd.m_month, taskEnd.m_day);
         return (start.compareTo(searchKey) <= 0 && end.compareTo(searchKey) >= 0);
     }
+
+    private static boolean dateTimeIsEmpty(Date taskStart) {
+        return taskStart.m_value.equals("");
+    }
+
+    private static boolean startDateTimeAndEndDateTimeIsEmpty(Date taskStart, Date taskEnd) {
+        return dateTimeIsEmpty(taskStart) && dateTimeIsEmpty(taskEnd);
+    }
+	
+	private static int SubStringOfStringAsInt(int start, int end, String keyword) {
+	    return Integer.parseInt(keyword.substring(start, end));
+	}
+	
+	private static int SubStringOfStringAsInt(int start, String keyword) {
+        return Integer.parseInt(keyword.substring(start));
+    }
     
 	/** Returns current time as DateTime object */
      public static DateTime nowAsDateTime() {
             nattyParser natty = new nattyParser();
             String dateTimeAsString = natty.parse(STRING_REPRESENTING_NOW);
-            String[] dateTimeArray = dateTimeAsString.split(" ");
-            Date nowDate = new Date(dateTimeArray[0]);
-            Time nowTime = new Time(dateTimeArray[1]);
-            return new DateTime(nowDate,nowTime);
+            return getDateTimeFromString(dateTimeAsString);
         }
-     
-     /** Checks if the date of the first argument comes before the second, returns true if so */  
-     public static boolean checkDatePrecedence(DateTime first, DateTime second) {
-         Date firstDate = first.m_date;
-         Time firstTime = first.m_time;
-         int firstTimeHour = convertTo24HrFormat(firstTime);
-         Calendar firstDateAsCalendar = Calendar.getInstance();
-         firstDateAsCalendar.set(firstDate.m_year + 1900, firstDate.m_month, firstDate.m_day, firstTimeHour, firstTime.m_minute);
-         
-         Date secondDate = second.m_date;
-         Time secondTime = second.m_time;
-         int secondTimeHour = convertTo24HrFormat(secondTime);
-         Calendar secondDateAsCalendar = Calendar.getInstance();
-         secondDateAsCalendar.set(secondDate.m_year + 1900, secondDate.m_month, secondDate.m_day, secondTimeHour, secondTime.m_minute);
-         
-         return firstDateAsCalendar.before(secondDateAsCalendar);
-     }
+
+    private static DateTime getDateTimeFromString(String dateTimeAsString) {
+        String[] dateTimeArray = dateTimeAsString.split(" ");
+        Date nowDate = new Date(dateTimeArray[0]);
+        Time nowTime = new Time(dateTimeArray[1]);
+        return new DateTime(nowDate,nowTime);
+    }
      
     public static int convertTo24HrFormat(Time firstTime) {
 		if (firstTime.m_meridiem.equals("AM") && firstTime.m_hour == 12) {
@@ -80,16 +88,6 @@ public class DateUtil {
 			return firstTime.m_hour;
 		}
 	}
-
-	/** Checks if time for first DateTime argument is before second, returns true if so */
-    public static boolean checkTimePrecendence(DateTime end, DateTime nowAsDateTime) {
-        if (end.getTime().compareTo(nowAsDateTime.getTime())<0) {
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
     
     /** Checks if string is in dd/mm/yyyy format 
      * @return */
