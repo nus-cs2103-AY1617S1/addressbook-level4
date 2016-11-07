@@ -87,6 +87,78 @@ relevant Gradle tasks.
   See `build.gradle` -> `allprojects` -> `dependencies` -> `testCompile` for the list of 
   dependencies required.
 ```
+###### /DeveloperGuide.md
+``` md
+## Testing
+
+Tests can be found in the `./src/test/java` folder.
+
+**In Eclipse**:
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+
+* To run all tests, right-click on the `src/test/java` folder and choose
+  `Run as` > `JUnit Test`
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
+  to run as a JUnit test.
+
+**Using Gradle**:
+* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+
+We have two types of tests:
+
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
+   These are in the `guitests` package.
+
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+      e.g. `w15c2.tusk.commons.UrlUtilTest`
+   2. _Integration tests_ that are checking the integration of multiple code units
+     (those code units are assumed to be working).<br>
+      e.g. `w15c2.tusk.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
+      how the are connected together.<br>
+      e.g. `w15c2.tusk.logic.LogicManagerTest`
+
+**Headless GUI Testing**:
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
+ our GUI tests can be run in the headless mode.
+ In the headless mode, GUI tests do not show up on the screen.
+ That means that developers may do other things on their computers while the tests are running.<br>
+ See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
+<br>
+## Dev Ops
+
+### Build Automation
+
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
+### Continuous Integration
+
+We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+See [UsingTravis.md](UsingTravis.md) for more details.
+
+### Making a Release
+
+Here are the steps to create a new release.
+
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
+    and upload the JAR file your created.
+
+### Managing Dependencies
+
+A project often depends on third-party libraries. For example, Task Manager depends on the
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than these alternatives.<br>
+a. Include those libraries in the repository (this bloats the repository size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
+<br>
+```
 ###### /UsingTravis.md
 ``` md
 # Travis CI
