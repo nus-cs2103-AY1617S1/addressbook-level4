@@ -41,51 +41,66 @@ public class EndTime extends DateTime {
         }
         // String[] recurring = starttime.RecurringMessage.split(" ");
         if (starttime.recurring) {
-            if(date.equals("")) {
-                recurring = true;
-                String recu[] = starttime.RecurringMessage.split(" ");
-                Calendar startcal = starttime.value;
-                startcal.add(Calendar.HOUR_OF_DAY, 1);
-                SimpleDateFormat format1 = new SimpleDateFormat("EEE HHmm");
-                RecurringMessage = recu[0] + " " + format1.format(startcal.getTime());
-                this.value = DateUtil.EndDateTime(startdate);
-            }
-            else {
+            if (date.equals("")) {
+                checkRecurring(starttime, date, startdate);
+            } else {
                 recurringEndTime(starttime, startdate, date);
             }
         } else if (date.equals("")) {
             this.value = DateUtil.EndDateTime(startdate);
-        } else if(date.split(" ").length==1){
+        } else if (date.split(" ").length == 1) {
             String[] startt = startstring.split(" ");
-            date =  startt[0]+ " " + date;
-            this.value= DateUtil.setDate(date);
+            date = startt[0] + " " + date;
+            this.value = DateUtil.setDate(date);
         } else {
             if (!DateUtil.isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
             }
-            this.value= DateUtil.setDate(date);
+            this.value = DateUtil.setDate(date);
         }
+        checkForBeforeStartTime(starttime, date);
+    }
 
-
+    private void checkForBeforeStartTime(StartTime starttime, String date) throws IllegalValueException {
         if (this.value.before(starttime.value)) {
             while (this.value.before(starttime.value)) {
                 if ((date.contains("mon") || date.contains("tue") || date.contains("wed") || date.contains("thu")
                         || date.contains("fri") || date.contains("sat") || date.contains("sun")))
                     this.value.add(Calendar.DAY_OF_WEEK, 7);
-                else if((date.contains("day"))&&recurring)
+                else if ((date.contains("day")) && recurring)
                     this.value.add(Calendar.DAY_OF_MONTH, 1);
                 throw new IllegalValueException(MESSAGE_ENDTIME_NOTVALID);
             }
         }
     }
-    
+
     public EndTime(Calendar date, boolean isRecurring, String recurringMessage) {
         super(date);
         this.recurring = isRecurring;
         this.RecurringMessage = recurringMessage;
     }
+    /**
+     * HandleRecurringTask if the endtime is not entered, set to default
+     *
+     * @throws IllegalValueException
+     *             if given Start time string is invalid.
+     */
+    private void checkRecurring(StartTime starttime, String date, Date startdate) throws IllegalValueException {
+        recurring = true;
+        String recu[] = starttime.RecurringMessage.split(" ");
+        Calendar startcal = starttime.value;
+        startcal.add(Calendar.HOUR_OF_DAY, 1);
+        SimpleDateFormat format1 = new SimpleDateFormat("EEE HHmm");
+        RecurringMessage = recu[0] + " " + format1.format(startcal.getTime());
+        this.value = DateUtil.EndDateTime(startdate);
+    }
 
-
+    /**
+     * HandleRecurringTask if the endtime is enter, handle different variations of endtime
+     *
+     * @throws IllegalValueException
+     *             if given Start time string is invalid.
+     */
     private void recurringEndTime(StartTime starttime, Date startdate, String date) throws IllegalValueException {
         this.recurring = true;
         String[] recur;
@@ -109,27 +124,11 @@ public class EndTime extends DateTime {
         if (!DateUtil.isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
-        this.value= DateUtil.setDate(date);
+        this.value = DateUtil.setDate(date);
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(startdate);
     }
-
-    public Date convertStringtoDate(String date) throws IllegalValueException {
-        ArrayList<SimpleDateFormat> DATE_FORMATS = new ArrayList<>();
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm a"));
-        DATE_FORMATS.add(new SimpleDateFormat("EEE, MMM d, yyyy h:mm a"));
-        for (SimpleDateFormat sdf : DATE_FORMATS) {
-            try {
-                Date date1 = sdf.parse(date);
-                return date1;
-            } catch (ParseException e) {
-                continue;
-            }
-        }
-        throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
-    }
-
 
     public EndTime(String date) throws IllegalValueException {
         super(date);
@@ -146,7 +145,7 @@ public class EndTime extends DateTime {
             if (!DateUtil.isValidDate(date)) {
                 throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
             }
-            this.value= DateUtil.setDate(date);
+            this.value = DateUtil.setDate(date);
         }
     }
 

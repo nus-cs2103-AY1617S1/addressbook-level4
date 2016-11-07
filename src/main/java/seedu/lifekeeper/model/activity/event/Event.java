@@ -56,8 +56,6 @@ public class Event extends Activity implements ReadOnlyEvent{
      */
     @Override
     public boolean isOngoing() {
-        System.out.println("Start time: " + startTime.toString());
-        System.out.println("End time: " + endTime.toString());
         return startTime.isBeforeNow() && endTime.isAfterNow();
     }
 
