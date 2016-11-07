@@ -23,7 +23,7 @@ With <i>Tusk</i>, you can add, delete and edit tasks without a fuss. Through sho
 
 Get started with <i>Tusk</i> now!
 
-<br>
+<br>  
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -416,7 +416,7 @@ HH.MM am/pm | 1.30am <br> 4.25pm
 
 <br>
 ## Date-Time Format
-
+> If no timing is specified, a default value of 12am is assumed.
 Supported Date-Time Format | Example
 -------- | :--------
 DATE TIME | 1 October 2017 1.30am <br> 1 Oct 1.30am <br> Today 10pm <br> Next Tues 16:25

@@ -195,6 +195,9 @@ public class DateUtil {
      * "Oct 31". "31 Oct".
      * "31 Oct 2016". "Oct 31 2016".
      * 
+     * These relative dates are fine as well:
+     * "Today". "Tomorrow". "Day after tomorrow". "Next Monday". "Next Wed".
+     * 
      * @param dateString 	String that may be a valid date.
      * @return				Whether the string is a valid date.
      */
@@ -277,6 +280,13 @@ public class DateUtil {
 
     /**
      * Retrieve the date from a string that represents some date using Natty library.
+     * 
+     * The following examples are all valid and similar dates: 
+     * "Oct 31". "31 Oct". "Oct 31 12am". "12am 31 Oct"
+     * "31 Oct 2016". "Oct 31 2016".
+     * 
+     * These relative dates are supported as well:
+     * "Today". "Tomorrow". "Day after tomorrow". "Next Monday". "Next Wed".
      * 
      * @param dateString	String that may be a valid date.
      * @return 				Date object represented by the string if it is a valid date.
