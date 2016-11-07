@@ -1,6 +1,9 @@
 package seedu.todo.commons.core;
 
 // @@author A0093907W
+/**
+ * Container class to store and retrieve a pair of values for an alias key -> value pair.
+ */
 public class AliasDefinition {
     private String aliasKey;
     private String aliasValue;

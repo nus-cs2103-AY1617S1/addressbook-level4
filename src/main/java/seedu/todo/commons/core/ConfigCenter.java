@@ -9,6 +9,12 @@ import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
 
 // @@author A0139812A
+/**
+ * Singleton to store the current Config used by the app.
+ * This is especially necessary in a testing environment, 
+ * and needs to be decoupled with the MainApp instance,
+ * but rather instantiated independently.
+ */
 public class ConfigCenter {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 

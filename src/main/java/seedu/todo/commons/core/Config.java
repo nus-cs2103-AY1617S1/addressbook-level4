@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 // @@author A0139812A
 /**
- * Config values used by the app
+ * Container class to contain config values used by the app.
  */
 public class Config {
 
