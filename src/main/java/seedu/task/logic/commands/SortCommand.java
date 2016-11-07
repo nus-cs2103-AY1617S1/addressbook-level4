@@ -41,6 +41,7 @@ public class SortCommand extends Command {
         case "d":
         case "deadline":
         case "dead":
+        case "due":
             this.keyword = "Deadline";
             break;
         case "s":

@@ -137,6 +137,7 @@ public class TaskListPanel extends UiPart {
     private void setTaskNameColumn() {
         taskNameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getName()));
     }
+    // @@author
 
     private void updateTableRowColumn() {
         // @@author A0147335E
@@ -163,8 +164,11 @@ public class TaskListPanel extends UiPart {
         });
         // @@author
     }
+    
+    
 
-	// tag column initialization
+	// @@author A0133369B
+    // tag column initialization
     private void setTagColumn() {
         tagColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
         tagColumn.setCellFactory(column -> {
@@ -377,6 +381,8 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
 
     }
+    
+    //@@ author
 
     // @@author A0147335E
     public String compareWithCurrentTime(String time) {

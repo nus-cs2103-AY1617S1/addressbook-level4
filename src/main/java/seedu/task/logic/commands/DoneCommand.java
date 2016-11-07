@@ -18,9 +18,7 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Done the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX TASKNAME\n"
-            + "Example: " + COMMAND_WORD
-            + " 4";
+            + "Parameters: INDEX TASKNAME\n" + "Example: " + COMMAND_WORD + " 4";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Done Task: %1$s";
 
@@ -28,16 +26,17 @@ public class DoneCommand extends Command {
 
     public int targetIndex;
     public int currentIndex;
+
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
         currentIndex = targetIndex;
     }
 
-    public DoneCommand(int targetIndex, int currentIndex)
-    {
+    public DoneCommand(int targetIndex, int currentIndex) {
         this.targetIndex = targetIndex;
         this.currentIndex = currentIndex;
     }
+
     @Override
     public CommandResult execute(boolean isUndo) {
         assert model != null;
@@ -62,24 +61,23 @@ public class DoneCommand extends Command {
 
         try {
             model.addTask(targetIndex - 1, taskToDone);
-        } catch (UniqueTaskList.DuplicateTaskException e) {}
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+        }
 
         if (oldStatus == taskToDone.getStatus().getDoneStatus()) {
             return new CommandResult(MESSAGE_ALREADY_DONE);
         }
         // @@author A0147944U
         else {
-            // Attempt to repeat the recurring task if done status successfully changed
+            // Attempt to repeat the recurring task if done status successfully
+            // changed
             model.repeatRecurringTask(new Task(currentTask));
-            
-        }
-        
 
-        
-        
+        }
+
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
-        
+
         // @@author A0147335E
         int index = model.getTaskManager().getTaskList().indexOf(taskToDone);
         if (!isUndo) {
@@ -87,5 +85,5 @@ public class DoneCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone.getName()));
     }
-    
+
 }

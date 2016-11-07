@@ -1,16 +1,10 @@
 package seedu.task.logic.commands;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.FileUtil;
 import seedu.task.logic.RollBackCommand;
-import seedu.task.model.Model;
-import seedu.task.model.ModelManager;
 import seedu.task.model.tag.Tag;
 
 // @@author A0147335E
