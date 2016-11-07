@@ -1,22 +1,16 @@
+<!-- @@author A0093907W -->
+
 # User Guide
 
 Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn how to set up the project.
 
+<img src="images/GetShitDone-Ui.png" width="600">
+
 ## Contents
 
-* [Starting the Program](#starting-the-program)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
-
-## Starting the Program
-
-1. Find the project in the `Project Explorer` or `Package Explorer` (usually located at the left side)
-2. Right click on the project
-3. Click `Run As` > `Java Application` and choose the `Main` class.
-4. The GUI should appear in a few seconds.
-
-<img src="images/GetShitDone-Ui.png" width="600">
 
 ## Features
 
@@ -41,7 +35,7 @@ Examples:
 
 Adds a task to GetShitDone
 
-Format: `add [task] NAME [(by|on|at) DEADLINE] `
+Format: `add [task] NAME [(by|on|at|before|time) DEADLINE] `
 
 > * Tasks can have a deadline, or can do without one as well.
 >   * Tasks added without specifying a deadline will be displayed under "No Deadline".
@@ -63,12 +57,14 @@ Examples:
  
 #### Adding an event: `add event` 
 
-Adds an event to GetShitDone
+Adds an event to GetShitDone  
+
 Format: `add event NAME from STARTDATETIME to ENDDATETIME`
 
 > * Events must have both start and end date/time specified.
 >   * If there is no start or end date, you have to rectify your command, since it wasn't clear what should be added.
 >   * If only time is given, the date is interpreted as today's date.
+>   * If only date is given, the time is interpreted as the time now.
 
 Examples: 
 
@@ -82,12 +78,17 @@ Shows a list of all tasks and events in GetShitDone. Able to filter by type of t
 Format: `list [TYPE]`
 
 > Valid parameters: 
-> * `events` / `event`
-> * `tasks` / `task`
-> * `complete` / `completed`
-> * `incomplete` / `incompleted` 
-> * `by DATE`
-> * `from STARTDATE to ENDDATE`
+> * Item type: `events` / `event`/ `tasks` / `task`
+> * Task status: `complete` / `completed` / `incomplete` / `incompleted` 
+> * Event status: `over` / `past` / `future` 
+> * Task deadline: `(by|on|at|before) DATE`
+> * Event date: `from STARTDATE to ENDDATE`
+> * Tag: `tag TAGNAME`
+> 
+> The command accepts any combination of the above, with the exception of:
+> * Task status cannot be defined for events
+> * Event status cannot be defined for tasks
+> In the event of such ambiguity, the command will display an error for the user to rectify it.
 
 Examples:
 
@@ -97,78 +98,62 @@ Examples:
 * `list events`  
  Lists all events.
 
-* `list completed tasks`
+* `list completed tasks`  
  Lists all completed tasks
 
 * `list by today`  
- Lists all tasks due by today and events start on today
+ Lists all tasks whose deadline are today or before, and events which end before today
 
 * `list from monday to friday`  
- Lists all tasks due within Monday-Friday and events occurring within the time period
+ Lists all tasks due within the coming Monday to Friday, and events which start after the coming Monday and end before Friday
 
 #### Finding all tasks/events containing any keyword in their name & tag: `find`
 
-Finds tasks whose name and tags contain any of the given keywords.  
+Finds tasks whose name contains any of the given keywords.  
 
-Format: `find [type] KEYWORD [MORE_KEYWORDS]...`
-
-> Valid parameters: 
-> * `name`
-> * `tagName`
-> * `events` / `event`
-> * `tasks` / `task`
-> * `complete` / `completed`
-> * `incomplete` / `incompleted` / `uncomplete`
-> * `by DATE`
-> * `from STARTDATE to ENDDATE`
+Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 > The search is not case sensitive, the order of the keywords does not matter, only the item name is searched, and tasks/events matching at least one keyword will be returned (i.e. `OR` search).
 > Searching follows wildcard search, i.e. a search term of `pr` will return both `Print notes` and `Make PR to GitHub`.
 
 Examples: 
 
-* `find assignment2 task` 
-Returns all task having the name or tag containing `Assignment2` & `assignment2`
-
-* `find task name assignment2`
-Returns all task with the name containing `Assignment2` & `assignment2`
-
-* `find task tag assignment2`
-Returns all task with the tag containing `Assignment2` & `assignment2`
-  
-* `find assginment2 project`  
-Returns any tasks having names or tag containing `assignment2`, `Assignment2`,  `project`, `Project`
+* `find assignment`  
+Returns tasks and events which contain words starting with `assignment`.
 
 #### Editing a task : `update`
 
 Edits the specified task from GetShitDone.
 
-Format: `update INDEX [NAME] ([(by|on|at) DATE] | [from STARTDATE to ENDDATE])` 
+Format: `update INDEX [name NAME] [( (by|on|at|before) DATE] | from STARTDATE to ENDDATE )]` 
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
 
 Examples: 
 
-* `update 1 CS2107 Project by saturday`  
+* `update 2 name Presentation`  
   Update the 1<sup>st</sup> task's/event's name to CS2107 Project.
-  Change the task's deadline to Saturday or change the event's start date to saturday
 
-#### Deleting a task : `delete`
+* `update 1 name CS2107 Project by saturday`  
+  Update the 1<sup>st</sup> task's name to CS2107 Project.
+  Change the task's deadline to Saturday.
+
+#### Deleting a task : `destroy`
 
 Deletes the specified task from GetShitDone.
 
-Format: `delete INDEX`
+Format: `destroy INDEX`
 
-> Deletes the task at the specified `INDEX`. 
+> Deletes the task at the specified `INDEX`.  
   The index refers to the index number shown in the most recent listing.
 
 Examples: 
 
-* `delete 3`
+* `destroy 3`  
   Deletes the 3<sup>rd</sup> task/event in GetShitDone.
 
 * `find assignment2`  
-  `delete 1`  
+  `destroy 1`  
   Deletes the 1<sup>st</sup> task/event in the results of the `find` command.
 
 <!--@@author A0139922Y -->
@@ -181,7 +166,7 @@ Format: `clear [event/task] ([(by|on|at) DATE] | [from STARTDATE to ENDDATE])`
 
 Examples: 
 
-* `clear task`
+* `clear task`  
   Clear all  tasks in GetShitDone.
 
 * `clear event to yesterday`  
@@ -247,20 +232,25 @@ Examples:
 * `uncomplete 1`  
   Uncomplete the 1<sup>st</sup> task in GetShitDone.
 
-<!--@@author-->
+<!-- @@author A0139812A -->
+
 #### Aliasing: `alias`
 
 Adds aliases for existing commands. *For advanced users.*  
 
-Format: `alias [EXISTING_COMMAND NEW_ALIAS]`
+Format: `alias [NEW_ALIAS EXISTING_COMMAND]`
 
 Examples:
 * `alias`  
   Lists all current aliases.
 
-* `alias find f`  
+* `alias ls list`  
+  `ls`
+  Aliases `find` to `f`, and subsequently `ls` will list all tasks and events.
+
+* `alias f find`  
   `f Irvin`
-  Aliases `find` to `f`, and subsequently `f` can be used to `find` tasks.
+  Aliases `find` to `f`, and subsequently `f` can be used to `find` tasks and events.
 
 #### Unaliasing: `unalias`
 
@@ -269,16 +259,16 @@ Removes existing aliases. *For advanced users.*
 Format: `unalias ALIAS`
 
 Examples:
-* `unalias f`
+* `unalias f`  
   Removes the alias for `f`.
 
 #### Undo tasks : `undo`
 
-Undo commands in GetShitDone.  
+Undo commands in the application.  
 
 Format: `undo [COUNT]`
 
-> Performs undo repeatedly based on the specified `COUNT`. If COUNT is not specified, it defaults to 1.
+> Performs undo repeatedly based on the specified `COUNT`. If `COUNT` is not specified, it defaults to 1.
   
 Examples: 
 
@@ -289,11 +279,12 @@ Examples:
   Performs undo twice.
 
 #### Redo tasks : `redo`
+
 Redo commands in GetShitDone.  
 
 Format: `redo [COUNT]`
 
-> Performs redos based on the specified `COUNT`. If COUNT is not specified, it defaults to 1.
+> Performs redos based on the specified `COUNT`. If `COUNT` is not specified, it defaults to 1.
   
 Examples: 
 
@@ -302,6 +293,31 @@ Examples:
   
 * `redo 2`  
   Performs redo twice.
+
+#### Changing the app title : `config appTitle`
+
+Format: `config appTitle FILEPATH`
+
+Examples:
+
+* `config appTitle Jim's Todo List`  
+Changes the app title to `Jim's Todo List`.
+
+#### Changing the save location : `config databaseFilePath`
+
+The application data is saved in a file called `database.json`, which is saved in the same directory as the application by default.
+
+Format: `config databaseFilePath FILEPATH`
+
+> The file name of the database file must end in `.json`.
+
+Examples:
+
+* `config databaseFilePath movedDatabase.json`  
+  Moves the existing database file to `movedDatabase.json`.
+
+* `config databaseFilePath /absolute/path/to/database.json`  
+Moves the existing database file to `/absolute/path/to/database.json`.
 
 #### Exiting the program : `exit`
 
@@ -312,17 +328,10 @@ Format: `exit`
 #### Saving of data
 The application data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
-#### Changing the save location (TBU)
-The application data are saved in a file called `database.json` in the project root folder.
-You can change the location by specifying the file path as a program argument.<br>
-
-> The file name must end in `.json` for it to be acceptable to the program.
->
-> When running the program inside Eclipse, you can [set command line parameters before running the program](http://stackoverflow.com/questions/7574543/how-to-pass-console-arguments-to-application-in-eclipse).
 
 ## FAQ
 
-**Q**: How do I transfer my data to another computer?<br>
+**Q**: How do I transfer my data to another computer?  
 **A**: Install the app in the other computer, and replace `database.json` from the root of the application directory.
 
 ## Command Summary
@@ -348,11 +357,18 @@ Find | `find KEYWORD [MORE_KEYWORDS]...`
 Command | Format  
 -------- | :-------- 
 Update | `update INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE]`
-Delete | `delete INDEX`
+Delete | `destroy INDEX`
 Add Tag | `tag INDEX TAG_NAME`
 Untag | `untag INDEX TAG_NAME`
 Undo | `undo [COUNT]`
 Redo | `redo [COUNT]`
+
+**App Actions** 
+
+Command | Format  
+-------- | :-------- 
+Change App Title | `config appTitle APPTITLE`
+Change Database File Path | `config databaseFilePath FILEPATH`
 
 **Advanced Actions** 
 
