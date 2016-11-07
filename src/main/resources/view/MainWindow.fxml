@@ -59,7 +59,7 @@
             </VBox>
             <VBox fx:id="dashboardDisplay" alignment="TOP_CENTER" minWidth="140.0" prefHeight="600.0" prefWidth="150.0">
                <children>
-                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="141.0" styleClass="tooltip-text" text="List of Overdue Tasks">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="141.0" styleClass="tooltip-text" text="Overdue Tasks">
                      <padding>
                         <Insets left="30.0" />
                      </padding>
