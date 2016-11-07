@@ -42,7 +42,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - Implemented an Event List Panel [#35] (https://github.com/CS2103AUG2016-F09-C4/Main/pull/35)
       - [Prepared TestScript for manual testing] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/src/test/data/ManualTesting/TestScript.md)
     
-3. Poh Yee Heng Keith [@Yeehengg] (https://github.com/Yeehengg)  
+3. Poh Yee Heng [@Yeehengg] (https://github.com/Yeehengg)  
   <img src="images/Keith.jpg" width="150">  
   - Year 3 Computer Engineering Major
   - Roles:
@@ -57,6 +57,7 @@ We are a team based in the [School of Computing, National University of Singapor
       - Refactored original AddressBookLevel4 to current TaskBook
         - [Morph UI.Package] (https://github.com/CS2103AUG2016-F09-C4/main/pull/12)
         - [Morph Storage package] (https://github.com/CS2103AUG2016-F09-C4/main/pull/14)
+	- Prepared Sample Data for manual testing
 
 4. Xu Chen [@githubxxcc] (https://github.com/githubxxcc)  
   <img src="images/Xuchen.jpg" width="150">  
