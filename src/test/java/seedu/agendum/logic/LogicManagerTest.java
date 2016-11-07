@@ -427,13 +427,14 @@ public class LogicManagerTest {
                 expectedTDL.getTaskList());
     }
     //@author
-
-    @Ignore
+    
     @Test
     public void execute_syncOn_successfull() throws Exception {
         SyncProviderGoogleTests.copyTestCredentials();
         assertCommandBehavior("sync on",
                 SyncCommand.SYNC_ON_MESSAGE);
+
+        SyncProviderGoogleTests.deleteCredential(); // Clean up credential file
     }
 
     @Test

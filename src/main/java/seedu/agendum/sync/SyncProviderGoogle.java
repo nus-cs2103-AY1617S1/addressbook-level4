@@ -81,7 +81,9 @@ public class SyncProviderGoogle extends SyncProvider {
 
     @Override
     public void startIfNeeded() {
+        logger.info("Checking if Google Calendar needs to be started");
         if (DATA_STORE_CREDENTIAL.exists()) {
+            logger.info("Credentials, starting Google Calendar");
             start();
         }
     }
@@ -190,7 +192,7 @@ public class SyncProviderGoogle extends SyncProvider {
                 Task task = addEventConcurrentQueue.take();
                 Date startDate = Date.from(task.getStartDateTime().get().atZone(ZoneId.systemDefault()).toInstant());
                 Date endDate = Date.from(task.getEndDateTime().get().atZone(ZoneId.systemDefault()).toInstant());
-                String id = Integer.toString(abs(task.hashCode()));
+                String id = Integer.toString(abs(task.syncCode()));
 
                 EventDateTime startEventDateTime = new EventDateTime().setDateTime(new DateTime(startDate));
                 EventDateTime endEventDateTime = new EventDateTime().setDateTime(new DateTime(endDate));
@@ -225,7 +227,7 @@ public class SyncProviderGoogle extends SyncProvider {
         while (true) {
             try {
                 Task task = deleteEventConcurrentQueue.take();
-                String id = Integer.toString(abs(task.hashCode()));
+                String id = Integer.toString(abs(task.syncCode()));
                 client.events().delete(agendumCalendar.getId(), id).execute();
 
                 logger.info("Task added to GCal delete queue");

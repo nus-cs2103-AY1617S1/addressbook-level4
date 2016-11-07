@@ -304,6 +304,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Objects.hash(name_, isCompleted_, startDateTime_, endDateTime_);
     }
 
+    public int syncCode() {
+        return hashCode();
+    }
+
     @Override
     public String toString() {
         return getAsText();

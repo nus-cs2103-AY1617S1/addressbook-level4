@@ -163,6 +163,11 @@ task allTests(type: AgendumTest) {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+    
+    exec {
+      executable 'rm'
+      args '-vf', 'data/StoredCredential'
+    }
 }
 
 task headless << {
