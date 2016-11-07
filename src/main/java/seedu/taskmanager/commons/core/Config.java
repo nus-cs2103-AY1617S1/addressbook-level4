@@ -9,13 +9,15 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
-
+    public static final String USERGUIDE_URL = "https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md";
+    
     // Config values customizable through config file
     private String appTitle = "IvoryTasks";
     private Level logLevel = Level.FINE;
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/todo.xml";
     private String taskManagerName = "MyTaskManager";
+    
 
 
     public Config() {
