@@ -980,6 +980,8 @@ public class LogicManagerTest {
 		 * test both reverse indexes and any kind 
 		 * if format 
 		 * @throws Exception
+		 *  This is unused because I did not discuss with my teammates in advanced so they decided 
+         * not to include this method
 		 */
 		@Test
 		public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {

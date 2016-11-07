@@ -14,6 +14,8 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task or a set of tasks identified 
  * using it's last displayed index from the address book.
+ * This is unused because I did not discuss with my teammates in advanced so they decided 
+ * not to include this method
  */
 public class UnwantedDeleteCommand extends Command {
 

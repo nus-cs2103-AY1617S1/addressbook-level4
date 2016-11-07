@@ -382,6 +382,8 @@ public class Parser {
 	 * @param args
 	 *            full command args string
 	 * @return the prepared command
+	 * This is unused because I did not discuss with my teammates in advanced so they decided 
+     * not to include this method
 	 */
 	private Command prepareUnwantedDelete(String args) throws ParseException {
 		final Matcher matcherList = INDEX_LIST_FORMAT.matcher(args.trim());

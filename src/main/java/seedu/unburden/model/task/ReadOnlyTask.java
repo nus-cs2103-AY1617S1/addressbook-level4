@@ -49,6 +49,8 @@ public interface ReadOnlyTask {
 	//@@author A0147986H-unused
 	/**
 	 * Formats the task as text, showing all contact details.
+	 *  This is unused because I did not discuss with my teammates in advanced so they decided 
+     * not to include this method
 	 */
 	default String getAsText() {
 		final StringBuilder builder = new StringBuilder();

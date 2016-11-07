@@ -10,6 +10,8 @@ import seedu.unburden.model.task.ReadOnlyTask;
  * Selects a task identified using it's last displayed index from the address book.
  * It will also show the details of the task selected, especially
  * task descriptions that may not be able to show on the taskList panel
+ * This is unused because I did not discuss with my teammates in advanced so they decided 
+ * not to include this method
  */
 public class SelectCommand extends Command {
 
