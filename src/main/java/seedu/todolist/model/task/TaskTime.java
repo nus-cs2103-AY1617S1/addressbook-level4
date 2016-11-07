@@ -1,7 +1,6 @@
 package seedu.todolist.model.task;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -39,13 +38,13 @@ public class TaskTime implements Comparable<TaskTime> {
      */
     public TaskTime(String time) throws IllegalValueException {
         assert time != null;
-        time = time.trim();
-        if (!isValidTime(time)) {
+        String trimmedTime = time.trim();
+        if (!isValidTime(trimmedTime)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         
         try {
-            this.time = TimeParser.parseTime(time);
+            this.time = TimeParser.parseTime(trimmedTime);
         } catch (DateTimeException dateTimeException) {
             throw new IllegalValueException(MESSAGE_TIME_INVALID);
         }

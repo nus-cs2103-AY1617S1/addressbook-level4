@@ -39,13 +39,13 @@ public class TaskDate implements Comparable<TaskDate> {
      */
     public TaskDate(String date) throws IllegalValueException {
         assert date != null;
-        date = date.trim();
-        if (!isValidDate(date)) {
+        String trimmedDate = date.trim();
+        if (!isValidDate(trimmedDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         
         try {
-            this.date = DateParser.parseDate(date);
+            this.date = DateParser.parseDate(trimmedDate);
         } catch (DateTimeException dateTimeException) {
             throw new IllegalValueException(MESSAGE_DATE_INVALID);
         }

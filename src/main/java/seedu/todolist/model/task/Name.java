@@ -23,11 +23,11 @@ public class Name {
         if (name == null) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS_EMPTY);
         }
-        name = name.trim();
-        if (!isValidName(name)) {
+        String trimmedName = name.trim();
+        if (!isValidName(trimmedName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullName = trimmedName;
     }
 
     /**

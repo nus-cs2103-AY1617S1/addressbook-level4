@@ -407,9 +407,9 @@ public class CommandParser {
      * @return an int array if valid indexes are provided.
      */
     private int[] parseIndexSeparatedByComma(String command) throws IllegalValueException {
-        command = command.trim();
+        String Trimmedcommand = command.trim();
 
-        String[] indexesString = command.split(INDEX_DELIMITER);
+        String[] indexesString = Trimmedcommand.split(INDEX_DELIMITER);
         int[] indexes = new int[indexesString.length];
         for (int i = 0; i < indexesString.length; i++) {
             if (!StringUtil.isUnsignedInteger(indexesString[i].trim())) {

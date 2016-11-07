@@ -1,7 +1,5 @@
 package seedu.todolist.model.task;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -27,9 +25,12 @@ public class Task implements ReadOnlyTask {
         this.remarks = remarks;
         
         if (status.isIncomplete() && interval.isOver()) {
-            status = new Status(Status.Type.Overdue);
+            Status overdueStatus = new Status(Status.Type.Overdue);
+            this.status = overdueStatus;
         }
-        this.status = status;
+        else {
+            this.status = status;
+        }
     }
         
     /**
