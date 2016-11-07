@@ -55,16 +55,22 @@ public interface Model {
     /** Marks task as completed **/
 	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
 	//@@author A0131813R
+    /** Updates the filter of the filtered event list*/
     void updateFilteredEventListToShowAll();
-
+    
+    /** Updates the filter of the filtered activity list*/
     void updateFilteredActivityListToShowAll();
 
+    /** Updates the filter of the filtered task list*/
     void updateFilteredTaskListToShowAll();
 
+    /** Updates the filter of the filtered list filtered by the tag name requested*/
     void updateFilteredByTagListToShowAll(String tag);
 
+    /** Updates the filter of the filtered list including events thats have passed, tasks and activities that are done*/
     void updateFilteredDoneListToShowAll();
 
+    /** Updates the filter of the filtered list showing all existing entries*/
     void updateAllListToShowAll();
 
 	UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
