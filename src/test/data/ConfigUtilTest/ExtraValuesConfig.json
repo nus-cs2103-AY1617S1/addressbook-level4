@@ -1,8 +1,8 @@
 {
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
-  "userPrefsFilePath" : "C:\\preferences.json",
-  "taskManagerFilePath" : "mastermind.xml",
+  "userPrefsFilePath" : "./src/test/data/sandbox/pref_testing.json",
+  "taskManagerFilePath" : "./src/test/data/sandbox/tempTaskManager.xml",
   "taskManagerName" : "TypicalTaskManagerName",
   "extra" : "extra value"
 }
