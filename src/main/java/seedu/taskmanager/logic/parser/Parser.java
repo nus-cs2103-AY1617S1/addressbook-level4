@@ -56,6 +56,9 @@ public class Parser {
 
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s*([0-9]+\\s*)+)"); // variable number of indexes
+    
+    private static final Pattern SAVE_LOCATION_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
+    private static final String XML_FILE_EXTENSION = ".xml";
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
@@ -724,21 +727,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSave(String args) {
-        args = args.trim();
-        if(parseSaveCommandFormat(args)) {
-            return new SaveCommand(args);
+        try {
+            final Matcher matcher = SAVE_LOCATION_ARGS_FORMAT.matcher(args.trim());
+            
+            if(!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+            }
+            return new SaveCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
+        } catch (IllegalValueException ive){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
         
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
-    }
-
-    /**
-     * Checks valid file path is given as argument for SaveCommand.
-     * @param args parameter input by user for save command
-     * @return true if parameter is valid
-     */
-    private boolean parseSaveCommandFormat(String args) {
-        return !args.equals("") && args.endsWith(".xml");
     }
     //@@author
     

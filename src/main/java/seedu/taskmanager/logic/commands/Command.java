@@ -2,6 +2,7 @@ package seedu.taskmanager.logic.commands;
 
 import seedu.taskmanager.commons.core.EventsCenter;
 import seedu.taskmanager.commons.core.Messages;
+import seedu.taskmanager.commons.events.storage.SaveLocationChangedEvent;
 import seedu.taskmanager.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.taskmanager.model.Model;
 
@@ -47,5 +48,11 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    //@@author A0143641M
+    /** Raises an event to indicate the storage has changed */
+    protected void indicateStoragePathChanged(String oldPath, String newPath) {
+        EventsCenter.getInstance().post(new SaveLocationChangedEvent(oldPath, newPath));
     }
 }

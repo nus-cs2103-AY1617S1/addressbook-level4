@@ -157,8 +157,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged(actionTaken);
     }
     
-    public synchronized void saveAction(String location) {
-        raise(new SaveLocationChangedEvent(location));
+    public synchronized void saveAction(String oldLocation, String newLocation) {
+        raise(new SaveLocationChangedEvent(oldLocation, newLocation));
         raise(new TaskManagerChangedEvent(taskManager));
     }
     //@@author

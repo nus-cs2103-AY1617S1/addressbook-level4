@@ -3,6 +3,8 @@ package seedu.taskmanager.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
 
 /**
  * Writes and reads file
@@ -72,6 +74,21 @@ public class FileUtil {
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
+    
+    //@@author A0143641M
+    /** 
+     * Checks if a given string {@code path} is a valid file path
+     */
+    public static boolean isValidFilePath(String path) {
+        try {
+            Paths.get(path);
+        } catch (InvalidPathException | NullPointerException ex) {
+            return false;
+        }
+        
+        return true;
+    }
+    //@@author
 
     /**
      * Converts a string to a platform-specific file path

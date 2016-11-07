@@ -102,6 +102,6 @@ public class StatusBarFooter extends UiPart {
     @Subscribe
     public void handleSaveLocationChangedEvent(SaveLocationChangedEvent slce) {
         logger.info(LogsCenter.getEventHandlingLogMessage(slce, "Save location changed. Updating..."));
-        setSaveLocation("./" + slce.location);
+        setSaveLocation("./" + slce.newLocation);
     }
 }
