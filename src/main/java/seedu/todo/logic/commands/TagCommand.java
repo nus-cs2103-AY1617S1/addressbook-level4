@@ -17,8 +17,8 @@ public class TagCommand extends Command{
     public static final String COMMAND_WORD = "tag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Tags the task identified by the index number used in the last task listing. "
-            + "Tag names must be unique.\n"
+            + ": Tags the task identified by the index number used in the last task listing.\n"
+            + "Tag names must be unique and can only contain alphabets and numbers.\n"
             + "Parameters: INDEX TAGNAME [MORE TAGNAMES]\n"
             + "Example: " + COMMAND_WORD + " 1 birthday clique";
 
