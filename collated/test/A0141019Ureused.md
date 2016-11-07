@@ -41,7 +41,6 @@
         assertTrue(listPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        // TODO figure out why square brackets are needed
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, "[" + sbTasks.toString() + "]"));
     }
 

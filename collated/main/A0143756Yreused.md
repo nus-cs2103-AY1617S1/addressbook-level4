@@ -626,7 +626,6 @@ public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
             }
         }
         return lists;
@@ -639,7 +638,6 @@ public class XmlSerializableAliasManager implements ReadOnlyAliasManager {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
