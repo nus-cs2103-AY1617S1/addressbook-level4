@@ -3,7 +3,6 @@ package w15c2.tusk.commons.util;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 
@@ -20,11 +19,11 @@ public class DateUtil {
 	
 	// Valid words that can be used to describe dates. Unsigned integers are valid as well.
 	// Used to check if the user date inputs are valid.
-	public static final HashSet<String> validWords;
+	private static final HashSet<String> validWords;
 	
 	// Words used to describe a date relative to the current date.
 	// Used to check if the user date inputs are relative.
-	public static final HashSet<String> relativeWords;
+	private static final HashSet<String> relativeWords;
 	
 	// Putting the list of valid and relative words into hashsets for faster access
 	static { 

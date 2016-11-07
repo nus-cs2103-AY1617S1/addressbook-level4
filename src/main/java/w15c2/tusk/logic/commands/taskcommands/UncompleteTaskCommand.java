@@ -1,9 +1,7 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
-import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
@@ -25,7 +23,7 @@ public class UncompleteTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
-    public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
+    private static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
 
     public final int targetIndex;
 

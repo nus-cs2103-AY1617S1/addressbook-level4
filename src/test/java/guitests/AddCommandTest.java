@@ -5,7 +5,6 @@ import java.util.List;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
-import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
 import w15c2.tusk.model.task.Task;
 import w15c2.tusk.testutil.TaskTesterUtil;

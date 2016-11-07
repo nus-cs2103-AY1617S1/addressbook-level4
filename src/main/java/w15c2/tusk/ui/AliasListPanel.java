@@ -148,7 +148,7 @@ public class AliasListPanel extends UiPart {
     /**
      * Cell for AliasList to load AliasCard as graphic.
      */
-    class AliasListViewCell extends ListCell<Alias> {
+    private class AliasListViewCell extends ListCell<Alias> {
 
         public AliasListViewCell() {
         }

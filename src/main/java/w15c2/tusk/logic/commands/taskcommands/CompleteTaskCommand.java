@@ -1,9 +1,7 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
-import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
@@ -25,7 +23,7 @@ public class CompleteTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed task: %1$s";
-    public static final String MESSAGE_TASK_ALR_COMPLETED = "Task has already been completed";
+    private static final String MESSAGE_TASK_ALR_COMPLETED = "Task has already been completed";
 
     public static final String HELP_MESSAGE_USAGE = "Complete a task: \t" + COMMAND_WORD +" <index>";
 

@@ -17,7 +17,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollToEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -168,7 +167,7 @@ public class TaskListPanel extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed task list"));
     }
 
-    class TaskListViewCell extends ListCell<Task> {
+    private class TaskListViewCell extends ListCell<Task> {
 
         public TaskListViewCell() {
         }

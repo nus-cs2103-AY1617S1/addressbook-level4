@@ -17,13 +17,13 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 	/*
 	 * Indicates if this task is pinned
 	 */
-	protected boolean pin = false;
+	private boolean pin = false;
 	
 	//@@author 
 	/*
 	 * Indicates if this task is completed
 	 */
-	protected boolean complete = false;
+	private boolean complete = false;
 	
 	//@@author A0138978E
 	@Override
