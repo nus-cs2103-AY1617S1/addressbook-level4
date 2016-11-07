@@ -20,7 +20,7 @@ public class Time implements Comparable<Time> {
 			m_minute = Integer.parseInt(value.substring(3, 5));
 			m_meridiem = value.substring(5);
 		} else {
-			m_hour = 13;
+			m_hour = 20;
 			m_minute = 0;
 			m_meridiem = "PM";
 		}

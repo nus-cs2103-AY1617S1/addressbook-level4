@@ -54,18 +54,31 @@ public class DateUtil {
      /** Checks if the date of the first argument comes before the second, returns true if so */  
      public static boolean checkDatePrecedence(DateTime first, DateTime second) {
          Date firstDate = first.m_date;
+         Time firstTime = first.m_time;
+         int firstTimeHour = convertTo24HrFormat(firstTime);
          Calendar firstDateAsCalendar = Calendar.getInstance();
-         firstDateAsCalendar.set(firstDate.m_year + 1900, firstDate.m_month, firstDate.m_day);
+         firstDateAsCalendar.set(firstDate.m_year + 1900, firstDate.m_month, firstDate.m_day, firstTimeHour, firstTime.m_minute);
          
          Date secondDate = second.m_date;
+         Time secondTime = second.m_time;
+         int secondTimeHour = convertTo24HrFormat(secondTime);
          Calendar secondDateAsCalendar = Calendar.getInstance();
-         secondDateAsCalendar.set(secondDate.m_year + 1900, secondDate.m_month, secondDate.m_day);
+         secondDateAsCalendar.set(secondDate.m_year + 1900, secondDate.m_month, secondDate.m_day, secondTimeHour, secondTime.m_minute);
          
          return firstDateAsCalendar.before(secondDateAsCalendar);
-         
      }
      
-    /** Checks if time for first DateTime argument is before second, returns true if so */
+    public static int convertTo24HrFormat(Time firstTime) {
+		if (firstTime.m_meridiem.equals("AM") && firstTime.m_hour == 12) {
+			return 0;
+		} else if (firstTime.m_meridiem.equals("PM") && firstTime.m_hour != 12) {
+			return firstTime.m_hour + 12;
+		} else {
+			return firstTime.m_hour;
+		}
+	}
+
+	/** Checks if time for first DateTime argument is before second, returns true if so */
     public static boolean checkTimePrecendence(DateTime end, DateTime nowAsDateTime) {
         if (end.getTime().compareTo(nowAsDateTime.getTime())<0) {
             return true;
