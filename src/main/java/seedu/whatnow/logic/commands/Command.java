@@ -44,7 +44,6 @@ public abstract class Command {
     public void setData(Model model) {
         this.model = model;
     }
-
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
