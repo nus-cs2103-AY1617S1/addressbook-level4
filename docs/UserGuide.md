@@ -110,6 +110,7 @@ Examples:
 * `s favorite`, `s favourite`, `s fav` or `s f` Sorts tasks in the TaskManager with favourited tasks first
 * `s overdue`, `s over` or `s o` Sorts tasks in the TaskManager with overdue tasks first
 
+[//]: # "@@author A0147335E"
 #### Undo the modification : `undo`
 Undo the modification in the last step. Only includes add, delete, edit, clear, done, undone, favorite, unfavorite, sort and refresh commands. Can undo multiple times.<br>
 Format: `undo` or  `undo INDEX`
@@ -130,6 +131,7 @@ Format: `fav INDEX`
 Unfavorite a task. Reverse action of favorite command, removing the yellow marker.<br>
 Format: `unfav INDEX` 
 
+[//]: # "@@author"
 #### Repeat a specific task at a given interval : `repeat`
 Enables a task to be repeated automatically at specified interval after it is marked as done or passes its deadline.<br>
 Valid intervals include: daily, weekly, fortnightly, monthly, yearly<br>
