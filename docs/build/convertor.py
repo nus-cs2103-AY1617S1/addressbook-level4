@@ -11,7 +11,7 @@ files = {
     },
     "UserGuide": {
         "title": "User Guide",
-        "toc": [2, 3, 4, 11, 12],
+        "toc": [9, 10, 11, 22, 24, 35],
     },
 }
 
