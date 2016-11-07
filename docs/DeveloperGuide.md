@@ -420,7 +420,6 @@ Use case ends
 > 1a1. Task Manager shows an error message stating that the parameter is invalid and provides the list of valid parameters <br>
   Use case ends
 
-
 ### Use case: Undo last command
 
 **MSS**
@@ -463,7 +462,7 @@ Use case ends
 **MSS**
 
 1. User requests to mark a task as not done
-2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in green in task list panel <br>
+2. Task Manager successfully updates task, showing affected task in the message panel and green highlight in task list panel disappears <br>
 Use case ends
 
 **Extensions**
@@ -478,7 +477,49 @@ Use case ends
 > 1b1. Task Manager shows an error message stating provided index is invalid <br>
   Use case ends
 
+[//]: # "@@author A0147335E"
+### Use case: Mark task as favorite
 
+**MSS**
+
+1. User requests to mark a task as favorite
+2. Task Manager successfully updates task, showing affected task in the message panel and highlighting affected task in yellow in task list panel <br>
+Use case ends
+
+**Extensions**
+
+1a. Task is already marked as favorite
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as favorite <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+
+[//]: # "@@author A0147335E"
+### Use case: Mark task as not favorite
+
+**MSS**
+
+1. User requests to mark a task as not favorite
+2. Task Manager successfully updates task, showing affected task in the message panel and yellow highlight in task list panel disappears <br>
+Use case ends
+
+[//]: # "@@author"
+**Extensions**
+
+1a. Task is already marked as not favorite
+
+> 1a1. Task Manager shows an error message stating that the task is already marked as not favorite <br>
+  Use case ends
+
+1b. The given index is invalid
+
+> 1b1. Task Manager shows an error message stating provided index is invalid <br>
+  Use case ends
+  
 ### Use case: Set a task to repeat automatically
 
 **MSS**
