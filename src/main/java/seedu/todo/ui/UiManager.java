@@ -19,7 +19,7 @@ import seedu.todo.model.UserPrefs;
 
 import java.util.logging.Logger;
 
-//@@author reused
+//@@author A0135805H-reused
 /**
  * The manager of the UI component.
  */

@@ -1,29 +1,20 @@
 package seedu.todo.ui.view;
 
-import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.model.property.TaskViewFilter;
-import seedu.todo.ui.UiPart;
-import seedu.todo.ui.util.UiPartLoaderUtil;
-import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.util.FxViewUtil;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 //@@author A0135805H

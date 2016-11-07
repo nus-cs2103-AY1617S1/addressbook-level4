@@ -14,7 +14,8 @@ import seedu.todo.ui.view.CommandPreviewView;
 /**
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
  * and hands the {@link seedu.todo.logic.commands.CommandResult} to {@link CommandFeedbackView} and
- * {@link CommandErrorView}
+ * {@link CommandErrorView}.
+ * Also, {@link CommandPreviewView} is also linked here to listen to user input.
  */
 public class CommandController {
     /* Variables */
