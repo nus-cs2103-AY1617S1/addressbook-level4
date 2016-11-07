@@ -4,7 +4,7 @@ package seedu.oneline.logic.commands;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -22,6 +22,7 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as done.\n"
+            + " === Done task === \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -62,22 +63,21 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
         Task doneTask = null;
-        doneTask = taskToDone.markDone(taskToDone);
-        EventsCenter.getInstance().post(new ShowAllViewEvent());
+        doneTask = taskToDone.markDone();
+        EventsCenter.getInstance().post(new ChangeViewEvent(" "));
         
         if(taskToDone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
-        } else {
-            try {
-                model.replaceTask(taskToDone, doneTask);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                assert false : "The task should not have the same completed status as before";
-            }
-
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
         }
+        try {
+            model.replaceTask(taskToDone, doneTask);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "The task should not have the same completed status as before";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
     
     @Override

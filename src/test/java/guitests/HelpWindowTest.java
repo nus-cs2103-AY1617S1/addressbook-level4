@@ -8,12 +8,9 @@ import static org.junit.Assert.assertTrue;
 public class HelpWindowTest extends TaskBookGuiTest {
 
     @Test
-    public void openHelpWindow() {
-
+    public void helpCommand_openHelpWindow_windowOpen() {
         taskPane.clickOnListView();
-
         assertHelpWindowOpen(commandBox.runHelpCommand());
-
     }
 
     private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {

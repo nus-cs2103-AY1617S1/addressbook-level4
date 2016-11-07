@@ -14,19 +14,25 @@ import seedu.oneline.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends TaskBookGuiTest {
+import java.util.ArrayList;
+import java.util.List;
 
+public class AddCommandTest extends TaskBookGuiTest {
+    
     @Test
-    public void add() {
-        //add one task
+    public void addCommand_validTask_success() {
         TestTask[] currentList = td.getTypicalTasks();
         Arrays.sort(currentList);
         TestTask taskToAdd = TypicalTestTasks.eventExtra;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+    }
+    
+    @Test
+    public void addCommand_duplicateTask_duplicateMessage() {
+        TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
 
-        //add another task
-        taskToAdd = TypicalTestTasks.todoExtra;
+        TestTask taskToAdd = TypicalTestTasks.eventExtra;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         Arrays.sort(currentList);
@@ -34,13 +40,17 @@ public class AddCommandTest extends TaskBookGuiTest {
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskPane.isListMatching(currentList));
-
-        //add to empty list
+        assertTrue(taskPane.isListMatching(false, currentList));
+    }
+    
+    @Test
+    public void addCommand_addToEmpty_success() {
         commandBox.runCommand("clear");
         assertAddSuccess(TypicalTestTasks.event1);
-
-        //invalid command
+    }
+    
+    @Test
+    public void addCommand_invalidCommand_unknownMessage() {
         commandBox.runCommand("adds Task");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
@@ -55,8 +65,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         Arrays.sort(expectedList);
-        
-        assertTrue(taskPane.isListMatching(expectedList));
+        assertTrue(taskPane.isListMatching(false, expectedList));
     }
 
 }

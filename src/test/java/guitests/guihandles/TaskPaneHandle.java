@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.oneline.TestApp;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.testutil.TestUtil;
@@ -70,7 +71,7 @@ public class TaskPaneHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())){
+            if (!tasksInList.get(startPosition + i).getName().toString().equals(tasks[i].getName().toString())) {
                 return false;
             }
         }
@@ -94,15 +95,7 @@ public class TaskPaneHandle extends GuiHandle {
         }
         for (int i = startPosition; i < tasksInList.size(); i++) {
             ReadOnlyTask taskToFind = tasksInList.get(i);
-            boolean found = false;
-            for (int j = 0; j < tasksToCheck.size(); j++) {
-                ReadOnlyTask taskToCheck = tasksToCheck.get(j);
-                if (taskToCheck.getName().toString().equals(taskToFind.getName().toString())) {
-                    tasksToCheck.remove(j);
-                    found = true;
-                    break;
-                }
-            }
+            boolean found = findAndRemoveTask(tasksToCheck, taskToFind);
             if (!found) {
                 assert false;
                 return false;
@@ -114,6 +107,26 @@ public class TaskPaneHandle extends GuiHandle {
         }
         return true;
     }
+
+    /**
+     * @param tasksToCheck
+     * @param taskToFind
+     * @param found
+     * @return
+     */
+    private boolean findAndRemoveTask(List<ReadOnlyTask> tasksToCheck, ReadOnlyTask taskToFind) {
+        boolean found = false;
+        for (int j = 0; j < tasksToCheck.size(); j++) {
+            ReadOnlyTask taskToCheck = tasksToCheck.get(j);
+            if (taskToCheck.getName().toString().equals(taskToFind.getName().toString())) {
+                tasksToCheck.remove(j);
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+    // @@author
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
@@ -151,6 +164,7 @@ public class TaskPaneHandle extends GuiHandle {
                 guiRobot.interact(() -> getListView().scrollTo(scrollTo));
                 guiRobot.sleep(200);
                 if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+                    assert false : getTaskCardHandle(startPosition + i).toString() + "\n" + tasks[i].toString();
                     return false;
                 }
             }
@@ -160,6 +174,20 @@ public class TaskPaneHandle extends GuiHandle {
         return true;
     }
     
+    //@@author A0140156R
+    public int indexOf(Task t) {
+        int taskCount = getListView().getItems().size();
+        for (int i = 0; i < taskCount; i++) {
+            final int scrollTo = i;
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (TestUtil.compareCardAndTask(getTaskCardHandle(i), t)) {
+                return i + 1;
+            }
+        }
+        return -1;
+    }
+    // @@author
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -208,11 +236,18 @@ public class TaskPaneHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        try {
+            return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        return null;
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
-        Set<Node> nodes = getAllCardNodes();
+        assert task != null;
+        Set<Node> nodes = getAllCardNodes();    
         Optional<Node> taskCardNode = nodes.stream()
                 .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();

@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskbook>
+    <tasks>
+        <name>Lunch</name>
+        <starttime>Thu Oct 20 23:59:59 SGT 2016</starttime>
+        <endtime>Sat Nov 12 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Urgent</tag>
+    </tasks>
+    <tasks>
+        <name>Cycling</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Revised</tag>
+    </tasks>
+    <tasks>
+        <name>Movie</name>
+        <starttime>Tue Mar 01 23:59:59 SGT 2016</starttime>
+        <endtime>Sat Nov 05 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Revised</tag>
+    </tasks>
+    <tasks>
+        <name>Network with Gordon</name>
+        <starttime>Tue Jul 26 23:59:59 SGT 2016</starttime>
+        <endtime>Thu Nov 03 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Order iPhone 7</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Buy</tag>
+    </tasks>
+    <tasks>
+        <name>Movie with Henry</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Urgent</tag>
+    </tasks>
+    <tasks>
+        <name>Schedule medical checkup</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Tennis</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>OTOT</tag>
+    </tasks>
+    <tasks>
+        <name>Supper</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Birthday celebration</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Shopping</tag>
+    </tasks>
+    <tasks>
+        <name>Prepare briefing</name>
+        <starttime>Tue Nov 08 23:59:59 SGT 2016</starttime>
+        <endtime>Fri Nov 11 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>ASAP</tag>
+    </tasks>
+    <tasks>
+        <name>Meeting with Alice</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Birthday celebration with Conan</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Important</tag>
+    </tasks>
+    <tasks>
+        <name>Gym with Edward</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>OTOT</tag>
+    </tasks>
+    <tasks>
+        <name>Network</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Updated</tag>
+    </tasks>
+    <tasks>
+        <name>Birthday celebration with Henry</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Shopping</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation with Conan</name>
+        <starttime>Fri Jul 01 23:59:59 SGT 2016</starttime>
+        <endtime>Mon Nov 07 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>ASAP</tag>
+    </tasks>
+    <tasks>
+        <name>Arrange doctor appointment</name>
+        <starttime>Tue May 03 23:59:59 SGT 2016</starttime>
+        <endtime>Mon Aug 01 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Revised</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation with Deborah</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Urgent</tag>
+    </tasks>
+    <tasks>
+        <name>Check email</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Updated</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation with Edward</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Buy</tag>
+    </tasks>
+    <tasks>
+        <name>Movie</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Priority</tag>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>KIV</tag>
+    </tasks>
+    <tasks>
+        <name>Cycling</name>
+        <starttime>Tue Sep 06 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 09 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Enjoyment</tag>
+    </tasks>
+    <tasks>
+        <name>Network</name>
+        <starttime>Fri Jan 08 23:59:59 SGT 2016</starttime>
+        <endtime>Tue Oct 11 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Breakfast with Ken</name>
+        <starttime>Wed Nov 09 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 09 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Updated</tag>
+    </tasks>
+    <tasks>
+        <name>Business meeting</name>
+        <starttime>Thu Jun 02 23:59:59 SGT 2016</starttime>
+        <endtime>Tue Nov 08 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Movie with Edward</name>
+        <starttime>Sat Jan 16 23:59:59 SGT 2016</starttime>
+        <endtime>Mon Feb 01 00:00:00 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>OTOT</tag>
+    </tasks>
+    <tasks>
+        <name>Breakfast with Alice</name>
+        <starttime>Wed Feb 17 23:59:59 SGT 2016</starttime>
+        <endtime>Sat Nov 12 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Work</tag>
+    </tasks>
+    <tasks>
+        <name>Movie with Judy</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation</name>
+        <starttime>Mon Nov 07 23:59:59 SGT 2016</starttime>
+        <endtime>Mon Nov 07 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Priority</tag>
+    </tasks>
+    <tasks>
+        <name>Clear paperwork</name>
+        <starttime>Wed Nov 09 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 16 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Priority</tag>
+    </tasks>
+    <tasks>
+        <name>Business meeting with Louis</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Pay insurance premium</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Work</tag>
+    </tasks>
+    <tasks>
+        <name>Breakfast with Judy</name>
+        <starttime>Mon May 16 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 02 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Dinner</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Project</tag>
+    </tasks>
+    <tasks>
+        <name>Look for new laptop</name>
+        <starttime>Sat Nov 12 23:59:59 SGT 2016</starttime>
+        <endtime>Thu Dec 08 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation with Dennis</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Updated</tag>
+    </tasks>
+    <tasks>
+        <name>Tennis with Albert</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Buy</tag>
+    </tasks>
+    <tasks>
+        <name>Lunch</name>
+        <starttime>Thu Nov 03 23:59:59 SGT 2016</starttime>
+        <endtime>Tue Nov 08 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Meeting with Cathy</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Consultation</name>
+        <starttime>Thu Nov 03 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 09 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>OTOT</tag>
+    </tasks>
+    <tasks>
+        <name>Movie with Bob</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Priority</tag>
+    </tasks>
+    <tasks>
+        <name>Clear paperwork</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Update report</name>
+        <starttime>Tue Nov 08 23:59:59 SGT 2016</starttime>
+        <endtime>Sat Nov 12 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>OTOT</tag>
+    </tasks>
+    <tasks>
+        <name>Breakfast with Kaylyn</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Business meeting with Fabian</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Revised</tag>
+    </tasks>
+    <tasks>
+        <name>Update Windows</name>
+        <starttime>Sun Sep 04 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Dec 21 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>#</tag>
+    </tasks>
+    <tasks>
+        <name>Meeting</name>
+        <starttime>Sat Jun 11 23:59:59 SGT 2016</starttime>
+        <endtime>Wed Nov 09 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Revised</tag>
+    </tasks>
+    <tasks>
+        <name>Shopping with Alice</name>
+        <starttime>Tue Aug 23 23:59:59 SGT 2016</starttime>
+        <endtime>Sun Nov 06 23:59:59 SGT 2016</endtime>
+        <deadline></deadline>
+        <recurrence></recurrence>
+        <isCompleted>false</isCompleted>
+        <tag>Enjoyment</tag>
+    </tasks>
+        <tasks>
+        <name>Dinner with family</name>
+        <starttime>Wed Oct 19 19:00:00 SGT 2016</starttime>
+        <endtime>Wed Oct 19 21:00:00 SGT 2016</endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Life</tag>
+    </tasks>
+    <tasks>
+        <name>Dinner with Alex</name>
+        <starttime>Thu Oct 20 19:00:00 SGT 2016</starttime>
+        <endtime>Thu Oct 20 21:00:00 SGT 2016</endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Life</tag>
+    </tasks>
+    <tasks>
+        <name>Lunch with Yu Kai</name>
+        <starttime>Fri Oct 21 12:00:00 SGT 2016</starttime>
+        <endtime>Fri Oct 21 13:00:00 SGT 2016</endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Life</tag>
+    </tasks>
+    <tasks>
+        <name>Return library books</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline>Mon Nov 14 23:59:59 SGT 2016</deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Important</tag>
+    </tasks>
+    <tasks>
+        <name>Buy stationery</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Shopping</tag>
+    </tasks>
+    <tasks>
+        <name>Install telegram</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Todo</tag>
+    </tasks>
+    <tasks>
+        <name>Haircut</name>
+        <starttime></starttime>
+        <endtime></endtime>
+        <deadline></deadline>
+        <isCompleted>true</isCompleted>
+        <tag>Enjoyment</tag>
+    </tasks>
+    <tagAndColors>
+        <tagName>Todo</tagName>
+        <tagColor>blue</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Urgent</tagName>
+        <tagColor>red</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>#</tagName>
+        <tagColor></tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Revised</tagName>
+        <tagColor>yellow</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Updated</tagName>
+        <tagColor>green</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Enjoyment</tagName>
+        <tagColor>orange</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Important</tagName>
+        <tagColor>purple</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Priority</tagName>
+        <tagColor>blue</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Buy</tagName>
+        <tagColor>red</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>OTOT</tagName>
+        <tagColor>yellow</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Project</tagName>
+        <tagColor>green</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Work</tagName>
+        <tagColor>yellow</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Life</tagName>
+        <tagColor>green</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>KIV</tagName>
+        <tagColor>green</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>Shopping</tagName>
+        <tagColor>blue</tagColor>
+    </tagAndColors>
+    <tagAndColors>
+        <tagName>ASAP</tagName>
+        <tagColor>red</tagColor>
+    </tagAndColors>
+</taskbook>

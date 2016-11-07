@@ -16,7 +16,6 @@ public interface ReadOnlyTask {
     public TaskTime getStartTime();
     public TaskTime getEndTime();
     public TaskTime getDeadline();
-    public TaskRecurrence getRecurrence();
     public boolean isCompleted();
     public boolean isFloating();
     public boolean isEvent();
@@ -37,7 +36,7 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getDeadline().equals(this.getDeadline())
-                && other.getRecurrence().equals(this.getRecurrence()));
+                && other.isCompleted() == this.isCompleted());
     }
 
     /**
@@ -57,10 +56,7 @@ public interface ReadOnlyTask {
             builder.append(" due ")
                 .append(getDeadline());
         }
-        if (getRecurrence() != null) {
-            builder.append(getRecurrence());
-        }
-        builder.append(" " + getTag());
+        builder.append(" ").append(getTag());
         return builder.toString();
     }
     //@@author 
@@ -73,16 +69,18 @@ public interface ReadOnlyTask {
      * @param taskToDone
      * @return
      */
-    public Task markDone(ReadOnlyTask taskToDone);
+    public Task markDone();
     
     /**
      * Copies data over to new Task and marks it as not done
      * @param taskToDone
      * @return
      */
-    public Task markUndone(ReadOnlyTask taskToDone);
     
+    public Task markUndone();
+
     //@@author A0138848M
+    
     /**
      * Returns a new Task which duplicates the existing task and updates its tag
      * 
@@ -90,4 +88,5 @@ public interface ReadOnlyTask {
      * @return
      */
     public Task updateTag(Tag newTag);
+    
 }

@@ -20,6 +20,7 @@ public class UndoneCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as not done.\n"
+            + " === Mark Task as Undone === \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -60,21 +61,20 @@ public class UndoneCommand extends Command {
 
         ReadOnlyTask taskToUndone = lastShownList.get(targetIndex - 1);
         Task undoneTask = null;
-        undoneTask = taskToUndone.markUndone(taskToUndone);
+        undoneTask = taskToUndone.markUndone();
 
         if(!taskToUndone.isCompleted()) {
             return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));
-        } else {
-            try {
-                model.replaceUndoneTask(taskToUndone, undoneTask);
-            } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                assert false : "The task should not have the same completed status as before";
-            }
-
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
         }
+        try {
+            model.replaceUndoneTask(taskToUndone, undoneTask);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            assert false : "The task should not have the same completed status as before";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
     }
 
     @Override

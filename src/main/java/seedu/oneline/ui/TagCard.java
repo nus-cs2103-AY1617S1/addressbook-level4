@@ -10,6 +10,10 @@ import javafx.scene.layout.HBox;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 
+//@@author A0142605N 
+/* 
+ * UI component for card that displays tagname and tag category 
+ */
 public class TagCard extends UiPart{
 
     private static final String FXML = "TagListCard.fxml";
@@ -38,7 +42,7 @@ public class TagCard extends UiPart{
         if (tag == Tag.getDefault()) {
             name.setText("#uncategorised");
         } else {
-            name.setText("#" + tag.tagName);
+            name.setText("#" + tag.getTagName());
         }
         tagCardPane.setStyle("-fx-background-color: " + color.toLighterHTMLColor());
     }

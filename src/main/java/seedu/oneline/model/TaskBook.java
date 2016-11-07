@@ -1,6 +1,7 @@
 package seedu.oneline.model;
 
 import javafx.collections.ObservableList;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.TagColor;
 import seedu.oneline.model.tag.TagColorMap;
@@ -43,8 +44,8 @@ public class TaskBook implements ReadOnlyTaskBook {
     /**
      * Tasks and Tags are copied into this task book
      */
-    public TaskBook(UniqueTaskList persons, UniqueTagList tags, TagColorMap colorMap) {
-        resetData(persons.getInternalList(), tags.getInternalList(), colorMap.getInternalMap());
+    public TaskBook(UniqueTaskList tasks, UniqueTagList tags, TagColorMap colorMap) {
+        resetData(tasks.getInternalList(), tags.getInternalList(), colorMap.getInternalMap());
         updateTags();
     }
 
@@ -76,7 +77,15 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags, Map<Tag, TagColor> newTagColors) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new Task(t);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                assert false;
+            }
+            return null;
+        }).collect(Collectors.toList()));
         setTags(newTags);
         setTagColors(newTagColors);
         updateTags();
@@ -87,14 +96,14 @@ public class TaskBook implements ReadOnlyTaskBook {
         updateTags();
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
      * Adds a task to the task book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
@@ -103,7 +112,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
@@ -120,6 +129,9 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void updateTags() {
         Set<Tag> allTags = new HashSet<Tag>();
         for (Task t : tasks.getInternalList()) {
+            if (t.getTag().equals(Tag.EMPTY_TAG)) {
+                continue;
+            }
             allTags.add(t.getTag());
         }
         setTags(allTags);
@@ -136,9 +148,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     
 //// tag-level operations
 
-//    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-//        tags.add(t);
-//    }
     
     public TagColor getTagColor(Tag t) {
        return tagColorMap.getTagColor(t);
@@ -152,8 +161,16 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tasks (").append(tasks.getInternalList().size()).append("):\n");
+        for (Task t : tasks.getInternalList()) {
+            sb.append(t.toString()).append("\n");
+        }
+        sb.append("Tags (").append(tags.getInternalList().size()).append("):");
+        for (Tag t : tags.getInternalList()) {
+            sb.append(" ").append(t.getTagName());
+        }
+        return sb.toString();
     }
 
     @Override
@@ -192,7 +209,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         return other == this // short circuit if same object
                 || (other instanceof TaskBook // instanceof handles nulls
                 && this.tasks.equals(((TaskBook) other).tasks)
-                && this.tags.equals(((TaskBook) other).tags));
+                && this.tags.equals(((TaskBook) other).tags)
+                && this.tagColorMap.equals(((TaskBook) other).tagColorMap));
     }
 
     @Override

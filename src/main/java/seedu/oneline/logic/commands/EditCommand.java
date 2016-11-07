@@ -1,5 +1,3 @@
-//@@author A0140156R
-
 package seedu.oneline.logic.commands;
 
 import java.util.Map;
@@ -14,6 +12,7 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 
+//@@author A0140156R
 /**
  * Edits a task to the task book.
  */
@@ -25,7 +24,7 @@ public abstract class EditCommand extends Command {
             + " === Edit Task === \n"
             + "Parameters: INDEX (must be a positive integer), [taskName] [.from <start> .to <end>] [.due <deadline>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
-            + " 1 Acad meeting .from 2pm .to 4pm #acad"
+            + " 1 Acad meeting .from 2pm .to 4pm #acad \n"
             + " === Edit Category === \n"
             + "Parameters: #cat [#newCatName] [color]\n"
             + "Example: " + COMMAND_WORD

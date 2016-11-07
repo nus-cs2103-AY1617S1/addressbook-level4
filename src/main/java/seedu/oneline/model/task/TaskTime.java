@@ -3,6 +3,7 @@ package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,13 +31,7 @@ public class TaskTime implements Comparable<TaskTime> {
     public TaskTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-
-        if (time.isEmpty()){
-            // represent an empty tasktime with a null value field
-            value = null;
-        } else {        
-            value = getDate(time);
-        }
+        value = time.isEmpty() ? null : getDate(time);
     }
     
     /**
@@ -101,11 +96,19 @@ public class TaskTime implements Comparable<TaskTime> {
         return DateUtils.toCalendar(value);
     }
     
-    @Override
-    public String toString() {
+    public String toRawString() {
         return value == null ? "" : value.toString();
     }
-
+    
+    //@@author A0142605N 
+    @Override
+    public String toString() {
+        if (value == null) { return ""; }
+        SimpleDateFormat df = new SimpleDateFormat("EEE, dd MMM ''yy, hh:mm aaa");
+        return df.format(value);
+    }
+    
+  //@@author A0138848M
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -131,7 +134,7 @@ public class TaskTime implements Comparable<TaskTime> {
      * Serialize field for storage
      */
     public String serialize() {
-        return value == null ? "" : value.toString();
+        return toRawString();
     }
     
     /**
@@ -142,7 +145,7 @@ public class TaskTime implements Comparable<TaskTime> {
     }
 
     /**
-     * compare task time by the date it represents
+     * Compares task time by the date it represents
      */
     @Override
     public int compareTo(TaskTime o) {
@@ -151,7 +154,7 @@ public class TaskTime implements Comparable<TaskTime> {
         } else if (o.value == null){
             return 1;
         } else {
-            return this.value.compareTo(o.value);
+            return (int) (this.value.getTime() - o.value.getTime());
         }
     }
     

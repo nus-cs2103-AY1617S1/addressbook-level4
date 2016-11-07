@@ -1,5 +1,6 @@
 package seedu.oneline.model.task;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Map.Entry;
@@ -12,18 +13,17 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
-    private TaskName name;
-    private TaskTime startTime;
-    private TaskTime endTime;
-    private TaskTime deadline;
-    private TaskRecurrence recurrence;
-    private boolean isCompleted;
-    private Tag tag;
+    private final TaskName name;
+    private final TaskTime startTime;
+    private final TaskTime endTime;
+    private final TaskTime deadline;
+    private final Tag tag;
+    private final boolean isCompleted;
 
     /**
      * Every field must be present and not null.
@@ -37,29 +37,31 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *  If a task has an end time, its deadline is automatically set to its end time
      * Floating task: 
      *  A task without a deadline
+     * @throws IllegalValueException 
      * 
      */    
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) {
-        this(name, startTime, endTime, deadline, recurrence, tag, false);
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, Tag tag) throws IllegalValueException {
+        this(name, startTime, endTime, deadline, tag, false);
     }
 
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
-        this.setCompleted(isCompleted);
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, Tag tag, boolean isCompleted) throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, tag);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.deadline = deadline;
-        this.recurrence = recurrence;
         this.tag = tag;
+        this.isCompleted = isCompleted;
+        checkValidTaskTime(this);
     }
 
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTag(), source.isCompleted());
+    public Task(ReadOnlyTask source) throws IllegalValueException {
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getTag(), source.isCompleted());
     }
 
     @Override
@@ -81,35 +83,23 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public TaskTime getDeadline() {
         return deadline;
     }
-
-    @Override
-    public TaskRecurrence getRecurrence() {
-        return recurrence;
-    }
     
     @Override
     public Tag getTag() {
         return tag;
     }
 
-    /**
-     * Replaces this person's tags with the tags in the argument tag list.
-     */
-    public void setTag(Tag replacement) {
-        this.tag = replacement;
-    }
-
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+        return other == this ||
+                (other instanceof ReadOnlyTask &&
+                this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, deadline, recurrence, tag);
+        return Objects.hash(name, startTime, endTime, deadline, tag);
     }
 
     @Override
@@ -125,8 +115,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         TaskTime newStartTime = oldTask.getStartTime();
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
         Tag newTag = oldTask.getTag();
+        boolean newCompleted = oldTask.isCompleted();
 
         for (Entry<TaskField, String> entry : fields.entrySet()) {
             switch (entry.getKey()) {
@@ -142,15 +132,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             case DEADLINE:
                 newDeadline = new TaskTime(entry.getValue());
                 break;
-            case RECURRENCE:
-                newRecurrence = new TaskRecurrence(entry.getValue());
-                break;
             case TAG:
-                newTag = Tag.getTag(entry.getValue());
+                newTag = entry.getValue().isEmpty() ? 
+                            Tag.getDefault() :
+                            Tag.getTag(entry.getValue());
+                break;
+            case IS_DONE:
+                newCompleted = Boolean.parseBoolean(entry.getValue());
                 break;
             }
         }
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newTag, newCompleted);
         return newTask;
     }
     
@@ -161,19 +153,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @return
      */
     @Override
-    public Task markDone(ReadOnlyTask task) {
-        assert task != null;
-        ReadOnlyTask oldTask = task;
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        Tag newTag = oldTask.getTag();
-
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, true);
-        return newTask;
+    public Task markDone() {
+        return markDone(true);
     }
     
     /**
@@ -182,22 +163,69 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * @return
      */
     @Override
-    public Task markUndone(ReadOnlyTask task) {
-        assert task != null;
-        ReadOnlyTask oldTask = task;
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        Tag newTag = oldTask.getTag();
-
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
-        return newTask;
+    public Task markUndone() {
+        return markDone(false);
+    }
+    /**
+     * Copies data over to new Task and marks it as done
+     * @param taskToDone
+     * @return
+     */
+    private Task markDone(boolean isDone) {
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.IS_DONE, String.valueOf(isDone));
+        try {
+            return this.update(fields);
+        } catch (IllegalValueException e) {
+            assert false;
+            return null;
+        }
     }
     
+    // @@author A0140156R
+    
+    private static void checkValidTaskTime(Task t) throws IllegalValueException {
+      boolean haveStartTime = t.getStartTime().isValid();
+      boolean haveEndTime = t.getEndTime().isValid();
+      boolean haveDeadline = t.getDeadline().isValid();
+      if (!haveStartTime && !haveEndTime) {
+          // floating tasks or deadline tasks
+          return;
+      } else if (haveStartTime && haveEndTime && !haveDeadline) {
+          checkValidEvent(t.getStartTime(), t.getEndTime());// event task
+          return;
+      } else if (!haveDeadline) {
+          // there is a start/end time, but no end/start time
+          if (haveStartTime) {
+              throw new IllegalValueException("End time for event is not specified.");
+          } else {
+              throw new IllegalValueException("Start time for event is not specified.");
+          }
+      } else {
+          throw new IllegalValueException("If a task has a deadline, it should not have a start or end time specified.");
+      }
+  }
+    
+
+    //@@author
+
     //@@author A0138848M
+    /**
+     * Auxiliary method to checkValidTaskTime. Checks if startTime <= endTime  
+     * 
+     * @param startTime the start time of the event
+     * @param endTime the end time of the event
+     * 
+     * @throws IllegalValueException if startTime > endTime
+     */
+    private static void checkValidEvent(TaskTime startTime, TaskTime endTime) throws IllegalValueException {
+        if (startTime.compareTo(endTime) <= 0){
+            return;
+        } else {
+            throw new IllegalValueException("Start time of event should be before end time.");
+        }
+    }
+    
     /**
      * Returns a new Task with all fields of the current task duplicated and 
      * with its tag updated to newTag
@@ -207,22 +235,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     @Override
     public Task updateTag(Tag newTag) {
-        assert newTag != null;
-        
-        ReadOnlyTask oldTask = this;
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, false);
-        return newTask;
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.TAG,
+                newTag.equals(Tag.EMPTY_TAG) ? "" : newTag.getTagName());
+        try {
+            return this.update(fields);
+        } catch (IllegalValueException e) {
+            assert false;
+            return null;
+        }
     }
     /**
-     * Returns true if task is floating
-     * 
      * floating task is defined as a task without a start/end time or a deadline
      * 
      * @return true if task is floating
@@ -232,8 +255,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     /**
-     * Returns true if task is an event
-     * 
      * event task is defined as a task with a start time and end time
      * 
      * @return true if task is an event
@@ -243,8 +264,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     /**
-     * Returns true if task has a deadline
-     * 
      * Note that events and tasks with deadline will have a deadline.
      * Event tasks automatically has its endTime set as the deadline.
      * 
@@ -278,9 +297,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public boolean isCompleted() {
         return isCompleted; 
-    }
-    
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
     }
 }

@@ -13,11 +13,9 @@ public class AppUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-
-
     @Test
-    public void getImage_exitingImage(){
-        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+    public void getImage_exitingImage_returnImage(){
+        assertNotNull(AppUtil.getImage("/images/oneline_32.png"));
     }
 
 

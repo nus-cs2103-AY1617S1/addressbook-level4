@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.testutil.TaskBuilder;
 import seedu.oneline.testutil.TestDataHelper;
 
 public class TaskTest {
@@ -15,19 +18,19 @@ public class TaskTest {
     
     @Before
     public void setUp() throws Exception {
-        taskDate0 = TestDataHelper.generateTask(0);
-        taskDate1 = TestDataHelper.generateTask(1);
+        taskDate0 = new Task(new TaskBuilder().withName("A").withDeadline("1").build());
+        taskDate1 = new Task(new TaskBuilder().withName("A").withDeadline("2").build());
         taskNameA = TestDataHelper.generateTaskWithName("A");
         taskNameB = TestDataHelper.generateTaskWithName("B");
     }
 
     @Test
-    public void task_sortsByDate() {
+    public void taskComparing_task_sortsByDate() {
         assertTrue(taskDate0.compareTo(taskDate1) < 0);
     }
 
     @Test
-    public void task_sortsByName() {
+    public void taskComparing_task_sortsByName() {
         assertTrue(taskNameA.compareTo(taskNameB) < 0);
     }
 }

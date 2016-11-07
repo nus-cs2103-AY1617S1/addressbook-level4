@@ -2,6 +2,8 @@
 package seedu.oneline.logic.commands;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.oneline.commons.core.EventsCenter;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.tag.Tag;
 
@@ -24,7 +26,7 @@ public class ListTagCommand extends ListCommand {
     public static ListTagCommand createFromArgs(String tag) throws IllegalValueException {
         String tagName = tag.substring(1);
         if (!Tag.isValidTagName(tagName)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS + " : " + tag);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         } else {
             return new ListTagCommand(tagName);
         }
@@ -36,8 +38,9 @@ public class ListTagCommand extends ListCommand {
         if (tagList.isEmpty()){
             return new CommandResult(String.format(Tag.MESSAGE_INVALID_TAG, name));
         } else {
+            EventsCenter.getInstance().post(new ChangeViewEvent(" "));
             model.updateFilteredTaskListToShowTag(name);
-            return new CommandResult(MESSAGE_SUCCESS + " : " + name);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, name));
         }
     }
 }

@@ -1,5 +1,3 @@
-//@@author A0140156R
-
 package seedu.oneline.logic.commands;
 
 import java.util.Map;
@@ -9,7 +7,7 @@ import java.util.Map.Entry;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
-import seedu.oneline.commons.events.ui.ShowAllViewEvent;
+import seedu.oneline.commons.events.ui.ChangeViewEvent;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.parser.Parser;
@@ -17,8 +15,9 @@ import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 
+//@@author A0140156R
 /**
- * Edits a task to the task book.
+ * Edits a task in the task book.
  */
 public class EditTaskCommand extends EditCommand {
 
@@ -63,7 +62,7 @@ public class EditTaskCommand extends EditCommand {
         }
         try {
             model.replaceTask(oldTask, newTask);
-            EventsCenter.getInstance().post(new ShowAllViewEvent());
+            EventsCenter.getInstance().post(new ChangeViewEvent(" "));
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
         } catch (UniqueTaskList.TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
