@@ -4,7 +4,8 @@
 ####Loading the sample data
 1. Create a data folder in the same directory as Task!t.jar.
 2. Place SampleData.xml inside the data folder.
-3. Double click Task!t.jar. The data should be loaded.
+3. Rename SampleData.xml to todolist.xml
+4. Double click Task!t.jar. The data should be loaded.
 
 
 ####Open help window
@@ -125,18 +126,18 @@ Result: Incomplete tab will display 10 tasks. Click completed tab, it will displ
 ####Undo an action
 1. Type `undo`
 ```
-Result: Your previous action will be undone. In this case, your tasks 'cook dinner with friends' and 'football competition' will return to the incomplete tab.
+Result: Your previous action will be undone. In this case, your tasks 'cook dinner with friends' and 'play football' will return to the incomplete tab.
 ```
 2. Type `undo` again
 ```
-Result: Your previous action will be undone again. In this case, your task 'play football' will return to the incomplete tab.
+Result: Your previous action will be undone again. In this case, your task 'football competition' will return to the incomplete tab.
 ```
 
-####Deleting a task
+####Redoing a task
 1. Type `redo`
 ```
-Result: Your previous undo will be redoed. In this case, your task 'play football' will return to the complete tab
-Result: Your previous action will be undone. In this case, your tasks 'cook dinner with friends' and 'football competition' will return to the incomplete tab.
+Result: Your previous undo will be redo-ed. In this case, your task 'football competition' will return to the complete tab
+
 ```
 2. Type `redo` again
 ```
@@ -150,7 +151,7 @@ Result: Your previous undo will be redone. In this case, your tasks 'cook dinner
 Result: 'watch movie' will be deleted
 ```
 #####Deleting multiple tasks
-1. Type `done 1,2`
+1. Type `delete 1,2`
 ```
 Result: 'attending Jimmy 21st birthday celebration' and 'submit module feedback' will be deleted.
 ```
