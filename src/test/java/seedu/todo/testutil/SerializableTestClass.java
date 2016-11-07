@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+//@@author A0135817B-reused
 /**
  * A class used to test serialization and deserialization
  */

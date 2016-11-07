@@ -62,7 +62,6 @@ public class CommandController {
     private void handleInput(KeyCode keyCode, String userInput) {
         switch (keyCode) {
         case ENTER :    // Submitting command
-            //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
             if (!StringUtil.isEmpty(userInput)) {
                 CommandResult result = logic.execute(userInput);
                 handleCommandResult(result);

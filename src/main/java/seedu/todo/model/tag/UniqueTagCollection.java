@@ -172,8 +172,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTagCollection // instanceof handles nulls
-                && this.uniqueTagsToTasksMap.equals(
-                ((UniqueTagCollection) other).uniqueTagsToTasksMap));
+                && this.uniqueTagsToTasksMap.equals(((UniqueTagCollection) other).uniqueTagsToTasksMap));
     }
 
     @Override

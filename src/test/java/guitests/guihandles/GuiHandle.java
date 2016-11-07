@@ -49,8 +49,7 @@ public class GuiHandle {
 
     protected Node getNode(String query) {
         com.google.common.base.Optional<Node> node = guiRobot.lookup(query).tryQuery();
-        return (node.isPresent()) ? node.get()
-                                  : null;
+        return node.isPresent() ? node.get() : null;
     }
 
     public void pressSpace() {

@@ -2,7 +2,6 @@ package seedu.todo.logic;
 
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.events.ui.ShowHelpEvent;
 import seedu.todo.commons.events.ui.ShowPreviewEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;

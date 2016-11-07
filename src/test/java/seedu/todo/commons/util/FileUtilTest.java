@@ -1,13 +1,8 @@
 package seedu.todo.commons.util;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import seedu.todo.commons.util.FileUtil;
-import seedu.todo.testutil.SerializableTestClass;
-import seedu.todo.testutil.TestUtil;
 
 import java.io.File;
 

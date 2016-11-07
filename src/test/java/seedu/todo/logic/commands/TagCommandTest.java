@@ -136,17 +136,6 @@ public class TagCommandTest extends CommandTest {
         assertEquals(expectedTags, task.getTags());
         assertGlobalTagListCorrect(TAG_NAMES_0_TO_4, "Pikachu", "Pichu", "Raichu");
     }
-    
-    //@@author A0135817B
-    @Test
-    @Ignore
-    public void testAddTag_renameOnDuplicate() throws Exception {
-        // Tagging a task with the same tag but in different case should cause the tag to be renamed
-        setParameter("2 " + TAG_NAMES[0].toUpperCase());
-        execute(true);
-        assertEquals(1, getTaskAt(2).getTags().size());
-        assertTrue(getTaskAt(2).getTags().contains(new Tag(TAG_NAMES[0].toUpperCase())));
-    }
 
     //@@author A0135805H
     @Test (expected = ValidationException.class)

@@ -7,7 +7,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.UiPart;
@@ -17,7 +16,6 @@ import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 //@@author A0135805H
 /**
@@ -26,9 +24,6 @@ import java.util.logging.Logger;
 public class CommandErrorView extends UiPart {
     /* Constants */
     private static final String FXML = "CommandErrorView.fxml";
-
-    /* Variables */
-    private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
 
     /* Layouts */
     private AnchorPane placeholder;

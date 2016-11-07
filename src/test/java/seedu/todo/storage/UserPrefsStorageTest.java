@@ -17,6 +17,7 @@ import java.util.Optional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+//@@author A0135817B-reused
 public class UserPrefsStorageTest {
 
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/UserPrefsStorageTest/");

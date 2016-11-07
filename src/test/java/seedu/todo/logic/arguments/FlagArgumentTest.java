@@ -23,10 +23,6 @@ public class FlagArgumentTest {
     public void testDefaultValue() {
         assertEquals("t", argument.getFlag());
         assertFalse(argument.getValue());
-        
-        argument = new FlagArgument("Pin", true);
-        assertTrue(argument.getValue());
-        assertEquals("p", argument.getFlag());
     }
     
     @Test
