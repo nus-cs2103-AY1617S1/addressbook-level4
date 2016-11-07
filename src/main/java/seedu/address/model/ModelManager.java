@@ -169,6 +169,11 @@ public class ModelManager extends ComponentManager implements Model {
 		updateFilteredTaskList(new PredicateExpression(new ClashQualifier(clashingTasks)));
 	}
 	
+	/**@@author A0144202Y
+	 * Filters the list to show all incomplete tasks.
+	 * @param keyword
+	 * @throws DuplicateTaskException
+	 */
 	public void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
 		
