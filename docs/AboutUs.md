@@ -1,4 +1,3 @@
-//@@author A0139817U
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -27,7 +26,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Nikhil Suresh](http://github.com/kneekill)
 <img src="images/Nikhil.jpg" width="150"><br><br>
-**Role**: Developer <br> 
+**Role**: Developer <br>
 **Component in charge of:** UI <br>
 **Aspects/Tools in charge of:** UI Design (SceneBuilder), Documentation <br>
 
@@ -45,9 +44,9 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Chew Zi Ling](http://github.com/ChewZL) 
+#### [Chew Zi Ling](http://github.com/ChewZL)
 <img src="images/ZiLing.jpg" width="150"><br><br>
-**Role**: Developer <br> 
+**Role**: Developer <br>
 **Component in charge of:** Storage <br>
 **Aspects/Tools in charge of:** Non-GUI tests, Coveralls <br>
 
@@ -65,7 +64,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
  -----
 
-#### [Tang Yew Siang](http://github.com/yewsiang) 
+#### [Tang Yew Siang](http://github.com/yewsiang)
 <img src="images/YewSiang.jpg" width="150"><br><br>
  Role: Developer <br>
 **Component in charge of:** Logic <br>
@@ -82,11 +81,11 @@ We are a team based in the [School of Computing, National University of Singapor
  * [[functional code](../collated/main/A0139817U.md)]
  * [[test code](../collated/test/A0139817U.md)]
  * [[docs](../collated/docs/A0139817U.md)]
- 
+
  -----
 
 ## Project Mentor
-#### [Alvian Prasetya](http://github.com/AlvianPrasetya) 
+#### [Alvian Prasetya](http://github.com/AlvianPrasetya)
 <img src="images/Alvian.jpg" width="150"><br>
 
 # Contributors
