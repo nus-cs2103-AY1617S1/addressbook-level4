@@ -214,6 +214,12 @@ Traverse through previously entered commands. <br>
 > `DOWN` displays the next newer command.
 > The currently entered text will remain available in the command history.
 
+#### Keyboard Scrolling: `CTRL + UP` or `CTRL + DOWN`
+Scroll up or down through the task list. <br>
+
+> Scrolls 10 tasks up or down from the currently selected task.
+> If no task in the task list is selected, scrolling automatically brings you to the top of the list.
+
 #### Viewing help : `help`
 Displays the help window containing a command summary. <br>
 Format: `help`
