@@ -278,12 +278,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`| user | add a floating task | record tasks without specific start and end date
 `* * *`| user | view upcoming tasks | decide what needs to be done soon. 
 `* * *`| user | delete a task | get rid of tasks that I no longer care to track.
-`* * *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
-`* * *`| user | specify which folder path to save my file | organize my task manager easily
 `* * *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
+`* * *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
+`* * *`| user | specify which folder path to save my file | organize my task manager easily
 `* *`| user | custom my commands' formats | use customized commands
-`* *`| user | color code a task | group my task easily
 `* *`| user | keep track my task | check which task have completed or on going
 `* *`| user | see history of last executed commands | remember what commands were executed 
 `*`| user | redo the last undo executed command | restore the task manager to the state before undo command was executed 
@@ -513,6 +512,7 @@ Use Case end.
 <!-- @@author -->
 
 <!-- @@author A0139932X -->
+
 #### Use case: UC10 Change save file path command
    Actor:User
    
