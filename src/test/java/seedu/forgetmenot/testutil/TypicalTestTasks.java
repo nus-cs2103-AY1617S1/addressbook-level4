@@ -4,6 +4,7 @@ import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.Task;
 
+//@@author A0139671X
 public class TypicalTestTasks {
 
     public static TestTask apples, bananas, call, deed, egypt, flowers, garage, hide, iphone;
@@ -11,13 +12,14 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             apples = new TaskBuilder().withName("buy apples").withStartTime("10:30pm tmr").withEndTime("11pm tmr")
-                    .withDone(false).withRecurrence("").build();
+                    .withDone(false).withRecurrence("year x1").build();
             bananas = new TaskBuilder().withName("buy bananas").withStartTime("11am tmr").withEndTime("1pm tmr")
-                    .withDone(false).withRecurrence("").build();
+                    .withDone(false).withRecurrence("week x1").build();
             call = new TaskBuilder().withName("call dad").withDone(false).withEndTime("10am tmr")
-                    .withStartTime("11am tmr").withRecurrence("").build();
+                    .withStartTime("11am tmr").withRecurrence("day x1").build();
             deed = new TaskBuilder().withName("give bananas away").withDone(false).withEndTime("5pm two days later")
-                    .withStartTime("6pm two days later").withRecurrence("").build();
+                    .withStartTime("6pm two days later").withRecurrence("month x1").build();
+            
             egypt = new TaskBuilder().withName("plan trip to egypt").withDone(false).withStartTime("10am one month later")
                     .withEndTime("11am one month later").withRecurrence("").build();
             flowers = new TaskBuilder().withName("flowers for joan").withDone(false).withStartTime("11:59pm today")

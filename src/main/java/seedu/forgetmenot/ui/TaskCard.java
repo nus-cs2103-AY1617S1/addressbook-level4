@@ -70,7 +70,7 @@ public class TaskCard extends UiPart{
         	cardPane.setStyle("-fx-background-color : #ff7f7f");
         }
         if (task.getRecurrence().getValue()) {
-            recur.setText("Recurrence: " +  task.getRecurrence().getRecurFreq());
+            recur.setText("Recurrence: " +  task.getRecurrence().toString());
         }
        
 
