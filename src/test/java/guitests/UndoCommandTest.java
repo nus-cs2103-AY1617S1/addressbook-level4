@@ -8,12 +8,18 @@ import seedu.lifekeeper.testutil.*;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
+
 //@@author A0125097A
 public class UndoCommandTest extends AddressBookGuiTest {
 
+    @Before
+    public void empty_PreviousCommandStack(){
+    Command.emptyCommandStack();
+    }
+    
     @Test
     public void undo_addCommand() {
-        Command.emptyCommandStack();
         TestActivity[] currentList = td.getTypicalActivities();
         TestActivity activityToAdd = td.findHoon;
         assertUndoAddResult(activityToAdd,currentList);
@@ -22,7 +28,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
     
     @Test
     public void undo_deleteCommand() {
-        Command.emptyCommandStack();
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 2;
         assertUndoDeleteResult(index,currentList);
@@ -32,7 +37,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
 
     @Test
     public void undo_editActivity() {
-        Command.emptyCommandStack();
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 1;
        
@@ -41,7 +45,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
     
     @Test
     public void undo_doneCommand() {
-        Command.emptyCommandStack();
         TestActivity[] currentList = td.getTypicalActivities();
         int index = 4;
         assertUndoDoneResult(index,currentList);
@@ -49,7 +52,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
     
     @Test
     public void undo_noPreviousCommand() {  
-        Command.emptyCommandStack();
         assertUndoNoPreviousCommand();
     }
     
