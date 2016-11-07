@@ -129,8 +129,29 @@ Example: delete 1
 **Commands:** `undo` after running `pin 5`
 >**Expected Behaviour:** After pin command is executed, Task #5 should be pinned (see pin tests for expected pinning behaviour). After the undo command, the task should be unpinned and returns to Task #5. (If using `SampleData.xml`, Task #10 [send birthday card to Esther] should be Task #1, after running pin. After the undo, the task should now be Task #10 and should not have any pinned. All other properties should remain the same throughout)
 
+### Aliasing
+
+**Command:** `alias add a`
+>**Expected Behaviour:** The command `add` can now be executed using `a`.
+
+**Command:** `alias grow g`
+>**Expected Behaviour:** This message should appear: "Error, cannot alias command", as there is no command `grow`.
+
+**Commands:** `alias add a` after `alias add m`
+>**Expected Behaviour:** The command `add` can now be executed using `a` and `m`.
+
+## Changing Task Manager Save File
+
+**Command:** `change-to ./data/tm.xml`
+>**Expected Behaviour:** When MESS is exited, the tasks will be saved at `data/tm.xml` (relative to the JAR) Upon reloading MESS, the `data/tm.xml` is loaded and used instead.
+
 ### Help Window
 
 **Command:** `help`
 >**Expected Behaviour:** A popup should appear with a summary of all commands.
+
+### Exit
+
+**Command:** `exit`
+>**Expected Behaviour:** When MESS is exited, the tasks will be saved at `data/tm.xml` (relative to the JAR)
 
