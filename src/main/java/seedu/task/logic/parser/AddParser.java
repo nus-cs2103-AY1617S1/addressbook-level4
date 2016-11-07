@@ -23,8 +23,7 @@ public class AddParser extends BaseParser {
     private final static String[] KEYWORD_ARGS_REQUIRED = new String[]{FLAG_NAME};
     private final static String[] KEYWORD_ARGS_OPTIONAL = new String[]{FLAG_START_TIME,
             FLAG_CLOSE_TIME,
-            FLAG_TAGS,
-            FLAG_RECURRING
+            FLAG_TAGS
     };
         
     @Override
