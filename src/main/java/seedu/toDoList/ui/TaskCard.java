@@ -1,13 +1,5 @@
 package seedu.toDoList.ui;
 
-import java.util.List;
-
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -16,10 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
 import seedu.toDoList.model.task.ReadOnlyTask;
 
+//@@author A0138717X
+/**
+ * Loading individual task
+ */
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
