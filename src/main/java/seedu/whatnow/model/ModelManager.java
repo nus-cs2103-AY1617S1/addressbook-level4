@@ -605,11 +605,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
-    }
-
-    @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         filteredTasks.setPredicate(p -> {
             if ((keywords.stream().filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key)).findAny()
@@ -629,11 +624,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Schedule List Accessors =====================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo) {
-        if (!isUndo) {
-            updateFilteredScheduleListToShowAllIncomplete();
-        }
-        
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
+        updateFilteredScheduleListToShowAllIncomplete();
         return new UnmodifiableObservableList<>(filteredSchedules);
     }
 
@@ -684,11 +676,6 @@ public class ModelManager extends ComponentManager implements Model {
                 return false;
             }
         });
-    }
-
-    @Override
-    public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
     }
 
     @Override
@@ -773,7 +760,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicatePinnedItemsChanged(type, keyword);
         Calendar cal = Calendar.getInstance();
         DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
-        
 
         pinnedItems.setPredicate(p -> {
             try {
@@ -829,47 +815,6 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
 
         String toString();
-    }
-
-    //@@author A0139772U
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword)).findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
-
-    //@@author A0139772U
-    private class TaskStatusQualifier implements Qualifier {
-        private Set<String> status;
-
-        TaskStatusQualifier(Set<String> status) {
-            this.status = status;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return status.stream().filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus(), keyword)).findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "Status=" + String.join(", ", status);
-        }
     }
 
     //@@author A0139772U

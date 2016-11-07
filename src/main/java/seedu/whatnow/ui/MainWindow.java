@@ -120,11 +120,11 @@ public class MainWindow extends UiPart {
                 getPinnedListPlaceholder(), 
                 logic.getPinnedItems(config.getPinnedItemType(), config.getPinnedItemKeyword()));
         statusPanel = StatusPanel.load(primaryStage, getStatusPanelPlaceholder(), getGridPane());
-        statusPanel.postMessage("Number of ongoing tasks in schedule: " + String.valueOf(logic.getFilteredScheduleList(false).size()
+        statusPanel.postMessage("Number of ongoing tasks in schedule: " + String.valueOf(logic.getFilteredScheduleList().size()
                 + "\n"
                 + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
         scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(),
-                logic.getFilteredScheduleList(false));
+                logic.getFilteredScheduleList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getWhatNowFilePath());

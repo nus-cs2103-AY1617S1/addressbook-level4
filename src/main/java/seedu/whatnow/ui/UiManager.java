@@ -132,7 +132,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(event.isUndo).indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
@@ -146,7 +146,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
             mainWindow.getScheduleListPanel().clear();
         } else {
-            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList(false).indexOf(task));
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
             mainWindow.getTaskListPanel().clear();
         }
     }
@@ -154,7 +154,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     public void handleWhatNowChangedEvent(WhatNowChangedEvent abce) {
         mainWindow.getStatusPanel().postMessage("Number of ongoing tasks in schedule: " 
-                + String.valueOf(logic.getFilteredScheduleList(false).size() 
+                + String.valueOf(logic.getFilteredScheduleList().size() 
                 + "\n"
                 + "Number of overdue tasks in schedule: " + String.valueOf(logic.getOverdueScheduleList().size())));
     }

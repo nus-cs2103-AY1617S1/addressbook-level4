@@ -84,12 +84,6 @@ public interface Model {
      */
     void updateFilteredTaskList(Set<String> keywords);
 
-    /**
-     * Updates the filter of the filtered task list to show only task of a
-     * specific status specified by the keyword
-     */
-    void updateFilteredListToShowAllByStatus(Set<String> keyword);
-
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException;
 
@@ -187,7 +181,7 @@ public interface Model {
      * Returns the filtered task list as an
      * {@code UnmodifiableObservableList<ReadOnlyTask>}
      */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(boolean isUndo);
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList();
 
     /**
      * Returns the filtered task list with filter keyword as an
@@ -213,12 +207,6 @@ public interface Model {
      * keywords
      */
     void updateFilteredScheduleList(Set<String> keywords);
-
-    /**
-     * Updates the filter of the filtered task list to show only task of a
-     * specific status specified by the keyword
-     */
-    void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword);
 
     /**
      * Returns the full filtered task list (all complete, incomplete and overdue tasks)
