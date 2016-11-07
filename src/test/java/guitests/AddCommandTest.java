@@ -8,6 +8,8 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
+import com.google.api.services.tasks.model.Task;
+
 import guitests.guihandles.TaskCardHandle;
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddCommand;
@@ -21,6 +23,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     @Test
     public void add() {
         //add task that will appear on the front of the list
+        TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = TypicalTestTasks.first;
         assertAddSuccess(1, taskToAdd, currentList);
         

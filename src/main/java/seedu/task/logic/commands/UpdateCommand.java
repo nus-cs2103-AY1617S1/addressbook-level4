@@ -103,7 +103,6 @@ public class UpdateCommand extends UndoableCommand {
         } catch (DuplicateTaskException e) {
             return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         }
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
     }
 
