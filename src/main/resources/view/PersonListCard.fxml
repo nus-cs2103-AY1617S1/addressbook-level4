@@ -10,15 +10,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" minWidth="280.0" prefHeight="114.0" prefWidth="280.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" alignment="CENTER" prefHeight="114.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="150" minWidth="10.0" prefWidth="100" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" minWidth="10.0" prefWidth="100" />
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" minWidth="10.0" prefWidth="100" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" minWidth="180.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" minWidth="200.0" prefHeight="115.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
@@ -31,9 +31,9 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
+                                    <Label fx:id="id" minWidth = "20.0" styleClass="cell_big_label" />
                                 </HBox>
-                                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                 <Label fx:id="name" prefHeight="25.0" prefWidth="200" styleClass="cell_big_label" text="\$first" wrapText="true" />
                             </children>
                         </HBox>
                   <HBox>
@@ -79,7 +79,7 @@
                         </Label>
                      </children>
                      <VBox.margin>
-                        <Insets top="25.0" />
+                        <Insets top="19.0" />
                      </VBox.margin>
                   </HBox>
                </children>

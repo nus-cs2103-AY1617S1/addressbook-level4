@@ -52,6 +52,7 @@ public class PersonCard extends UiPart {
     @FXML
     public void initialize() {
 	name.setText(task.getName());
+	name.setWrapText(true);
 	id.setText(displayedIndex + ". ");
 	startDate.setText(task.getStart().getDate().toString());
 	startTime.setText(task.getStart().getTime().toString());
