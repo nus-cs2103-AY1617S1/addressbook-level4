@@ -56,10 +56,12 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+    //@@author A0139932X
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     
     public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
+    
+    //@@author
     //@@author A0153411W
     public static final Prefix descriptionPrefix = new Prefix(" d/", "description");
     public static final Prefix startDatePrefix = new Prefix(" sd/","startDate", true);

@@ -12,9 +12,13 @@ public class StartDate {
 	public static final String MESSAGE_DATE_CONSTRAINTS = "Task's start date should be entered as DD-MM-YYYY hh:mm\n"
 	        +"Example: add Homework d/Math homework sd/01-01-2011 00:00 dd/03-01-2011 23:59";
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-
-	public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
+//@@author
 	
+	//@@author A0139932X
+	public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
+	//@@author
+	
+	//@@author A0148083A
 	public final Date startDate;
 
 	public StartDate(String dateToValidate) throws IllegalValueException, ParseException {
@@ -23,6 +27,9 @@ public class StartDate {
 		} else if (!isValidDateTime(dateToValidate) && !isValidDate(dateToValidate)) {
 			throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
 		}
+		//@@author
+		
+		//@@author A0139932X
 		else {
             if (!isValidDateTime(dateToValidate)) {
                 this.startDate = DATE_FORMAT.parse(dateToValidate + " 08:00");
@@ -32,11 +39,15 @@ public class StartDate {
             }
         }
 	}
+	    //@@author
 
+	//@@author A0148083A
 	public StartDate(Date date) {
 		startDate = date;
 	}
-
+	//@@author
+	
+	//@@author A0139932X
 	public static boolean isValidDateTime(String inDate) {
 		DATE_FORMAT.setLenient(false);
 		try {
@@ -46,7 +57,10 @@ public class StartDate {
 		}
 		return true;
 	}
+	//@@author
 	
+	
+	//@@author A0148083A
 	public static boolean isValidDate(String inDate){
         DATE_FORMAT_WITHOUT_TIME.setLenient(false);
         try{

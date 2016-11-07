@@ -58,7 +58,6 @@ public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change location of 
         
     }
     
-    //@@author
 
     //@@author A0153411W
 	@Override
