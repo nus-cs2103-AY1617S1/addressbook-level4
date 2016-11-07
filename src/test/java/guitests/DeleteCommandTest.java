@@ -10,6 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
+    //@@author A0124797R
     @Test
     public void delete() {
 

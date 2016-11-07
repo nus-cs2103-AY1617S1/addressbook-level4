@@ -320,7 +320,6 @@ public class MainWindow extends UiPart {
         // updates the tab when a list command is called
         this.updateTab(event.message);
     }
-    //@@author
     
     // @@author A0124797R
     @Subscribe

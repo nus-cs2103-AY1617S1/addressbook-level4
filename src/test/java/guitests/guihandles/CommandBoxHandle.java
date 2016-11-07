@@ -22,6 +22,7 @@ public class CommandBoxHandle extends GuiHandle {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
 
+    //@@author A0124797R
     public void getPreviousCommand() {
         pressUp();
     }
@@ -29,7 +30,7 @@ public class CommandBoxHandle extends GuiHandle {
     public void getNextCommand() {
         pressDown();
     }
-    
+    //@@author
     /**
      * Enters the given command in the Command Box and presses enter.
      */

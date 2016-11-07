@@ -133,7 +133,6 @@ public class CommandBox extends UiPart {
         commandField.setText("");
 }
 
- // @@author A0124797R
     /**
      * Handles any KeyPress in the commandField
      */
@@ -196,7 +195,6 @@ public class CommandBox extends UiPart {
         commandField.setText(currCommandText);
     }
 
-    // @@author A0124797R
     private void restorePrevCommandText() {
         String prevCommand = getPrevCommandHistory();
         if (prevCommand != null) {
@@ -210,7 +208,6 @@ public class CommandBox extends UiPart {
         } // else ignore
     }
 
-    // @@author A0124797R
     private void restoreNextCommandText() {
         String nextCommand = getNextCommandHistory();
         // need to wrap in runLater due to concurrency threading in JavaFX
@@ -225,7 +222,7 @@ public class CommandBox extends UiPart {
             }
         });
 }
- // @@author A0124797R
+    
     /**
      * Adds recent input into stack
      */
@@ -234,7 +231,6 @@ public class CommandBox extends UiPart {
         commandIndex = commandHistory.size();
     }
 
-    // @@author A0124797R
     private String getPrevCommandHistory() {
         if (commandHistory.empty()) {
             return null;
@@ -246,7 +242,6 @@ public class CommandBox extends UiPart {
         }
     }
 
-    // @@author A0124797R
     private String getNextCommandHistory() {
         if (commandHistory.empty()) {
             return null;

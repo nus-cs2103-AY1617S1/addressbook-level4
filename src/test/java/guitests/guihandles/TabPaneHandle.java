@@ -5,6 +5,7 @@ import harmony.mastermind.TestApp;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 
+//@@author A0124797R
 public class TabPaneHandle extends GuiHandle {
 
     private static final String TAB_PANE_ID = "#tabPane";

@@ -11,9 +11,8 @@ import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TASK_DISP
 import static org.junit.Assert.assertTrue;
 
 public class UnmarkCommandTest extends TaskManagerGuiTest {
-
-    @Test
     //@@author A0124797R
+    @Test
     public void unmark() {
         
         //Invalid Tab

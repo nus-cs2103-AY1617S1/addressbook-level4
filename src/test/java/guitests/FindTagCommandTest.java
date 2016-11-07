@@ -9,9 +9,8 @@ import harmony.mastermind.testutil.TestTask;
 import harmony.mastermind.testutil.TypicalTestTasks;
 
 public class FindTagCommandTest extends TaskManagerGuiTest {
-
-    @Test
     //@@author A0124797R
+    @Test
     public void find_nonEmptyList() {
         assertFindTagResult("findtag test"); //no results
         assertFindTagResult("findtag homework", TypicalTestTasks.task1, TypicalTestTasks.task2); //multiple results

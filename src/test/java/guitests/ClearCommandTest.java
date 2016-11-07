@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends TaskManagerGuiTest {
 
+    //@@author A0124797R
     @Test
     public void clear() {
 
@@ -23,7 +24,6 @@ public class ClearCommandTest extends TaskManagerGuiTest {
         assertClearCommandSuccess();
     }
 
-    //@@author A0124797R
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
