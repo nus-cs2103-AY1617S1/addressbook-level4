@@ -267,9 +267,9 @@ List command can be done after task lists are filtered by the find command. It w
 ## Changing data storage location
 Change the storage directory of the app. If the given directory does not exist, the app will create a new directory with given name.<br>
 The Storage directory is OS sensitive. The testings below are set to change storage to desktop. <br>
-> Command(Windows): `storage c:\Users\(username)\Desktop` <br>
+> Command(Windows): `storage c:\Users\(username)\Desktop\newdata` <br>
 > Command(Os X): `storage /Volumes/(volume name)/Users/(username)/Desktop/newdata` <br>
-> Command(Linux): `storage /home/(username)/Desktop` <br>
+> Command(Linux): `storage /home/(username)/Desktop/newdata` <br>
 > Expected Result: On ui, there is no difference except the 'Storage Location' in the status footer is changed to the new storage directory. All the data from the previous storage is moved to the Desktop.
 
 ## Exiting the program
