@@ -35,30 +35,33 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";  
 
     private Task taskToEdit;
-    private final int internalListIndex;
+    private int internalListIndex;
+    
+    private final int inputIndex;
+    private final Optional<String> name;
+    private final Optional<LocalDateTime> newStartDateTime;
+    private final Optional<LocalDateTime> newEndDateTime;
+    private final Set<String> tags;
+    private final boolean isRemoveStartDateTime;
+    private final boolean isRemoveEndDateTime;
 
     /**
      * For editing task corresponding to the internalListIndex
      * @throws IllegalValueException when name or tagName contain illegal values
      */
-    public EditCommand(int targetIndex, Optional<String> name, 
+    public EditCommand(int inputIndex, Optional<String> name, 
     		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate,
     		Set<String> tags, boolean isRemoveStartDateTime, 
     		boolean isRemoveEndDateTime)
     		throws IllegalValueException {
     	
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-		
-    	checkValidIndex(lastShownList, targetIndex);
-		this.taskToEdit = getTaskToEdit(lastShownList, targetIndex);
-		validateEndDateTimeAfterStartDateTime(newStartDate, newEndDate, isRemoveStartDateTime, isRemoveEndDateTime);
-		
-		this.internalListIndex = getIndexInInternalList(taskToEdit);
-		this.setTaskToEditName(name);
-		this.setTaskToEditDates(newStartDate, newEndDate, isRemoveStartDateTime, isRemoveEndDateTime);
-        this.setTaskToEditTags(tags);
-        
-        this.checkNotDuplicateTask(lastShownList);
+    	this.inputIndex = inputIndex;
+    	this.name = name;
+    	this.newStartDateTime = newStartDate;
+    	this.newEndDateTime = newEndDate;
+    	this.tags = tags;
+    	this.isRemoveStartDateTime = isRemoveStartDateTime;
+    	this.isRemoveEndDateTime = isRemoveEndDateTime;
     }
     
     @Override
@@ -67,10 +70,28 @@ public class EditCommand extends Command {
     	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
 
         model.saveState();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		
+    	try {
+			checkValidIndex(lastShownList);
+			this.taskToEdit = getTaskToEdit(lastShownList);
+			validateEndDateTimeAfterStartDateTime();
+			
+			this.internalListIndex = getIndexInInternalList(taskToEdit);
+			this.setTaskToEditName();
+			this.setTaskToEditDates();
+			this.setTaskToEditTags();
+			
+			this.checkNotDuplicateTask(lastShownList);
+		} catch (IllegalValueException e) {
+			model.undoSaveState();
+			return new CommandResult(e.getMessage());
+		}
         	
         try {
 			model.editTask(internalListIndex, taskToEdit);
 		} catch (TaskNotFoundException e) {
+			model.undoSaveState();
 			return new CommandResult(e.getMessage());
 		}
             
@@ -93,12 +114,12 @@ public class EditCommand extends Command {
     }
     
     /**
-     * Checks that the targetIndex is within boundary of lastShownList 
-     * @throws IllegalValueException when targetIndex is out of bound
+     * Checks that the inputIndex is within boundary of lastShownList 
+     * @throws IllegalValueException when inputIndex is out of bound
      */
-    private void checkValidIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int targetIndex) 
+    private void checkValidIndex(UnmodifiableObservableList<ReadOnlyTask> lastShownList) 
     	throws IllegalValueException {
-    	if (lastShownList.size() < targetIndex) {
+    	if (lastShownList.size() < inputIndex) {
             model.undoSaveState();
             indicateAttemptToExecuteIncorrectCommand();
             throw new IllegalValueException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
@@ -116,15 +137,15 @@ public class EditCommand extends Command {
     /**
      * Get the targeted Task to be edited
      */
-    private Task getTaskToEdit(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int targetIndex) {
-    	return new Task(lastShownList.get(targetIndex - 1));
+    private Task getTaskToEdit(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {
+    	return new Task(lastShownList.get(inputIndex - 1));
     }
     
     /**
      * Update taskToEdit with the new name
      * @throws IllegalValueException if name content is of illegal value
      */
-    private void setTaskToEditName(Optional<String> name) throws IllegalValueException {
+    private void setTaskToEditName() throws IllegalValueException {
     	if (name.isPresent()) {
     	    Name newName = new Name(name.get());
     		taskToEdit.setName(newName);
@@ -134,9 +155,7 @@ public class EditCommand extends Command {
     /**
      * Updates taskToEdit with the new start date and end date
      */
-    private void setTaskToEditDates(Optional<LocalDateTime> newStartDateTime,
-    		Optional<LocalDateTime> newEndDateTime, boolean isRemoveStartDateTime,
-    		boolean isRemoveEndDateTime) {
+    private void setTaskToEditDates() {
     	if (newEndDateTime.isPresent()) {
         	taskToEdit.setEndDate(newEndDateTime.get());
         }
@@ -158,7 +177,7 @@ public class EditCommand extends Command {
      * Update taskToEdit with the new tags
      * @throws IllegalValueException 
      */
-    private void setTaskToEditTags (Set<String> tags) throws IllegalValueException {
+    private void setTaskToEditTags () throws IllegalValueException {
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
         	tagSet.add(new Tag(tagName));
@@ -177,9 +196,7 @@ public class EditCommand extends Command {
 	}    
 	
 	//@@author A0143756Y
-	private void validateEndDateTimeAfterStartDateTime(Optional<LocalDateTime> newStartDateTime,
-			Optional<LocalDateTime> newEndDateTime, boolean isRemoveStartDateTime,
-			boolean isRemoveEndDateTime){
+	private void validateEndDateTimeAfterStartDateTime(){
 		
 		if (newStartDateTime.isPresent() && newEndDateTime.isPresent()){
         	LocalDateTime startDateTime = newStartDateTime.get();
