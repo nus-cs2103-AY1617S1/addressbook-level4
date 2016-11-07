@@ -113,6 +113,12 @@ public class TestGenericMemory {
     }
     
     private void testToString() { 
+        taskToString();
+        deadlineToString();
+        eventToString();
+    }
+    
+    private void taskToString() { 
         //Task
         GenericMemory testTask = new GenericMemory("task", "name2", "description2");
         String taskResult = "Type: task" + "\n" + "Name: name2" + "\n" + "Description : description2";
@@ -122,6 +128,13 @@ public class TestGenericMemory {
         String descriptionResult = "description2" + "\n" + "Description : description2";
         assertEquals("Description", testTask.descriptionToString(testTask.getDescription()), descriptionResult);
         
+        //Task deadline to string
+        String taskDeadline = "Type: task" + "\n" + "Name: name2" + "\n" + "Description : description2"
+                                + "\n" + "Status: Incomplete";
+        assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline);
+    }
+    
+    private void deadlineToString() { 
         //Deadline
         GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
         String deadlineResult = "Type: deadline" + "\n" + "Name: name1" + "\n" + "Description : description1";
@@ -131,11 +144,29 @@ public class TestGenericMemory {
         String deadlineEndDateResult = testDeadline.deadlineDateToString(testDeadline.getEnd().toString());
         assertEquals("Deadline End Date", testDeadline.deadlineDateToString(testDeadline.getEnd().toString()), testDeadline.deadlineDateToString(testDeadline.getEnd().toString()));
         
+    }
+    
+    private void eventToString() { 
         //Event
         GenericMemory testEvent = new GenericMemory("event", "name", "description", start, end, 0);
         String eventResult = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description";
         assertEquals("Event to String", testEvent.toString(), eventResult);
         
+        //Event dates to string 
+        String eventDates = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description" 
+                                + "\n" + "Start: 27/4/14 Sun 03:14 AM" + "\n" + "End: 5/3/15 Thurs 07:11 AM";
+        assertEquals("Event dates to String", testEvent.eventDatesToString(testEvent.toString()), eventDates);
+        
+        //Event state to string 
+        String eventState = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description" + "\n"
+                                + "Status: Upcoming";
+        assertEquals("Event state to String", testEvent.eventStateToString(testEvent.toString()), eventState);
+        
+        //test getDate
+        assertEquals("Event date", testEvent.getDate(start), "27/4/14 Sun");
+        
+        //test getTime
+        assertEquals("Event end time", testEvent.getTime(end), "07:11 AM");
         
     }
 }

@@ -254,7 +254,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event start and end dates into string representation
-    private String eventDatesToString(String output) {
+    String eventDatesToString(String output) {
         if (start != null) {
             output += START_STRING + getDate(start) + " " + getTime(start);
         }
@@ -266,7 +266,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event state into string representation
-    private String eventStateToString(String output) {
+    String eventStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_UPCOMING;
         } else if (getState() == 1) {
@@ -279,7 +279,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts task or deadline state into string representation
-    private String taskDeadlineStateToString(String output) {
+    String taskDeadlineStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_INCOMPLETE;
         } else if (getState() == 1) {
