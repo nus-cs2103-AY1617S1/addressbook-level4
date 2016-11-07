@@ -25,7 +25,13 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Tan Shao Yun](http://github.com/shaocloud)
 <img src="images/ShaoYun.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+* Components in charge of: [UI, Design](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/DeveloperGuide.md#design)
+* Features implemented:	
+	* [Reordered UI](https://github.com/CS2103AUG2016-F10-C3/main/tree/C3/UI/Compatibi/src/main/resources/view)
+	* [UML Design](TBA)
+* Other major contributions:
+	* [Designed Screenshots](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/images/Ui.jpg)
+	* [Designed icon](https://github.com/CS2103AUG2016-F10-C3/main/blob/C3/UI/Compatibi/src/main/resources/images/tary.png)
 
 -----
 
@@ -54,4 +60,6 @@ Responsibilities: UI
 <img src="images/ChanJunWei.jpg" width="150"><br>
  Role: Module Tutor and Project Supervisor <br>  
 
+ -----
+ 
 Code modified from : https://github.com/nus-cs2103-AY1617S1/addressbook-level4

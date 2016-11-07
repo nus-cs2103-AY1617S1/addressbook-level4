@@ -13,46 +13,57 @@
 		       <URL value="@Extensions.css" />
 		    </stylesheets>
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="50.0" prefWidth="50.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0"/>	
+            <!--
+                <ColumnConstraints hgrow="NEVER"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="0.0" prefWidth="50.0" />
+                <ColumnConstraints hgrow="NEVER" minWidth="30.0" />	
+			-->
             </columnConstraints>
 
 			<!-- @@author A0139072H -->
             <!--MYSTUFF-->
             <children>
-	            <HBox>
-	                <VBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="40.0" prefHeight="50.0" GridPane.columnIndex="0">
-	                    <padding>
-	                        <Insets bottom="2" left="5" right="5" top="2" />
-	                    </padding>
-						<children>
-	                        <HBox spacing="5" alignment="CENTER_LEFT">							
-	                        	<children>
-	                                <HBox alignment="CENTER_RIGHT">
-		                                <padding>
-		                                	<Insets right="10"/>
-		                                </padding>
-	                                    <Label fx:id="isDone" text="\$isDone" styleClass="cell_check_label"/>
-	                                </HBox>
-	                                <HBox spacing="3">
-	                                    <Label fx:id="id" styleClass="cell_big_label"/>
-	                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-	                        			<Label fx:id="startDate" styleClass="cell_date_label" text="\$startDate" />
-	                        			<Label fx:id="dueDate" styleClass="cell_date_label" text="\$dueDate" />
-				                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-	                                </HBox>
-
-	                            </children>
-	                        </HBox>
-                            <HBox>
-	                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-	                        </HBox>
-						</children>
-	                </VBox>
-	           </HBox>
-	           <HBox spacing="1" alignment="CENTER_RIGHT">
-		       		<Label fx:id="priority" styleClass="cell_priority_label" text="\$priority" />
-		       </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="0" >
+                    <children>
+                    	<HBox alignment="CENTER_LEFT" spacing="5" minWidth="75.0" maxWidth="75.0" GridPane.columnIndex="1">
+		                    <Label fx:id="isDone" text="\$isDone" styleClass="cell_check_label"/>
+	                        <Label fx:id="id" styleClass="cell_big_label"/>
+                    	</HBox>
+                    	<HBox alignment="CENTER_LEFT" minWidth="400.0" maxWidth="400.0" GridPane.columnIndex="2">
+	   		                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+							<Label styleClass="cell_small_label" text=" at " />
+							<Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                    	</HBox>
+                    	<VBox alignment="CENTER_RIGHT" minWidth="200" maxWidth="300">
+                            <padding>
+		                    	<Insets left="2" right="10"/>
+		                    </padding>
+                    		<children>
+                    			<HBox minWidth="100.0" maxWidth="300.0" GridPane.columnIndex="3">
+                        			<children>
+										<Label fx:id="startDate" styleClass="cell_date_label" text="\$startDate" />
+										<Label styleClass="cell_date_label" text=" - " />
+                        				<Label fx:id="dueDate" styleClass="cell_date_label" text="\$dueDate" />				                        
+	                                </children>
+	                            </HBox>
+	                            <HBox minWidth="200.0" maxWidth="500.0" GridPane.columnIndex="4">
+                        			<children>
+		                            	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+                            		</children>
+                            	</HBox>
+                            </children>
+                        </VBox>
+           			</children>
+        		</HBox>
+        		<HBox alignment="CENTER_RIGHT" GridPane.columnIndex="3">
+                    <padding>
+                    	<Insets right="20"/>
+                    </padding>
+            		<children>
+            			<Label fx:id="priority" styleClass="cell_priority_label" text="\$priority" />
+               		</children>
+		   		</HBox>          
             </children>
             
             <!-- @@author addressbook-level4 -->

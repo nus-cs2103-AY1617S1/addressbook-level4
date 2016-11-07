@@ -1,5 +1,8 @@
 package seedu.gtd.ui;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -26,8 +29,8 @@ public class MainWindow extends UiPart {
 
     //@@author addressbook-level4
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_HEIGHT = 768;
+    public static final int MIN_WIDTH = 1024;
 
     private Logic logic;
 
@@ -111,13 +114,18 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        browserPanel = BrowserPanel.load(getBrowserPlaceholder());
+        browserPanel.loadPage("https://calendar.google.com");
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
+	private AnchorPane getBrowserPlaceholder() {
+		return browserPlaceholder;
+    }
+    
 	private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -185,6 +193,16 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    //@@author A0139072H
+    /**
+     * Launches the calendar.
+     */
+    @FXML
+    private void handleCal() {
+    	browserPanel.loadPage();
+    }
+
+    //@@author addressbook-level4
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
