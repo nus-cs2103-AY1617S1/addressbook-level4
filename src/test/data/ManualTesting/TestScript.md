@@ -28,46 +28,22 @@
 > **Result:** <br>
  - Result display panel posts message: <br>
     `New task added: Claim coffee Description: Starbucks'
- - UndatedListPanel scrolls to and displays newly added task card.
- - Note: yellow background for floating tasks.
+ - To Do Panel (left panel) scrolls to and selects newly added task card.
 
 ### 1.2 Add a deadline
-> **Command:** `add business report by tomorrow 6pm t/assignment`<br>
+> **Command:** `add Finish project proposal date/next friday 5pm t/important`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `New non-floating task added: business report Tags: [assignment]
-	\nRecurring: NONE`
- - TaskList panel navigates to and displays newly added task card.
- - Note: red background for deadline tasks.
+    `New task added: Finish project proposal Date: 18-Nov-2016 Time: 17:00 Tags: [important]'
+ - Events / Deadlines Panel (right panel) scrolls to and selects newly added task card.
 
-### 1.3 Add a normal non-floating task
+### 1.3 Add an event
 > **Command:** `add see JC friends from sat 6.30pm to 8pm`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
     `New non-floating task added: see JC friends Tags: 
 	\nRecurring: NONE`
  - TaskList panel navigates to and displays newly added task card.
- - Note: blue background for time slot tasks.
- 
-### 1.4 Add a recurring task
-#### 1.4.1 Without recurring period
-> **Command:** `add jogging from 9pm to 10pm daily`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `New non-floating task added: jogging Tags: 
-	\nRecurring: DAILY always`.
- - Agenda panel displays multiple instances of the newly added task on a daily basis.
- - TaskList panel navigates to and displays newly added task card.
- - Note: blue background for time slot tasks.
- 
-#### 1.4.1 With recurring period
-> **Command:** `add tennis training from 7pm to 7.30pm weekly repeat 3`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `New non-floating task added: tennis training Tags: 
-	\nRecurring: WEEKLY repeat 3 times`.
- - Agenda panel displays an instance of the newly added task on a weekly basis.
- - TaskList panel navigates to and displays newly added task card. There are three instances in total.
  - Note: blue background for time slot tasks.
 
 ------
