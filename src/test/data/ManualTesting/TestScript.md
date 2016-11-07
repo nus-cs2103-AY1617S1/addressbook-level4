@@ -153,3 +153,12 @@ Command | Expected behavior
 `tag 2 fail already` | Tag "fail already" is added to "Submit CS2103 project"
 `list tag sigh` | Only the two items with "sigh" tags is be shown on screen
 `list tag fail already` | Only "Submit CS2103 project" is shown on screen
+
+### App configuration
+
+Command | Expected behavior
+------- | -----------------
+`config` | List of settings are shown
+`config appTitle Uncle Jim's Discount Todolist App` | The setting in the list is updated, together with the title on the app window
+`config databaseFilePath fake_mysqldb.json` | The setting in the list is updated, and in the file directory the database file is moved to `fake_mysqldb.json`.
+`config whoops` | Disambiguate
