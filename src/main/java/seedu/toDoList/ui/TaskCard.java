@@ -72,7 +72,7 @@ public class TaskCard extends UiPart{
         if(!task.tagsString().equals(""))
         	tags.setText("Tags: " + task.tagsString());
         tags.setWrapText(true);
-        recurring.setText(task.isRecurring()? "recurring":"");
+        recurring.setText(task.isRecurring()? "Recurring: ":"");
         recurring.setWrapText(true);
         frequency.setText(task.isRecurring()?task.getRecurring().recurringFrequency:"");
         frequency.setWrapText(true);
