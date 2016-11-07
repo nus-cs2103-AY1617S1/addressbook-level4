@@ -10,10 +10,10 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Storage and Testing](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-   * [Basic undo and multiple undo]
-   * [Edit task]
-   * [Find searches for exact keywords first]
-   * [Natural language processing for dates using Natty API]
+   * Basic undo and multiple undo
+   * Edit task
+   * Find searches for exact keywords first
+   * Natural language processing for dates using Natty API
 * Code written: [[functional code](A0146130W.md)][[test code](A0146130W.md)][[docs](A0146130W.md)]
 * Other major contributions:
   * Did the initial refactoring from Person model to Task model
