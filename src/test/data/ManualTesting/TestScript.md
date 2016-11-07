@@ -27,7 +27,7 @@ Command | Format  | Example | Expected Respose
 Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial 3216` | The task will be added to your to do list and message "Added task" is displayed on result panel.
 Add Deadline | `a[dd] d[eadline] n/NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v1.0 edt/thursday 2pm` |  The task will be added to your to do list and message "Added deadline" is displayed on results panel.
 Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 guest lecture sdt/friday 2pm edt/friday 4pm` | The event will be added to your to do list and message "Added event" is displayed on results panel
-Delete | `del[ete] INDEX ...` | `delete 1` | results panel displays deleted item in results panel and item list panel refreshes list of items.
+Delete | `del[ete] INDEX ...` | `delete 1` | Results panel displays deleted item in results panel and item list panel refreshes list of items.
 Done | `d[one] INDEX` | `done 1` | Item list panel refreshes list of items, with updated status for the updated item in the results panel.
 Edit Task | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 1 n/CS2103` | App will display edited item's details in the results panel.
 Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm` | App will display edited item's details in the results panel.
@@ -41,7 +41,7 @@ List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd` | Item list panel refre
 List all items | `l[ist]` | `list` | Item list panel refreshes with all items displayed
 Notdone | `n[ot]d[one] INDEX` | `nd 1` | Item list panel refreshes with all not done items displayed
 Undo | `u[ndo]` | `undo` | Results panel shows action undone and item list panel refreshes
-Redo | `r[edo]` | `redo` | Results panel shows action redone and item list panelrefreshes
+Redo | `r[edo]` | `redo` | Results panel shows action redone and item list panel refreshes
 Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml` | File save location is refreshed at the bottom of the application
 Select | `s[elect] INDEX` | `select 1` | Results panel shows selected item
 Clear | `cl[ear]` | `clear` | Application is cleared of data
