@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import seedu.task.MainApp;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.util.FxViewUtil;
 
@@ -28,7 +29,7 @@ public class HelpWindow extends UiPart {
     private Stage dialogStage;
 
     public static HelpWindow load(Stage primaryStage) {
-        logger.fine("Showing help page about the application.");
+        logger.info("Showing help page about the application.");
         HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
         helpWindow.configure();
         return helpWindow;
@@ -48,11 +49,13 @@ public class HelpWindow extends UiPart {
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setMaximized(true); 
         setIcon(dialogStage, ICON);
 
-        WebView browser = new WebView();  
-        browser.getEngine().load(USERGUIDE_URL);
+        WebView browser = new WebView(); 
+        String path  = MainApp.class.getProtectionDomain().getCodeSource().getLocation().getFile()+USERGUIDE_URL;
+        logger.info("Opening help popup from: " + path);
+        browser.getEngine().load(MainApp.class.getResource(USERGUIDE_URL).toExternalForm());
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
