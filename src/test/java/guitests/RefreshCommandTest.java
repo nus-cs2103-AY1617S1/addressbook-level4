@@ -34,7 +34,7 @@ public class RefreshCommandTest extends TaskManagerGuiTest {
      */
     
     @Test
-    public void refreshAllTasksAndEvents_successful() {
+    public void refresh_allTasksAndEvents_success() {
 
         TestTask[] currentList = td.getTypicalTasks();
         // refresh all non-recurring tasks
@@ -46,7 +46,7 @@ public class RefreshCommandTest extends TaskManagerGuiTest {
 
     // refresh all tasks including one recurring event (recurring weekly)
     @Test
-    public void refresh_RecurringDeadlineTaskWeekly_successful() {
+    public void refresh_recurringDeadlineTaskWeekly_success() {
         TestTask taskToAdd = td.lecture;
         commandBox.runCommand(taskToAdd.getAddCommand());
 
@@ -57,7 +57,7 @@ public class RefreshCommandTest extends TaskManagerGuiTest {
 
     // refresh all tasks including one recurring deadlineTask (recurring daily)
     @Test
-    public void refresh_RecurringEventDaily_successful() {
+    public void refresh_recurringEventDaily_success() {
         TestTask taskToAdd = td.swimming;
         commandBox.runCommand(taskToAdd.getAddCommand());
 
@@ -68,7 +68,7 @@ public class RefreshCommandTest extends TaskManagerGuiTest {
 
     // refresh all tasks including one recurring deadlineTask (recurring monthly)
     @Test
-    public void refresh_RecurringDeadlineTaskMonthly_successful() {
+    public void refresh_recurringDeadlineTaskMonthly_success() {
         TestTask taskToAdd = td.teaching;
         commandBox.runCommand(taskToAdd.getAddCommand());
 
@@ -82,7 +82,7 @@ public class RefreshCommandTest extends TaskManagerGuiTest {
     // test for invalid command
 
     @Test
-    public void refreshInvalidCommand_fail() {
+    public void refresh_invalidCommand_fail() {
         commandBox.runCommand("refreshes");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 

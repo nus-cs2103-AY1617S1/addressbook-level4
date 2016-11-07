@@ -34,7 +34,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //add an event to list
     
     @Test
-    public void addEventToList_successful(){
+    public void add_eventToList_success(){
         
         taskToAdd = td.project;
         assertAddSuccess(taskToAdd, currentList);
@@ -44,7 +44,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //add a task to list
     
     @Test
-    public void addTaskToList_successful(){
+    public void add_taskToList_success(){
         taskToAdd = td.workshop;
         assertAddSuccess(taskToAdd, currentList);
         
@@ -53,7 +53,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //add item to an empty list
     
     @Test
-    public void addToEmptyList_successful(){
+    public void add_toEmptyList_success(){
         commandBox.runCommand("clear");
         assertAddSuccess(td.friend);
         
@@ -62,7 +62,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //use flexi add command
     
     @Test
-    public void addFlexiCommandFormat_successful(){
+    public void add_flexiCommandFormat_success(){
         
         taskToAdd = td.project;
         assertFlexiAddSuccess(taskToAdd, currentList);
@@ -73,7 +73,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     //invalid command
     
     @Test
-    public void addInvalidArgsFormat_fail(){
+    public void add_invalidArgsFormat_fail(){
         
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);

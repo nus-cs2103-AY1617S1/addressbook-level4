@@ -1,6 +1,5 @@
 package guitests;
 
-//@@author A0142325R
 import org.junit.Test;
 
 import seedu.toDoList.commons.core.Messages;
@@ -8,6 +7,7 @@ import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0142325R
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
