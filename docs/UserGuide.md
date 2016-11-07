@@ -25,7 +25,10 @@ To get started, proceed to the Quick Start section below.
 <!-- @@author A0139930B -->
 
 ##Overview
+<p align= "center">
 <img src="images/Overview.png" width="900">
+Figure 1: TasKitty Overview
+
 
 1. This is the `Command Box` for you to type your commands.
 2. TasKitty provdes `Feedback` for your actions here.
@@ -41,28 +44,29 @@ To get started, proceed to the Quick Start section below.
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-
-   <img src="images/QuickStartCallout.png" width="900">
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+   <p align= "center">
+   <img src="images/QuickStartCallout.png" width="900"><br>
+   Figure 2: TasKitty Welcome Screen
    
 <!-- @@author A0130853L -->
 
-1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your TasKitty.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+2. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
+3. Copy the file to the folder you want to use as the home folder for your TasKitty.
+4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
    <img src="images/Ui.png" width="900">
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
+5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.<br> 
 <img src="images/QuickStartCallout2.png" width="900"> <br>
-5. Some example commands you can try:
+6. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
    * **`add`**` business proposal 17 nov 2pm` : adds a new task that has the deadline `02:00pm, 17 nov`.
    * **`view`** : lists all upcoming and uncompleted tasks.
    * **`view`**` 1 Jan` : lists all tasks for the specific date.
    * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
-6. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.<br>
 
 <br>
 ## Features
@@ -76,7 +80,9 @@ Shortcut key: `F1`
 
 
 A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
+<p align= "center">
 <img src="images/UIhelp.png" width="900">
+Figure 3: Help Window
 
 
 <br>
@@ -91,7 +97,9 @@ Lists all upcoming and uncompleted tasks.<br>
 Example:
 
 * `view`<br>
+  <p align= "center">
   <img src="images/UIview.png" width="900">
+  Figure 4: View Command
  
  
 <br>
@@ -104,7 +112,9 @@ Lists all events for the specified date, uncompleted deadlines up to the specifi
 Example:<br>
 
 * `view 7 Nov`<br>
+  <p align= "center">
   <img src="images/UIviewDate.png" width="900">
+  Figure 5: View <date> Command
 
 
 <br>
@@ -115,7 +125,9 @@ Lists all completed tasks, deadlines and events. Tasks that are done or over wil
 
 Example:
 * `view done`<br>
+  <p align= "center">
   <img src="images/UIviewDone.png" width="900">
+  Figure 6: View Done Command
   
 <br>
 
@@ -129,7 +141,9 @@ Note that events that are over will be automatically marked and displayed as com
 Example:
 
 * `view all`<br>
+  <p align= "center">
   <img src="images/UIviewAll.png" width="900">
+  Figure 7: View All Command
   
 <br>
 
@@ -146,38 +160,49 @@ Adds a new task to the todo or deadline or event list in TasKitty.<br>
 Example (Todo):<br>
 * `add buy new tie #work`<br>
   Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
+  <p align= "center">
   <img src="images/UItodo.png" width="900">
+  Figure 8: Add Todo Command
 <br>
 Example (Deadline):<br>
 * `add submit proposal 17 Nov 2pm #work`<br>
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
+  <p align= "center">
   <img src="images/UIdeadline.png" width="900">
+  Figure 9: Add Deadline Command
 
 Example (Event):<br>
 * `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
+  <p align= "center">
   <img src="images/UIevent.png" width="900">
+  Figure 10: Add Event Command
   
 
 <!-- @@author A0139930B -->
 <br>
 #### Find task: `find`
-Format: `find <keyword>...`
+Format: `find <keyword>...`<br>
+<br>
 Finds tasks based on keywords. Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`.<br>
 
 Example: 
 * `find prop`<br>
+  <p align= "center">
   <img src="images/UIfind.png" width="900">
+  Figure 11: Find Command
   
 * `find #work`<br>
+  <p align= "center">
   <img src="images/UIfindTag.png" width="900">
+  Figure 12: Find Tag Command
 
 <br>
 <!-- @@author A0135793W -->
 #### Edit task details: `edit`
 * Format: `edit <index> [name] [datetime] `<br><br>
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
-Format depends on the type of task being edited. When only 1 `<time>` is provided, it is treated as `<end time>` for both deadline and event.<br>
+Format depends on the type of task being edited. For deadlines, you can edit only the date by keying in the new date only<br>
 
 <img src="images/EditCallout1.png" width="900"><br>
 
@@ -186,13 +211,17 @@ Example:
 
 * `edit d2 16 Nov`<br>
   Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `16 Nov`.<br>
+  <p align= "center">
   <img src="images/UIedit.png" width="900">
+  Figure 13: Edit Date Command
 
 <img src="images/EditCallout2.png" width="900"><br>
 * `view`<br>
   `edit t1 buy blue tie`<br>
   Edits the 1st task under the todo tasks section. Changes the `<name>` to `buy blue tie`.<br>
+  <p align= "center">
   <img src="images/UIeditTodo.png" width="900">
+  Figure 14: Edit Name Command
 <br>
 
 #### Delete task: `delete`
@@ -207,20 +236,28 @@ Examples:
   Deletes the 1st task under the deadlines section as shown by the `view` command.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIdeleteBefore.png" width="900"><br>
+  Figure 15: Before Delete Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIdeleteAfter.png" width="900"><br>
+  Figure 16: After Delete Command
   
 * `view 7 Nov`<br>
   `delete e1`<br>
   Deletes the 1st task under the events section for `7 Nov` as shown by the `view DATE` command.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIdeleteBeforeDate.png" width="900"><br>
+  Figure 17: Before Delete From Filtered List Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIdeleteAfterDate.png" width="900"><br>
+  Figure 18: After Delete From Filetered List Command
   
 <!-- @@author A0139052L -->
 
@@ -228,11 +265,16 @@ Examples:
   `delete t1 d1 e1`<br>
   Deletes the 1st task under the each section as shown by the `view` command.<br>
   
+  
   Before:<br>
+  <p align= "center">
   <img src="images/UIdeleteMultipleBefore.png" width="900"><br>
+  Figure 19: Before Delete Multiple Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIdeleteMultipleAfter.png" width="900"><br>  
+  Figure 20: After Delete Multiple Command
   
 <!-- @@author A0130853L -->  
 
@@ -240,7 +282,7 @@ Examples:
 
 #### Mark task as done: `done`
 * Format: `done <index>...`<br><br>
-Marks one or more task in the task list as done using index of the task. Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
+Marks one or more todo, deadline or event tasks already inside TasKitty as done using index of the task. Tasks that are marked as done are moved to the bottom of their respective lists.<br>
 <img src="images/DoneCallout.png" width="900"><br>
 Example:
 
@@ -249,56 +291,69 @@ Example:
   Marks the 1st task today under the deadlines section shown by the `view all` command as completed.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIdoneBefore.png" width="900"><br>
+  Figure 21: Before Done Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIdoneAfter.png" width="900"><br>
+  Figure 22: After Done Command
   
 <!-- @@author A0139052L --> 
 
 * `view all`<br>
-  `done t1 t2 t3`<br>
+  `done t1-3`<br>
   Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIdoneMultipleBefore.png" width="900"><br>
+  Figure 23: Before Done Multiple Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIdoneMultipleAfter.png" width="900"><br>
+  Figure 24: After Done Multiple Command
   
 <!-- @@author A0130853L -->  
 
 <br>
 
 #### Undo previous action: `undo`
-Undoes the last completed action.<br>
+
 Format: `undo`<br>
 Shortcut key: `Ctrl + Shift + U`
 
-The previous version will be restored.<br>
-User can keep undoing multiple actions until we reach the original version at the start of the current session.<br>
+The previous version will be undone.<br>
+You can undo as many times as you want until the start of the current session.<br>
 
 Example:
 
-* `undo`<br>
+* `delete t1`<br>
+ `undo`<br>
   Undoes the last deleted item.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIundoBefore.png" width="900"><br>
+  Figure 25: Before Undo Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIundoAfter.png" width="900"><br>
+  Figure 26: After Undo Command
 
 <br>
 
 <!-- @@author A0139052L -->
 #### Redo previous undone action: `redo`
-Redoes the last undoned action.<br>
+
 Format: `redo`<br>
 Shortcut key: `Ctrl + Shift + Y`
 
-The previous undone version will be restored.<br>
-User can keep redoing multiple undone actions until we reach the latest version.<br>
+The previous undo will be restored.<br>
+You can redo as many times until the latest change.<br>
 
 Example:
 
@@ -306,10 +361,14 @@ Example:
   Redoes the last deleted item.<br>
   
   Before:<br>
+  <p align= "center">
   <img src="images/UIundoAfter.png" width="900"><br>
+  Figure 27: Before Redo Command
   
   After:<br>
+  <p align= "center">
   <img src="images/UIredoAfter.png" width="900"><br>
+  Figure 28: After Redo Command
 
 <br>
 
@@ -371,17 +430,17 @@ Command | Format
 Add todo | `add <name>`
 Add deadline | `add <name> <end datetime>`
 Add event | `add <name> <start datetime> to <end datetime>`
-View upcoming | `view`
-View all | `view all`
+View upcoming | `view` or Ctrl + Shift + T
+View all | `view all` or Ctrl + Shift + L
 View date | `view <date>`
-View done | `view done`
+View done | `view done` or Ctrl + Shift + D
 Find | `find <keyword>...`
 Edit | `edit <index> <name> <datetime>`
 Delete | `delete <index>...`
 Done | `done <index>...`
 Path | `path <filepath>.xml`
-Undo | `undo`
-Redo | `redo`
+Undo | `undo` or Ctrl + Shift + U
+Redo | `redo` or Ctrl + Shift + Y
 Help | `help`
 Clear | `clear`
 Exit | `exit`
