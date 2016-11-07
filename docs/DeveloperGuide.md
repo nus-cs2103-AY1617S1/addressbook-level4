@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/lifekeeper/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -109,7 +109,7 @@ and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/lifekeeper/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
