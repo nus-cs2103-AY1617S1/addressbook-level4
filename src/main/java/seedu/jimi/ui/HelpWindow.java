@@ -22,7 +22,7 @@ public class HelpWindow extends UiPart {
     private static final String USERGUIDE_URL =
             HelpWindow.class.getResource("/UserGuide/UserGuide.html").toExternalForm();
 
-    private static final double START_H = 1000;
+    private static final double START_H = 750;
     private static final double START_W = 1200;
     
     private AnchorPane mainPane;
