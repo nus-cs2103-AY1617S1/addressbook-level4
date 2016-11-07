@@ -100,10 +100,16 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Returns true if the list contains an equivalent Tag as the given argument.
+     * Returns true if the list contains an equivalent Tag as the given argument (not case sensitive).
      */
     public boolean contains(Tag toCheck) {
         assert toCheck != null;
+        
+        for (Tag tag : internalList) {
+            if (toCheck.toString().toLowerCase().equals(tag.toString().toLowerCase())) {
+                return true;
+            }
+        }
         return internalList.contains(toCheck);
     }
 
