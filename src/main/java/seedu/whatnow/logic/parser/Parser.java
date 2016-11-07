@@ -478,6 +478,8 @@ public class Parser {
                         startDate = date;
                         date = null;
                         endDate = tempDate;
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                     }
                 } else if (getSubDate(argComponents[i]) != null) {
                     tempDate = getSubDate(argComponents[i]);
@@ -489,7 +491,9 @@ public class Parser {
                         startDate = date;
                         date = null;
                         endDate = tempDate;
-                    }                
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    }
                 } else if (getTime(argComponents[i]) != null) {
                     numOfTime++;
                     if (numOfTime == ONE) {
@@ -508,6 +512,8 @@ public class Parser {
                             time = null;
                             endTime = argComponents[i];
                         }
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -540,6 +546,8 @@ public class Parser {
                             startDate = date;
                             date = null;
                             endDate = tempDate;
+                        } else {
+                            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                         }
                         hasTime = false;
                     } else if (getSubDate(argComponents[i]) != null) {
@@ -552,6 +560,8 @@ public class Parser {
                             startDate = date;
                             date = null;
                             endDate = tempDate;
+                        } else {
+                            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                         }
 
                         hasTime = false;
@@ -590,6 +600,8 @@ public class Parser {
                             date += tempDate;
                         } else if (numOfDate == TWO) {
                             endDate += tempDate;
+                        } else {
+                            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                         }
 
                         if (YEAR.matcher(tempDate).find()) {
@@ -621,7 +633,9 @@ public class Parser {
                             time = null;
                             endTime = argComponents[i];
                         }
-                    } 
+                    } else {
+                        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                    }
                 } else {
                     validArgument = false;
                 }
