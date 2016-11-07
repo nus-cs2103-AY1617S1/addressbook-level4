@@ -65,6 +65,7 @@
 ### Modify tasks
 
 - Modify a task: `modify 1 t/Buy working supplies s/11-10-16 3pm e/11-10-16 4pm l/Popular Bookstore d/Pens p/Low`
+
 > Changes the task listed at index 1 (Christmas shopping) to Buy working supplies, with new start date Nov 10 3pm and end date Nov 10 4pm, and priority level changed to 'Low'.
 > Also adds a new location: Popular Bookstore, and new description: Pens.
 
