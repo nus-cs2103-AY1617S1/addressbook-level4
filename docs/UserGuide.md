@@ -336,7 +336,7 @@ There is no need to save manually.
 ## Command Autocomplete
 Pressing <kbd>TAB</kbd> will autocomplete the first word by looking up all possible commands. <br>
 If there is only one possible command, the command will be autocompleted. <br>
-However, if there are multiple commands, they will be displayed. <br>
+However, if there are multiple commands, subsequent <kbd>TAB</kbd>s will cycle through all possible commands one at a time. <br>
 
 Examples:
 * `al`<kbd>TAB</kbd><br>
