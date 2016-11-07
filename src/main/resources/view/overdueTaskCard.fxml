@@ -10,7 +10,7 @@
 
 <!-- @@author A0125097A -->
 
-<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel"  style="-fx-background-color: salmon;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel" style="-fx-background-color: salmon; -fx-border-color: #d6d6d6; -fx-border-width: 1 1 1 1;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="overdueTaskCard" HBox.hgrow="ALWAYS">
             <columnConstraints>
