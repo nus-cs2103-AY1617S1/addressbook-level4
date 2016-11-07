@@ -21,10 +21,11 @@ public class UndoCommand extends Command {
         
         try {
             model.restorePreviousToDoList();
-            return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoPreviousListFoundException nplfe) {
             return new CommandResult(MESSAGE_FAILURE);
         }
+
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     public static String getName() {

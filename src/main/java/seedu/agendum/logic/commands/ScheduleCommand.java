@@ -27,7 +27,6 @@ public class ScheduleCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 from 7am to 9am";
 
     public static final String MESSAGE_SUCCESS = "Task rescheduled: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists!";
 
     public int targetIndex = -1;
     public Optional<LocalDateTime> newStartDateTime = Optional.empty();
@@ -65,9 +64,9 @@ public class ScheduleCommand extends Command {
         try {
             model.updateTask(taskToSchedule, updatedTask);         
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException e) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_MISSING_TASK);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, updatedTask));

@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.agendum.commons.core.Messages;
+import seedu.agendum.logic.commands.MarkCommand;
 import seedu.agendum.testutil.TestTask;
 
 //@@author A0148031R
@@ -46,12 +47,12 @@ public class MarkCommandTest extends ToDoListGuiTest{
         taskToMark.setLastUpdatedTimeToNow();
         TestTask[] expectedList = currentList;
         assertAllPanelsMatch(expectedList);
-        assertResultMessage(Messages.MESSAGE_MARK_TASK_SUCCESS);
+        assertResultMessage(MarkCommand.MESSAGE_MARK_TASK_SUCCESS);
     }
     
     private void assertMarkDuplicates(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_DUPLICATE);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
     }
     
     private void assetMarkEmptyTask(String command) {

@@ -21,7 +21,6 @@ public class MarkCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "mark task(s) as completed";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task(s)!";
-    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
@@ -56,10 +55,10 @@ public class MarkCommand extends Command {
         try {
             model.markTasks(tasksToMark);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_MISSING_TASK);
         } catch (DuplicateTaskException pnfe) {
             model.resetDataToLastSavedList();
-            return new CommandResult(MESSAGE_DUPLICATE);
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
         return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);

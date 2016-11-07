@@ -16,7 +16,6 @@ public class RenameCommand extends Command {
     public static final String COMMAND_FORMAT = "rename <id> <new name>";
     public static final String COMMAND_DESCRIPTION = "update the name of a task";
     public static final String MESSAGE_SUCCESS = "Task renamed: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Hey, the task already exists";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
@@ -52,10 +51,11 @@ public class RenameCommand extends Command {
             renamedTask.setName(newTaskName);
             model.updateTask(taskToRename, renamedTask);
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException e) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_MISSING_TASK);
         }
+ 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTaskName));
 
     }

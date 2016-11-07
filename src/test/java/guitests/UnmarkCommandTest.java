@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.agendum.commons.core.Messages;
+import seedu.agendum.logic.commands.UnmarkCommand;
 import seedu.agendum.testutil.TestTask;
 
 //@@author A0148031R
@@ -45,12 +46,12 @@ public class UnmarkCommandTest extends ToDoListGuiTest {
         taskToUnmark.setLastUpdatedTimeToNow();
         TestTask[] expectedList = currentList;
         assertAllPanelsMatch(expectedList);
-        assertResultMessage(Messages.MESSAGE_UNMARK_TASK_SUCCESS);
+        assertResultMessage(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS);
     }
     
     private void assertUnmarkDuplicates(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_DUPLICATE);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
     }
     
     private void assetUnmarkEmptyTask(String command) {

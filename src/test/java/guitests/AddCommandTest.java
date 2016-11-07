@@ -33,7 +33,7 @@ public class AddCommandTest extends ToDoListGuiTest {
 
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.getFloatingTestTask().getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
         assertAllPanelsMatch(currentList);
 
         //add to empty list

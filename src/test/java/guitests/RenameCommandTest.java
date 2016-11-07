@@ -33,7 +33,7 @@ public class RenameCommandTest extends ToDoListGuiTest {
 
         //duplicate task
         commandBox.runCommand("rename " + currentList.length + " " + currentList[targetIndex].getName().toString());
-        assertResultMessage(RenameCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
         assertAllPanelsMatch(currentList);
     }
 

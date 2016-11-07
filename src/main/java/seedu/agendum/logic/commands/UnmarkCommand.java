@@ -21,7 +21,6 @@ public class UnmarkCommand extends Command {
     public static final String COMMAND_DESCRIPTION = "unmark task(s) from completed";
 
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";
-    public static final String MESSAGE_DUPLICATE = "Hey, the task already exists";
     public static final String MESSAGE_USAGE = COMMAND_WORD + " - "
             + COMMAND_DESCRIPTION + "\n"
             + COMMAND_FORMAT + "\n"
@@ -56,10 +55,10 @@ public class UnmarkCommand extends Command {
         try {
             model.unmarkTasks(tasksToUnmark);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            return new CommandResult(Messages.MESSAGE_MISSING_TASK);
         } catch (DuplicateTaskException pnfe) {
             model.resetDataToLastSavedList();
-            return new CommandResult(MESSAGE_DUPLICATE);
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
 
         return new CommandResult(MESSAGE_UNMARK_TASK_SUCCESS);

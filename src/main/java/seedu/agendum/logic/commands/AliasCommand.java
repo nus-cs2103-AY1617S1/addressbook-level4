@@ -54,6 +54,7 @@ public class AliasCommand extends Command {
         }
         
         commandLibrary.addNewAlias(aliasKey, aliasValue);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, aliasKey, aliasValue));
     }
 
