@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/57ca405c8cfb4a95b7b49cb6479573c5)](https://www.codacy.com/app/victoriaduanyc/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W09-C2/main&amp;utm_campaign=Badge_Grade)
 # HappyJimTaskMaster
 
-<img src="docs/images/UI.png" width="800"><br>
+<img src="docs/images/Ui.PNG" width="800"><br>
 
 * This is a desktop task manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
