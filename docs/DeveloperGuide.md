@@ -214,9 +214,13 @@ A brief description of each concern:
 
 **API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
 
+A Model represents a single database record that is part of the persistent state of the TodoList app.
+
 `CalendarItem`
-* represents a single database record that is part of the persistent state of the TodoList app
 * is subclassed by two record types, namely `Event` and `Task`
+* Both subclasses contain setters and getters to be used to manipulate records
+* Both subclasses implement dynamic predicate constructors to be chained together for use in a `.where()` query
+* Has **NO** support for dirty records. In the spirit of Java's LBYL (and against my personal preferences...), all Controllers doing database operations are expected to validate parameters before updating a record. Once a record field is changed, if a validation fails, the only way to rollback the change is by reloading from disk or calling `undo`.
 
 `TodoListDB`
 * is a class that holds the entire persistent database for the TodoList app
