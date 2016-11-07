@@ -3,10 +3,11 @@ package seedu.task.model;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
-import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.tag.Tag;
@@ -153,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.size() - 1));
     }
     
     //@@author A0141052Y

@@ -17,7 +17,8 @@ import java.util.function.Supplier;
  * testing
  */
 public class TestApp extends MainApp {
-
+    
+    public static final String TEST_CONFIG_FILE_PATH = "testConfig.json";
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
@@ -43,7 +44,7 @@ public class TestApp extends MainApp {
 
     @Override
     protected Config initConfig(String configFilePath) {
-        Config config = super.initConfig(configFilePath);
+        Config config = super.initConfig(TEST_CONFIG_FILE_PATH);
         config.setAppTitle(APP_TITLE);
         config.setTaskManagerFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
