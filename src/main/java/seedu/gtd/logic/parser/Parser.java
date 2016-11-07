@@ -528,6 +528,7 @@ private Command prepareList(String args) {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0139158X
     private Command prepareHelp(String args) {
     	//if no argument
     	if (args.equals("")) {
