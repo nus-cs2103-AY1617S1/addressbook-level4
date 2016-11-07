@@ -25,6 +25,7 @@
          </menus>
       </MenuBar>
 
+	  <!-- @@author A0139072H -->
 	  <!--TWEAKING-->
 	  
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
@@ -59,6 +60,7 @@
          </items>
       </SplitPane>
 
+	  <!-- @@author addressbook-level4 -->
 
       <!--ORIGINAL: RESTORE IF NEEDED
       <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
