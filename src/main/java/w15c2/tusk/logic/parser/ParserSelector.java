@@ -13,6 +13,7 @@ public class ParserSelector {
 		
 	private static final Class<?>[] parserTypes = CommandParserList.getList();
     private static final Logger logger = LogsCenter.getLogger(ParserSelector.class);
+    private static boolean isCommandWord;
 
 
     /**
@@ -28,12 +29,14 @@ public class ParserSelector {
 				Field type = parserTypes[i].getField("COMMAND_WORD");
 				String command = (String)type.get(null);
 				if(command.equals(commandWord)){
+					isCommandWord = true;
 					return (CommandParser)parserTypes[i].newInstance();
 				}
 				else{
 					type = parserTypes[i].getField("ALTERNATE_COMMAND_WORD");
 					command = (String)type.get(null);
 					if(command!=null && command.equals(commandWord)){
+						isCommandWord = true;
 						return (CommandParser)parserTypes[i].newInstance();
 					}
 				}
@@ -49,6 +52,11 @@ public class ParserSelector {
 			}
 		}
 		return new IncorrectCommandParser();
-		
+	}
+	
+	public static boolean getIsCommandWord(String commandWord){
+		isCommandWord = false;
+		getByCommandWord(commandWord);
+		return isCommandWord;
 	}
 }

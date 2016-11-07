@@ -32,28 +32,33 @@ public class UncompleteTaskCommand extends TaskCommand {
         this.targetIndex = targetIndex;
     }
 
-
+    /*
+     * Uncompletes the task using its index and 
+     * returns CommandResult to indicate whether it is successful
+     */
     @Override
     public CommandResult execute() {
 
 	    ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();
 
+	    //checks if index is valid
         if (lastShownList.size() < targetIndex || targetIndex <= 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         Task taskToUncomplete = lastShownList.get(targetIndex - 1);
+        
+        //checks if the task has been completed in the first place
         if(taskToUncomplete.isCompleted()){
             closeHelpWindow();
         	model.uncompleteTask(taskToUncomplete);
         	model.refreshTasksFilter();
         	return new CommandResult(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, taskToUncomplete));
         }
+        
         else{
         	return new CommandResult(MESSAGE_TASK_ALR_UNCOMPLETED);
-
         }
     }
-
 }

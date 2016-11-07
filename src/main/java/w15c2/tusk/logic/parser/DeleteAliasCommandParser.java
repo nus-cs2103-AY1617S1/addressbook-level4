@@ -30,8 +30,7 @@ public class DeleteAliasCommandParser extends CommandParser{
 		
 		try{
 	        return new DeleteAliasCommand(arguments.trim());
-		}
-		catch (IllegalValueException ive) {
+		}catch (IllegalValueException ive) {
             return new IncorrectTaskCommand(ive.getMessage());
         }
 	}

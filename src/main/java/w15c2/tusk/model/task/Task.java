@@ -15,7 +15,7 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 	protected Description description;
 		
 	/*
-	 * Indicates if this task is pind
+	 * Indicates if this task is pinned
 	 */
 	protected boolean pin = false;
 	

@@ -11,6 +11,9 @@ import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.DeleteCommandParser;
 
+/**
+ * Tests Delete Command Parser
+ */
 //@@author A0143107U
 public class DeleteCommandParserTest {
 	DeleteCommandParser parser = new DeleteCommandParser();

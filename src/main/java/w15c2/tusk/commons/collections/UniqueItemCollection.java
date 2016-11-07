@@ -17,7 +17,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateItemException extends DuplicateDataException {
-        protected DuplicateItemException() {
+        public DuplicateItemException() {
             super("Operation would result in duplicate items");
         }
     }
@@ -45,12 +45,14 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     	UniqueItemCollection<T> copiedCollection = new UniqueItemCollection<T>();
     	for (T item : internalList) {
     		try {
-	    		if (item instanceof Copiable) {
-	    			Copiable<T> copiableItem = (Copiable<T>) item;
-	    			copiedCollection.add(copiableItem.copy());
-	    		} else {
-	    			assert false : "The items in the list must implement the Copiable interface";
-	    		}
+    			// Items in the list must implement the Copiable interface
+	    		assert (item instanceof Copiable);
+	    		
+	    		Copiable<T> copiableItem = (Copiable<T>) item;
+	    		
+	    		// Make a copy of the item and add into the new list
+	    		copiedCollection.add(copiableItem.copy()); 
+	    		
     		} catch (DuplicateItemException die) {
     			assert false : "There should be no duplicate items in the UniqueItemCollection";
     		}
@@ -78,6 +80,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      */
     public void add(T toAdd) throws DuplicateItemException {
         assert toAdd != null;
+        
         if (contains(toAdd)) {
             throw new DuplicateItemException();
         }

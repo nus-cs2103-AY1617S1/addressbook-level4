@@ -10,7 +10,8 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0139817U
 /**
- * Parses Add commands
+ * Parses arguments and create the appropriate add commands that will enable Floating, Deadline
+ * and Event tasks to be added.
  */
 public class AddCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddTaskCommand.COMMAND_WORD;
@@ -19,8 +20,8 @@ public class AddCommandParser extends CommandParser{
 	/**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
-     * @return the prepared command
+     * @param arguments Details of the task to add.
+     * @return 			A prepared add command.
      */
 	public TaskCommand prepareCommand(String arguments) {
 		try {
@@ -34,6 +35,10 @@ public class AddCommandParser extends CommandParser{
 	/**
      * Based on the description for the add command, determines if it is a FloatingTask, DeadlineTask or EventTask to be added.
      * Then, return the appropriate addTaskCommand by calling the corresponding constructor.
+     * 
+     * @param description	Description for the task.
+     * @return 				A prepared add command.
+     * @throws IllegalValueException 	When add task constructor fails.
      */
     private AddTaskCommand createAppropriateAddTaskCommand(String description)
     			throws IllegalValueException {
@@ -82,6 +87,12 @@ public class AddCommandParser extends CommandParser{
      * a valid start date to end date format.
      * 
      * With the results, decide whether the task to add is a DeadlineTask, EventTask or FloatingTask.
+     * 
+     * @param description	Description for the task.
+     * @param substringFrom	Index where the keyword is found.
+     * @param keyword		The keyword string.
+     * @return 				A prepared add command.
+     * @throws IllegalValueException	When add task constructor fails.
      */
     private AddTaskCommand createAddTaskCommandBasedOnDateString(String description, int substringFrom, String keyword) 
     			throws IllegalValueException {
