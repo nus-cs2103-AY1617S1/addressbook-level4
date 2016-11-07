@@ -649,7 +649,7 @@ public class LogicManagerTest {
 		assertCommandBehavior("done todo 1", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget1), expectedAB,
 				expectedList);
 
-		assertCommandBehavior("undone todo 1", String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, pTarget1),
+		assertCommandBehavior("undo todo 1", String.format(UndoCommand.MESSAGE_UNDO_SUCCESS, pTarget1),
 				expectedAB, expectedList);
 
 		assertCommandBehavior("done todo 3", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, pTarget2), expectedAB,
