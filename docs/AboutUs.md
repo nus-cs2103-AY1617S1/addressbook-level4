@@ -13,8 +13,18 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Zhang Yi Jiang](https://github.com/ZhangYiJiang)
 <img src="images/Yijiang.jpg" width="150"><br>
 **Role**: Lead Developer <br>
-**Responsibilities**: Parser, Logic and Integration
 
+* Components in charge of: Logic, Model 
+* Aspects/tools in charge of: Mockito, Faker, PrettytimeNLP 
+* Features implemented:
+    * Add, delete, exit and find commands 
+    * Undo and redo 
+* Code written: [functional code] [test code] [docs]
+* Other major contributions:
+    * Did the initial refactoring from AddressBook to Todo
+    * Refactored storage component 
+    * Designed Command and Argument subcomponents 
+    
 -----
 
 #### [Govind Venugopalan](https://github.com/cricketer94)
