@@ -101,7 +101,7 @@
 
 ###Update Command
  Command: `update todo 6 date 30/12/2016` <br>
- Expected:Updated Task: 
+ Expected: Updated Task: 
 From: Eat chocolate 
 To: Eat chocolate on 30/12/2016 <br>
 
