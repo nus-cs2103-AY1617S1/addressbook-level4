@@ -31,7 +31,7 @@ Get started with <i>Tusk</i> now!
    This app will not work with earlier versions of Java 8.
 
 1. Download the latest `tusk.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for Tusk.
+2. Copy the file to the folder you want to use as the home folder for <i>Tusk</i>.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
  > <img src="images/UIDemo.png" width="600"><br>
@@ -40,8 +40,8 @@ Get started with <i>Tusk</i> now!
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`help`** : lists all commands
-   * **`add`**` Meeting, July 10, 5pm-6pm` :
-     adds a `Meeting` task on `July 10, 5pm-6pm` to Tusk
+   * **`add`**` Meeting on July 10 5pm` :
+     adds a `Meeting` task on `July 10 5pm` to <i>Tusk</i>
    * **`alias`**` am add Meeting` : binds `am` as a shortcut for `add Meeting`
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -63,7 +63,7 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to Tusk. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
+Adds a task to <i>Tusk</i>. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
 > **Date-Time Format**
 > * Note that dates and timings follow [strict formats](#date-time-format) <br>
@@ -176,7 +176,7 @@ Examples:
 
 <br>
 #### Clearing all entries : `clear`
-Clears all entries from the currently displayed list in Tusk.<br>
+Clears all entries from the currently displayed list in <i>Tusk</i>.<br>
 Format: `clear`
 
 <br>
@@ -282,7 +282,7 @@ Format: `alias SHORTCUT [ANY_SENTENCE]`
 Examples:
 * `alias am add Meeting`
 * `am` <br>
-  Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
+  Typing `am on July 10 5pm` is the same as `add Meeting on July 10 5pm`
 <br><br>
 * `alias s find Dinner`
 * `s` <br>
@@ -298,8 +298,7 @@ Format: `unalias SHORTCUT`
 
 Examples:
 * `alias am add Meeting` <br>
-  Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
-  <br><br>
+  Typing `am on July 10 5pm` is the same as `add Meeting on July 10 5pm`
 * `unalias am` <br>
   Typing `am` no longer translates into `add Meeting`
 
@@ -351,7 +350,7 @@ Examples:
 
 <br>
 ## Command History
-Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all the commands that you have entered since Tusk was started. This also allows you to fix any incorrectly entered commands, make minor adjustments to commands previously entered, or simply enter the same command many times consecutively.
+Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all the commands that you have entered since <i>Tusk</i> was started. This also allows you to fix any incorrectly entered commands, make minor adjustments to commands previously entered, or simply enter the same command many times consecutively.
 
 <br>
 ## Scrolling
@@ -361,7 +360,7 @@ Pressing <kbd>Ctrl</kbd> + <kbd>UP</kbd> or <kbd>Ctrl</kbd> + <kbd>DOWN</kbd> sc
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the data folder it creates with the data folder from your original Tusk installation.
+**A**: Install the app in the other computer and overwrite the data folder it creates with the data folder from your original <i>Tusk</i> installation.
 
 <br>
 ## Command Summary
