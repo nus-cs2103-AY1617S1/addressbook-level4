@@ -50,7 +50,7 @@ Gone are the repetitive mouse clicks other task managers require of you. With a 
 
 <br>
 ## Features
-
+<!-- @@author A01388993L -->
 ###1 Add Command
 There are three variations to the add command. You are able to choose a task to be categorized under events, deadlines or to-dos. To differentiate the formatting for these commands, refer to the section below.
 <br><br>
@@ -98,7 +98,7 @@ Your friend suddenly informs you that he has heard that your teacher has prepare
 Example: Add D1 #VeryImportant #omg  
 
 <br>
-
+<!-- @@author A0139430L -->
 ###2 Edit a task
 
 When you accidentally enter the wrong details for any of your tasks, worry not. The multiple edit task methods listed below allow you to update specific task details.
@@ -205,6 +205,7 @@ Example: find report
 Only tasks with the keyword are displayed. Keywords are NOT case sensitive.
 
 <br>
+<!-- @@author A0135722L -->
 ###4 Marking tasks as done 
 
 Remember the report that we added at the start? Once you have done it, simply type the following command below and <kbd>Enter</kbd> and you will never have to see it again. Unless of course, if you want to, then we will show you how in the later part of this user guide. 
@@ -249,6 +250,7 @@ Now that you have seen all the tasks that you have done, to return to the main d
 > Format: list
 
 <br>
+<!-- @@author A0139430L -->
 ###6 Delete task
 
 If you no longer need any tasks, simply delete them by using the delete command availabe in the following formats. 
@@ -269,6 +271,7 @@ Example: delete T1, T3
 The delete command is flexible and allows you to delete more than 1 task at a time. If the indexes entered are separated by a hyphen (-), Simply will delete all tasks between the numbers including the numbers enter. If the indexes are separated by a comma (,) Simply will delete the tasks entered individually. 
 
 <br>
+<!-- @@author A0147890U -->
 ###7 Undo the Most Recent Commands
 
 Oh no! What happens if you accidentally deleted something by mistake? In life, there are no undos but here, there are. The following undo command enables you to undo the most recent executed command, restoring anything lost.
