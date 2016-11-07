@@ -1,6 +1,5 @@
 package seedu.dailyplanner.model.task;
 
-
 public class DateTime implements Comparable<DateTime> {
 
 	public final Date m_date;
@@ -13,7 +12,12 @@ public class DateTime implements Comparable<DateTime> {
 
 	@Override
 	public String toString() {
-		return m_date.toString() + " " + m_time.toString();
+		if (m_date.toString().equals(""))
+			return "";
+		else if (m_time.toString().equals(""))
+			return m_date.toString();
+		else
+			return m_date.toString() + " " + m_time.toString();
 	}
 
 	public Date getDate() {
