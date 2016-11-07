@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `FlexiTrackChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -99,8 +99,8 @@ The sections below give more details of each component.
 //@@ author
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -244,7 +244,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, FlexiTrack depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -273,7 +273,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | As a user | I want to block a multiple time slot for uncertain time of an event, | So that I will not plan something on the uncertain timing.
 `* * *` | As a user | I want to find a free time slot in my schedule, | So that can plan my time better. 
 `* *` | As a user | I want to add a recurring task, | So that I do not have to keep adding the same task every week/day. 
-`* *` | As a user | I want to have an auto complete search tool, | So that it will be easier for me to find a task. 
 `* *` | As a user | I want to find a task that is similar to what I’m searching, | So that I can see similar tasks.
 `* *` | As a user | I want to find a task with the exact name, | So that I can locate the exact task I'm looking for.
 `* *` | As a user | I want to launch the program with key combination (ALT+SPACE), | So that I can minimized time spent on clicking. 
