@@ -13,6 +13,8 @@ public class UserPrefsStorage implements FixedStorage<UserPrefs> {
 
     private String filePath;
 
+    public UserPrefsStorage() {}
+
     public UserPrefsStorage(String filePath) {
         this.filePath = filePath;
     }
