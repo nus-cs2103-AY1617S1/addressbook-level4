@@ -254,6 +254,7 @@ public class Parser {
     
     private String extractDetailType(String detailType) {
     	switch(detailType.substring(0, 2)) {
+    	case "s/": return "startDate";
     	case "d/": return "dueDate";
     	case "a/": return "address";
     	case "p/": return "priority";
@@ -268,9 +269,11 @@ public class Parser {
         }
     	
     	newDetail = newDetail.substring(2);
-    	if(detailType == "dueDate") {
+    	
+    	if(detailType == "startDate" || detailType == "dueDate") {
     		newDetail = parseDueDate(newDetail);
     	}
+    	
     	return newDetail;
     }
     
