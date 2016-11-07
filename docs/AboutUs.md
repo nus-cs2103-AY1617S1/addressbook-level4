@@ -49,8 +49,9 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: 
     * Ensuring code quality
     * Git/Integration
-    * Natural language parsing
-    * Date parsing with Natty
+    * Flexi-command parsing (Tokenizer)
+    * Disambiguation flow
+    * Date parsing (Natty)
 * Features implemented:
     * Controllers
       - `add` controller
@@ -66,7 +67,9 @@ We are a team based in the [School of Computing, National University of Singapor
       * DateParser concern (with Natty)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/main/A0093907W.md)][[test code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/test/A0093907W.md)][[docs](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/test/A0093907W.md)]
 * Other major contributions:
-    * TBC
+    * Designed the entire back-end architecture (MVC pattern)
+    * Designed predicate-based Model filtering to replace old filtering patterns
+    * Came up with the generic parse-by-token algorithm to support all Controllers
 
 -----
 
