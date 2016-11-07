@@ -219,6 +219,8 @@ The `Logic` component
 - `LogicManager`  takes the command and executes it by calling `Model`
 - `TaskResult` is created and returned to the `UI` to be displayed to the user
 
+> <img src="DeveloperGuideImages/LogicDelete.png" width="600">
+
 The sequence diagram above shows the interactions between the `Logic` component for the calling the execute() on "delete 1".
 
 ###**Model component**
