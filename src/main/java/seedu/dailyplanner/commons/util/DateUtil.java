@@ -1,5 +1,6 @@
 package seedu.dailyplanner.commons.util;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import seedu.dailyplanner.logic.parser.nattyParser;
@@ -88,6 +89,31 @@ public class DateUtil {
             return false;
         }
         
+    }
+    
+    /** Checks if string is in dd/mm/yyyy format 
+     * @return */
+    public static boolean isValidDayMonthAnd4DigitYearFormat(String date) {
+        if (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{4})"))
+            return true;
+        else
+           return false;
+    }
+    
+    /** Checks if string is in dd/mm/yy format 
+     * @return */
+    public static boolean isValidDayMonthAnd2DigitYearFormat(String date) {
+        if (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{2})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{2})"))
+            return true;
+        else
+           return false;
+    }
+    
+    /** Converts string from dd/mm/yy to dd/mm/20yy format  */
+    public static String convertTo4DigitYearFormat(String date) {
+        String dayAndMonth = date.substring(0,6);
+        String yy = date.substring(6);
+        return dayAndMonth + "20" + yy;
     }
 
 }

@@ -393,21 +393,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             TaskBuilder meetAdamTaskBuilder = new TaskBuilder();
-            meetAdamTaskBuilder.withName("Meet adam").withStartDate("7 november").withEndDate("tomorrow").withCompletion(false)
+            meetAdamTaskBuilder.withName("Meet adam").withStartDate("07/11/2016").withEndDate("08/11/2016").withCompletion(false)
             .withCategories("meeting")
             .withPin(false);
-            
-            System.out.println("tags in TestTask: ");
-            for (Tag t: meetAdamTaskBuilder.build().getTags()) {
-                System.out.println(t.tagName);
-                }
-            
-            System.out.println("tags in Task: ");
-            for (Tag t: meetAdamTaskBuilder.buildAsTask().getTags()) {
-            System.out.println(t.tagName);
-            }
-            
+                        
             Task meetAdamTask = meetAdamTaskBuilder.buildAsTask();
+            
+            System.out.println("Task generated: " + meetAdamTask.toString());
             
             return meetAdamTask;
         }
