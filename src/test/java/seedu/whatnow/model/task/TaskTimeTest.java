@@ -157,4 +157,64 @@ public class TaskTimeTest {
       assertEquals("14/12/2222", test.getEndDate());
       assertEquals("null 12/12/2222 14/12/2222 null 11:58pm 11:59pm", test.getFullString());
   }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_OneDayOneTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime("10:00pm", null, null, "monday", null, null);
+      assertTrue(test.getDate() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_TwoSameDayOneTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime("10:10pm", null, null, null, "monday", "monday");
+      assertTrue(test.getTime()!= null);
+      assertTrue(test.getStartDate() != null);
+      assertTrue(test.getEndDate() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_TwoDayTwoTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime(null, "10:10pm", "10:20pm", null, "tuesday", "tuesday");
+      assertTrue(test.getStartDate() != null);
+      assertTrue(test.getEndDate() != null);
+      assertTrue(test.getStartTime() != null);
+      assertTrue(test.getEndTime() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_TodayAndOneDayAndTwoTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime(null, "10:10pm","10:10pm", null, "tomorrow", "wednesday");
+      assertTrue(test.getStartDate() != null);
+      assertTrue(test.getEndDate() != null);
+      assertTrue(test.getStartTime() != null);
+      assertTrue(test.getEndTime() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_TomorrowAndDayAndTwoTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime(null, "10:50am", "10:59am", null, "tomorrow", "thursday");
+      assertTrue(test.getStartDate() != null);
+      assertTrue(test.getEndDate() != null);
+      assertTrue(test.getStartTime() != null);
+      assertTrue(test.getEndTime() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_DateAndDayAndTwoTime_correctArguments() throws IllegalValueException {
+      TaskTime test = new TaskTime(null , " 10:50am", "10:55am", null, "friday", "23/2/2017");
+      assertTrue(test.getStartDate() != null);
+      assertTrue(test.getEndDate() != null);
+      assertTrue(test.getStartTime() != null);
+      assertTrue(test.getEndTime() != null);
+  }
+  //@@author A0139128A
+  @Test
+  public void TaskTime_DateAndDayAndTwoTime_IncorrectArguments() throws IllegalValueException {
+      
+      try {
+          TaskTime test = new TaskTime(null, "10:50am", "10:10pm", null , "21/2/2017", "saturday");
+      } catch (IllegalValueException e) {
+          assertEquals(e.getMessage(), TaskTime.INVALID_DATE_RANGE_MESSAGE);
+      }
+  }
 }

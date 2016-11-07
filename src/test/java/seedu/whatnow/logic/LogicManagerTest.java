@@ -653,21 +653,6 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("done", "todo");
     }
 
-//         @Test
-//         public void execute_markDone_marksCorrectTask() throws Exception {
-//         TestDataHelper helper = new TestDataHelper();
-//         List<Task> threeTasks = helper.generateTaskList(3);
-//        
-//         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
-//         expectedAB.markTask(threeTasks.get(1));
-//         helper.addToModel(model, threeTasks);
-//        
-//         assertCommandBehavior("done schedule 2",
-//         String.format(MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS,
-//         threeTasks.get(1)),
-//         expectedAB,
-//         expectedAB.getTaskList());
-//         }
     /**
      * Confirms the 'invalid argument behaviour' for the given command
      * 
