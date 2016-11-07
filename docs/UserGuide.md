@@ -6,7 +6,7 @@
 * [Command Summary](#command-summary)
 
 <!-- @@author A0144061U -->
-## Description
+##Description
 Tdoo Schedule Manager is a Command Line Interface Task Management Application that helps you manage your workflow.<br>
 There are three main types of a task: Todo, Event and Deadline. Todo is a floating task that does not have a specific starting or ending time. When adding a Todo, you can set the priority of the task, so that you can strategise your work priority. Event is a task with specific start and end date/time. Deadline is a task with only end date and time. All three types of tasks can be marked as 'done' by the user, which is indicated by green in the interface. Events and Deadlines will be marked as 'Overdue', which is indicated by red, once the current time passes the end date/time, if they are not marked as 'done'. <br>
 Once you type in a command to the command box, it will be reflected in the three task lists with three different task types. For most of the commands, it is required to specifiy which type of task is to be manipulated. Refer to the [Features](#features) section for more detail.
@@ -109,7 +109,8 @@ Shows a list of all tasks in the task-list.<br>
 <a name="find"></a>
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
-The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
+The order of the keywords does not matter, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
+Keywords can be either name of the task or the starting date of the task. <br>
 > Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]` <br>
 > Example(all): `find all School work is fun` <br>
 > Example(Todo): `find todo Study is good` <br>

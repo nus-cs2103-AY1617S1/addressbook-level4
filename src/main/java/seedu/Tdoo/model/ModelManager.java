@@ -241,12 +241,12 @@ public class ModelManager extends ComponentManager implements Model {
 				todoList.removeTask(target);
 				todoList.sortData();
 			} else if (dataType.equals("event")) {
-				todoList.addTask(task);
+				todoList.addTaskWithIndex(task , targetIndex);
 				todoList.sortData();
                 type = "todo";
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
-				todoList.addTask(task);
+				todoList.addTaskWithIndex(task , targetIndex);
 				todoList.sortData();
                 type = "todo";
 				deadlineList.removeTask(target);
@@ -256,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
 			raise(new JumpTodoListRequestEvent(task));
 		} else if (task instanceof Event) {
 			if (dataType.equals("todo")) {
-				eventList.addTask(task);
+				eventList.addTaskWithIndex(task , targetIndex);
 				eventList.sortData();
                 type = "event";
 				todoList.removeTask(target);
@@ -265,7 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
 				eventList.sortData();
 				eventList.removeTask(target);
 			} else if (dataType.equals("deadline")) {
-				eventList.addTask(task);
+				eventList.addTaskWithIndex(task , targetIndex);
 				eventList.sortData();
                 type = "event";
 				deadlineList.removeTask(target);
@@ -275,12 +275,12 @@ public class ModelManager extends ComponentManager implements Model {
 			raise(new JumpEventListRequestEvent(task));
 		} else if (task instanceof Deadline) {
 			if (dataType.equals("todo")) {
-				deadlineList.addTask(task);
+				deadlineList.addTaskWithIndex(task , targetIndex);
 				deadlineList.sortData();
 	            type = "deadline";
 				todoList.removeTask(target);
 			} else if (dataType.equals("event")) {
-				deadlineList.addTask(task);
+				deadlineList.addTaskWithIndex(task , targetIndex);
 				deadlineList.sortData();
 	            type = "deadline";
 				eventList.removeTask(target);
