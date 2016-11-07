@@ -82,13 +82,6 @@ public class PinnedItemPanel extends UiPart {
         pinnedListView.getSelectionModel().clearSelection();
     }
 
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            pinnedListView.scrollTo(index);
-            pinnedListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
-
     class PinnedItemListViewCell extends ListCell<ReadOnlyTask> {
 
         @Override

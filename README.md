@@ -4,7 +4,7 @@
 
 # WhatNow (V0.5rc)
 
-<img src="\main\docs\images\UI_Actual\initialDisplay.PNG" width="600"><br>
+<img src="docs\images\UI_Actual_Final\initialDisplay.PNG" width="600"><br>
 =======
 
 Figure 1: GUI layout

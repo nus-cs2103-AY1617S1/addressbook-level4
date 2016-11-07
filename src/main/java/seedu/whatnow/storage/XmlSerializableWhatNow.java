@@ -82,12 +82,10 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
-                e.printStackTrace();
-                // TODO: better error handling
+                logger.warning("At XmlSerializableWhatNow, getTaskList: \n" + e.getMessage());
                 return null;
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.warning("At XmlSerializableWhatNow, getTaskList: \n" + e.getMessage());
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

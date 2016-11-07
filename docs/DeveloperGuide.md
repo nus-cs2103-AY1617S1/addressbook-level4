@@ -362,6 +362,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | redo a command | redo an accidental undo command
 `* *` | user | choose the data file location | store the file on the cloud (For e.g. Dropbox) to sync the data across multiple computers or other preferable locations.
 `*` | user with many tasks in WhatNow | sort tasks by priority | locate the most important and immediate tasks easily
+`*` | user | find all my free time | assign a task during my free time
+`*` | user | pin tasks | easily find them later
 
 ## Appendix B : Use Cases
 
@@ -571,6 +573,54 @@ Use case ends.<br>
   >1a1. System displays `0 tasks listed` message.<br>
 
   >Use case ends.<br>
+
+#### **Use case: Find free time**
+
+
+**MSS**<br>
+
+
+1. User requests to list free time on a particular date.<br>
+
+
+2. System displays all free time blocks on that particular date.<br>
+
+
+**Extensions**<br>
+
+
+1a. There are no free time blocks.<br>
+
+
+  >1a1. System displays `No free time` message.<br>
+
+
+  >Use case ends.<br>
+
+
+#### **Use case: Pin tasks**
+
+
+**MSS**<br>
+
+
+1. User requests to pin all tasks with the particular date or tag.<br>
+
+
+2. System displays all pinned tasks on the “Pinned Items panel.<br>
+
+
+**Extensions**<br>
+
+
+1a. There are no tasks of that particular date or tag.<br>
+
+
+  >1a1. System displays `No tasks to pin` message.<br>
+
+
+  >Use case ends.<br> 
+
 
 ## Appendix C : Non Functional Requirements
 

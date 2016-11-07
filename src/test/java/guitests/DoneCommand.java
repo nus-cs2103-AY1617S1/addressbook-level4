@@ -52,13 +52,7 @@ public class DoneCommand extends WhatNowGuiTest {
     private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
         TestTask taskToMarkDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
-        
-        for (int i = 0; i < expectedRemainder.length; i++) {
-            System.out.println("i: " + i + " " + expectedRemainder[i]);
-            System.out.println("i: " + i + " " + taskListPanel.getTask(i).toString());
-            System.out.println();
-        }
-        
+
         commandBox.runCommand("done " + "schedule " + targetIndexOneIndexed);
         
         //confirm the list now contains all previous tasks except the deleted task
