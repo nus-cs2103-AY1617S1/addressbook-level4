@@ -81,12 +81,7 @@ public class UpdateController extends Controller {
         String naturalTo = naturalDates[1];
 
         // Record index
-        Integer recordIndex = null;
-        try {
-            recordIndex = parseIndex(parsedResult);
-        } catch (NumberFormatException e) {
-            recordIndex = null; // Later then disambiguate
-        }
+        Integer recordIndex = parseIndex(parsedResult);
 
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
@@ -136,12 +131,15 @@ public class UpdateController extends Controller {
      */
     private Integer parseIndex(Map<String, String[]> parsedResult) {
         String indexStr = null;
-        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
-            indexStr = parsedResult.get("default")[1].trim();
-            return Integer.decode(indexStr);
-        } else {
-            return null;
+        try {
+            if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
+                indexStr = parsedResult.get("default")[1].trim();
+                return Integer.decode(indexStr);
+            }
+        } catch (NumberFormatException e) {
+            // Everything is fine, just return null if cannot.
         }
+        return null;
     }
 
     /**
