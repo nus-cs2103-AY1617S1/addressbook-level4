@@ -32,6 +32,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   
 
 -----
+<!-- @@author A0139671X -->
 
 #### [Teh Chee Yeo](https://github.com/cheo1994) <br>
 <img src="images/Chee Yeo.png" width="150"><br>
@@ -52,6 +53,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   * Ensured overall code organization
   * Fixed major bugs
 -----
+<!-- @@author -->
 
 <!-- @@author A0139198N -->
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
