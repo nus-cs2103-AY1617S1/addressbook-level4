@@ -11,8 +11,8 @@ import harmony.mastermind.testutil.TypicalTestTasks;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 
-    @Test
     //@@author A0124797R
+    @Test
     public void add() {
         //add one floating task with tags
         TestTask[] currentList = td.getTypicalTasks();
@@ -34,7 +34,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND+": adds Laundry");
     }
 
-    //@@author A0124797R
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
         

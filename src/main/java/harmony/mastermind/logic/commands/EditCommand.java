@@ -54,7 +54,6 @@ public class EditCommand extends Command implements Undoable, Redoable {
                                                + "edit 2 name to parents with dinner, end date to tomorrow 7pm, recur daily, tags to #meal,family";
 
     public static final String MESSAGE_EDIT_TASK_PROMPT = "Edit the following task: %1$s";
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task successfully edited: %1$s";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Edit Command] Task reverted: %1$s";
     public static final String MESSAGE_REDO_SUCCESS = "[Redo Edit Command] Edit the following task: %1$s";
