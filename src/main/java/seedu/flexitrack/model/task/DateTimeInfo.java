@@ -67,7 +67,6 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     /**
      * Change the format of the timing saved in setTime
      * 
-     * @param inferred  True if the timing is inferred 
      */
     void formatStartOrDueDateTime() {
         if (timeInfo.isTimeInferred()) {
@@ -526,6 +525,14 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
             return null;
         }
 
+    }
+
+    public void checkDueDateOrStartTime() {
+        this.formatStartOrDueDateTime();
+    }
+
+    public void checkEndTime(DateTimeInfo startTime) {
+        this.formatEndTime(startTime);
     }
 
 }
