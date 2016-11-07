@@ -7,6 +7,12 @@ import w15c2.tusk.commons.events.BaseEvent;
  */
 public class HideHelpRequestEvent extends BaseEvent {
 
+    /**
+     * Returns String of class name for logging
+     * purposes.
+     * 
+     * @return  String of class name.
+     */
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

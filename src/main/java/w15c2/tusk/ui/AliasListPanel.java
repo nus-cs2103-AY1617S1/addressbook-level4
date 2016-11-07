@@ -37,20 +37,36 @@ public class AliasListPanel extends UiPart {
     @FXML
     private ListView<Alias> aliasListView;
 
+    /**
+     * Constructor for AliasListPanel,
+     * uses UiPart constructor
+     */
     public AliasListPanel() {
         super();
     }
-
+    
+    /**
+     * Sets the node for the panel,
+     * used in UiPart load
+     */
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
     }
-
+    /**
+     * Returns the name of the AliasListPanel
+     * FXML file.
+     * 
+     * @return  String of FXML file name.
+     */
     @Override
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    /**
+     * Assign placeHolderPane to  
+     */
     @Override
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
