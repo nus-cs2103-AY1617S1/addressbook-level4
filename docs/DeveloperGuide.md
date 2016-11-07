@@ -578,7 +578,7 @@ Use case ends.
 > Application shows an error message.  
 Use case ends.
 
-<!--@@author-->
+<!-- @@author-->
 
 <!-- @@author A0093907W -->
 
@@ -767,32 +767,33 @@ Use case ends.
 Use case ends.
 <!-- @@author -->
 
-#### Use case : UC19 - Alias
+<!-- @@author A0139812A -->
+#### Use case : UC19 - Add alias
 
 **MSS**
 
-1. User requests to set alias for specific command.
-2. Application sets the Alias for the command.  
+1. User requests to set an alias mapping.
+2. Application commits the alias mapping.  
 Use case ends.
 
 **Extensions**
 
-1a. The given alias is already set.
+1a. The specified alias key is already set.
 > 1a1. Application shows an error message.  
 Use case ends.
 
-1b. The given command is invalid.
+1b. The command syntax is invalid.
 >1b1. Application shows an error message.  
 Use case ends.
 
-#### Use Case: UC20 - Remove Alias
+#### Use Case: UC20 - Remove alias
 
 **MSS**
 
-1. User requests for a list of alias that is currently set.
-2. Application shows a list of alias and its respective command.
-3. User requests to remove alias from the specific command.
-4. Application removes the alias of the specific command.  
+1. User requests for a list of existing alias mappings.
+2. Application shows the list of existing alias mappings.
+3. User requests to remove an existing alias mapping.
+4. Application removes the alias mapping.
 Use case ends.
 
 **Extensions**  
@@ -800,13 +801,14 @@ Use case ends.
 1a. The list is empty.  
 > Use case ends.
 
-3a. The given index of the alias is invalid.
+3a. The specified alias key does not exist.
 > 3a1. Application will show an error message.  
 Use case ends.
 
-3b. The given command is invalid.
+3b. The commmand syntax is invalid.
 > 3b1. Application will show an error message.  
 Use case ends.
+<!-- @@author -->
 
 <!-- @@author A0093907W -->
 #### Use case: UC21 - Clear all tasks and events
