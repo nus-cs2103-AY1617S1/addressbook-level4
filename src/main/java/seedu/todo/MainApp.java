@@ -18,9 +18,9 @@ import seedu.todo.logic.TodoDispatcher;
 import seedu.todo.logic.TodoLogic;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.logic.parser.TodoParser;
-import seedu.todo.model.*;
-import seedu.todo.storage.Storage;
-import seedu.todo.storage.StorageManager;
+import seedu.todo.model.Model;
+import seedu.todo.model.TodoModel;
+import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
@@ -39,7 +39,6 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
     protected Model model;
     protected Dispatcher dispatcher; 
     protected Parser parser;
@@ -54,9 +53,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getUserPrefsFilePath());
-
-        userPrefs = initPrefs(config);
+        userPrefs = new UserPrefs(config);
 
         initLogging(config);
 
@@ -112,34 +109,6 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    protected UserPrefs initPrefs(Config config) {
-        assert config != null;
-
-        String prefsFilePath = config.getUserPrefsFilePath();
-        logger.info("Using prefs file : " + prefsFilePath);
-
-        UserPrefs initializedPrefs;
-        try {
-            initializedPrefs = storage.readUserPrefs();
-        } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
-                    "Using default user prefs");
-            initializedPrefs = new UserPrefs();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. . Will be starting with an empty Todo-List");
-            initializedPrefs = new UserPrefs();
-        }
-
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-
-        return initializedPrefs;
-    }
-
     private void initEventsCenter() {
         EventsCenter.getInstance().registerHandler(this);
     }
@@ -154,11 +123,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping Uncle Jim's Discount To-do List ] =============================");
         ui.stop();
-        try {
-            storage.saveUserPrefs(userPrefs);
-        } catch (IOException e) {
-            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        }
+
         Platform.exit();
         System.exit(0);
     }
