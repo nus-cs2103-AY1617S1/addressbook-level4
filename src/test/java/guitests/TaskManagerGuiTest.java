@@ -132,5 +132,12 @@ public abstract class TaskManagerGuiTest {
         assertEquals(expected, tabPane.getCurrentTab());        
     }
     
+    /**
+     * Asserts the current tab is the same as the given tab name
+     */
+    protected void assertCommandBox(String expected) {
+        assertEquals(expected, commandBox.getCommandInput());        
+    }
+    
     
 }

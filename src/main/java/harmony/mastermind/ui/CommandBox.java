@@ -9,7 +9,10 @@ import java.util.logging.Logger;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import com.google.common.eventbus.Subscribe;
+
 import harmony.mastermind.commons.core.LogsCenter;
+import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.util.FxViewUtil;
 import harmony.mastermind.logic.Logic;
@@ -119,8 +122,7 @@ public class CommandBox extends UiPart {
 
         this.raise(new NewResultAvailableEvent(mostRecentResult.title, mostRecentResult.feedbackToUser));
 
-        logger.info("Result: "
-                    + mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
  // @@author A0124797R
@@ -248,12 +250,17 @@ public class CommandBox extends UiPart {
     private String getNextCommandHistory() {
         if (commandHistory.empty()) {
             return null;
-        } else if (commandIndex >= commandHistory.size()
-                                   - 1) {
+        } else if (commandIndex >= commandHistory.size() - 1) {
+            commandIndex = commandHistory.size();
             return null;
         } else {
             commandIndex++;
             return commandHistory.get(commandIndex);
         }
-}
+    }
+    
+    @Subscribe
+    private void handleIncorrectCommand(IncorrectCommandAttemptedEvent event) {
+        restoreCommandText();
+    }
 }
