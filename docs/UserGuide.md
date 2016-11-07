@@ -171,6 +171,7 @@ You can use this command to navigate through your list of tasks.<br><br>
 
 Now that you have seen how fast, simple and smart sTask can be in managing your mundane tasks, start using it now and become a Champion of your life!<br> 
 <!--@@author-->
+
 <!--@@author A0139145E-->
 ## 4. FAQ
 
@@ -227,11 +228,11 @@ Exit | `exit` | Exits sTask
 
 &nbsp;&nbsp;&nbsp;&nbsp;We are grateful to Professor Damith Chatura Rajapakse and his team of highly dedicated tutors and project mentors, for giving us this opportunity to develop this product and for guiding us along the way.
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>6.1 Source Code</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.1 Source Code</b><br>
 We would like to acknowledge the original source of our code, i.e., the sample Address Book project created by the se-edu initiative at  https://github.com/se-edu/ .
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>6.2 External Libaries</b><br>
 We would like to acknowledge the developers of Natty for their natural language date parser at http://natty.joestelmach.com/<br><br>
 <!--@@author-->
 <!--@@author A0139528W-->
@@ -240,16 +241,14 @@ We would like to acknowledge the developers of Natty for their natural language 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.1 Input Formats for Task Name</b><br>
 
 >> Each task description can have any characters except '/'.
-<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.2 Input Formats for Task Description</b><br>
 
 >> Each task description can have any characters except '/'.<br>
-<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.3 Input Formats for Date and Time</b><br>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.3.1 Possible Date Formats<br>
+>> Possible Date Formats<br>
 
 Format | Example
 -------- | :-------- 
@@ -257,7 +256,7 @@ DD-MM-YYYY  | 27-2-2101
 DD MMM YYYY | 15 MAY 2103
 Relative Date	| Today<br>Tmr<br>2 weeks later<br>Christmas<br>Valentines Day
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.3.2 Rejected Date Formats<br>
+>> Rejected Date Formats<br>
 
 Format | Example
 -------- | :-------- 
@@ -266,7 +265,7 @@ DD-MM-YY | 27-02-10
 DD.MM.YY | 27.02.10
 DD.MM.YYYY | 27.02.2010
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.3.3 Possible Time Formats<br>
+>> Possible Time Formats<br>
 
 Format | Example
 -------- | :-------- 
@@ -274,16 +273,14 @@ Format | Example
 AM/PM | 2.30pm
 Relative Time | 2 hours later <br> 30 mins later
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7.3.4 Rejected Time Formats<br>
+>> Rejected Time Formats<br>
 
 Format | Example
 -------- | :-------- 
 Time | 230pm 
 
-For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp <br><br>
+For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.4 Input formats for Tags</b><br>
 
 >> Each tag must be a word that only contains alphanumerics (A-Z, a-z, 0-9)<br>
-<br>
-
