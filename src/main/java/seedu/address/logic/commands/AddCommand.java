@@ -23,16 +23,16 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday (someday) to the task manager.\n"
-            + "Event Same Day Parameters: 'TASK_NAME' from HH:MM to HH:MM on DD-MM-YY\n"
+            + "Event Same Day Parameters: 'TASK_NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS] ...\n"
             + "Event Same Day Example: " + COMMAND_WORD
             + " 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
-            + "Event Different Days Parameters: 'TASK_NAME' from HH:MM DD-MM-YY to HH:MM DD-MM-YY\n"
+            + "Event Different Days Parameters: 'TASK_NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS]...\n"
             + "Event Different Days Example: " + COMMAND_WORD
             + " 'business conference' from 19:00 20-12-16 to 21:00 25-12-16\n"
-            + "Deadline Parameters: 'TASK_NAME' by HH:MM DD-MM-YY\n"
+            + "Deadline Parameters: 'TASK_NAME' by TIME [DATE] [#TAGS]\n"
             + "Deadline Example: " + COMMAND_WORD
             + " 'lab report' by 16:00 03-03-15\n"
-            + "Someday Parameters: 'TASK_NAME'\n"
+            + "Someday Parameters: 'TASK_NAME' [#TAGS]...\n"
             + "Someday Example: " + COMMAND_WORD
             + " 'water the plants'";
     
@@ -43,6 +43,7 @@ public class AddCommand extends Command {
     //@@author A0141019U    
     public AddCommand(String name, String taskType, Optional<LocalDateTime> startDate, Optional<LocalDateTime> endDate, Set<String> tags) 
     		throws IllegalValueException, IllegalArgumentException {
+    	
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));

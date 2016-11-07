@@ -41,7 +41,6 @@ public class DateParserTest {
 		assertEquals(christmas430pm, date);
 	}
 
-	// TODO note in user guide that both - and / are both allowed in the same date
 	@Test
 	public void parseDate_yyyymmddhhmmpm_valueAsExpected() throws ParseException {
 		String userInput = "2016/12-25 4:30pm";

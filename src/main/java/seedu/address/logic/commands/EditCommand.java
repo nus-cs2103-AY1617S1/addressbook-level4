@@ -24,7 +24,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (positive integer) ['NEW_TASK_NAME'] [from HH:MM DD-MM-YY] [to | by HH:MM DD-MM-YY]\n"
+            + "Parameters: INDEX (positive integer) ['NEW_TASK_NAME'] [from TIME [DATE]] [to | by TIME [DATE]]\n"
             + "Example: " + COMMAND_WORD + " 1 'chill for the day' from 12am today to 11pm today";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";

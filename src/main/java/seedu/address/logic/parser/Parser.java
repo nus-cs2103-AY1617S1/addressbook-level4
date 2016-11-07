@@ -61,7 +61,6 @@ public class Parser {
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
 	
 	//@@author A0141019U
-	private static final Prefix namePrefix = new Prefix("'");
 	private static final Prefix startDateTimePrefix = new Prefix("from ");
 	private static final Prefix endDateTimePrefix = new Prefix("to ");
 	private static final Prefix dlEndDateTimePrefix = new Prefix("by ");
@@ -74,7 +73,12 @@ public class Parser {
 	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
-		String replacedInput = replaceAliases(userInput);
+		String replacedInput;
+		try {
+			replacedInput = replaceAliases(userInput);
+		} catch (IllegalArgumentException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
 		
 		System.out.println("original: " + userInput);
 		System.out.println("replaced: " + replacedInput);
@@ -146,7 +150,11 @@ public class Parser {
 	
 	
 	//@@author A0141019U	
-	private String replaceAliases(String userInput) {	
+	private String replaceAliases(String userInput) throws IllegalArgumentException {	
+		if (StringUtil.countOccurrences('\'', userInput) != 2 && StringUtil.countOccurrences('\'', userInput) != 0) {
+			throw new IllegalArgumentException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
+		
 		String quotedText = StringUtil.getQuotedText(userInput);
 		String inputWithNameRemoved = StringUtil.getNonQuotedText(userInput);
 		
@@ -164,8 +172,7 @@ public class Parser {
 		
 		return inputWithNameRemoved + " " + quotedText;
 	}
-	
-	//@@author A0141019U	
+		
 	private Map<String, String> getAliasMap() {
 		List<ReadOnlyAlias> aliasList = this.model.getFilteredAliasList();
 		Map<String, String> aliases = new HashMap<>();
@@ -178,10 +185,8 @@ public class Parser {
 	}
 	
 	
-
 	private Command prepareAdd(String arguments) {
 		if (StringUtil.countOccurrences('\'', arguments) != 2) {
-			// TODO better error msg?
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
@@ -221,6 +226,9 @@ public class Parser {
 	
 
 	/**
+	 * Return an AddCommand for an event task with start and end times on
+	 * different days. The parameters for the AddCommand are taken from the
+	 * arguments supplied to this method.
 	 * 
 	 * @param taskName
 	 *            name of the task to be added.
@@ -230,9 +238,9 @@ public class Parser {
 	 *            the user input string corresponding to adding an event, after
 	 *            the command word 'add' and the task name have been removed.
 	 *            'on' cannot be a part of the command string. Both times
-	 *            supplied must contain the date as well. 
-	 *            eg. `from 9:00am today to 10pm tomorrow #happy` is valid 
-	 *            but `from 9:00am today to 10pm #happy is not.
+	 *            supplied must contain the date as well. eg. `from 9:00am today
+	 *            to 10pm tomorrow #happy` is valid but `from 9:00am today to
+	 *            10pm #happy is not.
 	 * @return an AddCommand for an event task
 	 */
 	private Command prepareAddEventDifferentDays(String taskName, String taskType, String arguments) {
@@ -247,6 +255,9 @@ public class Parser {
 	}
 	
 	/**
+	 * Return an AddCommand for an event task with start and end times on
+	 * the same day. The parameters for the AddCommand are taken from the
+	 * arguments supplied to this method.
 	 * 
 	 * @param taskName
 	 *            name of the task to be added.
@@ -273,6 +284,8 @@ public class Parser {
 	}
 
 	/**
+	 * Return an AddCommand for a deadline task with parameters taken from the
+	 * arguments supplied to the method.
 	 * 
 	 * @param taskName
 	 *            name of the task to be added.
@@ -283,7 +296,7 @@ public class Parser {
 	 *            after the command word 'add' and the task name have been
 	 *            removed. The string must contain 'by' for the tokeniser to
 	 *            find the due by date. eg. `by 600`
-	 * @return
+	 * @return an AddCommand
 	 */
 	private Command prepareAddDeadline(String taskName, String taskType, String arguments) {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dlEndDateTimePrefix, tagsPrefix);
@@ -296,6 +309,8 @@ public class Parser {
 	}
 	
 	/**
+	 * Return an AddCommand for a someday task with parameters taken from the
+	 * arguments supplied to the method.
 	 * 
 	 * @param taskName
 	 *            name of the task to be added.
@@ -313,12 +328,12 @@ public class Parser {
 		argsTokenizer.tokenize(arguments);
 		
 		Set<String> tagSet = toSet(argsTokenizer.getAllValues(tagsPrefix));
-		
-		// TODO better approach than using nulls as flag values
+
 		return getAddCommand(taskName, taskType, null, null, tagSet);
 	}
 	
 	/**
+	 * Return an AddCommand from the arguments supplied.
 	 * 
 	 * @param taskName
 	 *            name of the task to be added.
@@ -366,11 +381,13 @@ public class Parser {
 	
 	//@@author A0141019U
 	/**
-     * Parses arguments in the context of the find task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
+	 * Returns a FindCommand that finds all tasks with keyphrases supplied to
+	 * the method.
+	 *
+	 * @param args
+	 *            keyphrases separated by commmas
+	 * @return a FindCommand
+	 */
     private Command prepareFind(String args) {
         if (args.equals("")) {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -380,23 +397,97 @@ public class Parser {
         final String[] keyphrases = args.trim().split("\\s*,\\s*");
         final Set<String> keyphraseSet = new HashSet<>(Arrays.asList(keyphrases));
         
-        logger.finest("Keyphrase set for find command: " + keyphraseSet.toString());
+        logger.finest("Keyphrases for find command: " + keyphraseSet.toString());
         
         return new FindCommand(keyphraseSet);
     }
 
-	//@@author A0141019U
-	// Only supports task type and status type options.
-	private Command prepareList(String arguments) {
-		if (arguments.equals("")) {
+	//@@author A0139339W
+    /**
+     * Parse the arguments into taskType, status and date
+     */
+    private Command prepareList(String arguments) {
+		if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-
+		
 		String[] args = arguments.split(" ");
+		if(!isValidListArguments(args)) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					ListCommand.MESSAGE_USAGE));
+		}
 
+		String taskType;
+		String status;
+		String dateString;
+		LocalDateTime date;
+
+		try {
+			taskType = getTaskTypeForPrepareList(args);
+			status = getStatusForPrepareList(args);
+			dateString = getDateForPrepareList(args);
+			date = convertOptionalToLocalDateTime(
+					Optional.ofNullable(dateString)).orElse(null);
+		} catch(IllegalArgumentException iae) {
+			return new IncorrectCommand(iae.getMessage());
+		} catch (ParseException pe) {
+			return new IncorrectCommand(pe.getMessage());
+		}
+		
+		return new ListCommand(taskType, status, date);
+	}
+    /**
+     * To check if the list argument is valid
+     * @return true if valid, false otherwise
+     */
+    private boolean isValidListArguments(String[] args) {
+    	for(int i = 0; i < args.length; i++) {
+    		if(!DateParser.containsDate(args[i] + " 00:00")) {
+    			switch(args[i].trim()) {
+    			case "event":
+    			case "ev":
+    			case "deadline":
+    			case "dl":
+    			case "someday":
+    			case "sd":
+    			case "done":
+    			case "pending":
+    			case "overdue":
+    			case "all":
+    				break;
+    			default:
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+	/**
+	 * Get the string for the dates for prepareList
+	 * @throws IllegalArgumentException when multiple dates declared
+	 */
+	private String getDateForPrepareList(String[] args) throws IllegalArgumentException {
+		int numDates = 0;
+		String date = null;
+		for(int i = 0; i < args.length; i++) {
+			if(DateParser.containsDate(args[i] + " 00:00")) {
+				date = args[i] + " 00:00";
+				numDates++;
+			}
+		}
+		if(numDates > 1) {
+			throw new IllegalArgumentException("More than one date entered");
+		}
+		return date;
+	}
+	/**
+	 * Get the string for the task type for prepareList
+	 * @throws IllegalArgumentException when multiple task type declared
+	 */
+	private String getTaskTypeForPrepareList(String[] args) throws IllegalArgumentException {
+		int numTaskType = 0;
 		String taskType = null;
-		String status = null;
-		for (int i = 0; i < args.length; i++) {
+		for(int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
 			case "ev":
@@ -405,22 +496,39 @@ public class Parser {
 			case "someday":
 			case "sd":
 				taskType = args[i];
-				break;
+				numTaskType++;
+			}
+		}
+		if(numTaskType > 1)
+			throw new IllegalArgumentException("More than one task type entered");
+		return taskType;
+	}
+	/**
+	 * Get the string for the status of the task for prepareList
+	 * @throws IllegalArgumentException when multiple status declared
+	 */
+	private String getStatusForPrepareList(String[] args) throws IllegalArgumentException {
+		int numStatus = 0;
+		String status = null;
+		for(int i = 0; i < args.length; i++) {
+			switch (args[i].trim()) {
 			case "done":
 			case "pending":
 			case "overdue":
 				status = args[i];
-				break;
-			default:
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+				numStatus++;
 			}
 		}
-
-		return new ListCommand(taskType, status);
+		if(numStatus > 1)
+			throw new IllegalArgumentException("More than one status entered");
+		return status;
 	}
 	
 	//@@author A0141019U
 	/**
+	 * Returns a DeleteCommand that deletes all tasks with indices supplied to
+	 * the method.
+	 * 
 	 * @param a valid argument is one or more integers separated by spaces, corresponding to tasks
 	 * displayed on the screen.
 	 * @return a DeleteCommand if the argument string is valid, IncorrectCommand otherwise.
@@ -527,8 +635,8 @@ public class Parser {
 		
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
-	//@@author
 
+	//@@author A0139339W
 	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
@@ -546,13 +654,9 @@ public class Parser {
 		}
 		return false;
 	}
-
-	//@@author A0139339W
+	
 	/**
-	 * parse the argument based on first occurrence of keyword "not" indices
-	 * before not are for tasks to be marked done indices after not are for
-	 * tasks to be marked not done missing keyword "not" means all indices are
-	 * for tasks to be marked done
+	 * parse the arguments into indices for ChangeStatusCommand
 	 */
 	private Command prepareChangeStatus(String arguments, String newStatus) {
 		int[] doneIndices;
@@ -614,12 +718,14 @@ public class Parser {
     	switch (arguments.trim().toLowerCase()) {
     	case "today":
     		return new TabCommand(TabCommand.TabName.TODAY);
+    	case "tmr":
     	case "tomorrow":
     		return new TabCommand(TabCommand.TabName.TOMORROW);
     	case "week":
     		return new TabCommand(TabCommand.TabName.WEEK);
     	case "month":
     		return new TabCommand(TabCommand.TabName.MONTH);
+    	case "sd":
     	case "someday":
     		return new TabCommand(TabCommand.TabName.SOMEDAY);
     	default: 

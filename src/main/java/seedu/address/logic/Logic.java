@@ -23,9 +23,6 @@ public interface Logic {
     ObservableList<ReadOnlyAlias> getFilteredAliasList();
 
     //@@author A0142184L
-    /** Returns the list of all non-done tasks (not-done and overdue tasks) */
-	ObservableList<ReadOnlyTask> getNonDoneTaskList();
-
 	/** Returns the list of all today tasks */
 	ObservableList<ReadOnlyTask> getTodayTaskList();
 
