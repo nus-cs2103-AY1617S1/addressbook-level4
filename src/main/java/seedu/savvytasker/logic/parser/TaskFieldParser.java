@@ -9,7 +9,8 @@ import seedu.savvytasker.model.task.RecurrenceType;
 /**
  * This class contains common parsing methods for parsing Task fields.
  * Each of the parse method takes in a string which can be null, and return
- * the respective parsed object. 
+ * the respective parsed object. If null is provided to each of the parse methods,
+ * null will be returned.
  */
 public abstract class TaskFieldParser<T extends Command> implements CommandParser<T> {
     /*
@@ -32,8 +33,9 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
     }
     
     protected String parseTaskName(String taskNameText) throws ParseException {
-        if (taskNameText == null)
+        if (taskNameText == null) {
             return null;
+        }
         return taskNameText.trim();
     }
     
@@ -46,9 +48,9 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
     }
     
     private InferredDate parseDate(String dateText, String errorField) throws ParseException {
-        if (dateText == null)
+        if (dateText == null) {
             return null;
-        
+        }
         String trimmedDateText = dateText.trim();
         try {
             return dateParser.parseSingle(trimmedDateText);
@@ -58,14 +60,16 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
     }
     
     protected String parseLocation(String locationText) throws ParseException {
-        if (locationText == null)
+        if (locationText == null) {
             return null;
+        }
         return locationText.trim();
     }
     
     protected PriorityLevel parsePriorityLevel(String priorityLevelText) throws ParseException {
-        if (priorityLevelText == null)
+        if (priorityLevelText == null) {
             return null;
+        }
         
         String trimmedPriorityLevelText = priorityLevelText.trim();
         try {
@@ -76,8 +80,9 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
     }
     
     protected RecurrenceType parseRecurrenceType(String recurrenceTypeText) throws ParseException {
-        if (recurrenceTypeText == null)
+        if (recurrenceTypeText == null) {
             return null;
+        }
         
         String trimmedRecurrenceTypeText = recurrenceTypeText.trim();
         try {
@@ -88,8 +93,9 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
     }
     
     protected Integer parseNumberOfRecurrence(String numRecurrenceText) throws ParseException {
-        if (numRecurrenceText == null)
+        if (numRecurrenceText == null) {
             return null;
+        }
         
         String trimmedNumRecurrenceText = numRecurrenceText.trim();
         int numRecurrence = 0;
@@ -97,41 +103,47 @@ public abstract class TaskFieldParser<T extends Command> implements CommandParse
         
         try {
             numRecurrence = Integer.parseInt(trimmedNumRecurrenceText);
-            if (numRecurrence < 0)
+            if (numRecurrence < 0) {
                 parseError = true;
+            }
         } catch (NumberFormatException ex) {
             parseError = true;
         }
         
-        if (parseError)
+        if (parseError) {
             throw new ParseException(trimmedNumRecurrenceText, "NUMBER_OF_RECURRENCE: Must be a nonnegative whole number!");
+        }
         
         return numRecurrence;
     }
 
     protected String parseCategory(String categoryText) throws ParseException {
-        if (categoryText == null)
+        if (categoryText == null) {
             return null;
+        }
         return categoryText.trim();
     }
     
     protected String parseDescription(String descriptionText) throws ParseException {
-        if (descriptionText == null)
+        if (descriptionText == null) {
             return null;
+        }
         return descriptionText.trim();
     }
     //@@author
     
     //@@author A0138431L
     public String parsefilePath(String filePathText) throws ParseException {
-        if (filePathText == null)
+        if (filePathText == null) {
             return null;
+        }
         return filePathText.trim();
     }
     
     public String parsefileName(String fileNameText) throws ParseException {
-        if (fileNameText == null)
+        if (fileNameText == null) {
             return null;
+        }
         return fileNameText.trim();
     }
     //@@author
