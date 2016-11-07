@@ -77,8 +77,8 @@ public class ConfigUtilTest {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setTaskManagerFilePath("mastermind.xml");
+        config.setUserPrefsFilePath("../src/test/data/sandbox/pref_testing.json");
+        config.setTaskManagerFilePath("../src/test/data/sandbox/tempTaskManager.xml");
         config.setTaskManagerName("TypicalTaskManagerName");
         return config;
     }
