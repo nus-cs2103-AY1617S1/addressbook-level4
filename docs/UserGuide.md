@@ -414,7 +414,7 @@ HH.MM am/pm | 1.30am <br> 4.25pm
 
 <br>
 ## Date-Time Format
-> If no timing is specified, a default value of 12am is assumed.
+If no timing is specified, a default value of 12am is assumed.
 Supported Date-Time Format | Example
 -------- | :--------
 DATE TIME | 1 October 2017 1.30am <br> 1 Oct 1.30am <br> Today 10pm <br> Next Tues 16:25
