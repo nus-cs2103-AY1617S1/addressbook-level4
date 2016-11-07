@@ -59,7 +59,7 @@ public class EditCommandTest extends DailyPlannerGuiTest {
 		}
 
 		commandBox.runCommand("edit " + targetIndex + arg);
-		TaskCardHandle editedCard = personListPanel.navigateToPerson(personToEdit.getName());
+		TaskCardHandle editedCard = taskListPanel.navigateToPerson(personToEdit.getName());
 		assertMatching(personToEdit, editedCard);
 	}
 

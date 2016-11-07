@@ -4,10 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class PinCommandTest {
+import guitests.guihandles.TaskCardHandle;
+import seedu.testplanner.testutil.TestTask;
+
+public class PinCommandTest extends DailyPlannerGuiTest {
 
 	@Test
-	public void test() {
+	public void pin() {
+
+		TestTask[] currentList = td.getTypicalPersons();
+		TestTask taskToPin = td.CS2103_Project;
+		assertPinSuccess("pin 1", taskToPin);
+
 	}
 
+	private void assertPinSuccess(String command, TestTask taskToPin) {
+
+		commandBox.runCommand(command);
+
+		// confirm there is now 1 task in the pinned list
+		assertEquals(pinnedListPanel.getNumberOfPeople(), 1);
+	}
 }

@@ -27,7 +27,7 @@ public class CompleteCommandTest extends DailyPlannerGuiTest {
 		
 		commandBox.runCommand(command);
 		//confirm the new card contains the right data
-        TaskCardHandle completedCard = personListPanel.navigateToPerson(taskToComplete.getName());
+        TaskCardHandle completedCard = taskListPanel.navigateToPerson(taskToComplete.getName());
         assertEquals("Task is complete", completedCard.getCompletion(), "COMPLETE");
 		
 	}

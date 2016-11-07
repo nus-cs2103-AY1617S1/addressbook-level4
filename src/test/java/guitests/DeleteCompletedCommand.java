@@ -21,6 +21,6 @@ public class DeleteCompletedCommand extends DailyPlannerGuiTest {
 	}
 
 	private void assertDeleteCompleteSuccess(TestTask[] expectedRemainder) {
-		assertTrue(personListPanel.isListMatching(expectedRemainder));
+		assertTrue(taskListPanel.isListMatching(expectedRemainder));
 	}
 }

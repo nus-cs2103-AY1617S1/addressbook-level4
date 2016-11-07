@@ -10,12 +10,12 @@ public class ClearCommandTest extends DailyPlannerGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+        assertTrue(taskListPanel.isListMatching(td.getTypicalPersons()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.learnPython.getAddCommand());
-        assertTrue(personListPanel.isListMatching(td.learnPython));
+        assertTrue(taskListPanel.isListMatching(td.learnPython));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 
