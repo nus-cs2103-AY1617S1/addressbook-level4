@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskBook that is serializable to XML format
  */
 @XmlRootElement(name = "taskbook")
 public class XmlSerializableTaskBook implements ReadOnlyTaskBook {

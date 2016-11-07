@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaskBook data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
