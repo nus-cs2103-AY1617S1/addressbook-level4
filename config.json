@@ -2,6 +2,6 @@
   "appTitle" : "FlexiTrack",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json",
-  "flexiTrackFilePath" : "src/test/data/ManualTesting/SampleData.xml",
+  "flexiTrackFilePath" : "data/tasktracker.xml",
   "flexiTrackName" : "MyTaskTracker"
 }
