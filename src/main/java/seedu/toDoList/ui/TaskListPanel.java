@@ -60,15 +60,6 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
-        taskList.addListener(new ListChangeListener() {
-			@Override
-			public void onChanged(ListChangeListener.Change change) {
-				taskListView.scrollTo(taskList.size()-1);
-				taskListView.getSelectionModel().select(taskList.size()-1);
-				taskListView.getFocusModel().focus(taskList.size()-1);
-			}
-
-        });
     }
     public final ObservableList<ReadOnlyTask> getItems(ObservableList<ReadOnlyTask> taskList) {
 		return taskList;

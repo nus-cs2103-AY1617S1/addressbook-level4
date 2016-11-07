@@ -2,8 +2,10 @@ package seedu.toDoList.logic.commands;
 
 import java.util.Set;
 
+import seedu.toDoList.commons.core.EventsCenter;
 import seedu.toDoList.commons.core.Messages;
 import seedu.toDoList.commons.core.UnmodifiableObservableList;
+import seedu.toDoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.toDoList.model.task.ReadOnlyTask;
 
 //@@author A0142325R
@@ -88,6 +90,7 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         taskToMark = lastShownList.get(targetIndex - 1);
+        jumpToTaskBefore(targetIndex);
         return markTaskDone(taskToMark);
     }
 
@@ -119,5 +122,16 @@ public class DoneCommand extends Command {
      */
     private boolean isMarkedByName() {
         return keywords != null && targetIndex == -1;
+    }
+    
+    /**
+     * Jumps to the task before the deleted task.
+     */
+    private void jumpToTaskBefore(int index) {
+        if (targetIndex >= 2) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 2));
+        } else {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(0));
+        }
     }
 }

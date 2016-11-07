@@ -8,7 +8,9 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.toDoList.commons.core.EventsCenter;
 import seedu.toDoList.commons.core.UnmodifiableObservableList;
+import seedu.toDoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.toDoList.model.task.ReadOnlyTask;
 import seedu.toDoList.model.task.TaskList.TaskNotFoundException;
 
@@ -75,6 +77,7 @@ public class DeleteCommand extends Command {
                 return new CommandResult(MESSAGE_DELETE_INVALID_INDEX);
             }
             taskToDelete = prepareDeleteTaskbyIndex(lastShownList);
+            jumpToTaskBefore(targetIndex);
         } else {
             return prepareDeleteTaskWithName();
         }
@@ -143,6 +146,17 @@ public class DeleteCommand extends Command {
             return MESSAGE_DELETE_EVENT_SUCCESS;
         } else {
             return MESSAGE_DELETE_TASK_SUCCESS;
+        }
+    }
+    
+    /**
+     * Jumps to the task before the deleted task.
+     */
+    private void jumpToTaskBefore(int index) {
+        if (targetIndex >= 2) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 2));
+        } else {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(0));
         }
     }
 

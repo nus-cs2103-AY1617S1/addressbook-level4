@@ -2,7 +2,6 @@ package seedu.toDoList.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.toDoList.commons.exceptions.DuplicateDataException;
 import seedu.toDoList.commons.exceptions.IllegalValueException;
 import seedu.toDoList.commons.util.CollectionUtil;
 
@@ -60,15 +59,13 @@ public class TaskList implements Iterable<Task> {
     /**
      * Edits a task in the list and returns the index of the task.
      */
-    public int edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
+    public void edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
         assert toEdit != null;
-        for (int i = 0; i < internalList.size(); i++) {
-            if (internalList.get(i).equals(toEdit)) {
-                internalList.get(i).editDetail(type, details);
-                return i;
+        for (Task t: internalList) {
+            if (t.equals(toEdit)) {
+                t.editDetail(type, details);
             }
         }
-        return 0;
     }
 	//@@author
 
