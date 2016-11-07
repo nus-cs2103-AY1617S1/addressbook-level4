@@ -104,7 +104,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
         // get hour
         String hour = (getEndTime().endTime).substring(0, 1);
         // get min
-        String minute = (getEndTime().endTime).substring(2, 4);
+        String minute = (getEndTime().endTime).substring(3, 4);
         // get AM/PM
         String AM_PM = (getEndTime().endTime).substring(4, 6);
 
@@ -114,7 +114,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
         String[] dateArr = endTaskDate.split(" ");
         String[] curDate = df.format(dateobj).split("-");
         day = dateArr[0].substring(0, 2);
-
+        
         // Time object-----------------------------------------
         DateFormat tf = new SimpleDateFormat("h:m:a");
         Date timeobj = new Date();
