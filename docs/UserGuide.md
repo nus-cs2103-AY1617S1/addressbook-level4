@@ -217,15 +217,22 @@ Lists tasks and events that match the specified filter.<br>
 Format: `list <filter>`
 
 > Accepted filters include:
-> * future
-> * next week
-> * mark
-> * block
-> Unmarked floating tasks will be listed.
+> * future (shortcut : f) 
+> * past (p) 
+> * next week (nw)
+> * next month (nm)
+> * last week (lw) 
+> * last month (lm) 
+> * mark (m)
+> * unmark (um) 
+> * block (b)
+> Unmarked floating tasks will be listed in all the filter except in block and mark filters.
 
 Examples: 
 * `list next month` <br>
-  Returns a list of next month's tasks and events	
+  Returns a list of next month's tasks and events
+* `l b` <br>
+  Returns a list of all the blocked events
 
 #### Undo operations : `undo`
 #### Shortcut : `ud`
@@ -254,7 +261,6 @@ Examples:
 Limitation: This feature Only allow user to change storage path within the FlexiTrack folder.
 
 > [path] can only contains alphanumeric or following special character '\', '/', '-', ':', '.', '_'.
-//@@author
 
 //@@author A0127855W
 #### Exiting the program : `exit`
@@ -286,19 +292,27 @@ FlexiTrack support various timing input. Here are some examples!
 #### Exact timing 
 User Input | Timing information read by FlexiTrack
 ---------- | :---------------
-21 June 2018 4pm | Jun 21 16:00:00 
-1st January 7.20 | Jan 01 07:20
-April 22nd 5am | Apr 22 05:00
+21 June 2018 4pm | Jun 21 2016 16:00
+1st January 7.20 | Jan 01 2016 07:20
+April 22nd 5am | Apr 22 2016 05:00
 
 #### Relative timing 
 If today is 1st of February a relative timing input is also possible with FlexiTrack
 
 User Input | Timing information read by FlexiTrack
 ---------- | :---------------
-Tomorrow 4pm | Feb 02 16:00:00 
-Next week 720am | Feb 08 07:20
-3 weeks 2 pm  | Feb 22 14:00 
-next month 8am | Mar 01 08:00 
+Tomorrow 4pm | Feb 02 2016 16:00
+Next week 720am | Feb 08 2016 07:20
+3 weeks 2 pm  | Feb 22 2016 14:00 
+next month 8am | Mar 01 2016 08:00 
+
+#### World-wide event  
+If today is 1st of February a relative timing input is also possible with FlexiTrack
+
+User Input | Timing information read by FlexiTrack
+---------- | :---------------
+Christmas morning 9am | Dec 25 2016 16:00 
+Easter dinner 7pm | Apr 16 2016 19:00
 
 #### Notes on FlexiTrack timing  
 1. FlexiTrack does support year. However, make sure that you also specify the hour of the timing 
