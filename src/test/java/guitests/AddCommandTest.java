@@ -161,7 +161,7 @@ public class AddCommandTest extends TodoListGuiTest {
      */
     private void assertCollapsed(TaskCardViewHandle newTask) {
         if (newTask.isTaskCollapsible()) {
-            assert(newTask.isTaskCardCollapsed());
+            assertTrue(newTask.isTaskCardCollapsed());
         }
     }
 }
