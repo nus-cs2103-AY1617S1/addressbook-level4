@@ -11,6 +11,7 @@ import javafx.scene.control.ColorPicker;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.events.ui.JumpToListRequestEvent;
+import seedu.ggist.model.task.Priority;
 import seedu.ggist.model.task.ReadOnlyTask;
 //@@author A0144727B
 public class TaskCard extends UiPart{
@@ -35,9 +36,9 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
     
-    private ColorPicker low = new ColorPicker(Color.web("#ffa900"));
-    private ColorPicker med = new ColorPicker(Color.web("#ff5c00"));
-    private ColorPicker high = new ColorPicker(Color.web("#e80549"));
+    private ColorPicker low = new ColorPicker(Color.web("#DEDE26"));
+    private ColorPicker med = new ColorPicker(Color.web("#E69D0B"));
+    private ColorPicker high = new ColorPicker(Color.web("D92121"));
     private ColorPicker none = new ColorPicker(Color.web("#663220"));
     private ColorPicker done = new ColorPicker(Color.web("#2eb211"));
     private ColorPicker overdue = new ColorPicker(Color.web("#ff0000"));
@@ -82,33 +83,64 @@ public class TaskCard extends UiPart{
             taskName.textFillProperty().bind(none.valueProperty());
         } else {
             String level = task.getPriority().value;
-            if (level.equals("low")) {
-                id.textFillProperty().bind(low.valueProperty());
-                taskName.textFillProperty().bind(low.valueProperty());
-            } else if (level.equals("med")) {
-                id.textFillProperty().bind(med.valueProperty());
-                taskName.textFillProperty().bind(med.valueProperty());
-            } else if (level.equals("high")) {
-                id.textFillProperty().bind(high.valueProperty());
-                taskName.textFillProperty().bind(high.valueProperty());
+            if (level.equals(Priority.PriorityType.LOW.toString())) {
+                setLowPriorityTextColor();
+            } else if (level.equals(Priority.PriorityType.MEDIUM.toString())) {
+                setMedPriorityTextColor();
+            } else if (level.equals(Priority.PriorityType.HIGH.toString())) {
+                setHighPriorityTextColor();
             }
         }
         if (task.isDone()) {
-            id.textFillProperty().bind(done.valueProperty());
-            taskName.textFillProperty().bind(done.valueProperty());
+            setDoneTextColor();
         }
         if (task.isOverdue()) {
-            startTime.textFillProperty().bind(overdue.valueProperty());
-            endTime.textFillProperty().bind(overdue.valueProperty());
-            startDate.textFillProperty().bind(overdue.valueProperty());
-            endDate.textFillProperty().bind(overdue.valueProperty());
+            setOverdueTextColor();
         } else {
-            startTime.textFillProperty().bind(none.valueProperty());
-            endTime.textFillProperty().bind(none.valueProperty());
-            startDate.textFillProperty().bind(none.valueProperty());
-            endDate.textFillProperty().bind(none.valueProperty());
+            setDefaultTextColor();
         }
     }
+    
+    /*changes task name to yellow*/
+    private void setLowPriorityTextColor() {
+        id.textFillProperty().bind(low.valueProperty());
+        taskName.textFillProperty().bind(low.valueProperty());
+    }
+    
+    /*changes task name to orange*/
+    private void setMedPriorityTextColor() {
+        id.textFillProperty().bind(med.valueProperty());
+        taskName.textFillProperty().bind(med.valueProperty());
+    }
+    
+    /*changes task name to red*/
+    private void setHighPriorityTextColor() {
+        id.textFillProperty().bind(high.valueProperty());
+        taskName.textFillProperty().bind(high.valueProperty());
+    }
+    
+    /*changes task name to green*/
+    private void setDoneTextColor() {
+        id.textFillProperty().bind(done.valueProperty());
+        taskName.textFillProperty().bind(done.valueProperty());
+    }
+    
+    /*Changes start and end date time to default color*/
+    private void setDefaultTextColor() {
+        startTime.textFillProperty().bind(none.valueProperty());
+        endTime.textFillProperty().bind(none.valueProperty());
+        startDate.textFillProperty().bind(none.valueProperty());
+        endDate.textFillProperty().bind(none.valueProperty());
+    }
+    
+    /*Changes start and end date time to red color */
+    private void setOverdueTextColor() {
+        startTime.textFillProperty().bind(overdue.valueProperty());
+        endTime.textFillProperty().bind(overdue.valueProperty());
+        startDate.textFillProperty().bind(overdue.valueProperty());
+        endDate.textFillProperty().bind(overdue.valueProperty());
+    }
+    
 //@@author A0138411N
     public HBox getLayout() {
         return cardPane;

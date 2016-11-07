@@ -124,7 +124,7 @@ Figure 3 shows how the `EventsCenter` reacts to the event (`add floating task`).
 > Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
 
 ###Additional details of each component.
-<!-- @@author--> 
+<!-- @@author A0138420N --> 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>

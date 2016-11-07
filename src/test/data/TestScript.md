@@ -1,4 +1,4 @@
-<
+<!-- @@author A0138420N --> 
 # Manual Test Script
 The sample data `SampleData.xml` can be used for manual testing.
 
