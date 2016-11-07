@@ -432,17 +432,17 @@ Command | Format
 Add todo | `add <name>`
 Add deadline | `add <name> <end datetime>`
 Add event | `add <name> <start datetime> to <end datetime>`
-View upcoming | `view` or Ctrl + Shift + T
-View all | `view all` or Ctrl + Shift + L
+View upcoming | `view` or `Ctrl + Shift + T`
+View all | `view all` or `Ctrl + Shift + L`
 View date | `view <date>`
-View done | `view done` or Ctrl + Shift + D
+View done | `view done` or `Ctrl + Shift + D`
 Find | `find <keyword>...`
 Edit | `edit <index> <name> <datetime>`
 Delete | `delete <index>...`
 Done | `done <index>...`
 Path | `path <filepath>.xml`
-Undo | `undo` or Ctrl + Shift + U
-Redo | `redo` or Ctrl + Shift + Y
+Undo | `undo` or `Ctrl + Shift + U`
+Redo | `redo` or `Ctrl + Shift + Y`
 Help | `help`
 Clear | `clear`
 Exit | `exit`
