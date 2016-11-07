@@ -9,8 +9,8 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class StartTime {
 
     public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Task start times should be in hh.mmam or hh.mmpm format";
-    public static final String STARTTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
-    public static final String NO_STARTTIME = "";
+    private static final String STARTTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
+    private static final String NO_STARTTIME = "";
 
     public final String value;
 
