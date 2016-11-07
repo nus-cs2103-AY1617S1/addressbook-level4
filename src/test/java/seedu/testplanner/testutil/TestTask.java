@@ -101,21 +101,27 @@ public class TestTask implements ReadOnlyTask {
 		return Task.calculateDueStatus(end);
 	}
 
+    // @@author A0146749N
+    public String getAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getName());
+        if (!this.getStart().toString().equals(""))
+            sb.append(" s/" + this.getStart().toString());
+        if (!this.getEnd().toString().equals(""))
+            sb.append(" e/" + this.getEnd().toString());
+        if (!this.getTags().toSet().isEmpty())
+            this.getTags().getInternalList().stream().forEach(s -> sb.append(" c/" + s.tagName));
+        return sb.toString();
+    }
+
+    public Task asTask() {
+        System.out.println("TestTask: " + name + start + end +isComplete + isPinned);
+        return new Task(name, start, end, isComplete, isPinned, tags);
+    }
+
 	@Override
 	public String toString() {
 		return getAsText();
 	}
 
-	// @@author A0146749N
-	public String getAddCommand() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("add " + this.getName());
-		if (!this.getStart().toString().equals(""))
-			sb.append(" s/" + this.getStart().toString());
-		if (!this.getEnd().toString().equals(""))
-			sb.append(" e/" + this.getEnd().toString());
-		if (!this.getTags().toSet().isEmpty())
-			this.getTags().getInternalList().stream().forEach(s -> sb.append(" c/" + s.tagName));
-		return sb.toString();
-	}
 }
