@@ -120,9 +120,9 @@
     > All tasks that have the tag, `cs3244`, is removed.
 
 15. Free command
-    - Find free timeslots: `free 2 nov`
+    - Find free timeslots: `free 20 nov`
     
-      > 2 tasks is shown on the left panel. 2 free timeslots is shown at the result display box.
+      > 3 tasks is shown on the left panel. 3 free timeslots is shown at the result display box.
 
 16. Clear command
     - Clears all data: `clear`
