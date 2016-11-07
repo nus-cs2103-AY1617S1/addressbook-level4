@@ -20,7 +20,6 @@ public class ListCommandTest extends AddressBookGuiTest {
 
     @Test
     public void listTask_fromAllPanelsShown() {
-        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity[] expectedList = td.getTasksOnly();
 
         commandBox.runCommand("list task");
@@ -29,7 +28,6 @@ public class ListCommandTest extends AddressBookGuiTest {
 
     @Test
     public void listActivities_fromAllPanelsShown() {
-        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity[] expectedList = td.getActivitiesOnly();
 
         commandBox.runCommand("list activity");
@@ -38,7 +36,6 @@ public class ListCommandTest extends AddressBookGuiTest {
 
     @Test
     public void listEvents_fromAllPanelsShown() {
-        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity[] expectedList = td.getEventsOnly();
 
         commandBox.runCommand("list event");
@@ -48,7 +45,6 @@ public class ListCommandTest extends AddressBookGuiTest {
     // @@A0131813R
     @Test
     public void listAll_fromAllPanelsShown() {
-        TestActivity[] currentList = td.getTypicalActivities();
         TestActivity[] expectedList = td.getTypicalActivities();
 
         commandBox.runCommand("list all");
