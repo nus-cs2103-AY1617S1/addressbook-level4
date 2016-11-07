@@ -110,6 +110,7 @@ public class HomeTableView extends DefaultTableView {
      * Initializes the indexing of tasks
      */
     protected void initIndex() {
+        indexColumn.setSortable(false);
         indexColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         indexColumn.setCellFactory(column -> renderIndexCell());
     }
@@ -119,6 +120,7 @@ public class HomeTableView extends DefaultTableView {
      * Initialize the Names of the tasks
      */
     protected void initName() {
+        nameColumn.setSortable(false);
         nameColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         nameColumn.setCellFactory(col -> renderNameCell());
@@ -129,6 +131,7 @@ public class HomeTableView extends DefaultTableView {
      * Initialize the start dates of the tasks
      */
     protected void initStartDate() {
+        startDateColumn.setSortable(false);
         startDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
         startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
@@ -141,6 +144,7 @@ public class HomeTableView extends DefaultTableView {
      * Initialize the end dates of the tasks
      */
     protected void initEndDate() {
+        endDateColumn.setSortable(false);
         endDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
         endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
@@ -153,6 +157,7 @@ public class HomeTableView extends DefaultTableView {
      * Initialize the tags of the tasks
      */
     protected void initTags() {
+        tagsColumn.setSortable(false);
         tagsColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
 
@@ -165,6 +170,7 @@ public class HomeTableView extends DefaultTableView {
      * Initialize a checkbox to determine whether task is recurring
      */
     protected void initRecur() {
+        recurColumn.setSortable(false);
         recurColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
