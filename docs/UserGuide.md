@@ -441,5 +441,7 @@ You can do so by using the `delete` command follow by the range of indices of ta
 <br><br>
 ###Oh my god, Jimi misinterpreted my dates/times! Why is it so dumb? <br>
 We apologise for the mishap. Please submit an issue to us at our [issue tracker](#https://github.com/CS2103AUG2016-T09-C2/main/issues) if you would like Jimi to accept particular dates/times. <br>
+<br>
 Regarding your question, given the nature of natural language processing, it is physically impossible for Jimi to interpret your dates/times with a 100% certainty. Much like how Apple's Siri and Google's Google Assistant fail to recognize accents from time to time, Jimi is similar in that regard. If it ever happens that Jimi misinterprets your dates/times, you can either [`undo`](#undo) or [`edit`](#edit) to make changes. <br>
+<br>
 A failsafe option, however, is to simply type proper calender dates i.e. `27 oct` or `1 feb 2pm`, Jimi will never get that wrong!
