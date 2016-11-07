@@ -12,11 +12,6 @@ public class FlagArgument extends Argument<Boolean> {
         this.value = false;
     }
 
-    public FlagArgument(String name, boolean defaultValue) {
-        super(name, defaultValue);
-        flag(name.substring(0, 1).toLowerCase());
-    }
-
     @Override
     public void setValue(String input) throws IllegalValueException {
         this.value = true;

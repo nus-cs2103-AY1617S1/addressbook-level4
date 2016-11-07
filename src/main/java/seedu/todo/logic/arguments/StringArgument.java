@@ -9,10 +9,6 @@ public class StringArgument extends Argument<String> {
         super(name);
     }
     
-    public StringArgument(String name, String defaultValue) {
-        super(name, defaultValue);
-    }
-
     @Override
     public void setValue(String input) throws IllegalValueException {
         input = input.trim();
