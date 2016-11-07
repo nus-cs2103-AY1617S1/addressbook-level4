@@ -38,15 +38,15 @@ We are a team of 3 Year 2 NUS students from SoC.
 	* Uncomplete Tasks
 	* Sort Tasks 
 * Code written: [[main](../collated/main/A0146749N.md)][[test](../collated/test/A0146749N.md)][[docs](../collated/docs/A0146749N.md)]
-* Other major contributions:<br>
+* Other major contributions:
 	* Refactoring and refinement of code 
 	* Set up Travis and Coveralls
-	
+* 	
 -----
 
 #### [Zhuang Yufeng](http://github.com/rainwindy) 
 <img src="images/Yufeng.jpg" width="150"><br>
-**Role**: Code quality, Scheduling and Tracking<br>
+**Role**: Code quality, Scheduling and Tracking
 * Components in charge of : `Util` , `collated` , `docs` , `History`<br>
 * Aspects/tools in charge of: Documentation, Code quality, git, collate <br>
 * Code written: [[main](../collated/main/A0139102U.md)][[test](../collated/test/A0139102U.md)][[docs](../collated/docs/A0139102U.md)]
@@ -58,7 +58,7 @@ We are a team of 3 Year 2 NUS students from SoC.
 * Other major contributions:
 	* Diagrams
 	* Collate
-	
+* 	
 -----
 
 #### [Muthu Kumar Chandrasekaran] (https://github.com/cmkumar87)
