@@ -29,9 +29,11 @@ Role: Developer <br>
 * Features implemented:	
 	* [Reordered UI](https://github.com/CS2103AUG2016-F10-C3/main/tree/master/src/main/resources/view)
 	* [UML Design](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/DeveloperGuide.md)
+	* [Implemented SetPath command]()
 * Other major contributions:
 	* [Designed Screenshots](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/images/Ui.jpg)
 	* [Designed icon](https://github.com/CS2103AUG2016-F10-C3/main/tree/master/src/main/resources/tary.png)
+	* [Complete developer guide](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/DeveloperGuide.md)
 
 -----
 
