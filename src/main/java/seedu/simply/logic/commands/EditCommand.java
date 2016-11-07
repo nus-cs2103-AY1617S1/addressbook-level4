@@ -71,7 +71,7 @@ public class EditCommand extends Command{
                 Task edited = model.editTask(eventToEdit, editArgs, category);
                 lastShownEventList = model.getFilteredEventList();
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownEventList.indexOf(edited), category));
-            } catch (TaskNotFoundException ive){
+            } catch (TaskNotFoundException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             } catch (IllegalValueException ive) {
@@ -97,7 +97,7 @@ public class EditCommand extends Command{
                 Task edited = model.editTask(deadlineToEdit, editArgs, category);
                 lastShownDeadlineList = model.getFilteredDeadlineList();
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownDeadlineList.indexOf(edited), category));
-            } catch (TaskNotFoundException ive){
+            } catch (TaskNotFoundException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             } catch (IllegalValueException ive) {
@@ -123,7 +123,7 @@ public class EditCommand extends Command{
                 Task edited = model.editTask(todoToEdit, editArgs, category);
                 lastShownTodoList = model.getFilteredTodoList();
                 EventsCenter.getInstance().post(new JumpToListRequestEvent(lastShownTodoList.indexOf(edited), category));
-            } catch (TaskNotFoundException ive){
+            } catch (TaskNotFoundException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             } catch (IllegalValueException ive) {
