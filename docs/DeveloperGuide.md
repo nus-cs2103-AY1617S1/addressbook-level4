@@ -45,8 +45,9 @@
 ## Design
 
 ### Architecture
-
-<img src="images/Architecture.png" width="600"><br>
+<!--- @@author A0139072H --->
+<img src="images/TaryArchitecture.png" width="600"><br>
+<!--- @@author addressbook-level4 --->
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -72,19 +73,24 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<!--- @@author A0139072H --->
+<img src="images/TaskLogicClassDiagram.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
+<!--- @@author A0139072H --->
+<img src="images\SDforDeleteTask.png" width="800">
+<!--- @@author addressbook-level4 --->
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the GTD data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<!--- @@author A0139072H --->
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
+<!--- @@author addressbook-level4 --->
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -93,8 +99,9 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-
-<img src="images/UiClassDiagram.png" width="800"><br>
+<!--- @@author A0139072H --->
+<img src="images/TaskUiClassDiagram.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -113,9 +120,9 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
-
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
+<!--- @@author A0139072H --->
+<img src="images/TaskLogicClassDiagram.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
@@ -125,12 +132,13 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
-
+ <!--- @@author A0139072H --->
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 ### Model component
-
-<img src="images/ModelClassDiagram.png" width="800"><br>
-
+<!--- @@author A0139072H --->
+<img src="images/TaskModelClassDiagram.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
@@ -141,9 +149,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 ### Storage component
-
-<img src="images/StorageClassDiagram.png" width="800"><br>
-
+<!--- @@author A0139072H --->
+<img src="images/TaskStorageClassDiagram.png" width="800"><br>
+<!--- @@author addressbook-level4 --->
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
@@ -255,7 +263,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the application
-`* * ` | user | add a new task with a description | view more information about a task when I need to 
 `* * *` | user | add a task with a deadline | be reminded of tasks that I have to complete soon and prioritise them 
 `* * ` | user | add a task with a priority rank | view a prioritised list of tasks and know which task to start with
 `* * ` | user | add a task with a location | immediately know the location and context without having to refer to other sources
@@ -333,4 +340,4 @@ Taskwarrior: feature-rich software that allows the user to manage his todo list 
 Uses a natural and expressive syntax
 Allows user to perform CRUD functions and prioritising of tasks in a fast manner
 Support for creating deadlines, searching of tasks
-However, it does not support Jim’s need for “blocking” and “unblocking” timeslots
+However, it does not support Jimâ€™s need for â€œblockingâ€� and â€œunblockingâ€� timeslots
