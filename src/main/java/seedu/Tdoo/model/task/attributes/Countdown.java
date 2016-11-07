@@ -38,7 +38,8 @@ public class Countdown {
     //@@author A0132157M
     private String convertToSDF(String input) throws ParseException {
         //Converts the input date and time to milliseconds 
-        Date date = new SimpleDateFormat("yyyy MMMM dd HH:mmaaa", Locale.ENGLISH).parse(input);
+        String pattern = "yyyy MMMM dd hh:mmaaa";
+        Date date = new SimpleDateFormat(pattern, Locale.ENGLISH).parse(input);
         long milliseconds = date.getTime();
         long dateToMilli = milliseconds - (new Date()).getTime();
         String result = setPrettyTime(dateToMilli);
