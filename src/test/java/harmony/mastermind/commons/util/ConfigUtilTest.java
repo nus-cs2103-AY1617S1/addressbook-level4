@@ -70,6 +70,8 @@ public class ConfigUtilTest {
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
         Config actual = read("ExtraValuesConfig.json").get();
+        System.out.println(expected);
+        System.out.println(actual);
         assertEquals(expected, actual);
     }
 
@@ -77,8 +79,8 @@ public class ConfigUtilTest {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("../src/test/data/sandbox/pref_testing.json");
-        config.setTaskManagerFilePath("../src/test/data/sandbox/tempTaskManager.xml");
+        config.setUserPrefsFilePath("./src/test/data/sandbox/pref_testing.json");
+        config.setTaskManagerFilePath("./src/test/data/sandbox/tempTaskManager.xml");
         config.setTaskManagerName("TypicalTaskManagerName");
         return config;
     }
