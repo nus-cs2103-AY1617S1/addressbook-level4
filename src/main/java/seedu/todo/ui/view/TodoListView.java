@@ -82,10 +82,13 @@ public class TodoListView extends UiPart {
      *
      * @param task The specific to be expanded or collapsed from view.
      */
-    public void toggleExpandCollapsed(ImmutableTask task) {
+    public void toggleExpandCollapsed(ImmutableTask task, Boolean toCollapse) {
         TaskCardView taskCardView = TaskCardView.getTaskCard(task);
-        if (taskCardView != null) {
+        if (taskCardView != null && toCollapse == null) {
             taskCardView.toggleCardCollapsing();
+        }
+        else if (taskCardView != null && toCollapse != null) {
+            taskCardView.setCardCollapsing(toCollapse);
         }
     }
 

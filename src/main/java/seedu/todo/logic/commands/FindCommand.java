@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 
 //@@author A0135817B
 public class FindCommand extends BaseCommand {
-    private static final String FEEDBACK = "Type 'find' again to close find";
+    private static final String FEEDBACK = "Type 'find' or switch to another view to dismiss";
     
     private Argument<String> keywords = new StringArgument("keywords");
 
