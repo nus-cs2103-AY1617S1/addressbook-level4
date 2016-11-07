@@ -25,7 +25,7 @@ public class ActivityCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label line1;
+    private Label dateTime;
     @FXML
     private Label reminder;
     @FXML
@@ -59,12 +59,12 @@ public class ActivityCard extends UiPart {
 		switch (type) {
 
 		case "activity":
-			line1.setText("");
+			dateTime.setText("");
 
 			break;
 
 		case "task":
-			line1.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+			dateTime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
 			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
 
 			if (((Task) activity).isDueDateApproaching()) {
@@ -81,7 +81,7 @@ public class ActivityCard extends UiPart {
 			break;
 
 		case "event":
-			line1.setText(((ReadOnlyEvent) activity).displayTiming());
+			dateTime.setText(((ReadOnlyEvent) activity).displayTiming());
 			if (((Event) activity).isOngoing()) {
 			    completion.setStyle("-fx-text-fill: #000080;"
 	                    + " -fx-font-size: 13;"

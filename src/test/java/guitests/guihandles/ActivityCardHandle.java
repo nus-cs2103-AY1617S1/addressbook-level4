@@ -16,9 +16,9 @@ import seedu.lifekeeper.testutil.ImageUtil;
 public class ActivityCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String REMINDER_FIELD_ID = "#reminder";
-    private static final String DUEDATE_FIELD_ID = "#line1";
+    private static final String DUEDATE_FIELD_ID = "#dateTime";
     private static final String PRIORITY_FIELD_ID = "#priorityIcon";
-    private static final String STARTENDTIME_FIELD_ID = "#line1";
+    private static final String STARTENDTIME_FIELD_ID = "#dateTime";
 
     
 
