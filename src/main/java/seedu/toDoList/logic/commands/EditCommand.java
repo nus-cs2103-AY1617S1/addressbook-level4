@@ -39,6 +39,9 @@ public class EditCommand extends Command {
     		+"Example: "+COMMAND_WORD + " CS3230 Lecture e/14.10.2016-12 i/1";
     public static final String MESSAGE_EVENT_SUCCESS = "This event has been edited: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "This task has been edited: %1$s";
+    public static final String MESSAGE_IS_NOT_A_EVENT = "This is not a event in the toDoList";
+    public static final String EDIT_TYPE_START_DATE = "startDate";
+    public static final String EDIT_TYPE_END_DATE = "endDate";
 
     private String name;
     private String type;
@@ -88,7 +91,6 @@ public class EditCommand extends Command {
             	return prepareEditTaskWithName();
             }
         }
-
         return editTask(toEdit);
 	}
 
@@ -150,7 +152,14 @@ public class EditCommand extends Command {
      */
     private CommandResult editTask(ReadOnlyTask toEdit) {
         try {
-			model.editTask(toEdit, type, details);
+        	if(type.equals(EDIT_TYPE_START_DATE) || type.equals(EDIT_TYPE_END_DATE)) {
+        		if(toEdit.isEvent())
+        			model.editTask(toEdit, type, details);
+        		else
+        			return new CommandResult(MESSAGE_IS_NOT_A_EVENT);
+        	}
+        	else
+        		model.editTask(toEdit, type, details);
 	        String message = String.format(getSuccessMessage(toEdit), toEdit);
 	        model.saveState(message);
 	        return new CommandResult(message);
