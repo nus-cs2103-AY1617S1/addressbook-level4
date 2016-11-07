@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
-//@@author A0142421X
+//@@author A0142421X-unused
 /**
  * Provides a handle to exit the app.
  */
@@ -15,5 +15,4 @@ public class ExitHandle extends GuiHandle {
 	public ExitHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, EXIT_TITLE);
     }
-
 }

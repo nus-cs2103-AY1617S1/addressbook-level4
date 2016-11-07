@@ -29,7 +29,7 @@ public class MainGuiHandle extends GuiHandle {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
     
-    //@@author A0142421X
+    //@@author A0142421X-unused
     public TagListPanelHandle getTagListPanel() {
     	return new TagListPanelHandle(guiRobot, primaryStage);
     }

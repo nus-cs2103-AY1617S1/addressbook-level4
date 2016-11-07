@@ -1,4 +1,4 @@
-//@@author A0142421X
+//@@author A0142421X-unused
 package guitests.guihandles;
 
 import guitests.GuiRobot;
