@@ -474,7 +474,7 @@ public class CommandParser {
 
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+        final List<String> keywordSet = new ArrayList<>(Arrays.asList(keywords));
         keywordSet.remove(keywords[0]);
         return new FindCommand(keywordSet, keywords[0]);
     }
