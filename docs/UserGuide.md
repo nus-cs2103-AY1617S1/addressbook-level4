@@ -169,9 +169,10 @@ Examples:
   Returns todos having names `CS2103` and at least one of `Software` or `Project`
 <!-- @@author -->
 
-####Edit an todo: `edit`
+####Edit a todo: `edit`
 Edit an existing field of an todo.<br>
-Format: `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]`<br>
+Format:<br> 
+  `edit EVENT_NAME [s/START_DATE] [e/END_DATE] [n/NEW_EVENT_NAME] [r/RECURRING_EVENT] [p/PRIORITY_LEVEL]`<br>
   `edit TASK_NAME [d/DEADLINE] [n/NEW_TASK_NAME] [r/RECURRING_TASK] [p/PRIORITY_LEVEL]`
 
 Example:
@@ -274,7 +275,7 @@ It is for displaying todos.
 
 Command | Format  
 -------- | :--------
-Add | `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG][r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME d/DEADLINE [t/TAG] [r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME [t/TAG][p/PRIORITY_LEVEL]`
+Add | `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG][r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add DEADLINE_TASK_NAME d/DEADLINE [t/TAG] [r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add FLOATING_TASK_NAME [t/TAG][p/PRIORITY_LEVEL]`
 Change | `change FILE_PATH [clear]`<br> e.g. `change /Desktop/folder/taskManager.xml clear`
 Clear | `clear`
 Delete | `delete INDEX`<br> `delete NAME`
@@ -284,6 +285,6 @@ Filter | `filter [s/START_DATE] [e/END_DATE] [d/DEADLINE] [p/PRIORITY_LEVEL] [t/
 Find | `find KEYWORD [AND] [MORE_KEYWORDS] [exact!]` <br> e.g. `find CS2103 Software Project`, `find CS2103 AND Software Project`, `find lecture exact!`
 Help | `help`
 Jump |  `s`, `e`, `d`, `r`, `t`, `p`
-List | `list`
+List | `list`,`list tasks`,`list events`,`list done`,`list undone`
 Redo | `redo` <br> `redochange`
 Undo | `undo` <br> `undochange [clear]` e.g. `undochange clear`
