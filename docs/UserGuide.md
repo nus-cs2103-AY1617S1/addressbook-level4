@@ -67,7 +67,7 @@ Enter Do-Do Bird, an intelligent personal assistant that organises your tasks fo
 
 <!-- @@author A0142421X -->
 > **ID**
-> The ID of a task is the index of the task as displayed on the screen
+> * The ID of a task is the index of the task as displayed on the screen
 
  **Task Fields**
 
@@ -81,7 +81,7 @@ Recurrence | `every` | every RECURRENCE
 Details | `;` | ; DETAILS
 
 ## Viewing help : `help`
-Directs user to the help page.<br>
+This command directs you to the help page.<br>
 
 Format: `help`
 
@@ -89,7 +89,7 @@ Format: `help`
 
 
 ## Adding a task: `add`
-Adds a task to Do-Do Bird.<br>
+This function enables you to add tasks to Do-Do Bird.<br>
 Below are the possible formats to follow in order to add a task.<br>
 
 Format:
@@ -161,7 +161,7 @@ Result: <br>
 
 <!-- @@author A0121643R -->
 ## Marking tasks as done : `mark`
-Marking a task in Do-Do Bird as completed.<br>
+This function allows you to mark a task as completed.<br>
 
 Format: `mark ID`
 
@@ -184,11 +184,11 @@ Format: `unmark ID`
 Examples:
 
 * **`unmark`**` 2`<br>
-Mark the task with index 2 as uncompleted.
+This function allows you to mark the task with index 2 as uncompleted.
 
 
 ## Updating a task: `update`
-Update an existing task inside Do-Do Bird.<br>
+This function enables you to update the fields in an existing task.<br>
 
 Format:
 
@@ -242,7 +242,7 @@ Format: `tag ID TAG`
 
 Examples:
 
-**`tag`**` 2 Tutorial`<br>
+* **`tag`**` 2 Tutorial`<br>
 Tags the task with `ID #2` with the `Tutorial` tag
 
 Demo: <br>
