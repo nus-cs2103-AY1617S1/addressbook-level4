@@ -595,33 +595,37 @@ Use case ends.
 
 <!--@@author-->
 
+<!-- @@author A0093907W -->
+
 #### Use case : UC12 - Undo command
 
 **MSS**  
 
-1. User requests to undo command by a specific number.
-2. Application undo the command repeatedly based on the given number.  
+1. User requests to undo a specified number of commands which defaults to 1.
+2. Application undoes this number of commands.
 Use case ends.
 
 **Extensions**  
 
-1a. The given number exceed the total number of tasks.
-> Application will show an error message.  
+1a. The given number exceeds the total number of possible undo states.
+> Application shows an error message.  
 Use case ends.
 
 #### Use case : UC13 - Redo command
 
 **MSS**  
 
-1. User requests to redo command by a specific number.
-2. Application redo the command repeatedly based on the given number.  
+1. User requests to redo a specified number of commands which defaults to 1.
+2. Application redoes this number of commands.  
 Use case ends.
 
 **Extensions**  
 
-1a. The given number exceed the total number of undo commands.
-> Application will show an error message.  
+1a. The given number exceeds the total number of possible redo states.
+> Application shows an error message.
 Use case ends.
+
+<!-- @@author -->
 
 <!-- @@author A0139922Y -->
 
