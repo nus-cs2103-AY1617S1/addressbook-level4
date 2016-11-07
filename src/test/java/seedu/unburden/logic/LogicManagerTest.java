@@ -277,6 +277,41 @@ public class LogicManagerTest {
 		assertTrue(helpShown);
 	}
 	
+	@Test
+	public void execute_done_InvalidArgsFormat() throws Exception {
+		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+		for(int i=1 ; i <= DoneCommand.COMMAND_WORD.length(); i++ ){
+			assertIncorrectIndexFormatBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i), expectedMessage);
+		}
+	}
+	
+	@Test
+	public void execute_doneIndexNotFound() throws Exception {
+		for(int i=0; i <= DoneCommand.COMMAND_WORD.length(); i++){
+			assertIndexNotFoundBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i));
+		}
+	}
+	
+	@Test 
+	public void execute_doneCorrectly() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task t0 = helper.generateTask(0);
+		Task t1 = helper.generateTask(1);
+		Task t2 = helper.generateTask(2);
+		
+		List<Task> list = helper.generateTaskList(3);
+		ListOfTask expected = helper.generateListOfTask(list);
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		
+		
+		helper.addToModel(model, list);
+		assertCommandBehavior("done", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS),expected, expected.getTaskList());
+		assertTrue(list.get(1).getDone());
+		
+	}
+	
 
 	@Test
 	public void execute_exit() throws Exception {
@@ -1914,4 +1949,6 @@ public class LogicManagerTest {
 			return new Task(new Name(name), new UniqueTagList());
 		}
 	}
+	
+		
 }
