@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.task.Task;
 
+
 public abstract class DashboardCard extends UiPart {
 
 	@FXML
@@ -21,20 +22,18 @@ public abstract class DashboardCard extends UiPart {
 	public DashboardCard() {
 
 	}
+	
+	/**
+	 * Function to load activity attributes onto a UI Dashboard card.
+	 * @param event or tasks only.
+	 * @return UI DashboardCard containing details of activity.
+	 */
 
 	public static DashboardCard load(ReadOnlyActivity activity) {
-		DashboardCard card = null;
+		
+		DashboardCard card = new OverdueTaskCard();
 		String type = activity.getClass().getSimpleName().toLowerCase();
-				switch(type){
-				case "task": 
-	                if (((Task) activity).isDueDateApproaching()) {
-	                   //DashboardCard card = new UpcomingTaskCard();
-	                } else if (((Task) activity).hasPassedDueDate()) {
-	                	card = new OverdueTaskCard();
-	                }
-				case "event":
-					//DashboardCard card = new UpcomingEventCard();
-				}
+		
 		card.activity = activity;
 		return UiPartLoader.loadUiPart(card);
 	}
