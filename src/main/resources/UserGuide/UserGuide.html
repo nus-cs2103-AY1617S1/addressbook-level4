@@ -72,9 +72,22 @@ code {
 <li><strong><code>delete</code></strong><code>t1</code> : deletes the 1st task shown in the current task list</li>
 <li><strong><code>exit</code></strong> : exits the app</li>
 </ul>
-<ol start="6" style="list-style-type: decimal">
+<ol start="7" style="list-style-type: decimal">
 <li>Refer to the <a href="#features">Features</a> section below for details of each command.<br></li>
 </ol>
+<!--- @@author A0140133B -->
+<h3 id="explaining-the-ui">Explaining the UI</h3>
+<blockquote>
+<p><img src="images/UI_Explanation.png" width="800"></p>
+</blockquote>
+<p>Jimi's UI is simple to use and compact, everything you need is right at your fingertips, literally. <br> The UI comprises four main parts: <br></p>
+<ol style="list-style-type: decimal">
+<li>A summary panel, containing important information at a glance. To expand the drop down lists, you can either click them, or use the <a href="#show"><code>show</code></a> command. <br></li>
+<li>Task/event tables, here is where you would find all your tasks/events. The top table is for tasks, and the bottom for events. Changes in the tasks/events will be updated in real time here too. <br></li>
+<li>A console box, essentially the voice of Jimi. It displays error messages, feedback from commands, tips and so on. This is basically your babysitter through your first usage, so pay attention to what it has to offer.</li>
+<li>The command line, is where you would tell Jimi what to do. Enter your single line commands with the appropriate format and let Jimi do the dirty work.</li>
+</ol>
+<!--- @@author -->
 <p><br> <br></p>
 <!--- @@author A0148040R -->
 <h2 id="command-summary">Command Summary</h2>
@@ -132,7 +145,15 @@ code {
 </tr>
 <tr class="odd">
 <td><a href="#find">Find</a></td>
-<td align="left"><code>find KEYWORD [MORE_KEYWORDS]</code></td>
+<td align="left"><code>find &quot;KEYWORD [MORE_KEYWORDS]...&quot;</code></td>
+</tr>
+<tr class="even">
+<td> </td>
+<td align="left"><code>find &quot;KEYWORD [MORE_KEYWORDS]...&quot; from DATE_TIME</code></td>
+</tr>
+<tr class="odd">
+<td> </td>
+<td align="left"><code>find &quot;KEYWORD [MORE_KEYWORDS]...&quot; from DATE_TIME to DATE_TIME</code></td>
 </tr>
 <tr class="even">
 <td><a href="#saveas">SaveAs</a></td>
@@ -170,62 +191,62 @@ code {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Help</td>
+<td><a href="#help">Help</a></td>
 <td align="left"><code>help</code></td>
 <td align="left"><code>h</code>, <code>he</code>, <code>hel</code></td>
 </tr>
 <tr class="even">
-<td>Add</td>
+<td><a href="#add">Add</a></td>
 <td align="left"><code>add</code></td>
 <td align="left"><code>a</code>, <code>ad</code></td>
 </tr>
 <tr class="odd">
-<td>Compete</td>
+<td><a href="#com">Complete</a></td>
 <td align="left"><code>complete</code></td>
 <td align="left"><code>c</code>, <code>co</code>, <code>com</code>, ... , <code>complet</code></td>
 </tr>
 <tr class="even">
-<td>Delete</td>
+<td><a href="#del">Delete</a></td>
 <td align="left"><code>delete</code></td>
 <td align="left"><code>d</code>, <code>de</code>, <code>del</code>, ... , <code>delet</code></td>
 </tr>
 <tr class="odd">
-<td>Edit</td>
+<td><a href="#edit">Edit</a></td>
 <td align="left"><code>edit</code></td>
 <td align="left"><code>e</code>, <code>ed</code>, <code>edi</code></td>
 </tr>
 <tr class="even">
-<td>Show</td>
+<td><a href="#show">Show</a></td>
 <td align="left"><code>show</code></td>
 <td align="left"><code>s</code>, <code>sh</code>, <code>sho</code></td>
 </tr>
 <tr class="odd">
-<td>Undo</td>
+<td><a href="#undo">Undo</a></td>
 <td align="left"><code>undo</code></td>
-<td align="left"><code>u</code></td>
+<td align="left"><code>u</code>, <code>un</code>, <code>und</code></td>
 </tr>
 <tr class="even">
-<td>Redo</td>
+<td><a href="#redo">Redo</a></td>
 <td align="left"><code>redo</code></td>
-<td align="left"><code>r</code></td>
+<td align="left"><code>r</code>, <code>re</code>, <code>red</code></td>
 </tr>
 <tr class="odd">
-<td>Find</td>
+<td><a href="#find">Find</a></td>
 <td align="left"><code>find</code></td>
 <td align="left"><code>f</code>, <code>fi</code>, <code>fin</code></td>
 </tr>
 <tr class="even">
-<td>SaveAs</td>
+<td><a href="#saveas">SaveAs</a></td>
 <td align="left"><code>saveas</code></td>
 <td align="left">None</td>
 </tr>
 <tr class="odd">
-<td>Clear</td>
+<td><a href="#clear">Clear</a></td>
 <td align="left"><code>clear</code></td>
 <td align="left">None</td>
 </tr>
 <tr class="even">
-<td>Exit</td>
+<td><a href="#exit">Exit</a></td>
 <td align="left"><code>exit</code></td>
 <td align="left">None</td>
 </tr>
@@ -250,6 +271,12 @@ code {
 <li>If no date is given, the current date will be used instead.</li>
 <li>However, you cannot input none of them.</li>
 <li>The start-date &amp; time of the events cannot be earlier prior to the end-date &amp; time.</li>
+<blockquote>
+<ul>
+<li>Given the nature of natural language processing, Jimi can't gurantee that it will interpret your specified date/time with 100% certainty. If it ever happens that Jimi misinterprets your dates/times, you can either <a href="#undo"><code>undo</code></a> or <a href="#edit"><code>edit</code></a> to make changes.</li>
+<li>A failsafe option, however, is to simply type proper calender dates i.e. <code>27 oct</code> or <code>1 feb 2pm</code>.</li>
+</ul>
+</blockquote>
 <p><br></p>
 <p><strong>Input of Index</strong></p>
 <li>In order to differentiate the indexes of the tasks and events in the command inputs:</li>

@@ -21,7 +21,7 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-2. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
+2. Download the latest `Jimi.<version>.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for Jimi.
 4. Double-click the file to start the app. The window should appear in a few seconds. 
 > <img src="images/WelcomeScreenUi.png" width="800">
@@ -60,15 +60,14 @@ Command | Format
 [Add](#add) | `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
 &nbsp;| `add "EVENT_DETAILS" on|from START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]`
+[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]..."`
+&nbsp;| `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 [Complete](#com)| `complete INDEX`
 [Delete](#del) | `delete INDEX`
 [Edit](#edit) | `edit INDEX NEW_DETAILS`
 [Show](#show) | `show SECTION`
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
-[Find](#find) | `find "KEYWORD [MORE_KEYWORDS]"`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]" from DATE_TIME to DATE_TIME`
 [SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
@@ -81,6 +80,7 @@ Command | Format
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
 * Items in `[]` are optional.
+* Items followed by ellipses, `...`, means you can have multiple instances of that item.
 * Items seperated by `|` simply means any of the items will work. E.g. `on|from`, typing `on` instead of `from` and vice versa are fine.
 * The order of your input text is fixed. For instance, `add DATE_TIME due "TASK_DETAILS"` is invalid. 
 * Some commands allow shorter command words for advanced users. Some commands, due to their critical nature e.g. `exit` or `clear`, you are required to type the full command word.
@@ -91,13 +91,13 @@ Command | Default Command Word | Shortcuts
 -------- | :-------- | :--------
 [Help](#help) | `help` | `h`, `he`, `hel`
 [Add](#add) | `add` | `a`, `ad`
+[Find](#find) | `find` | `f`, `fi`, `fin`
 [Complete](#com) | `complete` | `c`, `co`, `com`, ... , `complet`
 [Delete](#del) | `delete` | `d`, `de`, `del`, ... , `delet`
 [Edit](#edit) | `edit` | `e`, `ed`, `edi`
 [Show](#show) | `show` | `s`, `sh`, `sho`
 [Undo](#undo)  | `undo` | `u`, `un`, `und`
 [Redo](#redo) | `redo` | `r`, `re`, `red`
-[Find](#find) | `find` | `f`, `fi`, `fin`
 [SaveAs](#saveas) | `saveas` | None
 [Clear](#clear) | `clear` | None
 [Exit](#exit) | `exit` | None
@@ -219,6 +219,41 @@ Examples:
 
 <br><br>
 
+#### <a id="find"></a>Finding all tasks relevant to keywords you input: `find`
+Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
+Format: `find "KEYWORD [MORE_KEYWORDS]"`
+
+> * The keywords must be specified in quotes.
+> * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
+> * Task details, tags and priorities can be search. e.g. `find "high"` will cover high priority tasks too.
+> * Searching takes into account typos too, to a certain extent. e.g. `find "apolet"` will match `apple`.
+> * Tasks with details/tags/priorities matching at least one keyword will be returned.
+    e.g. `Writing` will match `Writing essay`
+
+Examples: 
+* `find "Jimmy"`
+* `find "buy attend do get"`
+
+> <img src="images/Find.png" width="800">
+
+<!-- @@author A0138915X -->
+#### Finding all tasks according to the dates you specify: `find`
+Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
+Format: `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
+
+> * You can also input just a single date to search for tasks and events relevant to that day.
+> * You can search the tasks and events by dates along with keywords as well.
+> * Simply append the dates to the keywords.
+
+Examples:
+* `find from tuesday to wednesday`
+* `find "attend" from tomorrow to next month`
+
+> <img src="images/FindDate.PNG" width="800">
+
+<br><br>
+<!-- @@author A0138915X -->
+
 #### <a id="com"></a>Marking a task as complete: `complete`
 Marks an existing task as complete. <br>
 Format: `complete TASK_INDEX`
@@ -278,7 +313,7 @@ edit t2 due 8pm | edit the deadline of task t2.
 edit e9 on tmr to next monday | edit the start date and end date of event e9.
 
 > When editting an event, you can either edit just the start date alone or the end date alone or both.
-> But if you wish to convert to an event from a task, `on NEW_START_DATETIME` is no longer optional, as will be shown below. 
+> But if you wish to convert to an event from a task, `on|from NEW_START_DATETIME` is no longer optional, as will be shown below. 
 
 <br>
 
@@ -291,7 +326,7 @@ Dateless Task | dateless | `edit e1 dateless`
 Tagless item | tagless | `edit t1 tagless`
 No priority item | p/none | `edit t4 p/none`
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | `edit e3 due tomorrow p/HIGH`
-Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | `edit t1 "skip CS2103 lecture" on 29 oct t/IMPT`
+Event | ["NEW_TASK_DETAILS"] on\|from NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | `edit t1 "skip CS2103 lecture" on 29 oct t/IMPT`
 
 > * If you ever make a mistake, don't be afraid to use the [`undo`](#undo) command. <br>
 
@@ -338,47 +373,13 @@ Only actions that make changes to the data of Jimi are redo-able. i.e. [`add`](#
 
 <br><br>
 
-#### <a id="find"></a>Finding all tasks relevant to keywords you input: `find`
-Finds and lists all tasks in Jimi whose name contains any of the argument keywords.<br>
-Format: `find "KEYWORD [MORE_KEYWORDS]"`
-
-> * The keywords must be specified in quotes.
-> * The order of the keywords you type in does not matter. e.g. `Essay writing` will match `Writing essay`
-> * Task details, tags and priorities can be search. e.g. `find "high"` will cover high priority tasks too.
-> * Searching takes into account typos too, to a certain extent. e.g. `find "apolet"` will match `apple`.
-> * Tasks with details/tags/priorities matching at least one keyword will be returned.
-    e.g. `Writing` will match `Writing essay`
-
-Examples: 
-* `find "Jimmy"`
-* `find "buy attend do get"`
-
-> <img src="images/Find.png" width="800">
-
-<!-- @@author A0138915X -->
-#### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
-Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
-Format: `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME to DATE_TIME` or `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME`
-
-> * You can also input just a single date to search for tasks and events relevant to that day.
-> * You can search the tasks and events by dates along with keywords as well.
-> * Simply append the dates to the keywords.
-
-Examples:
-* `find from tuesday to wednesday`
-* `find "attend" from tomorrow to next month`
-
-> <img src="images/FindDate.PNG" width="800">
-
-<br><br>
-<!-- @@author A0138915X -->
-
 <!--- @@author A0143471L -->
 #### <a id="saveas"></a>Setting save directory : `saveas`
-Saves a copy of the existing storage file to a new directiory, also all future saves save to this new directory.
+Saves a copy of the existing storage file to a new directiory, also all future saves save to this new directory. <br>
 Format: `saveas NEW_DIRECTORY`
 
 > * `NEW_DIRECTORY` should be in the format: `FILE_PATH/FILE_NAME.xml`
+> * **WARNING**: this command overwrites the specified .xml file in the new save directory. It does **NOT** load files from the new directory, if you wish to load files from a new directory, you would have to manually transfer the content of the .xml files over.
 > * If you want to reset the save directory back to default of `<home_folder_of_installation>/data/jimi.xml`, type `saveas reset`
 
 Example:
