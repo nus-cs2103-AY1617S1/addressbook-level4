@@ -7,7 +7,7 @@ import seedu.task.commons.events.ui.ShowHelpEvent;
 
 /**
  * Format full help instructions for every command for display.
- * @@author Yee Heng
+ * 
  */
 public class HelpCommand extends Command {
 

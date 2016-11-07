@@ -1,10 +1,11 @@
 package seedu.task.logic.commands;
 
-//@@author A0125534L
+//@author A0125534L
+
 /**
  * Selects a Task/Event identified using it's last displayed index from the Task
  * book.
- * @@author Yee Heng
+ * 
  */
 
 public abstract class SelectCommand extends Command {

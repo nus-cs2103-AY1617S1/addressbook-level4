@@ -7,9 +7,10 @@ import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.DataConversionException;
 
 //@@author A0125534L
+
 /**
  * Represents a storage for {@link seedu.taskell.commons.core.Config}.
- * @@author Yee Heng
+ * 
  */
 
 public interface ConfigStorage {

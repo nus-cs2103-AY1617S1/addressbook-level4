@@ -6,11 +6,12 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.model.item.ReadOnlyTask;
 
-//@@author A0125534L
+//@author A0125534L
+
 /**
  * Selects an Task identified using it's last displayed index from the task
  * book.
- * @@author Yee Heng
+ * 
  */
 
 public class SelectTaskCommand extends SelectCommand {

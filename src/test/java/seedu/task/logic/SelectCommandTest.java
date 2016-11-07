@@ -14,10 +14,10 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.Task;
 
 //@@author A0125534L
+
 /**
  * Responsible for testing the execution of SelectCommand
  * 
- * @@author Yee Heng
  */
 
 public class SelectCommandTest extends CommandTest {

@@ -1,6 +1,7 @@
 package seedu.task.logic.commands;
 
 //@@author A0125534L
+
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -13,7 +14,7 @@ import seedu.task.storage.JsonConfigStorage;
 import seedu.task.storage.Storage;
 
 /** Save command that saves current data file to new filepath.
- * @@author Yee Heng
+ * 
  * */
 
 public class SaveCommand extends Command {

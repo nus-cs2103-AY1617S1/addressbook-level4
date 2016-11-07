@@ -17,10 +17,10 @@ import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
 //@@author A0125534L
+
 /**
  * Responsible for testing the execution of HelpCommand
  * 
- * @@author Yee Heng
  */
 
 

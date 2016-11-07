@@ -11,11 +11,12 @@ import seedu.task.logic.commands.SelectEventCommand;
 import seedu.task.logic.commands.SelectTaskCommand;
 
 //@@author A0125534L
+
 /**
  * Responsible for validating and preparing the arguments for SelectCommand
  * execution
  * 
- * @@author Yee Heng
+ * 
  */
 
 public class SelectParser implements Parser {
