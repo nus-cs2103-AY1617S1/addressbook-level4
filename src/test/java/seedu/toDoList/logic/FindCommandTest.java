@@ -11,6 +11,7 @@ import seedu.toDoList.logic.commands.FindCommand;
 import seedu.toDoList.model.TaskManager;
 import seedu.toDoList.model.task.Task;
 
+//@@author A0146123R
 /**
  * Responsible for testing the correct execution of FindCommand
  */

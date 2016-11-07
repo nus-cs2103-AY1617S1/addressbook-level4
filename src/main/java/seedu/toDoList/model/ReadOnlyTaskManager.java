@@ -1,10 +1,9 @@
 package seedu.toDoList.model;
 
-
 import seedu.toDoList.model.tag.Tag;
 import seedu.toDoList.model.tag.UniqueTagList;
 import seedu.toDoList.model.task.ReadOnlyTask;
-import seedu.toDoList.model.task.UniqueTaskList;
+import seedu.toDoList.model.task.TaskList;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface ReadOnlyTaskManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniqueTaskList();
+    TaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list

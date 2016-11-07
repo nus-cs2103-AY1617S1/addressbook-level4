@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 
-//@@author A0146123R
+//@@author A0142325R
 
 /**
  * test for done command execution on gui
@@ -73,7 +73,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
     }
     
-    //test for nonexistant name
+    //test for nonexistent name
     
     @Test
     public void markDoneByNonExistantName_fail(){

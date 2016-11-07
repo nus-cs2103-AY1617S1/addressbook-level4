@@ -1,9 +1,5 @@
 package seedu.toDoList.testutil;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import seedu.toDoList.commons.exceptions.IllegalValueException;
 import seedu.toDoList.commons.util.DateUtil;
 import seedu.toDoList.model.TaskManager;
@@ -15,7 +11,7 @@ import seedu.toDoList.model.task.*;
 public class TypicalTestTasks {
 
 
-    public static TestTask friend, friendEvent,lunch, book, work, movie, meeting, travel, project, workshop,lecture,swimming,lectureVerifier,swimmingVerifier,teaching,teachingVerifier;
+    public static TestTask friend, friendEvent,lunch, book, work, movie, meeting, travel, homework, project, workshop,lecture,swimming,lectureVerifier,swimmingVerifier,teaching,teachingVerifier;
 
     //@@author A0146123R
     public TypicalTestTasks() {
@@ -34,8 +30,8 @@ public class TypicalTestTasks {
 
  
             //Manually added
-            project = new TaskBuilder().withName("Project due").withDeadline("11.10.2016").withTags("Project").build();
-            workshop = new TaskBuilder().withName("Attend workshop").withEventDate("11.10.2016-10", "11.10.2016-16").build();
+            project = new TaskBuilder().withName("Project due").withDeadline("11.10.2016").withPriority(3).withTags("Project").build();
+            workshop = new TaskBuilder().withName("Attend workshop").withEventDate("11.10.2016-10", "11.10.2016-16").withPriority(2).build();
             lecture=new TaskBuilder().withName("CS2103 Lecture").withEventDate("14.10.2016-14", "14.10.2016-16").withRecurringFrequency("weekly").build();
             swimming=new TaskBuilder().withName("Swimming Course").withDeadline("01.01.2016").withRecurringFrequency("daily").build();
             teaching=new TaskBuilder().withName("teach my sister math").withDeadline("01.01.2016").withRecurringFrequency("monthly").build();

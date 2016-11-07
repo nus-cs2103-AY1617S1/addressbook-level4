@@ -17,13 +17,13 @@ public interface State {
     /** Gets the next state of the task manager. */
     public TaskManagerState getNextState() throws StateLimitException;
 
-    /** Saves and sets the current file path of the task manager. */
+    /** Saves and sets the file path of the task manager. */
     public void saveFilePath(String filePath, boolean isToClearOld);
 
-    /** Gets and sets the previous file path of the task manager. */
-    public void getPreviousFilePath(boolean isToClearNew) throws StateLimitException;
+    /** Sets the task manager to the previous file path. */
+    public void setPreviousFilePath(boolean isToClearNew) throws StateLimitException;
 
-    /** Gets and sets the next file path of the task manager. */
-    public void getNextFilePath() throws StateLimitException;
+    /** Sets the task manager to the next file path. */
+    public void setNextFilePath() throws StateLimitException;
 
 }

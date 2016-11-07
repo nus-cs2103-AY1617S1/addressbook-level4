@@ -5,7 +5,7 @@ import seedu.toDoList.model.ReadOnlyTaskManager;
 import seedu.toDoList.model.tag.Tag;
 import seedu.toDoList.model.tag.UniqueTagList;
 import seedu.toDoList.model.task.ReadOnlyTask;
-import seedu.toDoList.model.task.UniqueTaskList;
+import seedu.toDoList.model.task.TaskList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "taskmanager")
+@XmlRootElement(name = "toDoList")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
@@ -48,20 +48,19 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
+            assert false;
             return null;
         }
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public TaskList getUniqueTaskList() {
+        TaskList lists = new TaskList();
         for (XmlAdaptedTask t : tasks) {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                assert false;
             }
         }
         return lists;
@@ -73,8 +72,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
+                assert false;
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

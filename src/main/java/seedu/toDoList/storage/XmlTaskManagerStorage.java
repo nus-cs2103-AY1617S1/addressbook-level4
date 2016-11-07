@@ -109,7 +109,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     
     //@@author A0146123R
     /**
-     * Delete the storage file.
+     * Deletes the storage file.
      * @throws IOException if there was any problem deleting the file.
      */
     private void deleteTaskManager() throws IOException {

@@ -46,16 +46,16 @@ public class ListCommand extends Command {
 
         switch (toList) {
         case EVENTS:
-            model.updateFilteredTaskList(toList);
+            model.updateFilteredTaskListByType(toList);
             return new CommandResult(MESSAGE_EVENT_SUCCESS);
         case TASKS:
-            model.updateFilteredTaskList(toList);
+            model.updateFilteredTaskListByType(toList);
             return new CommandResult(MESSAGE_TASK_SUCCESS);
         case DONE:
-            model.updateFilteredTaskList(toList);
+            model.updateFilteredTaskListByType(toList);
             return new CommandResult(MESSAGE_LIST_DONE_TASK_SUCCESS);
         case UNDONE:
-            model.updateFilteredTaskList(toList);
+            model.updateFilteredTaskListByType(toList);
             return new CommandResult(MESSAGE_LIST_UNDONE_TASK_SUCCESS);
         default:
             indicateAttemptToExecuteIncorrectCommand();

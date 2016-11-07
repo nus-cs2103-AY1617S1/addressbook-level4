@@ -43,7 +43,7 @@ public class UndoChangeCommand extends Command {
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         try {
-            model.changeBackTaskManager(isToClearNew);
+            model.changeBackTaskManagerPath(isToClearNew);
             return new CommandResult(MESSAGE_CHANGE_SUCCESS);
         } catch (StateLimitException e) {
             indicateAttemptToExecuteIncorrectCommand();

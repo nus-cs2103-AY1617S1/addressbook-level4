@@ -40,7 +40,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void update_listCommand_buttonUpdates() {
+    public void update_listCommand_buttonUpdate() {
         commandBox.runCommand("list tasks");
         assertTrue(filterPanel.getTaskInput());
         commandBox.runCommand("list events");
@@ -56,7 +56,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void updatee_filterCommand_textFieldUpdates() {
+    public void updatee_filterCommand_textFieldUpdate() {
         commandBox.runCommand("filter d/06.11.2016 t/tag");
         assertEquals("06.11.2016", filterPanel.getDeadlineInput());
         assertEquals("tag", filterPanel.getTagInput());

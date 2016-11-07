@@ -51,8 +51,9 @@ public class XmlAdaptedTask {
         date = source.getDate().getValue();
         isDone = source.isDone();
         isRecurring = source.isRecurring();
-        if (isRecurring)
+        if (isRecurring) {
             frequency = source.getRecurring().recurringFrequency;
+        }
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -85,12 +86,9 @@ public class XmlAdaptedTask {
         }
         final Priority priorityLevel = new Priority(this.priorityLevel);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        if (isRecurring){
-           // System.out.println("isrecurring is true");
+        if (isRecurring) {
             return new Task(name, date, tags, isDone, new Recurring(frequency), priorityLevel);
         }
-
-            return new Task(name, date, tags, isDone, false, priorityLevel);
-
+        return new Task(name, date, tags, isDone, false, priorityLevel);
     }
 }

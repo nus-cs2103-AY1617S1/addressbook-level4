@@ -36,9 +36,7 @@ public class TaskCard extends UiPart{
     private Image priorityImage;
     private int priorityLevel;
 
-    public TaskCard(){
-
-    }
+    public TaskCard() {}
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
@@ -47,41 +45,35 @@ public class TaskCard extends UiPart{
         return UiPartLoader.loadUiPart(card);
     }
 
+    //@@author A0138717X
     @FXML
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());
         done.setText(task.isDone() ? "DONE" : "");
-        if(!task.tagsString().equals(""))
-        	tags.setText("Tags: " + task.tagsString());
-        recurring.setText(task.isRecurring()? "recurring":"");
-       frequency.setText(task.isRecurring()?task.getRecurring().recurringFrequency:"");
-//       priority.setText(task.getPriorityLevel().toString());
-       priorityLevel = task.getPriorityLevel().priorityLevel;
-       if(priorityLevel == 1)
-       {
-       		priorityImage = new Image("/images/thunderbolt.png");
-       		priority.setImage(priorityImage);
-       		priority.setFitWidth(21.0);
-       		priority.setFitHeight(40.0);
-       }
-       else if(priorityLevel == 2)
-       {
-    	   priorityImage = new Image("/images/thunderbolt2.png");
-    	   priority.setImage(priorityImage);
-    	   priority.setFitWidth(36.0);
-    	   priority.setFitHeight(40.0);
-       }
-       else if(priorityLevel == 3)
-       {
-    	   priorityImage = new Image("/images/thunderbolt3.png");
-    	   priority.setImage(priorityImage);
-    	   priority.setFitWidth(48.0);
-    	   priority.setFitHeight(40.0);
-       }
-       // frequency.setText("not yet");
-
+        if (!task.tagsString().equals("")) {
+            tags.setText("Tags: " + task.tagsString());
+        }
+        recurring.setText(task.isRecurring() ? "recurring" : "");
+        frequency.setText(task.isRecurring() ? task.getRecurring().recurringFrequency : "");
+        priorityLevel = task.getPriorityLevel().priorityLevel;
+        if (priorityLevel == 1) {
+            priorityImage = new Image("/images/thunderbolt.png");
+            priority.setImage(priorityImage);
+            priority.setFitWidth(21.0);
+            priority.setFitHeight(40.0);
+        } else if (priorityLevel == 2) {
+            priorityImage = new Image("/images/thunderbolt2.png");
+            priority.setImage(priorityImage);
+            priority.setFitWidth(36.0);
+            priority.setFitHeight(40.0);
+        } else if (priorityLevel == 3) {
+            priorityImage = new Image("/images/thunderbolt3.png");
+            priority.setImage(priorityImage);
+            priority.setFitWidth(48.0);
+            priority.setFitHeight(40.0);
+        }
     }
 
     public HBox getLayout() {

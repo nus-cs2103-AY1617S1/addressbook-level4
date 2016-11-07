@@ -4,7 +4,6 @@ import seedu.toDoList.commons.exceptions.IllegalValueException;
 import seedu.toDoList.model.TaskManager;
 import seedu.toDoList.model.tag.Tag;
 import seedu.toDoList.model.task.Task;
-import seedu.toDoList.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.

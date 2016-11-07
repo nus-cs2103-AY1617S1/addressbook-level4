@@ -4,7 +4,6 @@ import static seedu.toDoList.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 
 import org.junit.Test;
 
-import seedu.toDoList.commons.exceptions.MissingRecurringDateException;
 import seedu.toDoList.logic.commands.AddCommand;
 import seedu.toDoList.model.TaskManager;
 import seedu.toDoList.model.tag.Tag;
@@ -174,6 +173,4 @@ public class AddCommandTest extends CommandTest{
 
     }
     
-
-
 }

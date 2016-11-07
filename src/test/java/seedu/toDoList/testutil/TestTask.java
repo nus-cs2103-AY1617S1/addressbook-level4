@@ -8,7 +8,7 @@ import seedu.toDoList.model.task.*;
  * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
-    
+
     private static int DEFAULT_PRIORITY_LEVEL = 0;
 
     private Name name;
@@ -18,23 +18,24 @@ public class TestTask implements ReadOnlyTask {
     private boolean isEvent;
     private boolean isDone;
     private boolean isRecurring;
-    
+    private boolean isCustomizedPriority;
+
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
-        isDone=false;
+        isDone = false;
         try {
             priorityLevel = new Priority(DEFAULT_PRIORITY_LEVEL);
+            isCustomizedPriority = false;
         } catch (IllegalValueException e) {
-            // 0 is a valid priority level, so the exception will never happen
+            assert false;
         }
     }
 
     public void setName(Name name) {
         this.name = name;
     }
-
 
     public void setDate(Date date) {
         this.date = date;
@@ -44,16 +45,17 @@ public class TestTask implements ReadOnlyTask {
             isEvent = false;
         }
     }
-    
-    public void setRecurringFrequency(String freq) throws IllegalValueException{
-        this.isRecurring=true;
-        this.recurring=new Recurring(freq);
+
+    public void setRecurringFrequency(String freq) throws IllegalValueException {
+        this.isRecurring = true;
+        this.recurring = new Recurring(freq);
     }
-    
+
     public void setPriorityLevel(Priority priorityLevel) {
+        this.isCustomizedPriority = true;
         this.priorityLevel = priorityLevel;
     }
-    
+
     @Override
     public Name getName() {
         return name;
@@ -63,9 +65,8 @@ public class TestTask implements ReadOnlyTask {
     public Date getDate() {
         return date;
     }
-    
-    
-    @Override 
+
+    @Override
     public boolean isEvent() {
         return isEvent;
     }
@@ -74,17 +75,17 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
-    
+
     @Override
     public boolean isDone() {
-    	return isDone;
+        return isDone;
     }
-    
+
     @Override
     public Priority getPriorityLevel() {
         return priorityLevel;
     }
-    
+
     @Override
     public String toString() {
         return getAsText();
@@ -92,7 +93,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add "  +"n/"+this.getName().taskName + " ");
+        sb.append("add " + "n/" + this.getName().taskName + " ");
         if (isEvent) {
             assert date instanceof EventDate;
             EventDate eventDate = (EventDate) this.getDate();
@@ -106,47 +107,56 @@ public class TestTask implements ReadOnlyTask {
             }
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        if(isRecurring)
-            sb.append("r/"+recurring.recurringFrequency);
+        if (isRecurring) {
+            sb.append("r/" + recurring.recurringFrequency);
+        }
+        if (isCustomizedPriority) {
+            sb.append("p/" + priorityLevel.priorityLevel);
+        }
         return sb.toString();
     }
 
-	@Override
-	public void markAsDone() {
-		isDone=true;
-		
-	}
-//@@author A0142325R
+    @Override
+    public void markAsDone() {
+        isDone = true;
+
+    }
+
+    // @@author A0142325R
     public String getFlexiAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add ");
-        if (isEvent) {
-        	assert date instanceof EventDate;
-        	EventDate eventDate = (EventDate) this.getDate();
-        	sb.append("e/" + eventDate.getEndDate() + " ");
-        	sb.append("s/" + eventDate.getStartDate() + " ");
-        } else {
-        	assert date instanceof Deadline;
-        	String deadline = this.getDate().getValue();
-        	if (!deadline.equals("")) {
-        		sb.append("d/" + deadline + " ");
-        	}
+        if (isCustomizedPriority) {
+            sb.append("p/" + priorityLevel.priorityLevel);
         }
-        sb.append("n/"+this.getName().taskName + " ");
+        if (isEvent) {
+            assert date instanceof EventDate;
+            EventDate eventDate = (EventDate) this.getDate();
+            sb.append("e/" + eventDate.getEndDate() + " ");
+            sb.append("s/" + eventDate.getStartDate() + " ");
+        } else {
+            assert date instanceof Deadline;
+            String deadline = this.getDate().getValue();
+            if (!deadline.equals("")) {
+                sb.append("d/" + deadline + " ");
+            }
+        }
+        if (isRecurring) {
+            sb.append("r/" + recurring.recurringFrequency);
+        }
+        sb.append("n/" + this.getName().taskName + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 
     @Override
     public Recurring getRecurring() {
-      
         return recurring;
     }
 
     @Override
     public boolean isRecurring() {
-
         return isRecurring;
     }
-    
+
 }

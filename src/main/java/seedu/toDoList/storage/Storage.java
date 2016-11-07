@@ -42,19 +42,19 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
      * Delete the old data file if it is specified. Raises
      * {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleStoragePathChangedEvent(StoragePathChangedEvent abce);
+    void handleStoragePathChangedEvent(StoragePathChangedEvent event);
 
     /**
      * Saves the current version of the Task Manager to the previous file in
      * hard disk. Delete the new data file if it is specified. Raises
      * {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleUndoStoragePathChangedEvent(UndoStoragePathChangedEvent abce);
+    void handleUndoStoragePathChangedEvent(UndoStoragePathChangedEvent event);
 
     /**
      * Redo saves the current version of the Task Manager to the new file in
      * hard disk. Delete the new data file if it was previously specified. Raises
      * {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleRedoStoragePathChangedEvent(RedoStoragePathChangedEvent abce);
+    void handleRedoStoragePathChangedEvent(RedoStoragePathChangedEvent event);
 }

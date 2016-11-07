@@ -58,7 +58,7 @@ public class FilterCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(e.getMessage());
         }
-        model.updateFilteredTaskList(filterQualifications, tags);
+        model.updateFilteredTaskListByQualifications(filterQualifications, tags);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 

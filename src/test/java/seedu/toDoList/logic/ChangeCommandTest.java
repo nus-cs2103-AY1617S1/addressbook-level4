@@ -71,7 +71,7 @@ public class ChangeCommandTest extends CommandTest{
     
     /*
      * As the change command, undochanage command and redochange command 
-     * involve multiple components, they will be tested as system tests
+     * involve commons, logic, model and storage components, they will be tested as system tests
      */
     
 }
