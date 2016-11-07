@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<savvytasker>
+    <tasks>
+        <id>1</id>
+        <groupId>0</groupId>
+        <taskName>Attend project meeting</taskName>
+        <startDateTime>2016-11-16T00:10:00+08:00</startDateTime>
+        <endDateTime>2016-11-16T00:12:00+08:00</endDateTime>
+        <priority>High</priority>
+        <category>priority</category>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>2</id>
+        <groupId>0</groupId>
+        <taskName>Go to the gym</taskName>
+        <priority>Medium</priority>
+        <category>priority</category>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>3</id>
+        <groupId>0</groupId>
+        <taskName>Swimming session</taskName>
+        <priority>Low</priority>
+        <category>priority</category>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>4</id>
+        <groupId>0</groupId>
+        <taskName>Project deadline</taskName>
+        <endDateTime>2016-12-01T00:00:00+08:00</endDateTime>
+        <priority>High</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>5</id>
+        <groupId>0</groupId>
+        <taskName>Homework submission deadline</taskName>
+        <endDateTime>2016-11-16T00:00:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>6</id>
+        <groupId>0</groupId>
+        <taskName>Christmas shopping</taskName>
+        <startDateTime>2016-12-05T00:13:00+08:00</startDateTime>
+        <endDateTime>2016-12-05T00:16:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>7</id>
+        <groupId>0</groupId>
+        <taskName>Send out party invites</taskName>
+        <startDateTime>2016-11-29T00:11:00+08:00</startDateTime>
+        <endDateTime>2016-11-29T00:13:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>8</id>
+        <groupId>0</groupId>
+        <taskName>Create presentation slides</taskName>
+        <endDateTime>2016-01-01T00:00:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>9</id>
+        <groupId>0</groupId>
+        <taskName>Run marathon</taskName>
+        <endDateTime>2016-01-01T00:00:00+08:00</endDateTime>
+        <location>City Hall</location>
+        <priority>Medium</priority>
+        <description>Standard Chartered Marathon</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>10</id>
+        <groupId>0</groupId>
+        <taskName>Make demo video</taskName>
+        <startDateTime>2016-11-19T00:10:00+08:00</startDateTime>
+        <endDateTime>2016-11-19T00:12:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>11</id>
+        <groupId>0</groupId>
+        <taskName>Finish CS2010 PS6</taskName>
+        <endDateTime>2016-11-09T00:00:00+08:00</endDateTime>
+        <location>CodeCrunch</location>
+        <priority>High</priority>
+        <description>Complete search problem</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>12</id>
+        <groupId>0</groupId>
+        <taskName>Swimming Lesson</taskName>
+        <startDateTime>2016-11-26T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-26T15:00:00+08:00</endDateTime>
+        <location>Tampines Swimming Pool</location>
+        <priority>Medium</priority>
+        <description>Teach butterfly stroke to students</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>13</id>
+        <groupId>0</groupId>
+        <taskName>Study for CS2105 midterms</taskName>
+        <endDateTime>2016-10-15T00:00:00+08:00</endDateTime>
+        <location>National Library</location>
+        <priority>High</priority>
+        <description>Lectures 1 to 5</description>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>14</id>
+        <groupId>0</groupId>
+        <taskName>Study for CS2010 midterms</taskName>
+        <endDateTime>2016-10-26T15:00:00+08:00</endDateTime>
+        <location>NUS Central Library</location>
+        <priority>High</priority>
+        <description>Lectures 1 to 6</description>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>15</id>
+        <groupId>0</groupId>
+        <taskName>Watch YouTube videos</taskName>
+        <endDateTime>2016-05-01T16:00:00+08:00</endDateTime>
+        <location>At home</location>
+        <priority>Low</priority>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>16</id>
+        <groupId>0</groupId>
+        <taskName>Watch Dr Strange movie</taskName>
+        <startDateTime>2016-11-09T16:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-09T18:30:00+08:00</endDateTime>
+        <location>Cathay JEM</location>
+        <priority>Low</priority>
+        <description>Stay back for 2 end credit scenes</description>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>17</id>
+        <groupId>0</groupId>
+        <taskName>Practice piano</taskName>
+        <startDateTime>2016-11-14T15:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-14T16:30:00+08:00</endDateTime>
+        <location>Home</location>
+        <priority>Medium</priority>
+        <description>Chopin, Beethoven, Mozart scores</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>18</id>
+        <groupId>0</groupId>
+        <taskName>Bring brother to playground</taskName>
+        <startDateTime>2016-11-24T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-24T15:00:00+08:00</endDateTime>
+        <location>Woodlands Blk 401</location>
+        <priority>Medium</priority>
+        <description>Pick up his friends along the way</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>19</id>
+        <groupId>0</groupId>
+        <taskName>Study for CS2105 finals</taskName>
+        <endDateTime>2016-11-26T00:00:00+08:00</endDateTime>
+        <location>National Library</location>
+        <priority>High</priority>
+        <description>Lectures 1 to 11</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>20</id>
+        <groupId>0</groupId>
+        <taskName>Study for CS2010 finals</taskName>
+        <endDateTime>2016-11-28T00:00:00+08:00</endDateTime>
+        <location>COM1 Level 2</location>
+        <priority>High</priority>
+        <description>Lectures 1 to 11</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>21</id>
+        <groupId>0</groupId>
+        <taskName>Practice for Math Olympiad</taskName>
+        <endDateTime>2016-12-08T00:00:00+08:00</endDateTime>
+        <location>S17</location>
+        <priority>High</priority>
+        <description>Do past year papers</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>22</id>
+        <groupId>0</groupId>
+        <taskName>Bring grandparents out</taskName>
+        <startDateTime>2016-12-14T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-14T15:00:00+08:00</endDateTime>
+        <location>Gardens by the Bay</location>
+        <priority>Medium</priority>
+        <description>Visit the Flower Dome</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>23</id>
+        <groupId>0</groupId>
+        <taskName>Set up dinner with OG</taskName>
+        <startDateTime>2016-12-02T18:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-02T20:00:00+08:00</endDateTime>
+        <location>Bugis</location>
+        <priority>Medium</priority>
+        <description>Steamboat, get table for 9</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>24</id>
+        <groupId>0</groupId>
+        <taskName>Play Call of Duty</taskName>
+        <startDateTime>2016-12-03T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-03T15:00:00+08:00</endDateTime>
+        <location>Home</location>
+        <priority>Low</priority>
+        <description>on Playstation 4</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>25</id>
+        <groupId>0</groupId>
+        <taskName>Print out lecture notes</taskName>
+        <startDateTime>2016-10-28T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-10-28T12:30:00+08:00</endDateTime>
+        <location>COM1 Level 1</location>
+        <priority>Medium</priority>
+        <description>Print for CS2106</description>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>26</id>
+        <groupId>0</groupId>
+        <taskName>Do Math Homework 4</taskName>
+        <startDateTime>2016-11-07T19:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-07T21:00:00+08:00</endDateTime>
+        <location>PGP study room</location>
+        <priority>High</priority>
+        <description>Practice MATLAB</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>27</id>
+        <groupId>0</groupId>
+        <taskName>Buy chocolates for Easter</taskName>
+        <startDateTime>2016-11-11T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-11T13:00:00+08:00</endDateTime>
+        <location>Takashimaya</location>
+        <priority>Medium</priority>
+        <description>Find Japanese chocolates</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>28</id>
+        <groupId>0</groupId>
+        <taskName>Pay hostel fees</taskName>
+        <startDateTime>2016-11-07T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-07T12:15:00+08:00</endDateTime>
+        <location>Hostel Management Office</location>
+        <priority>High</priority>
+        <description>Bring credit card</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>29</id>
+        <groupId>0</groupId>
+        <taskName>Apply for vacation stay</taskName>
+        <endDateTime>2016-11-18T00:00:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>30</id>
+        <groupId>0</groupId>
+        <taskName>Make poster for Orbital</taskName>
+        <startDateTime>2016-08-12T09:00:00+08:00</startDateTime>
+        <endDateTime>2016-08-12T13:00:00+08:00</endDateTime>
+        <location>COM1</location>
+        <priority>High</priority>
+        <description>Print out A3 size at printing area</description>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>31</id>
+        <groupId>0</groupId>
+        <taskName>Tea appreciation session</taskName>
+        <startDateTime>2016-12-12T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-12T16:00:00+08:00</endDateTime>
+        <location>Teahouse @ Bugis</location>
+        <priority>Medium</priority>
+        <description>300 different teas to try</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>32</id>
+        <groupId>0</groupId>
+        <taskName>Go prawning</taskName>
+        <startDateTime>2016-12-19T17:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-19T19:00:00+08:00</endDateTime>
+        <location>Bugis</location>
+        <priority>Medium</priority>
+        <description>Get 2 rods and live bait</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>33</id>
+        <groupId>0</groupId>
+        <taskName>Buy new iPhone</taskName>
+        <startDateTime>2016-12-21T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-21T13:00:00+08:00</endDateTime>
+        <location>Orchard Road</location>
+        <priority>Medium</priority>
+        <description>get iPhone 7 Plus 128GB</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>34</id>
+        <groupId>0</groupId>
+        <taskName>Deposit money in bank</taskName>
+        <startDateTime>2016-12-04T13:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-04T13:30:00+08:00</endDateTime>
+        <location>DBS Bank</location>
+        <priority>Medium</priority>
+        <description>Deposit paycheck</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>35</id>
+        <groupId>0</groupId>
+        <taskName>Book flight tickets</taskName>
+        <endDateTime>2016-11-22T15:00:00+08:00</endDateTime>
+        <location>Online</location>
+        <priority>Medium</priority>
+        <description>Book 2 tickets to San Francisco</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>36</id>
+        <groupId>0</groupId>
+        <taskName>Buy new camera for trip</taskName>
+        <endDateTime>2016-11-22T17:00:00+08:00</endDateTime>
+        <location>Orchard Road</location>
+        <priority>Medium</priority>
+        <description>Get a GoPro Hero 5</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>37</id>
+        <groupId>0</groupId>
+        <taskName>Go to motor exhibition</taskName>
+        <startDateTime>2016-12-19T10:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-19T15:00:00+08:00</endDateTime>
+        <location>Suntec Convention Center</location>
+        <priority>Low</priority>
+        <description>Bring $50 for tickets</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>38</id>
+        <groupId>0</groupId>
+        <taskName>Go grocery shopping</taskName>
+        <startDateTime>2016-11-10T13:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-10T16:00:00+08:00</endDateTime>
+        <location>NTUC Fairprice</location>
+        <priority>Medium</priority>
+        <description>Replace toiletries and food</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>39</id>
+        <groupId>0</groupId>
+        <taskName>Buy souvenirs for foreign guests</taskName>
+        <startDateTime>2016-12-27T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-27T15:00:00+08:00</endDateTime>
+        <location>Marina Bay Sands</location>
+        <priority>Medium</priority>
+        <description>Get Singapore specific items</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>40</id>
+        <groupId>0</groupId>
+        <taskName>Watch concert</taskName>
+        <startDateTime>2016-12-29T19:00:00+08:00</startDateTime>
+        <location>Esplanade</location>
+        <priority>Low</priority>
+        <description>Bring jacket</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>41</id>
+        <groupId>0</groupId>
+        <taskName>Submit assignment</taskName>
+        <endDateTime>2016-09-01T00:00:00+08:00</endDateTime>
+        <priority>High</priority>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>42</id>
+        <groupId>0</groupId>
+        <taskName>Finish tutorial</taskName>
+        <endDateTime>2016-09-04T00:00:00+08:00</endDateTime>
+        <priority>Medium</priority>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <id>43</id>
+        <groupId>0</groupId>
+        <taskName>Buy Turkey for Thanksgiving</taskName>
+        <endDateTime>2016-12-22T00:00:00+08:00</endDateTime>
+        <location>Cold Storage</location>
+        <priority>Medium</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>44</id>
+        <groupId>0</groupId>
+        <taskName>Buy new furniture</taskName>
+        <startDateTime>2016-12-26T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-26T15:00:00+08:00</endDateTime>
+        <location>IKEA Tampines</location>
+        <priority>Medium</priority>
+        <description>Get a chair and study lamp</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>45</id>
+        <groupId>0</groupId>
+        <taskName>Play badminton</taskName>
+        <startDateTime>2016-12-06T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-06T14:00:00+08:00</endDateTime>
+        <location>Kovan Sports Hub</location>
+        <priority>Low</priority>
+        <description>Bring own shuttlecocks</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>46</id>
+        <groupId>0</groupId>
+        <taskName>Play tennis</taskName>
+        <startDateTime>2016-12-05T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-05T14:00:00+08:00</endDateTime>
+        <location>Kovan Sports Hub</location>
+        <priority>Low</priority>
+        <description>Bring own tennis balls</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>47</id>
+        <groupId>0</groupId>
+        <taskName>Go for fish spa</taskName>
+        <startDateTime>2016-12-08T13:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-08T15:00:00+08:00</endDateTime>
+        <location>Bugis</location>
+        <priority>Low</priority>
+        <description>Bring towel</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>48</id>
+        <groupId>0</groupId>
+        <taskName>Go for massage</taskName>
+        <startDateTime>2016-12-02T12:00:00+08:00</startDateTime>
+        <endDateTime>2016-12-02T15:00:00+08:00</endDateTime>
+        <location>JB</location>
+        <priority>Low</priority>
+        <description>Get premium package</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>49</id>
+        <groupId>0</groupId>
+        <taskName>Bring dog to vet</taskName>
+        <startDateTime>2016-11-09T13:00:00+08:00</startDateTime>
+        <endDateTime>2016-11-09T14:00:00+08:00</endDateTime>
+        <location>Clementi Vet</location>
+        <priority>High</priority>
+        <description>Dog displaying allergy symptoms</description>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <id>50</id>
+        <groupId>0</groupId>
+        <taskName>Return library books</taskName>
+        <endDateTime>2016-12-07T00:00:00+08:00</endDateTime>
+        <priority>High</priority>
+        <isArchived>false</isArchived>
+    </tasks>
+</savvytasker>
