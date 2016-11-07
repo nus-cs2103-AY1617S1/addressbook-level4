@@ -40,7 +40,6 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    //@@author A0146107M
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTaskDetails().taskDetails;
         startTime = Long.toString(source.getStartTime().time.getTimeInMillis());
@@ -48,10 +47,6 @@ public class XmlAdaptedTask {
         priority = source.getPriority().priorityLevel;
         recurringFrequency = source.getRecurringFrequency();
         isComplete = String.valueOf(source.isComplete());
-/*        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }*/
     }
 
     /**
@@ -68,7 +63,6 @@ public class XmlAdaptedTask {
         final StartTime startTime = new StartTime(Long.valueOf(this.startTime));
         final EndTime endTime = new EndTime(Long.valueOf(this.endTime));
         final Priority priority = new Priority(this.priority);
-      //  final UniqueTagList tags = new UniqueTagList(taskTags);
 
         final boolean isComplete = Boolean.valueOf(this.isComplete);
         Task newTask = new Task(name, startTime, endTime, priority, recurringFrequency);

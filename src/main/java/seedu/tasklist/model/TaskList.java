@@ -91,28 +91,6 @@ public class TaskList implements ReadOnlyTaskList{
 		return tasks.isOverlapping(p);
 	}
 
-	/**
-	 * Ensures that every tag in this person:
-	 *  - exists in the master list {@link #tags}
-	 *  - points to a Tag object in the master list
-	 */
-	/*private void syncTagsWithMasterList(Task task) {
-		final UniqueTagList personTags = task.getTags();
-		tags.mergeFrom(personTags);
-
-		// Create map with values = tag object references in the master list
-		final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-		for (Tag tag : tags) {
-			masterTagObjects.put(tag, tag);
-		}
-
-		// Rebuild the list of person tags using references from the master list
-		final Set<Tag> commonTagReferences = new HashSet<>();
-		for (Tag tag : personTags) {
-			commonTagReferences.add(masterTagObjects.get(tag));
-		}
-		task.setTags(new UniqueTagList(commonTagReferences));
-	}*/
 
 	public void removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
 		tasks.remove(key);
@@ -121,12 +99,6 @@ public class TaskList implements ReadOnlyTaskList{
 	public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
 		tasks.setComplete(key);
 	}
-
-	//// tag-level operations
-
-	/*public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-		tags.add(t);
-	}*/
 
 	//// util methods
 
@@ -168,7 +140,7 @@ public class TaskList implements ReadOnlyTaskList{
 		// use this method for custom fields hashing instead of implementing your own
 		return Objects.hash(tasks);
 	}
-	//@@author A0146107M
+
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime,
             Priority priority, String recurringFrequency) throws IllegalValueException {
         if (taskDetails != null) 
@@ -182,7 +154,7 @@ public class TaskList implements ReadOnlyTaskList{
         if (recurringFrequency != null)
             taskToUpdate.setRecurringFrequency(recurringFrequency);
     }
-    //@@author
+
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
             Priority priority, String recurringFrequency) throws IllegalValueException {
         if (taskDetails != null) 

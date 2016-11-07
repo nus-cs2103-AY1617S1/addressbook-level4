@@ -36,8 +36,6 @@ import com.google.common.eventbus.Subscribe;
  * Panel containing the list of persons.
  */
 public class TaskListPanel extends UiPart {
-	private static final int DIRECTION_SCROLL_DOWN = 1;
-	private static final int DIRECTION_SCROLL_UP = -1;
 	
 	public enum Direction {
 		UP, DOWN;
@@ -60,18 +58,30 @@ public class TaskListPanel extends UiPart {
 	}
 
 	//@@author A0146107M
+    /**
+     * Handler for tick events
+     *
+     */
 	@Subscribe
 	public void tickEventHandler(TickEvent te){
 		personListView.refresh();
 		setLabelText();
 	}
 
+    /**
+     * Handler for task modified event
+     *
+     */
 	@Subscribe
 	public void taskModifiedEventHandler(TaskModifiedEvent tme){
 		personListView.scrollTo(tme.task);
 		personListView.getSelectionModel().select(tme.task);
 	}
 	
+    /**
+     * Handler for scroll events
+     *
+     */
 	@Subscribe
 	public void scrollEventHandler(TaskListScrollEvent tlse){
 		scrollTraverse(tlse.dir);
@@ -133,6 +143,11 @@ public class TaskListPanel extends UiPart {
 	}
 	
 	//@@author A0146107M
+    /**
+     * Scrolls the task list in a direction
+     *
+     * @param direction Direction to scroll in
+     */
 	public void scrollTraverse(Direction direction){
 		int newIndex = personListView.getSelectionModel().getSelectedIndex();
 		if(newIndex==-1){
@@ -146,7 +161,7 @@ public class TaskListPanel extends UiPart {
 		}
 		scrollTo(newIndex);
 	}
-
+	//@@author
 	public void scrollTo(int index) {
 		Platform.runLater(() -> {
 			personListView.scrollTo(index);
