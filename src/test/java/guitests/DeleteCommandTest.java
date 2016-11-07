@@ -8,7 +8,7 @@ import seedu.testplanner.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.dailyplanner.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends DailyPlannerGuiTest {
 
     @Test
     public void delete() {

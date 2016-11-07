@@ -8,8 +8,8 @@ import java.util.Set;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.DateUtil;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.history.*;
 
@@ -40,11 +40,11 @@ public class AddCommand extends Command {
      */
 
     public AddCommand(String taskName, DateTime start, DateTime end, Set<String> tags) throws IllegalValueException {
-	final Set<Tag> tagSet = new HashSet<>();
+	final Set<Category> tagSet = new HashSet<>();
 	for (String tagName : tags) {
-	    tagSet.add(new Tag(tagName));
+	    tagSet.add(new Category(tagName));
 	}
-	this.toAdd = new Task(taskName, start, end, false, false, new UniqueTagList(tagSet));
+	this.toAdd = new Task(taskName, start, end, false, false, new UniqueCategoryList(tagSet));
 	
     }
 

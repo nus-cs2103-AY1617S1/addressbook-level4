@@ -6,15 +6,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
+import seedu.dailyplanner.commons.events.model.DailyPlannerChangedEvent;
 import seedu.dailyplanner.commons.events.storage.DataSavingExceptionEvent;
-import seedu.dailyplanner.model.AddressBook;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
+import seedu.dailyplanner.model.DailyPlanner;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
 import seedu.dailyplanner.model.UserPrefs;
 import seedu.dailyplanner.storage.JsonUserPrefsStorage;
 import seedu.dailyplanner.storage.Storage;
 import seedu.dailyplanner.storage.StorageManager;
-import seedu.dailyplanner.storage.XmlAddressBookStorage;
+import seedu.dailyplanner.storage.XmlDailyPlannerStorage;
 import seedu.testplanner.testutil.EventsCollector;
 import seedu.testplanner.testutil.TypicalTestTask;
 
@@ -60,10 +60,10 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestTask().getTypicalAddressBook();
+        DailyPlanner original = new TypicalTestTask().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
+        ReadOnlyDailyPlanner retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new DailyPlanner(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
 
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
+        storage.handleAddressBookChangedEvent(new DailyPlannerChangedEvent(new DailyPlanner()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -85,14 +85,14 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlDailyPlannerStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        public void saveAddressBook(ReadOnlyDailyPlanner addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

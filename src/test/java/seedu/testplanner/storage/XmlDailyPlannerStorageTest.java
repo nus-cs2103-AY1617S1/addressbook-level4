@@ -8,10 +8,10 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.dailyplanner.commons.exceptions.DataConversionException;
 import seedu.dailyplanner.commons.util.FileUtil;
-import seedu.dailyplanner.model.AddressBook;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
+import seedu.dailyplanner.model.DailyPlanner;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
 import seedu.dailyplanner.model.task.Task;
-import seedu.dailyplanner.storage.XmlAddressBookStorage;
+import seedu.dailyplanner.storage.XmlDailyPlannerStorage;
 import seedu.testplanner.testutil.TypicalTestTask;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class XmlAddressBookStorageTest {
+public class XmlDailyPlannerStorageTest {
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
 
     @Rule
@@ -34,8 +34,8 @@ public class XmlAddressBookStorageTest {
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+    private java.util.Optional<ReadOnlyDailyPlanner> readAddressBook(String filePath) throws Exception {
+        return new XmlDailyPlannerStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -64,26 +64,26 @@ public class XmlAddressBookStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestTask td = new TypicalTestTask();
-        AddressBook original = td.getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        DailyPlanner original = td.getTypicalAddressBook();
+        XmlDailyPlannerStorage xmlDailyPlannerStorage = new XmlDailyPlannerStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlDailyPlannerStorage.saveAddressBook(original, filePath);
+        ReadOnlyDailyPlanner readBack = xmlDailyPlannerStorage.readAddressBook(filePath).get();
+        assertEquals(original, new DailyPlanner(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addPerson(new Task(TypicalTestTask.learnSpanish));
         original.removePerson(new Task(TypicalTestTask.WatchMovie));
-        xmlAddressBookStorage.saveAddressBook(original, filePath);
-        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
-        assertEquals(original, new AddressBook(readBack));
+        xmlDailyPlannerStorage.saveAddressBook(original, filePath);
+        readBack = xmlDailyPlannerStorage.readAddressBook(filePath).get();
+        assertEquals(original, new DailyPlanner(readBack));
 
         //Save and read without specifying file path
         original.addPerson(new Task(TypicalTestTask.GoSkydiving));
-        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
-        assertEquals(original, new AddressBook(readBack));
+        xmlDailyPlannerStorage.saveAddressBook(original); //file path not specified
+        readBack = xmlDailyPlannerStorage.readAddressBook().get(); //file path not specified
+        assertEquals(original, new DailyPlanner(readBack));
 
     }
 
@@ -93,14 +93,14 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveAddressBook(ReadOnlyDailyPlanner addressBook, String filePath) throws IOException {
+        new XmlDailyPlannerStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new AddressBook(), null);
+        saveAddressBook(new DailyPlanner(), null);
     }
 
 

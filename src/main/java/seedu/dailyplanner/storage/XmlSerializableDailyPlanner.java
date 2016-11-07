@@ -4,9 +4,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 
@@ -19,36 +19,36 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableDailyPlanner implements ReadOnlyDailyPlanner {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
-    private List<Tag> tags;
+    private List<Category> categories;
 
     {
         persons = new ArrayList<>();
-        tags = new ArrayList<>();
+        categories = new ArrayList<>();
     }
 
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableDailyPlanner() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+    public XmlSerializableDailyPlanner(ReadOnlyDailyPlanner src) {
+        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        categories = src.getTagList();
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
+    public UniqueCategoryList getUniqueTagList() {
         try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
+            return new UniqueCategoryList(categories);
+        } catch (UniqueCategoryList.DuplicateTagException e) {
             //TODO: better error handling
             e.printStackTrace();
             return null;
@@ -58,7 +58,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     @Override
     public UniqueTaskList getUniquePersonList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -82,8 +82,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+    public List<Category> getTagList() {
+        return Collections.unmodifiableList(categories);
     }
 
 }

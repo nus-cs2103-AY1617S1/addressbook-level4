@@ -1,8 +1,8 @@
 package seedu.testplanner.testutil;
 
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
-import seedu.dailyplanner.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
+import seedu.dailyplanner.model.category.UniqueCategoryList.DuplicateTagException;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -15,10 +15,10 @@ public class TestTask implements ReadOnlyTask {
 	private DateTime end;
 	private boolean isComplete;
 	private boolean isPinned;
-	private UniqueTagList tags;
+	private UniqueCategoryList tags;
 
 	public TestTask() {
-		tags = new UniqueTagList();
+		tags = new UniqueCategoryList();
 	}
 
 	public void setName(String name) {
@@ -92,7 +92,7 @@ public class TestTask implements ReadOnlyTask {
 	}
 
 	@Override
-	public UniqueTagList getTags() {
+	public UniqueCategoryList getTags() {
 		return tags;
 	}
 

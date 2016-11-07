@@ -33,7 +33,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private TaskListPanel taskListPanel;
     private PinnedTaskPanel pinnedTaskPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -127,7 +127,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         //browserPanel = BrowserPanel.load(browserPlaceholder);
         pinnedTaskPanel = PinnedTaskPanel.load(primaryStage, getPinnedTaskPlaceholder(), logic.getPinnedTaskList());
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList(), logic);
+        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList(), logic);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -227,8 +227,8 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+    public TaskListPanel getPersonListPanel() {
+        return this.taskListPanel;
     }
 
     public void loadPersonPage(ReadOnlyTask person) {

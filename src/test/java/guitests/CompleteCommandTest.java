@@ -2,7 +2,7 @@ package guitests;
 
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.GuiHandle;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.dailyplanner.commons.core.Messages;
@@ -13,7 +13,7 @@ import seedu.testplanner.testutil.TestUtil;
 import static org.junit.Assert.assertEquals;
 
 //@@author A0140124B
-public class CompleteCommandTest extends AddressBookGuiTest {
+public class CompleteCommandTest extends DailyPlannerGuiTest {
 
 	@Test
 	public void complete() {
@@ -27,7 +27,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
 		
 		commandBox.runCommand(command);
 		//confirm the new card contains the right data
-        PersonCardHandle completedCard = personListPanel.navigateToPerson(taskToComplete.getName());
+        TaskCardHandle completedCard = personListPanel.navigateToPerson(taskToComplete.getName());
         assertEquals("Task is complete", completedCard.getCompletion(), "COMPLETE");
 		
 	}

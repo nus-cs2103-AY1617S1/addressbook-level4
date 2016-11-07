@@ -1,8 +1,8 @@
 package seedu.dailyplanner.model;
 
 import javafx.collections.ObservableList;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
@@ -15,34 +15,34 @@ import java.util.stream.Collectors;
  * Wraps all data at the address-book level Duplicates are not allowed (by
  * .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class DailyPlanner implements ReadOnlyDailyPlanner {
 
     private final UniqueTaskList persons;
-    private final UniqueTagList tags;
+    private final UniqueCategoryList tags;
 
     {
         persons = new UniqueTaskList();
-        tags = new UniqueTagList();
+        tags = new UniqueCategoryList();
     }
 
-    public AddressBook() {}
+    public DailyPlanner() {}
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public DailyPlanner(ReadOnlyDailyPlanner toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniqueTaskList persons, UniqueTagList tags) {
+    public DailyPlanner(UniqueTaskList persons, UniqueCategoryList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
+    public static ReadOnlyDailyPlanner getEmptyAddressBook() {
+        return new DailyPlanner();
     }
 
 //// list overwrite operations
@@ -59,16 +59,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.getInternalList().setAll(persons);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
+    public void setTags(Collection<Category> categories) {
+        this.tags.getInternalList().setAll(categories);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Category> newTags) {
         setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyDailyPlanner newData) {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
@@ -92,21 +92,21 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList personTags = person.getTags();
+        final UniqueCategoryList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
+        final Map<Category, Category> masterTagObjects = new HashMap<>();
+        for (Category category : tags) {
+            masterTagObjects.put(category, category);
         }
 
         // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
+        final Set<Category> commonTagReferences = new HashSet<>();
+        for (Category category : personTags) {
+            commonTagReferences.add(masterTagObjects.get(category));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        person.setTags(new UniqueCategoryList(commonTagReferences));
     }
 
     public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
@@ -148,7 +148,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 //// tag-level operations
 
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+    public void addTag(Category t) throws UniqueCategoryList.DuplicateTagException {
         tags.add(t);
     }
 
@@ -166,7 +166,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<Tag> getTagList() {
+    public List<Category> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
     }
 
@@ -176,7 +176,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
+    public UniqueCategoryList getUniqueTagList() {
         return this.tags;
     }
 
@@ -184,9 +184,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof DailyPlanner // instanceof handles nulls
+                && this.persons.equals(((DailyPlanner) other).persons)
+                && this.tags.equals(((DailyPlanner) other).tags));
     }
 
     @Override

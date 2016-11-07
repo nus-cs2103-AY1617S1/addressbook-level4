@@ -1,6 +1,6 @@
 package seedu.dailyplanner.logic.commands;
 
-import seedu.dailyplanner.model.AddressBook;
+import seedu.dailyplanner.model.DailyPlanner;
 
 /**
  * Clears the address book.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyAddressBook());
+        model.resetData(DailyPlanner.getEmptyAddressBook());
         model.resetPinBoard();
         model.setLastTaskAddedIndex(0);
         return new CommandResult(MESSAGE_SUCCESS);

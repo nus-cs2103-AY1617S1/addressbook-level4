@@ -1,7 +1,7 @@
 package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
-import seedu.dailyplanner.model.AddressBook;
+import seedu.dailyplanner.model.DailyPlanner;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -43,7 +43,7 @@ public class TypicalTestTask {
 		}
 	}
 
-	public static void loadAddressBookWithSampleData(AddressBook dp) {
+	public static void loadAddressBookWithSampleData(DailyPlanner dp) {
 
 		try {
 			dp.addPerson(new Task(CS2103_Project));
@@ -63,8 +63,8 @@ public class TypicalTestTask {
 				WatchMovie, learnPython };
 	}
 
-	public AddressBook getTypicalAddressBook() {
-		AddressBook ab = new AddressBook();
+	public DailyPlanner getTypicalAddressBook() {
+		DailyPlanner ab = new DailyPlanner();
 		loadAddressBookWithSampleData(ab);
 		return ab;
 	}

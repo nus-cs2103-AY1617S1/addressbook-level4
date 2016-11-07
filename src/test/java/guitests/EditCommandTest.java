@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.dailyplanner.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS;
@@ -13,7 +13,7 @@ import seedu.dailyplanner.model.task.*;
 import seedu.testplanner.testutil.TestTask;
 import seedu.testplanner.testutil.TestUtil;
 
-public class EditCommandTest extends AddressBookGuiTest {
+public class EditCommandTest extends DailyPlannerGuiTest {
 
 	@Test
 	public void edit() throws IllegalValueException {
@@ -59,7 +59,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 		}
 
 		commandBox.runCommand("edit " + targetIndex + arg);
-		PersonCardHandle editedCard = personListPanel.navigateToPerson(personToEdit.getName());
+		TaskCardHandle editedCard = personListPanel.navigateToPerson(personToEdit.getName());
 		assertMatching(personToEdit, editedCard);
 	}
 

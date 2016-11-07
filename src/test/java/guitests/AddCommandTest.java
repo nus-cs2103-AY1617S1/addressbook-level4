@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.dailyplanner.commons.core.Messages;
@@ -11,7 +11,7 @@ import seedu.testplanner.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0140124B
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends DailyPlannerGuiTest {
 
 	@Test
 	public void add() {
@@ -46,14 +46,13 @@ public class AddCommandTest extends AddressBookGuiTest {
 		commandBox.runCommand(personToAdd.getAddCommand());
 
 		// confirm the new card contains the right data
-		PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName());
+		TaskCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName());
 		assertMatching(personToAdd, addedCard);
 
 		// confirm the list now contains all previous persons plus the new
 		// person
 		TestTask[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
 		assertTrue(personListPanel.isListMatching(expectedList));
-		assertEquals("COMPETE", "COMPLETE");
 	}
 
 }

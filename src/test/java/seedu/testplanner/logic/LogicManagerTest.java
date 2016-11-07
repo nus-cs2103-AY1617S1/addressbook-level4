@@ -3,18 +3,18 @@ package seedu.testplanner.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.dailyplanner.commons.core.EventsCenter;
-import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
+import seedu.dailyplanner.commons.events.model.DailyPlannerChangedEvent;
 import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.commons.events.ui.ShowHelpRequestEvent;
 import seedu.dailyplanner.logic.Logic;
 import seedu.dailyplanner.logic.LogicManager;
 import seedu.dailyplanner.logic.commands.*;
-import seedu.dailyplanner.model.AddressBook;
+import seedu.dailyplanner.model.DailyPlanner;
 import seedu.dailyplanner.model.Model;
 import seedu.dailyplanner.model.ModelManager;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.storage.StorageManager;
 import seedu.testplanner.testutil.TaskBuilder;
@@ -49,13 +49,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyDailyPlanner latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
+    private void handleLocalModelChangedEvent(DailyPlannerChangedEvent abce) {
+        latestSavedAddressBook = new DailyPlanner(abce.data);
     }
 
     @Subscribe
@@ -76,7 +76,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new DailyPlanner(model.getAddressBook()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -96,10 +96,10 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyDailyPlanner, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new DailyPlanner(), Collections.emptyList());
     }
 
     /**
@@ -110,7 +110,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyDailyPlanner expectedAddressBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -150,7 +150,7 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new DailyPlanner(), Collections.emptyList());
     }
 
 
@@ -185,7 +185,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        DailyPlanner expectedAB = new DailyPlanner();
         expectedAB.addPerson(toBeAdded);
         System.out.println(helper.generateAddCommand(toBeAdded));
         // execute command and verify result
@@ -201,7 +201,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        DailyPlanner expectedAB = new DailyPlanner();
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
@@ -221,7 +221,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
+        DailyPlanner expectedAB = helper.generateAddressBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
@@ -258,7 +258,7 @@ public class LogicManagerTest {
         List<Task> personList = helper.generatePersonList(2);
 
         // set AB state to 2 persons
-        model.resetData(new AddressBook());
+        model.resetData(new DailyPlanner());
         for (Task p : personList) {
             model.addPerson(p);
         }
@@ -282,7 +282,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        DailyPlanner expectedAB = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
@@ -310,7 +310,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        DailyPlanner expectedAB = helper.generateAddressBook(threePersons);
         expectedAB.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
@@ -336,7 +336,7 @@ public class LogicManagerTest {
         Task p1 = helper.generatePersonWithName("sduauo");
 
         List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        DailyPlanner expectedAB = helper.generateAddressBook(fourPersons);
         List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
@@ -396,8 +396,8 @@ public class LogicManagerTest {
             cmd.append(" s/").append(p.getStart().toString());
             cmd.append(" e/").append(p.getEnd().toString());
 
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            UniqueCategoryList tags = p.getTags();
+            for(Category t: tags){
                 cmd.append(" c/").append(t.tagName);
             }
 
@@ -407,35 +407,35 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook with auto-generated persons.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        DailyPlanner generateAddressBook(int numGenerated) throws Exception{
+            DailyPlanner dailyPlanner = new DailyPlanner();
+            addToAddressBook(dailyPlanner, numGenerated);
+            return dailyPlanner;
         }
 
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Task> persons) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        DailyPlanner generateAddressBook(List<Task> persons) throws Exception{
+            DailyPlanner dailyPlanner = new DailyPlanner();
+            addToAddressBook(dailyPlanner, persons);
+            return dailyPlanner;
         }
 
         /**
          * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * @param dailyPlanner The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToAddressBook(DailyPlanner dailyPlanner, int numGenerated) throws Exception{
+            addToAddressBook(dailyPlanner, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(AddressBook addressBook, List<Task> personsToAdd) throws Exception{
+        void addToAddressBook(DailyPlanner dailyPlanner, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                addressBook.addPerson(p);
+                dailyPlanner.addPerson(p);
             }
         }
 

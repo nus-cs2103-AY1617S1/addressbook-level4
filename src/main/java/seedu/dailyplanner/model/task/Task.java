@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.dailyplanner.commons.util.CollectionUtil;
 import seedu.dailyplanner.commons.util.DateUtil;
 import seedu.dailyplanner.commons.util.StringUtil;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 
 /**
  * Represents a Person in the address book. Guarantees: details are present and
@@ -18,17 +18,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private DateTime end;
 	private boolean isComplete;
 	private boolean isPinned;
-	private UniqueTagList tags;
+	private UniqueCategoryList tags;
 
 	/**
 	 * Every field must be present and not null.
 	 */
-	public Task(String name, DateTime start, DateTime end, boolean isComplete, boolean isPinned, UniqueTagList tags) {
+	public Task(String name, DateTime start, DateTime end, boolean isComplete, boolean isPinned, UniqueCategoryList tags) {
 	    assert !CollectionUtil.isAnyNull(name, start, end, isComplete, isPinned, tags);
 		this.taskName = name;
 		this.start = start;
 		this.end = end;
-		this.tags = new UniqueTagList(tags); // protect internal tags from
+		this.tags = new UniqueCategoryList(tags); // protect internal tags from
 		// changes in the arg list
 		this.isComplete = isComplete;
 		this.isPinned = isPinned;
@@ -149,14 +149,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
 	@Override
-	public UniqueTagList getTags() {
-		return new UniqueTagList(tags);
+	public UniqueCategoryList getTags() {
+		return new UniqueCategoryList(tags);
 	}
 
 	/**
 	 * Replaces this task's tags with the tags in the argument tag list.
 	 */
-	public void setTags(UniqueTagList replacement) {
+	public void setTags(UniqueCategoryList replacement) {
 		tags.setTags(replacement);
 	}
 
