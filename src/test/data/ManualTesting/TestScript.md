@@ -1,27 +1,8 @@
 # Test Script
 
-* [Quick Start](#quick-start)
 * [Description](#description)
 * [Testing Commands](#Testing Commands)
 * [Command Summary](#command-summary)
-
-## Quick Start
-
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-
-1. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-2. To open the SampleData, type **`open`** and press <kbd>Enter</kbd>. Then choose the saved location of SampleData, which should end with *src\test\data\ManualTesting\SampleData.xml*
-3. Some example commands you can try:
-   * **`list`** : lists all activities
-   * **`add`**` CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2` : 
-     adds an activity named `CS2103 T7A1` to the Lifekeeper.
-   * **`delete`**` 3` : deletes the 3rd activity shown in the current list
-   * **`exit`** : exits the app
-4. Refer to the [Description](#description) section below for details of the LifeKeeper.<br>
 
 
 ## Description
@@ -268,6 +249,8 @@ Method 2
 
 > The newly added task `speak to ISE Department` will be marked as a done task. 
 > It will be removed from the list and moved to the done list.
+
+#### Testing Command: `
 
 ### Test List Command
 

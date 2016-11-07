@@ -55,7 +55,7 @@ Format: `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/EN
 * `tomorrow [TIME]`
 * `today [TIME]`
 
-`PRIORITY_LEVEL` has to be an integer equal or larger than 1, with `1` being the top priority.
+`PRIORITY_LEVEL` has to be an integer equal or larger than 0, with `3` being the top priority.
 
 `START_TIME` accepts `Date Time` format input and variable inputs namely:
 * `tomorrow [TIME]`

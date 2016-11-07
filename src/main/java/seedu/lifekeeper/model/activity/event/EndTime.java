@@ -22,7 +22,7 @@ public class EndTime extends DateTime {
     }
 
     /**
-     * Validates given Start Time.
+     * Validates given Start Time 
      *
      * @throws IllegalValueException
      *             if given Start time string is invalid.
@@ -37,7 +37,17 @@ public class EndTime extends DateTime {
         } catch (ParseException e) {
             throw new IllegalValueException("Start Time Invalid");
         }
-        // String[] recurring = starttime.RecurringMessage.split(" ");
+        formEndTimeDateString(starttime, date, startdate, startstring);
+    }
+    
+    
+    /**
+     * Validates given Start Time and 
+     *
+     * @throws IllegalValueException
+     *             if given Start time string is invalid.
+     */
+    private void formEndTimeDateString(StartTime starttime, String date, Date startdate, String startstring) throws IllegalValueException{
         if (starttime.recurring) {
             if (date.equals("")) {
                 checkRecurring(starttime, date, startdate);
@@ -77,6 +87,7 @@ public class EndTime extends DateTime {
         this.recurring = isRecurring;
         this.RecurringMessage = recurringMessage;
     }
+
     /**
      * HandleRecurringTask if the endtime is not entered, set to default
      *
@@ -94,7 +105,8 @@ public class EndTime extends DateTime {
     }
 
     /**
-     * HandleRecurringTask if the endtime is enter, handle different variations of endtime
+     * HandleRecurringTask if the endtime is enter, handle different variations
+     * of endtime
      *
      * @throws IllegalValueException
      *             if given Start time string is invalid.

@@ -19,7 +19,6 @@ import seedu.lifekeeper.commons.events.ui.ShowHelpRequestEvent;
 import seedu.lifekeeper.commons.util.StringUtil;
 import seedu.lifekeeper.logic.Logic;
 import seedu.lifekeeper.model.UserPrefs;
-import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.UpcomingReminders;
 import seedu.lifekeeper.model.activity.event.Event;
