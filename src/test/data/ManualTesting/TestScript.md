@@ -43,7 +43,7 @@
 - TaskList panel navigates to and displays newly added task card.
 
 ### 1.3 Add an event
-> **Command:** `add n/cs2103 lecture s/8th Nov at 4pm e/8th Nov at 6pm`<br>
+> **Command:** `add s/8th Nov at 4pm e/8th Nov at 6pm n/cs2103 lecture `<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
 `New event added: cs2103 lecture Event Date: 08.11.2016-16 to 08.11.2016-18`
@@ -87,7 +87,7 @@
 ## 3. Done Command
 ------
 ### 3.1 Mark task or event as done by index
-> **Command:** 1. `done 3`<br>
+> **Command:** `done 3`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
 `Marked as done: women day speech Event Date: 08.03.2016-19 to 08.03.2016-21 done`
@@ -99,7 +99,7 @@
 - Result display panel posts message:<br>
 `Please select the item identified by the index number.`<br>
 `Parameters: INDEX(must be a positive integer)`<br>
-`Example: done1`<br>
+`Example: done 1`<br>
 - TaskList panel posts all tasks and events with name matching at least one input parameter.<br>
 
 ------
