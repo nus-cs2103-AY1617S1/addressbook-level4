@@ -17,6 +17,8 @@ import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.storage.StorageManager;
+import seedu.testplanner.testutil.TaskBuilder;
+import seedu.testplanner.testutil.TestTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -390,15 +392,24 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Date1 privatePhone = new Date1("111111");
-            StartTime email = new StartTime("adam@gmail.com");
-            EndTime privateAddress = new EndTime("111, alpha street");
-            //Tag tag1 = new Tag("tag1");
-            //Tag tag2 = new Tag("tag2");
-            final Set<Tag> tagSet = new HashSet<>();
-            UniqueTagList tags = new UniqueTagList(tagSet);
-            return new Task(name, privatePhone, email, privateAddress, tags,"NOT COMPLETE");
+            TaskBuilder meetAdamTaskBuilder = new TaskBuilder();
+            meetAdamTaskBuilder.withName("Meet adam").withStartDate("7 november").withEndDate("tomorrow").withCompletion(false)
+            .withCategories("meeting")
+            .withPin(false);
+            
+            System.out.println("tags in TestTask: ");
+            for (Tag t: meetAdamTaskBuilder.build().getTags()) {
+                System.out.println(t.tagName);
+                }
+            
+            System.out.println("tags in Task: ");
+            for (Tag t: meetAdamTaskBuilder.buildAsTask().getTags()) {
+            System.out.println(t.tagName);
+            }
+            
+            Task meetAdamTask = meetAdamTaskBuilder.buildAsTask();
+            
+            return meetAdamTask;
         }
         //@@author
 
@@ -410,13 +421,15 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Task generatePerson(int seed) throws Exception {
-            return new Task(
-                    new Name("Person " + seed),
-                    new Date1("" + Math.abs(seed)),
-                    new StartTime(seed + "@email"),
-                    new EndTime("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),"NOT COMPLETE"
-            );
+            TaskBuilder generateTaskBuilder = new TaskBuilder();
+            
+            generateTaskBuilder.withName("Task " + seed).withStartDateAndTime("today " + Math.abs(seed)+"am")
+            .withEndDateAndTime("tomorrow " + Math.abs(seed)+"pm")
+            .withCompletion(false)
+            .withCategories("tag" + Math.abs(seed))
+            .withPin(false);
+            
+            return generateTaskBuilder.buildAsTask();
         }
 
         /** Generates the correct add command based on the person given */
@@ -426,13 +439,12 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" d/").append(p.getStart());
-            cmd.append(" s/").append(p.getEnd());
-            cmd.append(" e/").append(p.getAddress());
+            cmd.append(" s/").append(p.getStart().toString());
+            cmd.append(" e/").append(p.getEnd().toString());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" c/").append(t.tagName);
             }
 
             return cmd.toString();
@@ -509,13 +521,15 @@ public class LogicManagerTest {
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Task generatePersonWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new Date1("1"),
-                    new StartTime("1@email"),
-                    new EndTime("House of 1"),
-                    new UniqueTagList(new Tag("tag")),"NOT COMPLETE"
-            );
+            TaskBuilder generateTaskBuilder = new TaskBuilder();
+            generateTaskBuilder.withName(name).withStartDateAndTime("today " + "1pm")
+            .withEndDateAndTime("tomorrow " + "1pm")
+            .withCompletion(false)
+            .withCategories("tag")
+            .withPin(false);
+            
+            
+           return generateTaskBuilder.buildAsTask();
         }
     }
 }

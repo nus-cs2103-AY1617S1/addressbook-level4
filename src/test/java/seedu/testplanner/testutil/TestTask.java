@@ -1,6 +1,8 @@
 package seedu.testplanner.testutil;
 
+import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -116,5 +118,10 @@ public class TestTask implements ReadOnlyTask {
         sb.append("e/" + this.getEnd().toString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("c/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    public Task asTask() {
+        System.out.println("TestTask: " + name + start + end +isComplete + isPinned);
+        return new Task(name, start, end, isComplete, isPinned, tags);
     }
 }

@@ -3,6 +3,7 @@ package seedu.testplanner.testutil;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.logic.parser.nattyParser;
 import seedu.dailyplanner.model.tag.Tag;
+import seedu.dailyplanner.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -50,7 +51,7 @@ public class TaskBuilder {
 	
 	public TaskBuilder withEndDate(String et) {
 		String convertedEt = np.parseDate(et);
-		this.task.setStart(new DateTime(new Date(convertedEt), new Time("")));
+		this.task.setEnd(new DateTime(new Date(convertedEt), new Time("")));
 		return this;
 	}
 	
@@ -78,6 +79,13 @@ public class TaskBuilder {
 
 	public TestTask build() {
 		return this.task;
+	}
+	
+	public Task buildAsTask() {
+	    
+	    Task toReturn = this.task.asTask();
+	    
+	    return toReturn;
 	}
 
 }
