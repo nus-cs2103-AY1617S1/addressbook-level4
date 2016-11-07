@@ -143,7 +143,7 @@ A `Task` is defined as one of the following:
 **API** : [`Model.java`](../src/main/java/seedu/oneline/model/Model.java)
 
 A model state consists of a `ReadOnlyTaskBook`, as well as the predicate of the current filtered task list. Every time a mutating command (as specified by the `canUndo()` API) is called, the state of the model is stored in a ModelState as a stack.
- 
+
 Model then exposes indirect access to these states through the `undo()` and `redo()` API.
 
 //@@author A0121657H  
@@ -289,11 +289,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 (For all use cases below, the **System** is `OneLine` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add floating task
+#### Use case: Add task
 
 **MSS**
 
-1. User adds floating task
+1. User adds task
 2. OneLine creates the task <br>
 Use case ends
 
@@ -305,61 +305,6 @@ Use case ends
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
 
-#### Use case: Add task with deadline
-
-**MSS**
-
-1. User adds task with deadline
-2. OneLine creates the task <br>
-Use case ends
-
-**Extensions**
-
-1a. OneLine detects an error in the data entered
->   1a1. OneLine requests for the correct data <br>
->   1a2. User enters new data <br>
-    Steps 1b1-1b2 are repeated until data contains no errors
-    Use case resumes from step 2.
-
-#### Use case: Add event
-**MSS**
-
-1. User adds event-based task <br>
-2. OneLine creates the event-based task <br>
-Use case ends
-
-**Extensions**
-
-1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task <br>
->   1a2. OneLine reports a time clash in affected tasks.<br>
-    Use case ends
-
-1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data <br>
->   1b2. User enters new data <br>
-    Steps 1b1-1b2 are repeated until data contains no errors
-    Use case resumes from step 2.
-
-#### Use case: Add event-based task
-**MSS**
-
-1. User adds event-based task <br>
-2. OneLine creates the event-based task <br>
-Use case ends
-
-**Extensions**
-
-1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task <br>
->   1a2. OneLine reports a time clash in affected tasks.<br>
-    Use case ends
-
-1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data <br>
->   1b2. User enters new data <br>
-    Steps 1b1-1b2 are repeated until data contains no errors
-    Use case resumes from step 2.
 #### Use case: Add task with category
 
 **MSS**
@@ -454,22 +399,6 @@ Use case ends.
 > 3a1. OneLine shows an error message <br>
   Use case resumes from step 2
 
-
-#### Use case: Add Category
-
-**MSS**
-
-1. User adds category
-2. OneLine creates the category
-3. New category is shown in the UI's sidebar, with a default colour <br>
-Use case ends
-
-**Extensions**
-
-1a. User requests to add a category that already exists
-> 1a1. OneLine shows an error message. <br>
-  Use case ends.
-
 #### Use case: Delete Category
 
 **MSS**
@@ -555,7 +484,7 @@ Some other project requirements can be seen [here](http://www.comp.nus.edu.sg/~c
 
 > Tasks that do not have a specific deadline
 
-##### Event
+##### Event task
 
 > Tasks that have a specific timeslot. i.e. Meeting from 1pm to 2pm.
 
