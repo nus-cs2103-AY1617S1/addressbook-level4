@@ -35,6 +35,7 @@ public class Parser {
                     + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
+    //@@author A0141812R
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>[^/]+)"
             		+ "(?<name>(?: n/[^/]+)*)" //only name is compulsory

@@ -2,10 +2,9 @@ package seedu.address.model.deadline;
 
 import java.util.Calendar;
 
+//@@author A0139097U
 /**
  * Handles calculations with dates.
- * @author A0139097U
- *
  */
 public class DateManager {
 	
