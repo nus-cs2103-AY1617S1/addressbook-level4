@@ -69,7 +69,7 @@ Want to use MESS immediately? Let's get started!
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs NUMBER_OF_WEEKLY_RECURRING_TASK]`
+Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
@@ -77,7 +77,6 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Multiple tags are available by typing `tag TAG tag TAG`.
-* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 Examples:
 * `add proposal ends tomorrow` <br> Adds a proposal task with a deadline 24 hours from now
@@ -85,7 +84,7 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
-* `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
+* `add test starts today` <br> Adds a task start today.
 
 
 #### Aliasing a command: `alias`
