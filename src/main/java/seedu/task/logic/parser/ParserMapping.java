@@ -35,6 +35,7 @@ public class ParserMapping {
         mappingTable.put(Commands.DELETE, DeleteParser.class);
         mappingTable.put(Commands.EXIT, ExitParser.class);
         mappingTable.put(Commands.FIND, FindParser.class);
+        mappingTable.put(Commands.FIND_TAG, FindTagParser.class);
         mappingTable.put(Commands.HELP, HelpParser.class);
         mappingTable.put(Commands.LIST, ListParser.class);
         mappingTable.put(Commands.PIN, PinParser.class);
