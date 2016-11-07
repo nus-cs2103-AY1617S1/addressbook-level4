@@ -34,7 +34,7 @@
 7. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
-##### Refer to [Ivory Task components](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d-glossary) for the component names used in this document. 
+##### Refer to [Ivory Task components](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d-glossary) for the component names used in this document.
 
 [comment]: # (@@author A0140060A)
 
@@ -336,8 +336,7 @@ For events, you can edit all optional parameters.
 ### When you want to specify a custom save location for your data file
 
 > * You must specify the name of the file to save in .xml format.
-> * You can only save within the home folder that your task manager is in.
-> * Use only forward slashes '/' to specify the directory to save the data file in.
+> * File paths are relative to the home folder that your app is in.
 > * Note: This command cannot be undone.
 > * Note: Current data will overwrite any existing data in the specified custom data file location if it already exists.
 
@@ -380,7 +379,7 @@ List Events | `l[ist]e[vent]` | `le`
 List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
-Specify custom save location | `save VALID_FILE_PATH_NAME` | `save Users/Jim/data.xml`
+Specify custom save location | `save VALID_FILE_PATH_NAME` | `save C:\Users\Jim\data.xml`
 Select | `s[elect] INDEX` | `select 1`
 Undo | `u[ndo]` | `undo`
 
