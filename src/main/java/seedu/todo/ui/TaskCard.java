@@ -61,11 +61,11 @@ public class TaskCard extends UiPart{
         
         if(task.getByDate().getDate() != null && task.getByDate().getTime() != null && 
         		task.getByDate().getDate().atTime(task.getByDate().getTime()).isBefore(LocalDateTime.now())) {
-        	styleForOverdue();
+        	CardStyler.styleForOverdue(name, details, onDate, byDate, tags, recurrence);
         } 
         
         if(task.getCompletion().isCompleted()) {
-            styleForCompletion();
+            CardStyler.styleForCompletion(name, details, onDate, byDate, tags, recurrence, priorityLevel);
         }
         
     }
@@ -113,22 +113,6 @@ public class TaskCard extends UiPart{
     }
     
     
-    private void styleForCompletion() {
-        name.setFill(Color.LIGHTGREY);
-        name.setStyle("-fx-strikethrough: true");
-        name.setOpacity(50);
-        
-        details.setFill(Color.LIGHTGREY);
-        onDate.setFill(Color.LIGHTGREY);
-        byDate.setFill(Color.LIGHTGREY);
-        recurrence.setFill(Color.LIGHTGREY);
-        tags.setFill(Color.LIGHTGREY);
-
-        priorityLevel.setFill(Color.WHITE);
-        priorityLevel.setStroke(Color.WHITE);
-
-    }
-    
     //@@author A0121643R
     private void initPriority() {
         if (task.getPriority().toString().equals(Priority.LOW)) {
@@ -143,16 +127,4 @@ public class TaskCard extends UiPart{
         }
     }
     
-
-    private void styleForOverdue() {
-    	name.setFill(Color.web("#ef5350"));
-        
-        details.setFill(Color.web("#ef5350"));
-        onDate.setFill(Color.web("#ef5350"));
-        byDate.setFill(Color.web("#ef5350"));
-        recurrence.setFill(Color.web("#ef5350"));
-        tags.setFill(Color.web("#ef5350"));
-
-    	
-    }
 }

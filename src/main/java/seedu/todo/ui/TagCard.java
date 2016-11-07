@@ -58,7 +58,7 @@ public class TagCard extends UiPart {
     }
     
     private Color randomiseCardPaneColor() {
-        return colors[displayedIndex % colors.length];
+        return colors[(displayedIndex - 1) % colors.length];
         
     }
     

@@ -46,7 +46,7 @@ public class Priority {
      */
 
 	public int compareTo(Priority other) {
-		if(! this.priorityLevel.equals(other)) {
+		if(! this.priorityLevel.equals(other.priorityLevel)) {
 			if (this.priorityLevel.equals(HIGH)) {
 				return -1;
 			} else if (this.priorityLevel.equals(LOW)) {
