@@ -207,17 +207,6 @@ Examples:
   Unpins the 2nd task in the task list.
 
 <br>
-#### Listing pins: `list pin[s]`
-Lists all the pinned tasks. <br>
-Format: `list pin[s]`
-
-> You can type either `pin` or its plural form, `pins`
-
-Examples:
-* `list pin`
-* `list pins` <br>
-
-<br>
 #### Listing Completed Tasks: `list complete[d]`
 Lists all the tasks that you have completed. <br>
 Format: `list complete[d]`
