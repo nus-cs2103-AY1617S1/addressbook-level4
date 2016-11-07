@@ -31,7 +31,7 @@ public interface TaskManagerStorage {
 
     /**
      * Saves the given {@link ReadOnlyTaskManager} to the storage.
-     * @param addressBook cannot be null.
+     * @param taskManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException;

@@ -17,8 +17,4 @@ public interface ReadOnlyAliasManager {
      * Returns an unmodifiable view of alias list
      */
     List<ReadOnlyAlias> getAliasList();
-	
-	//public HashMap<String,String> getAlias();
-	//public String getValueOf(String key);
-	
 }

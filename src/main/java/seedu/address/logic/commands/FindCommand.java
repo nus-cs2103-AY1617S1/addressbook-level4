@@ -14,8 +14,9 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks containing any of "
-            + "the specified keyphrases (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYPHRASE_WORD_1 [KEYPHRASE_WORD_2, ] [MORE_KEYPHRASES...]\n"
+            + "the specified keywords (case-insensitive) in task name and displays them as a list with index numbers.\n"
+    		+ "Keyword may be a key word or a key phrase found in task name.\n"
+            + "Parameters: KEYWORD, [MORE_KEYWORDS], ...\n"
             + "Example: " + COMMAND_WORD + " dinner with wife, report";
 
     private final Set<String> keyphrases;

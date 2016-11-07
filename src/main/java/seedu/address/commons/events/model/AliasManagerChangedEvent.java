@@ -15,6 +15,6 @@ public class AliasManagerChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getAliasList().size();
+        return "Number of tasks: " + data.getAliasList().size();
     }
 }
