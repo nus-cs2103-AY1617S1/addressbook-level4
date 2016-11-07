@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.lifekeeper.ui;
 
 import javafx.scene.control.ListCell;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;

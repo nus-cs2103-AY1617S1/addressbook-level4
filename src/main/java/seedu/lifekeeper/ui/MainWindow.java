@@ -122,7 +122,7 @@ public class MainWindow extends UiPart {
     	//fill main activities display panel
         activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
 
-        //fill dash board
+        //fill dash board with UI panel.
         overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());

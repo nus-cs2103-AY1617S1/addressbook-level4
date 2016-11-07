@@ -1,8 +1,8 @@
-package seedu.address.ui;
+package seedu.lifekeeper.ui;
 
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.ui.DashboardCard;
-import seedu.address.ui.ActivityListViewCell;
+import seedu.lifekeeper.ui.ActivityListViewCell;
 
 /**
  * Class that represents a cell containing either Overdue Tasks, Upcoming Tasks, or Upcoming Events.

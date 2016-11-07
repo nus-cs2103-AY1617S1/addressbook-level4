@@ -10,50 +10,67 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.lifekeeper.commons.core.LogsCenter;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.ui.ListPanel;
+import seedu.lifekeeper.ui.UiPartLoader;
 
 /**
- * Panel containing the list of activities that are set as High Priority.
- * 
- * @@author A0125284H
+ * Panel containing the list of tasks that are already Overdue.
  */
+//@@author A0125284H
 public class OverdueTaskListPanel extends ListPanel {
 	/**
 	 * Panel containing the list of persons.
 	 */
-	private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
-	private static final String FXML = "OverdueTaskListPanel.fxml";
-	private VBox panel;
-	private AnchorPane placeHolderPane;
+	private final Logger logger = LogsCenter.getLogger(OverdueTaskListPanel.class);
+	private static final String FXML = "OverdueListPanel.fxml";
 
+/*
 	@FXML
-	private ListView<ReadOnlyActivity> personListView;
-
+	private static ListView<ReadOnlyActivity> overdueActivityListView;
+*/
 	public OverdueTaskListPanel() {
 	        super();
 	    }
 
-	// Function specific to OverdueListPanel
-	
+	// Functions specific to OverdueListPanel ---------------------------------------------
+    
+    /**
+     * 
+     * @param primaryStage
+     * @param personListPlaceholder
+     * @param taskList - the function calling should make sure that an ActivityList consisting of only tasks are passed.
+     * @return
+     */
+
 	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-			ObservableList<ReadOnlyActivity> activityList) {
-		OverdueTaskListPanel overdueListPanel = UiPartLoader.loadUiPart(primaryStage, personListPlaceholder,
-				new OverdueTaskListPanel());
-		overdueListPanel.configure(activityList);
-		return overdueListPanel;
+		                            	ObservableList<ReadOnlyActivity> taskList) {
+		OverdueTaskListPanel overdueActivitiesListPanel = 
+				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueTaskListPanel());
+		overdueActivitiesListPanel.configure(taskList);
+		return overdueActivitiesListPanel;
 	}
+	
+	/**
+	 * To configure listView in activityListView to accept overdue Tasks
+	 * 
+	 * @preconditions: personList only contains (overdue) Tasks.
+	 * 
+	 */
+	
+	//@@author A0125284H
+    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
+        activityListView.setItems(personList);
+        activityListView.setCellFactory(listView -> new DashboardListViewCell());
+    }
 	
 	@Override
 	public String getFxmlPath() {
 		return FXML;
 	}
 	
-	
 	@Override
 	public void setPlaceholder(AnchorPane pane) {
 		this.placeHolderPane = pane;
 	}
-
-
-	
-	
 }
