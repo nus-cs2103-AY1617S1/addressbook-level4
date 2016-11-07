@@ -54,8 +54,8 @@ public class EmptyListView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(EmptyListView.class);
 
     /*Layouts*/
-    private VBox emptyListView;
     private AnchorPane emptyListPlaceholder;
+    @FXML private VBox emptyListView;
     @FXML private ImageView emptyListImage;
     @FXML private Label emptyListLabel;
 
