@@ -17,9 +17,7 @@ import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.ui.components.AliasItem;
 
-/**
- * @@author A0093907W
- */
+//@@author A0093907W
 public class AliasView extends View {
     
     private static final String FXML_PATH = "views/AliasView.fxml";

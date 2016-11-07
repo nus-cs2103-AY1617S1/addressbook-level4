@@ -10,9 +10,7 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import seedu.todo.commons.util.FileUtil;
 
-/**
- * @@author A0139812A-reused
- */
+//@@author A0139812A-reused
 public class TestUtil {
 
     public static final String LS = System.lineSeparator();

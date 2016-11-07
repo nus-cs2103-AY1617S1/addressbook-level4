@@ -11,9 +11,7 @@ import seedu.todo.commons.util.ListUtil;
 import seedu.todo.guitests.GuiRobot;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class TaskListTaskItemHandle extends GuiHandle {
 
     private static final String TASKLISTTASKITEM_NAME_ID = "#taskText";

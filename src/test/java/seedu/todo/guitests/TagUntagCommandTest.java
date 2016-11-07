@@ -14,9 +14,7 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0093907W
- */
+// @@author A0093907W
 public class TagUntagCommandTest extends GuiTest {
     private final LocalDateTime oneDayFromNow = LocalDateTime.now().plusDays(1);
     private final String oneDayFromNowString = DateUtil.formatDate(oneDayFromNow);

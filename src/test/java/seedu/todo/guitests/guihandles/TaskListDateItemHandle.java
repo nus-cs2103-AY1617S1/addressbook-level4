@@ -10,9 +10,7 @@ import seedu.todo.guitests.GuiRobot;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class TaskListDateItemHandle extends GuiHandle {
 
     private static final String TASKLISTDATEITEM_DATE_ID = "#dateLabel";

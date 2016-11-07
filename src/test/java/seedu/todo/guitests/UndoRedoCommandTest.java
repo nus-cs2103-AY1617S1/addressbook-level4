@@ -10,9 +10,7 @@ import org.junit.Test;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0093907W
- */
+// @@author A0093907W
 public class UndoRedoCommandTest extends GuiTest {
 
     private final LocalDateTime oneDayFromNow = LocalDateTime.now().plusDays(1);

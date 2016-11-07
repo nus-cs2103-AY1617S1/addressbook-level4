@@ -11,6 +11,7 @@ import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.controllers.ConfigController;
 
+//@@author A0139812A
 public class ConfigCommandTest extends GuiTest {
     
     @Test

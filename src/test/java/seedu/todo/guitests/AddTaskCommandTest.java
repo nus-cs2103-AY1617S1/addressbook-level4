@@ -5,9 +5,7 @@ import org.junit.Test;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class AddTaskCommandTest extends GuiTest {
 
     @Test

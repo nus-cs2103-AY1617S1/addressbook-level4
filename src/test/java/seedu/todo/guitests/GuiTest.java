@@ -129,8 +129,6 @@ public abstract class GuiTest {
      * Utility method for testing if task has been successfully added to the GUI.
      * This runs a command and checks if TaskList contains TaskListTaskItem that matches
      * the task that was just added.
-     * 
-     * Assumption: No two events can have the same name in this test.
      */
     protected void assertTaskVisible(Task taskToAdd) {
         // Get the task date.
@@ -154,9 +152,7 @@ public abstract class GuiTest {
      * This runs a command and checks if TaskList contains TaskListEventItem that matches
      * the task that was just added.
      * 
-     * Assumption: No two events can have the same name in this test.
-     * 
-     * TODO: Check event dates if they match.
+     * Assumption: No two events can have the same name and start date in this test
      */
     protected void assertEventVisible(Event eventToAdd) {
         // Get the event date.
@@ -177,7 +173,6 @@ public abstract class GuiTest {
     
     /**
      * Utility method for testing if task does not appear in the GUI after a command.
-     * Assumption: No two events can have the same name in this test.
      */
     protected void assertTaskNotVisible(Task taskToAdd) {
         // Get the task date.
@@ -202,7 +197,8 @@ public abstract class GuiTest {
 
     /**
      * Utility method for testing if event does not appear in the GUI after a command.
-     * Assumption: No two events can have the same name in this test.
+     * 
+     * Assumption: No two events can have the same name and start date in this test.
      */
     protected void assertEventNotVisible(Event eventToAdd) {
         // Get the event date.

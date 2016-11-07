@@ -9,9 +9,7 @@ import seedu.todo.commons.util.ListUtil;
 import seedu.todo.guitests.GuiRobot;
 import seedu.todo.models.Event;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class TaskListEventItemHandle extends GuiHandle {
 
     private static final String TASKLISTEVENTITEM_NAME_ID = "#eventText";

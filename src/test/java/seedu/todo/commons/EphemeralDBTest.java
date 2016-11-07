@@ -7,9 +7,7 @@ import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
-/**
- * @@author A0093907W
- */
+//@@author A0093907W
 public class EphemeralDBTest {
     
     @Test

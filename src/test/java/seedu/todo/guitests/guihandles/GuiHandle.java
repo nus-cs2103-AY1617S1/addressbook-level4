@@ -14,10 +14,9 @@ import seedu.todo.guitests.GuiRobot;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+// @@author A0139812A-reused
 /**
  * Base class for all GUI Handles used in testing.
- * 
- * @@author A0139812A-reused
  */
 public class GuiHandle {
     protected final GuiRobot guiRobot;

@@ -3,6 +3,7 @@ package seedu.todo.guitests.guihandles;
 import javafx.stage.Stage;
 import seedu.todo.guitests.GuiRobot;
 
+//@@author A0139812A
 public class HeaderHandle extends GuiHandle {
     
     private static final String HEADER_APPTITLE_TEXT_ID = "#headerAppTitle";

@@ -8,6 +8,7 @@ import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.controllers.HelpController;
 import seedu.todo.guitests.guihandles.HelpItemHandle;
 
+//@@author A0139812A
 public class HelpCommandTest extends GuiTest {
     
     @Test

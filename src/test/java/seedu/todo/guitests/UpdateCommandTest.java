@@ -13,6 +13,7 @@ import seedu.todo.controllers.UpdateController;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
+// @@author A0139812A
 public class UpdateCommandTest extends GuiTest {
     
     // Fixtures

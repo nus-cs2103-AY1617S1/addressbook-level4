@@ -7,9 +7,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todo.guitests.GuiRobot;
 
-/**
- * @@author A0139812A
- */
+//@@author A0139812A
 public class TaskListHandle extends GuiHandle {
 
     private static final String TASKLIST_ID = "#taskListDateItem";

@@ -13,6 +13,7 @@ import seedu.todo.testutil.TestUtil;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.IndexView;
 
+//@@author A0139812A
 public class TestApp extends MainApp {
     
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("testData.json");

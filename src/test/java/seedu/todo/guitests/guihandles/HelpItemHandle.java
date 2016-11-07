@@ -5,6 +5,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.guitests.GuiRobot;
 
+//@@author A0139812A
 public class HelpItemHandle extends GuiHandle {
 
     private static final String COMMAND_NAME_TEXT_ID = "#commandNameText";
