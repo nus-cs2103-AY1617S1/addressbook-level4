@@ -188,7 +188,7 @@ Format: `unpin INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
   
-Examples: <br>
+Examples:<br>
 ```unpin 5```
 >Task 5 of pinned list is being removed and put back to the schedule list<br>
 
@@ -203,7 +203,7 @@ Format: `undo`
   If the last command was `add`, the task added will be removed if `undo` is invoked<br>
   
 
-Examples: <br>
+Examples:<br>
 ```undo```
 >Undo previous command <br>
 
@@ -230,6 +230,10 @@ Format: `exit`  <br>
 ### Saving the data 
 Daily Planner data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+<br> 
+
+
 
 
 
