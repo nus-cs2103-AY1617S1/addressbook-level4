@@ -52,30 +52,6 @@ public class ParserTest {
     }
     
     @Test
-    public void validateDate_today_isValidFormat() {
-        Parser parser = new Parser();
-        assertEquals(parser.getDate("today"), "today");
-    }
-    
-    @Test
-    public void validateDate_tomorrow_isValidFormat() {
-        Parser parser = new Parser();
-        assertEquals(parser.getDate("tomorrow"), "tomorrow");
-    }
-    
-    @Test
-    public void validateDate_daysInShort_isValidFormat() {
-        Parser parser = new Parser();
-        assertEquals(parser.getDate("mon"), "mon");
-    }
-    
-    @Test
-    public void validateDate_daysInFull_isValidFormat() {
-        Parser parser = new Parser();
-        assertEquals(parser.getDate("monday"), "monday");
-    }
-    
-    @Test
     public void validateDate_dotFormat_isValidFormat() {
         Parser parser = new Parser();
         assertEquals(parser.setDate(1, "12.12.2222"), true);
