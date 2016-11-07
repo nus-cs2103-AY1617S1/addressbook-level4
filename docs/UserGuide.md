@@ -371,10 +371,11 @@ Examples:
 
 <!--- @@author A0143471L -->
 #### <a id="saveas"></a>Setting save directory : `saveas`
-Saves a copy of the existing storage file to a new directiory, also all future saves save to this new directory.
+Saves a copy of the existing storage file to a new directiory, also all future saves save to this new directory. <br>
 Format: `saveas NEW_DIRECTORY`
 
 > * `NEW_DIRECTORY` should be in the format: `FILE_PATH/FILE_NAME.xml`
+> * **WARNING**: this command overwrites the specified .xml file in the new save directory. It does **NOT** load files from the new directory, if you wish to load files from a new directory, you would have to manually transfer the content of the .xml files over.
 > * If you want to reset the save directory back to default of `<home_folder_of_installation>/data/jimi.xml`, type `saveas reset`
 
 Example:
