@@ -77,6 +77,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 
 -----
 
+<!-- @@author A0139211R -->
 #### [Qiang Yu](https://github.com/Hastyrush) <br>
 <img src="images/Qiang Yu.png" width="150"><br>
 
@@ -89,6 +90,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   * Major contributor to changes of UI
 
 -----
+<!-- @@author -->
 
 ## Project Mentor
  
