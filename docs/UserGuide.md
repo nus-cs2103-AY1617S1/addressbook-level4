@@ -373,7 +373,7 @@ Following is the list of all commands:
 |             | `show` `<parameter>`                               | Shows all the tasks, due on the parameter (Eg: 5 days later)                    														   |
 | `undo`      | `undo`                                             | Undoes the most recent command                 										   |
 | `redo`      | `redo`                                             | Redoes the latest undo                         										   |
-| `find`      | `find` `<name>`                                    | Finds a task with task name as <name>          										   |
+| `find`      | `find` `<name>`                                    | Finds a task with task name as `<name>`          										   |
 | `clear`     | `clear`                                            | Clears all the tasks in the task manager       										   |
 |             | `clear done`                                       | Clears all the done tasks from the done list   										   |
 | `select`    | `select` `<index>`                                 | Goes to the particular task at that index   										   |
