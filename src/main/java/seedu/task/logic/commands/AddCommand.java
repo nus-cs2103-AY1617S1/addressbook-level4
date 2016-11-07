@@ -36,10 +36,10 @@ public class AddCommand extends Command {
 			+ "Example: " + COMMAND_WORD + " HOMEWORK d/Math homework. dd/01-01-2012 23:59 i/2 ti/7 ts/Math";
 	public static final String MESSAGE_TASK_USAGE = "To add a task, %1$s is required\n" + "Example: "
 			+ COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
-
+//@@author A0139932X
 	public static final String MESSAGE_INVALID_DATE = "The DUE DATE is before the START DATE\n" + "Example: "
 	        + COMMAND_WORD + " HOMEWORK d/Math homework. sd/01-01-2011 00:00 dd/01-01-2012 23:59 i/2 ti/7";
-	
+//@@author
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";	
