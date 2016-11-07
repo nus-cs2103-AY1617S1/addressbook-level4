@@ -31,20 +31,24 @@ public class EmptyListView extends UiPart {
     private static final String FXML = "EmptyListView.fxml";
 
     private static final String EMPTY_MESSAGE_DEFAULT
-            = "No tasks in view. Type 'add' to add a new tasks.";
+            = "Hello. Type 'add' to add a new task or event.";
     private static final String EMPTY_MESSAGE_COMPLETED
-            = "You have no completed tasks.";
+            = "You have no completed tasks or past events.";
     private static final String EMPTY_MESSAGE_INCOMPLETE
             = "You have no incomplete tasks or upcoming events.";
     private static final String EMPTY_MESSAGE_DUE_SOON
-            = "You have completed all your tasks.";
+            = "You have no tasks due soon.";
     private static final String EMPTY_MESSAGE_EVENTS
-            = "You have no upcoming events. Type 'add' to add new events.";
+            = "You have no upcoming events.";
     private static final String EMPTY_MESSAGE_TODAY
-            = "You have no tasks/events for today. Type 'add' to add a new task.";
+            = "You have no tasks and events for today.";
 
-    private static final String EMOJI_HAPPY_URL = "/images/emoji-happy.png";
-    private static final String EMOJI_SAD_URL = "/images/emoji-sad.png";
+    private static final String EMOJI_DEFAULT = "/images/emoji-default.png";
+    private static final String EMOJI_COMPLETED = "/images/emoji-completed.png";
+    private static final String EMOJI_INCOMPLETE = "/images/emoji-incomplete.png";
+    private static final String EMOJI_EVENTS = "/images/emoji-events.png";
+    private static final String EMOJI_DUESOON = "/images/emoji-duesoon.png";
+    private static final String EMOJI_TODAY = "/images/emoji-today.png";
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(EmptyListView.class);
@@ -111,19 +115,19 @@ public class EmptyListView extends UiPart {
      */
     private void setEmptyListContent(TaskViewFilter filter) {
         if (filter == TaskViewFilter.DEFAULT) {
-            setEmptyListContent(EMPTY_MESSAGE_DEFAULT, EMOJI_HAPPY_URL);
+            setEmptyListContent(EMPTY_MESSAGE_DEFAULT, EMOJI_DEFAULT);
 
         } else if (filter == TaskViewFilter.COMPLETED) {
-            setEmptyListContent(EMPTY_MESSAGE_COMPLETED, EMOJI_SAD_URL);
+            setEmptyListContent(EMPTY_MESSAGE_COMPLETED, EMOJI_COMPLETED);
 
         } else if (filter == TaskViewFilter.INCOMPLETE) {
-            setEmptyListContent(EMPTY_MESSAGE_INCOMPLETE, EMOJI_HAPPY_URL);
+            setEmptyListContent(EMPTY_MESSAGE_INCOMPLETE, EMOJI_INCOMPLETE);
 
         } else if (filter == TaskViewFilter.DUE_SOON) {
-            setEmptyListContent(EMPTY_MESSAGE_DUE_SOON, EMOJI_HAPPY_URL);
+            setEmptyListContent(EMPTY_MESSAGE_DUE_SOON, EMOJI_DUESOON);
 
         } else if (filter == TaskViewFilter.EVENTS) {
-            setEmptyListContent(EMPTY_MESSAGE_EVENTS, EMOJI_HAPPY_URL);
+            setEmptyListContent(EMPTY_MESSAGE_EVENTS, EMOJI_EVENTS);
 
         }
     }
