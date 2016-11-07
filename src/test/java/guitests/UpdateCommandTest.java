@@ -20,16 +20,18 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
 	    TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         
-        // update first task
-        assertUpdateSuccess(targetIndex, td.hoon, currentList);
+        // update first task with details that will put it to the back
+        assertUpdateSuccess(targetIndex, currentList.length, td.ida, currentList);
 
-        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex - 1);
+        currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, currentList.length - 1);
+        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, currentList.length - 1);
         targetIndex = currentList.length;
         
-        // update last task
-        assertUpdateSuccess(targetIndex, td.ida, currentList);
+        // update last task with details that will put it to the front
+        assertUpdateSuccess(targetIndex, 1, td.first, currentList);
         
-        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex - 1);
+        currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, 0);
+        currentList = TestUtil.replaceTaskFromList(currentList, td.first, 0);
         targetIndex = 1;
 
         // add new tags
@@ -44,24 +46,24 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         assertTrue(!newTask.getTags().contains(tagToAdd));
         
         // modify open time
-        commandBox.runCommand("update " + targetIndex + " starts 2 hour later");
+        commandBox.runCommand("update " + targetIndex + " starts 30 minutes later");
         TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         TestTask expectedTask = currentList[targetIndex - 1];
-        expectedTask.setOpenTime(DateTime.fromUserInput("2 hour later"));
+        expectedTask.setOpenTime(DateTime.fromUserInput("30 minutes later"));
         assertMatching(expectedTask, updatedCard);
         
         // modify close time
-        commandBox.runCommand("update " + targetIndex + " ends the day after tomorrow");
+        commandBox.runCommand("update " + targetIndex + " ends 8 hours from now");
         updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         expectedTask = currentList[targetIndex - 1];
-        expectedTask.setCloseTime(DateTime.fromUserInput("the day after tomorrow"));
+        expectedTask.setCloseTime(DateTime.fromUserInput("8 hours from now"));
         assertMatching(expectedTask, updatedCard);
         
         // update with no changes
-        targetIndex = 1;
+        targetIndex = 4;
         commandBox.runCommand("update " + targetIndex);
         updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
-        assertMatching(td.hoon, updatedCard);
+        assertMatching(td.fiona, updatedCard);
         
         // update own task without changing name
         targetIndex = 3;
@@ -83,19 +85,19 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
     }
 	
-	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
+	private void assertUpdateSuccess(int targetIndex, int newIndex, TestTask taskToUpdate, TestTask... currentList) {
 		commandBox.runCommand("update " + targetIndex + " name"+ taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(newIndex - 1);
         assertMatching(taskToUpdate, updatedCard);
 
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList);
+        TestTask[] expectedList = TestUtil.moveTaskInList(currentList, targetIndex - 1, newIndex - 1);
         
         // merge tags
-        taskToUpdate.getTags().mergeFrom(expectedList[targetIndex - 1].getTags());
+        taskToUpdate.getTags().mergeFrom(expectedList[newIndex - 1].getTags());
         
-        expectedList[targetIndex - 1] = taskToUpdate;
+        expectedList[newIndex - 1] = taskToUpdate;
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct

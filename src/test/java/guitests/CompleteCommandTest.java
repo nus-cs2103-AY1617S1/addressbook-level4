@@ -19,13 +19,17 @@ public class CompleteCommandTest extends TaskManagerGuiTest {
         currentList = td.getTypicalTasks();
     }
 
+    /**
+     * Complete tests -- Task ID is guaranteed the last one due to preservation of 
+     * total ordering within completed tasks.
+     */
     @Test
     public void complete() {
         int targetIndex = 1;
 
         // mark the first task as complete
         commandBox.runCommand("complete " + targetIndex);
-        ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
+        ReadOnlyTask newTask = taskListPanel.getTask(currentList.length - 1);
         assertTrue(newTask.getComplete());
 
         // confirm the result message is correct
@@ -34,14 +38,14 @@ public class CompleteCommandTest extends TaskManagerGuiTest {
         // mark another task as complete
         targetIndex = 3;
         commandBox.runCommand("complete " + targetIndex);
-        ReadOnlyTask otherTask = taskListPanel.getTask(targetIndex - 1);
+        ReadOnlyTask otherTask = taskListPanel.getTask(currentList.length - 1);
         assertTrue(otherTask.getComplete());
         assertResultMessage(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, otherTask));
 
         // mark the last task as complete
         targetIndex = currentList.length;
         commandBox.runCommand("complete " + targetIndex);
-        newTask = taskListPanel.getTask(targetIndex - 1);
+        newTask = taskListPanel.getTask(currentList.length - 1);
         assertTrue(newTask.getComplete());
         assertResultMessage(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, newTask));
     }
