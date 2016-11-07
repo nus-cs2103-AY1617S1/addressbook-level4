@@ -228,7 +228,7 @@ Examples:
   Returns a list of next month's tasks and events	
 
 #### Undo operations : `undo`
-#### Shortcut : `un`
+#### Shortcut : `ud`
 Undo the previous operation.<br>
 Format: `undo`
 
@@ -236,7 +236,7 @@ Format: `undo`
 > Undo works for: add, delete, clear, mark, unmark, block. 
 
 #### Redo operations : `redo`
-#### Shortcut : `re`
+#### Shortcut : `rd`
 Redo the previously undone operation.<br>
 Format: `redo`
 
@@ -303,8 +303,8 @@ next month 8am | Mar 01 08:00
 #### Notes on FlexiTrack timing  
 1. FlexiTrack does support year. However, make sure that you also specify the hour of the timing 
 	as FlexiTrack will choose timing over year when it is uncertain. 
-2. When you do not specify the exact timing, FlexiTrack will assign your task to be 7.59 for due
-	date and starting time, and 16.59 for ending time. 
+2. When you do not specify the exact timing, FlexiTrack will assign your task to be 8:00 for due
+	date and starting time, and 17:00 for ending time. 
 
 ## FAQ
 
@@ -317,8 +317,8 @@ next month 8am | Mar 01 08:00
 
 Command | Shortcut | Format
 -------- | ---- | :-------- 
-Add task | a | `add [task title] <fr/ [number of recurrances] ty/ [day | week | month]> <by/ [deadline]>` 
-Add event | a | `add [event title] <fr/ [number of recurrances] ty/ [day | week | month]> from/ [starting time] to/ [ending time]`
+Add task | a | `add [task title] <fr/ [number of recurrences] ty/ [daily | weekly | monthly]> <by/ [deadline]>` 
+Add event | a | `add [event title] <fr/ [number of recurrences] ty/ [daily | weekly | monthly]> from/ [starting time] to/ [ending time]`
 Block | b | `block [description] from/ [starting time] to/ [ending time]`
 Find time | g | `gap [number of hours] < [number of slots to find] >`
 Delete | d | `delete [index]`
@@ -329,8 +329,8 @@ Unmark | u | `unmark [index]`
 Find | f | `find [key words] < [key words] >`
 List | l | `list <filter>`
 Select | s | `select [index]`
-Undo | un | `undo`
+Undo | ud | `undo`
 Redo | rd | `redo`
-Change Storage Path| cs | `cs [path]`
+Change Storage Path | cs | `cs [path]`
 Exit | q | `exit`
 Help | h | `help <command word>`
