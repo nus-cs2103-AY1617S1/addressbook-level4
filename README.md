@@ -9,7 +9,7 @@
 * This is a desktop To-Do List application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface). 
 * This application is a CS2103 project and is still undergoing development.
-* Our latest release: [v0.5rc](https://github.com/CS2103AUG2016-F10-C1/main/releases/tag/v0.5rc)
+* Our latest release: [v0.5](https://github.com/CS2103AUG2016-F10-C1/main/releases/tag/v0.5)
 
   
 #### Site Map
