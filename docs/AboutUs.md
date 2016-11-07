@@ -58,4 +58,7 @@ We are a group of students in the [School of Computing, National University of S
   * Update UI to fit the app's purpose, remove browser and divide the pane into incomplete and complete task tabs. [#41]
 (https://github.com/CS2103AUG2016-T15-C3/main/commit/3459becf3e88958a501855c8632c3dd8d5c02357)
   * Rename all mentions of AddressBook to ToDoList, addressbook to todolist [#104] (https://github.com/CS2103AUG2016-T15-C3/main/commit/e8f1f330aef58daaed7da8166b33b66563475b6d)
+  
+  #### [Nishant Budhdev](https://github.com/AngShiYa) <br>
+<img src="images/Nishant.jpg" width="150"><br>
 
