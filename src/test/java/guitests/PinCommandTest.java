@@ -12,7 +12,7 @@ public class PinCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void pin() {
 
-		TestTask[] currentList = td.getTypicalPersons();
+		TestTask[] currentList = td.getTypicalTasks();
 		TestTask taskToPin = td.CS2103_Project;
 		assertPinSuccess("pin 1", taskToPin);
 

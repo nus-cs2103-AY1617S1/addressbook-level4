@@ -12,7 +12,7 @@ public class DeleteCompletedCommand extends DailyPlannerGuiTest {
 	@Test
 	public void deleteCompleted() {
 		
-		TestTask[] currentList = td.getTypicalPersons();
+		TestTask[] currentList = td.getTypicalTasks();
 		commandBox.runCommand("delete complete");
 		
 		// Remove completed tasks

@@ -11,7 +11,7 @@ public class ShowCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void show() {
 
-		TestTask[] currentList = td.getTypicalPersons();
+		TestTask[] currentList = td.getTypicalTasks();
 
 		assertShowResult("show", currentList); // show all tasks
 

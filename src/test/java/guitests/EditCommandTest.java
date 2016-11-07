@@ -18,19 +18,15 @@ public class EditCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void edit() throws IllegalValueException {
 
-		TestTask[] currentList = td.getTypicalPersons();
+		TestTask[] currentList = td.getTypicalTasks();
 		int targetIndex = currentList.length;
 
-		// edit task date
-		String newDate = "d/next friday";
-		assertEditSuccess(targetIndex, currentList, newDate);
-
-		// edit task start time
-		String newStartTime = "s/10.15am";
+		// edit task start
+		String newStartTime = "s/today 10.15am";
 		assertEditSuccess(targetIndex, currentList, newStartTime);
 
-		// edit task end time
-		String newEndTime = "e/12.30pm";
+		// edit task end
+		String newEndTime = "e/today 12.30pm";
 		assertEditSuccess(targetIndex, currentList, newEndTime);
 	}
 

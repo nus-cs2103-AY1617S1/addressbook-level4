@@ -18,7 +18,7 @@ public class UncompleteCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void complete() {
 		
-		TestTask[] currentList = td.getTypicalPersons();
+		TestTask[] currentList = td.getTypicalTasks();
 		TestTask taskToUncomplete = td.CS2103_Lecture;
 		assertCompleteSuccess("uncomplete 2", taskToUncomplete);
 	}
