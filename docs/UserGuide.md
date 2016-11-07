@@ -203,6 +203,7 @@ Format: `undo`
 Redos the most recent undo executed.Redo supports as many undos that were executed. Once ForgetMeNot is exited, or a new task modifying command is executed, the history of possible redos is cleared. <br>
 Format: `redo`
 
+<!-- @@author A0147619W -->
 #### Deleting a Task: `delete`
 Deletes the particular index of a task that is displayed on the main list of tasks. <br>
 Format: `delete <task index>`
@@ -227,6 +228,7 @@ Example:
 	
 [Back To Top](#user-guide)
 
+<!-- @@author A0139198N -->
 #### Mark as done: `done`
 Marks a task as done. A task that is done will be removed from the main list and placed in the done list. <br>
 Format: `done <task index>`
@@ -236,7 +238,6 @@ Example:
 	
 	Removes task indexed 1 from the list and sends it to the done list.
 
-<!-- @@author A0139198N -->
 #### Showing full list: `show`
 Displays all the task for the user to view.<br>
 Format: `show`
@@ -393,3 +394,4 @@ Following is the list of keyboard shortcuts that ForgetMeNot has to offer:
 ## Glossary
 
 1. Upcoming - Refers to days starting from the current day up to 7 days later, inclusive.
+2. Floating Task - Refers to a task without any start and end time.

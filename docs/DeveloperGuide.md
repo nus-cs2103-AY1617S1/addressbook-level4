@@ -12,6 +12,7 @@
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E: Product Survey](#appendix-e-product-survey)
 
+<!-- @@author A0147619W -->
 
 ## Introduction
 
@@ -28,6 +29,8 @@ be ready to make your first awesome change to the code. The guide is organized f
 
 
 Ready to dive in? Let's get started!
+
+<!-- @@author -->
 
 ## Setting up
 
@@ -100,11 +103,13 @@ command `delete 1`. This same _Sequence Diagram_ will be used to illustrate `und
 >Note how the method saveToHistory() is called when delete is being executed. A copy of the `TaskManager` will be stored
 within `Model`. This is the same for task modifying commands such as `add`, `edit` and `clear`.
 
+<!-- @@author A0139671X -->
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `undo`.
 
 <img src="images\SDforUndo.png" width="800"><br>
 
 When `undo` is entered by the user, the method loadFromHistory() will be executed to replace the current `TaskManager` to the most recent `TaskManager` saved in `Model` when saveToHistory() was previously executed. When the user exits ForgetMeNot, this stored history will be cleared.
+<!-- @@author -->
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -470,7 +475,6 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1c1. ForgetMeNot shows error message of the wrong details.
 	
-<!-- @@author -->
 <!-- @@author A0139198N -->
 
 #### Use case: Mark task as done
@@ -516,7 +520,6 @@ Priority | As a ... | I want to ... | So that I can...
 > 1b1. System shows error message
 > 1b2. Prompt user to add tasks
 
-<!-- @@author -->
 <!-- @@author A0139671X -->
 
 #### Use Case: Undo a task
@@ -555,7 +558,7 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1b1. ForgetMeNot shows error message
 
-<!-- @@author -->
+<!-- @@author A0147619W -->
 
 #### Use case: Set storage of the tasks in ForgetMeNot to a different folder
 
@@ -621,7 +624,7 @@ Day:
 #### Weakness
 
 1. Limited features for free users. <br>
-2. Hard to categorise tasks. <br> 
+2. Hard to categorize tasks. <br> 
 3. Can be difficult to use for first time users <br>
 4. No support for ipad. <br>
 5. No alert when event is starting <br>
@@ -683,12 +686,12 @@ Day:
 
 1. It has premium features that require payment.<br>
 2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>
-3. No levels of priority. Only priority or no priorty.<br>
+3. No levels of priority. Only priority or no priority.<br>
 4. Floating tasks are not always displayed.<br>
 5. Only one color scheme in the basic version. <br>
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
-8. Frequently malfunctions and requres a restart.<br>
+8. Frequently malfunctions and requires a restart.<br>
 <!-- @@author -->
 
 <!-- @@author A0147619W -->
@@ -706,7 +709,7 @@ Day:
 8. It has a comments section which hosts all our communication in one place, accessible for all. <br>
 9. It is free to use on all devices. <br>
 10. It has support for updates via push, email and in-app notifications. <br>
-11. It allow sthe user to print his to-dos and lists with just one click. <br>
+11. It allow the user to print his to-dos and lists with just one click. <br>
 
 ##### Weaknesses
 

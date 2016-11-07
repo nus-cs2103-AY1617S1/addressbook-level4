@@ -92,7 +92,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   * Major contributor to changes of UI
 
 -----
-<!-- @@author -->
+<!-- @@author A0147619W-->
 
 ## Project Mentor
  
