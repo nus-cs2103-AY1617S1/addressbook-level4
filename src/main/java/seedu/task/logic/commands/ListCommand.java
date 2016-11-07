@@ -30,7 +30,7 @@ public class ListCommand extends Command {
 			+ "Shows both lists of upcoming tasks and events"				+ "Optional flag: [/a] to request shows all completed ones "
 			+ "Parameters:[OPTIONAL FLAG]\n" 
 			+ "Example: "+ COMMAND_WORD + "/a";
-	public static final String MESSAGE_SUCCESS_FORMAT = "dowat is showing %1$s %2$s";
+	public static final String MESSAGE_SUCCESS_FORMAT = "Dowat is showing %1$s %2$s";
 	
 	/** which panel to list **/
 	private ListTarget listTarget;

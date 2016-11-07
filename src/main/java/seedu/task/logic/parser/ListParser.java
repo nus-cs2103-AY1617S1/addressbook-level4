@@ -21,7 +21,7 @@ public class ListParser implements Parser {
 		boolean showEvent = argsTokenizer.hasPrefix(eventPresencePrefix);
 		boolean showTask = argsTokenizer.hasPrefix(taskPresencePrefix);
 		boolean showAll = argsTokenizer.hasPrefix(allPrefix);
-		Status filter = (showAll) ? Status.BOTH : Status.INCOMPLETED;
+		Status filter = (showAll) ? Status.ALL : Status.INCOMPLETED;
 		
 		if(showEvent && !showTask) {
 			return new ListCommand(ListTarget.EVENT, filter);

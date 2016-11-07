@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public void updateFilteredTaskListToShowWithStatus(Status status) {
-    	if(status == Status.BOTH) {
+    	if(status == Status.ALL) {
     		updateFilteredTaskListToShowAll();
     	} else {
     		updateFilteredTaskList(new PredicateExpression(new StatusQualifier(status)));
@@ -216,7 +216,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public void updateFilteredEventListToShowWithStatus(Status status) {
-    	if(status == Status.BOTH) {
+    	if(status == Status.ALL) {
     		updateFilteredEventListToShowAll();
     	} else {
     		updateFilteredEventList(new PredicateExpression(new StatusQualifier(status)));

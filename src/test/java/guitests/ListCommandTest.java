@@ -94,7 +94,7 @@ public class ListCommandTest extends TaskBookGuiTest {
 			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListTarget.EVENT.toString()));
 		} else {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.EVENT.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.ALL, ListTarget.EVENT.toString()));
 		}
 		// confirm the list shows all events not completed.
 		assertTrue(eventListPanel.isListMatching(currentList));
@@ -106,7 +106,7 @@ public class ListCommandTest extends TaskBookGuiTest {
 			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.INCOMPLETED, ListTarget.TASK.toString()));
 		} else {
 			// confirm result message is correct.
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.TASK.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.ALL, ListTarget.TASK.toString()));
 		}
 
 		// confirm the list shows all tasks not completed.
@@ -120,7 +120,7 @@ public class ListCommandTest extends TaskBookGuiTest {
 			assertTrue(taskListPanel.isListMatching(currentTasks));
 			
 		} else {
-			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.BOTH, ListTarget.BOTH.toString()));
+			assertResultMessage(String.format(ListCommand.MESSAGE_SUCCESS_FORMAT, Status.ALL, ListTarget.BOTH.toString()));
 			assertTrue(eventListPanel.isListMatching(currentEvents));
 			assertTrue(taskListPanel.isListMatching(currentTasks));
 		}

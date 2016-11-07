@@ -6,6 +6,6 @@ package seedu.task.commons.core;
  *
  */
 public enum Status {
-	BOTH, COMPLETED, INCOMPLETED;
+	ALL, COMPLETED, INCOMPLETED;
 	
 }
