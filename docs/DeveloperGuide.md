@@ -251,38 +251,30 @@ Priority | As a ... | I want to ... | So that I can...
 
 <!-- @@author A0127570H -->
 
-#### Use case 1: Add task
+#### Use case 1: Add task/event
 
 **MSS**
 
-1. User requests to add task of specified parameters
-2. `Dowat` adds task to system
+1. User requests to add task/event of specified parameters
+2. `Dowat` adds task/event to system
 Use case ends.
+
+The use case of adding a task is elaborated by the SD as follows.
+
+<img src="images/addtask.png" width="700"><br>
+<img src="images/addtaskSD.png" width="700"><br>
+
+The SD for adding a task is similar to adding an event.
 
 **Extensions**
 
-1a. The add task request has invalid format
+1a. The add task/event request has invalid format
   > 1a1. `Dowat` displays an error message
   Use case resumes at step 1
 
 <br>
-
-#### Use case 2: Add event
-
-**MSS**
-
-1. User requests to add event of specified parameters
-2. `Dowat` adds event to system
-Use case ends.
-
-**Extensions**
-1a. The add event request has invalid format
-  > 1a1. `Dowat` displays an error message
-    Use case resumes at step 1
-
-<br>
 <!-- @@author A0144702N -->
-#### Use case 3: List tasks/events
+#### Use case 2: List tasks/events
 
 **MSS**
 
@@ -300,40 +292,31 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0127570H -->
 
-#### Use case 4: Edit task details
+#### Use case 3: Edit task/event details
 
 **MSS**<br>
-1. User requests to list tasks<br>
-2. `Dowat` displays a list of tasks<br>
-3. User requests to edit task in the list with new specified parameters with the index of task in the list<br>
-4. `Dowat` edits existing task in database according to new specified parameters<br>
+1. User requests to list tasks/events<br>
+2. `Dowat` displays a list of tasks/events<br>
+3. User requests to edit task/event in the list with new specified parameters with the index of task/event in the list<br>
+4. `Dowat` edits existing task/event in database according to new specified parameters<br>
   Use case ends.
+
+The use case of editing an event is elaborated by the SD as follows.
+
+<img src="images/editevent.png" width="700"><br>
+<img src="images/editeventSD.png" width="700"><br>
+
+The SD for editing an event is similar to editing a task.
 
 **Extensions**<br>
 3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that task cannot be found
-  Use case resumes at step 2
-
-<br>
-
-#### Use case 5: Edit event details
-
-**MSS**<br>
-1. User requests to list events<br>
-2. `Dowat` displays a list of events<br>
-3. User requests to edit event in the list with new specified parameters with the index of event in the list<br>
-4. `Dowat` edits existing event in database according to new specified parameters<br>
-  Use case ends.
-
-**Extensions**<br>
-3a. The given index is invalid
-  > 3a1. `Dowat` displays an error message that the event cannot be found
+  > 3a1. `Dowat` displays an error message that task/event cannot be found
   Use case resumes at step 2
 
 <br>
 <!-- @@author A0121608N -->
 
-#### Use case 6: Mark task as completed
+#### Use case 4: Mark task as completed
 
 **MSS**
  1. User requests to list tasks
@@ -352,7 +335,7 @@ The SD for list events is similiar to task.
 
 <br>
 
-#### Use case 7: Delete task or event
+#### Use case 5: Delete task or event
 
 **MSS**
  1. User requests to list tasks or events
@@ -372,7 +355,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 8: Specify storage location
+#### Use case 6: Specify storage location
 
 **MSS**<br>
 1. User request to save file at a specific directory<br>
@@ -388,7 +371,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 9: Help Command 
+#### Use case 7: Help Command 
 
 
 **MSS**<br>
@@ -405,7 +388,7 @@ The SD for list events is similiar to task.
 <br>
 <!-- @@author A0125534L -->
 
-#### Use case 10: Select task or event
+#### Use case 8: Select task or event
 
 **MSS**<br>
 1. User requests to list tasks or events<br>
@@ -423,7 +406,7 @@ The SD for list events is similiar to task.
 
 <br>
 <!-- @@author A0144702N -->
-#### Use case 11: Simple find for tasks  
+#### Use case 9: Simple find for tasks  
 
 **MSS**<br>
 1. User request to find for tasks containing a set of keywords in description<br>
@@ -443,7 +426,7 @@ The SD for list events is similiar to task.
 <br>
 
 <!-- @@author A0144702N -->
-#### Use case 12: Undo modification
+#### Use case 10: Undo modification
 
 **MSS**<br>
 1. User requests to undo the last modification.<br>
@@ -463,7 +446,7 @@ A more detailed Sequence Diagram of undo a deletion of task is shown below.
 <img src="images/UndoOverall.png" width="600"><br>
 <img src="images/UndoRefSD.png" width="600"><br>
 
-#### Use case 13: Show calendar views
+#### Use case 11: Show calendar views
 
 **MSS**<br>
 1. User requests to show a certain time period with a certain view.<br>
@@ -488,7 +471,7 @@ Since it does not need to retrieve or modidfy data in the model.
 <!-- @@author A0121608N--> 
 
 <!-- Clearing an empty list of completed tasks or past events does not change `Dowat` behavior --> 
-#### Use case 14: Clear completed tasks or past events
+#### Use case 12: Clear completed tasks or past events
 
 **MSS**  
  1. User requests to clear all completed tasks or all past events
@@ -499,7 +482,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
 <!-- Clearing an empty list of completed tasks and past events does not change `Dowat` behavior --> 
-#### Use case 15: Clear completed tasks and past events
+#### Use case 13: Clear completed tasks and past events
 
 **MSS**  
  1. User requests to clear all completed tasks and all past events
@@ -510,7 +493,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
 <!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
-#### Use case 16: Clear all tasks or all events
+#### Use case 14: Clear all tasks or all events
 
 **MSS**  
  1. User requests to clear all tasks or all events
@@ -521,7 +504,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
   
 <!-- Clearing an empty list of tasks and events does not change `Dowat` behavior --> 
-#### Use case 17: Clear all tasks and all events
+#### Use case 15: Clear all tasks and all events
 
 **MSS**  
  1. User requests to clear all tasks and all events
@@ -532,7 +515,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case ends.
 
   
-#### Use case 18: Accessing Command history in Command Box
+#### Use case 16: Accessing Command history in Command Box
 
 **MSS**  
  1. User requests to access Command history using UI controls (UP/DOWN key)
@@ -552,7 +535,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case resumes at step 3
 
 <!-- Clearing an empty Command Box does not change `Dowat` behavior --> 
-#### Use case 19: Clearing of Command Box
+#### Use case 17: Clearing of Command Box
 
 **MSS**  
  1. User requests to clear the Command Box using UI controls (DELETE key)
@@ -560,7 +543,7 @@ Since it does not need to retrieve or modidfy data in the model.
 
   Use case ends.
 
-#### Use case 20: Scrolling of Result Display Panel and Task/Event Panel
+#### Use case 18: Scrolling of Result Display Panel and Task/Event Panel
 
 **MSS**  
  1. User requests to scroll the Panel using UI controls (UP/DOWN key)
@@ -579,7 +562,7 @@ Since it does not need to retrieve or modidfy data in the model.
   Use case resumes at step 3
   
 
-#### Use case 21: Traversing UI Windows/Panels
+#### Use case 19: Traversing UI Windows/Panels
 
 **MSS**  
  1. User requests to traverse to the next Window/Panel using UI controls (TAB key)

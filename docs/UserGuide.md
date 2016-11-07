@@ -110,7 +110,7 @@ This prevents the need to use the mouse wheel for scrolling.
 #### Adding a task
 Adds a task to Dowat<br>
 
-Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
+Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATETIME]` <br>
  
 > Words in `UPPER_CASE` are the parameters, parameters will follow behind their corresponding keyword. 
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
@@ -122,28 +122,31 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
 > If no time is entered, it is assumed to be due at 23:59 hours.
 
 Examples: 
-* `add CS2103 Lab 6 /desc hand in through codecrunch /by 12 midnight 12-30-16` <br>
 * `add CS2103 V0.4 /by 30 Dec` <br>
-   Adds a task "CS2103 Lab 6" with deadline "23:59 30 December 2016"
+   Adds a task "CS2103 V0.4" with deadline "23:59 30 December 2016"
+* `add heat transfer quiz /desc IVLE /by tomorrow 8pm` <br>
+<img src="images/addtask.gif" width="700">
 
 
 #### Adding an event
 Similar to adding a task, you can also add an event to Dowat<br>
 
-Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIPTION]` <br>
+Format: `add EVENT_NAME /from START_DATETIME [/to END_DATETIME] [/desc DESCRIPTION]` <br>
 
-> With the exception of `EVENT_NAME` and `START_DATE_TIME`, all other parameters are optional. The order of parameters are not fixed. 
-> `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
+> With the exception of `EVENT_NAME` and `START_DATETIME`, all other parameters are optional. The order of parameters are not fixed. 
+> `START_DATETIME` and `END_DATETIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
 > Dates entered in numeric form must be in the format of MM-DD-YYYY.
 > Only valid dates are recognised correctly.
 > For time, entering 7pm, 1900 or 19.00 are recognised.
 > If no start time is entered, it is assumed to start at 00:00 hours.
-> If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
+> If `END_DATETIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
-* `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
-* `add CS2103 Workshop /desc OOP workshop /from 12-01-16 > 12-07-16` <br>
+* `add CS2103 Exam @ MPSH3 /from 30 December 4pm /to 6pm` <br>
+  Adds an event "CS2103 Exam @ MPSH3" with duration from "16:00 30 December 2016" to "18:00 30 December 2016" 
+* `add Doctor Strange /desc @ The Cathay /from friday 7pm /to friday 9pm` <br>
+<img src="images/addevent.gif" width="700">
 
 <!-- @@author A0144702N -->
 
@@ -179,36 +182,36 @@ Examples:
 #### Editing a task
 Edits an existing task in Dowat<br>
 
-Format: `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]` <br>
+Format: `edit /t INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/by NEW_DEADLINE]` <br>
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing of tasks.
 > Edits at least 1 field of the task. This includes name and/or description and/or deadline.
 > The order of the fields are flexible.
-> `NEW_DEADLINE_DATE_TIME` can be entered in natural language.
+> `NEW_DEADLINE` can be entered in natural language.
 > Edited tasks are automatically marked as uncompleted.
 
 Examples: 
 * `edit /t 1 /desc CS2103 Project /by 12-30-16`<br>
-  Edits the description of the 1st task to “CS2103 Project” and the deadline to 30 Dec
-* `edit /t 4 /desc CS2103 TaskBook`<br>
-  Edits the description of the 4th task to “CS2103 TaskBook”
+  Edits the description of the 1st task to “CS2103 Project” and the deadline to "30 December 2016"
+* `edit /t 1 /name Heat Transfer Test /by today 6pm /desc @ E6 LT3`<br>
+  <img src="images/edittask.gif" width="700">
 
 
 #### Editing an event
 Edits an existing event in Dowat<br>
 
-Format: `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
+Format: `edit /e INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/from NEW_START_DATETIME] [/to NEW_END_DATETIME]`
 
 > Edits the event at the specified `INDEX`. The index refers to the index number shown in the most recent listing of events.
 > Edits any number of fields of the event. This includes name and/or description and/or start time and/or end time.
 > The order of the fields are flexible.
-> `NEW_START_DATE_TIME` and `NEW_END_DATE_TIME` can be entered in natural language.
+> `NEW_START_DATETIME` and `NEW_END_DATETIME` can be entered in natural language.
 
 Examples:
 * `edit /e 1 /desc CS2103 Workshop /from 10-03-16 0000 /to 10-05-16 2359`  
   Edits the description of the 1st event to “CS2103 Workshop” and the duration to the period of 0000 hours, 3-10-16 to 2359 hours, 5-10-16
-* `edit /e 4 /desc CS2103 TaskBook Project Meeting 4`  
-  Edits the description of the 4th task to “CS2103 TaskBook Project Meeting 4”
+* `edit /e 1 /desc @ Serangoon Nex`  
+<img src="images/editevent.gif" width="700">
 
 <!-- @@author A0121608N -->
 
@@ -408,11 +411,11 @@ Format : `exit`
 
  Command | Format  
 -------- | :-------- 
-[Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]`
-[Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATE_TIME [> END_DATE_TIME] [/desc DESCRIPTION] `
+[Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATETIME]`
+[Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATETIME [> END_DATETIME] [/desc DESCRIPTION] `
 [List Task or Event](#listing-tasks-or-events) | `list [/t|/e] [/a]`
-[Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_TASK_NAME] [/desc NEW_TASK_DESCRIPTION] [/by NEW_DEADLINE_DATE_TIME]`
-[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
+[Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/by NEW_DEADLINE_DATETIME]`
+[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/from NEW_START_DATETIME > NEW_END_DATETIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-taskevent) |`delete /t|/e INDEX`
 [Select Task or Event](#selecting-a-taskevent) |`select /t|/e INDEX`
