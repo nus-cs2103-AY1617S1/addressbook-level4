@@ -18,10 +18,10 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139339W
 /**
  * Edits a task identified using it's last displayed index from the task manager.
  */
-//@@author A0139339W
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -49,11 +49,9 @@ public class EditCommand extends Command {
      * For editing task corresponding to the internalListIndex
      * @throws IllegalValueException when name or tagName contain illegal values
      */
-    public EditCommand(int inputIndex, Optional<String> name, 
-    		Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate,
-    		Set<String> tags, boolean isRemoveStartDateTime, 
-    		boolean isRemoveEndDateTime)
-    		throws IllegalValueException {
+    public EditCommand(int inputIndex, Optional<String> name, Optional<LocalDateTime> newStartDate, 
+                       Optional<LocalDateTime> newEndDate, Set<String> tags, boolean isRemoveStartDateTime, 
+                       boolean isRemoveEndDateTime) throws IllegalValueException {
     	
     	this.inputIndex = inputIndex;
     	this.name = name;

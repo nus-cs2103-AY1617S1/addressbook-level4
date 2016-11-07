@@ -408,7 +408,7 @@ public class Parser {
     	if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-		// 
+		// Check if input arguments is valid for ListCommand
 		String[] args = arguments.split(" ");
 		if(!isValidListArguments(args)) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
@@ -544,11 +544,11 @@ public class Parser {
 	//@@author A0139339W
 	/**
 	 * Parses arguments in the context of the edit task command.
-	 * Supports editing of task name, start date and time, end date and time.
+	 * Supports editing of task name, start date and time, end date and time, tags.
 	 *
 	 * @param arguments
 	 *            full command arguments string
-	 *            at least one of the three values are to be edited
+	 *            at least one of the four values are to be edited
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
@@ -560,20 +560,22 @@ public class Parser {
 		}
 		
 		Optional<String> taskNameWithoutQuotes = Optional.ofNullable(getTaskName(arguments));
-		//To exclude the quoted name from the arguments
+		// To exclude the quoted name from the arguments
 		String editArgs = StringUtil.getNonQuotedText(arguments);
 		List<String> datesAndTags = getDatesAndTags(editArgs);
 		
-		List<String> tagList = datesAndTags.subList(2, datesAndTags.size());
-		Set<String> tagSet = toSet(Optional.ofNullable(tagList));
+		// To get the tagSet to be added to the task
+		Set<String> tagSet = getTagSetFromDatesAndTags(datesAndTags);
 		
 		Optional<LocalDateTime> startDateTime;
 		Optional<LocalDateTime> endDateTime;
 		
 		Optional<String> startDateTimeString = Optional.ofNullable(datesAndTags.get(0));
 		Optional<String> endDateTimeString = Optional.ofNullable(datesAndTags.get(1));
+		// To obtain whether start date or end date is to be removed
 		boolean isRemoveStartDateTime = isToRemoveDateTime(startDateTimeString);
 		boolean isRemoveEndDateTime = isToRemoveDateTime(endDateTimeString);
+		// To obtain the Optional<LocalDateTime> startDateTime and endDateTime
 		try {
 			startDateTime = isRemoveStartDateTime ? Optional.empty() : 
 				convertOptionalToLocalDateTime(startDateTimeString);
@@ -589,6 +591,17 @@ public class Parser {
 		} catch (IllegalValueException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+	}
+	
+	/**
+	 * Get the list of tags in datesAndTags
+	 * @param datesAndTags contains tags from index 2 onwards
+	 * @return
+	 */
+	private Set<String> getTagSetFromDatesAndTags(List<String> datesAndTags) {
+		List<String> tagList = datesAndTags.subList(2, datesAndTags.size());
+		Set<String> tagSet = toSet(Optional.ofNullable(tagList));
+		return tagSet;
 	}
 	
 	/**
