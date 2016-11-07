@@ -331,7 +331,7 @@ Format: `undo`
 
 Example:
 * `undo`
-Undo the previous action.
+Undoes the previous action.
 
 > * Undo is supported in the add, delete, clear, list, change, done, undone, update command.
 
@@ -353,7 +353,7 @@ Format: `redo`
 
 Example:
 * `redo`
-Redo the previous action.
+Redos the previous action.
 
 <p align="center">
 
