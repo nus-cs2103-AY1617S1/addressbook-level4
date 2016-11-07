@@ -268,9 +268,12 @@ public class MainWindow extends UiPart {
         return this.activityListPanel;
     }
     
-    public void refresh() {
+    public void refreshActivityListPanel() {
         activityListPanel.refresh();
-        
+    }
+    
+    public void refreshOverdueListPanel() {
+        overdueListPanel.refresh(logic);
     }
 
 }

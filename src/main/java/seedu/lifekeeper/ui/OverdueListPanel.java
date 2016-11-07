@@ -7,6 +7,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import seedu.lifekeeper.commons.core.LogsCenter;
+import seedu.lifekeeper.logic.Logic;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 
 /**
@@ -34,5 +35,9 @@ public class OverdueListPanel extends ListPanel {
 	@Override
 	public String getFxmlPath() {
 		return FXML;
+	}
+	
+	public void refresh(AnchorPane pane, Logic logic) {
+	    OverdueTaskListPanel.load(primaryStage, pane, logic.getFilteredOverdueTaskList());
 	}
 }
