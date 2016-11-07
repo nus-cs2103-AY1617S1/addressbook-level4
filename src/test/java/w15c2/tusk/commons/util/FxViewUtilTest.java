@@ -10,7 +10,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
 /**
- * Tests FxViewUtil's applying of boundaries
+ * Tests FxViewUtil's applying of boundaries.
  */
 public class FxViewUtilTest {
     

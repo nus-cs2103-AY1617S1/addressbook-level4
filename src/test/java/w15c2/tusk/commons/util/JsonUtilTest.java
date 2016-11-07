@@ -14,7 +14,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
 /**
- * Tests JSON Read and Write
+ * Tests JSON Read and Write.
  */
 public class JsonUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));

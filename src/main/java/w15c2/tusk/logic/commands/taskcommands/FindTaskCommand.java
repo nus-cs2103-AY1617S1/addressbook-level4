@@ -6,13 +6,14 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 
 /**
  * Finds and lists all tasks in TaskManager whose description contains any of the argument keywords.
  * 
  */
-public class FindTaskCommand extends TaskCommand {
+public class FindTaskCommand extends Command {
 
         public static final String COMMAND_WORD = "find";
         public static final String ALTERNATE_COMMAND_WORD = null;

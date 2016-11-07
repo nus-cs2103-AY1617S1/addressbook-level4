@@ -12,7 +12,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
 /**
- * Tests for ListTaskCommand
+ * Tests for ListTaskCommand.
  *
  */
 public class ListTaskCommandTest {

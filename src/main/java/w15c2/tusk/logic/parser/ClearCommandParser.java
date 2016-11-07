@@ -2,12 +2,12 @@ package w15c2.tusk.logic.parser;
 
 import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0139817U
-/*
+/**
  * Parses Clear commands
  */
 public class ClearCommandParser extends CommandParser{
@@ -20,9 +20,9 @@ public class ClearCommandParser extends CommandParser{
      * @param args full command args string
      * @return the prepared command
      */
-    public TaskCommand prepareCommand(String arguments) {
+    public Command prepareCommand(String arguments) {
     	if(!arguments.equals("")){
-        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearTaskCommand.MESSAGE_USAGE));
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearTaskCommand.MESSAGE_USAGE));
         }
         return new ClearTaskCommand();
     }

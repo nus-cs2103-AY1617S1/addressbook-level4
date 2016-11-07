@@ -30,7 +30,7 @@ public class ClearTaskCommandTest {
 	}
 	
 	@Test
-	public void clearTask() throws IllegalValueException {
+	public void execute_normalList() throws IllegalValueException {
 		int filteredListSize = model.getCurrentFilteredTasks().size();
 		ClearTaskCommand command = new ClearTaskCommand();
 		command.setData(model);
@@ -40,7 +40,7 @@ public class ClearTaskCommandTest {
 	}
 	
 	@Test
-	public void clearTask_afterFindTaskCommand() throws IllegalValueException {
+	public void execute_afterFindTaskCommand() throws IllegalValueException {
 		model = TestUtil.setupTasksWithVariedNames(9);
 		HashSet<String> toSearch = new HashSet<String>();
 		toSearch.add("carrot");

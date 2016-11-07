@@ -18,12 +18,12 @@ public class CommandHistoryTest {
 	}
 	
 	@Test
-	public void getPreviousHistoryOnce_noHistory_returnEmptyString() {
+	public void getPreviousCommand_noHistory_returnEmptyString() {
 		assertEquals("", commandHistory.getPreviousCommand());
 	}
 	
 	@Test
-	public void getPreviousHistoryOnce_oneCommandInHistory_returnCommand() {
+	public void getPreviousCommand_oneCommandInHistory_returnCommand() {
 		String commandText = "add meeting";
 		
 		commandHistory.addCommandTextToHistory(commandText);
@@ -32,7 +32,7 @@ public class CommandHistoryTest {
 	
 	
 	@Test
-	public void getPreviousHistoryTwice_oneCommandInHistory_returnCommand() {
+	public void getPreviousCommandTwice_oneCommandInHistory_returnCommand() {
 		String commandText = "add meeting";
 		
 		commandHistory.addCommandTextToHistory(commandText);
@@ -43,7 +43,7 @@ public class CommandHistoryTest {
 	}
 	
 	@Test
-	public void getPreviousHistoryOnce_twoCommandsInHistory_returnCommands() {
+	public void getPreviousCommand_twoCommandsInHistory_returnCommands() {
 		String commandText1 = "add meeting";
 		String commandText2 = "add dinner";
 		
@@ -53,7 +53,7 @@ public class CommandHistoryTest {
 	}
 	
 	@Test
-	public void getPreviousHistoryTwice_twoCommandsInHistory_returnCommands() {
+	public void getPreviousCommandTwice_twoCommandsInHistory_returnCommands() {
 		String commandText1 = "add meeting";
 		String commandText2 = "add dinner";
 		
@@ -64,12 +64,12 @@ public class CommandHistoryTest {
 	}
 	
 	@Test
-	public void getNextHistoryOnce_noHistory_returnEmptyString() {
+	public void getNextCommand_noHistory_returnEmptyString() {
 		assertEquals(commandHistory.getNextCommand(), "");
 	}
 	
 	@Test
-	public void getNextHistoryOnce_oneCommandInHistory_returnCommand() {
+	public void getNextCommand_oneCommandInHistory_returnCommand() {
 		String commandText = "add meeting";
 		
 		commandHistory.addCommandTextToHistory(commandText);
@@ -78,7 +78,7 @@ public class CommandHistoryTest {
 	
 	
 	@Test
-	public void getNextHistoryTwice_oneCommandInHistory_returnCommand() {
+	public void getNextCommandTwice_oneCommandInHistory_returnCommand() {
 		String commandText = "add meeting";
 		
 		commandHistory.addCommandTextToHistory(commandText);
@@ -90,7 +90,7 @@ public class CommandHistoryTest {
 	
 	
 	@Test
-	public void getNextHistoryOnce_twoCommandsInHistory_returnCommand() {
+	public void getNextCommand_twoCommandsInHistory_returnCommand() {
 		String commandText1 = "add meeting";
 		String commandText2 = "add dinner";
 		
@@ -100,7 +100,7 @@ public class CommandHistoryTest {
 	}
 	
 	@Test
-	public void getNextHistoryTwice_twoCommandsInHistory_returnCommand() {
+	public void getNextCommandTwice_twoCommandsInHistory_returnCommand() {
 		String commandText1 = "add meeting";
 		String commandText2 = "add dinner";
 		

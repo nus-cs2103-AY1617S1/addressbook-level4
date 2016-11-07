@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <description>clean desk</description>
+        <pin>true</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy groceries</description>
+        <pin>true</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet boss</description>
+        <pin>true</pin>
+        <complete>false</complete>
+        <endDate>2016-12-08T14:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>conference</description>
+        <pin>true</pin>
+        <complete>false</complete>
+        <startDate>2016-12-23T10:00:00+08:00</startDate>
+        <endDate>2016-12-24T21:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.EventTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet client</description>
+        <pin>true</pin>
+        <complete>false</complete>
+        <endDate>2016-12-29T15:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meeting</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-08-17T09:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy birthday present for friend</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-08-28T00:00:45.451+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>dinner with friends</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-09-08T19:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet boss</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-09-29T16:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>friend's birthday</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-10-05T00:00:26.563+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>presentation</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-10-10T16:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>family dinner</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-10-14T19:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>sign documents</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-10-26T00:00:47.185+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>visit grandmother</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-10-30T00:00:43.427+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>read through files</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-11-01T00:00:29.159+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet up with friends</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-11-06T14:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>clear assignments</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meeting</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy new phone</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy milk</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>clean room</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>check emails</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>do laundry</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>clear emails</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>reply to emails</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>task</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>task</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>arrange files</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>lunch</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>finish up project</description>
+        <pin>false</pin>
+        <complete>true</complete>
+        <endDate>2016-11-07T23:59:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>assignment</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-01T23:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>dinner event</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-02T19:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet client in China</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <startDate>2016-12-03T00:00:35.216+08:00</startDate>
+        <endDate>2016-12-05T00:00:35.219+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.EventTask</taskType>
+    </tasks>
+    <tasks>
+        <description>finish proposal</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-06T00:00:18.166+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet friend for lunch</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-07T12:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>write report</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-08T23:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meeting</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-09T09:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>presentation</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-09T15:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy dinner</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-09T19:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>holiday</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <startDate>2016-12-10T00:00:55.173+08:00</startDate>
+        <endDate>2016-12-19T00:00:55.179+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.EventTask</taskType>
+    </tasks>
+    <tasks>
+        <description>finalise documents</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-20T23:59:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meet potential client</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-21T16:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy Christmas presents</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-22T00:00:26.462+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meeting</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-23T09:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>Christmas party</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-25T17:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>prepare for event</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-26T00:00:11.184+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>event</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <startDate>2016-12-26T10:00:00+08:00</startDate>
+        <endDate>2016-12-28T21:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.EventTask</taskType>
+    </tasks>
+    <tasks>
+        <description>buy new table</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-29T00:00:56.394+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>meeting</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-30T09:00:00+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>long message long message long message long message long message long message long message long message long message long message long message long message long message long message long message long message long message</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-31T00:00:50.177+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+    <tasks>
+        <description>pay bills</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-12-31T00:00:57.005+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+</taskmanager>

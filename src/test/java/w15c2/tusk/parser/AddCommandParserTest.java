@@ -29,6 +29,17 @@ public class AddCommandParserTest {
 		String expectedTask = "[Floating Task][Description: meeting]";
 		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
+		
+		// Floating task and not deadline task since there are inverted commas at the start and end
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting with the \"Boss\" on 1 nov\"");
+		expectedTask = "[Floating Task][Description: meeting with the \"Boss\" on 1 nov]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting on 1 nov\"");
+		expectedTask = "[Floating Task][Description: meeting on 1 nov]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
 	}
 	
 	/**
@@ -57,6 +68,11 @@ public class AddCommandParserTest {
 		
 		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016");
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting\" on 1 Jan 2016"); // Inverted commas in the center should not affect the deadline task
+		expectedTask = "[Deadline Task][Description: \"meeting\"][Deadline: 01.01.2016]";
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
@@ -89,7 +105,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_deadlineTask_multipleKeywords() {
+	public void prepareCommand_deadlineTaskMultipleKeywords() {
 		/*
 		 * Multiple "from", "by" and "at" keywords should not affect the task command
 		 */
@@ -100,7 +116,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_deadlineTask_looksLikeEventTask() {
+	public void prepareCommand_deadlineTaskLooksLikeEventTask() {
 		/*
 		 * DeadlineTask that looks like EventTask due to the presence of "from" and "to" keywords.
 		 * If "by"/"on"/"at" comes after the "from" key word, it is a DeadlineTask.
@@ -170,6 +186,11 @@ public class AddCommandParserTest {
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
+		command = (AddTaskCommand) parser.prepareCommand("\"project\" from 12 Oct 2016 to 13 Oct 2016"); // Inverted commas in the center should not affect the event task
+		expectedTask = "[Event Task][Description: \"project\"][Start date: 12.10.2016][End date: 13.10.2016]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
 		// Time specified for dates
 		command = (AddTaskCommand) parser.prepareCommand("project from Oct 12 5pm - Oct 13 6.30pm");
 		expectedTask = "[Event Task][Description: project][Start date: 12.10.2016 05:00PM][End date: 13.10.2016 06:30PM]";
@@ -186,7 +207,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_eventTask_multipleKeywords() {
+	public void prepareCommand_eventTaskMultipleKeywords() {
 		/*
 		 * Multiple "from", "by", "on" and "at" keywords should not affect the task command
 		 */
@@ -197,7 +218,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_eventTask_looksLikeDeadlineTask() {
+	public void prepareCommand_eventTaskLooksLikeDeadlineTask() {
 		/*
 		 * EventTask that looks like DeadlineTask due to the presence of "by" keyword.
 		 * If "from" comes after the "by"/"on"/"at" key word, it is an EventTask.

@@ -291,7 +291,3 @@
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
 }
-
-#filterField, #personListPanel, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}

@@ -1,19 +1,28 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import w15c2.tusk.commons.core.LogsCenter;
+import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.ClearTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
+import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
 import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
 /**
- * Container for Task Commands to create help information
+ * Container for Commands to create help information
  */
-public class TaskCommandList {
-    
-    private static final Logger logger = LogsCenter.getLogger(TaskCommandList.class);
+public class CommandList {
+    private static final Logger logger = LogsCenter.getLogger(CommandList.class);
     
     /**
      * List of all available task commands.
@@ -31,13 +40,13 @@ public class TaskCommandList {
                 DeleteTaskCommand.class,
                 ExitCommand.class,
                 FindTaskCommand.class,
-                HelpTaskCommand.class,
+                HelpCommand.class,
                 ListTaskCommand.class,
                 PinTaskCommand.class,
-                RedoTaskCommand.class,
+                RedoCommand.class,
                 SetStorageCommand.class, 
                 UncompleteTaskCommand.class,
-                UndoTaskCommand.class,
+                UndoCommand.class,
                 UnpinTaskCommand.class,
                 UpdateTaskCommand.class};
     }

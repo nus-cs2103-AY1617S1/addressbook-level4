@@ -56,7 +56,7 @@ public class TaskTest {
     }
     
     @Test
-    public void compareTo_twoOverdueTasks_oneMoreOverdue() {
+    public void compareTo_twoOverdueTasksOneMoreOverdue() {
        
         Task t1 = getOverdueTask();
         Task t2 = getMoreOverdueTask();
@@ -85,7 +85,7 @@ public class TaskTest {
     }
     
     @Test
-    public void compareTo_twoDeadlineTasks_oneLater() {
+    public void compareTo_twoDeadlineTasksOneLater() {
        
         Task t1 = getDeadlineTask();
         Task t2 = getLaterDeadlineTask();
@@ -94,7 +94,7 @@ public class TaskTest {
     }
     
     @Test
-    public void compareTo_twoEventTasks_oneLater() {
+    public void compareTo_twoEventTasksOneLater() {
        
         Task t1 = getEventTask();
         Task t2 = getLaterEventTask();
@@ -111,7 +111,7 @@ public class TaskTest {
     }
     
     @Test
-    public void equals_twoFloatingTasks_sameDescription() {
+    public void equals_twoFloatingTasksSameDescription() {
         Task t1 = new FloatingTask("hello world");
         Task t2 = new FloatingTask("hello world");
         

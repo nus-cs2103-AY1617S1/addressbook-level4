@@ -1,11 +1,11 @@
 package w15c2.tusk.commons.events.ui;
 
 import w15c2.tusk.commons.events.BaseEvent;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
 
 public class IncorrectTaskCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectTaskCommandAttemptedEvent(TaskCommand command) {}
+    public IncorrectTaskCommandAttemptedEvent(Command command) {}
 
     @Override
     public String toString() {

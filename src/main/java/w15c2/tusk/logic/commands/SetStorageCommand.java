@@ -1,4 +1,4 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -9,13 +9,12 @@ import java.util.Optional;
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.storage.StorageChangedEvent;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
-import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0138978E
 /**
  * Sets the application storage location to another folder
  */
-public class SetStorageCommand extends TaskCommand {
+public class SetStorageCommand extends Command {
 
 	public static final String COMMAND_WORD = "setstorage";
     public static final String ALTERNATE_COMMAND_WORD = null;
@@ -45,7 +44,7 @@ public class SetStorageCommand extends TaskCommand {
 	 * Checks if the path that the user provided is a directory, readble and writable, and if so,
 	 * requests to change the current storage location to the given path through an event.
 	 * (non-Javadoc)
-	 * @see w15c2.tusk.logic.commands.taskcommands.TaskCommand#execute()
+	 * @see w15c2.tusk.logic.commands.taskcommands.Command#execute()
 	 */
 	public CommandResult execute() {
 		Optional<Path> path = getValidPath(storageLocation);

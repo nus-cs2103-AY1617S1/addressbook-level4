@@ -9,7 +9,6 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemExceptio
 import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.UndoTaskCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.FloatingTask;
@@ -33,11 +32,11 @@ public class UndoTaskCommandTest {
 		/* CommandResult should return a string that denotes invalid state
 		 * if there is no previous command to undo
 		 */
-		UndoTaskCommand command = new UndoTaskCommand();
+		UndoCommand command = new UndoCommand();
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(UndoTaskCommand.MESSAGE_UNDO_INVALID_STATE));
+		assertTrue(feedback.equals(UndoCommand.MESSAGE_UNDO_INVALID_STATE));
 	}
 	
 	@Test
@@ -45,12 +44,12 @@ public class UndoTaskCommandTest {
 		/* CommandResult should return a string that denotes success in execution if
 		 * there is a previous add command to undo
 		 */
-		UndoTaskCommand command = new UndoTaskCommand();
+		UndoCommand command = new UndoCommand();
 		model.addTask(new FloatingTask("Meeting"));
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(UndoTaskCommand.MESSAGE_UNDO_TASK_SUCCESS));
+		assertTrue(feedback.equals(UndoCommand.MESSAGE_UNDO_TASK_SUCCESS));
 	}
 	
 	@Test
@@ -58,13 +57,13 @@ public class UndoTaskCommandTest {
 		/* CommandResult should return a string that denotes success in execution if
 		 * there is a previous delete command to undo
 		 */
-		UndoTaskCommand command = new UndoTaskCommand();
+		UndoCommand command = new UndoCommand();
 		model = TestUtil.setupFloatingTasks(3);
 		model.deleteTask(model.getCurrentFilteredTasks().get(2));
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(UndoTaskCommand.MESSAGE_UNDO_TASK_SUCCESS));
+		assertTrue(feedback.equals(UndoCommand.MESSAGE_UNDO_TASK_SUCCESS));
 	}
 	
 	@Test
@@ -72,15 +71,15 @@ public class UndoTaskCommandTest {
 		/* CommandResult should return a string that denotes invalid state
 		 * if there is no previous command to undo(undo can only be used once)
 		 */
-		UndoTaskCommand command = new UndoTaskCommand();
+		UndoCommand command = new UndoCommand();
 		model.addTask(new FloatingTask("Meeting"));
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(UndoTaskCommand.MESSAGE_UNDO_TASK_SUCCESS));
+		assertTrue(feedback.equals(UndoCommand.MESSAGE_UNDO_TASK_SUCCESS));
 		result = command.execute();
 		feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(UndoTaskCommand.MESSAGE_UNDO_INVALID_STATE));
+		assertTrue(feedback.equals(UndoCommand.MESSAGE_UNDO_INVALID_STATE));
 	}
 	
 

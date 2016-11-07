@@ -65,7 +65,7 @@ public abstract class TaskManagerGuiTest {
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -100,14 +100,14 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Aserts the person shown in the card is same as the given person
+     * Aserts the task shown in the card is same as the given task
      */
     public void assertMatching(Task task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfTasks = taskListPanel.getNumberOfTasks();

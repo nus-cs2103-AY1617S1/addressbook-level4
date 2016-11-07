@@ -1,14 +1,13 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.ShowHelpRequestEvent;
-import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0139708W
 /**
  * Shows Help for Commands
  */
-public class HelpTaskCommand extends TaskCommand {
+public class HelpCommand extends Command {
     public static final String COMMAND_WORD = "help";
     public static final String ALTERNATE_COMMAND_WORD = null;
     public static final String COMMAND_FORMAT = COMMAND_WORD;

@@ -46,11 +46,21 @@ public class AliasWindow extends UiPart {
         return aliasWindow;
     }
 
+    /**
+     * Sets pane containing AliasWindow
+     * to appropriate node, used in 
+     * UiPart.
+     */
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;
     }
-
+    
+    /**
+     * Return FXML file name for UiPart loading.
+     * 
+     * @return  String representation of FXML file name.
+     */
     @Override
     public String getFxmlPath() {
         return FXML;
@@ -65,13 +75,18 @@ public class AliasWindow extends UiPart {
         
     }
     
-    // Set appropriate dimensions
-    public void setDimensions() {
+    /** 
+     * Set appropriate dimensions
+     */
+    private void setDimensions() {
         dialogStage.setMinHeight(WINDOW_HEIGHT);
         dialogStage.setMaxHeight(WINDOW_HEIGHT);
         dialogStage.setMinWidth(WINDOW_WIDTH);
     }
-
+    
+    /**
+     * Shows AliasWindow.
+     */
     public void show() {
         dialogStage.show();
     }

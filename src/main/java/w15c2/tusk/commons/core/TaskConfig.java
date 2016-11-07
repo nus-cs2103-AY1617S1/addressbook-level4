@@ -121,7 +121,7 @@ public class TaskConfig {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + tasksFilePath);
         sb.append("\nLocal alias file location : " + aliasFilePath);
-        sb.append("\nAddressBook name : " + taskManagerName);
+        sb.append("\nTask Manager name : " + taskManagerName);
         return sb.toString();
     }
 

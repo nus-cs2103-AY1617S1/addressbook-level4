@@ -5,10 +5,10 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
 import w15c2.tusk.logic.parser.ListCommandParser;
-//@@author A0143107
+//@@author A0143107U
 /**
  * Tests List Command Parser
  */
@@ -23,11 +23,11 @@ public class ListCommandParserTest {
 	public void prepareCommand_invalidFormat() {
 		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE);
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("meeting");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("meeting");
 		String feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 			
-		command = (IncorrectTaskCommand) parser.prepareCommand("all");
+		command = (IncorrectCommand) parser.prepareCommand("all");
 		feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 	}

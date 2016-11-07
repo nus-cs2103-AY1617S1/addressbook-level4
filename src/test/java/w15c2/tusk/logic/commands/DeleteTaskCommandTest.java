@@ -18,7 +18,7 @@ public class DeleteTaskCommandTest {
 	Model model;
 	
 	@Test
-	public void deleteTask_noTasksAdded() throws IllegalValueException {
+	public void execute_noTasksAdded() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
@@ -32,7 +32,7 @@ public class DeleteTaskCommandTest {
 	}
 	
 	@Test
-	public void deleteTask_indexTooLarge() throws IllegalValueException {
+	public void execute_indexTooLarge() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
@@ -46,7 +46,7 @@ public class DeleteTaskCommandTest {
 	}
 	
 	@Test
-	public void deleteTask_indexTooSmall() throws IllegalValueException {
+	public void execute_indexTooSmall() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
@@ -60,7 +60,7 @@ public class DeleteTaskCommandTest {
 	}
 	
 	@Test
-	public void deleteTask_validIndex() throws IllegalValueException {
+	public void execute_validIndex() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to DeleteTaskCommand constructor is within the range of added tasks.

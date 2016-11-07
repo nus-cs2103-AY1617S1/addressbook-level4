@@ -24,20 +24,20 @@ public class TaskConfigTest {
                 "Preference file Location : task-userpreferences.json\n" +
                 "Local data file location : data/tasks.xml\n" +
                 "Local alias file location : " + "data/alias.xml\n" +
-                "AddressBook name : Tusk";
+                "Task Manager name : Tusk";
 
         assertEquals(defaultConfigAsString, new TaskConfig().toString());
     }
 
     @Test
-    public void equalsMethod(){
+    public void equals(){
         TaskConfig defaultConfig = new TaskConfig();
         assertFalse(defaultConfig.equals(null));
         assertTrue(defaultConfig.equals(defaultConfig));
     }
     
     @Test
-    public void setStorageLocationMethod() {
+    public void setStorageLocation() {
     	TaskConfig config = new TaskConfig();
     	String validPath = System.getProperty("user.home");
     	config.setStorageLocation(validPath);

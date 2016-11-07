@@ -15,7 +15,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
 /**
- * Test for file util class
+ * Test for the file util class.
  *
  */
 public class FileUtilTest {
@@ -38,7 +38,6 @@ public class FileUtilTest {
     }
     
     public void getPath_noForwardSlash_assertionError() {
-        // no forwards slash -> assertion failure
         thrown.expect(AssertionError.class);
         FileUtil.getPath("folder");
     }

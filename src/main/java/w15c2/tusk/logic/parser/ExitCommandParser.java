@@ -3,9 +3,9 @@ package w15c2.tusk.logic.parser;
 
 import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.ExitCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 
 //@@author A0143107U
 /**
@@ -23,9 +23,9 @@ public class ExitCommandParser extends CommandParser {
     */
 
     @Override
-    public TaskCommand prepareCommand(String arguments) {
+    public Command prepareCommand(String arguments) {
         if(!arguments.equals("")){
-        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE));
+        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExitCommand.MESSAGE_USAGE));
         }
         return new ExitCommand();
     }

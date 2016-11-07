@@ -5,8 +5,8 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.HelpCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.parser.HelpCommandParser;
 //@@author A0143107U
 /**
@@ -26,13 +26,13 @@ public class HelpCommandParserTest {
 		 * Testing correct handling of non-empty strings
 		 * 
 		 */
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE);
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("listing");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("listing");
 		String feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("all");
+		command = (IncorrectCommand) parser.prepareCommand("all");
 		feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 	}
@@ -42,9 +42,9 @@ public class HelpCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_validHelpFormat() {
-		String expected = HelpTaskCommand.SHOWING_HELP_MESSAGE;
+		String expected = HelpCommand.SHOWING_HELP_MESSAGE;
 		
-		HelpTaskCommand command = (HelpTaskCommand) parser.prepareCommand("");
+		HelpCommand command = (HelpCommand) parser.prepareCommand("");
 		String feedback = command.toString();
 		assertEquals(feedback, expected);
 		

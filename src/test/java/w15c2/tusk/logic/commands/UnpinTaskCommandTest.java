@@ -16,7 +16,7 @@ public class UnpinTaskCommandTest {
 
 	
 	@Test
-	public void unpinTask_noTasksAdded() throws IllegalValueException {
+	public void unpinTaskCommand_noTasksAdded() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
@@ -31,7 +31,7 @@ public class UnpinTaskCommandTest {
 	}
 	
 	@Test
-	public void unpinTask_indexTooLarge() throws IllegalValueException {
+	public void unpinTaskCommand_indexTooLarge() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
@@ -46,7 +46,7 @@ public class UnpinTaskCommandTest {
 	}
 	
 	@Test
-	public void unpinTask_indexTooSmall() throws IllegalValueException {
+	public void unpinTaskCommand_indexTooSmall() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
@@ -61,7 +61,7 @@ public class UnpinTaskCommandTest {
 	}
 	
 	@Test
-	public void unpinTask_validIndex_alreadyUnpin() throws IllegalValueException {
+	public void unpinTaskCommand_validIndex_alreadyUnpin() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to unpinTaskCommand constructor is within the range of added tasks.
@@ -76,7 +76,7 @@ public class UnpinTaskCommandTest {
 	}
 	
 	@Test
-	public void unpinTask_validIndex_isPin() throws IllegalValueException {
+	public void unpinTaskCommand_validIndex_isPin() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to unpinTaskCommand constructor is within the range of added tasks.

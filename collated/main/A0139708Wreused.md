@@ -1,6 +1,9 @@
 # A0139708Wreused
 ###### /java/w15c2/tusk/ui/AliasListPanel.java
 ``` java
+    /**
+     * Cell for AliasList to load AliasCard as graphic.
+     */
     class AliasListViewCell extends ListCell<Alias> {
 
         public AliasListViewCell() {

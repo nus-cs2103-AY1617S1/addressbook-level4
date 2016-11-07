@@ -30,7 +30,7 @@ public class AddTaskCommandTest {
 	}
 	
 	@Test
-	public void addTask_validDescription() throws IllegalValueException {
+	public void execute() throws IllegalValueException {
 		/* CommandResult should return a string that denotes success in execution if description 
 		 * given to AddTaskCommand constructor is a string with size > 0
 		 */
@@ -59,16 +59,67 @@ public class AddTaskCommandTest {
 		assertTrue(feedback.equals(String.format(AddTaskCommand.MESSAGE_SUCCESS, "Meeting")));
 	}
 	
+	/**
+	 * Tests exceptions for constructing Floating tasks
+	 */
 	@Test(expected=IllegalValueException.class)
-	public void addTask_emptyStringDescription() throws IllegalValueException {
+	public void addTaskCommand_emptyStringDescriptionForFloatingTask() throws IllegalValueException {
 		// Construction of the AddTaskCommand with an empty string should lead to an error
 		new AddTaskCommand("");
 	}
 	
 	@Test(expected=IllegalValueException.class)
-	public void addTask_nullDescription() throws IllegalValueException {
+	public void addTaskCommand_nullDescriptionForFloatingTask() throws IllegalValueException {
 		// Construction of the AddTaskCommand with null reference should lead to an error
 		new AddTaskCommand(null);
+	}
+	
+	/**
+	 * Tests exceptions for constructing Deadline tasks
+	 */
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_emptyStringDescriptionForDeadlineTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with an empty string should lead to an error
+		new AddTaskCommand("", Calendar.getInstance().getTime());
+	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_nullDescriptionForDeadlineTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with null reference should lead to an error
+		new AddTaskCommand(null, Calendar.getInstance().getTime());
+	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_nullDeadlineForDeadlineTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with an empty string should lead to an error
+		new AddTaskCommand("Valid", null);
+	}
+	
+	/**
+	 * Tests exceptions for constructing Event tasks
+	 */
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_emptyStringDescriptionForEventTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with an empty string should lead to an error
+		new AddTaskCommand("", Calendar.getInstance().getTime(), Calendar.getInstance().getTime());
+	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_nullDescriptionForEventTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with null reference should lead to an error
+		new AddTaskCommand(null, Calendar.getInstance().getTime(), Calendar.getInstance().getTime());
+	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_nullStartDateForEventTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with an empty string should lead to an error
+		new AddTaskCommand("Valid", null, Calendar.getInstance().getTime());
+	}
+	
+	@Test(expected=IllegalValueException.class)
+	public void addTaskCommand_nullEndDateForEventTask() throws IllegalValueException {
+		// Construction of the AddTaskCommand with null reference should lead to an error
+		new AddTaskCommand("Valid", Calendar.getInstance().getTime(), null);
 	}
 
 }

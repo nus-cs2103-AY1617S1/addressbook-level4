@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
 
@@ -11,7 +12,7 @@ import w15c2.tusk.model.task.Task;
 /**
  * Unpins a task identified using it's last displayed index from TaskManager.
  */
-public class UncompleteTaskCommand extends TaskCommand {
+public class UncompleteTaskCommand extends Command {
 
 	public static final String COMMAND_WORD = "uncomplete";
     public static final String ALTERNATE_COMMAND_WORD = null;

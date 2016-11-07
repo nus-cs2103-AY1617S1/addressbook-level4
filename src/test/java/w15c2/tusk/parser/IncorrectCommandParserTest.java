@@ -6,7 +6,7 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import org.junit.Test;
 
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.parser.IncorrectCommandParser;
 //@@author A0143107U
 /**
@@ -21,7 +21,7 @@ public class IncorrectCommandParserTest {
 	@Test
 	public void prepareCommand_validFormat() {
 		String expected = String.format(MESSAGE_UNKNOWN_COMMAND);
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("");
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
 		assertEquals(feedback, expected);

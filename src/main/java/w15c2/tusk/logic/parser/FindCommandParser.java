@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 /*
  * Parses Find commands
@@ -23,10 +23,10 @@ public class FindCommandParser extends CommandParser{
      * @param args full command args string
      * @return the prepared command
      */
-    public TaskCommand prepareCommand(String arguments) {
+    public Command prepareCommand(String arguments) {
         // keywords delimited by whitespace
     	if(arguments.equals("")){
-    		return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTaskCommand.MESSAGE_USAGE));
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTaskCommand.MESSAGE_USAGE));
     	}
         final String[] keywords = arguments.split(" ");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));

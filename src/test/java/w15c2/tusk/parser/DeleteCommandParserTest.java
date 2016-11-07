@@ -6,9 +6,9 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.DeleteTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.DeleteCommandParser;
 //@@author A0143107U
 /**
@@ -30,17 +30,17 @@ public class DeleteCommandParserTest {
 		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTaskCommand.MESSAGE_USAGE);
 
 		// EP: Empty string
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("");
 		String actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Spaces only
-		command = (IncorrectTaskCommand) parser.prepareCommand("   ");
+		command = (IncorrectCommand) parser.prepareCommand("   ");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Non-integers
-		command = (IncorrectTaskCommand) parser.prepareCommand("task");
+		command = (IncorrectCommand) parser.prepareCommand("task");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 	}
@@ -54,16 +54,16 @@ public class DeleteCommandParserTest {
 		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteTaskCommand.MESSAGE_USAGE);
 		
 		// EP: Negative value
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("-1");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("-1");
 		String actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("-6");
+		command = (IncorrectCommand) parser.prepareCommand("-6");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Zero
-		command = (IncorrectTaskCommand) parser.prepareCommand("0");
+		command = (IncorrectCommand) parser.prepareCommand("0");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 	}

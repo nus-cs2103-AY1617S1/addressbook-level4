@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 

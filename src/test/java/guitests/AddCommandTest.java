@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void add() {
+    public void addCommand() {
         //add one task
         List<Task> currentTaskList = TestUtil.getInitialTasks().getInternalList();
         List<Task> tasksToAdd = TestUtil.getDefaultTasks().getInternalList();
@@ -51,7 +51,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
         assertMatching(taskToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous tasks plus the new tasks
         currentTaskList.add(taskToAdd);
         assertTrue(taskListPanel.isListMatching(currentTaskList));
     }

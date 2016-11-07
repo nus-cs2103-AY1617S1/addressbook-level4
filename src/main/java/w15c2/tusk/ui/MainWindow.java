@@ -46,7 +46,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
     
     private final KeyCombination controlPlusUp = new KeyCodeCombination(KeyCode.UP, KeyCombination.CONTROL_DOWN);
     private final KeyCombination controlPlusDown = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.CONTROL_DOWN);
@@ -94,12 +94,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, TaskConfig config, UserPrefs prefs,
+    private void configure(String appTitle, String taskManagerName, TaskConfig config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -179,28 +179,34 @@ public class MainWindow extends UiPart {
         }
     }
     
-  //@@author A0139708W
-    private void setWindowMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
-    }
-  
-    public void hideHelp() {
-        helpListPanelPlaceholder.getParent().toBack();
-        helpListPanelPlaceholder.getParent().setOpacity(0);
-    }
-    
-    public void showHelp() {
-        helpListPanelPlaceholder.getParent().toFront();
-        helpListPanelPlaceholder.getParent().setOpacity(100);
-    }
-
     /*
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+    
+  //@@author A0139708W
+    private void setWindowMinSize() {
+        primaryStage.setMinHeight(MIN_HEIGHT);
+        primaryStage.setMinWidth(MIN_WIDTH);
+    }
+    
+    /**
+     * Hides help Panel.
+     */
+    public void hideHelp() {
+        helpListPanelPlaceholder.getParent().toBack();
+        helpListPanelPlaceholder.getParent().setOpacity(0);
+    }
+    
+    /**
+     * Shows Help Panel.
+     */
+    public void showHelp() {
+        helpListPanelPlaceholder.getParent().toFront();
+        helpListPanelPlaceholder.getParent().setOpacity(100);
     }
     
     /**
@@ -241,25 +247,23 @@ public class MainWindow extends UiPart {
         complete.setStyle(INACTIVE_CSS);
         
     }
-
-    @FXML
-    public void handleHelp() {
-        showHelp();
-    }
     
+    /**
+     * Load and display alias list.
+     */
     @FXML
     public void handleAliasList() {
         AliasWindow aliasWindow = AliasWindow.load(primaryStage, logic);
         aliasWindow.show();
     }
     
-    public void taskListPanelScroll(int targetIndex) {
-        taskListPanel.scrollTo(targetIndex);
-    }
-    
     //@@author
     public void show() {
         primaryStage.show();
+    }
+    
+    public void taskListPanelScroll(int targetIndex) {
+        taskListPanel.scrollTo(targetIndex);
     }
 
     /**
