@@ -75,6 +75,7 @@
 2. The list of commands, their format and their function will pop up.
 
 ### When you have a new deadline, task or event
+* The order of all parameters after `NAME` is flexible.
 
 [comment]: # (@@author A0065571A)
 
@@ -351,18 +352,18 @@ For events, you can edit all optional parameters.
 # FAQ
 
 1. What if I have no Internet connection?
-> IvoryTasks is fully functional offline.
+> IvoryTasks is fully functional offline but you will not be able to view the User Guide.
 
-2. What if I would like to edit a huge number of tasks, deadlines, events at once?
- > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so.
+2. What if I would like to edit a huge number of tasks, deadlines, events at once with a script?
+ > IvoryTasks uses a human editable xml file to store its data. You may edit it directly or write a script to do so. However, please note that straying from the format IvoryTasks will cause unexpected results.
 
 
 # Command Summary
 
 Command | Format  | Example
 -----: | ----- | :------------------
-Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial`
-Add Deadline | `a[dd] d[eadline] n/NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
+Add Task | `a[dd] t[ask] [n/]NAME [#TAG_TO_ADD]` | `add task tutorial`
+Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
 Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 lecture sdt/friday 2pm edt/friday 4pm`
 Clear | `cl[ear]` | `clear`
 Delete | `del[ete] INDEX ...` | `delete 1`
