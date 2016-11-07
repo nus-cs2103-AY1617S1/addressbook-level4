@@ -18,20 +18,23 @@ public class ArgumentParser {
 	/**
      * Constructor
      * 
-     * @param	input user inut
+     * @param	input user input
      * @param	keywords array of keywords
      */
 	public ArgumentParser(String input, String[] keywords){
+		//Initialise data structures
 		subArgs = new HashMap<String, String>();
 		HashMap<String, Integer> locales = new HashMap<String, Integer>();
-		String sequence = input;
 		subArgs.put("default", "");
 		locales.put("default", 0);
+		//insert keywords into hashmaps
 		for(String keyword: keywords){
 			subArgs.put(keyword.trim(), "");
+			//max value indicates not found
 			locales.put(keyword, Integer.MAX_VALUE);
 		}
-		parse(locales, sequence);
+		//parse input
+		parse(locales, input);
 	}
 
 	/**
@@ -113,11 +116,14 @@ public class ArgumentParser {
 	/**
      * Remove index from input string
      * 
-     * @returns the input string, less the index
+     * @param input A string starting with an index
+     * @returns The input string, less the index
      */
 	public static String cutIndex(String input){
 		String result = "";
+		//split by spaces
 		String[] tokens = input.split(" ");
+		//remove first token (the index)
 		for(int i=1; i<tokens.length; i++){
 			result += tokens[i] + " ";
 		}
@@ -129,10 +135,15 @@ public class ArgumentParser {
      * 
      */
 	private void parse(HashMap<String, Integer> locales, String input){
+		//iterate by character
 		for(int i=0; i<input.length(); i++){
+			//check all keywords
 			for(String arg: locales.keySet()){
+				//check if keyword exists at character index i
 				if(isArg(i, arg, input)){
+					//insert into locales
 					locales.put(arg, i);
+					//remove keyword from string
 					input = input.replaceFirst(arg, "");
 				}
 			}
@@ -158,20 +169,26 @@ public class ArgumentParser {
      */
 	private void retrieveArgs(ArrayList<Map.Entry<String, Integer>> locs, String input){
 		Iterator<Map.Entry<String, Integer>> iter = locs.iterator();
+		//get first item
 		Map.Entry<String, Integer> next = iter.next();
 		int start, end;
 		String arg;
 
 		do{
+			//starts at index of current keyword
 			start = next.getValue();
+			//get keyword
 			arg = next.getKey();
 			if(iter.hasNext()){
 				next = iter.next();
+				//ends at index of next keyword
 				end = next.getValue();
 			}
 			else{
+				//ends at end of string
 				end = input.length();
 			}
+			//stores argument
 			subArgs.put(arg.trim(), input.substring(start, end));
 		} while(end != input.length());
 	}
@@ -182,6 +199,7 @@ public class ArgumentParser {
      */
 	private void addArgLocales(HashMap<String, Integer> locales, ArrayList<Map.Entry<String, Integer>> locs){
 		for(Map.Entry<String, Integer> locale: locales.entrySet()){
+			//check if keyword is present
 			if(locale.getValue()!=Integer.MAX_VALUE){
 				locs.add(locale);
 			}

@@ -30,9 +30,13 @@ public class TaskCounter {
 	 * @param src ReadOnlyTaskList containing initial data
 	 */
 	public TaskCounter(ReadOnlyTaskList src){
+		//set values to 0
 		reinitializeValues();
+		//count tasks
 		setCountersToList(src.getTaskList());
+		//listen for events
 		EventsCenter.getInstance().registerHandler(this);
+		//indicate taskcounter has changed
 		EventsCenter.getInstance().post(new TaskCountersChangedEvent(this));
 	}
 	
@@ -43,11 +47,19 @@ public class TaskCounter {
 	 */
     @Subscribe
     private void modelChangedEvent(TaskListChangedEvent tlce) {
+    	//reset counters
     	reinitializeValues();
+    	//re-count tasks
     	setCountersToList(tlce.data.getTaskList());
+    	//indicate taskcounter has changed
     	EventsCenter.getInstance().post(new TaskCountersChangedEvent(this));
     }
     
+	/**
+	 * Increments counters based on given list of tasks
+	 * 
+	 * @param taskList List of tasks to be counted
+	 */
     private void setCountersToList(List<ReadOnlyTask> taskList){
     	for(ReadOnlyTask task: taskList){
     		incrementCounters(task);
@@ -96,31 +108,65 @@ public class TaskCounter {
     	 this.upcoming = 0;
     }
     
-    
+    /**
+	 * Get total number of tasks
+	 * 
+	 * @return total number of tasks
+	 */
 	public int getTotal() {
 		return total;
 	}
 
+    /**
+	 * Get number of floating tasks
+	 * 
+	 * @return number of floating tasks
+	 */
 	public int getFloating() {
 		return floating;
 	}
 
+    /**
+	 * Get number of overdue tasks
+	 * 
+	 * @return number of overdue tasks
+	 */
 	public int getOverdue() {
 		return overdue;
 	}
 
+    /**
+	 * Get number of tasks starting tomorrow
+	 * 
+	 * @return number of tasks starting tomorrow
+	 */
 	public int getTomorrow() {
 		return tomorrow;
 	}
 
+    /**
+	 * Get number of tasks starting today
+	 * 
+	 * @return number of tasks starting today
+	 */
 	public int getToday() {
 		return today;
 	}
 
+    /**
+	 * Get number of other tasks
+	 * 
+	 * @return number of other tasks
+	 */
 	public int getOther() {
 		return other;
 	}
 
+    /**
+	 * Get number of upcoming events
+	 * 
+	 * @return number of upcoming events
+	 */
 	public int getUpcoming() {
 		return upcoming;
 	}	
