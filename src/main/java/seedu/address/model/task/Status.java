@@ -49,7 +49,7 @@ public class Status implements Comparable<Status> {
 		return value.equals(StatusType.DONE);
 	}
 	
-	public boolean isNotDone() {
+	public boolean isPending() {
 		return value.equals(StatusType.PENDING);
 	}
 	
