@@ -44,7 +44,7 @@ public class AddCommandParser extends CommandParser{
     			throws IllegalValueException {
     	// If there are double inverted commas at the start and end, it means that it is a FloatingTask
     	if (description.length() > 1 && description.endsWith("\"") && description.startsWith("\"")) {
-    		return new AddTaskCommand(description);
+    		return new AddTaskCommand(description.substring(1, description.length() - 1));
     	}
     	
     	// Determine if it is DeadlineTask (which has "by", "on" or "at") or EventTask (which has "from")

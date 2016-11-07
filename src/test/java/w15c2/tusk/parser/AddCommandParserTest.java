@@ -29,6 +29,17 @@ public class AddCommandParserTest {
 		String expectedTask = "[Floating Task][Description: meeting]";
 		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
+		
+		// Floating task and not deadline task since there are inverted commas at the start and end
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting with the \"Boss\" on 1 nov\"");
+		expectedTask = "[Floating Task][Description: meeting with the \"Boss\" on 1 nov]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting on 1 nov\"");
+		expectedTask = "[Floating Task][Description: meeting on 1 nov]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
 	}
 	
 	/**
@@ -57,6 +68,11 @@ public class AddCommandParserTest {
 		
 		command = (AddTaskCommand) parser.prepareCommand("homework by 1 Jan 2016");
 		expectedTask = "[Deadline Task][Description: homework][Deadline: 01.01.2016]";
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("\"meeting\" on 1 Jan 2016"); // Inverted commas in the center should not affect the deadline task
+		expectedTask = "[Deadline Task][Description: \"meeting\"][Deadline: 01.01.2016]";
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
@@ -167,6 +183,11 @@ public class AddCommandParserTest {
 		assertEquals(actualTask, expectedTask);
 		
 		command = (AddTaskCommand) parser.prepareCommand("project from 12 October 2016 to 13 October 2016");
+		actualTask = command.getTaskDetails(false);
+		assertEquals(actualTask, expectedTask);
+		
+		command = (AddTaskCommand) parser.prepareCommand("\"project\" from 12 Oct 2016 to 13 Oct 2016"); // Inverted commas in the center should not affect the event task
+		expectedTask = "[Event Task][Description: \"project\"][Start date: 12.10.2016][End date: 13.10.2016]";
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
