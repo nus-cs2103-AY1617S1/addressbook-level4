@@ -87,7 +87,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 * Aspects/tools in charge of: JavaFX, FXML
 * Features implemented:
    * [UI Design](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/docs/images/ForgetMeNotUI.png)
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/main/A0139211R.md)][[test code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/test/A0139211R.md)][[docs]()]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/main/A0139211R.md)][[test code](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/test/A0139211R.md)][[docs](https://github.com/CS2103AUG2016-T11-C2/main/blob/master/collated/docs/A0139211R.md)]
 * Other major contributions:
   * Major contributor to changes of UI
 
