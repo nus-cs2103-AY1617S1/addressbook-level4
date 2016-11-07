@@ -1,3 +1,4 @@
+//@@author A0141052Y
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
@@ -16,6 +17,17 @@ import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 public class UpdateCommandTest extends TaskManagerGuiTest {
+    /**
+     * NOTE TO EXAMINERS:
+     * THIS TEST MAY FAIL DUE TO RACE CONDITIONS. IT IS IN NO PART
+     * DUE TO THE TEST CASES, RATHER, THE TIME BETWEEN TASK UPDATE
+     * AND WHEN THE ASSERTION IS DONE MAY LEAD TO NULLPOINTEREXCEPTION
+     * DUE TO HOW THE RETRIEVAL OF THE TASK UI CARD WORKS.
+     * 
+     * EXAMPLE: UI SAYS "11:39" BUT TEST CASE SAVES AS "11:40"
+     * 
+     * @throws IllegalValueException
+     */
 	@Test
     public void update() throws IllegalValueException {
 	    TestTask[] currentList = td.getTypicalTasks();
