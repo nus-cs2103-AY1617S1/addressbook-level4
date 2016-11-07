@@ -213,6 +213,7 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
+<!-- @@author A0139198N -->
 ### Model implementation
 
 The model componenet model the data of the application.
@@ -246,6 +247,7 @@ The storage package defines two storage interfaces, `UserPrefsStorage` and
 The storage package also defines a facade `Storage` interface, which combines
 together the aforementioned `UserPrefsStorage` and `TaskManagerStorage` interfaces
 into a single interface.
+<!-- @@author -->
 
 ### Configuration
 
@@ -398,7 +400,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 > 1a1. ForgetMeNot shows error and help message
 
-
+<!-- @@author A0139198N -->
 #### Use Case: Clear Done
 
 **MSS**
@@ -406,7 +408,9 @@ Priority | As a ... | I want to ... | So that I can...
 1. User types in clear done command
 2. ForgetMeNot clears the list of done task
 	Use case ends
-	
+
+
+
 **Extensions**
 
 	1a. User types in wrong command
@@ -416,7 +420,8 @@ Priority | As a ... | I want to ... | So that I can...
 	2a. The done list is empty
 	
 > 2a1. ForgetMeNot shows error message
-	
+
+<!-- @@author -->
 #### Use Case: Delete Task
 
 **MSS**
@@ -467,6 +472,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 2a1. Command is removed.
 
 <!-- @@author -->
+<!-- @@author A0139198N -->
 
 #### Use case: Mark task as done
 
@@ -511,6 +517,7 @@ Priority | As a ... | I want to ... | So that I can...
 > 1b1. System shows error message
 > 1b2. Prompt user to add tasks
 
+<!-- @@author -->
 <!-- @@author A0139671X -->
 
 #### Use Case: Undo a task
@@ -627,6 +634,8 @@ Day:
 <!-- @@author A0139211R -->
 
 
+<!-- @@author A0139198N -->
+
 ### Google Cal
 #### Strengths
 
@@ -650,6 +659,7 @@ Day:
 5. Steep learning curve.<br>
 6. Does not support categories.<br>
 
+<!-- @@author -->
 
 <!-- @@author A0139671X-->
 ### Any.do
