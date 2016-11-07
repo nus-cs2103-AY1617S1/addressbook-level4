@@ -79,7 +79,7 @@ The diagram below shows how the `EventsCenter` reacts to the event, which eventu
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The following more details of each component.
+The following sections provide more details about each component.
 
 //@@author A0142605N  
 ### UI component  
