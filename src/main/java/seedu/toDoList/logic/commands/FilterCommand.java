@@ -126,7 +126,7 @@ public class FilterCommand extends Command {
      */
     private void preparePriority(Map<Types, String> qualifications) throws IllegalValueException {
         if (priority.isPresent()) {
-            if (Priority.isValidPriorityLevel(Integer.parseInt(priority.get()))) {
+            if (!priority.get().isEmpty() && Priority.isValidPriorityLevel(Integer.parseInt(priority.get()))) {
                 qualifications.put(Types.PRIORITY_LEVEL, priority.get());
             } else {
                 throw new IllegalValueException(Priority.MESSAGE_INVALID_PRIORITY_LEVEL);
