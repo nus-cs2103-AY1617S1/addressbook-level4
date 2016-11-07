@@ -9,6 +9,10 @@ import tars.testutil.TestRsvTask;
 import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
+// @@author A0124333U
+/**
+ * GUI test for confirm command
+ */
 public class ConfirmCommandTest extends TarsGuiTest {
 
     @Test
@@ -18,11 +22,14 @@ public class ConfirmCommandTest extends TarsGuiTest {
         TestRsvTask rsvTaskToConfirm = td.rsvTaskA;
         TestTask confirmedTask = td.cfmTaskA;
         commandBox.runCommand("confirm 1 2 /p h");
-        TestTask[] expectedTaskList = TestUtil.addTasksToList(currentTaskList, confirmedTask);
-        TestRsvTask[] expectedRsvTaskList = TestUtil.delRsvTaskFromList(currentRsvTaskList, rsvTaskToConfirm);
+        TestTask[] expectedTaskList =
+                TestUtil.addTasksToList(currentTaskList, confirmedTask);
+        TestRsvTask[] expectedRsvTaskList = TestUtil
+                .delRsvTaskFromList(currentRsvTaskList, rsvTaskToConfirm);
 
         // confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(confirmedTask.getName().taskName);
+        TaskCardHandle addedCard =
+                taskListPanel.navigateToTask(confirmedTask.getName().taskName);
         assertMatching(confirmedTask, addedCard);
 
         // confirm that the rsv task list does not contain the confirmed task,

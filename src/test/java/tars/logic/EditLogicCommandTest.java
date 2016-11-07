@@ -21,10 +21,9 @@ import tars.model.task.Priority;
 import tars.model.task.Status;
 import tars.model.task.Task;
 
+// @@author A0124333U
 /**
  * Logic command test for edit
- * 
- * @@author A0124333U
  */
 public class EditLogicCommandTest extends LogicCommandTest {
 
@@ -75,7 +74,7 @@ public class EditLogicCommandTest extends LogicCommandTest {
                         expectedTars.getTaskList().get(0)),
                 expectedTars, expectedTars.getTaskList());
     }
-    
+
     @Test
     public void execute_edit_editedDuplicateTask() throws Exception {
         // setup expectations
@@ -128,7 +127,7 @@ public class EditLogicCommandTest extends LogicCommandTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS,
                         expectedTars.getTaskList().get(0)),
                 expectedTars, expectedTars.getTaskList());
-        
+
         expectedTars.replaceTask(editedTask, taskToAdd);
 
         // execute undo and verify result

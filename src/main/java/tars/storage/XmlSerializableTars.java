@@ -44,8 +44,10 @@ public class XmlSerializableTars implements ReadOnlyTars {
      * Conversion
      */
     public XmlSerializableTars(ReadOnlyTars src) {
-        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        rsvTasks.addAll(src.getRsvTaskList().stream().map(XmlAdaptedRsvTask::new).collect(Collectors.toList()));
+        tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new)
+                .collect(Collectors.toList()));
+        rsvTasks.addAll(src.getRsvTaskList().stream()
+                .map(XmlAdaptedRsvTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 

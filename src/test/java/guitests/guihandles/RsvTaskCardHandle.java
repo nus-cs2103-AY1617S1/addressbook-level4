@@ -25,7 +25,7 @@ public class RsvTaskCardHandle extends GuiHandle {
     public String getRsvTaskName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
-    
+
     public boolean isSameRsvTask(RsvTask rsvTask) {
         return getRsvTaskName().equals(rsvTask.getName().taskName);
     }

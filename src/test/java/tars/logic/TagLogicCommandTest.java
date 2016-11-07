@@ -18,10 +18,9 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 import tars.ui.formatter.Formatter;
 
+// @@author A0139924W
 /**
  * Logic command test for tag
- * 
- * @@author A0139924W
  */
 public class TagLogicCommandTest extends LogicCommandTest {
 
@@ -252,6 +251,7 @@ public class TagLogicCommandTest extends LogicCommandTest {
         expectedTars.getUniqueTagList().update(toBeRenamed, newTag);
         expectedTars.renameTasksWithNewTag(toBeRenamed, newTag);
 
+        // execute undo and verify result
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
                 String.format(UndoCommand.MESSAGE_SUCCESS, ""), expectedTars,
                 expectedTars.getTaskList());
@@ -262,6 +262,7 @@ public class TagLogicCommandTest extends LogicCommandTest {
         expectedTars.getUniqueTagList().update(toBeRenamed, newTag);
         expectedTars.renameTasksWithNewTag(toBeRenamed, newTag);
 
+        // execute redo and verify result
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
                 String.format(RedoCommand.MESSAGE_SUCCESS, ""), expectedTars,
                 expectedTars.getTaskList());
@@ -292,6 +293,7 @@ public class TagLogicCommandTest extends LogicCommandTest {
         expectedTars.getUniqueTagList().add(new Tag(toBeDeleted));
         expectedTars.addTagToAllTasks(toBeDeleted, editedTaskList);
 
+        // execute undo and verify result
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
                 String.format(UndoCommand.MESSAGE_SUCCESS, ""), expectedTars,
                 expectedTars.getTaskList());
@@ -299,6 +301,7 @@ public class TagLogicCommandTest extends LogicCommandTest {
         expectedTars.getUniqueTagList().remove(new Tag(toBeDeleted));
         expectedTars.removeTagFromAllTasks(toBeDeleted);
 
+        // execute redo and verify result
         assertCommandBehavior(RedoCommand.COMMAND_WORD,
                 String.format(RedoCommand.MESSAGE_SUCCESS, ""), expectedTars,
                 expectedTars.getTaskList());

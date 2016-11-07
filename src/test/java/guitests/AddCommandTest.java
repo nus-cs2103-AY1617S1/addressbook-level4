@@ -12,6 +12,10 @@ import tars.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+// @@author A0140022H
+/**
+ * GUI test for add command
+ */
 public class AddCommandTest extends TarsGuiTest {
 
     @Test
@@ -42,7 +46,7 @@ public class AddCommandTest extends TarsGuiTest {
         // invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
+
         assertAddSuccess(td.taskA);
     }
 
@@ -50,19 +54,21 @@ public class AddCommandTest extends TarsGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         // confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().taskName);
+        TaskCardHandle addedCard =
+                taskListPanel.navigateToTask(taskToAdd.getName().taskName);
         assertMatching(taskToAdd, addedCard);
 
         // confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TestTask[] expectedList =
+                TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
-    //@@author A0140022H
     @Test
     public void addRecurring() {
         TestTask[] recurringList = new TestTask[0];
-        recurringList = TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
+        recurringList =
+                TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
         try {
             recurringList[1].setName(new Name("Task C"));
             recurringList[1].setPriority(new Priority("l"));
@@ -71,7 +77,8 @@ public class AddCommandTest extends TarsGuiTest {
         }
 
         commandBox.runCommand("clear");
-        commandBox.runCommand("add Task C /dt 03/09/2016 1400 to 04/09/2016 1400 /p l /r 2 every day");
+        commandBox.runCommand(
+                "add Task C /dt 03/09/2016 1400 to 04/09/2016 1400 /p l /r 2 every day");
         assertTrue(taskListPanel.isListMatching(recurringList));
     }
 }

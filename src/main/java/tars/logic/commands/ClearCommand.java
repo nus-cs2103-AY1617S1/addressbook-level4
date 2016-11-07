@@ -2,10 +2,9 @@ package tars.logic.commands;
 
 import tars.model.Tars;
 
+// @@author A0139924W
 /**
  * Clears tars.
- * 
- * @@author A0139924W
  */
 public class ClearCommand extends Command {
 

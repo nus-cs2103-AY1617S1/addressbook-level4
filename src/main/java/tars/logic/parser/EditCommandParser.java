@@ -7,11 +7,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.IncorrectCommand;
 
+// @@author A0121533W
 /**
  * Edit command parser
- * 
- * @@author A0121533W
- *
  */
 public class EditCommandParser extends CommandParser {
 
@@ -28,13 +26,15 @@ public class EditCommandParser extends CommandParser {
     public Command prepareCommand(String args) {
         args = args.trim();
         int targetIndex = START_INDEX;
-        if (args.indexOf(StringUtil.STRING_WHITESPACE) != StringUtil.INVALID_POSITION) {
+        if (args.indexOf(
+                StringUtil.STRING_WHITESPACE) != StringUtil.INVALID_POSITION) {
             targetIndex = args.indexOf(StringUtil.STRING_WHITESPACE);
         }
 
         String index;
         try {
-            index = StringUtil.indexString((args.substring(StringUtil.START_INDEX, targetIndex)));
+            index = StringUtil.indexString(
+                    (args.substring(StringUtil.START_INDEX, targetIndex)));
         } catch (Exception e) {
             return new IncorrectCommand(String.format(
                     MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));

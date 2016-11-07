@@ -8,10 +8,9 @@ import tars.model.task.*;
 
 import java.util.ArrayList;
 
+// @@author A0121533W
 /**
  * Marks a task identified using it's last displayed index from tars as undone.
- * 
- * @@author A0121533W
  */
 public class UdCommand extends Command {
 
@@ -50,6 +49,9 @@ public class UdCommand extends Command {
         return new CommandResult(tracker.getResultFromTracker());
     }
 
+    /**
+     * Marks status of task in model as undone
+     */
     private void handleMarkUndone()
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status undone = new Status(false);

@@ -19,21 +19,35 @@ import tars.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
+// @@author A0121533W
 /**
  * UI Controller for panel containing the list of tasks.
- * 
- * @@author A0121533W
  */
 public class TaskListPanel extends UiPart {
+    private static String LOG_MESSAGE_LAYOUT_UPDATING =
+            "Updating layout for %s";
+
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
-    private AnchorPane placeHolderPane;
-
+    private static final int START_INDEX = 1;
+    
     @FXML
     private ListView<ReadOnlyTask> taskListView;
     @FXML
     private VBox panel;
+    
+    private AnchorPane placeHolderPane;
+    
+    public static TaskListPanel load(Stage primaryStage,
+            AnchorPane taskListPlaceholder,
+            ObservableList<ReadOnlyTask> taskList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage,
+                taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configure(taskList);
+        return taskListPanel;
+    }
 
+    
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -48,16 +62,7 @@ public class TaskListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
-    public static TaskListPanel load(Stage primaryStage,
-            AnchorPane taskListPlaceholder,
-            ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage,
-                taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
-    }
-
+    
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
@@ -94,13 +99,13 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                TaskCard card = TaskCard.load(task, getIndex() + 1);
+                TaskCard card = TaskCard.load(task, getIndex() + START_INDEX);
                 HBox layout = card.getLayout();
                 if (this.newlyAddedTask != null
                         && this.newlyAddedTask.isSameStateAs(task)) {
-                    layout.setStyle("-fx-border-color: #607D8B");
+                    layout.setStyle(UiColor.TASK_CARD_NEWLY_ADDED_BORDER);
                 } else {
-                    layout.setStyle("-fx-border-color: #9E9E9E");
+                    layout.setStyle(UiColor.TASK_CARD_DEFAULT_BORDER);
                 }
                 setGraphic(layout);
             }
@@ -109,7 +114,8 @@ public class TaskListPanel extends UiPart {
         @Subscribe
         private void handleTaskAddedEvent(TaskAddedEvent event) {
             logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                    "Updating layout for " + event.task.toString()));
+                    String.format(LOG_MESSAGE_LAYOUT_UPDATING,
+                            event.task.toString())));
             this.newlyAddedTask = event.task;
         }
     }

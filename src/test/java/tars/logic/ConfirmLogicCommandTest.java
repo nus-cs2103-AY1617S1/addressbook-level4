@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import tars.commons.core.Messages;
 import tars.logic.commands.ConfirmCommand;
 import tars.logic.commands.RedoCommand;
 import tars.logic.commands.UndoCommand;
@@ -17,10 +18,9 @@ import tars.model.Tars;
 import tars.model.task.Task;
 import tars.model.task.rsv.RsvTask;
 
+// @@author A0124333U
 /**
  * Logic command test for confirm
- * 
- * @@author A0124333U
  */
 public class ConfirmLogicCommandTest extends LogicCommandTest {
     @Test
@@ -36,10 +36,25 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
     }
 
     @Test
-    public void execute_confirm_invalidRsvTaskIndexErrorMessageShown()
+    public void execute_confirm_invalidRsvTaskIndex_ErrorMessageShown()
             throws Exception {
         assertCommandBehavior("confirm 2 3",
                 MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_confirm_invalidRsvTaskDateTimeIndex_ErrorMessageShown()
+            throws Exception {
+        TypicalTestDataHelper helper = new TypicalTestDataHelper();
+        Tars expectedTars = new Tars();
+        RsvTask rsvTask =
+                helper.generateReservedTaskWithOneDateTimeOnly("Test Task");
+        expectedTars.addRsvTask(rsvTask);
+        model.addRsvTask(rsvTask);
+
+        assertCommandBehavior("confirm 1 3",
+                Messages.MESSAGE_INVALID_DATETIME_DISPLAYED_INDEX, expectedTars,
+                expectedTars.getTaskList());
     }
 
     @Test
@@ -73,7 +88,7 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
 
     }
 
-    //@@author A0139924W
+    // @@author A0139924W
     @Test
     public void execute_undoAndRedo_confirmSuccessful() throws Exception {
         // setup expectations
@@ -136,7 +151,7 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
 
         model.addRsvTask(taskToRsv);
         expectedTars.addRsvTask(taskToRsv);
-        
+
         // execute undo and verify result
         assertCommandBehavior(UndoCommand.COMMAND_WORD,
                 String.format(UndoCommand.MESSAGE_UNSUCCESS,
@@ -152,4 +167,5 @@ public class ConfirmLogicCommandTest extends LogicCommandTest {
                         MESSAGE_RSV_TASK_CANNOT_BE_FOUND),
                 expectedTars, expectedTars.getTaskList());
     }
+
 }

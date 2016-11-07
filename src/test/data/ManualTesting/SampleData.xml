@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tars>
+    <tasks>
+        <name>CS3244 Cheatsheet</name>
+        <priority>h</priority>
+        <dateTime>
+            <endDateString>19/11/2016 2359</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>cs3244</tagged>
+        <tagged>finals</tagged>
+    </tasks>
+    <tasks>
+        <name>NEST Boot Camp 2016</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>19/12/2016 0000</startDateString>
+            <endDateString>21/12/2016 2359</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>NUS Museum Talk</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>10/11/2016 1900</startDateString>
+            <endDateString>10/11/2016 2000</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Launch of i5Lab</name>
+        <priority></priority>
+        <dateTime>
+            <endDateString>07/11/2016 0930</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Hackware v24</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>02/11/2016 1930</startDateString>
+            <endDateString>02/11/2016 2230</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Design Talk</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>18/11/2016 1600</startDateString>
+            <endDateString>18/11/2016 1700</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Kopi Chat 500 Durians</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>09/11/2016 1600</startDateString>
+            <endDateString>09/11/2016 1730</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Modern Ageing Singapore Pitch</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>25/11/2016 1500</startDateString>
+            <endDateString>25/11/2016 1800</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Global Innovators Talk</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>22/11/2016 1630</startDateString>
+            <endDateString>22/11/2016 1800</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>ST3240 Slides</name>
+        <priority>m</priority>
+        <dateTime/>
+        <status>false</status>
+        <tagged>presentation</tagged>
+        <tagged>st3240</tagged>
+    </tasks>
+    <tasks>
+        <name>9th STePS</name>
+        <priority></priority>
+        <dateTime>
+            <endDateString>11/11/2016 1800</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Guitar audtions</name>
+        <priority>l</priority>
+        <dateTime>
+            <startDateString>14/11/2016 1100</startDateString>
+            <endDateString>15/11/2016 1100</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Collect Welfare pack</name>
+        <priority>h</priority>
+        <dateTime>
+            <startDateString>02/11/2016 0930</startDateString>
+            <endDateString>02/11/2016 1430</endDateString>
+        </dateTime>
+        <status>true</status>
+    </tasks>
+    <tasks>
+        <name>Cut Hair</name>
+        <priority>l</priority>
+        <dateTime>
+            <endDateString>19/11/2016 1000</endDateString>
+        </dateTime>
+        <status>true</status>
+    </tasks>
+    <tasks>
+        <name>Feedback Exercise</name>
+        <priority>h</priority>
+        <dateTime>
+            <startDateString>04/11/2016 0000</startDateString>
+            <endDateString>18/11/2016 2359</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Push SMS Subscription</name>
+        <priority></priority>
+        <dateTime>
+            <endDateString>05/12/2016 2359</endDateString>
+        </dateTime>
+        <status>true</status>
+    </tasks>
+    <tasks>
+        <name>MA3269 Lecture Quiz</name>
+        <priority>h</priority>
+        <dateTime>
+            <startDateString>07/11/2016 1000</startDateString>
+            <endDateString>07/11/2016 1200</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Duke NUS Open House</name>
+        <priority></priority>
+        <dateTime>
+            <endDateString>22/11/2016 2359</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>UCC usher interview</name>
+        <priority>l</priority>
+        <dateTime>
+            <startDateString>16/11/2016 1400</startDateString>
+            <endDateString>16/11/2016 1800</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>NUS CFA proposal</name>
+        <priority></priority>
+        <dateTime>
+            <endDateString>08/11/2016 2359</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>19/11/2016 1900</startDateString>
+            <endDateString>19/11/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>26/11/2016 1900</startDateString>
+            <endDateString>26/11/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>03/12/2016 1900</startDateString>
+            <endDateString>03/12/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>10/12/2016 1900</startDateString>
+            <endDateString>10/12/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>17/12/2016 1900</startDateString>
+            <endDateString>17/12/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>24/12/2016 1900</startDateString>
+            <endDateString>24/12/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>31/12/2016 1900</startDateString>
+            <endDateString>31/12/2016 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>07/01/2017 1900</startDateString>
+            <endDateString>07/01/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>14/01/2017 1900</startDateString>
+            <endDateString>14/01/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>21/01/2017 1900</startDateString>
+            <endDateString>21/01/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>28/01/2017 1900</startDateString>
+            <endDateString>28/01/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>04/02/2017 1900</startDateString>
+            <endDateString>04/02/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>11/02/2017 1900</startDateString>
+            <endDateString>11/02/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>18/02/2017 1900</startDateString>
+            <endDateString>18/02/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>25/02/2017 1900</startDateString>
+            <endDateString>25/02/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>04/03/2017 1900</startDateString>
+            <endDateString>04/03/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>11/03/2017 1900</startDateString>
+            <endDateString>11/03/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>18/03/2017 1900</startDateString>
+            <endDateString>18/03/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>25/03/2017 1900</startDateString>
+            <endDateString>25/03/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>01/04/2017 1900</startDateString>
+            <endDateString>01/04/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>08/04/2017 1900</startDateString>
+            <endDateString>08/04/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>15/04/2017 1900</startDateString>
+            <endDateString>15/04/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>22/04/2017 1900</startDateString>
+            <endDateString>22/04/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>29/04/2017 1900</startDateString>
+            <endDateString>29/04/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>06/05/2017 1900</startDateString>
+            <endDateString>06/05/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>13/05/2017 1900</startDateString>
+            <endDateString>13/05/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>20/05/2017 1900</startDateString>
+            <endDateString>20/05/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>27/05/2017 1900</startDateString>
+            <endDateString>27/05/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>03/06/2017 1900</startDateString>
+            <endDateString>03/06/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>A Math Tuition</name>
+        <priority></priority>
+        <dateTime>
+            <startDateString>10/06/2017 1900</startDateString>
+            <endDateString>10/06/2017 2100</endDateString>
+        </dateTime>
+        <status>false</status>
+        <tagged>Jeremy</tagged>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>14/11/2016 1400</startDateString>
+            <endDateString>14/11/2016 1600</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>21/11/2016 1400</startDateString>
+            <endDateString>21/11/2016 1600</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>28/11/2016 1400</startDateString>
+            <endDateString>28/11/2016 1600</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>05/12/2016 1400</startDateString>
+            <endDateString>05/12/2016 1600</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tasks>
+        <name>Gym</name>
+        <priority>m</priority>
+        <dateTime>
+            <startDateString>12/12/2016 1400</startDateString>
+            <endDateString>12/12/2016 1600</endDateString>
+        </dateTime>
+        <status>false</status>
+    </tasks>
+    <tags>
+        <tagName>cs3244</tagName>
+    </tags>
+    <tags>
+        <tagName>finals</tagName>
+    </tags>
+    <tags>
+        <tagName>presentation</tagName>
+    </tags>
+    <tags>
+        <tagName>st3240</tagName>
+    </tags>
+    <tags>
+        <tagName>Jeremy</tagName>
+    </tags>
+</tars>

@@ -27,7 +27,7 @@
    * **`del`**` 3` : deletes the 3rd task shown in TARS.
    * **`exit`** : exits the app
 7. Refer to the [Features](#features) section below for details of each command. 
-8. NOTE
+8. Note
 	- All text in `< >` are required fields whereas those in `[ ]` are optional.
 	- `<INDEX>` refers to the index number of a task shown in the task list.
 	- The index **must be a positive integer** 1, 2, 3, ... 
@@ -158,7 +158,7 @@ Format:
 > Parameters can be in any order.
 
 Examples: 
-* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords "meet" and "John" (e.g. meet John Doe)
 * `find /n meet /dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
 [comment]: # (@@author A0124333U)
@@ -175,9 +175,13 @@ Examples:
 [comment]: # (@@author A0140022H)
 #### Displaying a list of available commands : `help`
 Shows program usage instructions in help panel.
-Format: `help`
+Format: `help [COMMAND_WORD]`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`.
+
+Examples:
+* `help add`
+* `help summary`
 
 [comment]: # (@@author A0140022H)
 #### Listing tasks : `ls`
@@ -208,6 +212,8 @@ Redo a previous command
 Format: `redo` 
 
 > Able to redo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+>
+> Keyboard shortcut: CTRL-Y
 
 [comment]: # (@@author A0124333U)
 #### Reserving timeslots for a task : `rsv` 
@@ -278,6 +284,8 @@ Undo a command executed by the user.
 Format: `undo` 
 
 > Able to undo all `add`, `delete`, `edit`, `tag`, `rsv`, `confirm` and `del` commands from the time the app starts running.
+>
+> Keyboard shortcut: CTRL-Z
 
 
 
@@ -294,7 +302,7 @@ There is no need to save manually.
 [comment]: # (@@author A0139924W)
 ## Supported Date Formats
 #### formal dates
-Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may preceed the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
+Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may precede the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
 
 Examples:
 * `28-01-2016`
@@ -378,7 +386,7 @@ Command | Format
 [Find [Quick Search]](#finding-tasks--find) | `find <KEYWORD> [KEYWORD ...]`
 [Find [Filter Search]](#finding-tasks--find) | `find [/n NAME_KEYWORD ...] [/dt DATETIME] [/p PRIORITY] [/do] [/ud] [/t TAG_KEYWORD ...]`
 [Free](#suggesting-free-timeslots--free) | `free <DATETIME>`
-[Help](#displaying-a-list-of-available-commands--help) | `help`
+[Help](#displaying-a-list-of-available-commands--help) | `help [COMMAND_WORD]`
 [List](#listing-tasks--ls) | `ls`
 [List [Date]](#listing-tasks--ls) | `ls /dt`
 [List [Priority]](#listing-tasks--ls) | `ls /p`

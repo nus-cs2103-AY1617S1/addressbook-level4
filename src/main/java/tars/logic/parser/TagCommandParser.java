@@ -10,14 +10,13 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.TagCommand;
 
+// @@author A0139924W
 /**
  * Tag command parser
- * 
- * @@author A0139924W
- *
  */
 public class TagCommandParser extends CommandParser {
-    private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
+    private static final Pattern TAG_EDIT_COMMAND_FORMAT =
+            Pattern.compile("\\d+ \\w+$");
 
     /**
      * Parses arguments in the context of the tag command.
@@ -39,7 +38,8 @@ public class TagCommandParser extends CommandParser {
             String editArgs = argsTokenizer.getValue(editPrefix).get();
             final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(editArgs);
             if (matcher.matches()) {
-                return new TagCommand(editPrefix, editArgs.split(StringUtil.STRING_WHITESPACE));
+                return new TagCommand(editPrefix,
+                        editArgs.split(StringUtil.STRING_WHITESPACE));
             }
         }
 
@@ -48,8 +48,8 @@ public class TagCommandParser extends CommandParser {
             return new TagCommand(deletePrefix, index);
         }
 
-        return new IncorrectCommand(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        return new IncorrectCommand(String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
 }

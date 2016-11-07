@@ -1,54 +1,92 @@
+/* @@author A0121533W */
+
+/*
+ * ====================================================================
+ * ============================Fonts===================================
+ * ====================================================================
+ */
+
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/roboto/Roboto-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("../fonts/roboto/Roboto-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Light";
+  src: url("../fonts/roboto/Roboto-Light.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Black";
+  src: url("../fonts/roboto/Roboto-Black.ttf");
+}
+
+@font-face {
+  font-family: "Roboto Bold";
+  src: url("../fonts/roboto/Roboto-Bold.ttf");
+}
+ 
 .root {
 	-fx-focus-color: transparent;
 }
 
 .background {
-    -fx-background-color: #616161;
+    -fx-background-color: #455A64;
 }
 
-.label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Roboto";
-    -fx-text-fill: #212121;
-    -fx-opacity: 0.9;
+.list-label {
+	-fx-font-size: 18px;
+	-fx-text-fill: #212121;
+	-fx-background-color: white;
+	-fx-font-family: "Roboto Black";
 }
 
-.text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Roboto";
+.error {
+    -fx-background-color: #F44336;
+}
+
+/*
+ * ====================================================================
+ * ========================SplitPane===================================
+ * ====================================================================
+ */
+
+.split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent;
-    -fx-background-insets: 0;       
+    -fx-background-color: lightgrey;
+    -fx-padding: 0 0.1 0 0.1;
 }
 
-.text-field:focused {
-    -fx-focus-color: transparent;
+.split-pane {
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-color: white;
 }
 
-.text-area {
-	-fx-background-insets: 0;
-	-fx-background-color: transparent;
-	-fx-font-family: "Roboto";
-}
-
-.text-area .content {
-    -fx-background-color: #F5F5F5;
-    -fx-border-color: transparent;
-    -fx-background-insets: 0;
-}
-
+/*
+ * ====================================================================
+ * ==========================TabPane===================================
+ * ====================================================================
+ */
+ 
 .tab-pane {
-    -fx-padding: 0 15 10 10;
+    -fx-padding: 0 10 0 5;
 }
 
 .tab-pane .tab {
-    -fx-background-color: #BDBDBD;
+    -fx-background-color: white;
     -fx-border-width: 0 0 2 0;
 }
 
 .tab .tab-label {
-	-fx-font-size: 10pt;
-	-fx-font-family: "Roboto Bold";
-	-fx-text-fill: #616161;
+	-fx-font-size: 18px;
+	-fx-text-fill: #212121;
+	-fx-font-family: "Roboto Black";
 }
 
 .tab-pane .tab-header-area {
@@ -60,9 +98,9 @@
 .tab:selected {
     -fx-background-radius: 0;
     -fx-background-insets: 0;
-    -fx-background-color: #BDBDBD;
+    -fx-background-color: white;
     -fx-border-width: 0 0 2 0;
-    -fx-border-color: transparent transparent #607D8B transparent;
+    -fx-border-color: transparent transparent #2E8AF7 transparent;
 }
 
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
@@ -71,25 +109,99 @@
 }
 
 .tab-pane *.tab-header-background {
-    -fx-background-color: #BDBDBD;
+    -fx-background-color: white;
     -fx-border-width: 1 0 1 0;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent transparent transparent transparent;
-    -fx-background-color: transparent, transparent;
+
+.thisWeek-panel {
+	-fx-background-color: white;
 }
 
-.split-pane {
-    -fx-border-radius: 0;
-    -fx-border-width: 0;
-    -fx-background-color: #BDBDBD;
+.thisWeek-panel-label {
+	-fx-font-size: 24px;
+	-fx-text-fill: #212121;
+}
+
+.date-label {
+	-fx-font-size: 32px;
+	-fx-text-fill: #212121;
+}
+
+/*
+ * ====================================================================
+ * =========================CommandBox=================================
+ * ====================================================================
+ */
+ 
+.text-field {
+    -fx-font-size: 15px;
+    -fx-border-color: transparent;
+    -fx-font-family: "Roboto";
+    -fx-background-insets: 0;       
+}
+
+.text-field:focused {
+    -fx-focus-color: transparent;
+}
+
+/*
+ * ====================================================================
+ * ==============Results Display & RsvTask DateTimeList================
+ * ====================================================================
+ */
+ 
+ .anchor-pane {
+     -fx-background-color: #F6F6F6;
+}
+
+.result-display {
+    -fx-background-color: #F6F6F6;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.result-display .label {
+    -fx-text-fill: #212121;
+}
+ 
+.text-area {
+	-fx-background-insets: 0;
+	-fx-background-color: transparent;
+}
+
+.text-area .content {
+    -fx-background-color: #F6F6F6;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.dateTimeListArea .content {
+	-fx-background-color: white;
+}
+
+/*
+ * ====================================================================
+ * ========ListView and ListCell for TaskList/RsvTaskList==============
+ * ====================================================================
+ */
+
+.taskList {
+	-fx-border-width: 1 0 0 0;
+	-fx-border-color: lightgrey;
 }
 
 .list-view {
-  -fx-background-color: #9E9E9E;
+  -fx-background-color: white;
   -fx-background-insets: 0;
-  -fx-padding: 0;
+  -fx-padding: 0px;
+}
+
+#cardPane {
+    -fx-background-color: white;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 0 0 2 0;
 }
 
 .list-cell {
@@ -99,133 +211,96 @@
 }
 
 .list-cell:empty {
-    -fx-background-color: #9E9E9E;
+    -fx-background-color: white;
 }
  
-.list-cell .label {
-    -fx-text-fill: #212121;
-}
-
 .cell_index_label {
 	-fx-font-size: 16px;
-	-fx-font-weight: bold;
+	-fx-font-family: "Roboto Bold";
 }
 
 .cell_big_label {
     -fx-font-size: 16px;
+    -fx-font-family: "Roboto";
     -fx-text-fill: #212121;
 }
 
 .cell_medium_label {
     -fx-font-size: 14px;
+    -fx-font-family: "Roboto";
     -fx-text-fill: #757575;
 }
 
 .cell_small_label {
-    -fx-font-size: 12px;
-    -fx-text-fill: #212121;
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+    -fx-font-family: "Roboto";
 }
 
-.anchor-pane {
-     -fx-background-color: #F5F5F5;
+.circle_label {
+	-fx-font-weight: bold;
+	-fx-font-size: 16px;
 }
 
 
-.status-bar {
-    -fx-background-color: #616161;
-    -fx-text-fill: #212121;
-}
-
-.result-display {
-    -fx-background-color: #F5F5F5;
-    -fx-border-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-background-insets: 0;
-}
-
-.result-display .label {
-    -fx-text-fill: #212121 !important;
+/*
+ * ====================================================================
+ * ===========================Status Bar===============================
+ * ====================================================================
+ */
+ 
+ .status-bar {
+    -fx-background-color: #2e8af7;
+    -fx-text-fill: white;
 }
 
 .status-bar .label {
-    -fx-text-fill: #F5F5F5;
+    -fx-text-fill: white;
     -fx-font-size: 12px;
 }
 
-.status-bar-with-border {
-    -fx-background-color: #616161;
-    -fx-border-color: transparent;
-}
-
-.status-bar-with-border .label {
-    -fx-text-fill: #F5F5F5;
-}
-
-.grid-pane {
-    -fx-background-color: #9E9E9E;
-    -fx-border-color: #9E9E9E;
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: #9E9E9E;
-}
-
-.thisWeek-panel {
-	-fx-background-color: #CFD8DC;
-}
-
-.thisWeek-panel-label {
-	-fx-font-size: 24pt;
-	-fx-font-family: "Roboto Bold";
-	-fx-text-fill: #607D8B;
-}
-
-.date-label {
-	-fx-font-size: 32pt;
-	-fx-font-family: "Roboto Bold";
-	-fx-text-fill: #607D8B;
-}
-
-.list-label {
-	-fx-font-size: 10pt;
-	-fx-font-family: "Roboto Bold";
-	-fx-text-fill: #616161;
-	-fx-background-color: #BDBDBD;
-}
+/*
+ * ====================================================================
+ * ============================Dialog==================================
+ * ====================================================================
+ */
 
 .dialog-pane {
-    -fx-background-color: #BDBDBD;
+    -fx-background-color: white;
 }
 
 .dialog-pane > *.button-bar > *.container {
-    -fx-background-color: #BDBDBD;
+    -fx-background-color: lightgrey;
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-font-weight: bold;
-    -fx-text-fill: #F5F5F5;
+    -fx-text-fill: #212121;
+    -fx-font-family: "Roboto";
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: #616161;
+    -fx-background-color: white;
 }
 
 .dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-font-style: italic;
-    -fx-fill: #F5F5F5;
+    -fx-fill: lightgrey;
     -fx-text-fill: #212121;
+    -fx-font-family: "Roboto";
 }
 
-.scroll-pane {
-    -fx-background-color:transparent;
-}
+/*
+ * ====================================================================
+ * =========================Scroll-Bar=================================
+ * ====================================================================
+ */
 
 .scroll-bar .thumb {
-    -fx-background-color: #607D8B;
-    -fx-background-insets: 3;
+    -fx-background-color: darkgrey;
+    -fx-background-insets: 2;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -238,19 +313,10 @@
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1 5 1 5;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
-    -fx-padding: 8 1 8 1;
+    -fx-padding: 5 1 5 1;
 }
 
-#cardPane {
-    -fx-background-color: white;
-    -fx-border-color: #9E9E9E;
-    -fx-border-width: 0 0 5 0;
-}
-
-#filterField, #taskListPanel, #taskWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
-}

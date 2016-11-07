@@ -24,25 +24,28 @@ import tars.commons.util.StringUtil;
 import tars.model.task.ReadOnlyTask;
 import tars.ui.formatter.Formatter;
 
+// @@author A0121533W
 /**
  * UI Controller for this week panel
- * 
- * @@author A0121533W
  */
 public class ThisWeekPanel extends UiPart {
-    private static final String TasksListEllipsis = "\n...\n";
-    private static final Logger logger =
-            LogsCenter.getLogger(ThisWeekPanel.class);
-    private static final String FXML = "ThisWeekPanel.fxml";
-    private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
-    private static final String STATUS_UNDONE = "Undone";
-    private static final DateFormat df = new SimpleDateFormat("E d, MMM");
-
+    
     private static List<ReadOnlyTask> list;
     private static List<ReadOnlyTask> upcomingTasks =
             new ArrayList<ReadOnlyTask>();
     private static List<ReadOnlyTask> overduedTasks =
             new ArrayList<ReadOnlyTask>();
+    
+    private static final String LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL =
+            "Update this week panel";
+    private static final Logger logger =
+            LogsCenter.getLogger(ThisWeekPanel.class);
+    private static final String FXML = "ThisWeekPanel.fxml";
+    private static final String THISWEEK_PANEL_STYLE_SHEET = "thisWeek-panel";
+    private static final String STATUS_UNDONE = "Undone";
+    private static final String TASK_LIST_ELLIPSIS = "\n...\n";
+    private static final DateFormat df = new SimpleDateFormat("E, MMM dd");
+    private static final int MIN_SIZE = 5;
 
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -100,7 +103,10 @@ public class ThisWeekPanel extends UiPart {
         Date today = new Date();
         date.setText(df.format(today));
     }
-    
+
+    /**
+     * Updates number of upcoming tasks and lists them
+     */
     private void handleUpcomingTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
@@ -118,6 +124,9 @@ public class ThisWeekPanel extends UiPart {
         }
     }
 
+    /**
+     * Updates number of overdued tasks and lists them
+     */
     private void handleOverdueTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
@@ -134,22 +143,21 @@ public class ThisWeekPanel extends UiPart {
             setThisWeekPanelTaskList(count, overduedTasks, overduedTasksList);
         }
     }
-    
+
     /**
-     * Set text for tasksLists to display top three tasks
-     * 
+     * Set text for tasksLists to display top five tasks
      */
-    private void setThisWeekPanelTaskList(int count, List<ReadOnlyTask> tasksList, Label taskListLabel) {
-            List<ReadOnlyTask> topFiveTasks = tasksList.subList(
-                    StringUtil.START_INDEX, Math.min(tasksList.size(), 3));
-            String list = Formatter
-                    .formatThisWeekPanelTasksList(topFiveTasks);
-            if (tasksList.size() > 3) {
-                list = list + TasksListEllipsis;
-            }
-            taskListLabel.setText(list);
+    private void setThisWeekPanelTaskList(int count,
+            List<ReadOnlyTask> tasksList, Label taskListLabel) {
+        List<ReadOnlyTask> topFiveTasks = tasksList.subList(
+                StringUtil.START_INDEX, Math.min(tasksList.size(), MIN_SIZE));
+        String list = Formatter.formatThisWeekPanelTasksList(topFiveTasks);
+        if (tasksList.size() > MIN_SIZE) {
+            list = list + TASK_LIST_ELLIPSIS;
+        }
+        taskListLabel.setText(list);
     }
-    
+
     /**
      * Updates panel with latest data
      */
@@ -163,15 +171,15 @@ public class ThisWeekPanel extends UiPart {
     @Subscribe
     private void handleTarsChangedEvent(TarsChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Update this week panel"));
+                LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL));
         updateThisWeekPanel();
     }
-    
+
     @Subscribe
     private void handleTarsStorageChangeDirectoryEvent(
             TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
-                "Update this week panel"));
+                LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL));
         updateThisWeekPanel();
     }
 }

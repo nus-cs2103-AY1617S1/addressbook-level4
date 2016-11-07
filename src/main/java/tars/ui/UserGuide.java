@@ -1,9 +1,8 @@
 package tars.ui;
 
+// @@author A0140022H
 /**
  * Container for help command and user guide
- * 
- * @@author A0140022H
  */
 public class UserGuide {
 

@@ -6,13 +6,14 @@ import tars.commons.util.CollectionUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 
+// @@author A0124333U
 /**
  * A task that has unconfirmed, reserved dates.
- * 
- * @@author A0124333U
  */
 public class RsvTask {
 
+    private static String RSV_TASK_STRING = "%1$s DateTime: %2$s";
+    
     protected Name name;
     protected ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
 
@@ -65,7 +66,7 @@ public class RsvTask {
                         && this.isSameStateAs((RsvTask) other));
     }
 
-    private boolean isSameStateAs(RsvTask other) {
+    public boolean isSameStateAs(RsvTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                         && other.getName().equals(this.getName())
@@ -83,7 +84,8 @@ public class RsvTask {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName()).append(" DateTime: ").append(getDateTimeList().toString());
+        builder.append(String.format(RSV_TASK_STRING, getName(),
+                getDateTimeList().toString()));
 
         return builder.toString();
     }

@@ -10,17 +10,11 @@ import tars.model.Model;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
 
+// @@author A0121533W
 /**
  * Tracks changes made (if any) during do and ud command
- * 
- * @@author A0121533W
  */
 public class MarkTaskUtil {
-
-    private ArrayList<Integer> markDoneTasks;
-    private ArrayList<Integer> markUndoneTasks;
-    private ArrayList<Integer> alreadyDoneTasks;
-    private ArrayList<Integer> alreadyUndoneTasks;
 
     public static final String SUCCESS_DONE =
             "Task: %1$s marked done successfully.\n";
@@ -30,6 +24,11 @@ public class MarkTaskUtil {
             "Task: %1$s already marked done.\n";
     public static final String ALREADY_UNDONE =
             "Task: %1$s already marked undone.\n";
+
+    private ArrayList<Integer> markDoneTasks;
+    private ArrayList<Integer> markUndoneTasks;
+    private ArrayList<Integer> alreadyDoneTasks;
+    private ArrayList<Integer> alreadyUndoneTasks;
 
     /**
      * Constructor
@@ -43,9 +42,6 @@ public class MarkTaskUtil {
 
     /**
      * Adds target index of task to relevant "To Mark List" based on status
-     * 
-     * @param targetIndex
-     * @param status Done or Undone
      */
     public void addToMark(int targetIndex, Status status) {
         if (status.status) {
@@ -58,9 +54,6 @@ public class MarkTaskUtil {
 
     /**
      * Adds target index of task to relevant "Already Marked List" based on status
-     * 
-     * @param targetIndex
-     * @param status Done or Undone
      */
     public void addAlreadyMarked(int targetIndex, Status status) {
         if (status.status) {
@@ -72,8 +65,6 @@ public class MarkTaskUtil {
 
     /**
      * Return string for each tasks index in the specific ArrayLists
-     * 
-     * @return
      */
     public String getResult() {
         String markDoneTasksString = getIndexesString(markDoneTasks);
@@ -88,6 +79,10 @@ public class MarkTaskUtil {
         return result;
     }
 
+    /**
+     * Main results formatter that will perform the formatting for all 4 cases i.e. Mark Done, Mark
+     * Undone, Already Done and Already Undone
+     */
     private String formatResults(String markDoneTasksString,
             String markUndoneTasksString, String alreadyDoneTasksString,
             String alreadyUndoneTasksString) {
@@ -106,10 +101,10 @@ public class MarkTaskUtil {
     }
 
     /**
-     * 
+     * Formats results of changes made
      */
     private String getResultFromString(String tasksString, String format) {
-        String result = "";
+        String result = StringUtil.EMPTY_STRING;
         if (!tasksString.isEmpty()) {
             result = String.format(format, tasksString);
         }
@@ -121,9 +116,10 @@ public class MarkTaskUtil {
      */
     private String getIndexesString(ArrayList<Integer> list) {
         String toReturn = StringUtil.EMPTY_STRING;
-        if (list.size() != 0) {
-            for (int i = 0; i < list.size() - 1; i++) {
-                toReturn += Integer.toString(list.get(i)) + StringUtil.STRING_COMMA;
+        if (!list.isEmpty()) {
+            for (int i = StringUtil.START_INDEX; i < list.size() - 1; i++) {
+                toReturn +=
+                        Integer.toString(list.get(i)) + StringUtil.STRING_COMMA;
             }
             // Add last index
             toReturn += Integer.toString(list.get(list.size() - 1));
@@ -149,8 +145,6 @@ public class MarkTaskUtil {
 
     /**
      * Returns feedback message of mark command to user
-     * 
-     * @return
      */
     public String getResultFromTracker() {
         String commandResult = getResult();
@@ -159,11 +153,6 @@ public class MarkTaskUtil {
 
     /**
      * Gets Tasks to mark from indexes
-     * 
-     * @param model
-     * @param indexes
-     * @return
-     * @throws InvalidTaskDisplayedException
      */
     public ArrayList<ReadOnlyTask> getTasksFromIndexes(Model model,
             String[] indexes, Status status)

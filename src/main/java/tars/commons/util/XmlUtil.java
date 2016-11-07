@@ -12,6 +12,9 @@ import java.io.FileNotFoundException;
  */
 public class XmlUtil {
 
+    private static final String SUPRESSWARNING_UNCHECKED = "unchecked";
+    private static String MESSAGE_FILE_NOT_FOUND = "File not found: %s";
+
     /**
      * Returns the xml data in the file as an object of the specified type.
      *
@@ -21,7 +24,7 @@ public class XmlUtil {
      * @throws FileNotFoundException Thrown if the file is missing.
      * @throws JAXBException Thrown if the file is empty or does not have the correct format.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(SUPRESSWARNING_UNCHECKED)
     public static <T> T getDataFromFile(File file, Class<T> classToConvert)
             throws FileNotFoundException, JAXBException {
 
@@ -29,8 +32,8 @@ public class XmlUtil {
         assert classToConvert != null;
 
         if (!FileUtil.isFileExists(file)) {
-            throw new FileNotFoundException(
-                    "File not found : " + file.getAbsolutePath());
+            throw new FileNotFoundException(String
+                    .format(MESSAGE_FILE_NOT_FOUND, file.getAbsolutePath()));
         }
 
         JAXBContext context = JAXBContext.newInstance(classToConvert);
@@ -55,8 +58,8 @@ public class XmlUtil {
         assert data != null;
 
         if (!file.exists()) {
-            throw new FileNotFoundException(
-                    "File not found : " + file.getAbsolutePath());
+            throw new FileNotFoundException(String
+                    .format(MESSAGE_FILE_NOT_FOUND, file.getAbsolutePath()));
         }
 
         JAXBContext context = JAXBContext.newInstance(data.getClass());

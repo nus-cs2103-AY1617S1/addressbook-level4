@@ -6,13 +6,11 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+// @@author A0139924W
 /**
  * Argument tokenizer test.
  * 
  * Credit: Test adapted from nus-cs2103-AY1617S1/addressbook-level4
- * 
- * @@author A0139924W
- *
  */
 public class ArgumentTokenizerTest {
     private static final Prefix unknownPrefix = new Prefix("/uuuuuu");
@@ -79,7 +77,7 @@ public class ArgumentTokenizerTest {
         /* Also covers: Reusing of the tokenizer multiple times */
 
         // Reuse tokenizer on an empty string to ensure state is correctly reset
-        //   (i.e. no stale values from the previous tokenizing remain in the state)
+        // (i.e. no stale values from the previous tokenizing remain in the state)
         tokenizer.tokenize("");
         assertPreambleAbsent(tokenizer);
         assertArgumentAbsent(tokenizer, tagPrefix);
@@ -90,7 +88,8 @@ public class ArgumentTokenizerTest {
         String stringWithUnknownPrefix = unknownPrefix.value + "some value";
         tokenizer.tokenize(stringWithUnknownPrefix);
         assertArgumentAbsent(tokenizer, unknownPrefix);
-        assertPreamblePresent(tokenizer, stringWithUnknownPrefix); // Unknown prefix is taken as part of preamble
+        assertPreamblePresent(tokenizer, stringWithUnknownPrefix); // Unknown prefix is taken as
+                                                                   // part of preamble
     }
     
     @Test
@@ -115,20 +114,21 @@ public class ArgumentTokenizerTest {
         assertFalse(argsTokenizer.getValue(prefix).isPresent());
     }
 
-    private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix,
-            String... expectedValues) {
+    private void assertArgumentPresent(ArgumentTokenizer argsTokenizer,
+            Prefix prefix, String... expectedValues) {
 
         // Verify the first value is returned
         assertEquals(expectedValues[0], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
-        assertEquals(expectedValues.length, argsTokenizer.getMultipleValues(prefix).get().size());
+        assertEquals(expectedValues.length,
+                argsTokenizer.getMultipleValues(prefix).get().size());
 
         // Verify all values returned are as expected and in order
         final AtomicInteger count = new AtomicInteger();
         argsTokenizer.getMultipleValues(prefix).get().forEach((v) -> {
             assertEquals(expectedValues[count.getAndIncrement()], v);
         });
-        
+
     }
 }

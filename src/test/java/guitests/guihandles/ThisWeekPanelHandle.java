@@ -6,6 +6,10 @@ import javafx.stage.Stage;
 import tars.TestApp;
 import tars.ui.MainWindow;
 
+// @@author A0124333U
+/**
+ * GUI test for this week panel
+ */
 public class ThisWeekPanelHandle extends GuiHandle {
 
     private static final String TAB_PANEL_ROOT_FIELD_ID = "#tabPane";

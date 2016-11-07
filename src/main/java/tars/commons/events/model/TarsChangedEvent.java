@@ -6,6 +6,9 @@ import tars.model.ReadOnlyTars;
 /** Indicates the Tars in the model has changed */
 public class TarsChangedEvent extends BaseEvent {
 
+    private static String TARS_SUMMARY =
+            "number of tasks %1$s, number of reserved tasks %2$s, number of tags %3$s";
+
     public final ReadOnlyTars data;
 
     public TarsChangedEvent(ReadOnlyTars data) {
@@ -14,8 +17,7 @@ public class TarsChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getTaskList().size()
-                + ", number of reserved tasks " + data.getRsvTaskList().size()
-                + ", number of tags " + data.getTagList().size();
+        return String.format(TARS_SUMMARY, data.getTaskList().size(),
+                data.getRsvTaskList().size(), data.getTagList().size());
     }
 }

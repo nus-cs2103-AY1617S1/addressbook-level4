@@ -7,8 +7,8 @@ import tars.commons.events.ui.ScrollToTopEvent;
 import tars.commons.util.StringUtil;
 import tars.model.task.TaskQuery;
 
+// @@author A0124333U 
 /**
- * @@author A0124333U
  * Finds and lists all tasks in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
@@ -26,6 +26,9 @@ public class FindCommand extends Command {
             + COMMAND_WORD + " /n CS2103 projects /dt 10/09/2016 1000 to "
             + "20/09/2016 0100 /t school projects /do";
 
+    private static String MESSAGE_QUICK_SEARCH_KEYWORDS =
+            "\nQuick Search Keywords: %s";
+
     private TaskQuery taskQuery = null;
     private ArrayList<String> quickSearchKeywords = null;
     private String searchKeywords = "";
@@ -40,20 +43,27 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (taskQuery != null) {
+        if (isFilterSearchModeUsed()) {
             model.updateFilteredTaskListUsingFlags(taskQuery);
             searchKeywords = StringUtil.STRING_NEWLINE + taskQuery.toString();
         }
 
-        if (quickSearchKeywords != null) {
+        if (isQuickSearchModeUsed()) {
             model.updateFilteredTaskListUsingQuickSearch(quickSearchKeywords);
-            searchKeywords =
-                    StringUtil.STRING_NEWLINE + "Quick Search Keywords: "
-                            + quickSearchKeywords.toString();
+            searchKeywords = String.format(MESSAGE_QUICK_SEARCH_KEYWORDS,
+                    quickSearchKeywords.toString());
         }
         EventsCenter.getInstance().post(new ScrollToTopEvent());
         return new CommandResult(getMessageForTaskListShownSummary(
                 model.getFilteredTaskList().size()) + searchKeywords);
+    }
+
+    private Boolean isFilterSearchModeUsed() {
+        return taskQuery != null;
+    }
+
+    private Boolean isQuickSearchModeUsed() {
+        return quickSearchKeywords != null;
     }
 
 }

@@ -9,7 +9,7 @@
 * This is a desktop To-Do List application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface). 
 * This application is a CS2103 project and is still undergoing development.
-* Our latest release: [v0.4](https://github.com/CS2103AUG2016-F10-C1/main/releases/tag/v0.4)
+* Our latest release: [v0.5rc](https://github.com/CS2103AUG2016-F10-C1/main/releases/tag/v0.5rc)
 
   
 #### Site Map
@@ -23,6 +23,7 @@
 
 * This application was adapted from a CS2103 sample application, [AddressBook-Level 4](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) designed and built by *Assoc. Prof Damith C. Rajapakse* and his teaching team. 
 * This application was designed and built under the guidance and advice of our module tutor, *[Candiie](https://github.com/Candiie)*.
+* This application used [Natty](http://natty.joestelmach.com/) by Joestelmach for natural date parsing.
 * Some parts of this application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 

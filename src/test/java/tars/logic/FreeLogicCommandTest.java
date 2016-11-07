@@ -2,15 +2,18 @@ package tars.logic;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import tars.logic.commands.FreeCommand;
 import tars.model.Tars;
+import tars.model.task.DateTime;
+import tars.model.task.Task;
 
+// @@author A0124333U
 /**
  * Logic command test for free
- * 
- * @@author A0124333U
  */
 public class FreeLogicCommandTest extends LogicCommandTest {
     @Test
@@ -29,17 +32,21 @@ public class FreeLogicCommandTest extends LogicCommandTest {
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Tars expectedTars = helper.fillModelAndTarsForFreeCommand(model);
 
+        Task task4 = helper.generateTaskWithNameAndDate("Task 4",
+                new DateTime("10/10/2016 1500", "12/10/2016 1400"));
+        List<Task> expectedShownTaskList = helper.generateTaskList(task4);
+
         assertCommandBehavior("free 11/10/2016",
                 String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS,
                         "Tuesday, 11/10/2016"),
-                expectedTars, expectedTars.getTaskList());
+                expectedTars, expectedShownTaskList);
 
         // Case where the user types in a time should still be allowed to pass. Programme will
         // extract the date
         assertCommandBehavior("free 11/10/2016 0900",
                 String.format(FreeCommand.MESSAGE_NO_FREE_TIMESLOTS,
                         "Tuesday, 11/10/2016"),
-                expectedTars, expectedTars.getTaskList());
+                expectedTars, expectedShownTaskList);
     }
 
     @Test
@@ -47,16 +54,30 @@ public class FreeLogicCommandTest extends LogicCommandTest {
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Tars expectedTars = helper.fillModelAndTarsForFreeCommand(model);
 
+        // Create expected empty list
+        List<Task> expectedShownTaskList = helper.generateTaskList();
+
         assertCommandBehavior("free 01/11/2016",
                 String.format(FreeCommand.MESSAGE_FREE_DAY,
                         "Tuesday, 01/11/2016"),
-                expectedTars, expectedTars.getTaskList());
+                expectedTars, expectedShownTaskList);
     }
 
     @Test
     public void execute_free_freeTimeSlotsFound() throws Exception {
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
         Tars expectedTars = helper.fillModelAndTarsForFreeCommand(model);
+
+
+        // Fill up expected shown task list
+        Task taskWithoutStartDate = helper.generateTaskWithNameAndDate(
+                "Task without startdate", new DateTime("", "29/10/2016 1500"));
+        Task task1 = helper.generateTaskWithNameAndDate("Task 1",
+                new DateTime("28/10/2016 2200", "29/10/2016 0100"));
+        Task task2 = helper.generateTaskWithNameAndDate("Task 2",
+                new DateTime("29/10/2016 1430", "29/10/2016 1800"));
+        List<Task> expectedShownTaskList =
+                helper.generateTaskList(taskWithoutStartDate, task1, task2);
 
         StringBuilder sb = new StringBuilder();
 
@@ -66,6 +87,6 @@ public class FreeLogicCommandTest extends LogicCommandTest {
 
         assertCommandBehavior("free 29/10/2016",
                 String.format(FreeCommand.MESSAGE_SUCCESS, sb.toString()),
-                expectedTars, expectedTars.getTaskList());
+                expectedTars, expectedShownTaskList);
     }
 }

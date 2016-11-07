@@ -57,11 +57,11 @@ Given below is a quick overview of each component.
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+  is used to by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -71,7 +71,7 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `del 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
@@ -94,9 +94,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/tars/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, 
+`TaskCard`, `StatusBarFooter`, `TabPane` etc. All these, including the `MainWindow` inherits from the abstract 
+`UiPart` class and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -108,6 +108,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0139924W -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -118,6 +119,8 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+
+<!-- @@author -->
 
 ### Model component
 
@@ -210,7 +213,7 @@ Tests can be found in the `./src/test/java` folder.
      (those code units are assumed to be working).<br>
       e.g. `tars.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
+      how they are connected together.<br>
       e.g. `tars.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
@@ -252,7 +255,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :---------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new events (with start and end timings) | keep track of it and complete it in the future
+`* * *` | user | add a new event (with start and end timings) | keep track of it and complete it in the future
 `* * *` | user | add a new task (tasks that have to be done before a specific deadline) | keep track of the deadline
 `* * *` | user | add a floating task (tasks without specific times) | have a task that can roll over to the next day if I did not get to it
 `* * *` | user | delete a task | remove tasks that I no longer need to do
@@ -273,10 +276,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `* *` |user| can view all tags and edit them | edit a specific tag of all tasks with that tag in one command
 `*` | user | have flexibility in entering commands | type in commands without having to remember the exact format
-`*` | user | use a keyboard shortcut to launch the program | launch the program quickly
 `*` | user | have suggestions on free slots | decide when to add a new task or shift current tasks
-
-{More to be added}
 
 [comment]: # (@@author A0139924W)
 ## Appendix B : Use Cases
@@ -288,7 +288,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User requests to view help
-2. TARS shows a list of usage intructions<br>
+2. TARS shows a list of usage instructions<br>
 Use case ends.
 
 #### Use case: UC02- Add task
@@ -306,7 +306,7 @@ Use case ends.
 > 2a1. TARS shows an error message<br>
   Use case resumes at step 1
 
-2b. The end datetime is smaller than start datetime
+2b. The end datetime is earlier than start datetime
 
 > 2b1. TARS shows an error message<br>
   Use case resumes at step 1
@@ -322,7 +322,7 @@ Use case ends.
 
 1. User requests to list tasks
 2. TARS shows a list of tasks
-3. User requets to delete a specific task in the list
+3. User requests to delete a specific task in the list
 4. TARS deletes the task<br>
 Use case ends.
 
@@ -457,8 +457,6 @@ Use case ends.
 > 2a1. TARS shows an empty list message<br>
   Use case ends
 
-{More to be added}
-
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -481,22 +479,55 @@ Use case ends.
   * require installation
   * violate other constraint
 
-{More to be added}
-
+[comment]: # (@@author A0121533W)
 ## Appendix D : Glossary
 
-##### Mainstream OS
+##### Command
+> Reserved keywords for you to execute a command e.g. add, edit, del, do, ud.
 
-> Windows, Linux, Unix, OS-X
+##### Event
+> Has a start time and end time.
+
+##### DateTime
+> Variable that has information on a particular date and time.
+
+##### Deadline
+> Tasks that have to be done before a specified deadline.
+
+##### Floating Tasks
+> Tasks without specific dateTimes.
+
+##### Index
+> Positive number corresponding to the order at which the item is listed.
+
+##### Mainstream OS
+> Windows, Linux, Unix, OS-X.
+
+##### Prefix
+> Reserved keywords for commands e.g. /p /dt /t
+
+##### Reserved Task
+> Tasks that have multiple DateTimes at which one can be confirmed later.
+
+##### Storage Directory
+> Your system's file path (e.g. /data/tars.xml) at which data are stored.
+
+##### Tag
+> Categorization of a task.
+
+##### Task
+> Something that needs to be done (see Floating Task, Deadline, Event).
+
+
 
 [comment]: # (@@author A0121533W)
 ## Appendix E : Product Survey
 
 Product | Strength | Weaknesses
 -------- | :-------- | :--------
-[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there’s internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of ‘clicks’ and fields to fill to save a task</li><li>Unable to “block” multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
-[Todo.txt](http://todotxt.com/)|<ol type="1"><li>Quick & easy unix-y access</li><li>Solves Google calendar being too slow</li><li>One shot approach</li><li>Manage tasks with as few keystrokes as possible</li><li>Works without Internet connectivity</li></ol>|<ol type="1"><li>No block feature</li><li>Unable to look for suitable slot</li></ol>
+[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there's internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of clicks and fields to fill to save a task</li><li>Unable to block multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
+[Todo.txt](http://todotxt.com/)|<ol type="1"><li>Quick & easy unix-y access</li><li>Solves Google calendar being too slow</li><li>Manage tasks with as few keystrokes as possible</li><li>Works without Internet connectivity</li></ol>|<ol type="1"><li>No block feature</li><li>Unable to look for suitable slot</li></ol>
 [Fantastical](https://flexibits.com/fantastical)|<ol type="1"><li>Flexible<ul><li>Choose between dark and light theme</li><li>Works with Google, iCloud, Exchange and more</li></ul></li><li>Use natural language to quickly create events and reminders</li></ol>|<ol type="1"><li>No block feature</li><li>Need to click to create an event</li><li>Only available for Mac</li></ol>
-[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. “every day/week/month, every 27th, every Jan 27th”)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week’s overview of tasks or only today’s task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at anytime and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
+[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. every day/week/month, every 27th, every Jan 27th)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week's overview of tasks or only today's task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at any time and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
 
 

@@ -12,10 +12,9 @@ import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.ui.formatter.Formatter;
 
+// @@author A0121533W
 /**
  * Deletes a task identified using it's last displayed index from tars.
- * 
- * @@author A0121533W
  */
 public class DeleteCommand extends UndoableCommand {
 
@@ -44,7 +43,7 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        ArrayList<ReadOnlyTask> tasksToDelete = null;
+        ArrayList<ReadOnlyTask> tasksToDelete;
         try {
             tasksToDelete = getTasksFromIndexes(
                     this.arguments.split(StringUtil.STRING_WHITESPACE));
@@ -66,11 +65,7 @@ public class DeleteCommand extends UndoableCommand {
     }
 
     /**
-     * Gets Tasks to delete
-     * 
-     * @param indexes
-     * @return
-     * @throws InvalidTaskDisplayedException
+     * Gets Tasks to delete from indexes
      */
     private ArrayList<ReadOnlyTask> getTasksFromIndexes(String[] indexes)
             throws InvalidTaskDisplayedException {

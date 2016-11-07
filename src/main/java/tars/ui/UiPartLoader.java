@@ -10,7 +10,9 @@ import tars.MainApp;
  * A utility class to load UiParts from FXML files.
  */
 public class UiPartLoader {
+    
     private final static String FXML_FILE_FOLDER = "/view/";
+    private final static String MESSAGE_FXML_LOAD_ERROR = "FXML Load Error for %s";
 
     public static <T extends UiPart> T loadUiPart(Stage primaryStage,
             T controllerSeed) {
@@ -59,7 +61,8 @@ public class UiPartLoader {
         try {
             return loader.load();
         } catch (Exception e) {
-            String errorMessage = "FXML Load Error for " + fxmlFileName;
+            String errorMessage =
+                    String.format(MESSAGE_FXML_LOAD_ERROR, fxmlFileName);
             throw new RuntimeException(errorMessage, e);
         }
     }

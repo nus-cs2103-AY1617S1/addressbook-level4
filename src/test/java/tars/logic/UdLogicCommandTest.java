@@ -4,36 +4,29 @@ import java.util.List;
 
 import org.junit.Test;
 
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.model.Tars;
 import tars.model.task.Status;
 import tars.model.task.Task;
 
+// @@author A0121533W
 /**
  * Logic command test for ud
- * 
- * @@author A0121533W
  */
 public class UdLogicCommandTest extends LogicCommandTest {
+    
+    private static final int NUM_TASKS_IN_LIST = 2;
+    private static final int NUM_TASKS_IN_RANGE = 5;
+    
     @Test
     public void execute_mark_allTaskAsUndone() throws Exception {
-        Status done = new Status(Status.DONE);
 
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
-        Task task1 = helper.generateTaskWithName("task1");
-        Task task2 = helper.generateTaskWithName("task2");
-        task1.setStatus(done);
-        task2.setStatus(done);
-
-        List<Task> taskList = helper.generateTaskList(task1, task2);
+        generateTestTars(NUM_TASKS_IN_LIST, helper, true);
 
         Tars expectedTars = new Tars();
-        helper.addToModel(model, taskList);
 
-        Task task1Expected = helper.generateTaskWithName("task1");
-        Task task2Expected = helper.generateTaskWithName("task2");
-
-        expectedTars.addTask(task1Expected);
-        expectedTars.addTask(task2Expected);
+        generateExpectedTars(NUM_TASKS_IN_LIST, helper, expectedTars);
 
         assertCommandBehavior("ud 1 2",
                 "Task: 1, 2 marked undone successfully.\n", expectedTars,
@@ -43,19 +36,10 @@ public class UdLogicCommandTest extends LogicCommandTest {
     @Test
     public void execute_mark_alreadyUndone() throws Exception {
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
-        Task task1 = helper.generateTaskWithName("task1");
-        Task task2 = helper.generateTaskWithName("task2");
-
-        List<Task> taskList = helper.generateTaskList(task1, task2);
+        generateTestTars(NUM_TASKS_IN_LIST, helper, false);
 
         Tars expectedTars = new Tars();
-        helper.addToModel(model, taskList);
-
-        Task task1Expected = helper.generateTaskWithName("task1");
-        Task task2Expected = helper.generateTaskWithName("task2");
-
-        expectedTars.addTask(task1Expected);
-        expectedTars.addTask(task2Expected);
+        generateExpectedTars(NUM_TASKS_IN_LIST, helper, expectedTars);
 
         assertCommandBehavior("ud 1 2", "Task: 1, 2 already marked undone.\n",
                 expectedTars, expectedTars.getTaskList());
@@ -63,32 +47,42 @@ public class UdLogicCommandTest extends LogicCommandTest {
 
     @Test
     public void execute_mark_rangeUndone() throws Exception {
-        Status done = new Status(Status.DONE);
-
         TypicalTestDataHelper helper = new TypicalTestDataHelper();
-        Task task1 = helper.generateTaskWithName("task1");
-        Task task2 = helper.generateTaskWithName("task2");
-        Task task3 = helper.generateTaskWithName("task3");
-
-        task1.setStatus(done);
-        task2.setStatus(done);
-        task3.setStatus(done);
-
-        List<Task> taskList = helper.generateTaskList(task1, task2, task3);
+        generateTestTars(NUM_TASKS_IN_RANGE, helper, true);
 
         Tars expectedTars = new Tars();
-        helper.addToModel(model, taskList);
 
-        Task task1Expected = helper.generateTaskWithName("task1");
-        Task task2Expected = helper.generateTaskWithName("task2");
-        Task task3Expected = helper.generateTaskWithName("task3");
+        generateExpectedTars(NUM_TASKS_IN_RANGE, helper, expectedTars);
 
-        expectedTars.addTask(task1Expected);
-        expectedTars.addTask(task2Expected);
-        expectedTars.addTask(task3Expected);
-
-        assertCommandBehavior("ud 1..3",
-                "Task: 1, 2, 3 marked undone successfully.\n", expectedTars,
+        assertCommandBehavior("ud 1..5",
+                "Task: 1, 2, 3, 4, 5 marked undone successfully.\n", expectedTars,
                 expectedTars.getTaskList());
+    }
+
+    private void generateTestTars(int numTasks, TypicalTestDataHelper helper, boolean status)
+            throws Exception {
+        Status s = new Status(status);
+        
+        Task[] taskArray = new Task[numTasks];
+        for (int i = 1; i < numTasks + 1; i++) {
+            String name = "task " + String.valueOf(i);
+            Task taskI = helper.generateTaskWithName(name);
+            taskI.setStatus(s);
+            taskArray[i-1] = taskI;
+        }
+
+        List<Task> taskList = helper.generateTaskList(taskArray);
+
+        helper.addToModel(model, taskList);
+    }
+
+    private void generateExpectedTars(int numTasks, TypicalTestDataHelper helper,
+            Tars expectedTars) throws Exception, DuplicateTaskException {
+        
+        for (int i = 1; i < numTasks + 1; i++) {
+            String name = "task " + String.valueOf(i);
+            Task taskI = helper.generateTaskWithName(name);
+            expectedTars.addTask(taskI);
+        }
     }
 }

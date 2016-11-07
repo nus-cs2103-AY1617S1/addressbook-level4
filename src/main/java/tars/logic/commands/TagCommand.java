@@ -14,27 +14,27 @@ import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.ReadOnlyTask;
 import tars.ui.formatter.Formatter;
 
+// @@author A0139924W
 /**
  * Rename and delete tag from a list of tags in TARS
- * 
- * @@author A0139924W
  */
 public class TagCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "tag";
-
     public static final String MESSAGE_USAGE =
             COMMAND_WORD + ": [/ls] [/e <INDEX> <TAG_NAME>] [/del <INDEX>]";
     public static final String MESSAGE_RENAME_TAG_SUCCESS =
             "%1$s renamed to [%2$s]";
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted Tag: %1$s";
 
-    private final Prefix prefix;
-    private final String[] args;
-
+    private static final int TAG_SECOND_INDEX = 1;
+    private static final int TAG_FIRST_INDEX = 0;
     private static final Prefix listPrefix = new Prefix("/ls");
     private static final Prefix editPrefix = new Prefix("/e");
     private static final Prefix deletePrefix = new Prefix("/del");
+
+    private final Prefix prefix;
+    private final String[] args;
 
     private ReadOnlyTag toBeRenamed;
     private ReadOnlyTag toBeDeleted;
@@ -81,8 +81,8 @@ public class TagCommand extends UndoableCommand {
 
     private CommandResult executeEditTag() throws DuplicateTagException,
             IllegalValueException, TagNotFoundException {
-        int targetedIndex = Integer.parseInt(args[0]);
-        String newTagName = args[1];
+        int targetedIndex = Integer.parseInt(args[TAG_FIRST_INDEX]);
+        String newTagName = args[TAG_SECOND_INDEX];
 
         if (isInValidIndex(targetedIndex)) {
             return new CommandResult(
@@ -90,7 +90,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeRenamed = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         newTag = new Tag(newTagName);
         model.renameTasksWithNewTag(toBeRenamed, newTag);
 
@@ -102,7 +102,7 @@ public class TagCommand extends UndoableCommand {
 
     private CommandResult executeDeleteTag() throws DuplicateTagException,
             IllegalValueException, TagNotFoundException {
-        int targetedIndex = Integer.parseInt(args[0]);
+        int targetedIndex = Integer.parseInt(args[TAG_FIRST_INDEX]);
 
         if (isInValidIndex(targetedIndex)) {
             return new CommandResult(
@@ -110,7 +110,7 @@ public class TagCommand extends UndoableCommand {
         }
 
         toBeDeleted = model.getUniqueTagList()
-                .get(targetedIndex - Formatter.DISPLAYED_INDEX_OFFSET);
+                .get(targetedIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         editedTaskList = model.removeTagFromAllTasks(toBeDeleted);
 
         model.getUndoableCmdHist().push(this);

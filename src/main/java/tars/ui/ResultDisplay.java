@@ -9,19 +9,20 @@ import javafx.stage.Stage;
 import tars.commons.util.FxViewUtil;
 
 /**
- * A ui for the results display that is displayed above the command box of the application.
+ * A UI for the results display that is displayed above the command box of the application.
  */
 public class ResultDisplay extends UiPart {
+
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String RESULT_DISPLAY_STYLE_SHEET = "result-display";
-    private TextArea resultDisplayArea;
-    private final StringProperty displayed = new SimpleStringProperty("");
-
     private static final String FXML = "ResultDisplay.fxml";
+    private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
 
     private AnchorPane placeHolder;
-
+    private TextArea resultDisplayArea;
     private AnchorPane mainPane;
+    
+    private final StringProperty displayed = new SimpleStringProperty("");
 
     public static ResultDisplay load(Stage primaryStage,
             AnchorPane placeHolder) {
@@ -39,10 +40,13 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.getStyleClass().add(RESULT_DISPLAY_STYLE_SHEET);
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
-        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0,
-                0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         mainPane.getChildren().add(resultDisplayArea);
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO,
+                BOUNDARY_PARAMETERS_ZERO, BOUNDARY_PARAMETERS_ZERO);
         placeHolder.getChildren().add(mainPane);
     }
 

@@ -23,10 +23,9 @@ import tars.model.task.Priority;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 
+// @@author A0121533W
 /**
  * Edits a task identified using it's last displayed index from tars.
- * 
- * @@author A0121533W
  */
 public class EditCommand extends UndoableCommand {
 
@@ -39,23 +38,21 @@ public class EditCommand extends UndoableCommand {
             + " 1 /n Lunch with John /dt 10/09/2016 1200 to 10/09/2016 1300 /p l /ta lunch /tr dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
-
     public static final String MESSAGE_UNDO = "Edited to %1$s to %1$s";
     public static final String MESSAGE_REDO = "Edited to %1$s to %1$s";
     
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
-    private static final int DATETIME_INDEX_OF_STARTDATE = 0;
-
-    public final int targetIndex;
-    private ReadOnlyTask toBeReplacedTask;
-    private Task editedTask;
-    private ArgumentTokenizer argsTokenizer;
-
+    private static final int DATETIME_INDEX_OF_STARTDATE = 0;  
     private static final Prefix NAME_PREFIX = new Prefix("/n");
     private static final Prefix DATETIME_PREFIX = new Prefix("/dt");
     private static final Prefix PRIORITY_PREFIX = new Prefix("/p");
     private static final Prefix ADD_TAG_PREFIX = new Prefix("/ta");
     private static final Prefix REMOVE_TAG_PREFIX = new Prefix("/tr");
+
+    public final int targetIndex;
+    private ReadOnlyTask toBeReplacedTask;
+    private Task editedTask;
+    private ArgumentTokenizer argsTokenizer;
 
     /**
      * Convenience constructor using raw values.
@@ -78,7 +75,8 @@ public class EditCommand extends UndoableCommand {
                     Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        toBeReplacedTask = lastShownList.get(targetIndex - 1);
+        toBeReplacedTask = lastShownList
+                .get(targetIndex - StringUtil.DISPLAYED_INDEX_OFFSET);
         editedTask = new Task(toBeReplacedTask);
 
         try {
@@ -94,10 +92,10 @@ public class EditCommand extends UndoableCommand {
         }
     }
     
+    // @@author A0139924W
     /**
      * Update task if there is a change
      * 
-     * @@author A0139924W
      * @throws IllegalValueException
      * @throws TagNotFoundException
      */
@@ -207,15 +205,13 @@ public class EditCommand extends UndoableCommand {
     /**
      * Checks if the field need to be updated
      * 
-     * @@author A0139924W
      * @return true if the field need update
      */
     private boolean isFieldChanged(Prefix prefix) {
         return !argsTokenizer.getValue(prefix).orElse(StringUtil.EMPTY_STRING)
                 .equals(StringUtil.EMPTY_STRING);
     }
-
-    // @@author A0139924W
+    
     @Override
     public CommandResult undo() {
         assert model != null;
@@ -230,7 +226,6 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
-    // @@author A0139924W
     @Override
     public CommandResult redo() {
         assert model != null;
