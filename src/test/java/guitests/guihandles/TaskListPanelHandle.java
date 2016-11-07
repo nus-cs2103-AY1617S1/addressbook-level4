@@ -53,7 +53,11 @@ public class TaskListPanelHandle extends GuiHandle {
      *            A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
-        Arrays.sort(tasks);
+        System.out.println("TASKS: " + tasks.length);
+        System.out.println("TASK LIST PANEL: " + this.getNumberOfTasks());
+        if (tasks.length > 0) {
+            Arrays.sort(tasks);
+        }
         return this.isListMatching(0, tasks);
     }
 
