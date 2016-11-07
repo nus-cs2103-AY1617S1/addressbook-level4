@@ -30,7 +30,7 @@
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <p align="center">
-<img src="images/guiDearJim.PNG" width="650">
+<img src="images/guiDearJim.PNG" width="550">
 </p>
 
 <p align="center">
@@ -70,7 +70,7 @@ Format: `help`<br>
 > While the help window is selected, you may close it by simply pressing any key on your keyboard!
 
 <p align="center">
- <img src="images/helpCmd.PNG" width="650">
+ <img src="images/helpCmd.PNG" width="600">
 </p>
 
 <p align="center">
@@ -408,7 +408,7 @@ Examples:
 <img src="images/addTooltip.PNG" width="550">
 </p>
 <p align="center">
-Figure 4: Hints for add command
+Figure 3: Hints for add command
 </p>
 <br>
 
@@ -418,7 +418,7 @@ Figure 4: Hints for add command
 </p>
 
 <p align="center">
-Figure 5: Hints for delete command
+Figure 4: Hints for delete command
 </p>
 
 <br>
@@ -436,7 +436,7 @@ Examples:
 </p>
 
 <p align="center">
-Figure 6: Instant preview for add command
+Figure 5: Instant preview for add command
 </p>
 <br>
 * Typing `edit 1 by 10pm -low -reset repeat` generates an instant `edit` preview
@@ -446,7 +446,7 @@ Figure 6: Instant preview for add command
 </p>
 
 <p align="center">
-Figure 7: Instant preview for edit command
+Figure 6: Instant preview for edit command
 </p>
 <br>
 
