@@ -209,7 +209,7 @@ public class LogicTestManager {
         }
 
         /**
-         * Generates an AddressBook based on the list of Tasks given.
+         * Generates a Taskbook based on the list of Tasks given.
          */
         TaskBook generateTaskBook(List<Task> tasks) throws Exception{
             TaskBook taskBook = new TaskBook();

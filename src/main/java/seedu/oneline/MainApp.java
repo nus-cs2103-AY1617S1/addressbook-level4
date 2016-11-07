@@ -72,14 +72,14 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs, String filePath) {
-        Optional<ReadOnlyTaskBook> addressBookOptional;
+        Optional<ReadOnlyTaskBook> taskBookOptional;
         ReadOnlyTaskBook initialData;
         try {
-            addressBookOptional = storage.readTaskBook();
-            if(!addressBookOptional.isPresent()){
+            taskBookOptional = storage.readTaskBook();
+            if(!taskBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty Task Book");
             }
-            initialData = addressBookOptional.orElse(new TaskBook());
+            initialData = taskBookOptional.orElse(new TaskBook());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty Task Book");
             initialData = new TaskBook();
@@ -161,7 +161,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting OneLine " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
