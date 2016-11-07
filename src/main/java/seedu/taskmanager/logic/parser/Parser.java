@@ -536,7 +536,7 @@ public class Parser {
     //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
-     *Assumes args is not null
+     * Assumes args is not null
      *
      * @param args full command args string
      * @return the prepared EditCommand
