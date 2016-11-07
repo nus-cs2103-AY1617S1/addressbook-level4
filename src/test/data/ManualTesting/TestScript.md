@@ -6,7 +6,7 @@ You can find the sample data at `SampleData.xml` in the same folder as this docu
 To load sample data, follow the steps below: <br>
 1. Download dodobird.jar from our release <br>
 2. Place dodobird.jar at a directory of your preference <br>
-3. Create a subdirectory with name `data`
+3. Create a subdirectory with name `data` <br>
 4. Copy SampleData.xml to the `./data/` subdirectory and rename it `dodobird.xml` <br>
 5. Run dodobird.jar <br>
 6. You now have the sample data loaded <br>
