@@ -57,7 +57,6 @@ public interface ReadOnlyTask {
                 .append(getDeadline());
         }
         builder.append(" ").append(getTag());
-        builder.append(" ").append(isCompleted() ? "done" : "undone");
         return builder.toString();
     }
     //@@author 
