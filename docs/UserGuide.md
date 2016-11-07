@@ -163,7 +163,7 @@ Example (Event):<br>
 <br>
 #### Find task: `find`
 Format: `find <keyword>...`
-Finds tasks based on keywords. Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`<br>
+Finds tasks based on keywords. Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`.<br>
 
 Example: 
 * `find prop`<br>
