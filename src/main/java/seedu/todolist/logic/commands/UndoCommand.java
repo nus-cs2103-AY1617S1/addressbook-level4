@@ -2,6 +2,7 @@ package seedu.todolist.logic.commands;
 
 import java.util.EmptyStackException;
 
+//@@author A0153736B
 /**
  * Undoes the most recent operation done by the user.
  */
@@ -17,9 +18,6 @@ public class UndoCommand extends Command {
     
     public static final String MESSAGE_WITHOUT_PREVIOUS_OPERATION = "There is no last operation.";
 
-    public UndoCommand() {}
-
-    //@@author A0153736B
     @Override
     public CommandResult execute() {
         assert model != null; 

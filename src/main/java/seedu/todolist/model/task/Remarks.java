@@ -20,12 +20,15 @@ public class Remarks {
      */
     public Remarks(String remarks) throws IllegalValueException {
         if (remarks != null) {
-            remarks = remarks.trim();
-            if (!isValidRemarksParameter(remarks)) {
+            String trimmedRemarks = remarks.trim();
+            if (!isValidRemarksParameter(trimmedRemarks)) {
                 throw new IllegalValueException(MESSAGE_REMARKS_PARAMETER_CONSTRAINTS);
             }
+            this.remarks = trimmedRemarks;
         }
-        this.remarks = remarks;
+        else {
+        	this.remarks = remarks;
+        }
     }
 
     /**

@@ -5,7 +5,6 @@ import com.google.common.base.Strings;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.todolist.commons.util.AppUtil;

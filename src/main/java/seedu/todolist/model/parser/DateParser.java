@@ -106,10 +106,7 @@ public class DateParser {
      * Returns true if year in date component is missing
      */
     private static boolean isYearMissing(String[] dateComponents) {
-        if (dateComponents.length < DATE_COMPONENT_TOTAL) {
-            return true;
-        }
-        return false;
+        return (dateComponents.length < DATE_COMPONENT_TOTAL);
     }
     
     /**

@@ -78,11 +78,6 @@ public class MainWindow extends UiPart {
     @FXML
     private TabPane allTasksTabPane;
 
-
-    public MainWindow() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;
@@ -125,7 +120,7 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    void fillInnerParts() {
+    protected void fillInnerParts() {
         incompleteListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(),
                 logic.getFilteredIncompleteTaskList(), Status.Type.Incomplete);
         completeTaskListPanel = TaskListPanel.load(primaryStage, getCompleteTaskListPlaceholder(),
