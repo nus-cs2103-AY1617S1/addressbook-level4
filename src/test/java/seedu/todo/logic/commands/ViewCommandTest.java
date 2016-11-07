@@ -49,7 +49,7 @@ public class ViewCommandTest extends CommandTest {
 
             TaskBuilder.name("4. Due today, completed")
                 .completed()
-                .due(now.plusHours(10))
+                .due(now.plusHours(4))
                 .build(),
 
             TaskBuilder.name("5. Event happening later")
@@ -57,7 +57,7 @@ public class ViewCommandTest extends CommandTest {
                 .build(),
 
             TaskBuilder.name("6. Event happened yesterday")
-                .event(now.minusHours(14), now.minusHours(12))
+                .event(now.minusHours(20), now.minusHours(18))
                 .completed()
                 .build()
         );

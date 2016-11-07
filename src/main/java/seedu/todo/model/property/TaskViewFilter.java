@@ -42,7 +42,7 @@ public class TaskViewFilter {
         ImmutableTask::isCompleted, LAST_UPDATED);
     
     public static final TaskViewFilter TODAY = new TaskViewFilter("today",
-            task -> timeUtil.isToday(task) , CHRONOLOGICAL);
+            task -> timeUtil.isToday(task) , CHRONOLOGICAL_EVENT);
 
     public final String name;
     
