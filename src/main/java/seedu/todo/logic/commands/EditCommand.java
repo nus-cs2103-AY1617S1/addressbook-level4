@@ -13,7 +13,6 @@ import java.util.List;
 
 //@@author A0092382A
 public class EditCommand extends BaseCommand {
-    private static final String VERB = "edited";
     
     // These parameters will be sorted out manually by overriding setPositionalArgument
     private Argument<Integer> index = new IntArgument("index").required();
@@ -90,7 +89,7 @@ public class EditCommand extends BaseCommand {
         if (description.hasBoundValue()) {
             eventBus.post(new ExpandCollapseTaskEvent(editedTask));
         }
-        return taskSuccessfulResult(editedTask.getTitle(), EditCommand.VERB);
+        return new CommandResult();
     }
 
 }
