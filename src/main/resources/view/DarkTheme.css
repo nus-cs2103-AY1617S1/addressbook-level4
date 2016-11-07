@@ -74,7 +74,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
     -fx-font-weight: bolder;
     -fx-font-family: "Segoe UI Light";
     -fx-alignment: center;
@@ -83,7 +83,7 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: #FB6A9B;
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
     -fx-font-weight: bolder;
     -fx-font-family: "Segoe UI Light";
     -fx-alignment: center;
@@ -112,12 +112,12 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 11px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 9px;
     -fx-text-fill: #010504;
 }
 
@@ -130,7 +130,7 @@
      -fx-border-color: derive(#E4E2E2, 20%);
      -fx-border-top-width: 0px;
      -fx-text-fill: red;
-    -fx-font-size: 14pt;
+    -fx-font-size: 10pt;
 }
 
 .logo-pane{
@@ -152,7 +152,7 @@
 
 .result-display .label {
     -fx-text-fill: black;
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
 }
 
 .status-bar .label {

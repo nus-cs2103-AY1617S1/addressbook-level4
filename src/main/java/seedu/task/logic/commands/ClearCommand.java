@@ -31,9 +31,9 @@ public class ClearCommand extends Command {
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
-	// @@author A0147335E-reused
+	
 	private ArrayList<RollBackCommand> getUndoList() {
 		return history.getUndoList();
 	}
-
+	//@@author
 }

@@ -14,7 +14,10 @@ import seedu.task.model.tag.Tag;
  */
 public class UndoCommand extends Command {
 
+    // @@author A0147944U
     public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD_ALT = "u";
+    // @@author A0147335E
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo a command which was previously input by user. ";
     public static final String MESSAGE_SUCCESS = "Undo: ";

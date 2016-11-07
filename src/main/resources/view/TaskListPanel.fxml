@@ -25,7 +25,7 @@
             <TableColumn fx:id="startTimeColumn" minWidth="100.0" prefWidth="210.0" resizable="false" text="START" />
             <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="210.0" resizable="false" text="END" />
             <TableColumn fx:id="dueTimeColumn" minWidth="77.0" prefWidth="210.0" resizable="false" text="DUE" />
-          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="100.0" resizable="false" text="TAG" />
+          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="115.0" resizable="false" text="TAG" />
         </columns>
       </TableView>
         
