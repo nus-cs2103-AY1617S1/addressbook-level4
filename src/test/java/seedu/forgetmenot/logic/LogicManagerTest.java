@@ -435,6 +435,7 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", expectedMessage);
     }
     
+    @Test
     public void execute_undoRecentAdd_recentAddUndone() throws Exception {
         String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
         assertCommandBehavior("undo", expectedMessage);

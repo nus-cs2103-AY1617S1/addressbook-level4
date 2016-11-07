@@ -47,10 +47,6 @@ public class Recurrence {
     public String getRecurFreq() {
         return this.days;
     }
-
-    public void setRecurFreq(String days) {
-        this.days = days;
-    }
     
     public int getOccurence() {
         return this.occurences;
