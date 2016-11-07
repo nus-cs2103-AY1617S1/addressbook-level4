@@ -230,7 +230,7 @@ Note: This is able to work for events and deadlines too.<br>
 <ol><li>Type: add </li>
 	<li>Expected result: It will print the invalid command format.</li>
 	<li>In the result display box, directly below the command box, there will be a message pritned<br>
-	"Invalid command format!"
+	"Invalid command format!"</li></ol>
 Note: The examples of the add command will be printed in as well. <br>
 <ol><li>Type: delete t1</li>
 	<li>Expected result: It is an incorrect command as the index is case insensitive.</li>
