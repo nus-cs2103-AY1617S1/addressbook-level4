@@ -12,7 +12,7 @@
         <tagged>groupwork</tagged>
     </items>
     <items>
-        <name>Walk the dog</name>
+        <name>Bring dog to vet</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -300,7 +300,7 @@
         <tagged>groupwork</tagged>
     </items>
     <items>
-        <name>Buy lunch</name>
+        <name>Buy a new pair of running shoes</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -309,7 +309,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Buy dinner</name>
+        <name>Buy a new suit</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
