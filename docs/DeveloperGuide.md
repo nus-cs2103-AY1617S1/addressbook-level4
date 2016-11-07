@@ -196,6 +196,18 @@ The Controllers are responsible for most of the back-end logic responsible for p
 2. The command execution can affect the `Model` (e.g. adding a person), raise events, and/or have other auxilliary effects like updating the config or modifying the UI directly.
 3. After doing the required processing, the `Controller` calls the `Renderer` concern with appropriate parameters to be rendered on the user window. This is regardless of whether the command was successful (if not, then an error message or disambiguation prompt is rendered).
 
+#### Controller concerns
+
+Controller concerns are intended to contain helper methods to be shared across Controllers, in the spirit of code reuse. These are methods that are not generic enough to be considered utility functions (in `commons.utils`), but are at the same time not specific to a single Controller.
+
+A brief description of each concern:
+
+* **`CalendarItemFilter`** extracts out the parsing and filtering logic that is used by `ListController`, `ClearController` and to a small extent, `FindController`. These controllers depend on being able to filter out  CalendarItems before doing some processing on it. Extracting this out into a concern allows us to maintain a consistent filtering syntax for the user.
+* **`Disambiguator`** contains the disambiguation helper methods to be used by Controllers which rely heavily on CalendarItemFilter. Since the token parsing is extracted out into a common concern, so should the code for populating disambiguation fields. 
+* **`DateParser`** extracts out the parsing methods for single and paired dates. Virtually all Controllers need some support for converting a natural date input to a LocalDateTime object.
+* **`Renderer`** contains the bulk of the code required for renderering a success or failure message, as well as disambiguation prompts. We want disambiguation prompts from all Controllers to be more or less consistent in their wording, hence it makes sense to extract this out allow each Controller to provide a more detailed explanation that will be rendered together with the generic message.
+* **`Tokenizer`** contains the heavy logic that parses an input into its component token keys and values, while respecting the presence of quotes. All but the simplest of Controllers need to use this for parsing user input. Each Controller defines its own tokenDefinitions which the `Tokenizer` uses to parse the raw user input.
+
 <!--- @@author A0093907W -->
 ### Model component
 
