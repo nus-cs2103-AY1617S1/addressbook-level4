@@ -259,6 +259,7 @@ Add task named "pjm" to task list
 [//]: # (@@author A0139915W)
 
 [//]: # (@@author A0138431L)
+
 #### Command stack history
 <kbd>UP</kbd>: Return last user input command in command box<br>
 <kbd>DOWN</kbd>: Return (if any) next user input command in command box<br>
@@ -268,6 +269,8 @@ Add task named "pjm" to task list
 #### Week Selection
 <kbd>Ctrl</kbd> + <kbd>LEFT</kbd>: Display previous week’s daily task list<br>
 <kbd>Ctrl</kbd> + <kbd>RIGHT</kbd>: Display next week’s daily task list
+
+[//]: # (@@author A0139915W)
 
 ## Command Summary
 
@@ -288,6 +291,8 @@ Command | Format
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
 [Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`
+
+[//]: # (@@author A0138431L)
 
 ## Keyboard Shortcuts
 
