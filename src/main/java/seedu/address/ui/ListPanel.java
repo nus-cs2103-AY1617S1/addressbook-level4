@@ -20,6 +20,7 @@ import java.util.logging.Logger;
  * Panel containing the list of tasks.
  */
 public class ListPanel extends UiPart {
+	
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
     private static final String FXML = "ListPanel.fxml";
     private VBox panel;
@@ -71,7 +72,7 @@ public class ListPanel extends UiPart {
         ListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ListPanel());
         taskListPanel.configureTask(taskList);
-        taskListPanel.hideAliasListViewSize();
+        taskListPanel.hideAliasListView();
         return taskListPanel;
     }
     
@@ -86,7 +87,7 @@ public class ListPanel extends UiPart {
     }
     
     //@@author A0142184L
-    private void hideAliasListViewSize() {
+    private void hideAliasListView() {
         aliasListView.setMaxHeight(0.0);
 	}
 
@@ -94,11 +95,11 @@ public class ListPanel extends UiPart {
                                        ObservableList<ReadOnlyAlias> aliasList) {
     	ListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ListPanel());
         taskListPanel.configureAlias(aliasList);
-        taskListPanel.hideTaskListViewSize();
+        taskListPanel.hideTaskListView();
         return taskListPanel;
     }
 	
-    private void hideTaskListViewSize() {
+    private void hideTaskListView() {
     	taskListView.setMaxHeight(0.0);
 	}
     
