@@ -196,6 +196,11 @@ There are several different logging levels based on the severity that you have t
 &nbsp;&nbsp;&nbsp;&nbsp;<b>4.2 Configuration</b>
 
 You can control certain properties of sTask (e.g App name, logging level) through the configuration file (default: `config.json`)
+
+&nbsp;&nbsp;&nbsp;&nbsp;<b>4.3 Undo/Redo</b>
+
+This feature is implemented using 2 stacks. When a supported function (i.e. add, delete, edit, done) is executed, the command is stored in a stack. Calling the undo command pops the top command from the undo-stack into the redo-stack and undoes the command. Similarly, calling the redo when the redo-stack is non-empty, pops the top command from the redo-stack into the undo-stack and redoes the command.<br>
+
 <!--@@author-->
 <!--@@author A0143884W-->
 
