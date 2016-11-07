@@ -224,4 +224,11 @@ Note: This is able to work for events and deadlines too.<br>
 
 <b>11 Incorrect Commands</b><br>
 <ol><li>Type: adds</li>
-	<li>Expected result: 
+	<li>Expected result: It is an incorrect command</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Unkown command"</li></ol>
+<ol><li>Type: add </li>
+	<li>Expected result: It will print the invalid command format.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Invalid command format!"
+Note: The examples of the add command will be printed in as well. <br>
