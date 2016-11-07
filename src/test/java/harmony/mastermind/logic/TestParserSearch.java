@@ -23,6 +23,7 @@ public class TestParserSearch {
         testInit();
     }
     
+    //@@author A0143378Y
     private void testInit() { 
         ParserSearch search = null;
         search.initVar();
