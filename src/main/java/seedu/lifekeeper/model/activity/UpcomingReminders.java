@@ -23,6 +23,7 @@ public class UpcomingReminders {
 
     {
         reminderQueue = new PriorityQueue<>(DEFAULT_SIZE, new Comparator<ReadOnlyActivity>() {
+            
             public int compare(ReadOnlyActivity first, ReadOnlyActivity second) {
                 return first.getReminder().compareTo(second.getReminder());
             }
@@ -69,7 +70,7 @@ public class UpcomingReminders {
     }
 
     /**
-     * Returns a list of events that is upcoming.
+     * Dequeues and returns a list of events having reminders closest to the current time.
      * 
      * @return a list of the events with start time closest to current time.
      */
