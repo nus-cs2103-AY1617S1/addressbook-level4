@@ -317,7 +317,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | see the number of tasks completed at the end of the day | have a better understanding of my capabilities.
 
 //@@author A0139516B
-## Appendix B : Use Cases
+## Appendix B: Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -395,7 +395,7 @@ Priority | As a ... | I want to ... | So that I can...
 > Use case resumes at step 2.
 
 
-## Appendix C : Non Functional Requirements
+## Appendix C: Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold 10000 tasks.
@@ -410,7 +410,7 @@ Priority | As a ... | I want to ... | So that I can...
 11. Should run on royalty free libraries and API's.
 
 
-## Appendix D : Glossary
+## Appendix D: Glossary
 
 ##### Mainstream OS
 
@@ -420,51 +420,11 @@ Priority | As a ... | I want to ... | So that I can...
 
 > Main Success Scenario
 
-## Appendix E : Product Survey's
+## Appendix E: Product Survey's
 
-### Google Calendar Quick Add
-
-**Strengths**
-
-1. Has an intuitive User Interface.
-2. Is able to have user shared schedules to accommodate for better planning.
-
-**Weaknesses**
-
-1. Indicates an event clashes but does not prevent you from creating the event.
-2. Unable to customize how events appear on your calendar.
-
-### Todoist
-
-**Strengths**
-
-1. Is able to access your tasks on over 10 different platforms.
-2. Has the ability to allow users to collaborate on shared tasks.
-
-**Weaknesses**
-
-1. Unable to allow user to set a location for the task.
-2. Has no web based capabilities.
-
-### dapulse
-
-**Strengths**
-
-1. Is able to customize labels for grouped tasks (in a column)
-2. Has a convenient inbuilt scheduling service.
-
-**Weaknesses**
-
-1. Unable to efficiently schedule simple tasks.
-
-### Things
-
-**Strengths**
-
-1. Has the ability to link tasks that fall under the same category.
-2. Has a Graphical User Interface that is intuitive and aesthetically pleasing.
-
-**Weaknesses**
-
-1. Is cost prohibitive.
-2. Is unavailable on certain platforms.
+Task Manager | Strengths | Weakness/es
+------------ | :-------- | :---------
+Google Calendar Quick Add | 1. Has an intuitive User Interface.<br> 2. Is able to have user shared schedules to accommodate for better planning. | 1. Has a cumbersome user interface. <br>2. Unable to customize how events appear on your calendar.
+Todoist | 1. Is able to access your tasks on over 10 different platforms. <br> 2. Has the ability to allow users to collaborate on shared tasks. | 1. Is unable to allow the user to set a venue for the task.<br> 2. Has no web based capabilities.
+dapulse | 1. Has an aesthetically appealing and responsive interface.<br> 2. Has an accessible tutorial built in for new users. | 1. Has weak project and task management tools.<br> 2. Is cost prohibitive.
+Things | 1. Has the ability to link tasks that fall under the same category.<br> 2. Has a Graphical User Interface that is intuitive and aesthetically pleasing. | 1. Is cost prohibitive.<br> 2. Is unavailable on certain platforms.
