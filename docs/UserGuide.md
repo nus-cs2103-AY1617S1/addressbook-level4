@@ -347,11 +347,10 @@ Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List pinned tasks | `list pinned task[s]`
 List completed | `list complete[d]`
 List aliases | `list alias[es]`
 Undo | `undo`
 Clear | `clear`
-Exit | `exit`
 Set storage location | `setstorage PATH`
+Exit | `exit`
 
