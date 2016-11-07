@@ -17,7 +17,7 @@ import w15c2.tusk.commons.util.FxViewUtil;
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends UiPart {
-    public static final String RESULT_DISPLAY_ID = "resultDisplay";
+    private static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
@@ -34,7 +34,7 @@ public class ResultDisplay extends UiPart {
         return statusBar;
     }
 
-    public void configure() {
+    private void configure() {
         resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
         resultDisplayArea.setWrapText(true);

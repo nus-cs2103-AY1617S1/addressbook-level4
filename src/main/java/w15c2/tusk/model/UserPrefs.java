@@ -9,7 +9,7 @@ import w15c2.tusk.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
-    public GuiSettings guiSettings;
+    private GuiSettings guiSettings;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;

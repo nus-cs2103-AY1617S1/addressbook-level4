@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.task.Task;
 
 //@@author A0138978E
 /**

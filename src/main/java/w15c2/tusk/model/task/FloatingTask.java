@@ -5,7 +5,7 @@ package w15c2.tusk.model.task;
  */
 public class FloatingTask extends Task implements PinnableTask, CompletableTask {
 
-	public FloatingTask(Description description) {
+	private FloatingTask(Description description) {
 		super(description);
 	}
 

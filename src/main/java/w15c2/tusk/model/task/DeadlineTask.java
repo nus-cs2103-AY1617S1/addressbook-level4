@@ -3,7 +3,6 @@ package w15c2.tusk.model.task;
 import java.util.Date;
 
 import w15c2.tusk.commons.util.DateUtil;
-import w15c2.tusk.model.Copiable;
 
 //@@author A0139817U
 /**

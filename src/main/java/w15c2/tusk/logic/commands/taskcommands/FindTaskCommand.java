@@ -2,10 +2,6 @@ package w15c2.tusk.logic.commands.taskcommands;
 
 import java.util.Set;
 
-import w15c2.tusk.commons.core.EventsCenter;
-import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
-import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 

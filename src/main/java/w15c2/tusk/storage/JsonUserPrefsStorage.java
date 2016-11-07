@@ -63,7 +63,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
      * Similar to {@link #saveUserPrefs(UserPrefs)}
      * @param prefsFilePath location of the data. Cannot be null.
      */
-    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
+    private void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
         assert userPrefs != null;
         assert prefsFilePath != null;
 

@@ -8,7 +8,7 @@ import w15c2.tusk.commons.events.BaseEvent;
  */
 public class StorageChangedEvent extends BaseEvent {
 
-	String storagePath;
+	private String storagePath;
 	
     public StorageChangedEvent(String storagePath) {
         this.storagePath = storagePath;

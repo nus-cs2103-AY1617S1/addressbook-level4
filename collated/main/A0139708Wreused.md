@@ -4,7 +4,7 @@
     /**
      * Cell for AliasList to load AliasCard as graphic.
      */
-    class AliasListViewCell extends ListCell<Alias> {
+    private class AliasListViewCell extends ListCell<Alias> {
 
         public AliasListViewCell() {
         }
@@ -27,7 +27,7 @@
 ```
 ###### /java/w15c2/tusk/model/ModelManager.java
 ``` java
-	interface Expression {
+	private interface Expression {
         boolean satisfies(Task task);
         String toString();
     }
@@ -51,7 +51,7 @@
         }
     }
 
-    interface Qualifier {
+    private interface Qualifier {
         boolean run(Task task);
         String toString();
     }

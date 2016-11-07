@@ -11,13 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.util.FileUtil;
 import w15c2.tusk.commons.util.XmlUtil;
-import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.ModelManager;
-import w15c2.tusk.model.UserPrefs;
-import w15c2.tusk.model.task.Task;
 import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 import w15c2.tusk.testutil.TestUtil;
 

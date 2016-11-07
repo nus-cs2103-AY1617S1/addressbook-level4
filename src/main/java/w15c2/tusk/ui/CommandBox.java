@@ -68,7 +68,7 @@ public class CommandBox extends UiPart {
     }
 
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
+    private void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
         registerAsAnEventHandler(this);

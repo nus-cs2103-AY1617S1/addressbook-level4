@@ -1,8 +1,5 @@
 package w15c2.tusk.logic.commands;
 
-import w15c2.tusk.commons.core.EventsCenter;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
-
 //@@author A0139817U
 /**
  * Redoes the latest undo to tasks or aliases of the Model.

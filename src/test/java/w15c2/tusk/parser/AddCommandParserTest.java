@@ -2,7 +2,6 @@ package w15c2.tusk.parser;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.Test;

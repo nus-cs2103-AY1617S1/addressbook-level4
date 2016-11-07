@@ -66,7 +66,7 @@ Format: `help`
 Adds a task to <i>Tusk</i>. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
 > **Date-Time Format**
-> * Note that dates and timings follow [strict formats](#date-time-format) <br>
+> * Note that dates and timings follow [these formats](#date-time-format) <br>
 > * Any deviations from the format may not be interpreted correctly.
 
 
@@ -79,7 +79,7 @@ Example:
 * `add "Exam on 1 Oct"`
 
 ##### Deadline Tasks
-These tasks have a description and a deadline (due date) <br>
+These tasks have a description and a deadline (due date). <br>
 Format: `add TASK by/on/at DATE` <br>
 
 Examples:
@@ -303,11 +303,9 @@ Examples:
   Typing `am` no longer translates into `add Meeting`
 
 <br>
-#### Listing aliases: `list alias[es]`
+#### Listing aliases: `list alias`
 Lists all the aliases that you have created. <br>
-Format: `list alias[es]`
-
-> You can type either `alias` or its plural form, `aliases`
+Format: `list alias`
 
 Examples:
 * `list alias`
@@ -336,7 +334,7 @@ There is no need to save manually.
 ## Command Autocomplete
 Pressing <kbd>TAB</kbd> will autocomplete the first word by looking up all possible commands. <br>
 If there is only one possible command, the command will be autocompleted. <br>
-However, if there are multiple commands, they will be displayed. <br>
+However, if there are multiple commands, subsequent <kbd>TAB</kbd>s will cycle through all possible commands one at a time. <br>
 
 Examples:
 * `al`<kbd>TAB</kbd><br>
@@ -344,7 +342,7 @@ Examples:
 * `cl`<kbd>TAB</kbd><br>
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
-  `unpin`, `unalias` and `undo` displayed on the screen as possible commands.
+  `unpin`, `unalias`, `undo` and `uncomplete` are autocompleted as possible commands one at a time on subsequent presses of <kbd>TAB</kbd>.
 * `unp`<kbd>TAB</kbd><br>
   `unpin` completed for you.
 
@@ -387,7 +385,7 @@ Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List aliases | `list alias[es]`
+List aliases | `list alias`
 Set storage location | `setstorage PATH`
 Exit | `exit`
 
