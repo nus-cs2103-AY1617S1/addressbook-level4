@@ -1,5 +1,7 @@
 package harmony.mastermind.ui;
 
+import java.util.Date;
+
 import org.ocpsoft.prettytime.PrettyTime;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.time.DurationFormatUtils;
 
@@ -119,10 +121,10 @@ public class HomeTableView extends UiPart {
         return homeTableView;
     }
 
+    // @@author A0138862W
     /**
      * Initializes the indexing of tasks
      */
-    // @@author A0138862W
     protected void initIndex() {
         indexColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
@@ -133,8 +135,7 @@ public class HomeTableView extends UiPart {
                 Text indexText = new Text(Integer.toString(index + 1)+ ".");
                 indexText.getStyleClass().add("index-column");
 
-                if (isEmpty()
-                    || index < 0) {
+                if (isEmpty() || index < 0) {
                     this.setGraphic(null);
                 } else {
                     this.setGraphic(indexText);
@@ -144,10 +145,10 @@ public class HomeTableView extends UiPart {
         });
     }
 
+    // @@author A0138862W
     /**
      * Initialize the Names of the tasks
      */
-    // @@author A0138862W
     protected void initName() {
         nameColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -166,35 +167,7 @@ public class HomeTableView extends UiPart {
                     taskName.getStyleClass().add("task-name-column");
                     vBox.getChildren().add(taskName);
 
-                    HBox hBox = new HBox(5);
-
-                    Button status = new Button();
-                    if (readOnlyTask.isHappening()) {
-                        status.setText("HAPPENING");
-                        status.getStyleClass().add("tag-happening");
-                        hBox.getChildren().add(status);
-                    } else if (readOnlyTask.isDue()) {
-                        status.setText("DUE");
-                        status.getStyleClass().add("tag-overdue");
-                        hBox.getChildren().add(status);
-                    }
-
-                    if (readOnlyTask.isEvent()) {
-                        Button eventDuration = new Button();
-                        eventDuration.setText("DURATION: "
-                                              + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
-                        eventDuration.getStyleClass().add("tag-event-duration");
-                        hBox.getChildren().add(eventDuration);
-                    } else if (readOnlyTask.isDeadline()
-                               && !readOnlyTask.isDue()) {
-                        Button dueDuration = new Button();
-                        dueDuration.setText("DUE IN "
-                                            + DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
-                        dueDuration.getStyleClass().add("tag-due-duration");
-                        hBox.getChildren().add(dueDuration);
-                    }
-
-                    vBox.getChildren().add(hBox);
+                    generateSpecialTag(readOnlyTask, vBox);
 
                     this.setGraphic(vBox);
                     this.setPrefHeight(50);
@@ -204,14 +177,15 @@ public class HomeTableView extends UiPart {
                 }
 
             }
+
         });
 
     }
 
+    // @@author A0138862W
     /**
      * Initialize the start dates of the tasks
      */
-    // @@author A0138862W
     protected void initStartDate() {
         startDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
         startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -224,20 +198,7 @@ public class HomeTableView extends UiPart {
                 if (!isEmpty()
                     && readOnlyTask.getStartDate() != null) {
 
-                    TextFlow textFlow = new TextFlow();
-
-                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getStartDate()));
-                    prettyDate.getStyleClass().add("pretty-date");
-
-                    Text lineBreak = new Text("\n\n");
-                    lineBreak.setStyle("-fx-font-size:2px;");
-
-                    Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(readOnlyTask.getStartDate()));
-                    uglyDate.getStyleClass().add("ugly-date");
-
-                    textFlow.getChildren().add(prettyDate);
-                    textFlow.getChildren().add(lineBreak);
-                    textFlow.getChildren().add(uglyDate);
+                    TextFlow textFlow = generateStyledDate(readOnlyTask, readOnlyTask.getStartDate());
 
                     this.setGraphic(textFlow);
                     this.setPrefHeight(50);
@@ -247,14 +208,15 @@ public class HomeTableView extends UiPart {
                 }
 
             }
+
         });
 
     }
 
+    // @@author A0138862W
     /**
      * Initialize the end dates of the tasks
      */
-    // @@author A0138862W
     protected void initEndDate() {
         endDateColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
         endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -267,20 +229,7 @@ public class HomeTableView extends UiPart {
                 if (!isEmpty()
                     && readOnlyTask.getEndDate() != null) {
 
-                    TextFlow textFlow = new TextFlow();
-
-                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getEndDate()));
-                    prettyDate.getStyleClass().add("pretty-date");
-
-                    Text lineBreak = new Text("\n\n");
-                    lineBreak.setStyle("-fx-font-size:2px;");
-
-                    Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(readOnlyTask.getEndDate()));
-                    uglyDate.getStyleClass().add("ugly-date");
-
-                    textFlow.getChildren().add(prettyDate);
-                    textFlow.getChildren().add(lineBreak);
-                    textFlow.getChildren().add(uglyDate);
+                    TextFlow textFlow = generateStyledDate(readOnlyTask, readOnlyTask.getEndDate());
 
                     this.setGraphic(textFlow);
                     this.setPrefHeight(50);
@@ -294,10 +243,10 @@ public class HomeTableView extends UiPart {
 
     }
 
+    // @@author A0138862W
     /**
      * Initialize the tags of the tasks
      */
-    // @@author A0138862W
     protected void initTags() {
         tagsColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -357,12 +306,12 @@ public class HomeTableView extends UiPart {
         });
     }
 
+    // @@author A0138862W
     /*
      * Generate styled row base on the task status: due(red), happening(orange),
      * normal(blue)
      * 
      */
-    // @@author A0138862W
     private Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
         Text taskName = new Text(text);
 
@@ -374,6 +323,70 @@ public class HomeTableView extends UiPart {
             taskName.getStyleClass().add("normal");
         }
         return taskName;
+    }
+
+    // @@author A0138862W
+    /**
+     * THis method generate Due, Happening, and duration depend on the nature of the task
+     * 
+     * @param readOnlyTask the task object
+     * @param vBox The container
+     */
+    private void generateSpecialTag(ReadOnlyTask readOnlyTask, VBox vBox) {
+        HBox hBox = new HBox(5);
+
+        Button status = new Button();
+        if (readOnlyTask.isHappening()) {
+            status.setText("HAPPENING");
+            status.getStyleClass().add("tag-happening");
+            hBox.getChildren().add(status);
+        } else if (readOnlyTask.isDue()) {
+            status.setText("DUE");
+            status.getStyleClass().add("tag-overdue");
+            hBox.getChildren().add(status);
+        }
+
+        if (readOnlyTask.isEvent()) {
+            Button eventDuration = new Button();
+            eventDuration.setText("DURATION: " + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
+            eventDuration.getStyleClass().add("tag-event-duration");
+            hBox.getChildren().add(eventDuration);
+        } else if (readOnlyTask.isDeadline()
+                   && !readOnlyTask.isDue()) {
+            Button dueDuration = new Button();
+            dueDuration.setText("DUE IN " + DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
+            dueDuration.getStyleClass().add("tag-due-duration");
+            hBox.getChildren().add(dueDuration);
+        }
+
+        vBox.getChildren().add(hBox);
+    }
+    
+    
+    // @@author A0138862W
+    /**
+     * 
+     * This method generate the double-line text for date column
+     * 
+     * @param readOnlyTask the task object
+     * @return TextFlow the styled text
+     */
+    private TextFlow generateStyledDate(ReadOnlyTask readOnlyTask, Date date) {
+        TextFlow textFlow = new TextFlow();
+
+        Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(date));
+        prettyDate.getStyleClass().add("pretty-date");
+
+        Text lineBreak = new Text("\n\n");
+        lineBreak.setStyle("-fx-font-size:2px;");
+
+        Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(date));
+        uglyDate.getStyleClass().add("ugly-date");
+
+        textFlow.getChildren().add(prettyDate);
+        textFlow.getChildren().add(lineBreak);
+        textFlow.getChildren().add(uglyDate);
+        return textFlow;
     }
 }
 
