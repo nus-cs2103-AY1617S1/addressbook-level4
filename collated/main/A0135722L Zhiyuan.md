@@ -1,5 +1,5 @@
 # A0135722L Zhiyuan
-###### \java\seedu\address\logic\commands\DoneCommand.java
+###### \java\seedu\simply\logic\commands\DoneCommand.java
 ``` java
 public class DoneCommand extends Command {
     
@@ -113,7 +113,7 @@ public class DoneCommand extends Command {
 
 }
 ```
-###### \java\seedu\address\logic\parser\Parser.java
+###### \java\seedu\simply\logic\parser\Parser.java
 ``` java
     private Command prepareComplete(String args) {
         final Matcher matcher = ARGS_FORMAT_COMPLETE.matcher(args.trim());
@@ -171,18 +171,17 @@ public class DoneCommand extends Command {
     }
 
     /**
-     * Parses arguments in the context of the select task command.
 ```
-###### \java\seedu\address\model\ModelManager.java
+###### \java\seedu\simply\model\ModelManager.java
 ``` java
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAllUncompleted();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
 ```
-###### \java\seedu\address\model\task\UniqueTaskList.java
+###### \java\seedu\simply\model\task\UniqueTaskList.java
 ``` java
     public boolean completed(ReadOnlyTask target) {
         int completeIndex = internalList.lastIndexOf(target);
@@ -202,43 +201,4 @@ public class DoneCommand extends Command {
         return localDate;
     }
 }
-```
-###### \java\seedu\address\model\TaskBook.java
-``` java
-    public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-        int category = target.getTaskCategory();
-        if(category == 1){
-            if (events.completed(target)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }        
-        }
-        else if(category == 2){
-            if (deadlines.completed(target)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }        
-        }
-        else{
-            if (todo.completed(target)) {
-                return true;
-            } else {
-                throw new UniqueTaskList.TaskNotFoundException();
-            }        
-        }
-    }
-
-    public void overdueTask() {
-        for (Task task: events) {
-            events.markOverdue(task);
-            //System.out.println("events:" + task.getOverdue());
-        }
-        for (Task task: deadlines) {
-            deadlines.markOverdue(task);
-            //System.out.println("deadlines:" + task.getOverdue());	
-        }
-    }
-
 ```
