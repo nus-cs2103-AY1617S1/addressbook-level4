@@ -1,5 +1,6 @@
 package seedu.Tdoo.logic.commands;
 
+//@@author A0144061U
 /**
  * Clears the TaskList.
  */
@@ -21,7 +22,6 @@ public class ClearCommand extends Command {
 		this.dataType = args.trim();
 	}
 
-	// @@author A0144061U
 	@Override
 	public CommandResult execute() {
 		assert model != null;

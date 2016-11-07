@@ -307,17 +307,23 @@ public class ModelManager extends ComponentManager implements Model {
 			todoList.doneTask(target);
 			indicateTodoListChanged();
 			raise(new JumpTodoListRequestEvent(target));
-			undoer.prepareUndoDone("todo", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDone("todo", undoTarget);
+			}
 		case "event":
 			eventList.doneTask(target);
 			indicateEventListChanged();
 			raise(new JumpEventListRequestEvent(target));
-			undoer.prepareUndoDone("event", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDone("event", undoTarget);
+			}
 		case "deadline":
 			deadlineList.doneTask(target);
 			indicateDeadlineListChanged();
 			raise(new JumpDeadlineListRequestEvent(target));
-			undoer.prepareUndoDone("deadline", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoDone("deadline", undoTarget);
+			}
 		}
 	}
 
@@ -328,15 +334,21 @@ public class ModelManager extends ComponentManager implements Model {
 		case "todo":
 			todoList.undoneTask(target);
 			indicateTodoListChanged();
-			undoer.prepareUndoUndone("todo", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoUndone("todo", undoTarget);
+			}
 		case "event":
 			eventList.undoneTask(target);
 			indicateEventListChanged();
-			undoer.prepareUndoUndone("event", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoUndone("event", undoTarget);
+			}
 		case "deadline":
 			deadlineList.undoneTask(target);
 			indicateDeadlineListChanged();
-			undoer.prepareUndoUndone("deadline", undoTarget);
+			if(!undoer.undoCommand()) {
+				undoer.prepareUndoUndone("deadline", undoTarget);
+			}
 		}
 	}
 	// @@author A0144061U

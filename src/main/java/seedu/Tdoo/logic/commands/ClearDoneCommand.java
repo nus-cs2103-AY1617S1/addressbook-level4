@@ -1,7 +1,8 @@
 package seedu.Tdoo.logic.commands;
 
+//@@author A0144061U
 /**
- * Clears the TaskList.
+ * Clears the done tasks from TaskList.
  */
 public class ClearDoneCommand extends Command {
 
@@ -21,7 +22,6 @@ public class ClearDoneCommand extends Command {
 		this.dataType = args.trim();
 	}
 
-	// @@author A0144061U
 	@Override
 	public CommandResult execute() {
 		assert model != null;
