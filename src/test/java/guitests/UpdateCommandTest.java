@@ -49,7 +49,7 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         // update with no changes
         targetIndex = 4;
         commandBox.runCommand("update " + targetIndex);
-        updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
         assertMatching(TypicalTestTasks.fiona, updatedCard);
         
         // update own task without changing name
