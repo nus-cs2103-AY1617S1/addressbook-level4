@@ -177,6 +177,8 @@ public void componentDidMount() {
 
 ### InputHandler component
 
+The InputHandler is the bridge facilitating the handoff from the View to the Controller when the user enters an input.
+
 **API** : [`InputHandler.java`](../src/main/java/seedu/todo/ui/components/InputHandler.java)
 
 1. The console input field will find a `Controller` which matches the command keyword (defined to be the first space-delimited word in the command).
@@ -186,11 +188,13 @@ public void componentDidMount() {
 
 ### Controller component
 
+The Controllers are responsible for most of the back-end logic responsible for processing the user's input. They take in the full input command, parse, process, and construct the response messages which are handed over to the Renderer to be rendered on the View.
+
 **API** : [`Controller.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 1. `Controller`s have a `process()` method which processes the command passed in by `InputHandler`.
 2. The command execution can affect the `Model` (e.g. adding a person), raise events, and/or have other auxilliary effects like updating the config or modifying the UI directly.
-3. After invoking `process()`, a new `View` will be created and loaded to `MainWindow` whether it was successful or an exception occured.
+3. After doing the required processing, the `Controller` calls the `Renderer` concern with appropriate parameters to be rendered on the user window. This is regardless of whether the command was successful (if not, then an error message or disambiguation prompt is rendered).
 
 <!--- @@author A0093907W -->
 ### Model component
