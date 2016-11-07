@@ -417,6 +417,7 @@ Pin the items of the selected date or tag onto the "Pinned Items" panel on the l
 
 Format: `pin [tag\date] [TAG\DATE]`
 > * Refer to the Date Format below for the various ways of typing date. 
+> * To unpin type `pin [tag\date] NONE`.
 
 Examples:
 * `pin date 6-4-2018`
