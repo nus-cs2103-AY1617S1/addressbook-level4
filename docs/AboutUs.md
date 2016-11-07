@@ -61,7 +61,8 @@ Role: Developer <br>
 
 * Components in charge of: [Model](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#model-component)
 * Features implemented:
-	* [Extended Help Command]()
+   * [Extended Help Command]()
+   
  -----
 
 # Acknowledgements
