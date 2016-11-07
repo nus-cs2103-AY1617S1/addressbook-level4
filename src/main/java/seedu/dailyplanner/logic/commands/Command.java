@@ -6,15 +6,18 @@ import seedu.dailyplanner.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.dailyplanner.model.Model;
 
 /**
- * Represents a command with hidden internal logic and the ability to be executed.
+ * Represents a command with hidden internal logic and the ability to be
+ * executed.
  */
 public abstract class Command {
     protected Model model;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a
+     * listing of persons.
      *
-     * @param displaySize used to generate summary
+     * @param displaySize
+     *            used to generate summary
      * @return summary message for persons displayed
      */
     public static String getMessageForPersonListShownSummary(int displaySize) {
@@ -27,11 +30,11 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-    
+
     /**
-     * Provides any needed dependencies to the command.
-     * Commands making use of any of these should override this method to gain
-     * access to the dependencies.
+     * Provides any needed dependencies to the command. Commands making use of
+     * any of these should override this method to gain access to the
+     * dependencies.
      */
     public void setData(Model model) {
         this.model = model;

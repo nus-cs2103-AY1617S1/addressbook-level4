@@ -18,9 +18,10 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Returns the filtered list of tasks */
+    ObservableList<ReadOnlyTask> getFilteredTaskList();
     
+    /** Returns the pinned task list */
     ObservableList<ReadOnlyTask> getPinnedTaskList();
 
     /** Returns the last task added index property held in model */
