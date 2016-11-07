@@ -27,7 +27,7 @@ This app will not work with earlier versions of Java 8.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
-
+<br>
 ### Command Format
 * Words in `UPPER_CASE` are the parameters.
 * Items in `SQUARE_BRACKETS` are optional.
@@ -40,7 +40,6 @@ Format: `help`
 * Help is also shown if you enter an incorrect command e.g. `abcd`
 <br><br><br>
 <!-- @@author A0130677A -->
-
 ### Adding a person: `add`
 **Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
 * Adds a task to the task list in a flexible format (in any order).
@@ -74,7 +73,6 @@ Shows a list of all tasks done or not done in the task list.<br>
 ### Finding all tasks containing any keyword in their name or attributes: `find`
 Format: `find [FIELD_TYPE] KEYWORD`
 Finds tasks whose descriptions contain any of the given keyword.<br>
-
 * The search is case sensitive. e.g `hmk` will not match `HMK`
 * The order of the keywords does not matter. e.g. `Do Homework` will match `Homework Do`
 * If field type is specified, only the field type will be matched with the keyword
@@ -148,12 +146,12 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME [m/description d/duedate a/address p/priorityrank(1- highest,5-lowest) s/startdate e/enddate t/TAG]...`
-Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, l, p, s, e or t
+Add | `add NAME [s/startdate d/duedate a/address p/priorityrank(1- highest,5-lowest) t/TAG]...`
+Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, a, p or s
 Clear | `clear`
 Delete | `delete INDEX`
-Find | `find FILTER KEYWORD` FILTER options: tags, title, date
-List | `list [RANK]` RANK options: duedate, ongoing, priority
+Find | `find [FIELD_TYPE] KEYWORD` FIELD_TYPE options: `t/` `a/` `s/` `d/` `p/`
+List | `list [done]`
 Help | `help`
-Select | `select INDEX WIDGET` WIDGET options: location, search, description, calendar
+Select | `select INDEX`
 Exit | `exit`
