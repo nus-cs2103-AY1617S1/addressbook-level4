@@ -3,6 +3,8 @@ package seedu.tasklist.model.task;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.commons.lang.time.DateUtils;
+
 /**
  * A read-only immutable interface for a Task in the task list.
  * Implementations should guarantee: details are present and not null, field values are validated.
@@ -96,6 +98,7 @@ public interface ReadOnlyTask {
      */
     default boolean recurringMatchesRequestedDate(Calendar task, String frequency, Calendar requested) {
         if (!task.getTime().equals(new Date(0)) && !requested.getTime().equals(new Date (0))
+                && (task.getTime().compareTo(requested.getTime()) < 0 || DateUtils.isSameDay(task, requested))
                 && (frequency.equals("daily")
                     || (frequency.equals("weekly") && task.get(Calendar.DAY_OF_WEEK) == requested.get(Calendar.DAY_OF_WEEK))
                     || (frequency.equals("monthly") && task.get(Calendar.DAY_OF_MONTH) == requested.get(Calendar.DAY_OF_MONTH))
