@@ -20,7 +20,7 @@ public class ActivityListPanel extends ListPanel {
         super();
     }
 
-    //Function specific to ActivityListPanel
+    //Function specific to ActivityListPanel ------------------------------------------------------------
     private void setEventHandlerForSelectionChangeEvent() {
         this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -36,7 +36,6 @@ public class ActivityListPanel extends ListPanel {
 		personListPanel.configure(activityList);
 		return personListPanel;
 	}
-    
     
 	public String getFxmlPath() {
 		return FXML;

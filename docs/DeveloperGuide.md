@@ -98,7 +98,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-
+<!-- @@author A0125284H -->
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/lifekeeper/ui/Ui.java)
@@ -134,7 +134,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 ### Model component
 
-<!-- @@author A0125680H -->
+<!-- @@author A0125284H -->
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/lifekeeper/model/Model.java)
@@ -278,7 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user 	| list tasks by task type | filter tasks by task type
 
 
-
+<!-- @@author A0125284H -->
 ## Appendix B Use Cases
 
 (For all use cases below, the **System** is the `Lifekeeper` and the **Actor** is the `user`, unless specified otherwise)

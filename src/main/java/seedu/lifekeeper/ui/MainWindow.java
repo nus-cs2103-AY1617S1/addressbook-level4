@@ -121,9 +121,10 @@ public class MainWindow extends UiPart {
     	//fill main activities display panel
         activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
 
-        //fill dash board with UI panel.
+        //fill dash board UI panel.
         overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
-        		
+        
+        //fill other components of UI.
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -145,6 +146,7 @@ public class MainWindow extends UiPart {
         return activityListPanelPlaceholder;
     }
     
+    //@@author A0125284H
     public AnchorPane getOverdueListPlaceholder() {
     	return overdueListDisplayPlaceHolder;
     }
