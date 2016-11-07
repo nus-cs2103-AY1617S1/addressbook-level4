@@ -54,7 +54,7 @@ public class LogicManagerTest {
     }
 
     @Subscribe
-    private void handleShowHelpEvent() {
+    private void handleShowHelpEvent(ShowHelpEvent she) {
         helpShown = true;
     }
 
