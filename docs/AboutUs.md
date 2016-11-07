@@ -22,13 +22,15 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Previous](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#repeating-a-previous-command-)
    * [Upcoming](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#show-upcoming-tasks--upcoming)
    * allow adding of recurring task in [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adds-a-recurring-deadline)
-   
+
+   * [Import (csv)](https://hackmd.io/AwIwTAbAJgLFIFoCMSDMB2BMkFYAcCAnBAIYkLrp6HrC2oCmS6QA?both#importing-file--import)
+
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0124797R.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0124797R.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0124797R.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList
-  * Set up Travis and Coveralls 
+  * Set up Travis and Coveralls
   * Class Diagrams  
-  
+
 -----
 <!--- @@author A0138862W --->
 #### [Wong Kang Fei](https://github.com/kfwong)
@@ -39,6 +41,13 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Undo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#undo-a-command--undo)
    * [Redo](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#redo-a-command--redo)
    * [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adding-a-task-add-do)
+
+   * [Import (ics)](https://hackmd.io/AwIwTAbAJgLFIFoCMSDMB2BMkFYAcCAnBAIYkLrp6HrC2oCmS6QA?both#importing-file--import)
+
+   * [Export (csv)](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adding-a-task-add-do)
+
+   * [History](https://hackmd.io/AwIwTAbAJgLFIFoCMSDMB2BMkFYAcCAnBAIYkLrp6HrC2oCmS6QA?both#recall-your-action-history-history)
+
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/main/A0138862W.md)][[test code](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/test/A0138862W.md)][[docs](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/collated/docs/A0138862W.md)]
 * Other major contributions:
   * Set up Travis and Coveralls
@@ -48,7 +57,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 <!--- @@author A0143378Y --->
-#### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
+#### [Lim Hui Qi](https://github.com/LuMiN0uSaRc)
 <img src="images/HuiQi.png" width="150"><br>
 * Components in charge of: [Memory](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Aspects/tools in charge of: UI, Scheduling and deadlines, Tracking
@@ -61,6 +70,8 @@ We are a team based in the [School of Computing, National University of Singapor
   * Smart learning text field
   * Autocomplete
   * Issue tracking
+  * Sorting based on event date and task within Memory
+  * History for Memory
 
 -----
 <!--- @@author A0139194X --->
@@ -78,7 +89,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Proof reading
   * Issue tracking
   * Sequence Diagrams
- 
+
 -----
 
 # Contributors
