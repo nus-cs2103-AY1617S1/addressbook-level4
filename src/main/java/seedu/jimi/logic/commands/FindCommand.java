@@ -14,11 +14,21 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+    // That new string object infront of the second line denotes a repeated space character 
+    // to align the messages according to the length of the command word.
+    public static final String MESSAGE_USAGE = COMMAND_WORD 
+            + ": Finds all tasks whose names nearly match any of the specified keywords (case-sensitive) and displays \n"
+            + new String(new char[COMMAND_WORD.length() + 2]).replace("\0", " ") + "them as a list with index numbers.\n"
             + "> Shortcuts: f, fi, fin\n"
-            + "Example: " + COMMAND_WORD + " \"add water\"";
+            + "Parameters: \"KEYWORD [MORE_KEYWORDS]...\"\n"
+            + "Example: " + COMMAND_WORD + " \"add water\"\n"
+            + "\n"
+            + "To specify a date range for your search: \n"
+            + "Parameters: [\"KEYWORD [MORE_KEYWORDS]...\"] on|from DATE_TIME [to DATE_TIME]\n"
+            + "> Note the keywords are now optional.\n"
+            + "Example: " + COMMAND_WORD + " \"meetings\" from 1 nov to 3 nov\n"
+            + "Example: " + COMMAND_WORD + " on 9 nov";
+            
 
     private final Set<String> keywords;
     private final DateTime fromDate;

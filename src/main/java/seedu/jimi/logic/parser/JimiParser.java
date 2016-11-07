@@ -55,7 +55,8 @@ public class JimiParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)", Pattern.CASE_INSENSITIVE);
 
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\")?(((on|from) (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
+            Pattern.compile(
+                    "(\"(?<keywords>\\S+(?:\\s+\\S+)*)\"\\s*)?((on|from) (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?");
     
     private static final Pattern ADD_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -464,23 +465,16 @@ public class JimiParser {
         
         List<Date> startDates = null;
         List<Date> endDates = null;
-        List<Date> specificDates = null;
         try {
-            specificDates = parseStringToDate(matcher.group("specificDateTime"));
             startDates = parseStringToDate(matcher.group("startDateTime"));
             endDates = parseStringToDate(matcher.group("endDateTime"));
         } catch (DateNotParsableException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            return new IncorrectCommand(e.getMessage());
         }
         
-        logger.info(startDates.toString() + endDates + specificDates);
+        logger.info(startDates.toString() + endDates.toString());
         
-        if(!specificDates.isEmpty()) {
-            startDates = specificDates;
-        }
         Optional<List<Date>> optEndDate = Optional.ofNullable(endDates);
-        
         return new FindCommand(keywordSet, startDates, optEndDate.orElse(null));
     }
     //@@author
