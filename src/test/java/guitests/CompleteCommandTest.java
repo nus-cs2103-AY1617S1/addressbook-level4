@@ -2,11 +2,11 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import seedu.taskmaster.testutil.TestTask;
+import seedu.taskmaster.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS;;
+import static seedu.taskmaster.logic.commands.CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS;;
 
 //@@author A0147967J
 /**

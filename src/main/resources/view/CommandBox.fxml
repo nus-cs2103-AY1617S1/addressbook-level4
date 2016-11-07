@@ -2,9 +2,9 @@
 
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
-<?import seedu.address.ui.AutocompleteTextField?>
+<?import seedu.taskmaster.ui.AutocompleteTextField?>
 <AnchorPane styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seedu.address.ui.CommandBox" stylesheets="@DarkTheme.css">
+            fx:controller="seedu.taskmaster.ui.CommandBox" stylesheets="@DarkTheme.css">
    <AutocompleteTextField id="commandTextField" fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
 </AnchorPane>
 

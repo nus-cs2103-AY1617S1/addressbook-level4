@@ -1,8 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.model.task.TaskOccurrence;
+
+import seedu.taskmaster.commons.core.Messages;
+import seedu.taskmaster.model.task.TaskOccurrence;
+
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TaskMasterGuiTest {

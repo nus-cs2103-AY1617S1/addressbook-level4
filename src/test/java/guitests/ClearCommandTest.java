@@ -2,8 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskOccurrence;
-import seedu.address.testutil.TestUtil;
+import seedu.taskmaster.model.task.TaskOccurrence;
+import seedu.taskmaster.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 

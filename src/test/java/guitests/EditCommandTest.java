@@ -3,19 +3,19 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskOccurrence;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import seedu.taskmaster.commons.core.Messages;
+import seedu.taskmaster.commons.exceptions.IllegalValueException;
+import seedu.taskmaster.logic.commands.EditCommand;
+import seedu.taskmaster.model.tag.Tag;
+import seedu.taskmaster.model.tag.UniqueTagList;
+import seedu.taskmaster.model.task.Name;
+import seedu.taskmaster.model.task.RecurringType;
+import seedu.taskmaster.model.task.TaskOccurrence;
+import seedu.taskmaster.testutil.TestTask;
+import seedu.taskmaster.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.taskmaster.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 //@@author A0147967J
 public class EditCommandTest extends TaskMasterGuiTest {

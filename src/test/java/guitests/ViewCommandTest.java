@@ -7,11 +7,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import seedu.address.model.task.TaskOccurrence;
-import seedu.address.model.task.TaskDate;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.ui.util.MyAgendaUtil;
+import seedu.taskmaster.model.task.TaskDate;
+import seedu.taskmaster.model.task.TaskOccurrence;
+import seedu.taskmaster.testutil.TestTask;
+import seedu.taskmaster.testutil.TestUtil;
+import seedu.taskmaster.ui.util.MyAgendaUtil;
 
 //@@author A0147967J
 /**

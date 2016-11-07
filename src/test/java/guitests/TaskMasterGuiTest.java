@@ -8,15 +8,16 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskMaster;
-import seedu.address.model.task.TaskOccurrence;
-import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
-import seedu.address.ui.MyAgenda;
-import seedu.address.ui.util.MyAgendaUtil;
+
+import seedu.taskmaster.TestApp;
+import seedu.taskmaster.commons.core.EventsCenter;
+import seedu.taskmaster.model.TaskMaster;
+import seedu.taskmaster.model.task.TaskOccurrence;
+import seedu.taskmaster.model.task.UniqueTaskList.TimeslotOverlapException;
+import seedu.taskmaster.testutil.TestUtil;
+import seedu.taskmaster.testutil.TypicalTestTasks;
+import seedu.taskmaster.ui.MyAgenda;
+import seedu.taskmaster.ui.util.MyAgendaUtil;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;

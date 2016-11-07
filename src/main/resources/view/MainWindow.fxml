@@ -11,7 +11,7 @@
 
 <!-- @@author A0147967J -->
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="870.0" prefWidth="1545.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="870.0" prefWidth="1545.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskmaster.ui.MainWindow">
    <stylesheets>     
       <URL value="@Extensions.css" />
    </stylesheets>

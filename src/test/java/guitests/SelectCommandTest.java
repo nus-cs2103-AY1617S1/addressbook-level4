@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskOccurrence;
+import seedu.taskmaster.model.task.TaskOccurrence;
 
 import static org.junit.Assert.assertEquals;
 

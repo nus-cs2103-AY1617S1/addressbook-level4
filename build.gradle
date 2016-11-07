@@ -72,19 +72,9 @@ allprojects {
         compile group: 'org.jfxtras', name: 'jfxtras-common', version: '8.0-r5'
         compile group: 'org.jfxtras', name: 'jfxtras-fxml', version: '8.0-r5'
 		compile group: 'org.jfxtras', name: 'jfxtras-controls', version: '8.0-r5'
-		
-		// https://mvnrepository.com/artifact/org.jfxtras/jfxtras-test-support
 		compile group: 'org.jfxtras', name: 'jfxtras-test-support', version: '8.0-r5'
-		
-		// https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
 		compile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
-
-		
-		// https://mvnrepository.com/artifact/org.jfxtras/jfxtras-labs
 		compile group: 'org.jfxtras', name: 'jfxtras-labs', version: '2.2-r4'
-		
-
-        
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
@@ -110,7 +100,7 @@ allprojects {
         archiveName = "happyjimtaskmaster.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.taskmaster.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
@@ -171,7 +161,7 @@ task guiTests(type: AddressBookTest) {
 
 
 task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
+    include 'seedu/taskmaster/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")

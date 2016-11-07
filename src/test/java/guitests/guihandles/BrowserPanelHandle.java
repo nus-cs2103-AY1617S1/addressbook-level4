@@ -4,10 +4,10 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
-import seedu.address.ui.MyAgenda;
-import seedu.address.ui.util.MyAgendaUtil;
+import seedu.taskmaster.TestApp;
+import seedu.taskmaster.testutil.TestUtil;
+import seedu.taskmaster.ui.MyAgenda;
+import seedu.taskmaster.ui.util.MyAgendaUtil;
 
 //@@author A0147967J
 /**
