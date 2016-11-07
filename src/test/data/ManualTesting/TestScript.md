@@ -1,5 +1,14 @@
 <!--@@author A0143095H	-->
 
+# How to set-up
+
+1. Open the sample file in notepad++
+2. Go to the file directory where you keep the .JAR file
+3. Create a folder called data
+4. Create a xml file called tasklist.xml
+5. Copy the sample file and paste in the tasklist.xml
+6. Run the .JAR file
+
 # Test Script 
 
 ## 1 Add Command <br>
