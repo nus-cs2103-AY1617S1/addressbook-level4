@@ -1,4 +1,4 @@
-//@@author A0147335E
+
 package guitests;
 
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,7 @@ import seedu.task.testutil.TypicalTestTasks;
 public class EditCommandTest extends TaskManagerGuiTest {
     @Test
     public void edit() {
-        
+        //@@author A0147335E
         TestTask[] currentList = td.getTypicalTasks();
         
         commandBox.runCommand("edit 1 name, Accompany dad to the doctor");
