@@ -47,12 +47,12 @@ Format: `help`
 * This command supports 3 types of tasks: floating tasks, event tasks and deadline tasks. 
 * Persons can have any number of tags (including 0)
 <br>
-**Examples:**
+Examples:
 * Floating task: `add Visit Dentist`
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
-<br><br>
-**Field Type Constraints**
+<br>
+Field Type Constraints
 <br>
 **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
 * Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
