@@ -1,7 +1,6 @@
 package seedu.taskitty.model;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 
