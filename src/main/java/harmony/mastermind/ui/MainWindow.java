@@ -47,7 +47,6 @@ import javafx.stage.Stage;
  * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
-
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
 
@@ -175,11 +174,25 @@ public class MainWindow extends UiPart {
         tabLst = tabPane.getTabs();
         updateTabTitle();
 
+        configureComponents(logic);
+
+        registerAsAnEventHandler(this);
+    }
+
+    //@@author A0138862W
+    /**
+     * Configure Tables and Tabs
+     * @param logic Logic Manager instance
+     */
+    private void configureComponents(Logic logic) {
+        
+        // Configure sorting algorithm for tables
         SortedList<ReadOnlyTask> sortedTasks = logic.getFilteredTaskList().sorted();
         Comparator<ReadOnlyTask> comparator = new TaskListComparator();
         sortedTasks.setComparator(comparator);
         sortedTasks.comparatorProperty().bind(homeTableView.getTableView().comparatorProperty());
 
+        // define placeholder label for empty table
         Label placeholder = new Label("What's on your mind?\nTry adding a new task by executing \"add\" command!");
         placeholder.setAlignment(Pos.CENTER);
         placeholder.setTextAlignment(TextAlignment.CENTER);
@@ -202,8 +215,6 @@ public class MainWindow extends UiPart {
         tabPane.getSelectionModel().selectedItemProperty().addListener((tabList, fromTab, toTab)->{
             this.raise(new TabChangedEvent(fromTab.getId(), toTab.getId()));
         });
-
-        registerAsAnEventHandler(this);
     }
 
     public void hide() {
@@ -319,12 +330,14 @@ public class MainWindow extends UiPart {
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event){
         // updates the tab when a list command is called
         this.updateTab(event.message);
+        logger.info("Update tab.");
     }
     
     // @@author A0124797R
     @Subscribe
     private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
         updateTabTitle();
+        logger.info("Update tab title.");
     }
    
 }
