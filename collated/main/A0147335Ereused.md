@@ -116,14 +116,10 @@ public abstract class Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
-```
-###### \java\seedu\task\logic\commands\DeleteCommand.java
-``` java
+   
 	private ArrayList<RollBackCommand> getUndoList() {
 		return history.getUndoList();
 	}
-
-}
 ```
 ###### \java\seedu\task\logic\LogicManager.java
 ``` java
@@ -234,6 +230,10 @@ public abstract class Command {
 
     private boolean isDeadlineExist(Task task) {
         return task.getDeadline().toString().isEmpty();
+    }
+    
+    public String getCurrentSortPreference() {
+        return currentSortPreference;
     }
 ```
 ###### \java\seedu\task\model\task\UniqueTaskList.java
