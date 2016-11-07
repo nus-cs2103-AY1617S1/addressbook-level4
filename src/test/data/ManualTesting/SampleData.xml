@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<todolist>
+    <tasks>
+        <name>Submit CS2103 Assignment</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-26 20:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Write essay for IS1103</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-07 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 group meeting</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-04 12:00:00</startDateTime>
+        <endDateTime>2016-11-04 14:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 group meeting</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:31:26</lastUpdatedTime>
+        <startDateTime>2016-11-11 12:00:00</startDateTime>
+        <endDateTime>2016-11-11 14:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Clear wardrobe clutter</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-12-31 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy soap and shampoo</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-30 12:49:30</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Deposit $50 into bank</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-29 14:53:10</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy new headphones</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-29 14:52:52</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Proofread CS2103 reflection</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-10-29 20:00:00</startDateTime>
+        <endDateTime>2016-10-29 22:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Clean dust inside PC</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy new i7-6700k CPU</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-29 14:52:08</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Search for Shaun Mendez songs</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Write reflection for CS2103</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:28:17</lastUpdatedTime>
+        <endDateTime>2016-10-26 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Read up on Extremism</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-29 14:55:22</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Read 'The Mythical Man-Month'</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-10-29 14:58:08</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Decorate house</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:29:43</lastUpdatedTime>
+        <endDateTime>2016-12-25 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy present for Jim</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-04 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2101 Oral Presentation 1</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-09-06 12:00:00</startDateTime>
+        <endDateTime>2016-09-06 13:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 Post-Lecture Quiz</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-05 12:50:11</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Complete peer review on TEAMMATES</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-10 12:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Go to NTUC</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-03 17:14:50</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Attend CS2103 lecture</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-04 14:00:00</startDateTime>
+        <endDateTime>2016-11-04 16:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Visit relatives</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2000-02-01 17:16:02</startDateTime>
+        <endDateTime>2000-02-05 17:16:02</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Revise for exams</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-14 00:00:00</startDateTime>
+        <endDateTime>2016-11-19 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Download Pokemon GO</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-03 17:16:29</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Sister's wedding</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-12-20 00:00:00</startDateTime>
+        <endDateTime>2016-12-21 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Visit grandma</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-12-10 12:00:00</startDateTime>
+        <endDateTime>2016-12-10 17:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.1</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-05 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.2</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-12 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.3</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-19 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.4</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-10-26 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.5rc</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-02 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 V0.5</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-07 17:22:54</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Army training</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-12-12 00:00:00</startDateTime>
+        <endDateTime>2016-12-16 00:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Go to CS2103 lecture</name>
+        <isCompleted>true</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-10-28 14:00:00</startDateTime>
+        <endDateTime>2016-10-28 16:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>CS2103 Final Exam</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-26 13:00:00</startDateTime>
+        <endDateTime>2016-11-26 15:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy groceries for next week</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <endDateTime>2016-11-06 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Transfer money back to Jim</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 09:58:57</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy Nvidia GTX 1090 Ti</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:00:22</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Data Privacy Asia 2016</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-09 00:00:00</startDateTime>
+        <endDateTime>2016-11-09 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Cybersecurity Nexus Conference</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-15 08:00:00</startDateTime>
+        <endDateTime>2016-11-15 12:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Buy tickets to singapore international film festival</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:07:42</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Social Media Marketing Course</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:27:30</lastUpdatedTime>
+        <startDateTime>2016-11-28 09:00:00</startDateTime>
+        <endDateTime>2016-11-28 18:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Binge watch Game of Thrones</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:29:13</lastUpdatedTime>
+        <startDateTime>2016-11-08 00:00:00</startDateTime>
+        <endDateTime>2016-11-08 10:00:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Sharpen pencils for exams</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:30:51</lastUpdatedTime>
+        <endDateTime>2016-11-13 23:59:00</endDateTime>
+    </tasks>
+    <tasks>
+        <name>Try new ramen at Menya Musashi</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:31:57</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Watch Dr. Strange</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:32:17</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy holy oil from kong hee</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:32:48</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Look for salad dressing in NTUC</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:34:38</lastUpdatedTime>
+    </tasks>
+    <tasks>
+        <name>Buy pimple cream</name>
+        <isCompleted>false</isCompleted>
+        <lastUpdatedTime>2016-11-06 10:35:09</lastUpdatedTime>
+    </tasks>
+</todolist>
