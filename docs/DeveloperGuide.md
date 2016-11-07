@@ -314,7 +314,6 @@ Priority | As a ... | I want to ... | So that I can...
 <!--@@author A0139708W -->
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Adding a task
 
@@ -330,11 +329,6 @@ Use case ends.
 
 > 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
-
-1b. The task limit has been reached
-
-> 1b1. <i>Tusk</i> displays an error and prompts the user to delete a task <br>
-> Use Case ends.
 
 <br>
 #### Use case: Deleting a task
@@ -531,7 +525,7 @@ Use case ends.
 **MSS**
 
 1. User requests to change storage location
-2. <i>Tusk</i> changes storage location
+2. <i>Tusk</i> changes storage location <br>
 Use case ends.
 
 **Extensions**
