@@ -74,7 +74,7 @@ public class DateTimeUtilTest {
         LocalDateTime ldt = LocalDateTime.of(1996, 1, 1, 20, 34);
         LocalDateTime ldtNoTime = LocalDateTime.of(1996, 1, 1, 0, 0);
         LocalDateTime ldtNoDate = LocalDateTime.now();
-
+        ldtNoDate = ldtNoDate.of(ldtNoDate.getYear(), ldtNoDate.getMonth(), ldtNoDate.getDayOfMonth(), 20, 34);
         assertEquals(ldt, DateTimeUtil.parseDateTimeString("1/1/1996 20:34", TaskDate.TASK_DATE_ON));
         assertEquals(ldtNoTime, DateTimeUtil.parseDateTimeString("1/1/1996", TaskDate.TASK_DATE_ON));
         assertEquals(ldtNoDate, DateTimeUtil.parseDateTimeString("20:34", TaskDate.TASK_DATE_ON));
