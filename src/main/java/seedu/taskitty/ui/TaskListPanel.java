@@ -11,20 +11,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.taskitty.commons.core.LogsCenter;
-import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 
-import java.util.logging.Logger;
 
 //@@author A0130853L-reused
 /**
  * Base class for the 3 panels containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     
     //@@author A0139930B
     private static final String ID_TODO = "todoListView";
@@ -117,30 +113,20 @@ public class TaskListPanel extends UiPart {
         return taskListPanel;
     }    
     
-    protected void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent(taskListView);
     }
 
-    protected void addToPlaceholder() {
+    private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent(ListView<ReadOnlyTask> taskListView) {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
         @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
+        public void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);
 
             if (empty || task == null) {
