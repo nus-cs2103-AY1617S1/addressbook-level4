@@ -14,13 +14,15 @@ public abstract class Command {
     protected Storage storage;
 
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
+     * Constructs a feedback message to summarize an operation that displayed a listing of tasks.
      *
-     * @param displaySize used to generate summary
-     * @return summary message for tasks displayed
+     * @param incompleteTaskSize, completedTaskSize and overdueTaskSize used to generate summary
+     * @return summary message for incomplete, completed and overdue tasks displayed
      */
-    public static String getMessageForTaskListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
+    public static String getMessageForTaskListShownSummary(int incompleteTaskSize, int completedTaskSize, int overdueTaskSize) {
+        return String.format(Messages.MESSAGE_INCOMPLETE_TASKS_LISTED_OVERVIEW, incompleteTaskSize)
+        		+ String.format(Messages.MESSAGE_COMPLETED_TASKS_LISTED_OVERVIEW, completedTaskSize)
+        		+ String.format(Messages.MESSAGE_OVERDUE_TASKS_LISTED_OVERVIEW, overdueTaskSize);
     }
 
     /**
