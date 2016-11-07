@@ -21,6 +21,7 @@ public class CommandKeys {
         DELETE("delete"),
         EXIT("exit"),
         FIND("find"),
+        FIND_TAG("find-tag"),
         HELP("help"),
         LIST("list"),
         PIN("pin"),
