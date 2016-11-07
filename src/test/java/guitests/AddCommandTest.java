@@ -56,7 +56,13 @@ public class AddCommandTest extends ToDoListGuiTest {
      */
     private void assertAddSuccess(TestTask taskToAdd, TestTaskList currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
-
+        confirmResult(taskToAdd, currentList);
+    }
+    
+    /**
+     * Check that the result after add command is as expected
+     */
+    private void confirmResult(TestTask taskToAdd, TestTaskList currentList) {
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
         assertMatching(taskToAdd, addedCard);

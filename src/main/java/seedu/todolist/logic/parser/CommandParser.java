@@ -238,10 +238,8 @@ public class CommandParser {
      */
     private String[] parseDatetime(String datetime) {
     	String editedDatetime = datetime;
-        System.out.println("FIRST: " + datetime);
         if (isSlashFormat(datetime)) {
         	editedDatetime = reverseDayAndMonth(datetime);
-            System.out.println(editedDatetime);
         }
         
         ArrayList<String> intervalComponents = new ArrayList<String>();

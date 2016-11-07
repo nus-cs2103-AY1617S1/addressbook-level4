@@ -12,10 +12,9 @@ import seedu.todolist.model.task.*;
 public class TypicalTestTasks {
 
     public static TestTask  eventWithoutParameter, eventWithLocation, eventWithParameters,
-                            deadlineWithLocation, deadlineWithoutTime,
-                            floatWithoutParameter, floatWithParameters, 
-                            upcomingEvent, overdueDeadline, invalidLocation, duplicateNameFloat,
-                            taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
+                            deadlineWithLocation, deadlineWithoutTime, floatWithoutParameter, 
+                            floatWithParameters, upcomingEvent, overdueDeadline, invalidLocation, 
+                            duplicateNameFloat, taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
 
     //@@author A0138601M
     public TypicalTestTasks() {
