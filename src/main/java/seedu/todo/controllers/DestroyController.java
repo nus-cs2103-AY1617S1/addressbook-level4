@@ -37,7 +37,7 @@ public class DestroyController extends Controller {
         // TODO: Example of last minute work
         
         // Extract param
-        String param = args.replaceFirst("(delete|destroy|remove)", "").trim();
+        String param = args.replaceFirst("destroy", "").trim();
         
         if (param.length() <= 0) {
             Renderer.renderDisambiguation(COMMAND_SYNTAX, MESSAGE_MISSING_INDEX);
