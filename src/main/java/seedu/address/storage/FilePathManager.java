@@ -19,6 +19,8 @@ public class FilePathManager {
      * not be null.
      */
     public FilePathManager(FilePath initialFilePath) {
+        assert initialFilePath != null;
+        
         currentFilePath = initialFilePath;
         undoFilePath = new Stack<FilePath>();
         redoFilePath = new Stack<FilePath>();
@@ -26,6 +28,8 @@ public class FilePathManager {
 
     /** Saves the current file path of the task manager. */
     public void saveFilePath(FilePath filePath) {
+        assert filePath != null;
+        
         undoFilePath.push(currentFilePath);
         currentFilePath = filePath;
         redoFilePath.clear();

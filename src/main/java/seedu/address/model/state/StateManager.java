@@ -38,6 +38,7 @@ public class StateManager extends ComponentManager implements State {
         redoFilePathAvailable = 0;
     }
 
+    @Override
     public void saveState(TaskManagerState state) {
         assert state != null;
 

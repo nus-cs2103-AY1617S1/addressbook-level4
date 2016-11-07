@@ -31,7 +31,7 @@ import seedu.address.model.task.Recurring;
 
 //@@author A0146123R
 /**
- * A ui for the filter panel that is displayed at the left of the application.
+ * Controller for the filter panel that is displayed at the left of the application.
  */
 public class FilterPanel extends UiPart {
 
@@ -173,19 +173,6 @@ public class FilterPanel extends UiPart {
     }
 
     /**
-     * Updates filter panel so it will correspond to changes in the filtered
-     * task list.
-     */
-    @Subscribe
-    private void handleUpdateFilterPanelEvent(UpdateFilterPanelEvent event) {
-        reset();
-        
-        event.getTypes().forEach(type -> updateType(type));
-        event.getQualifications().forEach((attribute, keyword) -> updateQualification(attribute, keyword));
-        updateTags(event.getTags());
-    }
-
-    /**
      * Indicates an invalid filter command caused by a parameter with illegal
      * value.
      * 
@@ -259,7 +246,7 @@ public class FilterPanel extends UiPart {
      */
     private void handleDeadlineChanged(Map<Types, String> qualifications) throws IllegalValueException {
         String deadline = parseTextFieldInput(deadlineTextField);
-        if (deadline.equals(EMPTY)) {
+        if (deadline.isEmpty()) {
             return;
         }
         if (deadline.equals(NIL)) {
@@ -283,7 +270,7 @@ public class FilterPanel extends UiPart {
      */
     private void handleStartDateChanged(Map<Types, String> qualifications) throws IllegalValueException {
         String startDate = parseTextFieldInput(startDateTextField);
-        if (startDate.equals(EMPTY)) {
+        if (startDate.isEmpty()) {
             return;
         }
         try {
@@ -303,7 +290,7 @@ public class FilterPanel extends UiPart {
      */
     private void handleEndDateChanged(Map<Types, String> qualifications) throws IllegalValueException {
         String endDate = parseTextFieldInput(endDateTextField);
-        if (endDate.equals(EMPTY)) {
+        if (endDate.isEmpty()) {
             return;
         }
         try {
@@ -323,7 +310,7 @@ public class FilterPanel extends UiPart {
      */
     private void handleRecurringChanged(Map<Types, String> qualifications) throws IllegalValueException {
         String recurring = parseTextFieldInput(recurringTextField);
-        if (recurring.equals(EMPTY)) {
+        if (recurring.isEmpty()) {
             return;
         }
         if (Recurring.isValidFrequency(recurring)) {
@@ -356,7 +343,7 @@ public class FilterPanel extends UiPart {
      */
     private void handlePriorityChanged(Map<Types, String> qualifications) {
         String priority = priorityChoiceBox.getSelectionModel().getSelectedItem().toString();
-        if (!priority.equals(EMPTY)) {
+        if (!priority.isEmpty()) {
             qualifications.put(Types.PRIORITY_LEVEL, priority);
         }
     }
@@ -369,12 +356,25 @@ public class FilterPanel extends UiPart {
     private Set<String> handleTagsChanged() {
         String tags = tagsTextField.getText().trim();
         Set<String> tagSet;
-        if (tags.equals(EMPTY)) {
+        if (tags.isEmpty()) {
             tagSet = new HashSet<>();
         } else {
             tagSet = new HashSet<>(Arrays.asList(tags.split(SPACE)));
         }
         return tagSet;
+    }
+    
+    /**
+     * Updates filter panel so it will correspond to changes in the filtered
+     * task list.
+     */
+    @Subscribe
+    private void handleUpdateFilterPanelEvent(UpdateFilterPanelEvent event) {
+        reset();
+        
+        event.getTypes().forEach(type -> updateType(type));
+        event.getQualifications().forEach((attribute, keyword) -> updateQualification(attribute, keyword));
+        updateTags(event.getTags());
     }
 
     /**
@@ -470,7 +470,7 @@ public class FilterPanel extends UiPart {
      * Updates tags inputs in the filter panel.
      */
     private void updateTags(Set<String> tags) {
-        String tagString = EMPTY;
+        String tagString = "";
         for (String tag : tags) {
             tagString += tag + " ";
         }

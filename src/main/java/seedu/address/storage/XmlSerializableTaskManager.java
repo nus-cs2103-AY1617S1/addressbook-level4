@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskManager that is serializable to XML format
  */
-@XmlRootElement(name = "taskmanager")
+@XmlRootElement(name = "toDoList")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
@@ -48,8 +48,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
+            assert false;
             return null;
         }
     }
@@ -61,7 +60,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                assert false;
             }
         }
         return lists;
@@ -73,8 +72,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
+                assert false;
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

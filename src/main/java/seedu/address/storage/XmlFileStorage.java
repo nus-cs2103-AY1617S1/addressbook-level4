@@ -28,7 +28,7 @@ public class XmlFileStorage {
     
     //@@author A0146123R
     /**
-     * Delete the XML storage file with the specified path.
+     * Deletes the XML storage file with the specified path.
      */
     public static void deleteFile(Path filePath) throws IOException{
         Files.deleteIfExists(filePath);
