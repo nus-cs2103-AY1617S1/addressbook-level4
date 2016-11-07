@@ -1,22 +1,21 @@
 package seedu.gtd.model;
 
+import java.io.IOException;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.gtd.commons.core.ComponentManager;
 import seedu.gtd.commons.core.LogsCenter;
 import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.commons.events.model.AddressBookChangedEvent;
 import seedu.gtd.commons.util.StringUtil;
-import seedu.gtd.model.task.Task;
-import seedu.gtd.model.tag.Tag;
 import seedu.gtd.model.tag.UniqueTagList;
 import seedu.gtd.model.task.ReadOnlyTask;
+import seedu.gtd.model.task.Task;
 import seedu.gtd.model.task.UniqueTaskList;
 import seedu.gtd.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Arrays;
-import java.util.Set;
-import java.util.Stack;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -144,6 +143,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    	updateFilteredListToShowAll(new PredicateExpression(new AllQualifiers()));
+    	//updateFilteredListToShowAll(null);
+    	System.out.println("show all");
+    }
+    
+    private void updateFilteredListToShowAll(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
@@ -254,7 +260,7 @@ public class ModelManager extends ComponentManager implements Model {
         		String address = task.getAddress().toString().toLowerCase();
         		boolean addressMatch = address.contains(nameKeyWords.toLowerCase());
         		return addressMatch;
-        	} else if (cmd == "priority") {
+        	}  else if (cmd == "priority") {
         		System.out.println("finding priority..");
         		String priority = task.getPriority().toString();
         		boolean priorityMatch = priority.contains(nameKeyWords);
@@ -316,6 +322,15 @@ public class ModelManager extends ComponentManager implements Model {
         	return eachWordMatch && nameMatch;
         }
     }
+    private class AllQualifiers implements Qualifier {
+
+        AllQualifiers() {}
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return true; 	
+        }
+    }
     
     // to check and return a list of tasks that are already done
     private class DoneQualifier implements Qualifier {
@@ -337,6 +352,16 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
         	System.out.println(task.getName());
         	return !task.getisDone(); 	
+        	//return task.getisDone(); 	
+
         }
     }
+		@Override
+		//@@author A0139072H    
+		//application-wide operations
+	   public void setFilePathTask(String newFilePath) throws IOException{
+	        addressBook.setFilePathTask(newFilePath);
+	        indicateAddressBookChanged();
+	        //NEEDS TO SAVE TO NEW FILEPATH
+	   };
 }

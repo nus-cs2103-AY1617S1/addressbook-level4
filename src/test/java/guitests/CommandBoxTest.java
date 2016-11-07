@@ -9,6 +9,8 @@ public class CommandBoxTest extends AddressBookGuiTest {
     @Test
     public void commandBox_commandSucceeds_textCleared() {
         commandBox.runCommand(td.benson.getAddCommand());
+        System.out.println("Entered " + td.benson.getAddCommand().toString());
+        System.out.println("Expected blank got " +commandBox.getCommandInput());
         assertEquals(commandBox.getCommandInput(), "");
     }
 
