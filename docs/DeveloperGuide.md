@@ -364,7 +364,8 @@ Use case ends.
 **MSS**
 
 1. User requests to list all uncompleted items.
-2. TaskManager shows a list of uncompleted item.
+2. TaskManager shows a list of uncompleted items. <br>
+Use case ends.
 
 #### Use case: View details of a task/deadline/event
 **MSS**
@@ -443,7 +444,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 10000 TDE.
+2. Should be able to hold up to 10000 items.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should load the command result within 1 second of entering.
@@ -516,9 +517,10 @@ Sunrise  		| Works across platforms and devices     | Requires internet access t
 
 [comment]: # (@@author A0140060A)
 ### Acknowledgements & Dependencies
-This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4)
+This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4) provided by the NUS SoC CS2103 Teaching Team.
 
 ##### Libraries used:
+* [Apache Commons](https://commons.apache.org/)
 * [ControlsFX](https://bitbucket.org/controlsfx/controlsfx/)
 * [Google Guava](https://github.com/google/guava)
 * [Jackson library](https://github.com/FasterXML/jackson)
