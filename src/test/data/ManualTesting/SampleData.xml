@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <items>
-        <name>Buy Coffee</name>
-        <itemType>task</itemType>
-        <startDate></startDate>
-        <startTime></startTime>
-        <endDate></endDate>
-        <endTime></endTime>
-        <done>true</done>
-    </items>
-    <items>
         <name>Do Homework</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
         <endDate></endDate>
         <endTime></endTime>
-        <done>false</done>
+        <done>true</done>
     </items>
     <items>
         <name>Do Nothing</name>
@@ -55,7 +46,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>CS Homework</name>
+        <name>CS2103</name>
         <itemType>deadline</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -112,8 +103,8 @@
     <items>
         <name>Birthday Joseph</name>
         <itemType>event</itemType>
-        <startDate>2016-10-12</startDate>
-        <startTime>23:58</startTime>
+        <startDate>2016-11-06</startDate>
+        <startTime>15:12</startTime>
         <endDate>2016-11-09</endDate>
         <endTime>23:58</endTime>
         <done>false</done>
@@ -521,6 +512,33 @@
         <startTime></startTime>
         <endDate></endDate>
         <endTime></endTime>
+        <done>false</done>
+    </items>
+    <items>
+        <name>tutorialx</name>
+        <itemType>task</itemType>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <done>false</done>
+    </items>
+    <items>
+        <name>reach v0.4</name>
+        <itemType>deadline</itemType>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>2016-11-10</endDate>
+        <endTime>14:00</endTime>
+        <done>false</done>
+    </items>
+    <items>
+        <name>2103 lecture</name>
+        <itemType>event</itemType>
+        <startDate>2016-11-11</startDate>
+        <startTime>14:00</startTime>
+        <endDate>2016-11-11</endDate>
+        <endTime>16:00</endTime>
         <done>false</done>
     </items>
     <tags>
