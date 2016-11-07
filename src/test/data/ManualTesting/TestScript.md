@@ -64,7 +64,7 @@ Expected Output: `57 task(s) listed!`
 
 #### Show overdue
 Command: `show overdue` or `overdue` <br>
-Expected Output: `x task(s) listed!`
+Expected Output: `x task(s) listed!` <br>
 [`x` is the number of overdue tasks. This number is not fixed as it can change with time.]
 
 #### Show done/complete
@@ -73,13 +73,13 @@ Expected Output: `0 task(s) listed!`
 
 #### Show today
 Command: `show today` or `today` <br>
-Expected Output: `x task(s) listed!`
-[`x` is the number of overdue tasks. This number is not fixed as it can change with time.]
+Expected Output: `x task(s) listed!` <br>
+[`x` is the number of tasks for today. This number is not fixed as it can change with time.]
 
 #### Show tomorrow
 Command: `show tomorrow` or `tomorrow` <br>
 Expected Output: `x task(s) listed!`
-[`x` is the number of overdue tasks. This number is not fixed as it can change with time.]
+[`x` is the number of tasks for tomorrow. This number is not fixed as it can change with time.]
 
 #### Show floating
 Command: `show floating` or `floating` <br>
@@ -103,8 +103,8 @@ Expected Output: `50 task(s) listed!`
 
 #### Show upcoming/incomplete tasks
 Command: `show upcoming` or `show incomplete` or `show` <br>
-Expected Output: `x task(s) listed!`
-[`x` is the number of overdue tasks. This number is not fixed as it can change with time.]
+Expected Output: `x task(s) listed!` <br>
+[`x` is the number of upcoming/incomplete tasks. This number is not fixed as it can change with time.]
 
 ## Tests for Find command
 
