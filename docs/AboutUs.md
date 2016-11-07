@@ -8,9 +8,9 @@ We are a team of 3 Year 2 NUS students from SoC.
 #### [Praveer Tewari] (http://github.com/praveer922) <br>
 <img src="images/PraveerTewari.jpg" width="150"><br>
 **Role**:  Team lead, in charge of Model component, UI component
-## Components in charge of :  `Parser`, `Model`, `UI`
-## Aspects/tools in charge of: Git, UI component
-## Features implemented:<br>
+##### Components in charge of :  `Parser`, `Model`, `UI`
+##### Aspects/tools in charge of: Git, UI component
+##### Features implemented:<br>
 >Add tasks
 >Edit tasks
 >Clear tasks
@@ -18,7 +18,7 @@ We are a team of 3 Year 2 NUS students from SoC.
 >Delete tasks
 >Delete completed tasks
 >Undo Tasks<br>
-##Other major contributions:
+#####Other major contributions:
 >Learning and teaching Javafx to design GUI
 >Source out and introduced external libraries e.g. natty
 >Fix bugs
@@ -27,9 +27,9 @@ We are a team of 3 Year 2 NUS students from SoC.
 #### [Teo Ming Yi](http://github.com/myteo)
 <img src="images/MingYi.jpg" width="150"><br>
 Role: Testing, Integration, in charge of Logic component
-## Components in charge of : `test` , `Command`, `Logic`
-## Aspects/tools in charge of: Testing, Code quality
-## Features implemented: <br>
+##### Components in charge of : `test` , `Command`, `Logic`
+##### Aspects/tools in charge of: Testing, Code quality
+##### Features implemented: <br>
 >Show Tasks
 >Find Task
 >Pin Tasks
@@ -37,7 +37,7 @@ Role: Testing, Integration, in charge of Logic component
 >Complete Tasks
 >Uncomplete Tasks
 >Sort Tasks <br>
-## Other major contributions:<br>
+##### Other major contributions:<br>
 >Refactoring and refinement of code 
 >Set up Travis and Coveralls
 -----
@@ -45,14 +45,14 @@ Role: Testing, Integration, in charge of Logic component
 #### [Zhuang Yufeng](http://github.com/rainwindy) 
 <img src="images/Yufeng.jpg" width="150"><br>
 Role: ode quality, Scheduling and Tracking
-## Components in charge of : `Util` , `collated` , `docs` , `History`
-## Aspects/tools in charge of: Documentation, Code quality, Scheduling and Tracking  
-## Features implemented:
+##### Components in charge of : `Util` , `collated` , `docs` , `History`
+##### Aspects/tools in charge of: Documentation, Code quality, Scheduling and Tracking  
+##### Features implemented:
 > Undo
 > Edit Tasks
 > Help Window 
 > Check for clashing time slot<br>
-##Other major contributions:
+#####Other major contributions:
 > Diagrams
 > Collate
 -----
