@@ -88,7 +88,7 @@
 
 
  
- ## 2 Delete Command <br>
+## 1 Delete Command <br>
  
     1.1.1   Type in the Command Box : delete 1
     1.1.2    Task should be deleted from the task list panel in the main window and the list would be updated.
