@@ -55,6 +55,7 @@ public class EmptyListView extends UiPart {
 
     /*Layouts*/
     private VBox emptyListView;
+    private AnchorPane emptyListPlaceholder;
     @FXML private ImageView emptyListImage;
     @FXML private Label emptyListLabel;
 
@@ -107,7 +108,7 @@ public class EmptyListView extends UiPart {
      * Displays the {@link #emptyListView} if {@code isVisible} is true, hides otherwise.
      */
     private void setEmptyListViewVisibility(boolean isVisible) {
-        FxViewUtil.setCollapsed(emptyListView, !isVisible);
+        FxViewUtil.setCollapsed(emptyListPlaceholder, !isVisible);
     }
 
     /**
@@ -151,5 +152,10 @@ public class EmptyListView extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+
+    @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.emptyListPlaceholder = placeholder;
     }
 }
