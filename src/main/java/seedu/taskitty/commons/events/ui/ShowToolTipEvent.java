@@ -3,6 +3,7 @@ package seedu.taskitty.commons.events.ui;
 import seedu.taskitty.commons.events.BaseEvent;
 import seedu.taskitty.logic.ToolTip;
 
+//@@author A0139930B
 /**
  * An event requesting to view the help page.
  */
