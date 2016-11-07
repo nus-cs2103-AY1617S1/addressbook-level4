@@ -20,7 +20,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private static final Logger logger = LogsCenter.getLogger(UserPrefs.class);
-    private FixedStorage<UserPrefs> storage;
+    private UserPrefsStorage storage;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -46,9 +46,6 @@ public class UserPrefs {
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
-            this.setDefaultGuiSettings();
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Default settings will be used.");
             this.setDefaultGuiSettings();
         }
 
