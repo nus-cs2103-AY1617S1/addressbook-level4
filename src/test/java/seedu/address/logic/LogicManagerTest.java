@@ -60,13 +60,12 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskOccurrence;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
-
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
      */
@@ -283,7 +282,7 @@ public class LogicManagerTest {
     // @@author
     // @@author A0135782Y
     @Test
-    public void execute_add_successful_non_floating_from_date_to_date() throws Exception {
+    public void execute_addNonfloating_fromDateToDate() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingFromDateToDate();
@@ -299,7 +298,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_successful_non_floating_by_date() throws Exception {
+    public void execute_addNonFloating_byDate() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.nonFloatingByDate();
@@ -1036,7 +1035,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_recurringTaskByDateDaily_caseInsensitive() throws Exception {
+    public void execute_addRecurringTaskByDateDaily_caseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
@@ -1074,7 +1073,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_recurringTaskDailyFromDateToDate_caseInsensitive() throws Exception {
+    public void execute_addRecurringTaskDailyFromDateToDate_caseInsensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
