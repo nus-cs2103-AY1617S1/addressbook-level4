@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -10,21 +9,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Adds a task to the task manager.
+ * Adds a task to the toDoList.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     // @@author A0146123R
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Add an event with a starting and ending date or a task (with or without deadline) to the task manager.\n"
-            + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [p/PRIORITY_LEVEL] [t/TAG]... or n/TASK_NAME [d/DEADLINE] [p/PRIORITY_LEVEL] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " n/Lecture s/7.10.2016-14 e/7.10.2016-16 p/1 t/CS2103, add n/Project Deadline d/14.10.2016 p/3 t/CS2103";
+            + ": Add an event with a starting and ending date or a task (with or without deadline) to the toDoList.\n"
+            + "Parameters: n/EVENT_NAME s/START_DATE e/END_DATE [r/RECURRING_FREQUENCY] [p/PRIORITY_LEVEL] [t/TAG]...\n"
+            + "or n/TASK_NAME [d/DEADLINE] [r/RECURRING_FREQUENCY] [p/PRIORITY_LEVEL] [t/TAG]...\n" + "Example: "
+            + COMMAND_WORD
+            + " n/Lecture s/7.10.2016-14 e/7.10.2016-16 r/weekly p/1 t/CS2103, add n/Project Deadline d/14.10.2016 p/3 t/CS2103";
 
     public static final String MESSAGE_EVENT_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "It's already exists in the task manager";
 
     private final Task toAdd;
 
@@ -64,19 +63,18 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name, String startDate, String endDate, Set<String> tags, String freq, int priorityLevel)
             throws Exception {
-        assert startDate != "" && endDate != "";
+        assert !startDate.isEmpty() && !endDate.isEmpty();
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        if ( ! freq.equals("")) {
-            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
-                    new Recurring(freq), new Priority(priorityLevel));
-        } else {
+        if (freq.isEmpty()) {
             this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
                     new Priority(priorityLevel));
+        } else {
+            this.toAdd = new Task(new Name(name), new EventDate(startDate, endDate), new UniqueTagList(tagSet),
+                    new Recurring(freq), new Priority(priorityLevel));
         }
-       
     }
 
     public static String getSuccessMessage(Task toAdd) {
@@ -107,7 +105,7 @@ public class AddCommand extends Command {
      * @return
      */
     private boolean isNonRecurringDeadlineTask(String deadline, String freq) {
-        return deadline != "" && freq == "";
+        return !deadline.isEmpty() && freq.isEmpty();
     }
 
     /**
@@ -118,7 +116,7 @@ public class AddCommand extends Command {
      * @return
      */
     private boolean isFloatingTask(String deadline, String freq) {
-        return deadline == "" && freq == "";
+        return deadline.isEmpty() && freq.isEmpty();
     }
 
     /**
@@ -129,7 +127,7 @@ public class AddCommand extends Command {
      * @return
      */
     private boolean isRecurringDeadlineTask(String deadline, String freq) {
-        return deadline != "" && freq != "";
+        return !deadline.isEmpty() && !freq.isEmpty();
     }
 
 }

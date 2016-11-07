@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.StateLimitException;
 
 //@@author A0146123R
 /**
- * Redoes change the storage location of the task manager.
+ * Redoes change the storage location of the toDoList.
  */
 public class RedoChangeCommand extends Command {
 

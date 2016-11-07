@@ -2,6 +2,6 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "taskManagerFilePath" : "taskmanager.xml",
-  "taskManagerName" : "TypicalTaskManagerName"
+  "toDoListFilePath" : "toDoList.xml",
+  "toDoListName" : "TypicalToDoListName"
 }

@@ -18,10 +18,10 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mark the specified task or event as done \n "
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " horror night";
     public static final String MARK_DONE_SUCCESS = "Marked as done: %1$s";
-    public static final String MULTIPLE_TASK_SATISFY_KEYWORD = "Please select the Task identified "
+    public static final String MULTIPLE_TASK_SATISFY_KEYWORD = "Please select the item identified "
             + "by the index number.\n" + "Parameters: INDEX(must be a positive integer)\n" + "Example: " + COMMAND_WORD
             + " 1";
-    public static final String TASK_NOT_FOUND = "Task not found: %1$s";
+    public static final String TASK_NOT_FOUND = "Item not found: %1$s";
 
     private final Set<String> keywords;
     public final int targetIndex;

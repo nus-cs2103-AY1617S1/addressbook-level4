@@ -47,7 +47,7 @@
 
          </items>
       </SplitPane>
-      <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+      <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="130" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="ALWAYS">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>

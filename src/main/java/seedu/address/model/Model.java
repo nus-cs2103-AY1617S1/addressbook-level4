@@ -25,9 +25,11 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Edit the given task
+    //@@author A0138717X
+    /** Edits the given task
      * @throws IllegalValueException */
 	void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException;
+	//@@author
 
     /** Adds the given task */
     void addTask(Task task);
@@ -45,39 +47,28 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     // @@author A0146123R
-    /**
-     * Updates the filter of the filtered task list to filter by the given type
-     */
+    /** Updates the filter of the filtered task list to filter by the given type. */
     void updateFilteredTaskList(Types type);
 
-    /**
-     * Updates the filter of the filtered task list to filter by multiple
-     * qualifications
-     */
+    /** Updates the filter of the filtered task list to filter by multiple qualifications. */
     void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags);
     
-    /**
-     * Updates the filter of the filtered task list to filter by multiple
-     * types and qualifications
-     */
+    /** Updates the filter of the filtered task list to filter by multiple types and qualifications. */
     void updateFilteredTaskList(Set<Types> types, Map<Types, String> qualifications, Set<String> tags);
 
-    /**
-     * Updates the filter of the filtered task list to filter by the the given
-     * keywords (for find command)
+    /** 
+     * Updates the filter of the filtered task list to filter by the the given 
+     * keywords (for find command).
      */
     void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups);
 
     /**
      * Updates the filter of the filtered task list to filter by the stemmed
-     * words of the given keywords (for find command)
+     * words of the given keywords (for find command).
      */
     void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups);
 
-    /** Updates the filter of the filtered task list to filter by the given tags */
-    void updateFilteredTaskListByTags(Set<String> keywords);
-
-    /** Update the task manager to the new file path */
+    /** Updates the task manager to the new file path. */
     void updateTaskManager(String filePath, boolean isToClearOld);
 
     /**

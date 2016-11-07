@@ -14,7 +14,7 @@ import seedu.address.model.task.Recurring;
 
 //@@author A0146123R
 /**
- * Filter the task list by the given attributes.
+ * Filter the list by given attributes.
  */
 public class FilterCommand extends Command {
 
@@ -63,7 +63,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Parse the given deadline qualification
+     * Parse the given deadline qualification.
      * 
      * @throws IllegalValueException
      *             if it is invalid
@@ -76,7 +76,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Parse the given start date qualification
+     * Parse the given start date qualification.
      * 
      * @throws IllegalValueException
      *             if it is invalid
@@ -89,7 +89,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Parse the given end date qualification
+     * Parse the given end date qualification.
      * 
      * @throws IllegalValueException
      *             if it is invalid
@@ -102,7 +102,7 @@ public class FilterCommand extends Command {
     }
 
     /**
-     * Parse the given priority qualification
+     * Parse the given priority qualification.
      * 
      * @throws IllegalValueException
      *             if it is invalid
@@ -119,7 +119,7 @@ public class FilterCommand extends Command {
 
     // @@author A0138717X
     /**
-     * Parse the given priority qualification
+     * Parse the given priority qualification.
      * 
      * @throws IllegalValueException
      *             if it is invalid

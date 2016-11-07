@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "To Do List!";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskManagerFilePath = "data/toDoList.xml";
-    private String taskManagerName = "My to-do list";
+    private String toDoListFilePath = "data/toDoList.xml";
+    private String toDoListName = "My to-do list";
 
 
     public Config() {
@@ -46,19 +46,19 @@ public class Config {
     }
 
     public String getTaskManagerFilePath() {
-        return taskManagerFilePath;
+        return toDoListFilePath;
     }
 
     public void setTaskManagerFilePath(String taskManagerFilePath) {
-        this.taskManagerFilePath = taskManagerFilePath;
+        this.toDoListFilePath = taskManagerFilePath;
     }
 
     public String getTaskManagerName() {
-        return taskManagerName;
+        return toDoListName;
     }
 
     public void setTaskManagerName(String taskManagerName) {
-        this.taskManagerName = taskManagerName;
+        this.toDoListName = taskManagerName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(taskManagerFilePath, o.taskManagerFilePath)
-                && Objects.equals(taskManagerName, o.taskManagerName);
+                && Objects.equals(toDoListFilePath, o.toDoListFilePath)
+                && Objects.equals(toDoListName, o.toDoListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskManagerFilePath, taskManagerName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, toDoListFilePath, toDoListName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskManagerFilePath);
-        sb.append("\nTo-do List name : " + taskManagerName);
+        sb.append("\nLocal data file location : " + toDoListFilePath);
+        sb.append("\nTo-do List name : " + toDoListName);
         return sb.toString();
     }
 

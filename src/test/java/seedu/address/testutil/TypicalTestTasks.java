@@ -29,12 +29,12 @@ public class TypicalTestTasks {
             book = new TaskBuilder().withName("Read book").withDeadline("").build();
             work = new TaskBuilder().withName("Work").withDeadline("11.10.2016").build();
             movie = new TaskBuilder().withName("Watch movie").withDeadline("11.10.2016-16").build();
-            meeting = new TaskBuilder().withName("Project meeting").withEventDate("11.10.2016-10", "11.10.2016-12").build();
+            meeting = new TaskBuilder().withName("Project meeting").withEventDate("11.10.2016-10", "11.10.2016-12").withTags("Project").build();
             travel = new TaskBuilder().withName("Travel").withEventDate("11.10.2016", "15.10.2016").build();
 
  
             //Manually added
-            project = new TaskBuilder().withName("Project due").withDeadline("11.10.2016").build();
+            project = new TaskBuilder().withName("Project due").withDeadline("11.10.2016").withTags("Project").build();
             workshop = new TaskBuilder().withName("Attend workshop").withEventDate("11.10.2016-10", "11.10.2016-16").build();
             lecture=new TaskBuilder().withName("CS2103 Lecture").withEventDate("14.10.2016-14", "14.10.2016-16").withRecurringFrequency("weekly").build();
             swimming=new TaskBuilder().withName("Swimming Course").withDeadline("01.01.2016").withRecurringFrequency("daily").build();

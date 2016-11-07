@@ -14,7 +14,7 @@ public class ChangeCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change the default storage location to the specified location (must end with the file type extension, .xml)"
             + " and clear data saved in the previous location if specified.\n" + "Parameters: FILE_PATH [clear]\n"
-            + "Example: " + COMMAND_WORD + " /Desktop/folder/taskManager.xml clear";
+            + "Example: " + COMMAND_WORD + " /Desktop/folder/toDoList.xml clear";
 
     public static final String MESSAGE_CHANGE_SUCCESS = "Storage location changed: %1$s";
     public static final String MESSAGE_INVALID_FILE_PATH = "The file path provided is invalid."
@@ -75,7 +75,7 @@ public class ChangeCommand extends Command {
     }
 
     /**
-     * Returns true if the given path end with the file type extension, .xml.
+     * Returns true if the given path ends with the file type extension, .xml.
      */
     private static boolean isXml(String path) {
         return path.endsWith(XML);
