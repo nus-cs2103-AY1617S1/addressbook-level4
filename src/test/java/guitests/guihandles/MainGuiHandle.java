@@ -29,4 +29,8 @@ public class MainGuiHandle extends GuiHandle {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
 
+	public PinnedTaskPanelHandle getPinnedListPanel() {
+		return new PinnedTaskPanelHandle(guiRobot, primaryStage);
+	}
+
 }

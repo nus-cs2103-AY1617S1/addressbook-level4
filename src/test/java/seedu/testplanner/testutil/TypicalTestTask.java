@@ -26,7 +26,7 @@ public class TypicalTestTask {
 					.withEndDateAndTime("today 12pm").withCompletion(false).withPin(false).withCategories("Sports")
 					.build();
 			BuyGroceries = new TaskBuilder().withName("Buy groceries").withStartDateAndTime("today 2pm")
-					.withEndDateAndTime("today 4pm").withCompletion(false).withPin(false).withCategories("Chores")
+					.withEndDateAndTime("today 4pm").withCompletion(true).withPin(false).withCategories("Chores")
 					.build();
 			WatchMovie = new TaskBuilder().withName("Watch movie").withStartDateAndTime("tomorrow 6pm")
 					.withEndDateAndTime("tomorrow 8pm").withCompletion(false).withPin(false).build();

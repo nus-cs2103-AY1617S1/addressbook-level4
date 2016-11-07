@@ -4,10 +4,34 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ShowCommandTest {
+import seedu.testplanner.testutil.TestTask;
 
-    @Test
-    public void test() {
-    }
+public class ShowCommandTest extends DailyPlannerGuiTest {
+
+	@Test
+	public void show() {
+
+		TestTask[] currentList = td.getTypicalPersons();
+
+		assertShowResult("show", currentList); // show all tasks
+
+		assertShowResult("show today", td.SoccerWithFriends, td.BuyGroceries); // show
+																				// tasks
+																				// today
+		assertShowResult("show completed", td.CS2103_Lecture, td.BuyGroceries); // show
+																				// completed
+	}
+
+	private void assertShowResult(String command, TestTask... expectedHits) {
+		commandBox.runCommand(command);
+		assertListSize(expectedHits.length);
+		if (command.equals("show")) {
+			assertResultMessage("Showing all tasks");
+		} else {
+			assertResultMessage("Showing " + expectedHits.length + " tasks");
+		}
+		assertTrue(taskListPanel.isListMatching(expectedHits));
+
+	}
 
 }

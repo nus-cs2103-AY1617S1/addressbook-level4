@@ -26,7 +26,7 @@ public class PinnedTaskPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyTask> pinListView;
 
     public PinnedTaskPanel() {
         super();
@@ -61,8 +61,8 @@ public class PinnedTaskPanel extends UiPart {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> personList) {
-        taskListView.setItems(personList);
-        taskListView.setCellFactory(listView -> new PersonListViewCell());
+        pinListView.setItems(personList);
+        pinListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class PinnedTaskPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        pinListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,8 +82,8 @@ public class PinnedTaskPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            pinListView.scrollTo(index);
+            pinListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
