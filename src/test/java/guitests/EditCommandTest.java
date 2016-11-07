@@ -1,14 +1,14 @@
 package guitests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.toDoList.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.EventDate;
-import seedu.address.model.task.Name;
-import seedu.address.testutil.TestTask;
+import seedu.toDoList.commons.exceptions.IllegalValueException;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.model.task.EventDate;
+import seedu.toDoList.model.task.Name;
+import seedu.toDoList.testutil.TestTask;
 
 //@@author A0138717X
 

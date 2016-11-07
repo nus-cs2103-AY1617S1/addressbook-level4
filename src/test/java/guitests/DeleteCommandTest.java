@@ -1,15 +1,14 @@
 package guitests;
 import org.junit.Test;
 
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import seedu.toDoList.logic.commands.DeleteCommand;
+import seedu.toDoList.testutil.TestTask;
+import seedu.toDoList.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_SAME_NAME;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
+import static seedu.toDoList.commons.core.Messages.MESSAGE_INVALID_TASK_NAME;
+import static seedu.toDoList.logic.commands.DeleteCommand.MESSAGE_DELETE_SAME_NAME;
+import static seedu.toDoList.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 import java.util.ArrayList;
 
