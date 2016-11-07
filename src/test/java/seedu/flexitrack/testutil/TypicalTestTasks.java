@@ -74,30 +74,30 @@ public class TypicalTestTasks<lecture1> {
 
             // @@author A0127686R
             // Additional Event Task 
-            lecture1 = new TaskBuilder().withName("lecture 1").withStartTime("Nov 08 2016 09:00")
-                    .withEndTime("Nov 08 2016 11:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture2 = new TaskBuilder().withName("lecture 2").withStartTime("Nov 08 2016 15:00")
-                    .withEndTime("Nov 08 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture3 = new TaskBuilder().withName("lecture 3").withStartTime("Nov 09 2016 14:00")
-                    .withEndTime("Nov 09 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture4 = new TaskBuilder().withName("lecture 4").withStartTime("Nov 12 2016 10:00")
-                    .withEndTime("Nov 12 2016 12:00").withDueDate("Feb 29 2000 00:00").build();
-            lecture5 = new TaskBuilder().withName("lecture 5").withStartTime("Nov 12 2016 13:00")
-                    .withEndTime("Nov 12 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
-            exam1 = new TaskBuilder().withName("exam 1").withStartTime("Nov 20 2016 09:00")
-                    .withEndTime("Nov 20 2016 10:30").withDueDate("Feb 29 2000 00:00").build();
-            exam2 = new TaskBuilder().withName("exam 2").withStartTime("Nov 20 2016 12:00")
-                    .withEndTime("Nov 20 2016 14:00").withDueDate("Feb 29 2000 00:00").build();
-            exam3 = new TaskBuilder().withName("exam 3").withStartTime("Nov 22 2016 19:00")
-                    .withEndTime("Nov 22 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
-            study1 = new TaskBuilder().withName("study 1").withStartTime("Nov 18 2016 09:00")
-                    .withEndTime("Nov 18 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
-            study2 = new TaskBuilder().withName("study 2").withStartTime("Nov 19 2016 06:00")
-                    .withEndTime("Nov 19 2016 10:00").withDueDate("Feb 29 2000 00:00").build();     
-            past1 = new TaskBuilder().withName("past 1").withStartTime("Nov 01 2016 09:00")
-                    .withEndTime("Nov 01 2016 11:00").withDueDate("Feb 29 2000 00:00").build();
-            past2 = new TaskBuilder().withName("past 2").withStartTime("Oct 20 2016 15:00")
-                    .withEndTime("Oct 20 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture1 = new TaskBuilder().withName("lecture 1").withStartTime("Nov 08 2017 09:00")
+                    .withEndTime("Nov 08 2017 11:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture2 = new TaskBuilder().withName("lecture 2").withStartTime("Nov 08 2017 15:00")
+                    .withEndTime("Nov 08 2017 16:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture3 = new TaskBuilder().withName("lecture 3").withStartTime("Nov 09 2017 14:00")
+                    .withEndTime("Nov 09 2017 16:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture4 = new TaskBuilder().withName("lecture 4").withStartTime("Nov 12 2017 10:00")
+                    .withEndTime("Nov 12 2017 12:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture5 = new TaskBuilder().withName("lecture 5").withStartTime("Nov 12 2017 13:00")
+                    .withEndTime("Nov 12 2017 14:00").withDueDate("Feb 29 2000 00:00").build();
+            exam1 = new TaskBuilder().withName("exam 1").withStartTime("Nov 20 2017 09:00")
+                    .withEndTime("Nov 20 2017 10:30").withDueDate("Feb 29 2000 00:00").build();
+            exam2 = new TaskBuilder().withName("exam 2").withStartTime("Nov 20 2017 12:00")
+                    .withEndTime("Nov 20 2017 14:00").withDueDate("Feb 29 2000 00:00").build();
+            exam3 = new TaskBuilder().withName("exam 3").withStartTime("Nov 22 2017 19:00")
+                    .withEndTime("Nov 22 2017 21:00").withDueDate("Feb 29 2000 00:00").build();
+            study1 = new TaskBuilder().withName("study 1").withStartTime("Nov 18 2017 09:00")
+                    .withEndTime("Nov 18 2017 23:00").withDueDate("Feb 29 2000 00:00").build();
+            study2 = new TaskBuilder().withName("study 2").withStartTime("Nov 19 2017 06:00")
+                    .withEndTime("Nov 19 2017 10:00").withDueDate("Feb 29 2000 00:00").build();     
+            past1 = new TaskBuilder().withName("past 1").withStartTime("Nov 01 2017 09:00")
+                    .withEndTime("Nov 01 2017 11:00").withDueDate("Feb 29 2000 00:00").build();
+            past2 = new TaskBuilder().withName("past 2").withStartTime("Oct 20 2017 15:00")
+                    .withEndTime("Oct 20 2017 16:00").withDueDate("Feb 29 2000 00:00").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

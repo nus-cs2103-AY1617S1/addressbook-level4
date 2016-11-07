@@ -38,20 +38,6 @@ public class DateTimeInfoTest {
     }
 
     @Test
-    public void DateTimeInfo_RelaxValidInputWithNoSpecificHoursAndMinutes_returnsDate() {
-        final String validInput = "mon";
-        final String expectedSetTime = "Nov 07 2016 08:00";
-        DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
-    }
-
-    @Test
-    public void DateTimeInfo_RelaxValidInputWithSpecificHours_returnsDate() {
-        final String validInput = "tuesday 10am";
-        final String expectedSetTime = "Nov 08 2016 10:00";
-        DateTimeInfoAndAssertCorrect(validInput, expectedSetTime);
-    }
-
-    @Test
     public void DateTimeInfo_RelativeValidInputWithNoSpecificHoursAndMinutes_returnsDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, 1);
