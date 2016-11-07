@@ -275,7 +275,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | type a command in different ways | have flexibility in the command format
 `* * *` | user | specify a location to store data | organize files as I like and access data from multiple devices using cloud syncing service
 `* * *` | user | mark tasks as "finished" | view all completed tasks
-`* * *` | user | unmark finsihed tasks | change status of tasks
+`* * *` | user | unmark finished tasks | change status of tasks
 `* *` | user | group tasks into similar categories | organise tasks well
 `* *` | user | view tasks by categories | have clearer views of similar tasks
 `* *` | user | have a daily summary of tasks | manage my time well for the day
