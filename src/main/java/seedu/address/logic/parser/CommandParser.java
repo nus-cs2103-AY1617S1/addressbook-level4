@@ -868,14 +868,19 @@ public class CommandParser {
         return new CommandParserHelper().prepareEdit(EMPTY_SPACE_FOR_NAME_NO_CHANGE + beforeResetSplit);
     }
 
+    /**
+     * Get the add detailed tooltip for this arguments String.
+     * 
+     * @param arguments The arguments of the add command String
+     * @return The add tooltip appropriate for the given arguments
+     */
     private String prepareAddDetailedTooltip(final String arguments) {
         try {
             if (arguments.isEmpty()) {
                 return AddCommand.TOOL_TIP;
             }
             
-            String trimmedArgs = arguments.trim();
-            return generateAddDetailedTooltip(trimmedArgs);
+            return generateAddDetailedTooltip(arguments);
         } catch (IllegalValueException e) {
             logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip with warning instead");
             return String.join(NEWLINE_STRING, AddCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
@@ -883,6 +888,12 @@ public class CommandParser {
 
     }
     
+    /**
+     * Get the edit detailed tooltip for this arguments String.
+     * 
+     * @param arguments The arguments of the edit command String
+     * @return The edit tooltip appropriate for the given arguments
+     */
     private String prepareEditDetailedTooltip(final String arguments) {
         try {
             
@@ -899,34 +910,41 @@ public class CommandParser {
     }
 
     /**
-     * @param trimmedArgs
-     * @return
-     * @throws IllegalValueException
+     * Generates the add detailed tooltip from the given input String.
+     * 
+     * @param inputToGenerateTooltip The input to generate the tooltip with
+     * @return The add detailed tooltip generated from the input String
+     * @throws IllegalValueException If the input String cannot generate a valid
+     *             detailed tooltip
      */
-    private String generateAddDetailedTooltip(String trimmedArgs) throws IllegalValueException {
-        HashMap<String, Optional<String>> fieldMap = retrieveAddFieldsFromArgs(trimmedArgs);
-        
-        Optional<String> name = fieldMap.get(MAP_NAME);
-        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
-        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
-        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
-        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
-        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
-        
+    private String generateAddDetailedTooltip(String inputToGenerateTooltip) throws IllegalValueException {
+
+        HashMap<String, Optional<String>> fieldMap = retrieveAddFieldsFromArgs(inputToGenerateTooltip);
+        return generateAddDetailedTooltipFromMap(fieldMap);
+    }
+
+    /**
+     * Generates the add detailed tooltip from the specified field map.
+     * 
+     * @param fieldMap The map containing the mapping from the fields to the user input
+     * @return
+     */
+    private String generateAddDetailedTooltipFromMap(HashMap<String, Optional<String>> fieldMap) {
         StringBuilder sb = generateAddDetailedTooltipHeader();
-        generateAddDetailedTooltipName(name, sb);
-        generateAddDetailedTooltipStartDate(startDate, sb);
-        generateAddDetailedTooltipEndDate(endDate, sb);
-        generateAddDetailedTooltipRecurrence(rate, timePeriod, sb);
-        generateAddDetailedTooltipPriority(priority, sb);
+        generateAddDetailedTooltipName(fieldMap, sb);
+        generateAddDetailedTooltipStartDate(fieldMap, sb);
+        generateAddDetailedTooltipEndDate(fieldMap, sb);
+        generateAddDetailedTooltipRecurrence(fieldMap, sb);
+        generateAddDetailedTooltipPriority(fieldMap, sb);
         return sb.toString();
     }
 
-
     /**
-     * Generate the add detailed tooltip header and return it as a StringBuilder.
+     * Generate the add detailed tooltip header and return it as a
+     * StringBuilder.
      * 
-     * @return the StringBuilder object containing the add detailed tooltip header
+     * @return The StringBuilder object containing the add detailed tooltip
+     *         header
      */
     private StringBuilder generateAddDetailedTooltipHeader() {
         StringBuilder sb = new StringBuilder();
@@ -936,42 +954,58 @@ public class CommandParser {
     }
 
     /**
-     * @param name
-     * @param sb
+     * Generates the add detailed tooltip name field from the given Optional
+     * name String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
+    private void generateAddDetailedTooltipName(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> name = fieldMap.get(MAP_NAME);
         if (name.isPresent()) {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
         }
     }
 
     /**
-     * @param startDate
-     * @param sb
+     * Generates the add detailed tooltip start date field from the given
+     * Optional start date String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipStartDate(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
         if (startDate.isPresent()) {
             sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + startDate.get());
         }
     }
 
     /**
-     * @param endDate
-     * @param sb
+     * Generates the add detailed tooltip end date field from the given Optional
+     * end date String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipEndDate(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
         if (endDate.isPresent()) {
             sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + endDate.get());
         }
     }
 
     /**
-     * @param rate
-     * @param timePeriod
-     * @param sb
+     * Generates the add detailed tooltip recurrence field from the given
+     * Optional recurrence Strings into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
-            StringBuilder sb) {
+    private void generateAddDetailedTooltipRecurrence(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+
+        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
+        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
 
         if (!timePeriod.isPresent()) {
             return;
@@ -987,29 +1021,39 @@ public class CommandParser {
     }
 
     /**
-     * @param priority
-     * @param sb
+     * Generates the add detailed tooltip priority field from the given Optional
+     * priority String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
+    private void generateAddDetailedTooltipPriority(Map<String, Optional<String>> fieldMap,
+            StringBuilder sb) {
+        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+        
         if (priority.isPresent()) {
             sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + priority.get());
         }
     }
 
     /**
-     * Retrieve the add command input fields from the given trimmed arguments string
+     * Retrieve the add command input fields from the given arguments string
      * 
-     * @param trimmedArgs The trimmed arguments String
-     * @return The HashMap that maps the add command fields to the String that matches that input field
-     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
+     * @param argsToGenerateTooltip The arguments String to generate the tooltip
+     *            with
+     * @return The HashMap that maps the add command fields to the String that
+     *         matches that input field
+     * @throws IllegalValueException If the specified userInput cannot generate
+     *             a valid detailed edit tooltip
      */
-    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs)
+    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String argsToGenerateTooltip)
             throws IllegalValueException {
+        argsToGenerateTooltip = argsToGenerateTooltip.trim();
         CommandParserHelper cmdParserHelper = new CommandParserHelper();
-        return cmdParserHelper.prepareAdd(trimmedArgs);
+        return cmdParserHelper.prepareAdd(argsToGenerateTooltip);
     }
-    
-    //@@author
+
+    // @@author
     public static String getNewLineString() {
         return NEWLINE_STRING;
     }
