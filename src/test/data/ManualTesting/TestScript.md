@@ -83,7 +83,7 @@ Command: `show floating` or `floating` <br>
 Expected: Floating tasks listed
 
 #### Show for any random date
-Command: `show 25/12/2016` or `show xmas` <br>
+Command: `show 12/25/2016` or `show xmas` <br>
 Expected: Tasks on that date listed
 
 #### Show high priority tasks

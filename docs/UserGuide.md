@@ -22,7 +22,7 @@ So, what are you waiting for? Let’s get started!
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `LazymansFriend.jar` from the [releases](../../../releases) tab.
+1. Download the latest `Lazyman's Friend.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for the program.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/Ui.png" width="600">
