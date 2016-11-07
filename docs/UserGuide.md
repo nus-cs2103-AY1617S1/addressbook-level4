@@ -10,6 +10,9 @@
 Have you ever wished that you could spend more time with people important to you? How about having more time for your hobbies? Wouldn’t it be great if there was an application that could help you sort through this chaos and let you focus on what’s important in life?
 Enter Do-Do Bird, an intelligent personal assistant that organises your tasks for you. Do-Do Bird uses natural language processing to execute your every command. With Do-Do Bird, your life will never be the same.
 
+This is the labelled GUI of Do-Do Bird
+> ![GUI](./images/LabelledGUI.png)
+
 <!-- @@author A0093896H -->
 ## Quick Start
 
@@ -66,19 +69,19 @@ Enter Do-Do Bird, an intelligent personal assistant that organises your tasks fo
 
 
 <!-- @@author A0142421X -->
-> **ID**
-> * The ID of a task is the index of the task as displayed on the screen
-
  **Task Fields**
 
-Field | Specifier | Format
+Field | Specifier | Format | Description
 ------|:----------|:-------
-Task Name |		  | TASK_NAME
-'On' Date | `on` | on DATE [TIME]
-'By' Date | `by` | by DATE [TIME]
-Priority | `priority` | priority LEVEL
-Recurrence | `every` | every RECURRENCE
-Details | `;` | ; DETAILS
+Task Name |		  | TASK_NAME | This is the name of your task
+'On' Date | `on` | on DATE [TIME] | This is the starting date and time of your task
+'By' Date | `by` | by DATE [TIME] | This is the ending date and time of your task
+Priority | `priority` | priority LEVEL | This is the level of priority of your task
+Recurrence | `every` | every RECURRENCE | This is how often your task repeats
+Details | `;` | ; DETAILS | This is any additional details you may wish to add
+
+> **ID**
+> * The ID of a task is the index of the task as displayed on the screen
 
 ## Viewing help : `help`
 This command directs you to the help page.<br>
