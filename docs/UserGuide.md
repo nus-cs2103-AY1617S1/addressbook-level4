@@ -33,10 +33,12 @@ This app will not work with earlier versions of Java 8.
 * Items in `SQUARE_BRACKETS` are optional.
 * Items with `...` after them can have multiple instances.
 * The order of parameters is fixed.
-<br><br>
+<br><br><br>
+
 ### Viewing help : `help`
 Format: `help`
-* Help is also shown if you enter an incorrect command e.g. `abcd`<br><br><br>
+* Help is also shown if you enter an incorrect command e.g. `abcd`
+<br><br><br>
 <!-- @@author A0130677A -->
 
 ### Adding a person: `add`
@@ -51,7 +53,7 @@ Format: `help`
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
 <br>
-**Field Type Constraints**<br>
+**Field Type Constraints**
 
 **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
 * Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
@@ -69,30 +71,31 @@ Shows a list of all tasks done or not done in the task list.<br>
 * `list done` shows all tasks done
 <br><br><br>
 
-### Finding all tasks containing any keyword in their name: `find`
-Finds tasks whose descriptions contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+### Finding all tasks containing any keyword in their name or attributes: `find`
+Format: `find [FIELD_TYPE] KEYWORD`
+Finds tasks whose descriptions contain any of the given keyword.<br>
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+* The search is case sensitive. e.g `hmk` will not match `HMK`
+* The order of the keywords does not matter. e.g. `Do Homework` will match `Homework Do`
+* If field type is specified, only the field type will be matched with the keyword
+* If field type is not specified, name will be search for a match first, before searching all the other fields for the keyword.
+* Only full words will be matched e.g. `Hmk` will not match `Hmks`
+* Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Hmk` will match `Do Hmk`
 
 Examples: 
-* `find Visit Dentist`<br>
-  Returns `John Doe` but not `john`
-* `find Homework Dentistry`<br>
-  Returns Any person having names `Homework`, `Dentistry` or `Dentist`
+* `find p/3` : Returns any task that has priority 3
+* `find a/NUS` : Returns any task that occurs in NUS
+* `find homework`: Returns task with homework in the name, if not found, returns tasks with homework in other fields such as tags
 <br><br><br>
+
 ### Deleting a task : `delete`
 Deletes the specified task from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Deletes the task at the specified `INDEX`. 
+The index refers to the index number shown in the most recent listing.<br>
+The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
@@ -102,13 +105,14 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 <br><br><br>
+
 ### Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
 
-> Selects the person and loads the Google Maps for location of the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Selects the person and loads the Google Maps for location of the task at the specified `INDEX`. 
+The index refers to the index number shown in the most recent listing.<br>
+The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
@@ -118,14 +122,17 @@ Examples:
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
 <br><br><br>
+
 ### Clearing all entries : `clear`
 Clears all entries from the task list.<br>
 Format: `clear` 
 <br><br><br>
+
 ### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 <br><br><br>
+
 ### Saving the data 
 Task List data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
