@@ -75,6 +75,7 @@ public class TestGenericMemory {
         testDate(testMethod);
         testNewState(testMethod);
         testToString();
+        testDays();
     }
     
     private void testSetType(GenericMemory testMethod) { 
@@ -167,6 +168,49 @@ public class TestGenericMemory {
         
         //test getTime
         assertEquals("Event end time", testEvent.getTime(end), "07:11 AM");
+    }
+    
+    private void testDays() { 
+        Calendar Sunday = new GregorianCalendar();
+        Sunday.set(2014, 03, 20, 03, 14, 20);
+        assertEquals("Sunday", GenericMemory.dayOfTheWeek(Sunday), "Sun");
+        //test AM_PM
+        assertEquals("AM", GenericMemory.AM_PM(Sunday), "AM");
         
+        Calendar Monday = new GregorianCalendar();
+        Monday.set(2014, 03, 21, 13, 01, 20);
+        assertEquals("Monday", GenericMemory.dayOfTheWeek(Monday), "Mon");
+        //test AM_PM
+        assertEquals("PM", GenericMemory.AM_PM(Monday), "PM");
+        //Test HH 
+        assertEquals("Hour", GenericMemory.hour(Monday), "01");
+        //Test MM 
+        assertEquals("Minute", GenericMemory.min(Monday), "01");
+        
+        Calendar Tuesday = new GregorianCalendar();
+        Tuesday.set(2014, 03, 22, 03, 14, 20);
+        assertEquals("Tuesday", GenericMemory.dayOfTheWeek(Tuesday), "Tues");
+        //Test HH 
+        assertEquals("Hour", GenericMemory.hour(Tuesday), "03");
+        //Test MM 
+        assertEquals("Minute", GenericMemory.min(Tuesday), "14");
+        
+        Calendar Wednesday = new GregorianCalendar();
+        Wednesday.set(2014, 03, 23, 12, 14, 20);
+        assertEquals("Wednesday", GenericMemory.dayOfTheWeek(Wednesday), "Wed");
+        //Test HH 
+        assertEquals("Hour", GenericMemory.hour(Wednesday), "12");
+        
+        Calendar Thursday = new GregorianCalendar();
+        Thursday.set(2014, 03, 24, 03, 14, 20);
+        assertEquals("Thursday", GenericMemory.dayOfTheWeek(Thursday), "Thurs");
+        
+        Calendar Friday = new GregorianCalendar();
+        Friday.set(2014, 03, 25, 03, 14, 20);
+        assertEquals("Friday", GenericMemory.dayOfTheWeek(Friday), "Fri");
+        
+        Calendar Saturday = new GregorianCalendar();
+        Saturday.set(2014, 03, 26, 03, 14, 20);
+        assertEquals("Saturday", GenericMemory.dayOfTheWeek(Saturday), "Sat");  
     }
 }
