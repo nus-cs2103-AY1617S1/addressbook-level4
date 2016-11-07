@@ -11,7 +11,8 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
-<!--@@author A0139817U -->
+<!--@@author A0139817U-->
+
 ## Introduction
 Welcome to the <i>Tusk</i> codebase! This guide aims to get you up to speed as soon as possible with the development environment, general architecture and in-depth implementation details, in that order.
 
