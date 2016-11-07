@@ -5,7 +5,7 @@ import java.io.File;
 import seedu.lifekeeper.commons.core.EventsCenter;
 import seedu.lifekeeper.commons.events.ui.OpenFileChooserEvent;
 import seedu.lifekeeper.commons.util.FileUtil;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 
 //@@author A0125680H
 /**
@@ -36,7 +36,7 @@ public class OpenCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        String oldPath = XmlAddressBookStorage.getFilePathForSaveCommand();
+        String oldPath = XmlLifekeeperStorage.getFilePathForSaveCommand();
         File openFile = new File(openPath);
         String filePath = openFile.getAbsolutePath();
         
@@ -46,10 +46,10 @@ public class OpenCommand extends Command {
             EventsCenter.getInstance().post(new OpenFileChooserEvent(""));
         }
         
-        if (oldPath.equals(XmlAddressBookStorage.getFilePathForSaveCommand())) {
+        if (oldPath.equals(XmlLifekeeperStorage.getFilePathForSaveCommand())) {
             return new CommandResult(NO_SUCH_FILE_MESSAGE);
         } else {
-            return new CommandResult(String.format(OPEN_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
+            return new CommandResult(String.format(OPEN_MESSAGE, XmlLifekeeperStorage.getFilePathForSaveCommand()));
         }
     }
 

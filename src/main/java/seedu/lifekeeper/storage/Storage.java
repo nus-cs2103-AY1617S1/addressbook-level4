@@ -1,6 +1,6 @@
 package seedu.lifekeeper.storage;
 
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.model.LoadLifekeeperEvent;
 import seedu.lifekeeper.commons.events.storage.DataSavingExceptionEvent;
 import seedu.lifekeeper.commons.exceptions.DataConversionException;
@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends LifekeeperStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -37,7 +37,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(LifekeeperChangedEvent abce);
     
     void handleLoadLifekeeperEvent(LoadLifekeeperEvent llke) throws DataConversionException;
 }

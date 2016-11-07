@@ -82,7 +82,7 @@ public class XmlAdaptedActivity {
         }
 
         if (source.getReminder().value != null)
-            reminderRecurring = source.getReminder().RecurringMessage;
+            reminderRecurring = source.getReminder().recurringMessage;
         switch (sourceType) {
         case "activity":
             type = "activity";
@@ -135,7 +135,7 @@ public class XmlAdaptedActivity {
         final Name name = new Name(this.name);
         final Reminder reminder = new Reminder(this.reminder);
         reminder.recurring= this.recurring;
-        reminder.RecurringMessage=this.reminderRecurring;
+        reminder.recurringMessage=this.reminderRecurring;
         final UniqueTagList tags = new UniqueTagList(activityTags);
 
         switch (this.type) {

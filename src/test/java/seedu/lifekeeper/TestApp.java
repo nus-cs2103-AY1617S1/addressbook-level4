@@ -7,7 +7,7 @@ import seedu.lifekeeper.commons.core.Config;
 import seedu.lifekeeper.commons.core.GuiSettings;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
 import seedu.lifekeeper.model.UserPrefs;
-import seedu.lifekeeper.storage.XmlSerializableAddressBook;
+import seedu.lifekeeper.storage.XmlSerializableLifekeeper;
 import seedu.lifekeeper.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableLifekeeper(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

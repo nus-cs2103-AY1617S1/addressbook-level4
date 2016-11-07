@@ -2,7 +2,7 @@ package seedu.lifekeeper.model;
 
 import seedu.lifekeeper.commons.core.Config;
 import seedu.lifekeeper.commons.core.GuiSettings;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 
 import java.util.Objects;
 
@@ -23,7 +23,7 @@ public class UserPrefs {
     }
 
     public UserPrefs(){
-        XmlAddressBookStorage xml = new XmlAddressBookStorage();
+        XmlLifekeeperStorage xml = new XmlLifekeeperStorage();
         this.setGuiSettings(500, 500, 0, 0);
         this.setDataFilePath(Config.getDefaultSaveFile());
     }

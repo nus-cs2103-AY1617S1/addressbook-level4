@@ -13,17 +13,17 @@ import java.util.logging.Logger;
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
  */
-public class XmlAddressBookStorage implements AddressBookStorage {
+public class XmlLifekeeperStorage implements LifekeeperStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(XmlLifekeeperStorage.class);
 
     private static String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlLifekeeperStorage(String filePath){
         this.filePath = filePath;
     }
     
-    public XmlAddressBookStorage(){}
+    public XmlLifekeeperStorage(){}
     
     //@@author A0125680H
     /**
@@ -31,7 +31,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath
      */
     public static void setAddressBookFilePath(String filePath){
-        XmlAddressBookStorage.filePath = filePath;
+        XmlLifekeeperStorage.filePath = filePath;
     }
 
     public String getAddressBookFilePath() {
@@ -72,7 +72,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(lifeKeeper));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableLifekeeper(lifeKeeper));
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.lifekeeper.commons.core.ComponentManager;
 import seedu.lifekeeper.commons.core.EventsCenter;
 import seedu.lifekeeper.commons.core.LogsCenter;
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.model.LoadLifekeeperEvent;
 import seedu.lifekeeper.commons.events.storage.DataSavingExceptionEvent;
 import seedu.lifekeeper.commons.events.ui.FileDirectoryChangedEvent;
@@ -23,18 +23,18 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private static AddressBookStorage addressBookStorage;
+    private static LifekeeperStorage addressBookStorage;
     private static UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(LifekeeperStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlAddressBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlLifekeeperStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -59,7 +59,7 @@ public class StorageManager extends ComponentManager implements Storage {
     
     @Override
     public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
+        this.addressBookStorage = new XmlLifekeeperStorage(addressBookFilePath);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(LifekeeperChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

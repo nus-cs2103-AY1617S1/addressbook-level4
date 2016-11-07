@@ -27,7 +27,7 @@ import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
 import seedu.lifekeeper.model.activity.task.*;
 import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.model.tag.UniqueTagList;
-import seedu.lifekeeper.storage.XmlSerializableAddressBook;
+import seedu.lifekeeper.storage.XmlSerializableLifekeeper;
 
 import java.io.File;
 import java.io.IOException;
@@ -145,8 +145,8 @@ public class TestUtil {
         return new LifeKeeper(new UniqueActivityList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableLifekeeper generateSampleStorageAddressBook() {
+        return new XmlSerializableLifekeeper(generateEmptyAddressBook());
     }
 
     /**

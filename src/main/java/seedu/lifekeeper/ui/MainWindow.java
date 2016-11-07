@@ -21,7 +21,7 @@ import seedu.lifekeeper.commons.events.model.SaveEvent;
 import seedu.lifekeeper.commons.events.ui.ExitAppRequestEvent;
 import seedu.lifekeeper.logic.Logic;
 import seedu.lifekeeper.model.UserPrefs;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -261,7 +261,7 @@ public class MainWindow extends UiPart {
     
     //@@author A0125680H
     public void changeFileLocation(String filePath) {
-        XmlAddressBookStorage.setAddressBookFilePath(filePath);
+        XmlLifekeeperStorage.setAddressBookFilePath(filePath);
         userPrefs.setDataFilePath(filePath);
         statusBarFooter.setSaveLocation(filePath);
     }
