@@ -50,7 +50,7 @@ By storing the task or event received immediately into `Dowat`, the user can arc
 By accessing `Dowat`, the user is able to keep track of the important tasks at hand and upcoming events for the day or week. <br>
 This will help the user plan their use of time more effectively.<br>
 
-<img src="images/ADForEmailAndDowat.png" width="850" height="500"><br>
+<img src="images/ADForEmailAndDowat.png" width="850" height="600"><br>
 
 ## Design
 
@@ -126,13 +126,13 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-The `Logic` component,
-* Uses the `Parser` class to parse the user command.
-* Results in a `Command` object which is executed by the `LogicManager`.
-* Command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-* Result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
-* `UndoableCommandHistory` applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
-* `UndoableCommandHistory` does not store a list of events/tasks, or copies of `Dowat` as a history. Instead, it stores a stack of commands which are more lightweighted, and occupy less storage. 
+1. `Logic` uses the `ParserManager` class to parse the user command.
+2. `ParserManager` will pass the parsing of arguments to respective Command parsers which all implement `Parser` interface.
+3. This results in a `Command` object which is executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+6. The UndoableCommandHistory applies the Singleton pattern which holds the sole copy of the modifications done to the `Dowat`. 
+7. We did not choose to store a list of events/tasks, or copies of `Dowat` as a history. Instead, we chose to store a stack of commands which are more lightweighted, and occupy less storage. 
 <!-- @@author  -->
 <!-- @@author A0127570H -->
 
@@ -292,8 +292,8 @@ Use case ends.
 
 The Use case can be elaborated by the SD as below in addition the SD mentioned in the [Design](#design):  
 
-<img src="images/ListOverall.png" width="800"><br>
-<img src="images/ListRefSD.png" width="800"><br>
+<img src="images/ListOverall.png" width="600"><br>
+<img src="images/ListRefSD.png" width="600"><br>
 
 The SD for list events is similiar to task. 
 
@@ -437,8 +437,8 @@ The SD for list events is similiar to task.
   Use case resumes at step 1  
 
 
-<img src="images/FindOverall.png" width="800"><br>
-<img src="images/FindRefSD.png" width="800"><br>
+<img src="images/FindOverall.png" width="600"><br>
+<img src="images/FindRefSD.png" width="600"><br>
 
 <br>
 
@@ -460,8 +460,8 @@ The SD for list events is similiar to task.
 Besides the abstract SD as shown in the section [Design](#design).<br>
 A more detailed Sequence Diagram of undo a deletion of task is shown below. 
 
-<img src="images/UndoOverall.png" width="800"><br>
-<img src="images/UndoRefSD.png" width="800"><br>
+<img src="images/UndoOverall.png" width="600"><br>
+<img src="images/UndoRefSD.png" width="600"><br>
 
 #### Use case 13: Show calendar views
 
@@ -481,7 +481,7 @@ A more detailed Sequence Diagram of undo a deletion of task is shown below.
 Notice how this command does not involve the Model Component at all.<br>
 Since it does not need to retrieve or modidfy data in the model. 
 
-<img src="images/ShowSD.png" width="800">
+<img src="images/ShowSD.png" width="600">
 <br>
 
 

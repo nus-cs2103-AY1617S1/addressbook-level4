@@ -62,8 +62,8 @@ We are a team based in the [School of Computing, National University of Singapor
   	- Aspects/tools in charge of: 
       - Code Integration: solving conflicts for pull requests, and integrate to master branch.
     - Features implemented:
-      - [Find tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#finding-for-eventstasks)
-      - [List tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#listing-tasks)
+      - [Find tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#finding-for-events-or-tasks)
+      - [List tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#listing-tasks-or-events)
       - [Undo] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#undo-modifications)
       - [Show] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#toggle-calendar-view)
     - Code written: [functional code](../collated/main/A0144702N.md) [test code](../collated/test/A0144702N.md) [docs](../collated/docs/A0144702N.md)
@@ -74,4 +74,5 @@ We are a team based in the [School of Computing, National University of Singapor
         - [Morph UI] (https://github.com/CS2103AUG2016-F09-C4/main/commit/240085a79f81f4d83cc578175321255ef10b2d2f)
       - Travis/Coverage setting up, build release.
       - Integrate external libraries prettytime, jfxtras.
+      - Improve UI by using customizied theme, and varius color. 
 

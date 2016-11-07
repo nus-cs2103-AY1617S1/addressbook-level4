@@ -21,29 +21,28 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list /t`** : lists all tasks that are not completed. 
-   * **`add`** `CS2103 Lab 6 /desc finish lab /by December 30` : 
-     adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of 30th December.
-   * **`mark`**` 3` : marks the 3rd task as complete.
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command. Or directly go to [Command Summary](#command-summary) for a summary of commands<br>
-
+   * **`add try out Dowat /by tomorrow`**: will add a task into the application. The task will be shown in the list and calendar as highlighted.   
+   <img src="images/Add.png" width="500">
+   * **`mark 1`**: after you are done with a task, simply mark it off from the list. Tasks will be sorted so you can easily find those tasks with closer deadlines at the top of the list!
+   * **`list /t /a`** : you can also lists all tasks that are completed, and shown as below.  
+   <img src="images/List_Done.png" width="500">
+   * **`undo`**: if you accidently do anything wrong, you can undo the modifications also!
+   * **`edit /t 1 /by one hour later`** Edit any field you need (description, name, deadline, event duration ...) with the edit command. Where the index `1` refers to the index of the task / event in the respective list.   
+   :wink: Check out the [Features](#features) for a complete set of commands you can use!
 
 
 
 ## UI Control
-#### Event/Task Card
-The default card is shown as below:  
-<img src="images/Card_Default.png" width="500">
 
+#### Event/Task Card    
+The default card is shown as below:  
+<img src="images/Card_Default.png" width="500"> 
 <br>
 A task that is overdue will be highlighted and shown as below:  
 <img src="images/Card_Overdue.png" width="500">
-
 <br>
 A task/event that is due on today will be highlighted and shown:  
 <img src="images/Card_Today.png" width="500">
-
 <br>
 A task/event that is completed or passed will be hidden from the list by default, and shown as below.  
 <img src="images/Card_Done.png" width="500">
@@ -304,7 +303,7 @@ Format: `undo`
 
 <!-- @@author A0144702N -->
 
-#### Finding for events/tasks
+#### Finding for events or tasks
 With the find command, you can find for tasks or events which contain some keywords in their **name** as well as in their **descriptions**. 
 
 Format: `find KEYWORD [/ MORE_KEYWORDS]`
@@ -420,7 +419,7 @@ Format : `exit`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
+[Find](#finding-for-events-or-tasks) | `find KEYWORD [/ MORE_KEYWORDS][/power]`
 [Clear Tasks or Events](#clearing-of-tasks) |`clear /t|/e [/a]`
 [Clear Tasks and Events](#clearing-of-tasks-and-events) |`clear [/a]`
 [Show Day/Week view of the calendar of certain time](#toggle-calendar-view) | `show today [/day|/wk]`
