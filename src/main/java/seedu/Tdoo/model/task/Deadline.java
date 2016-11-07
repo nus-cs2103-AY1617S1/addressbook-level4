@@ -88,7 +88,7 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
         String minute = (getEndTime().endTime).substring(3, 4);
         // get AM/PM
         String AM_PM = (getEndTime().endTime).substring(4, 6);
-
+        
         // Date object-----------------------------------------
         DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
         Date dateobj = new Date();
