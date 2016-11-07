@@ -120,7 +120,7 @@ Since we cleared all the calendar items earlier, we need to re-create some test 
 
 Command | Expected behavior
 ------- | -----------------
-`undo` | The last task added ("Take a break from life" should be removed
+`undo` | The last task added ("Take a break from life") should be removed
 `undo` | The second last task added ("Submit CS2103 project") should be removed
 `redo` | "Submit CS2103 project" should be re-added
 `redo 2` | Error message explaining that there is only 1 command that can be redone
