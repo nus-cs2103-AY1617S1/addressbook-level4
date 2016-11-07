@@ -42,12 +42,14 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     	UniqueItemCollection<T> copiedCollection = new UniqueItemCollection<T>();
     	for (T item : internalList) {
     		try {
-	    		if (item instanceof Copiable) {
-	    			Copiable<T> copiableItem = (Copiable<T>) item;
-	    			copiedCollection.add(copiableItem.copy());
-	    		} else {
-	    			assert false : "The items in the list must implement the Copiable interface";
-	    		}
+    			// Items in the list must implement the Copiable interface
+	    		assert (item instanceof Copiable);
+	    		
+	    		Copiable<T> copiableItem = (Copiable<T>) item;
+	    		
+	    		// Make a copy of the item and add into the new list
+	    		copiedCollection.add(copiableItem.copy()); 
+	    		
     		} catch (DuplicateItemException die) {
     			assert false : "There should be no duplicate items in the UniqueItemCollection";
     		}

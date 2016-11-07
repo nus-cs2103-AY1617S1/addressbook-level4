@@ -23,7 +23,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private static final String FXML = "CommandBox_Task.fxml";
+    private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;

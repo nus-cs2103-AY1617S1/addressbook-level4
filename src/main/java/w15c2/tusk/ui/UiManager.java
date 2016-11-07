@@ -28,7 +28,7 @@ import w15c2.tusk.model.UserPrefs;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/TuskLogo.png";
 
     private Logic logic;
     private TaskConfig config;
@@ -46,7 +46,7 @@ public class UiManager extends ComponentManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
-
+        
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 

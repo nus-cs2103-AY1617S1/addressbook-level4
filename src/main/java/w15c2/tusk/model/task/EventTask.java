@@ -19,15 +19,29 @@ public class EventTask extends Task {
 		this.endDate = endDate;
 	}
 	
-
+	/**
+	 * Retrieves the start date that is stored within the task.
+	 * 
+	 * @return	Start date of the task.
+	 */
 	public Date getStartDate() {
 		return startDate;
 	}
 	
+	/**
+	 * Retrieves the end date that is stored within the task.
+	 * 
+	 * @return	End date of the task.
+	 */
 	public Date getEndDate() {
 		return endDate;
 	}
 	
+	/**
+	 * Make an exact duplicate of the task, including its pin and completion status.
+	 * 
+	 * @return 	Duplicate of the task.
+	 */
 	@Override
 	public EventTask copy() {
 		String newDescription = this.description.getContent();
@@ -52,6 +66,11 @@ public class EventTask extends Task {
 		return newTask;
 	}
 	
+	/**
+	 * Returns the string representation of the task, given by its description.
+	 * 
+	 * @return String representation of the task.
+	 */
 	@Override
 	public String toString() {
 		return description.toString();
@@ -69,6 +88,11 @@ public class EventTask extends Task {
 		}
 	}
 	
+	/**
+	 * Checks if the start date has passed the current time.
+	 * 
+	 * @return Whether the start date is over.
+	 */
     @Override
     public boolean isOverdue() {
         return startDate.before(new Date());
