@@ -74,8 +74,9 @@ The four main windows in which the user can traverse are:
 By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. 
 The order of traversal is descending down the list before it loops back to the beginning. 
 
-The window in which the user is currently on is shown by a brown border highlight as shown in the figure below.
-> <img src="images/MockUI.PNG" width="600">
+The window in which the user is currently on is shown by a brown border highlight. 
+An example of window traversal is shown in the figure below.
+	<img src="images/WindowTraversal.gif" width="700">
 
 #### Command Box Features
 When the Command Box is selected, it has 2 main features:
@@ -83,6 +84,7 @@ When the Command Box is selected, it has 2 main features:
 * Clearing the Command Box
 
   Pressing the DELETE key will clear the Command Box of its text content. This allows for easy clearing of commands.
+  	<img src="images/CommandBoxDelete.gif" width="700">
 
 * Accessing past History of Commands
   
@@ -91,14 +93,17 @@ When the Command Box is selected, it has 2 main features:
 
   The Command history resets itself after each session of usage (i.e exit the program).
   A Command is only added into the Command history when it is executed by the Command Box (i.e ENTER key press).
+  <img src="images/CommandBoxHistory.gif" width="700">
 
 #### Result Display Panel Features
 When the Result Display Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
 This prevents the need to use the mouse wheel for scrolling.
+	<img src="images/ResultDisplayScroll.gif" width="700">
 
 #### Task and Event Panel Features
 When the Task or Event Panel is selected, it has a scrolling feature where the UP and DOWN key would be able to control the scroll bar within the window. 
 This prevents the need to use the mouse wheel for scrolling.
+	<img src="images/PanelScroll.gif" width="700">
 
 <!-- @@author-->
 
@@ -230,7 +235,7 @@ Format: `mark INDEX`
 Examples: 
 * `mark 1`  
   Marks the 1st task in the last shown listing as completed.
-  
+  <img src="images/MarkTask.gif" width="700">
 
 #### Deleting a task/event
 Deletes an existing task/event from Dowat storage completely.  
@@ -242,8 +247,9 @@ Format: `delete /t|/e INDEX`
 > Deleted tasks or events in the current session can be recovered with the `undo` command.
 
 Examples:
-* `delete /t 2`  
-  Deletes the 2nd task in the most recent task listing.
+* `delete /e 2`  
+  Deletes the 2nd event in the most recent event listing.
+  <img src="images/DeleteEvent.gif" width="700">
 
 <!-- @@author A0125534L -->
   
@@ -344,7 +350,8 @@ Examples:
   Clears all completed tasks.
 * `clear /t /a` <br>
   Clears all completed and uncompleted tasks.
-
+  
+<img src="images/ClearTask.gif" width="700">
 
 #### Clearing of events
 Clears all completed events or clears all events. <br>
@@ -360,7 +367,8 @@ Examples:
   Clears all past events.
 * `clear /e /a` <br>
   Clears all past and upcoming events.
-
+  
+<img src="images/ClearEvent.gif" width="700">
   
 #### Clearing of tasks and events
 Clears all completed tasks and past events or clears all tasks and events. <br>
@@ -376,6 +384,8 @@ Examples:
   Clears all completed tasks and past events.
 * `clear /a` <br>
   Clears all tasks and events.
+    
+<img src="images/ClearAll.gif" width="700">
   
 <!-- @@author A0144702N -->
 
