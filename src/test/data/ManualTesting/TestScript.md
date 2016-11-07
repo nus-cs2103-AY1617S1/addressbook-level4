@@ -2,19 +2,6 @@
 
 # Test Script 
 
-<br><br>
-<img src="images/Main.JPG" width="700"><br>
-   <br><br>
-
-
-* [About](#about)
-* [Getting Started](#getting-started)
-* [Features](#features)
-    * [Help Command](#1-help-command)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
-
-
 ## 1 Add Command <br>
 
 ### 1.1  Add a floating task <br>
@@ -80,24 +67,97 @@
  
 ## 2 Delete Command <br>
  
-    1.1.1   Type in the Command Box : delete 1
-    1.1.2    Task should be deleted from the task list panel in the main window and the list would be updated.
-    1.1.3    Task deleted would be displayed on the result display panel.
+    2.1.1   Type in the Command Box : delete 1
+    2.1.2   Task should be deleted from the task list panel in the main window and the list would be updated.
+    2.1.3   Task deleted would be displayed on the result display panel.
     
-    1.1.1   Type in the Command Box : delete 3
-    1.1.2    Task should be deleted from the task list panel in the main window and the list would be updated.
-    1.1.3    Task deleted would be displayed on the result display panel.
+    2.2.1   Type in the Command Box : delete 3
+    2.2.2   Task should be deleted from the task list panel in the main window and the list would be updated.
+    2.2.3   Task deleted would be displayed on the result display panel.
     
-    1.1.1   Type in the Command Box : delete 4
-    1.1.2    Task should be deleted from the task list panel in the main window and the list would be updated.
-    1.1.3    Task deleted would be displayed on the result display panel.
+    2.3.1   Type in the Command Box : delete 4
+    2.3.2   Task should be deleted from the task list panel in the main window and the list would be updated.
+    2.3.3   Task deleted would be displayed on the result display panel.
  
  
 ## 3 Edit Command <br>
+
+    3.1.1   Type in the Command Box : edit 1 d/01-12-2016 
+    3.1.2   Task would be updated on the task list panel in the main window. 
+    3.1.3   Updated Task would be displayed on the result display panel.
+    
+    3.2.1   Type in the Command Box : edit 3 Bake a cake 
+    3.2.2   Task would be updated on the task list panel in the main window. 
+    3.2.3   Updated Task would be displayed on the result display panel.
+    
+    3.3.1   Type in the Command Box : edit 4 s/1300 e/1900 
+    3.3.2   Task would be updated on the task list panel in the main window. 
+    3.3.3   Updated Task would be displayed on the result display panel.
+    
+    3.4.1   Type in the Command Box : edit 2 d/12-11-2016 s/1200 e/2100
+    3.4.2   Task would be updated on the task list panel in the main window. 
+    3.4.3   Updated Task would be displayed on the result display panel.
+    
+    3.5.1   Type in the Command Box : edit 1 Build Coverage d/11-11-2016 s/1100 e/2100 
+    3.5.2   Task would be updated on the task list panel in the main window. 
+    3.5.3   Updated Task would be displayed on the result display panel.
+   
+
 ## 4 Done Command <br>
+
+    4.1.1   Type in the Command Box : done 1
+    4.1.2   Task would be marked as done and removed from the task list panel in the main window. 
+    4.1.3   Updated Task would be displayed on the result display panel.
+
+    4.2.1   Type in the Command Box : done all 
+    4.2.2   All tasks would be marked as done and removed from the task list panel in the main window. 
+    4.2.3   Updated Task would be displayed on the result display panel.
+
+
 ## 5 Undone Command <br>
+
+    5.1.1   Type in the Command Box : list done 
+    5.1.2   Type in the Command Box : undone 1
+    5.1.3   Task would be marked as undone and updated on the task list panel in the main window. 
+    5.1.4   Updated Task would be displayed on the result display panel.
+
+    5.2.1   Type in the Command Box : list done 
+    5.2.2   Type in the Command Box : undone 2
+    5.2.3   Task would be marked as undone and updated on the task list panel in the main window. 
+    5.2.4   Updated Task would be displayed on the result display panel.
+
+
 ## 6 List Command <br>
+
+    6.1.1   Type in the Command Box : list all
+    6.1.2   Task List panel would be updated to show all tasks in the main window. 
+    6.1.3   The result display would show the message that all tasks have been listed. 
+
+    6.2.1   Type in the Command Box : list done 
+    6.2.2   Task List panel would be updated to show all done tasks in the main window. 
+    6.2.3   The result display would show the message that all done tasks have been listed. 
+    
+    6.3.1   Type in the Command Box : list overdue
+    6.3.2   Task List panel would be updated to show all overdue tasks in the main window. 
+    6.3.3   The result display would show the message that all overdue tasks have been listed. 
+    
+    6.4.1   Type in the Command Box : list 12-11-2016
+    6.4.2   Task List panel would be updated to show all tasks which have are due from today till 12-11-2016. 
+    6.4.3   The result display would show the message that all tasks in the range have been listed. 
+
+    6.5.1   Type in the Command Box : list 12-11-2016 to 18-11-2016
+    6.5.2   Task List panel would be updated to show all tasks which have are due from 11-12-2016 till 18-11-2016. 
+    6.5.3   The result display would show the message that all tasks in the range have been listed. 
+    
+    6.2.1   Type in the Command Box : list
+    6.2.2   Task List panel would be updated to show all undone tasks in the main window.  
+    6.2.3   The result display would show the message that all undone tasks have been listed. 
+
+
 ## 7 Find Command <br>
+
+
+
 ## 8 Clear Command <br>
 ## 9 Undo Command <br>
 ## 10 Redo Command <br>
