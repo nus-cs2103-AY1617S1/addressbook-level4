@@ -102,7 +102,7 @@ In essence, having all of the skills mentioned above will definitely help you to
 
 ### **Architecture**
 
-> <img src="DeveloperGuideImages/DesignArchitecture.png" width="600">
+> <img src="DeveloperGuideImages/Design.png" width="600">
 
 The architectural design in figure 1 shows how the various components work in tandem with each other. `Main` only has one class MainApp and it is responsible for:
 
