@@ -223,7 +223,7 @@
  - Default: Deadline task has a white border (unless it is overdue at the point of adding, where it will have a red border)
 
 ### 4.7 Edit from to do task to deadline
-> **Before:** ``<br>
+> **Before:** <br>
 > **Command:** `edit A2 date/xmas`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
