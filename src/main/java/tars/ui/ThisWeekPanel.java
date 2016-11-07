@@ -104,6 +104,9 @@ public class ThisWeekPanel extends UiPart {
         date.setText(df.format(today));
     }
 
+    /**
+     * Updates number of upcoming tasks and lists them
+     */
     private void handleUpcomingTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {
@@ -121,6 +124,9 @@ public class ThisWeekPanel extends UiPart {
         }
     }
 
+    /**
+     * Updates number of overdued tasks and lists them
+     */
     private void handleOverdueTasks() {
         int count = 0;
         for (ReadOnlyTask t : list) {

@@ -49,6 +49,9 @@ public class DoCommand extends Command {
         return new CommandResult(tracker.getResultFromTracker());
     }
 
+    /**
+     * Marks status of task in model as done
+     */
     private void handleMarkDone()
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status done = new Status(true);

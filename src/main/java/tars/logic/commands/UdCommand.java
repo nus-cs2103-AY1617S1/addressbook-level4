@@ -49,6 +49,9 @@ public class UdCommand extends Command {
         return new CommandResult(tracker.getResultFromTracker());
     }
 
+    /**
+     * Marks status of task in model as undone
+     */
     private void handleMarkUndone()
             throws InvalidTaskDisplayedException, DuplicateTaskException {
         Status undone = new Status(false);

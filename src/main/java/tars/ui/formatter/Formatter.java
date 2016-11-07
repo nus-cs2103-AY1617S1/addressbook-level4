@@ -89,7 +89,7 @@ public class Formatter {
 
     // @@author A0121533W
     /**
-     * Formats a given RsvTask dateTime list to display
+     * Formats a given RsvTask dateTime list to display on rsvTaskCard
      */
     public static String formatDateTimeList(ArrayList<DateTime> dateTimeList) {
         String formatted = StringUtil.EMPTY_STRING;

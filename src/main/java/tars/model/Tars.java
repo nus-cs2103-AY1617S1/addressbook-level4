@@ -109,6 +109,7 @@ public class Tars implements ReadOnlyTars {
             }
         }
     }
+    // @@author
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -166,6 +167,7 @@ public class Tars implements ReadOnlyTars {
             }
         }
     }
+    // @@author
 
     /**
      * Ensures that every tag in this task: - exists in the master list {@link #tags} - points to a

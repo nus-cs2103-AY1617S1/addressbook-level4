@@ -42,9 +42,6 @@ public class MarkTaskUtil {
 
     /**
      * Adds target index of task to relevant "To Mark List" based on status
-     * 
-     * @param targetIndex
-     * @param status Done or Undone
      */
     public void addToMark(int targetIndex, Status status) {
         if (status.status) {
@@ -57,9 +54,6 @@ public class MarkTaskUtil {
 
     /**
      * Adds target index of task to relevant "Already Marked List" based on status
-     * 
-     * @param targetIndex
-     * @param status Done or Undone
      */
     public void addAlreadyMarked(int targetIndex, Status status) {
         if (status.status) {
@@ -71,8 +65,6 @@ public class MarkTaskUtil {
 
     /**
      * Return string for each tasks index in the specific ArrayLists
-     * 
-     * @return
      */
     public String getResult() {
         String markDoneTasksString = getIndexesString(markDoneTasks);
@@ -105,7 +97,7 @@ public class MarkTaskUtil {
     }
 
     /**
-     * 
+     * Formats results of changes made
      */
     private String getResultFromString(String tasksString, String format) {
         String result = StringUtil.EMPTY_STRING;
@@ -157,11 +149,6 @@ public class MarkTaskUtil {
 
     /**
      * Gets Tasks to mark from indexes
-     * 
-     * @param model
-     * @param indexes
-     * @return
-     * @throws InvalidTaskDisplayedException
      */
     public ArrayList<ReadOnlyTask> getTasksFromIndexes(Model model,
             String[] indexes, Status status)

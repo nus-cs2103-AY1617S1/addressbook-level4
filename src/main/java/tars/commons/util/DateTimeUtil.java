@@ -56,7 +56,7 @@ public class DateTimeUtil {
 
     // @@author A0121533W
     /**
-     * Checks if given endDateTime is within the start and end of this week
+     * Checks if given endDateTime is within today and the end of this week
      */
     public static boolean isWithinWeek(LocalDateTime endDateTime) {
         if (endDateTime == null) {
