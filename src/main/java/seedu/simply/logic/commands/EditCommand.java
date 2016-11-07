@@ -46,7 +46,6 @@ public class EditCommand extends Command{
     public final char category;
 
     public EditCommand(Integer index, String args, char category) {
-        // TODO Auto-generated constructor stub
         this.targetIndex = index;
         this.editArgs = args;
         this.category = category;
