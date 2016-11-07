@@ -42,7 +42,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredTaskList(keywords);
+        model.updateFilteredList(keywords);
         String[] list = keywords.toArray(new String[keywords.size()]);
         ArrayList<GenericMemory> results = searchTerms(list, memory);
         
@@ -54,7 +54,7 @@ public class FindCommand extends Command {
         }
         
 //        return new CommandResult(COMMAND_WORD, String.format(FIND_SUCCESS, sb));
-        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getCurrentListSize()));
     }
     
     //@@author A0143378Y

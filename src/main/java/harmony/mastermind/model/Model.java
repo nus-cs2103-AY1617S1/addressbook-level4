@@ -123,14 +123,18 @@ public interface Model {
     
     //@@author generated
     /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    void updateFilteredList(Set<String> keywords);
 
-    //@@author A0138862W
     /** Updates the filter of the filtered task list to filter by the given tag keywords*/
     void updateFilteredTagTaskList(Set<Tag> keywords);
     
+    //@@author A0124797R
     String getCurrentTab();
     
+    /** get the filtered list size for the current tab */
+    int getCurrentListSize();
+
+    //@@author A0138862W
     /** Search */
     void searchTask(String input);
 

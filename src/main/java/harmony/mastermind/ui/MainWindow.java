@@ -254,31 +254,26 @@ public class MainWindow extends UiPart {
     public CommandBox getCommandBox() {
         return commandBox;
     }
-    // @@author
 
     // @@author A0138862W
     public ActionHistoryPane getActionHistoryPane() {
         return actionHistoryPane;
     }
-    // @@author
 
     // @@author A0138862W
     public HomeTableView getHomeTableView() {
         return homeTableView;
     }
-    // @@author
 
     // @@author A0138862W
     public DefaultTableView getTasksTableView() {
         return tasksTableView;
     }
-    // @@author
 
     // @@author A0138862W
     public DefaultTableView getEventsTableView() {
         return eventsTableView;
     }
-    // @@author
 
     // @@author
     public DefaultTableView getDeadlinesTableView() {

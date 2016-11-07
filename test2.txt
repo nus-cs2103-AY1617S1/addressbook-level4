@@ -33,3 +33,87 @@ Sailing
 2014 1 28 10 0 0
 1
 
+
+finish assignment
+
+-
+-
+0
+
+
+Exisiting Task
+
+-
+-
+0
+
+
+Exisiting Task
+
+-
+-
+0
+
+
+a floating task
+
+-
+-
+0
+
+
+a deadline
+
+-
+-
+0
+
+
+an event
+
+-
+-
+0
+
+
+a floating task
+
+-
+-
+0
+
+
+a deadline
+
+-
+-
+0
+
+
+an event
+
+-
+-
+0
+
+[tag1],[tag2]
+task
+
+-
+-
+0
+
+[tag1],[tag2]
+task
+
+-
+-
+0
+
+[tag1],[tag2]
+task
+
+-
+-
+0
+
