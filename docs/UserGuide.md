@@ -51,7 +51,8 @@ Add an event with a starting and ending date to the toDoList.<br>
 Format: `add n/EVENT_NAME s/START_DATE e/END_DATE [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
 
 Add a task (with or without deadline) to the toDoList.<br>
-Format: `add n/TASK_NAME [d/DEADLINE] [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`
+Format: `add n/TASK_NAME d/DEADLINE [t/TAG]... [p/PRIORITY_LEVEL][r/RECURRING_FREQUENCY]`<br>
+Format: `add n/TASK_NAME [t/TAG]...[p/PRIORITY_LEVEL]`
 
 > With the exception of command word "add", the order of parameters are not fixed. START_DATE, END_DATE
 >and DEADLINE can be entered in natural language. For example, entering words like today, tommorrow, today
@@ -273,7 +274,7 @@ It is for displaying todos.
 
 Command | Format  
 -------- | :--------
-Add | `add EVENT_NAME s/START_DATE e/END_DATE [r/RECURRING] [t/TAG] [p/PRIORITY_LEVEL]`<br> `add TASK_NAME [d/DEADLINE] [r/RECURRING] [t/TAG] [p/PRIORITY_LEVEL]`
+Add | `add EVENT_NAME s/START_DATE e/END_DATE [t/TAG][r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME d/DEADLINE [t/TAG] [r/RECURRING_FREQUENCY][p/PRIORITY_LEVEL]`<br> `add TASK_NAME [t/TAG][p/PRIORITY_LEVEL]`
 Change | `change FILE_PATH [clear]`<br> e.g. `change /Desktop/folder/taskManager.xml clear`
 Clear | `clear`
 Delete | `delete INDEX`<br> `delete NAME`
