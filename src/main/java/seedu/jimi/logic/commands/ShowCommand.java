@@ -39,7 +39,8 @@ public class ShowCommand extends Command {
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Shows certain sections of the task panel or all tasks and events in the agenda panel. \n"
-            + "Parameters: SECTION_TO_SHOW\n" 
+            + "Parameters: SECTION_TO_SHOW\n"
+            + "> Shortcuts: s, sh, sho\n" 
             + "Example: " + COMMAND_WORD + " floating\n"
             + "Valid case-insensitive sections to show: \n"
             + "> " + String.join(", ", VALID_KEYWORDS);

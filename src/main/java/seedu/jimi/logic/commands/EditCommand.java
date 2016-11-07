@@ -41,6 +41,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Edits an existing task/event in Jimi following add constraints. \n"
+            + "> Shortcuts: e, ed, edi\n"
             + "Parameters: INDEX(must be t<positive integer> or e<positive integer>) EDITS_TO_MAKE\n" 
             + "You can edit everything from the task name to its tags. \n"
             + "You can leave out fields that you do not wish to edit too. \n"
@@ -49,9 +50,7 @@ public class EditCommand extends Command implements TaskBookEditor {
             + "Example: " + COMMAND_WORD + " t2 \"clear trash\"\n"
             + "\n"
             + "If you wish to remove all dates/tags from an existing task: \n"
-            + "Example: " + COMMAND_WORD + " e1 dateless or " + COMMAND_WORD + " e1 tagless\n"
-            + "\n"
-            + "> Tip: Typing 'e', 'ed', 'edi' instead of 'edit' works too.";
+            + "Example: " + COMMAND_WORD + " e1 dateless or " + COMMAND_WORD + " e1 tagless";
     
     public static final String MESSAGE_EDIT_SUCCESS = "Updated details: %1$s";
     private static final String MESSAGE_DUPLICATE_TASK = 

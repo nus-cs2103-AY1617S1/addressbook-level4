@@ -21,12 +21,13 @@ public class DeleteCommand extends Command implements TaskBookEditor {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the specified task/event from Jimi.\n"
+            + "> Shortcuts: d, de, del, ... , delet\n"
             + "You can specify the task/event by entering its index number given in the last listing. \n"
             + "Parameters: INDEX (must be t<positive integer> or e<positive integer>)\n"
             + "Example: " + COMMAND_WORD + " t1\n"
             + "\n"
             + "You can also delete a range of tasks. \n"
-            + "Example: " + COMMAND_WORD + " t1 to t3";
+            + "Example: " + COMMAND_WORD + " t1 to t3 ";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = 
             "Jimi has deleted the following: \n"

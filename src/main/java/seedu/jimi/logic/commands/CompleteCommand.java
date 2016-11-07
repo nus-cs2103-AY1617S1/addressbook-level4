@@ -19,6 +19,7 @@ public class CompleteCommand extends Command implements TaskBookEditor{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks an existing task in Jimi as completed.\n"
+            + "> Shortcuts: c, co, com, comp, ... , complet\n"
             + "You can specify the task/event by entering its index number given in the last listing. \n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " t1";

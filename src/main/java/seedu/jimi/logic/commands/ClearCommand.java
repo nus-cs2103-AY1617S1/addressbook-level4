@@ -10,7 +10,7 @@ public class ClearCommand extends Command implements TaskBookEditor{
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Jimi has been cleared!";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears Jimi's database.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears Jimi's database. You can type 'undo' to revert changes.";
     
     public ClearCommand() {}
     
