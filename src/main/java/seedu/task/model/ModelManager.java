@@ -9,6 +9,10 @@ import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Status;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.item.Event;
@@ -20,10 +24,6 @@ import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.TaskNotFoundException;
-import seedu.taskcommons.core.ComponentManager;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Status;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 
 /**

@@ -1,10 +1,10 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.model.item.ReadOnlyEvent;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Selects an Event identified using it's last displayed index from the task

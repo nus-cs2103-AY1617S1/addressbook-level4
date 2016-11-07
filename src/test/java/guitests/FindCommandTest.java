@@ -1,16 +1,16 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.FindCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.taskcommons.core.Messages;
 
 //@@author A0144702N
 public class FindCommandTest extends TaskBookGuiTest {

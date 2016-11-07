@@ -1,4 +1,4 @@
-package seedu.taskcommons.core;
+package seedu.task.commons.core;
 
 import java.text.Collator;
 import java.util.Collection;

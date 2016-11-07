@@ -4,11 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.model.item.Flag;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
 /*

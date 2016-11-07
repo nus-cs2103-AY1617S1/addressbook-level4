@@ -3,7 +3,7 @@ package seedu.task.storage;
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.taskcommons.core.Config;
+import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.DataConversionException;
 
 /**

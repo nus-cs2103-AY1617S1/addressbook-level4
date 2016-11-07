@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
-import seedu.taskcommons.core.EventsCenter;
 
 /**
  * Terminates the program.

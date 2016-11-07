@@ -12,9 +12,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.EventPanelSelectionChangedEvent;
 import seedu.task.model.item.ReadOnlyEvent;
-import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N-reused
 public class EventListPanel extends UiPart{

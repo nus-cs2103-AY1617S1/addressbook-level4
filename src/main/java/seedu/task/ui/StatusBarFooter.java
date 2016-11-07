@@ -12,10 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.storage.StorageLocationChangedEvent;
 import seedu.task.commons.util.FxViewUtil;
-import seedu.taskcommons.core.LogsCenter;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

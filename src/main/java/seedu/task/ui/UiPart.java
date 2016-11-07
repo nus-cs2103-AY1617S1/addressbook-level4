@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.BaseEvent;
 import seedu.task.commons.util.AppUtil;
-import seedu.taskcommons.core.EventsCenter;
 
 /**
  * Base class for UI parts.

@@ -1,9 +1,10 @@
 package seedu.task.logic;
 
-import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
@@ -13,7 +14,6 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.Task;
-import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
 /*

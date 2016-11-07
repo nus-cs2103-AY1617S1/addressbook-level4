@@ -1,9 +1,9 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
-import seedu.taskcommons.core.Messages;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * Deletes an Event identified using it's last displayed index from the address book.

@@ -16,11 +16,11 @@ import jfxtras.internal.scene.control.skin.agenda.AgendaDaysFromDisplayedSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.LocalDateTimeRange;
+import seedu.task.commons.core.CalendarView;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.CalendarView;
-import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N
 

@@ -7,6 +7,7 @@ import org.junit.rules.TemporaryFolder;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.ui.JumpToTaskListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpEvent;
@@ -15,7 +16,6 @@ import seedu.task.model.ModelManager;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.storage.StorageManager;
-import seedu.taskcommons.core.EventsCenter;
 
 //@@author A0144702N-reused
 public class LogicBasicTest {

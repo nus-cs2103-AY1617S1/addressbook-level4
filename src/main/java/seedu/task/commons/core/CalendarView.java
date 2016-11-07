@@ -1,4 +1,4 @@
-package seedu.taskcommons.core;
+package seedu.task.commons.core;
 
 //@@author A0144702N
 /**

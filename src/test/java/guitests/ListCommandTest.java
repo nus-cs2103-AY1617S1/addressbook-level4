@@ -5,11 +5,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.task.commons.core.Status;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.parser.ListParser.ListTarget;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
-import seedu.taskcommons.core.Status;
 
 //@@author A0144702N
 /**

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Status;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.UndoableCommand;
@@ -12,9 +15,6 @@ import seedu.task.model.Model;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.storage.Storage;
-import seedu.taskcommons.core.ComponentManager;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Status;
 
 /**
  * The main LogicManager of dowat.

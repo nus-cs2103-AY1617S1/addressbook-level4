@@ -2,9 +2,9 @@ package seedu.task.commons.events.ui;
 
 import java.time.LocalDateTime;
 
+import seedu.task.commons.core.CalendarView;
 import seedu.task.commons.events.BaseEvent;
 import seedu.task.commons.util.StringUtil;
-import seedu.taskcommons.core.CalendarView;
 
 //@@author A0144702N
 public class UpdateCalendarEvent extends BaseEvent {

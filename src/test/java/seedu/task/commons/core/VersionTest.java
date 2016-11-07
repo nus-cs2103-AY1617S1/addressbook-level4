@@ -7,7 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.taskcommons.core.Version;
+import seedu.task.commons.core.Version;
 
 public class VersionTest {
     @Rule

@@ -1,4 +1,4 @@
-package seedu.taskcommons.core;
+package seedu.task.commons.core;
 
 import seedu.task.commons.events.BaseEvent;
 

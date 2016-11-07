@@ -1,4 +1,4 @@
-package seedu.taskcommons.core;
+package seedu.task.commons.core;
 
 import java.util.Objects;
 import java.util.logging.Level;

@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 import org.junit.Test;
-import seedu.taskcommons.core.Config;
+
+import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.logic.commands.SaveCommand;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;

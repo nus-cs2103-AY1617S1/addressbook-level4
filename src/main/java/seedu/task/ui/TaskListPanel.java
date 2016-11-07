@@ -12,9 +12,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.LogsCenter;
 
 /**
  * Panel containing the list of tasks.
