@@ -387,6 +387,9 @@ is better than these alternatives.<br>
 - Require developers to download those libraries manually but this is not recommended because other developers have to do extra work<br>
 
 
+
+<!--@@author A0139714B	-->
+
 ## **Appendix A : User Stories**
 
 
@@ -611,8 +614,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 
 
-
-
 ## **Appendix C : Non Functional Requirements**
 
  1. _Unburden_ should run smoothly.
@@ -627,6 +628,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
  10. _Unburden_ should be able to store the data safely when the application closes.
 
 
+
 ## **Appendix D : Glossary**
 
  1. UI - User Interface 
@@ -637,6 +639,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
  6. CI - Continuous Integration
 
 
+<!--@@author A0139678J	-->
 
 ## **Appendix E : Product Survey**
 
