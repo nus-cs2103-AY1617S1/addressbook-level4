@@ -5,12 +5,14 @@ import com.google.common.eventbus.Subscribe;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.events.model.ReloadFromNewFileEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.storage.FilePathChangedEvent;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
+import seedu.task.model.Model;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
@@ -109,20 +111,41 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0144939R
     @Subscribe
     public void handleFilePathChangedEvent(FilePathChangedEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "File path change requested, attempting to update file path"));
+        String newFilePath = event.newFilePath;
+        String oldFilePath = getTaskManagerFilePath();
         try {
-            logger.info(LogsCenter.getEventHandlingLogMessage(event, "File path change requested, updating file path"));
-            String newFilePath = event.newFilePath;
+            //save data
+            saveTaskManager(event.taskManager);
+            
+            //change file path
             setTaskManagerFilePath(newFilePath);
+            
             if(!isFileAlreadyPresent(newFilePath)) { 
+                //save to new location
                 saveTaskManager(event.taskManager);                
             } else {
-                //load from pre existing task manager xml
+                //load from pre existing file                
+                Optional<ReadOnlyTaskManager> newTaskManager = readTaskManager(newFilePath); 
+                raise(new ReloadFromNewFileEvent(newFilePath, newTaskManager));
             }
+            
             config.setTaskManagerFilePath(event.newFilePath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             raise(new ConfigFilePathChangedEvent(event.newFilePath));
-        } catch (IOException e) {
-            e.printStackTrace();
+            
+        } catch (IOException e)  {
+            
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Error occured on saving/loading"));
+            raise(new DataSavingExceptionEvent(e));
+            //clean up
+            setTaskManagerFilePath(oldFilePath);
+            
+        } catch(DataConversionException e) {
+            
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Error occured on loading from new file"));
+            //clean up
+            setTaskManagerFilePath(oldFilePath);
         }
     }
     
