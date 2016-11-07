@@ -202,7 +202,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
             if ((toCount.getStartTime().isUpcoming(toCount.getStartTime().appearOnUIFormatForDate())
                     || toCount.getEndTime().isUpcoming(toCount.getEndTime().appearOnUIFormatForDate()))
-                    && toCount.isDone() == false) {
+                    && toCount.isDone() == false && toCount.checkOverdue() == false) {
                 upcoming++;
             }
 
