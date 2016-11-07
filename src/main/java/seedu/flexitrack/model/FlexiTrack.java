@@ -173,15 +173,18 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
      */
     public boolean checkBlock(Task toCheck) throws DuplicateTaskException {
         setBlockList();
-
+        //System.out.println("Checking block");
         if(blockList.getInternalList().size()==0) {
+            //System.out.println("no block found!");
             return false;
         }
         for(Task forCheck: blockList) {
             if(compareDate(toCheck,forCheck)) {
+                //System.out.println("222 "+forCheck.toString());
                 return true;
             }
         }
+        //System.out.println("compareed then return false");
         return false;
     }
     
@@ -213,9 +216,12 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         Date start2 = blockDate.getStartTime().getTimeInfo().getTimingInfo().getDates().get(0);
         Date end1 = toCheck.getEndTime().getTimeInfo().getTimingInfo().getDates().get(0);
         Date end2 = blockDate.getEndTime().getTimeInfo().getTimingInfo().getDates().get(0);
-
-        if((start1.compareTo(start2)>=0 && start1.compareTo(end2)<=0) || 
-                (end1.compareTo(start2)>=0 && end1.compareTo(end2)<=0)) {
+        //    a KKKKKKK from/ 25 dec 3pm to/ 25 dec 6pm
+        //    a LLLLLLL from/ 25 dec 3pm to/ 6pm
+        //System.out.println("\n"+toCheck.getName().toString()+" --start time : " + start1.toString() +"and end time : " + end1.toString()
+        //                +"\n" +blockDate.getName().toString() +" start time : " + start2.toString() + "and end time : " + end2.toString());
+        if((start1.compareTo(start2)>=0 && start1.compareTo(end2)<0) || 
+                (end1.compareTo(start2)>=0 && end1.compareTo(end2)<0)) {
             return true;
         }
         return false;
