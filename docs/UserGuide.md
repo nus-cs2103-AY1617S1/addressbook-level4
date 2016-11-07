@@ -125,24 +125,35 @@ Examples:
 <br>
 #### Updating a task: `update`
 Updates the <i>entire task</i>, only the <i>description</i> of the task or the <i>date</i> of the task.<br>
-Format (task): `update INDEX task UPDATED_VALUE` <br>
-Format (description): `update INDEX desc UPDATED_VALUE` <br>
-Format (date): `update INDEX date UPDATED_VALUE`
 
+##### Update Task
+Format (task): `update INDEX task UPDATED_VALUE` <br>
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
-> `description`: Updates the description of the task with `UPDATED_VALUE` <br>
-> `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
 
 Examples:
 * `list`
 * `update 1 task overseas from oct 31 to nov 1` <br>
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
-<br> <br>
+  <br> <br>
+
+##### Update Description
+Format (description): `update INDEX desc UPDATED_VALUE` <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `description`: Updates the description of the task with `UPDATED_VALUE` <br>
+
+Examples:
 * `list`
 * `update 2 desc project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
   <br><br>
+
+##### Update Date
+Format (date): `update INDEX date UPDATED_VALUE` <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
+
+Examples:
 * `list`
 * `update 1 date 31 October 2016` <br>
   Updates the date of the 1st task on the list to `31 October 2016`
@@ -337,7 +348,7 @@ Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all 
 
 <br>
 ## Scrolling
-Pressing <kbd>Control</kbd> + <kbd>UP</kbd> or <kbd>Control</kbd> + <kbd>DOWN</kbd> scrolls through the list of tasks.
+Pressing <kbd>Ctrl</kbd> + <kbd>UP</kbd> or <kbd>Ctrl</kbd> + <kbd>DOWN</kbd> scrolls through the list of tasks.
 
 <br>
 ## FAQ
@@ -351,7 +362,7 @@ Pressing <kbd>Control</kbd> + <kbd>UP</kbd> or <kbd>Control</kbd> + <kbd>DOWN</k
 Command | Format
 -------- | :--------
 Help | `help`
-Add Floating tasks | `add TASK`
+Add Floating tasks | `add TASK` or `add "TASK"`
 Add Deadline tasks | `add TASK by/on/at DATE`
 Add Event tasks | `add TASK from START_DATE to/- END_DATE`
 List | `list`
