@@ -19,7 +19,7 @@
 
 	> Having any Java 8 version is not enough. <br>
 	This app will not work with earlier versions of Java 8.
-   
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -237,7 +237,7 @@ Here are the steps to create a new release.
 2. Tag the repo with the version number. e.g. `v0.1`
 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
 	and upload the JAR file your created.
-  
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. Managing these _dependencies_
@@ -250,9 +250,9 @@ b. Require developers to download those libraries manually (this creates extra w
 
 <!-- @@author A0153467Y-->
 ## Appendix A : User Stories
- 
+
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
- 
+
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
@@ -280,15 +280,15 @@ The activity diagram below shows the simple flow of getting command from user<br
 <img src="images/ActivityDiagram.jpg" width="600"><br>
 
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
- 
+
 #### Use case: Add task
- 
+
 **MSS**
- 
+
 1. User requests to add a task
 2. MESS adds the task to the list<br>
 Use case ends.
- 
+
 **Extensions**
 
 1a. The input command format is wrong
@@ -301,13 +301,13 @@ Use case ends.
 <!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Alias command
- 
+
 **MSS**
- 
+
 1. User requests to alias a command
 2. MESS aliases the command to the given symbol<br>
 Use case ends.
- 
+
 **Extensions**
 
 1a. The symbol is already aliased to another command
@@ -322,32 +322,32 @@ Use case ends.
 > MESS maps the given symbol to the command, as a command can have multiple aliases
 Use case ends.
 
-<!-- @@author --> 
+<!-- @@author -->
 
-<!-- @@author A0153467Y --> 
+<!-- @@author A0153467Y -->
 #### Use case: Delete task by index
- 
+
 **MSS**
- 
+
 1. User requests to list tasks
 2. MESS shows a list of tasks
 3. User requests to delete a specific task in the list
 4. MESS deletes the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > Use case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    Use case ends.
- 
+
 #### Use case: Update task
- 
+
 **MSS**
 
 1. User requests to list tasks
@@ -355,20 +355,20 @@ Use case ends.
 3. User requests to update a specific task by index in the list
 4. MESS updates the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    User case ends.
 
 #### Use case: Pin task
- 
+
 **MSS**
 
 1. User requests to list tasks
@@ -376,20 +376,20 @@ Use case ends.
 3. User requests to pin a specific task by index in the list
 4. MESS pins the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    User case ends.   
 
 #### Use case: Unpin task
- 
+
 **MSS**
 
 1. User requests to list tasks
@@ -397,25 +397,25 @@ Use case ends.
 3. User requests to unpin a pinned task by index in the list
 4. MESS unpins the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 > MESS shows an error message <br>
    User case ends.
-   
+
 3b. The task is not pinned before
- 
+
 > MESS shows an error message <br>
   User case ends.   
-   
+
 #### Use case: Complete task
- 
+
 **MSS**
 
 1. User requests to list tasks
@@ -423,20 +423,20 @@ Use case ends.
 3. User requests to mark a specific task as completed by index in the list
 4. MESS marks the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    User case ends.   
-   
+
 #### Use case: Uncomplete task
- 
+
 **MSS**
 
 1. User requests to list tasks
@@ -444,23 +444,23 @@ Use case ends.
 3. User requests to mark a completed task as not completed by index in the list
 4. MESS marks the task back to not completed <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    User case ends.  
 
 3b. The task is not marked as completed before
- 
+
 >MESS shows an error message <br>
-   User case ends. 
-   
+   User case ends.
+
 #### Use case: Undo previous action
 
 **MSS**
@@ -494,7 +494,27 @@ Use case ends.
 
 >MESS shows an no-match message <br>
    Use case ends.
+<!-- @@author A0141052Y -->
+#### Use case: Find task by tag
 
+**MSS**
+
+1. User enters command and tags to be searched. <br/>
+2. MESS shows the tasks containing the tags <br>
+Use case ends.
+
+**Extensions**
+
+1a. The find by tag command format is wrong
+
+>MESS shows an error message. <br/>
+  Use case ends.
+
+1b. There is no matched task
+
+>MESS shows no tasks in the task list <br/>
+  Use case ends.
+<!-- @@author -->
 #### Use case: List all tasks
 
 **MSS**
@@ -532,7 +552,7 @@ Use case ends.
 <!-- @@author -->
 <!-- @@author A0153467Y -->
 ## Appendix C : Non Functional Requirements
- 
+
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
 2. Should be able to process user’s request and show result in 3 seconds
 3. Should be user-friendly for both beginners and advanced users
@@ -543,9 +563,9 @@ Use case ends.
 8. Should come with automated unit tests and open source code
 
 ## Appendix D : Glossary
- 
+
 ##### Mainstream OS
- 
+
 > Windows, Linux, Unix, OS-X
 
 ##### Floating Tasks
@@ -554,7 +574,7 @@ Use case ends.
 
 <!-- @@author-->
 ## Appendix E : Product Survey
- 
+
 ### Google Calendar
 #### Strengths
 1. Simple 'what you see is what you get' interface
@@ -564,7 +584,7 @@ Use case ends.
 5. Global Search; data searched through other google products as well; Gmail, Drive, etc.
 6. Automatic generation of start and end times enforcing structure in all entries
 7. Recurring events
- 
+
 #### Weaknesses
 1. No tagging mechanism for more complex organization
 2. No analysis, summary nor statistics of data the user has entered
@@ -584,16 +604,16 @@ Use case ends.
 8. Priority can be set for each task
 9. Can be extended to add-ons
 10. Can be connected to Dropbox
- 
+
 #### Weakness:
 1. UI does not look good
 2. All the output will only be shown in CLI format (no colour, no font change)
 3. Need to update whether the task has finished or not by the user
 4. No notification for task near deadline
 5. Require users to remember too many commands
- 
+
 ### Wunderlist (Free version)
- 
+
 #### Strength
 1. Easy to use
 2. Cross-platform application
@@ -602,12 +622,12 @@ Use case ends.
 5. Use hashtag to categorize tasks
 6. Plug-in for Microsoft Outlook and Google Calendar
 7. Can take notes (not only task)
- 
+
 #### Weakness
 1. Cannot create task using one line command
 2. Have limited number subtasks (only premium version has unlimited)
 3. Cannot customize the interface (only premium version can do)
- 
+
 ### Todoist (Free version)
 #### Strength
 1. Simple to use
@@ -616,7 +636,7 @@ Use case ends.
 4. Have both online and offline access
 5. Have different priority level for tasks
 6. Can track your productivity and visualize your achievement trends over time.
- 
+
 #### Weakness
 1. tasks for free version
 2. Cannot use label to categorize tasks for free version
