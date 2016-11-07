@@ -263,7 +263,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is `Dowat` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Dowat` and the **Actor** is the `user`, unless specified otherwise. MSS stands for Main Success Scenario.)
 
 <!-- @@author A0127570H -->
 
