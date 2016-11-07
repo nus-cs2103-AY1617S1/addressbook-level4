@@ -5,7 +5,6 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [Commands Autocomplete](#commands-autocomplete)
-* [Google Integration](#google-integration)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -121,7 +120,7 @@ Examples:
 #### Updating a task: `update`
 Updates the <i>entire task</i>, only the <i>description</i> of the task or the <i>date</i> of the task.<br>
 Format (task): `update INDEX task UPDATED_VALUE` <br>
-Format (description): `update INDEX description UPDATED_VALUE` <br>
+Format (description): `update INDEX desc UPDATED_VALUE` <br>
 Format (date): `update INDEX date UPDATED_VALUE`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
@@ -135,7 +134,7 @@ Examples:
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
 <br> <br>
 * `list`
-* `update 2 description project discussion` <br>
+* `update 2 desc project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
   <br><br>
 * `list`
@@ -273,6 +272,20 @@ Examples:
 > Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
 
 <br>
+#### Redoing an undo: `redo`
+Redoes the previous undo command.<br>
+Format: `redo`
+
+Examples:
+* `list`
+* `delete 1`
+* `undo` 
+* `redo` <br>
+  Redoes your latest `undo` command
+
+> Only 1 consecutive `redo` command after an `undo` command is allowed.
+
+<br>
 #### Clearing all entries : `clear`
 Clears all entries from the currently displayed list in Tusk.<br>
 Format: `clear`
@@ -333,24 +346,54 @@ Command | Format
 -------- | :--------
 Help | `help`
 Add floating tasks | `add TASK`
-Add deadline tasks | `add TASK by DATE`
+Add deadline tasks | `add TASK by/on/at DATE`
 Add event tasks | `add TASK from START_DATE to/- END_DATE`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-Update task | `update INDEX task UPDATED_VALUE`
-Update description | `update INDEX description UPDATED_VALUE`
-Update date | `update INDEX date UPDATED_VALUE`
+Update task | `update/edit INDEX task UPDATED_VALUE`
+Update description | `update/edit INDEX desc UPDATED_VALUE`
+Update date | `update/edit INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
+Clear | `clear`
+Undo | `undo`
+Redo | `redo`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
+List completed| `list complete[d]`
 Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List completed | `list complete[d]`
 List aliases | `list alias[es]`
-Undo | `undo`
-Clear | `clear`
 Set storage location | `setstorage PATH`
 Exit | `exit`
 
+<br>
+## Date Format
+
+Supported Date Format | Example
+-------- | :--------
+DD MM YYYY | 1 October 2017 <br> 01 October 2017 <br> 1 Oct 2017 <br> 01 Oct 2017
+MM DD YYYY | October 1 2017 <br> October 01 2017 <br> Oct 1 2017 <br> Oct 01 2017
+DD MM | 1 October <br> 1 Oct
+MM DD | October 1 <br> Oct 1
+Day | Today <br> Tomorrow <br> Tmr <br> Day after tmr <br> Thursday <br> Thu <br> Next Thursday <br> 
+
+
+<br>
+## Time Format
+
+Supported Time Format | Example
+-------- | :--------
+HH:MM | 1:30 <br> 16:25
+HH.MM | 1.30 <br> 16.25
+HH:MMam/pm | 1:30am <br> 4:25pm
+HH.MMam/pm | 1.30am <br> 4.25pm
+
+
+<br>
+## Date-Time Format
+
+Supported Date-Time Format | Example
+DATE TIME | 1 October 2017 1.30am <br> 1 Oct 1.30am <br> Today 10pm <br> Next Tues 16:25
+TIME DATE | 1.30am 1 October 2017 <br> 1.30am 1 Oct <br> 10pm Today <br> 16:25 Next Tues
