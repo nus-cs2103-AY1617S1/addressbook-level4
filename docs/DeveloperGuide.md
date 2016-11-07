@@ -16,17 +16,21 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix E: Product Survey](#appendix-e--product-survey)
 
 
 &nbsp;
 
 
+[comment]: # (@@author A0148031R)
 ## Introduction
 
 Agendum is a task manager for busy users to manage their schedules and tasks via keyboard commands. It is a Java desktop application that has a **GUI** implemented with JavaFX.
 
 This guide describes the design and implementation of Agendum. It will help developers (like you) understand how Agendum works and how to further contribute to its development. We have organized this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. Each sub-section is mostly self-contained to provide ease of reference.
+
+
+&nbsp;
 
 
 ## Setting up
@@ -83,6 +87,8 @@ This guide describes the design and implementation of Agendum. It will help deve
 
 ## Design
 
+
+[comment]: # (@@author A0133367E)
 ### 1. Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -91,16 +97,16 @@ The **_Architecture Diagram_** given above summarizes the high-level design of A
 Here is a quick overview of the main components of Agendum and their main responsibilities.
 
 #### `Main`
-The **`Main`** component has only one class called [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for initializing all components in the correct sequence and connecting them up with each other at app launch. It is also responsible for shutting down the other components and invoking the necessary clean up methods when Agendum is shut down.
+The **`Main`** component has a single class: [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for initializing all components in the correct sequence and connecting them up with each other at app launch. It is also responsible for shutting down the other components and invoking the necessary clean up methods when Agendum is shut down.
 
 
 #### `Commons`
 [**`Commons`**](#6-common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+Two Commons classes play important roles at the architecture level.
 
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : This class is used by many classes to write log messages to Agendum's log file to record noteworthy system information and events.
+* `EventsCentre` (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+  is used by components to communicate with other components using events.
+* `LogsCenter` is used by many classes to write log messages to Agendum's log file to record noteworthy system information and events.
 
 
 #### `UI`
@@ -130,64 +136,81 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 
 
 #### Event Driven Approach
-Agendum applies an Event-Driven approach to reduce direct coupling between components. For example, consider the scenario where the user inputs `delete 1` described in the  _Sequence Diagram_ below. The `UI` component will invoke the `Logic` component’s  _execute_ method to carry out the given command, `delete 1`. The `Logic` component will identify the corresponding task and will call the `Model` component _deleteTasks_ method to update Agendum’s data and raise a `ToDoListChangedEvent`.
+Agendum applies an Event-Driven approach and the **Observer Pattern** to reduce direct coupling between the various components. For example, the `UI` and `Storage` components are interested in receiving notifications when there is a change in the to-do list in `Model`. To avoid bidrectional coupling, `Model` does not inform these components of changes directly. Instead, it posts an event and rely on the `EventsCenter` to notifying the register Observers in `Storage` and `UI`.
 
-The _Sequence Diagram_ below illustrates how the components interact for the scenario where the user issues the
-command `delete 1` to delete the first task in the displayed list. The `UI` component will invoke the `Logic` component's _execute_ method to carry out the given command. In this scenario, the `Logic` component will identify the corresponding task and invoke `Model`'s  _deleteTask(task)_ method to update the in-app memory and raise a `ToDoListChangedEvent`.
+Consider the scenario where the user inputs `delete 1` described in the _Sequence Diagram_ below. The `UI` component will invoke the `Logic` component’s  _execute_ method to carry out the given command, `delete 1`. The `Logic` component will identify the corresponding task and will call the `Model` component _deleteTasks_ method to update Agendum’s data and raise a `ToDoListChangedEvent`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
-> Note: When Agendum's data is changed, the `Model` simply raises a `ToDoListChangedEvent`.
-  It does not directly request the `Storage` component to save the updates to the hard disk.
-  Hence, `Model` is not directly coupled to `Storage`.
-
-The diagram below shows what happens after a `ToDoListChangedEvent` is raised. `EventsCenter` will inform the subscribers (the `UI` and `Storage` components). Both components will then respond accordingly. `UI` will update the status bar to reflect the 'Last Updated' time while `Storage` will save the updates to the task data to hard disk. <br>
+The diagram below shows what happens after a `ToDoListChangedEvent` is raised. `EventsCenter` will inform its subscribers. `Storage` will respond and save the changes to hard disk while `UI` will respond and update the status bar to reflect the 'Last Updated' time. <br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
+
+#### Model-View-Controller approach
+To further reduce coupling between components, the Model-View-Controller pattern is also applied. The 3 components are as follows:
+* Model: The `Model` component as previously described, maintains and holds Agendum's data.
+* View: Part of the `UI` components and resources such as the .fxml file is responsible for displaying Agendum's data and interacting with the user. Through events, the `UI` component is able to get data updates from the model.
+* Controller: Parts of the `UI` component such as (`CommandBox`) act as 'Controllers' for part of the UI. The `CommandBox` accepts user command input and request `Logic` to execute the command entered. This execution may result in changes in the model.
+
+
+#### Activity Diagram
+
+<img src="images\activityDiagram.jpg" width="800"> <br>
+
+The Activity Diagram above illustrates Agendum's workflow. Brown boxes represent actions taken by Agendum while orange boxes represent actions that involve interaction with the user.  
+
+After Agendum is launched, Agendum will wait for the user to enter a command. Every command is parsed. If the command is valid and adheres to the given format, Agendum will executes the command. Agendum `Logic` component checks the input such as indices before updating the model and storage if needed.  
+
+Agendum will then display changes in the to-do list and feedback of each command in the UI. The user can then enter a command again. Agendum will also give pop-up feedbacks when the command format or inputs are invalid.
 
 The following sections will then give more details of each individual component.
 
 
+[comment]: # (@@author A0148031R)
 ### 2. UI component
+
+The `UI` is the entry point of Agendum which is responsible for showing updates to the user; changes in data in the `Model` automatically updates `UI` as well. `UI` executes user commands using the Logic Component. In addition, `UI` responds to events raised from various other parts of Agendum and updates the display accordingly.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/agendum/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit the abstract `UiPart` class. They can be loaded using `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox` and `ResultPopup`. All these, including the `MainWindow`, inherit the abstract `UiPart` class. They can be loaded using `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/agendum/ui/MainWindow.java) is specified in
+The `commandBox` component controls the field for user input, and it is associated with a `CommandBoxHistory` object which saves the most recent valid and invalid commands. `CommandBoxHistory` follows a singleton pattern to restrict the instantiation of the class to one object.
+
+Agendum has 3 different task panel classes `UpcomingTasksPanel`, `CompletedTaskPanel` and `FloatingTasksPanel`. They all inherit from the the `TaskPanel` class and hold and load `TaskCard` objects.
+
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](../src/main/java/seedu/agendum/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component has the following functions:
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
-
-
+[comment]: # (@@author A0003878Y)
 ### 3. Logic component
+
+`Logic` provides several APIs for `UI` to execute the commands entered by the user. It also obtains information about the to-do list to render to the user.
+The **API** of the logic component can be found at [`Logic.java`](../src/main/java/seedu/agendum/logic/Logic.java)
+
+The class diagram of the Logic Component is given below. `LogicManager` implements the `Logic Interface` and has exactly one `Parser`. `Parser` is responsible for processing the user command and creating instances of concrete `Command` objects (such as `AddCommand`) which will then be executed by the `LogicManager`. New command types must implement the `Command` class. Each `Command` class produces exactly one `CommandResult`.
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/agendum/logic/Logic.java)
-
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The `CommandLibrary` class is responsible for managing the various Agendum's reserved command keywords and their aliases. The `Parser` checks and queries the `CommandLibrary` to ascertain if a command word given has been aliased to a reserved command word. `AliasCommand` and `UnaliasCommand` will also check and update the `CommandLibrary` to add and remove aliases. The singleton pattern is applied to restrict the instantiation of the class to one object. This is to ensure that all other objects, such as `Parser`, `AliasCommand` and `UnaliasCommand` objects will refer to the same instance that records and manages all the alias relationships.  
 
 You can view the Sequence Diagram below for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 
 <img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
+#### Command Pattern
+The Parser creates concrete Command objects such as `AddCommand` objects. `LogicManager` will then execute the various commands, such as `AddCommand` and `UndoCommand`. Each command does a different task and gives a different result. However, as all command types inherit from the abstract class `Command` and implement the _`execute`_ method, LogicManager (the invoker) can treat all of them as Command Object without knowing each specific Command type. By calling the _`execute`_ method, different actions result.
 
+
+[comment]: # (@@author A0133367E)
 ### 4. Model component
 
-As mentioned above, the `Model` component stores and manage Agendum's task list data and user's preferences. It also exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' by other components e.g. the UI can be bound to this list and will automatically update when the data in the list change. It does not depend on other components such as `Logic` and `Storage`.  
+As mentioned above, the `Model` component stores and manages Agendum's task list data and user's preferences. It also exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' by other components e.g. the `UI` can be bound to this list and will automatically update when the data in the list change.
+
+Due to the application of the **Observer Pattern**, it does not depend on other components such as `Storage` but interact by raising events instead.
 
 The `Model` class is the interface of the `Model` component. It provides several APIs for the `Logic` and `UI` components to update and retrieve Agendum’s task list data. The **API** of the model component can be found at [`Model.java`](../src/main/java/seedu/agendum/model/Model.java).  
 
@@ -195,24 +218,45 @@ The structure and relationship of the various classes in the `Model` component i
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-`ModelManager` implements the `Model` Interface. It stores a `UserPref` Object which represents the user’s preference. It stores multiple `ToDoList` objects, including the current and recent lists.  
+`ModelManager` implements the `Model` Interface. It contains a `UserPref` Object which represents the user’s preference and a `SyncManager` object which is necessary for the integration with Google calendar.
+
+`SyncManager` implements the `Sync` Interface. The `SyncManager` redirects the job of syncing a task to a `SyncProvider`. In Agendum, we have one provider, `SyncProviderGoogle` that implements the `SyncProvider` Interface. This is done so that it would be easy to extend Agendum to sync with other providers. One would just have to create a new class that extends the `SyncProvider` Interface and register that class with `SyncManager`.
+
+`ModelManager` contains a **main** `ToDoList` object and a stack of `ToDoList` objects referred to as `previousLists`. The **main** `ToDoList` object is the copy that is indirectly referred to by the `UI` and `Storage`. The stack, `previousLists` is used to support the [`undo` operation](#### undo).
 
 Each `ToDoList` object has one `UniqueTaskList` object. A `UniqueTaskList` can contain multiple `Task` objects but does not allow duplicates.  
 
 The `ReadOnlyToDoList` and `ReadOnlyTask` interfaces allow other classes and components, such as the `UI`, to access but not modify the list of tasks and their details.  
 
-> * `ToDoList` can potentially be extended to have another `UniqueTagList` object to keep track of tags associated with each task and `ToDoList` will be responsible for syncing the tasks and tags.
-> * `Name` is a class as it might be modified to have its own validation regex e.g. can only contain alphanumeric characters.
+Currently, each `Task` has a compulsory `Name` and last updated time. It is optional for a `Task` to have a start and end time. Each `Task` also has a completion status which is represented by a boolean.
+
+Design considerations:
+> * `ToDoList` is a distinct class from `UniqueTaskList` as it can potentially be extended to have another `UniqueTagList` object to keep track of tags associated with each task and `ToDoList` will be responsible for syncing the tasks and tags.
+> * `Name` is a separate class as it might be modified to have its own validation regex e.g. no / or "
 
 Using the same example, if the `Logic` component requests `Model` to _deleteTasks(task)_, the subsequent interactions between objects can be described by the following sequence diagram.  
 
 <img src="images\SDforDeleteTaskModelComponent.png" width="800">
 
-The identified task is removed from the `UniqueTaskList`. The `ModelManager` raises a `ToDoListChangedEvent` and back up the new to-do list to its history of saved lists.  
+The identified task is removed from the `UniqueTaskList`. The `ModelManager` raises a `ToDoListChangedEvent` and back up the current to do list to `previousLists`
 
 > `Model`’s _deleteTasks_ methods actually take in `ArrayList<ReadOnlyTask>` instead of a single task. We use _deleteTasks(task)_ for simplicity in the sequence diagram.
 
 
+#### undo
+
+`previousLists` is a Stack of `ToDoList` objects with a minimum size of 1. The `ToDoList` object at the top of the stack is identical to the **main** `ToDoList` object before any operation that mutate the to-do list is performed and after any operation that mutates the task list successfully (i.e. without exceptions).
+
+This is achieved with the _backupCurrentToDoList_ function which pushes a copy of the **main** `ToDoList` to the stack after any successful changes, such as the marking of multiple tasks.
+
+To undo the most recent changes, we simply pop the irrelevant `ToDoList` at the top of the `previousLists` stack and copy the `ToDoList` at the top of the stack back to the **main** list 
+
+This approach is reliable as it eliminates the need to implement an "undo" method and store the changes separately for each command that will mutate the task list.
+
+Also, it helps to resolve the complications involved with manipulating multiple task objects at a go. For example, the user might try to mark multiple tasks and one of which will result in a `DuplicateTaskException`. To revert the undesired changes to the **main** `ToDoList`, we can copy the the `ToDoList` at the top of the stack back to the **main** list. In such unsuccessful operations, the changes would not have persisted to Storage.
+
+
+[comment]: # (@@author A0148095X)
 ### 5. Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -221,8 +265,10 @@ The identified task is removed from the `UniqueTaskList`. The `ModelManager` rai
 
 The `Storage` component has the following functions:
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Agendum data in xml format and read it back.
+* saves `UserPref` objects in json format and reads it back.
+* saves the Agendum data in xml format and reads it back.
+
+Other components such as `Model` require the functionalities defined inside the `Storage` component in order to save task data and user preferences to the hard disk. The `Storage` component uses the *Facade* design pattern. Components such as `ModelManager` access storage sub-components through `StorageManager` which will then redirect method calls to its internal component such as `JsonUserPrefsStorage` and `XmlToDoListStorage`. `Storage` also shields the internal details of its components, such as the implementation of `XmlToDoListStorage`, from external classes.
 
 The Object Diagram below shows what it looks like during runtime.
 
@@ -249,6 +295,7 @@ They are further separated into sub-packages - namely `core`, `events`, `excepti
 &nbsp;
 
 
+[comment]: # (@@author A0133367E)
 ## Implementation
 
 ### 1. Logging
@@ -273,16 +320,18 @@ Currently, Agendum has 4 logging levels: `SEVERE`, `WARNING`, `INFO` and `FINE`.
 * `INFO` : Noteworthy actions by Agendum<br>
   e.g. valid and invalid commands executed and their results
 * `FINE` : Less significant details that may be useful in debugging<br>
-  e.g. print the elements in actual list instead of just its size
+  e.g. all fine details of the tasks including their last updated time
 
 ### 2. Configuration
 
 You can alter certain properties of our Agendum application (e.g. logging level) through the configuration file.
-(default: `config.json`):
+(default:`config.json`).
 
 
 &nbsp;
 
+
+[comment]: # (@@author A0148095X)
 ## Testing
 
 You can find all the test files in the `./src/test/java` folder.
@@ -337,6 +386,7 @@ See [UsingGradle.md](UsingGradle.md#running-tests)  for instructions on how to r
 &nbsp;
 
 
+[comment]: # (@@author A0148031R)
 ## Dev Ops
 
 ### 1. Build Automation
@@ -359,60 +409,66 @@ To contribute a new release:
 ### 4. Managing Dependencies
 
 Agendum depends on third-party libraries, such as the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these dependencies have been automated using Gradle. Gradle can download the dependencies automatically hence the libraries are not included in this repo and you do not need to download these libraries manually. To add a new dependency, update _build.gradle_.
+[Jackson library](http://wiki.fasterxml.com/JacksonHome), for XML parsing, [Natty](http://natty.joestelmach.com) for date & time parsing, [Reflection](https://code.google.com/archive/p/reflections/) for examining classes at runtime and [Google Calendar SDK](https://developers.google.com/api-client-library/java/apis/calendar/v3) for sync. Managing these dependencies have been automated using Gradle. Gradle can download the dependencies automatically hence the libraries are not included in this repo and you do not need to download these libraries manually. To add a new dependency, update `build.gradle`.
 
 
 &nbsp;
 
 
+[comment]: # (@@author A0148095X)
 ## Appendix A : User Stories
 
->Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+> Priorities: 
+> * High (must have) - `* * *`
+> * Medium (nice to have)  - `* *`
+> * Low (unlikely to have) - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | New user | See usage instructions | Refer to instructions when I forget how to use the App
-`* * *` | User | Add a task | Keep track of tasks which I need to do
-`* * *` | User | Delete a task/multiple tasks | Remove tasks that I no longer need to keep track of
-`* * *` | User | Edit a task name | Update task details to reflect the latest changes
-`* * *` | User | View all my tasks | Have a quick and clear reference of everything I need to do
-`* * *` | User | Mark a task/multiple tasks as completed | Know that it is completed without deleting it, distinguish between completed and uncompleted tasks
-`* * *` | User | Unmark a task from completed | Update the status of my task
+`* * *` | User | See usage instructions | View more information about the features and commands available
+`* * *` | User | Add a task | Keep track of tasks which I need work on
+`* * *` | User | Add a task with start and end time | Keep track of events that need to be completed within a certain time-frame
+`* * *` | User | Add a task with a deadline | Keep track of a task to be done by a specific date and time
+`* * *` | User | Rename a task | update or enhance the description of a task
+`* * *` | User | Edit or remove start and end time of tasks | Reschedule events with defined start and end dates
+`* * *` | User | Edit or remove deadlines of tasks | Reschedule tasks which must be done by a certain date and time
+`* * *` | User | Mark task(s) as completed | Keep record of tasks that have been completed without deleting, to distinguish between completed and uncompleted tasks
+`* * *` | User | Unmark task(s) from completed | Update the status of my task(s) if there are new changes or I want to continue working on a recently completed task(s).
+`* * *` | User | Delete task(s) | Remove task(s) that will never get done or are no longer relevant
 `* * *` | User | Undo my last action(s) | Easily correct any accidental mistakes in the last command(s)
-`* * *` | User | Search based on task name | Find a task without going through the entire list if I remember a few key words
-`* * *` | User | Specify my data storage location | Easily locate the raw text file for editing and sync the file to a cloud storage service
-`* * *` | User | Clear all existing tasks | Easily start afresh with a new task list
+`* * *` | User | Search based on task name | Find a task without going through the entire list using a few key words.
+`* * *` | User | View all my tasks | Return to the default view of task lists after I am done searching for tasks
+`* * *` | User | Specify my data storage location | Easily relocate the raw file for editing and/or sync the file to a Cloud Storage service
+`* * *` | User | Load from a file | Load Agendum’s task list from a certain location or a Cloud Storage service
 `* * *` | User | Exit the application by typing a command | Close the app easily
-`* * *` | Busy user | Specify start and end time when creating tasks | Keep track of events with defined start and end dates
-`* * *` | Busy User | Specify deadlines when creating tasks | Keep track of tasks which must be done by a certain and date and time
-`* * *` | Busy User | Edit and remove start and end time of tasks | Update events with defined start and end dates
-`* * *` | Busy User | Edit and remove deadlines of tasks | Update tasks which must be done by a certain and date and time
-`* *` | User | Sort tasks by alphabetical order and date | Organise and easily locate tasks
 `* *` | User | Filter overdue tasks and upcoming tasks (due within a week) | Decide on what needs to be done soon
-`* *` | User | Filter tasks based on whether they are marked/unmarked | View my tasks grouped by their state of completion. Review my completed tasks and decide on what I should do next
-`* *` | User | See the count/statistics for upcoming/ overdue and pending tasks | Know how many tasks I need to do
-`*` | User | Clear the command I am typing with a key | Enter a new command without having to backspace the entire command line
-`*` | Advanced user | Specify my own short-hand alias commands | Enter commands faster
-`*` | Advanced user | Remove or edit the short-hand alias commands | Update to use more suitable command aliases
-`*` | Advanced user | Scroll through my past few commands | Check what I have done and redo actions easily
-`* Unlikely` | Google calendar user | Sync my tasks with Google calendar | Keep track of my tasks online
-`* Unlikely` | User | Add multiple time slots for a task | “Block” multiple time slots when the exact timing of a task is certain
-`* Unlikely` | User | Add tags for my tasks | Group tasks together and organise my task list
-`* Unlikely` | User | Search based on tags | Find all the tasks of a similar nature
-`* Unlikely` | User | Add/Remove tags for existing tasks | Update the grouping of tasks
-`* Unlikely` | User | Be notified of deadline/time clashes | Resolve these conflicts manually
-`* Unlikely` | User | Key in emojis/symbols and characters from other languages e.g. Mandarin | Capture information in other languages
-`* Unlikely` | Advanced User | Import tasks from an existing text file | Add multiple tasks efficiently without relying on multiple commands
-`* Unlikely` | Advanced User | Save a backup of the application in a custom file | Restore it any time at a later date
-`* Unlikely` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
-`* Unlikely` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
-`* Unlikely` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
-`* Unlikely` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
+`* *` | User | Filter tasks based on marked/unmarked | Review my completed tasks and decide on what I should do next
+`* *` | User | Clear the command I am typing with a key | Enter a new command without having to backspace the entire command line
+`* *` | Advanced user | Specify my own alias commands | Enter commands faster or change the name of a command to suit my needs
+`* *` | Advanced user | Remove the alias for a command | Use it for another command alias
+`* *` | Advanced user | Scroll through my past few commands | Check what I have done and redo actions easily
+`* *` | Google calendar user | Sync my tasks from Agendum to Google calendar | Keep track of my tasks using both Agendum and Google Calendar
+`*` | User | Add multiple time slots for a task | “Block” multiple time slots when the exact timing of a task is certain
+`*` | User | Add tags for my tasks | Group tasks together and organise my task list
+`*` | User | Search based on tags | Find all the tasks of a similar nature
+`*` | User | Add/Remove tags for existing tasks | Update the grouping of tasks
+`*` | User | Be notified of deadline/time clashes | Resolve these conflicts manually
+`*` | User | Key in emojis/symbols and characters from other languages e.g. Mandarin | Capture information in other languages
+`*` | User | Clear all existing tasks | Easily start afresh with a new task list
+`*` | User | See the count/statistics for upcoming/ overdue and pending tasks | Know how many tasks I need to do
+`*` | User | Sort tasks by alphabetical order and date | Organise and easily locate tasks
+`*` | Advanced user | Import tasks from an existing text file | Add multiple tasks efficiently without relying on multiple commands
+`*` | Advanced user | Save a backup of the application in a custom file | Restore it any time at a later date
+`*` | Busy user | Add recurring events or tasks | Keep the same tasks in my task list without adding them manually
+`*` | Busy User | Search for tasks by date (e.g. on/before a date) | Easily check my schedule and make plans accordingly
+`*` | Busy User | Search for a time when I am free | Find a suitable slot to schedule an item
+`*` | Busy user | Can specify a priority of a task | Keep track of what tasks are more important
 
 
 &nbsp;
 
 
+[comment]: # (@@author A0148031R)
 ## Appendix B : Use Cases
 
 >For all use cases below, the **System** is `Agendum` and the **Actor** is the `user`, unless specified otherwise
@@ -425,7 +481,7 @@ Priority | As a ... | I want to ... | So that I can...
 2. Actor enters an add command with the task name into the input box.
 3. System adds the task.
 4. System shows a feedback message ("Task `name` added") and displays the updated list
-5. Use case ends.
+   Use case ends.
 
 **Extensions**
 
@@ -443,57 +499,45 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. Actor requests to list tasks
-2. System shows a list of tasks
-3. Actor requests to delete a specific task in the list by its index
-4. System deletes the task.
-5. System shows a feedback message (“Task `index` deleted”) and displays the updated list
-6. Use case ends.
+1. Actor requests to delete a specific task in the list by its index
+2. System deletes the task.
+3. System shows a success feedback message to describe the task deleted and displays the updated list
+   Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The index given is invalid (e.g. it is a string or out of range)
 
+> 1a1. System shows an error message to inform the user of the incorrect format/index given
 > Use case ends
-
-3a. The given index is invalid
-
-> 3a1. System shows an error message (“Please select a task on the list with a valid index”) <br>
-> Use case resumes at step 2
 
 ### Use case 03 - Rename a task
 
 **MSS**
 
-1. Actor requests to list tasks
-2. System shows a list of tasks
-3. Actor requests to rename a specific task in the list by its index and also input the new task name
-4. System updates the task
-5. System shows a feedback message (“Task `index` updated”) and displays the updated list
-6. Use case ends.
+1. Actor requests to rename a specific task in the list by its index and also input the new task name
+2. System updates the task
+3. System shows a success feedback message to describe the task renamed and displays the updated list
+   Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The index given is invalid (e.g. it is a string or out of range)
 
+> 1a1. System shows an error message to inform the user of the incorrect format/index given
 > Use case ends
 
-3a. The given index is invalid
+1b. No task name is provided
 
-> 3a1. System shows an error message (“Please select a task on the list with a valid index”) <br>
-> Use case resumes at step 2
+> 1b1. System shows an error message to inform the user of the incorrect format/missing name
+> Use case ends
 
-3b. No task description is provided
+2a. Renaming a task will result in a duplicate (will become exactly identical to another task)
 
-> 3b1. System shows an error message (“Please include a new task name”) <br>
-> Use case resumes at step 2
+> 2a1. System shows an error message to inform user of potential duplicate <br>
+> Use case ends
 
-3c. There is an existing task with the same description and details
-
-> 3c1. System shows an error message (“Please use a new task name”) <br>
-> Use case resumes at step 2
-
-### Use case 04 - Schedule a task’s start and end time and deadlines
+### Use case 04 - Schedule a task’s start and end time/deadline
 
 **MSS**
 
@@ -520,52 +564,76 @@ Priority | As a ... | I want to ... | So that I can...
 > 3b1. System shows an error message (“Please follow the given time format”) <br>
 > Use case resumes at step 2
 
+
+[comment]: # (@@author A0133367E)
 ### Use case 05 - Undo previous command that modified the task list
 
 **MSS**
 
-1. Actor enters the undo command
-2. System finds the latest command that modified the task list
-3. System undo the identified command
-4. System shows a feedback message (“The command `last-command` has been undone”) and displays the updated list.
-5. Use case ends.
+1. Actor requests to undo the last change to the task list.
+2. System revert the last change to the task list.
+3. System shows a success feedback message and displays the updated list.
+   Use case ends.
 
 **Extensions**
 
-2a. There are no previous commands that modify the list (since the launch of the application)
+2a. There are no previous modifications to the task list (since the launch of the application)
 
-> 2a1. System shows an error message (“No previous command to undo”) <br>
+> 2a1. System alerts the user that there are no previous changes <br>
 > Use case ends
+
 
 ### Use case 06 - Mark a task as completed
 
 **MSS**:
 
-1. Actor requests to list tasks
-2. System show a list of tasks
-3. Actor requests to mark a task specified by its index in the list as completed
-4. System updates the task
-5. System shows a feedback message (“Task `index` is marked as completed”) and hides the marked task.
-6. Use case ends
+1. Actor requests to mark a task specified by its index in the list as completed
+2. System marks the task as completed 
+3. System shows a success feedback message, updates and highlights the selected task.
+   Use case ends
 
 **Extensions**
 
-2a. The list is empty
+1a. The index given is invalid (e.g. it is a string or out of range)
 
-> 2a1. Use case ends
+> 1a1. System shows an error message to inform the user of the incorrect format/index given
+> Use case ends
 
-3a. The given index is invalid
+2a. Marking a task will result in a duplicate (will become exactly identical to an existing task)
 
-> 3a1. System shows an error message (“Please select a task on the list with a valid index”) <br>
-> Use case resumes at step 2
+> 2a1. System shows an error message to inform user of potential duplicate <br>
+> Use case ends
 
-### Use case 07 - Add short hand commands
+### Use case 07 - Unmark a task
+
+**MSS**:
+
+1. Actor requests to unmark a task followed by its index
+2. System unmarks the task from completed
+3. System shows a success feedback message, updates and highlights the selected task.
+   Use case ends
+
+**Extensions**
+
+1a. The index given is invalid (e.g. it is a string or out of range)
+
+> 1a1. System shows an error message to inform the user of the incorrect format/index given
+> Use case ends
+
+2a. Unmarking a task will result in a duplicate (will become exactly identical to an existing task)
+
+> 2a1. System shows an error message to inform user of potential duplicate <br>
+> Use case ends
+
+
+[comment]: # (@@author A0148095X)
+### Use case 08 - Add alias commands
 
 **MSS**
 
 1. Actor enters a alias command and specify the name and new alias name of the command
 2. System alias the command
-3. System shows a feedback message (“The command `original-command` can now be keyed in as <new-command>”)
+3. System shows a feedback message (“The command `original command` can now be keyed in as `alias key`”)
 4. Use case ends.
 
 **Extensions**
@@ -577,49 +645,57 @@ Priority | As a ... | I want to ... | So that I can...
 
 1b. The new alias name is already reserved/used for other commands
 
-> 1b1. System shows an error message (“The name is already in use”) <br>
+> 1b1. System shows an error message ("The alias `alias key` is already in use") <br>
 > Use case ends
 
-*a. At any time, Actor choose to exit System
 
-> *a1. System displays a goodbye message <br>
-> *a2. System closes the program
+### Use case 09 - Remove alias commands
 
-*b. At any time, Actor enters a invalid command
+**MSS**
 
-> *b1.  System gives an error message (“We do not understand the command: `invalid-command`”)<br>
-> *b2. System displays a short list of valid commands
+1. Actor enters the unalias command followed by `alias key`
+2. System removes the alias for the command
+3. System shows a feedback message ("The alias `alias key` for `original command` has been removed.")
+4. Use case ends.
+
+**Extensions**
+
+1a. There is no existing alias
+> 1a1. System shows an error message (“There is no such existing alias”) <br>
+> Use case ends
 
 
-### Use case 08 - Specify data storage location
+### Use case 10 - Specify data storage location
 
 **MSS**
 
 1. Actor enters store command followed by a path to file
 2. System updates data storage location to the specified path to file
-3. System shows a feedback message ("New save location: `path-to-file`")
-4. Use case ends.
+3. System saves task list to the new data storage location
+4. System shows a feedback message ("New save location: `location`")
+5. Use case ends.
 
 **Extensions**
 
 1a. Path to file is input as 'default'
-
 > 1a1. System updates data storage location to default <br>
-> 1a2. System shows a feedback message ("Save location set to default: `path-to-file`") <br>
+> 1a2. System shows a feedback message ("Save location set to default: `location`") <br>
 > Use case ends
 
 1b. File exists
 > 1b1. System shows an error message ("The specified file exists; would you like to use LOAD instead?") <br>
 > Use case ends
 
-1c. Path to file is invalid
+1c. Path to file is in the wrong format
+> 1c1. System shows an error message ("The specified path is in the wrong format. Example: store agendum/todolist.xml") <br>
+> Use case ends
 
-> 1c1. System shows an error message ("The specified path to file is invalid.") <br>
+1d. Path to file is not accessible
+> 1d1. System shows an error message ("The specified location is inaccessible; try running Agendum as administrator.") <br>
 > Use case ends
 
 
-
-### Use case 09 - Load from data file
+### Use case 11 - Load from data file
 
 **MSS**
 
@@ -627,18 +703,20 @@ Priority | As a ... | I want to ... | So that I can...
 2. System saves current task list into existing data storage location
 3. System loads task list from specified path to file
 2. System updates data storage location to the specified path to file
-3. System shows a feedback message ("Data successfully loaded from: `path-to-file`")
+3. System shows a feedback message ("Data successfully loaded from: `location`")
 4. Use case ends.
 
 **Extensions**
 
 1a. Path to file is invalid
+> 1a1. System shows an error message ("The specified path to file is invalid: `location`") <br>
+> Use case ends
 
-> 1a1. System shows an error message ("The specified path to file is invalid.") <br>
+2a. File does not exist
+> 1a1. System shows an error message ("The specified file does not exist: `location`") <br>
 > Use case ends
 
 3a. File is in the wrong format
-
 > 3a1. System shows an error message ("File is in the wrong format.")<br>
 > Use case ends
 
@@ -646,6 +724,7 @@ Priority | As a ... | I want to ... | So that I can...
 &nbsp;
 
 
+[comment]: # (@@author A0003878Y)
 ## Appendix C : Non Functional Requirements
 
 1.  Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -656,18 +735,25 @@ Priority | As a ... | I want to ... | So that I can...
 6.	Should favour DOS style commands over Unix-style commands.
 7.	Should adopt an object oriented design.
 8.	Should not violate any copyrights.
-9.	Should have a response time of less than 1 second, for every action performed.
+9.	Should have a response time of less than 2 second for every action performed.
 10.	Should work offline without an internet connection.
 11.	Should work as a standalone application.
 12.	Should not use relational databases to store data.
 13.	Should store data in an editable text file.
 14.	Should not require an installer.
 15.	Should not use paid libraries and frameworks.
+16.	Should be a free software.
+17.	Should be easily transferrable between devices; only 1 folder needs to be transferred.
+18.	Should have documentation that matches the source code
+19.	Should not have unhandled exceptions from user input
+20.	Should be installable without assistance other than the user guide.
+21. Should have understandable code such that new members can start working on the project within 1 week.
 
 
 &nbsp;
 
 
+[comment]: # (@@author A0148095X)
 ## Appendix D : Glossary
 
 ##### Mainstream OS:
@@ -683,9 +769,31 @@ This means you can do other things on the Computer while the tests are running.
 &nbsp;
 
 
+[comment]: # (@@author A0133367E)
 ## Appendix E : Product Survey
 
 We conducted a product survey on other task managers. Here is a summary of the strengths and weaknesses of each application. The criteria used for evaluation are own preferences and Jim's requirements.
+
+#### Main insights
+* Keyboard friendliness of our application is extremely important. It is useful to distinguish our application from the rest. Keyboard shortcuts must be intuitive, easy to learn and remember.
+    * Tab for autocomplete
+    * Scroll through command history or task list with up and down
+    * Allow users to specify their own shorthand commands so they will remember
+    * Summoning the help window with a keyboard shortcut
+* Clear visual feedback on the status of the task
+    * Overdue and upcoming tasks should stand out
+    * Should also be able to see if a task is completed or recurring
+    * Identify if the task is selected/has just been updated
+* Organized overview of all tasks
+    * Tasks should be sorted by their deadline/happening time
+    * Users might like to see their recently updated/completed tasks at the top of the list
+    * Allow user to see these various types of tasks and distinguish them without having to switch between lists (i.e. have multiple lists)
+* Will be nice to allow more details for tasks
+    * detailed task descriptions
+    * tagging
+* Commands should be intuitive and simple enough for new users
+    * more natural language like parsing for dates with prepositions as keywords
+
 
 #### Wunderlist
 

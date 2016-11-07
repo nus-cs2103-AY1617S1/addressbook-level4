@@ -4,17 +4,17 @@
 
 # Agendum
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/Ui.png" width="800"><br>
 
 ### Table of Contents
 
-* [Introduction](#1-introduction)
-* [Site Map](#2-site-map)
-* [Acknowledgements](#3-acknowledgements)
-* [License](#4-license)
+* [Introduction](#introduction)
+* [Site Map](#site-map)
+* [Acknowledgements](#acknowledgements)
+* [License](#license)
 
 
-### 1. Introduction
+### Introduction
 Hello! Do you have too many tasks and are unable to finish all of them? Are you looking for a hassle-free task manager which works swiftly?
 Enter Agendum.
 
@@ -22,20 +22,26 @@ This task manager will assist you in completing all your tasks on time. It will 
 
 With just one line of command, Agendum will carry out your wishes. You don’t ever have to worry about having to click multiple links. It is even capable of allowing you to create your own custom commands! This means that you can get things done even faster, your way.
   
-### 2. Site Map
+### Site Map
 * [User Guide](docs/UserGuide.md) 
 * [Developer Guide](docs/DeveloperGuide.md) 
 * [About Us](docs/AboutUs.md)
 * [Contact Us](docs/ContactUs.md)
 
 
-### 3. Acknowledgements
+### Acknowledgements
+Our team would like to thank the following people:
 
-* Some parts of this sample application were inspired by the excellent 
-  [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
-* Some of the source code come from Address Book (Level 4)
-  [GitHub repo](https://github.com/nus-cs2103-AY1617S1/addressbook-level4) by *nus-cs2103-AY1617S1*. 
+* Professor [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) 
+  for giving us invaluable advice on Software Engineering
+* TA [Muthu Kumar Chandrasekaran](https://www.quora.com/profile/Muthu-Kumar-Chandrasekaran)
+  who has given us constructive feedback to aid in our development of Agendum
+* The development team of Address Book (Level 4) which can be found at this 
+  [GitHub repo](https://github.com/nus-cs2103-AY1617S1/addressbook-level4)
+* [Joe Stelmach](http://natty.joestelmach.com/) who created the Natty Date Parser which powers our date-time parsing.
+* Marco Jakob for providing [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/)
+* [Google Calendar API](https://developers.google.com/google-apps/calendar/)
+* [Mockito](http://site.mockito.org/)
 
-
-### 4. License
+### License
 * [MIT](LICENSE)

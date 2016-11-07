@@ -17,7 +17,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 public class UnmarkCommand extends Command {
 
     public static final String COMMAND_WORD = "unmark";    
-    public static final String COMMAND_FORMAT = "unmark <id> <more-ids>";
+    public static final String COMMAND_FORMAT = "unmark <id> <more ids>";
     public static final String COMMAND_DESCRIPTION = "unmark task(s) from completed";
 
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task(s)!";

@@ -2,6 +2,7 @@ package seedu.agendum.ui;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,7 +75,7 @@ public abstract class UiPart {
      * @param iconSource e.g. {@code "/images/help_icon.png"}
      */
     protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream(iconSource)));
     }
 
     /**

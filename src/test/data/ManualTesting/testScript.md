@@ -16,10 +16,14 @@
 
 1. Type `help`
 2. Press <kbd>ESC</kbd>
+3. Press <kbd>Ctrl H</kbd>
+4. Press <kbd>Ctrl H</kbd>
 
 ####Result:
-1. A help window appears with in a table style, listing out all the command available, together with the command description and format.
+1. A help window appears in a table style, listing out all the command available, together with the command description and format.
 2. Agendum exits the help window.
+3. The help window will appear.
+4. Agendum exits the help window.
 
 ## Date Time Formats
 
@@ -48,7 +52,7 @@ Before proceeding to add or schedule tasks with dates and time, here is a brief 
 | Hour.Minute     | 10.30                                   |
 | Relative time   | this morning, this afternoon, tonight   |
 
-> By default, we use the 24 hour time format but we do support the meridian format as well e.g. 10am, 10pm
+> By default, we use the 24-hour time format but we do support the meridian format as well e.g. 10am, 10pm
 
 
 ## Add
@@ -64,17 +68,24 @@ To add a task, you have to start your command with the keyword `add`.
 ### 1. Add a floating task
 Type `add watch movie`.
 #### Result 
-A new floating task named "watch movie" is created at the top of **Do It Anytime** column, and highlighted in purple borders.
+A new floating task named `watch movie` is created at the top of **Do It Anytime** column, and highlighted in purple borders.
 
 ### 2. Add a task with deadline
 Type `add submit essay by 10pm`.
 #### Result 
-A new task named "submit essay" is created in the **Do It Soon** column, with its deadline under the name the this task. Also, it is highlighted in purple borders.
+A new task named `submit essay` is created in the **Do It Soon** column, with its deadline under the name of this task. Also, it is highlighted in purple borders.
 
 ### 3. Add a task with event time
 Type `add go for church camp from 20 nov 2pm to 25 nov 5pm`
 #### Result 
-A new task named "go for church" is created in the **Do It Soon** column, with its deadline under the name the this task	. Also, it is highlighted in purple borders.
+A new task named `go for church` is created in the **Do It Soon** column, with its deadline under the name of this task	. Also, it is highlighted in purple borders.
+
+### 4. Add a task with single quotation mark
+Type `add 'drop by store' by tmr`
+#### Result
+A new task named `drop by store` is created in the **Do It Soon** column, with its deadline under the name of this task. 
+>Sometimes Agendum may wrongly interpret part of task name as a deadline/event time. To avoid this wrong interpretation, you can add single quotation marks around the task name, and agendum will only interpret those inside the quotation marks as task name.
+
 
 ## Rename
 To rename a task, you have to start your command with the keyword `rename`.
@@ -109,7 +120,7 @@ Task with index 23 now has a deadline, and it is shifted to **Do It Soon** colum
 ###3. Schedule a task with event time
 Type `schedule 14 from 13 nov 2pm to 13 nov 4pm`.
 ####Result
-Task with index 14 now has a event time, and it is assigned with a new index. Also, it is highlighted in purple borders.
+Task with index 14 now has an event time, and it is assigned with a new index. Also, it is highlighted in purple borders.
 
 ## Delete
 To delete a task, you have to start your command with the keyword `delete`.
@@ -167,17 +178,22 @@ Tasks with indices 37, 38, 39 and 40 are unmarked as uncompleted, shifting from 
 2. Press <kbd>Ctrl Z</kbd>
 
 ####Result
-1. The previous unmarked tasks are marked again, and the affected tasks are highlighted in purple borders.
-2. The previous marked task is marked again, and the affected task is highlighted in purple borders.
+1. The previously unmarked tasks are marked again, and the affected tasks are highlighted in purple borders.
+2. The previously marked task is marked again, and the affected task is highlighted in purple borders.
 
 ## Find
 >Here is the *format*:
 
->* `find <keyword>...` - filter out all tasks containing any of the keyword(s) given. The keywords should be full word, and they are case insensitive.
+>* `find <keyword>...` - filter out all tasks containing any of the keyword(s) given. The keywords should be in full word(s), and they are case insensitive.
 
-Type `find cs2103`
-####result
-Tasks containing `cs2103` in their names will be listed out.
+1. Type `find cs2103`
+2. Type `find buy visit`
+3. Press <kbd>ESC</kbd>
+
+####Result
+1. After the first step, tasks containing `cs2103` in their names will be listed out.
+2. After the second step, tasks containing `buy` or `visit` in their names will be listed out.
+3. After the third step, agendum will exit the find results and go back to list all the tasks.
 
 ## List
 After you are done with searching for tasks, you can use `list` to exit your find results and see a list of tasks. Alternatively, you can press <kbd>ESC</kbd> to go exit.
@@ -195,7 +211,7 @@ After you are done with searching for tasks, you can use `list` to exit your fin
 To alias a command, you have to start your command with the keyword `alias`.
 >Here is the *format*:
 
->* `alias <original command> <your command>` - `<your command>` must be a single alphanumeric word, and it cannot be a original-command or already aliased to another command. `<original command>` must be a command word that is specified in the Command Summary section
+>* `alias <original command> <your command>` - `<your command>` must be a single alphanumeric word, and it cannot be an original-command or already aliased to another command. `<original command>` must be a command word that is specified in the Command Summary section
 
 1. Type `alias schedule s`
 2. Type `s 1 by 10pm`
@@ -216,7 +232,7 @@ To unalias a command, you have to start your command with the keyword `unalias`.
 
 ####Result
 1. After the first step, `s` is no longer an alias command for `schedule`.
-2. After the second step, the pop up window will tell you that agendum no longer recognizes the command `s`.
+2. After the second step, the pop-up window will tell you that agendum no longer recognizes the command `s`.
 3. After the third step, task with index 1 is rescheduled to be by today 11pm.
 
 ## Store
@@ -224,7 +240,7 @@ To change the default data save location, you have to start command with the key
 
 >Here is the *format*:
 
->* `store <location>` - `<location>` must be a valid path to a file on the local computer. If the folders specified in the new filepath does not exist, they will be created. Note that the save file in the old save location remains.
+>* `store <location>` - `<location>` must be a valid path to a file on the local computer. If the folders specified in the new file path does not exist, they will be created. Note that the save file in the old save location remains.
 
 Type `> store src/test/data/ManualTesting/Test/newData.xml`
 
@@ -232,7 +248,7 @@ Type `> store src/test/data/ManualTesting/Test/newData.xml`
 The storage file is stored in the specified path.
 
 ## Sync
-To sync your tasks in agendum into Google calendar, you have to start comamnd with the keyword `sync`.
+To sync your tasks in agendum into Google calendar, you have to start command with the keyword `sync`.
 
 >Here is the *format*:
 
@@ -243,7 +259,7 @@ To sync your tasks in agendum into Google calendar, you have to start comamnd wi
 2. Type `sync off`.
 
 ####Result
-1. After the first step, agendum will direct you to the Google calender authorization page in your browser. Once authorizd with your Google account, there will be a pop up window telling you that sync has been turned on, and you may close the authorization page and go back to agendum. After the authorization, all the tasks with an event time you added will sync to your goolge calender, whereh there is a separate calendur called `Agendum Calendar` to view all your tasks from agendum.
+1. After the first step, agendum will direct you to the Google Calendar authorization page in your browser. Once authorized with your Google account, there will be a pop-up window telling you that sync has been turned on, and you may close the authorization page and go back to agendum. After the authorization, all the tasks with an event time you added will sync to your Google Calendar, where a separate calendur called `Agendum Calendar` will appear for you to view all tasks from agendum.
 2. After the second step, sync to Google Calendar will be turned off.
 
 
