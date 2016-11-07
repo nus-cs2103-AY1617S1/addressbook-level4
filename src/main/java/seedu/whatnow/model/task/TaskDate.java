@@ -1,8 +1,10 @@
 package seedu.whatnow.model.task;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.text.ParseException;
 
@@ -17,6 +19,9 @@ import java.util.Calendar;
  */
 public class TaskDate {
     // @@author A0139128A
+    
+    private static final Logger logger = LogsCenter.getLogger(TaskDate.class);
+    
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:\n"
             + "dd/mm/yyyy\n" + "day month year\n" + "today\n" + "tomorrow\n";
     public static final String EXPIRED_TASK_DATE = "Task Date cannot be in the past!";
@@ -111,14 +116,14 @@ public class TaskDate {
             if (TODAY.matcher(taskDate).find()) {
                 fullDate = assignTodayDate();
             } else if (TOMORROW.matcher(taskDate).find()) {
-                assignTmrDate();
+                fullDate = assignTmrDate();
             }
         }
     }
 
     // @@author A0139128A
     /** Assigns the appropriate today's or tomorrow date to startDate */
-    private String performStartDate(String startDate) {
+    public static String performStartDate(String startDate) {
         if (TODAY.matcher(startDate).find()) {
             return assignTodayDate();
         } else {
@@ -128,7 +133,7 @@ public class TaskDate {
 
     // @@author A0139128A
     /** Assigns the appropriate today's or tomorrow date to endDate */
-    private String performEndDate(String endDate) {
+    public static String performEndDate(String endDate) {
         if (TODAY.matcher(endDate).find()) {
             return assignTodayDate();
         } else {
@@ -137,8 +142,8 @@ public class TaskDate {
     }
 
     // @@author A0139128A
-    /** Assigns today's date to fullDate */
-    private String assignTodayDate() {
+    /** Assigns today's date to the the appropriate date required and returns it */
+    public static String assignTodayDate() {
         String todayDate;
         DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
@@ -148,13 +153,13 @@ public class TaskDate {
     }
 
     // @@author A0139128A
-    /** Assigns tmr's date to fullDate */
-    private String assignTmrDate() {
+    /** Assigns tmr's date to the appropriate date required and returns it */
+    public static String assignTmrDate() {
         String tmrDate;
         DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal2 = Calendar.getInstance();
 
-        cal2.add(Calendar.DATE, 1);
+        cal2.add(Calendar.DATE, INCREASE_DATE_BY_ONE_DAY);
 
         tmrDate = dateFormat2.format(cal2.getTime());
         return tmrDate;
@@ -272,12 +277,12 @@ public class TaskDate {
     /**
      * returns a week ahead of the input date when a day is entered
      */
-    private static String isBeforeEarlierThanAfter(Date finishDate) {
+    public static String isBeforeEarlierThanAfter(Date finishDate) {
 
         SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Calendar cal = Calendar.getInstance();
         cal.setTime(finishDate);
-        cal.add(Calendar.DATE, 7);
+        cal.add(Calendar.DATE, INCREASE_DATE_BY_SEVEN_DAYS);
 
         return sdf.format(cal.getTime());
     }
@@ -303,7 +308,7 @@ public class TaskDate {
 
             inputDate = df.parse(incDate);
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("TaskDate.java, isValidNumDate:\n" + ex.getMessage());
             return false;
         }
 
@@ -328,7 +333,7 @@ public class TaskDate {
     }
 
     // @@author A0139128A
-    private static boolean isDay(String inputDay) {
+    public static boolean isDay(String inputDay) {
         return (DAYS_MONDAY.matcher(inputDay).find() || DAYS_TUESDAY.matcher(inputDay).find()
                 || DAYS_WEDNESDAY.matcher(inputDay).find() || DAYS_THURSDAY.matcher(inputDay).find()
                 || DAYS_FRIDAY.matcher(inputDay).find() || DAYS_SATURDAY.matcher(inputDay).find()

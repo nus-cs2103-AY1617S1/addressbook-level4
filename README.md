@@ -4,13 +4,16 @@
 
 # WhatNow (V0.5rc)
 
-<img src="C:\Users\lim\Documents\main\docs\images\UI_Actual\initialDisplay.PNG" width="600"><br>
+<img src="\main\docs\images\UI_Actual\initialDisplay.PNG" width="600"><br>
+=======
+
+Figure 1: GUI layout
 
 Have you ever missed a deadline because you did not write it down?
 
-Don't worry! WhatNow will help you to remember your schedule and todos so that you will never miss a deadline or forget anything! It is a desktop application which allows you to store, retrieve and update your schedule and todos. All you need to do is to type a command and the output will be displayed in a Graphical User Interface (GUI).
+Don't worry! WhatNow will help you to remember your schedule and todos so that you will never miss a deadline or forget anything! It is a desktop application which allows you to store, retrieve and update your schedule and todos. All you need to do is to type a command and the output will be displayed in a Graphical User Interface (GUI). Figure 1 shows a sneak peek of the GUI what you will be enjoying!
 
-It is intended for users who can type fast, spend most of the time near a computer, and prefer typing over mouse/voice commands.
+WhatNow is intended for users who type fast, spend most of the time near a computer, and prefer typing over mouse/voice commands.
 
   
 #### Site Map
