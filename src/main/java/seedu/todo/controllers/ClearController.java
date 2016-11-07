@@ -16,11 +16,9 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0093907W
 /**
  * Controller to clear task/event by type or status
- * 
- * @@author A0093907W
- *
  */
 public class ClearController extends Controller {
     

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 
+// @@author A0139812A
 /**
  * Config values used by the app
  */

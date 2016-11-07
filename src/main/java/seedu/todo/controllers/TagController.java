@@ -5,11 +5,9 @@ import seedu.todo.controllers.concerns.Renderer;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0139922Y
 /**
  * Controller to destroy a CalendarItem.
- * 
- * @@author Tiong YaoCong A0139922Y
- *
  */
 public class TagController extends Controller {
     

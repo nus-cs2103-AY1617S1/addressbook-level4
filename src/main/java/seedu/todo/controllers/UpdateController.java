@@ -16,10 +16,9 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
- *          Controller to update a CalendarItem.
+ * Controller to update a CalendarItem.
  */
 public class UpdateController extends Controller {
 

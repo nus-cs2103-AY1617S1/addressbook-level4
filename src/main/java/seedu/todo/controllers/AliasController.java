@@ -8,9 +8,8 @@ import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Controller to declare aliases
  */
 public class AliasController extends Controller {

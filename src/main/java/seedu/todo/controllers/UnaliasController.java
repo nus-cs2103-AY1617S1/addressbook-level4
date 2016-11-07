@@ -9,13 +9,10 @@ import seedu.todo.commons.exceptions.ParseException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.concerns.Renderer;
 
+//@@author A0093907W
 /**
  * Controller to unalias an existing alias.
- * 
- * @author louietyj
- *
  */
-
 public class UnaliasController extends Controller {
     
     private static final String NAME = "Unalias";

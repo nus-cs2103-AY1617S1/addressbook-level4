@@ -6,6 +6,10 @@ import java.util.Map;
 import seedu.todo.commons.util.StringUtil;
 
 // @@author A0139812A
+/**
+ * Concern to generate disambiguation strings that will be returned from a Controller
+ * back to the UI, for the user to correct an invalid/ambiguous command.
+ */
 public class Disambiguator {
     
     private static final String TOKEN_NAME = "name";

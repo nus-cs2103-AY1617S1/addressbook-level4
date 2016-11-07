@@ -11,11 +11,9 @@ import com.joestelmach.natty.Parser;
 
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Class to store date parsing methods to be shared across controllers.
- *
  */
 public class DateParser {
     

@@ -19,9 +19,8 @@ import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.JsonUtil;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * JSON Storage for persisting and loading from disk.
  */
 public class JsonStorage implements Storage {

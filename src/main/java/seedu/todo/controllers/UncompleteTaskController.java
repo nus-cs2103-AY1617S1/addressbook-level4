@@ -6,10 +6,9 @@ import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0139812A
 /**
  * Controller to mark a task as uncompleted.
- * 
- * @@author A0139812A
  */
 public class UncompleteTaskController extends Controller {
     

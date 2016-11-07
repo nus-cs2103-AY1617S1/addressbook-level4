@@ -2,9 +2,8 @@ package seedu.todo.controllers;
 
 import seedu.todo.commons.exceptions.ParseException;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Contains the logic required to appropriately interpret and process user input
  * from the views.
  */

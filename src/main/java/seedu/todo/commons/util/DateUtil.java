@@ -11,10 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+// @@author A0139812A
 /**
  * A utility class for Dates and LocalDateTimes
- * 
- * @@author A0139812A
  */
 public class DateUtil {
     

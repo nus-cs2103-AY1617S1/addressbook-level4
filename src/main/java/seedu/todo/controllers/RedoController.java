@@ -10,9 +10,8 @@ import seedu.todo.controllers.concerns.Tokenizer;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiManager;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Controller to redo a database commit.
  */
 public class RedoController extends Controller {

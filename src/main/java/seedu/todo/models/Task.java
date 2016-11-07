@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Task model
  */
 public class Task implements CalendarItem {

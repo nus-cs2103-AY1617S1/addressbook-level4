@@ -12,11 +12,9 @@ import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Class to store CalendarItem filtering methods to be shared across controllers.
- *
  */
 public class CalendarItemFilter {
     

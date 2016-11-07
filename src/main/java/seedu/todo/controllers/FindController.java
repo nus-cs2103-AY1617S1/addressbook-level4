@@ -12,11 +12,9 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0093907W
 /**
  * Controller to find task/event by keyword
- * 
- * @@author A0093907W
- *
  */
 public class FindController extends Controller {
 

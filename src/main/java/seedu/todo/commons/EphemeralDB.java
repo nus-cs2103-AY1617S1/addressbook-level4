@@ -5,9 +5,8 @@ import java.util.List;
 
 import seedu.todo.models.CalendarItem;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * A bit like Redis, essentially a data store for things that should not be
  * persisted to disk, but should be shared between all modules.
  * 

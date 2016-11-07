@@ -5,11 +5,9 @@ import java.util.Arrays;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
 
+// @@author A0139812A
 /**
  * Controller to show commands help.
- * 
- * @author louietyj
- *
  */
 public class HelpController extends Controller {
 

@@ -14,9 +14,8 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Controller to add an event or task.
  */
 public class AddController extends Controller {

@@ -11,9 +11,8 @@ import org.apache.commons.lang.StringUtils;
 
 import seedu.todo.commons.exceptions.UnmatchedQuotesException;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * Class to store the static method <code>tokenizer</code>.
  */
 public class Tokenizer {
@@ -23,8 +22,6 @@ public class Tokenizer {
 
     /**
      * A private class to tag a string as a token or a quote.
-     * @author louietyj
-     *
      */
     private static class TokenizedString {
         public String string;

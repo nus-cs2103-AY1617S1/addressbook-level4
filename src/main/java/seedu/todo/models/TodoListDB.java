@@ -16,9 +16,8 @@ import seedu.todo.commons.util.DateUtil;
 import seedu.todo.storage.JsonStorage;
 import seedu.todo.storage.Storage;
 
+// @@author A0093907W
 /**
- * @@author A0093907W
- * 
  * This class holds the entire persistent database for the TodoList app.
  * <ul>
  * <li>This is a singleton class. For obvious reasons, the TodoList app should

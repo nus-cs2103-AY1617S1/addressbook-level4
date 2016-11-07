@@ -1,5 +1,6 @@
 package seedu.todo.commons.core;
 
+// @@author A0093907W
 public class AliasDefinition {
     private String aliasKey;
     private String aliasValue;
