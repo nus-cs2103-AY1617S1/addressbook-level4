@@ -23,28 +23,31 @@
 ------
 ## 1. Add Command
 ------
-### 1.1 Add a floating task
+### 1.1 Add a To Do task (floating task)
 > **Command:** `add Claim coffee d/Starbucks` <br>
 > **Result:** <br>
- - Result display panel posts message: <br>
+ - ResultDisplay panel posts message: <br>
     `New task added: Claim coffee Description: Starbucks'
- - To Do Panel (left panel) scrolls to and selects newly added task card.
+ - To Do panel (left panel) scrolls to and selects newly added task card.
+ - Default: To Do task has a white border 
 
-### 1.2 Add a deadline
+### 1.2 Add a Deadline task
 > **Command:** `add Finish project proposal date/next friday 5pm t/important`<br>
 > **Result:**<br>
- - Result display panel posts message:<br>
+ - ResultDisplay panel posts message:<br>
     `New task added: Finish project proposal Date: 18-Nov-2016 Time: 17:00 Tags: [important]'
- - Events / Deadlines Panel (right panel) scrolls to and selects newly added task card.
+ - Events / Deadlines panel (right panel) scrolls to and selects newly added task card
+ - Default: Deadline task has a white border
+ - Overdue: Deadline task has a red border 
 
-### 1.3 Add an event
-> **Command:** `add see JC friends from sat 6.30pm to 8pm`<br>
+### 1.3 Add an Event
+> **Command:** `add Meeting with client d/Prepare documents date/28-10-2016 10am to 28-10-2016 12pm `<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `New non-floating task added: see JC friends Tags: 
-	\nRecurring: NONE`
+    `New task added: Meeting with client Description: Prepare documents Date: 28-Oct-2016 Time: 10:00`
  - TaskList panel navigates to and displays newly added task card.
- - Note: blue background for time slot tasks.
+ - Default: Event has a white border
+ - Expired: Event has a pink border 
 
 ------
 ## 2. Block Command
