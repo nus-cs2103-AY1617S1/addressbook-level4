@@ -143,7 +143,7 @@ Change the folder path name<br>
 Format: `save folderpath`<br>
 
 Example:
-* `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.<br>
+* `save C:\Users\<username>\Desktop\CS2103 Tutorial`.<br>
 
 
 <a id="find_substring" class="anchor" aria-hidden="true">
