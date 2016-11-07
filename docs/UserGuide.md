@@ -260,14 +260,14 @@ Add task named "pjm" to task list
 
 [//]: # (@@author A0138431L)
 #### Command stack history
-[UP]: Return last user input command in command box
-[DOWN]: Return (if any) next user input command in command box
-> Note that [DOWN] is only allowed after at least an [UP] is being entered
+<kbd>UP</kbd>: Return last user input command in command box<br>
+<kbd>DOWN</kbd>: Return (if any) next user input command in command box<br>
+> Note that <kbd>DOWN</kbd> is only allowed after at least an <kbd>UP</kbd> is being entered
 
 
 #### Week Selection
-[Ctrl-LEFT]: Display previous week’s daily task list
-[Ctrl-RIGHT]: Display next week’s daily task list
+<kbd>Ctrl</kbd> + <kbd>LEFT</kbd>: Display previous week’s daily task list<br>
+<kbd>Ctrl</kbd> + <kbd>RIGHT</kbd>: Display next week’s daily task list
 
 ## Command Summary
 
