@@ -1,74 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <DeadlineList>
     <tasks>
-        <name>CS2103 v0.1</name>
-        <startDate>01-10-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>CFG1010 quiz</name>
-        <startDate>09-10-2016</startDate>
-        <endTime>23:59</endTime>
+        <name>CS1231 assignment 1</name>
+        <startDate>07-11-2016</startDate>
+        <endTime>17:00</endTime>
         <isDone>false</isDone>
     </tasks>
     <tasks>
-        <name>CS2103 v0.2</name>
-        <startDate>14-10-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>CS1231 assignment 1</name>
-        <startDate>15-10-2016</startDate>
-        <endTime>17:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
         <name>SEP Application</name>
-        <startDate>17-10-2016</startDate>
+        <startDate>07-11-2016</startDate>
         <endTime>23:59</endTime>
         <isDone>true</isDone>
     </tasks>
     <tasks>
         <name>Pay phone bill!</name>
-        <startDate>22-10-2016</startDate>
+        <startDate>09-11-2016</startDate>
         <endTime>23:59</endTime>
         <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>CS2103 v0.1</name>
+        <startDate>07-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>CFG1010 quiz</name>
+        <startDate>09-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>CS2103 v0.2</name>
+        <startDate>14-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>true</isDone>
     </tasks>
     <tasks>
         <name>CS2103 v0.3</name>
         <startDate>19-11-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>CS2103 v0.4</name>
-        <startDate>25-11-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>GES1021 Poster Submission</name>
-        <startDate>26-10-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>CS2103 IVLE Quiz</name>
-        <startDate>28-10-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>CS1231 assignment 2</name>
-        <startDate>31-10-2016</startDate>
-        <endTime>23:59</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>CFG1010 commitment essay</name>
-        <startDate>02-11-2016</startDate>
         <endTime>23:59</endTime>
         <isDone>false</isDone>
     </tasks>
@@ -85,15 +55,45 @@
         <isDone>done</isDone>
     </tasks>
     <tasks>
+        <name>CFG1010 commitment essay</name>
+        <startDate>02-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
         <name>Prepare for ICMY fest</name>
         <startDate>10-11-2016</startDate>
         <endTime>23:59</endTime>
         <isDone>false</isDone>
     </tasks>
     <tasks>
+        <name>CS2103 v0.4</name>
+        <startDate>25-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>GES1021 Poster Submission</name>
+        <startDate>26-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>CS2103 IVLE Quiz</name>
+        <startDate>28-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
         <name>Mastering Physics Quiz</name>
-        <startDate>30-10-2016</startDate>
+        <startDate>30-11-2016</startDate>
         <endTime>23:59</endTime>
         <isDone>done</isDone>
+    </tasks>
+    <tasks>
+        <name>CS1231 assignment 2</name>
+        <startDate>31-11-2016</startDate>
+        <endTime>23:59</endTime>
+        <isDone>false</isDone>
     </tasks>
 </DeadlineList>

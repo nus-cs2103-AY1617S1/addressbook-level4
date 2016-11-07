@@ -1,163 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <EventList>
     <tasks>
-        <name>Orbital Splashdown</name>
-        <startDate>24-08-2016</startDate>
-        <endDate>24-08-2016</endDate>
-        <startTime>19:30</startTime>
-        <endTime>21:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>2016 Rev Up Singapore!</name>
-        <startDate>15-09-2016</startDate>
-        <endDate>15-09-2016</endDate>
-        <startTime>19:30</startTime>
-        <endTime>21:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Wicked Wednesday at N-House</name>
-        <startDate>05-10-2016</startDate>
-        <endDate>05-10-2016</endDate>
-        <startTime>18:30</startTime>
-        <endTime>21:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>NUS Makers - Arduino for Beginners</name>
-        <startDate>07-10-2016</startDate>
-        <endDate>07-10-2016</endDate>
-        <startTime>18:00</startTime>
-        <endTime>20:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Co{de}llective Info Session</name>
-        <startDate>09-10-2016</startDate>
-        <endDate>09-10-2016</endDate>
-        <startTime>09:00</startTime>
-        <endTime>12:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Co{de}FabCafe Open House</name>
-        <startDate>09-10-2016</startDate>
-        <endDate>09-10-2016</endDate>
-        <startTime>17:00</startTime>
-        <endTime>20:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Culture Night Practice</name>
-        <startDate>11-10-2016</startDate>
-        <endDate>11-10-2016</endDate>
-        <startTime>19:00</startTime>
-        <endTime>23:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Ben's Birthday</name>
-        <startDate>15-10-2016</startDate>
-        <endDate>15-10-2016</endDate>
-        <startTime>18:00</startTime>
-        <endTime>20:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>work</name>
-        <startDate>17-10-2016</startDate>
-        <endDate>17-10-2016</endDate>
-        <startTime>18:00</startTime>
-        <endTime>22:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Security Wednesday #14</name>
-        <startDate>19-10-2016</startDate>
-        <endDate>19-10-2016</endDate>
-        <startTime>18:30</startTime>
-        <endTime>20:30</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>Make Your Own Website 101: A Workshop for Complete Beginners</name>
-        <startDate>22-10-2016</startDate>
-        <endDate>22-10-2016</endDate>
-        <startTime>10:00</startTime>
-        <endTime>13:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>#startingUp 2016</name>
-        <startDate>22-10-2016</startDate>
-        <endDate>23-10-2016</endDate>
-        <startTime>19:00</startTime>
-        <endTime>22:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>work</name>
-        <startDate>28-10-2016</startDate>
-        <endDate>28-10-2016</endDate>
-        <startTime>19:00</startTime>
-        <endTime>22:00</endTime>
-        <isDone>true</isDone>
-    </tasks>
-    <tasks>
-        <name>Engin Welfare pack</name>
-        <startDate>31-10-2016</startDate>
-        <endDate>31-10-2016</endDate>
-        <startTime>11:00</startTime>
-        <endTime>15:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
         <name>Computing Welfare pack</name>
-        <startDate>01-11-2016</startDate>
-        <endDate>01-10-2016</endDate>
+        <startDate>11-11-2016</startDate>
+        <endDate>11-11-2016</endDate>
         <startTime>12:00</startTime>
         <endTime>18:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>Hackware 2.4</name>
-        <startDate>02-11-2016</startDate>
-        <endDate>02-11-2016</endDate>
-        <startTime>19:00</startTime>
-        <endTime>20:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>work</name>
-        <startDate>01-11-2016</startDate>
-        <endDate>01-11-2016</endDate>
-        <startTime>19:00</startTime>
-        <endTime>22:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>Kudo Speed Code Challenge</name>
-        <startDate>04-11-2016</startDate>
-        <endDate>04-11-2016</endDate>
-        <startTime>17:00</startTime>
-        <endTime>21:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>GDG DevFest Singapore</name>
-        <startDate>05-11-2016</startDate>
-        <endDate>05-11-2016</endDate>
-        <startTime>12:00</startTime>
-        <endTime>18:00</endTime>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>PC1222 Test 2</name>
-        <startDate>08-11-2016</startDate>
-        <endDate>08-11-2016</endDate>
-        <startTime>12:30</startTime>
-        <endTime>13:50</endTime>
         <isDone>false</isDone>
     </tasks>
     <tasks>
@@ -166,6 +14,70 @@
         <endDate>12-11-2016</endDate>
         <startTime>11:00</startTime>
         <endTime>19:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Culture Night Practice</name>
+        <startDate>11-11-2016</startDate>
+        <endDate>11-11-2016</endDate>
+        <startTime>19:00</startTime>
+        <endTime>23:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Hackware 2.4</name>
+        <startDate>12-11-2016</startDate>
+        <endDate>12-11-2016</endDate>
+        <startTime>19:00</startTime>
+        <endTime>20:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Kudo Speed Code Challenge</name>
+        <startDate>14-11-2016</startDate>
+        <endDate>14-11-2016</endDate>
+        <startTime>17:00</startTime>
+        <endTime>21:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>GDG DevFest Singapore</name>
+        <startDate>15-11-2016</startDate>
+        <endDate>15-11-2016</endDate>
+        <startTime>12:00</startTime>
+        <endTime>18:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>2016 Rev Up Singapore!</name>
+        <startDate>15-11-2016</startDate>
+        <endDate>15-11-2016</endDate>
+        <startTime>19:30</startTime>
+        <endTime>21:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>work</name>
+        <startDate>17-11-2016</startDate>
+        <endDate>17-11-2016</endDate>
+        <startTime>18:00</startTime>
+        <endTime>22:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>PC1222 Test 2</name>
+        <startDate>18-11-2016</startDate>
+        <endDate>18-11-2016</endDate>
+        <startTime>12:30</startTime>
+        <endTime>13:50</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Security Wednesday #14</name>
+        <startDate>19-11-2016</startDate>
+        <endDate>19-11-2016</endDate>
+        <startTime>18:30</startTime>
+        <endTime>20:30</endTime>
         <isDone>false</isDone>
     </tasks>
     <tasks>
@@ -183,6 +95,22 @@
         <startTime>13:00</startTime>
         <endTime>14:30</endTime>
         <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Make Your Own Website 101</name>
+        <startDate>22-11-2016</startDate>
+        <endDate>22-11-2016</endDate>
+        <startTime>10:00</startTime>
+        <endTime>13:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>#startingUp 2016</name>
+        <startDate>22-11-2016</startDate>
+        <endDate>23-11-2016</endDate>
+        <startTime>19:00</startTime>
+        <endTime>22:00</endTime>
+        <isDone>true</isDone>
     </tasks>
     <tasks>
         <name>PC1222 Exam</name>
@@ -205,6 +133,62 @@
         <startDate>23-11-2016</startDate>
         <endDate>23-11-2016</endDate>
         <startTime>13:00</startTime>
+        <endTime>15:00</endTime>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Orbital Splashdown</name>
+        <startDate>24-11-2016</startDate>
+        <endDate>24-11-2016</endDate>
+        <startTime>19:30</startTime>
+        <endTime>21:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Wicked Wednesday at N-House</name>
+        <startDate>25-11-2016</startDate>
+        <endDate>25-11-2016</endDate>
+        <startTime>18:30</startTime>
+        <endTime>21:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>NUS Makers - Arduino for Beginners</name>
+        <startDate>27-11-2016</startDate>
+        <endDate>27-11-2016</endDate>
+        <startTime>18:00</startTime>
+        <endTime>20:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>work</name>
+        <startDate>28-11-2016</startDate>
+        <endDate>28-11-2016</endDate>
+        <startTime>19:00</startTime>
+        <endTime>22:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Co{de}llective Info Session</name>
+        <startDate>29-11-2016</startDate>
+        <endDate>29-11-2016</endDate>
+        <startTime>09:00</startTime>
+        <endTime>12:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Co{de}FabCafe Open House</name>
+        <startDate>29-11-2016</startDate>
+        <endDate>29-11-2016</endDate>
+        <startTime>17:00</startTime>
+        <endTime>20:00</endTime>
+        <isDone>true</isDone>
+    </tasks>
+    <tasks>
+        <name>Engin Welfare pack</name>
+        <startDate>31-11-2016</startDate>
+        <endDate>31-11-2016</endDate>
+        <startTime>11:00</startTime>
         <endTime>15:00</endTime>
         <isDone>false</isDone>
     </tasks>

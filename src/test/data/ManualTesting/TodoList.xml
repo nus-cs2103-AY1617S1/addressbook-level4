@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <TodoList>
     <tasks>
-        <name>buy Natural Heritage of Singapore book</name>
+        <name>buy GES1021 book</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
         <priority>1</priority>
@@ -64,7 +64,7 @@
         <isDone>false</isDone>
     </tasks>
     <tasks>
-        <name>buy hard disk for desktop</name>
+        <name>buy hard disk</name>
         <startDate>No Start Date</startDate>
         <endDate>No End Date</endDate>
         <priority>3</priority>
