@@ -26,8 +26,8 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Nikhil Suresh](http://github.com/kneekill)
-<img src="images/Nikhil.jpg" width="150"><br>
-**Role**: Developer <br>  
+<img src="images/Nikhil.jpg" width="150"><br><br>
+**Role**: Developer <br> 
 **Component in charge of:** UI <br>
 **Aspects/Tools in charge of:** UI Design (SceneBuilder), Documentation <br>
 
@@ -46,8 +46,8 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Chew Zi Ling](http://github.com/ChewZL) 
-<img src="images/ZiLing.jpg" width="150"><br>
-Role: Developer <br> 
+<img src="images/ZiLing.jpg" width="150"><br><br>
+**Role**: Developer <br> 
 **Component in charge of:** Storage <br>
 **Aspects/Tools in charge of:** Non-GUI tests, Coveralls <br>
 
