@@ -179,16 +179,21 @@ public class DeleteCommand extends UndoableCommand {
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, targetTasks));
     }
-    //@@author 
 
-
+    /**
+     * Undo the deletion of undone tasks by adding them back into the undone list.
+     */
     private void undoDeletedUndoneTasks() {
         model.addTasks(targetTasks);
     }
 
 
+    /**
+     * Undo the deletion of done tasks by adding them back into the done list.
+     */
     private void undoDeletedDoneTasks() {
         model.addDoneTasks(targetTasks);
     }
 
+    //@@author
 }

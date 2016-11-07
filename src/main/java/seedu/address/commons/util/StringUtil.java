@@ -12,34 +12,38 @@ public class StringUtil {
 
     // @@author A0093960X
     /**
-     * Returns a string that is the result of adding the String at the given
-     * input string.If the position is less than 0, the extraString will be
-     * added to the front of input String. If the position is greater than the
-     * length of the String, extraString will be added to the back of the input
-     * String. Asserts that the input String and extraString String are not
-     * null, so the caller should ensure that none of the Strings passed in are
-     * null.
+     * Returns a string that is the result of adding the specified stringToAdd
+     * String at the specified position in the originalString String. <br>
+     * If the position is less than 0, the stringToAdd will be added to the
+     * front of originalString. <br>
+     * If the position is greater than the length of the originalString, the stringToAdd
+     * will be added to the back of the originalString. <br>
+     * Asserts that the originalString and stringToAdd are not null.
      * 
-     * @param input the String input
-     * @param extraString the String to apply to the input String
-     * @param position the position of the String to add the extraString
-     * @return the String with the extraString added to in the given position of
-     *         the original String
+     * @param originalString The String to add to
+     * @param stringToAdd The String to add to the originalString
+     * @param position The position in originalString to add the stringToAdd
+     * @return The String with the stringToAdd added to in the given position of
+     *         the originalString
      */
-    public static String applyStringAtPosition(String input, String extraString, int position) {
-        assert input != null && extraString != null;
+    public static String applyStringAtPosition(String originalString, String stringToAdd, int position) {
+        assert originalString != null && stringToAdd != null;
+
+        int originalStringLen = originalString.length();
+        boolean isPositionBelowMinimum = (position < 0);
+        boolean isPositionAboveMaximum = (position > originalStringLen);
+
         
-        if (position < 0) {
+        if (isPositionBelowMinimum) {
             position = 0;
         }
-        
-        if (position > input.length()) {
-            position = input.length();
+        else if (isPositionAboveMaximum) {
+            position = originalString.length();
         }
-        
-        String stringBeforeCaret = input.substring(0, position);
-        String stringAfterCaret = input.substring(position);
-        return String.join(extraString, stringBeforeCaret, stringAfterCaret);
+
+        String stringBeforeCaret = originalString.substring(0, position);
+        String stringAfterCaret = originalString.substring(position);
+        return String.join(stringToAdd, stringBeforeCaret, stringAfterCaret);
     }
 
     // @@author

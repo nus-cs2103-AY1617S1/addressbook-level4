@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 
-//@@author A0093960X
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
@@ -50,11 +49,13 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.textProperty().bind(displayed);
         resultDisplayArea.setPrefHeight(PREF_HEIGHT);
 
+        //@@author A0093960X
         resultDisplayArea.textProperty().addListener(e -> {
             int newHeight = computeNewHeight();
             setNewHeight(newHeight);
         });
 
+        //@@author
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -62,8 +63,10 @@ public class ResultDisplay extends UiPart {
 
     }
 
+    //@@author A0093960X
     /**
-     * @param newHeight
+     * Sets the height of the result display to the specified newHeight
+     * @param newHeight The new height to set the result display area to
      */
     private void setNewHeight(int newHeight) {
         resultDisplayArea.setMinHeight(newHeight);
@@ -76,21 +79,22 @@ public class ResultDisplay extends UiPart {
      * number of newline characters present in the text of the result display
      * area.
      * 
-     * @return
+     * @return The size of the new height
      */
     private int computeNewHeight() {
         return PREF_HEIGHT + getNumberOfNewLines() * HEIGHT_PER_EXTRA_NEWLINE;
     }
 
     /**
-     * Returns 
-     * @return
+     * Returns the number of newlines characters in the result display text.
+     * @return The number of newline characters
      */
     private int getNumberOfNewLines() {
         String displayedText = resultDisplayArea.getText();
         return StringUtils.countMatches(displayedText, NEWLINE_STRING);
     }
 
+    //@@author
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;

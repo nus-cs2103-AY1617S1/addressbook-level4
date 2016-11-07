@@ -19,7 +19,6 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
-//@@author A0093960X
 /**
  * The controller for the buttons used to switch list views between showing
  * undone and done tasks.
@@ -38,7 +37,7 @@ public class SwitchViewButtons extends UiPart {
     private Logic logic;
 
     @FXML
-    private HBox hb;
+    private HBox hbox;
 
     @FXML
     private ToggleButton showListUndone;
@@ -63,8 +62,8 @@ public class SwitchViewButtons extends UiPart {
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(hb);
-        FxViewUtil.applyAnchorBoundaryParameters(hb, 0.0, 0.0, 0.0, 0.0);
+        placeHolderPane.getChildren().add(hbox);
+        FxViewUtil.applyAnchorBoundaryParameters(hbox, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
 
         final ToggleGroup group = new ToggleGroup();

@@ -66,7 +66,7 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory {
     }
 
     /**
-     * Resets the redoable command history
+     * Resets the redoable command history, erasing all redoable command history.
      */
     private void resetRedo() {
         redoableCommands = new Stack<UndoableCommand>();

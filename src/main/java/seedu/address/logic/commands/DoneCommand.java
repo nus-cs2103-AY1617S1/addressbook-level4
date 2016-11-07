@@ -39,7 +39,7 @@ public class DoneCommand extends UndoableCommand {
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
-    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "The following tasks were unable to be undone: %1$s";
+    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "All done tasks have been undone, except the following tasks: %1$s";
     
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
@@ -130,6 +130,8 @@ public class DoneCommand extends UndoableCommand {
 
     /**
      * Returns true if the done command is being executed on the done list.
+     * 
+     * @return A boolean representing if the done is executed on the done list.
      */
     private boolean attemptToExecuteDoneOnDoneList() {
         return isViewingDoneList && !isRedoAction;
@@ -225,15 +227,11 @@ public class DoneCommand extends UndoableCommand {
     public CommandResult undo() {
         doneTasksUndoFail = new ArrayList<Task>();
         
-        for (Task doneTask : targetTasks){
-            attemptToDeleteDoneTaskFromDoneList(doneTask);
-        }
+        attemptToDeleteDoneTasksFromDoneList();
         
-        for (Task readdedRecurTask : readdedRecurringTasks) { 
-            attemptToDeleteReaddedRecurTaskFromUndoneList(readdedRecurTask);
-        }
+        attemptToDeleteReaddedRecurTasksFromUndoneList();
         
-        readdSuccessfullyUndoneTasks();
+        readdAllDoneTasksToUndoneList();
         
         if (isSuccessfulInUndoingAllDoneTasks()) {
             return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
@@ -243,11 +241,37 @@ public class DoneCommand extends UndoableCommand {
         }
     }
 
-    private void readdSuccessfullyUndoneTasks() {
+    /**
+     * Attempt to delete all readded recurring tasks as a result of this done command from the current undone list.
+     */
+    private void attemptToDeleteReaddedRecurTasksFromUndoneList() {
+        for (Task readdedRecurTask : readdedRecurringTasks) { 
+            attemptToDeleteReaddedRecurTaskFromUndoneList(readdedRecurTask);
+        }
+    }
+
+    /**
+     * Attempt to delete all done tasks as a result of this done command from the current done list.
+     */
+    private void attemptToDeleteDoneTasksFromDoneList() {
+        for (Task doneTask : targetTasks){
+            attemptToDeleteDoneTaskFromDoneList(doneTask);
+        }
+    }
+
+    /**
+     * Readds all the done tasks as a result of this done command back to the current undone list.
+     */
+    private void readdAllDoneTasksToUndoneList() {
         model.addTasks(targetTasks);
 
     }
 
+    /**
+     * Attempts to delete a readded recurring task from the current undone list.
+     * 
+     * @param readdedRecurTask The recurring task that was readded to the current undone list as part of this done command
+     */
     private void attemptToDeleteReaddedRecurTaskFromUndoneList(Task readdedRecurTask) {
         try {
             model.deleteUndoneTask(readdedRecurTask);
@@ -257,6 +281,11 @@ public class DoneCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Attempts to delete a done task from the current done list.
+     * 
+     * @param doneTask The done task that was added to the current done list as part of this done command
+     */
     private void attemptToDeleteDoneTaskFromDoneList(Task doneTask) {
         try {
             model.deleteDoneTask(doneTask);
@@ -266,6 +295,11 @@ public class DoneCommand extends UndoableCommand {
         }
     }
     
+    /**
+     * Return whether the undo command was successful in undoing all done tasks.
+     * 
+     * @return A boolean representing if all done tasks were undone.
+     */
     private boolean isSuccessfulInUndoingAllDoneTasks() {
         return doneTasksUndoFail.isEmpty();
     }

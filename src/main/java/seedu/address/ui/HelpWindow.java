@@ -3,17 +3,13 @@ package seedu.address.ui;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
-//@@author A0093960X
 /**
  * Controller for a help page
  */
@@ -44,12 +40,20 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0093960X
+    /**
+     * Configures the help window stage.
+     */
     private void configure() {
-        Scene scene = new Scene(mainPane);
-        // Null passed as the parent stage to make it non-modal.
-        dialogStage = createDialogStage(TITLE, null, scene);
-        setIcon(dialogStage, ICON);
-
+        Scene scene = initializeHelpWindowProperties();
+        setupKeyPressEventHandler(scene);
+    }
+    
+    /**
+     * Sets up the key press event handler for the help window scene.
+     * @param scene
+     */
+    private void setupKeyPressEventHandler(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent ke) {
                 dialogStage.close();
@@ -57,6 +61,17 @@ public class HelpWindow extends UiPart {
         });
     }
 
+    private Scene initializeHelpWindowProperties() {
+        Scene scene = new Scene(mainPane);
+        // Null passed as the parent stage to make it non-modal.
+        dialogStage = createDialogStage(TITLE, null, scene);
+        setIcon(dialogStage, ICON);
+        return scene;
+    }
+
+    /**
+     * Shows the help window.
+     */
     public void show() {
         dialogStage.show();
     }

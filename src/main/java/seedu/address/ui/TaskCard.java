@@ -115,21 +115,29 @@ public class TaskCard extends UiPart {
 
         Paint taskPriorityColour = PAINT_YELLOW;
 
-        switch (taskPriority) {
-        case LOW :
-            taskPriorityColour = PAINT_GREEN;
-            break;
-        case MEDIUM :
-            taskPriorityColour = PAINT_YELLOW;
-            break;
-        case HIGH :
-            taskPriorityColour = PAINT_RED;
-            break;
-        default :
-            assert false : "priority should only be LOW, MEDIUM, or HIGH";
-        }
+        taskPriorityColour = getPaintForPriority(taskPriority);
 
         priority.setFill(taskPriorityColour);
+    }
+
+    /**
+     * Gets the appropriate Paint given the Priority.
+     * 
+     * @param priority The priority to retrieve the Paint for
+     * @return The Paint for the specified priority
+     */
+    private Paint getPaintForPriority(Priority priority) {
+        switch (priority) {
+        case LOW :
+            return PAINT_GREEN;
+        case MEDIUM :
+            return PAINT_YELLOW;
+        case HIGH :
+            return PAINT_RED;
+        default :
+            assert false : "priority should only be LOW, MEDIUM, or HIGH";
+            return PAINT_YELLOW;
+        }
     }
 
     /**
@@ -185,7 +193,7 @@ public class TaskCard extends UiPart {
      * Prepares the start date for display by converting it into a pretty format
      * as a String.
      * 
-     * @return the String representation of the start date for display on the
+     * @return The String representation of the start date for display on the
      *         task card
      */
     private String prepareStartDateToDisplay() {
@@ -199,7 +207,7 @@ public class TaskCard extends UiPart {
      * Prepares the end date for display by converting it into a pretty format
      * as a String.
      * 
-     * @return the String representation of the end date for display on the task
+     * @return The String representation of the end date for display on the task
      *         card
      */
     private String prepareEndDateToDisplay() {
@@ -213,7 +221,7 @@ public class TaskCard extends UiPart {
      * Prepares the recurrence rate for display by converting it into a pretty
      * format as a String.
      * 
-     * @return the String representation of the recurrence rate for display on
+     * @return The String representation of the recurrence rate for display on
      *         the task card
      */
     private String prepareRecurrenceRateToDisplay() {

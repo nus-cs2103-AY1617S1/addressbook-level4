@@ -7,10 +7,10 @@ package seedu.address.history;
 public interface InputHistory {
 
     /**
-     * Updates the input history with the given userInput String and resets the
-     * input history to the latest input state
+     * Updates the input history with the given input and resets the input
+     * history to the latest input state
      * 
-     * @param input the input to update the input history with
+     * @param input The input to update the input history with
      */
     public void updateInputHistory(String input);
 
@@ -18,8 +18,8 @@ public interface InputHistory {
      * Returns whether we are already at the earliest input state (no more
      * previous input in memory to backtrack to)
      * 
-     * @return boolean representing whether we are already at the earliest input
-     *         of the input history
+     * @return A boolean representing whether we are already at the
+     *         earliest input of the input history
      */
     public boolean isEarliestInput();
 
@@ -27,15 +27,16 @@ public interface InputHistory {
      * Returns whether we are already at the latest input state (no more later
      * input in memory to move forward to)
      * 
-     * @return boolean representing whether we are already at the latest input
-     *         of the input history
+     * @return A boolean representing whether we are already at the
+     *         latest input of the input history
      */
     public boolean isLatestInput();
 
     /**
-     * Executes the action to get the next input from the input history
+     * Executes the action to get the next input from the input history,
+     * returning that next input
      * 
-     * @return the next input String from the input history
+     * @return The next input String from the input history
      */
     public String nextStep();
 
@@ -43,8 +44,8 @@ public interface InputHistory {
      * Executes the action to get the previous input from the input history,
      * storing the current input if currently at the latest input state
      * 
-     * @param currentInput the current input
-     * @return the previous input String from the input history
+     * @param input The input to store if currently at the latest input state
+     * @return The previous input String from the input history
      */
-    public String prevStep(String currentInput);
+    public String prevStep(String input);
 }
