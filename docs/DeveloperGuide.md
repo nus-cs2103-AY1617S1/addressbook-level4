@@ -395,7 +395,6 @@ The SD for delete event is similiar to delete task.
 1a. The selected directory is invalid
   > 1a1. `Dowat` displays an error message that directory cannot be found
   Use case resumes at step 1
-
 <br>
 <!-- @@author A0125534L -->
 
@@ -411,8 +410,10 @@ The SD for delete event is similiar to delete task.
 **Extensions**<br>
 1a. The KEYWORD for Help Command is invalid
   > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
-  Use case resumes at step 1
+  Use case resumes at step 1<br>
 
+<img src="images/HelpSD.png" width="700"><br>
+<img src="images/HelpSD1.png" width="700"><br>
 <br>
 <!-- @@author A0125534L -->
 
@@ -430,8 +431,10 @@ The SD for delete event is similiar to delete task.
 **Extensions**
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the task or event cannot be found
-  Use case resumes at step 2
+  Use case resumes at step 2<br>
 
+<img src="images/SDSelect.png" width="700"><br>
+<img src="images/SDSelect1.png" width="700"><br>
 <br>
 <!-- @@author A0144702N -->
 #### Use case 9: Simple find for tasks  
