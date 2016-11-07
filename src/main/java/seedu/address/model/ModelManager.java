@@ -13,7 +13,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.TaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.ui.FilterPanelChangedEvent;
 import seedu.address.commons.events.ui.UpdateFilterPanelEvent;
@@ -124,20 +124,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0146123R
     @Override
-    public void updateTaskManager(String filePath, boolean isToClearOld) {
+    public void updateTaskManagerToPath(String filePath, boolean isToClearOld) {
         stateManager.saveFilePath(filePath, isToClearOld);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public void changeBackTaskManager(boolean isToClearNew) throws StateLimitException {
-        stateManager.getPreviousFilePath(isToClearNew);
+    public void changeBackTaskManagerPath(boolean isToClearNew) throws StateLimitException {
+        stateManager.setPreviousFilePath(isToClearNew);
         indicateTaskManagerChanged();
     }
 
     @Override
-    public void redoUpdateTaskManager() throws StateLimitException {
-        stateManager.getNextFilePath();
+    public void redoUpdateTaskManagerPath() throws StateLimitException {
+        stateManager.setNextFilePath();
         indicateTaskManagerChanged();
     }
 
@@ -171,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
 
-    //@@author A016123R
+    //@@author A0146123R
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -186,7 +186,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0142325R
     @Override
-    public void updateFilteredTaskList(Types type) {
+    public void updateFilteredTaskListByType(Types type) {
         updateFilteredTaskList(getPredicateForType(type));
         Set<Types> types = new HashSet<>();
         types.add(type);
@@ -203,13 +203,14 @@ public class ModelManager extends ComponentManager implements Model {
         case UNDONE:
             return new PredicateExpression(new DoneQualifier(type));
         default:
+            assert false;
             return null;
         }
     }
 
     //@@author A0146123R
     @Override
-    public void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags) {
+    public void updateFilteredTaskListByQualifications(Map<Types, String> qualifications, Set<String> tags) {
         updateFilteredTaskListAndOperation(getPredicateForMultipleQualifications(qualifications, tags));
         raise(new UpdateFilterPanelEvent(new HashSet<Types>(), qualifications, tags));
     }
@@ -217,14 +218,14 @@ public class ModelManager extends ComponentManager implements Model {
     private ArrayList<Expression> getPredicateForMultipleQualifications(Map<Types, String> qualifications,
             Set<String> tags) {
         ArrayList<Expression> predicate = new ArrayList<>();
-        qualifications.forEach((attribute, keyword) -> predicate.add(getPredicateForKeywordType(attribute, keyword)));
+        qualifications.forEach((attribute, keyword) -> predicate.add(getPredicateForAttribute(attribute, keyword)));
         if (!tags.isEmpty()) {
             predicate.add(getPredicateForTags(tags));
         }
         return predicate;
     }
-    
-    private Expression getPredicateForKeywordType(Types attribute, String keyword) {
+
+    private Expression getPredicateForAttribute(Types attribute, String keyword) {
         switch (attribute) {
         case START_DATE:
         case DEADLINE:
@@ -235,17 +236,23 @@ public class ModelManager extends ComponentManager implements Model {
         case PRIORITY_LEVEL:
             return new PredicateExpression(new PriorityQualifier(Integer.parseInt(keyword)));
         default:
+            assert false;
             return null;
         }
     }
 
+    private Expression getPredicateForTags(Set<String> keyword) {
+        return new PredicateExpression(new TagQualifier(keyword));
+    }
+
     @Override
-    public void updateFilteredTaskList(Set<Types> types, Map<Types, String> qualifications, Set<String> tags) {
+    public void updateFilteredTaskListByTypesAndQualifications(Set<Types> types, Map<Types, String> qualifications,
+            Set<String> tags) {
         ArrayList<Expression> predicate = getPredicateForMultipleQualifications(qualifications, tags);
         types.forEach(type -> predicate.add(getPredicateForType(type)));
         updateFilteredTaskListAndOperation(predicate);
     }
-    
+
     @Override
     public void updateFilteredTaskListWithKeywords(Set<Set<String>> keywordsGroups) {
         ArrayList<Expression> predicate = new ArrayList<>();
@@ -262,10 +269,6 @@ public class ModelManager extends ComponentManager implements Model {
             predicate.add(new PredicateExpression(new StemmedNameQualifier(keywords)));
         }
         updateFilteredTaskListAndOperation(predicate);
-    }
-
-    private Expression getPredicateForTags(Set<String> keyword) {
-        return new PredicateExpression(new TagQualifier(keyword));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -285,7 +288,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Subscribe
     @Override
     public void handleFilterPanelChangedEvent(FilterPanelChangedEvent event) {
-        updateFilteredTaskList(event.getTypes(), event.getQualifications(), event.getTags());
+        updateFilteredTaskListByTypesAndQualifications(event.getTypes(), event.getQualifications(), event.getTags());
     }
     //@@author
 
@@ -347,17 +350,15 @@ public class ModelManager extends ComponentManager implements Model {
 
         StemmedNameQualifier(Set<String> nameKeyWords) {
             Stemmer stemmer = new Stemmer();
-            this.nameKeyWords = nameKeyWords.stream().map(keyword -> stemmer.stem(keyword))
-                    .collect(Collectors.toSet());
+            this.nameKeyWords = nameKeyWords.stream().map(keyword -> stemmer.stem(keyword)).collect(Collectors.toSet());
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            Set<String> taskName = getStemmedTaskName(task);
+            Set<String> taskName = getTaskName(task);
             Stemmer stemmer = new Stemmer();
             return nameKeyWords.stream()
-                    .filter(keyword -> taskName.stream()
-                            .map(name -> stemmer.stem(name))
+                    .filter(keyword -> taskName.stream().map(name -> stemmer.stem(name))
                             .filter(name -> name.equals(keyword)).count() > 0)
                     .findAny()
                     .isPresent();
@@ -368,43 +369,47 @@ public class ModelManager extends ComponentManager implements Model {
             return "stemmed name=" + String.join(", ", nameKeyWords);
         }
 
-        private Set<String> getStemmedTaskName(ReadOnlyTask task) {
+        private Set<String> getTaskName(ReadOnlyTask task) {
             String[] taskName = task.getName().taskName.split("\\s+");
             return new HashSet<>(Arrays.asList(taskName));
         }
     }
 
     //@@author A0142325R
-    private class EventQualifier implements Qualifier{
-        EventQualifier(){}
-		@Override
-		public boolean run(ReadOnlyTask task) {
+    private class EventQualifier implements Qualifier {
+        EventQualifier() {}
 
-			return task.isEvent();
-		}
-		@Override
-		public String toString(){
-			return "name";
-		}
+        @Override
+        public boolean run(ReadOnlyTask task) {
+
+            return task.isEvent();
+        }
+
+        @Override
+        public String toString() {
+            return "name";
+        }
 
     }
 
-    private class TaskQualifier implements Qualifier{
-    	TaskQualifier(){}
-    	@Override
-    	public boolean run(ReadOnlyTask task){
-    		return !task.isEvent();
-    	}
-    	@Override
-    	public String toString(){
-    		return "name";
-    	}
+    private class TaskQualifier implements Qualifier {
+        TaskQualifier() {}
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return !task.isEvent();
+        }
+
+        @Override
+        public String toString() {
+            return "name";
+        }
     }
 
-    private class DoneQualifier implements Qualifier{
+    private class DoneQualifier implements Qualifier {
         private boolean isDone;
 
-        DoneQualifier(Types isDone){
+        DoneQualifier(Types isDone) {
             this.isDone = isDone.equals(Types.DONE);
         }
 
@@ -422,7 +427,6 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0146123R
     private class DateQualifier implements Qualifier {
         private final String TIME_SEPERATOR = "-";
-        private final int NUM_OF_PARTS_DAY = 1;
         private final int DAY = 0;
 
         private String dateValue;
@@ -453,6 +457,7 @@ public class ModelManager extends ComponentManager implements Model {
                     date = task.getDate().getValue();
                     break;
                 default:
+                    assert false;
                     return false;
                 }
                 return isDay ? dateValue.equals(getDay(date)) : dateValue.equals(date);
@@ -470,18 +475,17 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    //@@author A0142325R
-    private class RecurringQualifier implements Qualifier{
+    // @@author A0142325R
+    private class RecurringQualifier implements Qualifier {
         private String recurring;
-        private static final String EMPTY = "";
 
-        RecurringQualifier(String recurring){
+        RecurringQualifier(String recurring) {
             this.recurring = recurring;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (recurring.equals(EMPTY)) {
+            if (recurring.isEmpty()) {
                 return task.getRecurring() == null;
             } else {
                 return task.getRecurring() != null && this.recurring.equals(task.getRecurring().recurringFrequency);
@@ -489,7 +493,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public String toString(){
+        public String toString() {
             return "recurring=" + recurring;
         }
     }
@@ -521,19 +525,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author A0138717X
     private class PriorityQualifier implements Qualifier {
-    	private int priorityLevel;
+        private int priorityLevel;
 
-    	PriorityQualifier(int priorityLevel) {
-    		this.priorityLevel = priorityLevel;
-    	}
+        PriorityQualifier(int priorityLevel) {
+            this.priorityLevel = priorityLevel;
+        }
 
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return task.getPriorityLevel().priorityLevel == priorityLevel;
-		}
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.getPriorityLevel().priorityLevel == priorityLevel;
+        }
 
-		@Override
-        public String toString(){
+        @Override
+        public String toString() {
             return "priority=" + priorityLevel;
         }
     }

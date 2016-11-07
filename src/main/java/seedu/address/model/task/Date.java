@@ -7,7 +7,7 @@ import seedu.address.commons.util.DateUtil;
 
 //@@author A0146123R
 /**
- * Represents a Task's date
+ * Represents a Task's date.
  * It can be deadline for tasks or event date for events.
  */
 public interface Date {
@@ -17,7 +17,6 @@ public interface Date {
     String getValue();
     
     String toString();
-  
     
     ArrayList<LocalDate> getLocalDate();
     

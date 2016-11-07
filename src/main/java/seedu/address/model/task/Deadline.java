@@ -31,7 +31,7 @@ public class Deadline implements Date {
     }
 
     /**
-     * Get a date that is valid and is in valid deadline format.
+     * Gets a date that is valid and is in valid deadline format.
      */
     public static String getValidDate(String date) throws IllegalValueException {
         if (DateUtil.isEmptyDate(date)) {

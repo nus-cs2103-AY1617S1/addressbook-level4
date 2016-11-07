@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.TaskList.TaskNotFoundException;
 
 //@@author A0142325R
 

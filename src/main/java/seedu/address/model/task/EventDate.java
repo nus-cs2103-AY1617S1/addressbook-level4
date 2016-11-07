@@ -37,7 +37,7 @@ public class EventDate implements Date {
     }
 
     /**
-     * Get a date that is valid and is in a valid event date format.
+     * Gets a date that is valid and is in a valid event date format.
      */
     public static String getValidDate(String date) throws IllegalValueException {
         try {

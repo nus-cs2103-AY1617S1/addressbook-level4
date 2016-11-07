@@ -4,9 +4,12 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 //@@author A0138717X
 public class Priority {
-    public static final String MESSAGE_INVALID_PRIORITY_LEVEL = "Priority level must be of value 1, 2 or 3";
+    public static final String MESSAGE_INVALID_PRIORITY_LEVEL = "Priority level must be of value 0, 1, 2 or 3";
 
     public final int priorityLevel;
+    
+    private static final int MAX = 3;
+    private static final int MIN = 0;
 
     public Priority(int priorityLevel) throws IllegalValueException {
         if (!isValidPriorityLevel(priorityLevel)) {
@@ -16,7 +19,7 @@ public class Priority {
     }
 
     public static boolean isValidPriorityLevel(int priorityLevel) {
-        if (priorityLevel <= 3 && priorityLevel >= 0) {
+        if (priorityLevel <= MAX && priorityLevel >= MIN) {
             return true;
         }
         return false;
@@ -36,6 +39,7 @@ public class Priority {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof Priority && this.priorityLevel == ((Priority) other).priorityLevel);
+        return other == this 
+                || (other instanceof Priority && this.priorityLevel == ((Priority) other).priorityLevel);
     }
 }

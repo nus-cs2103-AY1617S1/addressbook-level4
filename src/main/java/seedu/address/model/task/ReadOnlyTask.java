@@ -31,6 +31,7 @@ public interface ReadOnlyTask {
      */
     UniqueTagList getTags();
 
+    //@@author A0146123R
     /**
      * Returns true if both have the same state. (interfaces cannot override
      * .equals)
@@ -39,11 +40,13 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                         && other.getName().equals(this.getName()) // state checks here onwards
-                        && other.getDate().equals(this.getDate()) && other.isDone() == this.isDone()
+                        && other.getDate().equals(this.getDate()) 
+                        && other.isDone() == this.isDone()
                         && (other.isRecurring() ? other.getRecurring().equals(this.getRecurring())
                                 : other.isRecurring() == this.isRecurring())
                         && other.getPriorityLevel().equals(this.getPriorityLevel()));
     }
+    //@@author
     
     /**
      * Formats the task as text, showing all details.

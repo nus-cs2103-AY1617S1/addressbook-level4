@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.util.Types;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.TaskList;
 
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +23,7 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws TaskList.TaskNotFoundException;
 
     //@@author A0138717X
     /** Edits the given task
@@ -48,13 +48,14 @@ public interface Model {
 
     // @@author A0146123R
     /** Updates the filter of the filtered task list to filter by the given type. */
-    void updateFilteredTaskList(Types type);
+    void updateFilteredTaskListByType(Types type);
 
     /** Updates the filter of the filtered task list to filter by multiple qualifications. */
-    void updateFilteredTaskList(Map<Types, String> qualifications, Set<String> tags);
+    void updateFilteredTaskListByQualifications(Map<Types, String> qualifications, Set<String> tags);
     
     /** Updates the filter of the filtered task list to filter by multiple types and qualifications. */
-    void updateFilteredTaskList(Set<Types> types, Map<Types, String> qualifications, Set<String> tags);
+    void updateFilteredTaskListByTypesAndQualifications(Set<Types> types, Map<Types, String> qualifications,
+            Set<String> tags);
 
     /** 
      * Updates the filter of the filtered task list to filter by the the given 
@@ -64,32 +65,39 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered task list to filter by the stemmed
-     * words of the given keywords (for find command).
+     * words of the given keywords (for find command). (Stemming is the process
+     * of reducing inflected (or sometimes derived) words to their word stem.
+     * Example: "stems", "stemmer", "stemming", "stemmed" as based on "stem")
      */
     void updateFilteredTaskListWithStemmedKeywords(Set<Set<String>> keywordsGroups);
 
-    /** Updates the task manager to the new file path. */
-    void updateTaskManager(String filePath, boolean isToClearOld);
+    /**
+     * Updates the task manager to the new file path and deletes the data file
+     * in the previous file path if it is specified.
+     */
+    void updateTaskManagerToPath(String filePath, boolean isToClearOld);
 
     /**
-     * Change the task manager back to the old file path
+     * Changes the task manager back to the old file path and deletes the data
+     * file in the new file path if it is specified.
      * 
      * @throws StateLimitException
      */
-    void changeBackTaskManager(boolean isToClearNew) throws StateLimitException;
+    void changeBackTaskManagerPath(boolean isToClearNew) throws StateLimitException;
 
     /**
-     * Redo update the task manager to the new file path
+     * Redoes update the task manager to the new file path and deletes the data
+     * file in the previous file path if it was specified.
      * 
      * @throws StateLimitException
      */
-    void redoUpdateTaskManager() throws StateLimitException;
+    void redoUpdateTaskManagerPath() throws StateLimitException;
 
     /** Saves the current state of the task manager. */
-    public void saveState(String message);
+    void saveState(String message);
 
     /**
-     * Update the task manager to the previous state.
+     * Changes the task manager to the previous state.
      * 
      * @return String message
      * @throws StateLimitException
@@ -97,7 +105,7 @@ public interface Model {
     String getPreviousState() throws StateLimitException;
 
     /**
-     * Update the task manager to the next state.
+     * Updates the task manager to the next state.
      * 
      * @return String message
      * @throws StateLimitException
@@ -105,12 +113,12 @@ public interface Model {
     String getNextState() throws StateLimitException;
 
     /**
-     * Redo saves the current version of the Task Manager to the new file in
-     * hard disk. Delete the new data file if it was previously specified.
+     * Updates the filter of the filter task list so it will correspond to
+     * changes in the filter panel.
      */
     void handleFilterPanelChangedEvent(FilterPanelChangedEvent abce);
 
     //@@author A0142325R
-    /** Update the task manager to show all up-to-date tasks. */
+    /** Updates the task manager to show all up-to-date tasks. */
     void refreshTask();
 }

@@ -58,7 +58,7 @@ public class ChangeCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
-        model.updateTaskManager(filePath, isToClearOld);
+        model.updateTaskManagerToPath(filePath, isToClearOld);
         return new CommandResult(String.format(MESSAGE_CHANGE_SUCCESS, filePath));
     }
 

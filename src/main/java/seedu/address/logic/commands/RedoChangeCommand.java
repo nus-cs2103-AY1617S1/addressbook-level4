@@ -20,7 +20,7 @@ public class RedoChangeCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            model.redoUpdateTaskManager();
+            model.redoUpdateTaskManagerPath();
             return new CommandResult(MESSAGE_CHANGE_SUCCESS);
         } catch (StateLimitException e) {
             indicateAttemptToExecuteIncorrectCommand();

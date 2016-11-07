@@ -44,11 +44,11 @@ public class StateManager extends ComponentManager implements State {
         if (undoStates.size() == MAX) {
             undoStates.removeFirst();
         }
+        assert undoStates.size() < MAX;
+        
         undoStates.add(currentState);
         currentState = state;
         redoStates.clear();
-
-        assert undoStates.size() <= MAX;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class StateManager extends ComponentManager implements State {
     }
 
     @Override
-    public void getPreviousFilePath(boolean isToClearNew) throws StateLimitException {
+    public void setPreviousFilePath(boolean isToClearNew) throws StateLimitException {
         if (undoFilePathAvailable < MIN) {
             throw new StateLimitException();
         }
@@ -91,7 +91,7 @@ public class StateManager extends ComponentManager implements State {
     }
 
     @Override
-    public void getNextFilePath() throws StateLimitException {
+    public void setNextFilePath() throws StateLimitException {
         if (redoFilePathAvailable < MIN) {
             throw new StateLimitException();
         }

@@ -6,7 +6,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.TaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList tasks;
+    private final TaskList tasks;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniqueTaskList();
+        tasks = new TaskList();
         tags = new UniqueTagList();
     }
 
@@ -37,7 +37,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public TaskManager(TaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
@@ -75,7 +75,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws TaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p)  {
         syncTagsWithMasterList(p);
@@ -105,11 +105,11 @@ public class TaskManager implements ReadOnlyTaskManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws TaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new TaskList.TaskNotFoundException();
         }
     }
 
@@ -131,6 +131,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 	public void editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
         tasks.edit(p, type, details);
 	}
+	//@@author
 
 //
 //// tag-level operations
@@ -144,7 +145,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     @Override
     public String toString() {
         return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     @Override
@@ -158,7 +158,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public TaskList getUniqueTaskList() {
         return this.tasks;
     }
 

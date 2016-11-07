@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.TaskList;
 import seedu.address.model.ReadOnlyTaskManager;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -55,8 +55,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public TaskList getUniqueTaskList() {
+        TaskList lists = new TaskList();
         for (XmlAdaptedTask t : tasks) {
             try {
                 lists.add(t.toModelType());

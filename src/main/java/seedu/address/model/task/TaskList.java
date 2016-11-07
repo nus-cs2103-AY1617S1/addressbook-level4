@@ -9,14 +9,14 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import java.util.*;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
 
 
     /**
@@ -28,9 +28,9 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList(Task.extractor());
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public TaskList() {}
 
     /**
      * Adds a task to the list.
@@ -55,6 +55,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
 
+    //@@author A0138717X
 	public void edit(ReadOnlyTask toEdit, String type, String details) throws IllegalValueException {
 		assert toEdit != null;
 		for(Task t : internalList) {
@@ -76,9 +77,9 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
+                || (other instanceof TaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                ((TaskList) other).internalList));
     }
 
     @Override

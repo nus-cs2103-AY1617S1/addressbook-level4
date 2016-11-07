@@ -23,8 +23,8 @@ public class DateTest {
     public void addDeadline_validDate_success() throws IllegalValueException {
         Deadline d1 = new Deadline("");
         assertEquals("", d1.getValue());
-        Deadline d2 = new Deadline("04.11.2016");
-        assertEquals("04.11.2016", d2.getValue());
+        Deadline d2 = new Deadline("04.11.2016-10");
+        assertEquals("04.11.2016-10", d2.getValue());
         Deadline d3 = new Deadline("4 Nov");
         assertEquals("04.11.2016", d3.getValue());
     }
@@ -37,8 +37,8 @@ public class DateTest {
     
     @Test
     public void addEventDate_validDate_success() throws IllegalValueException {
-        EventDate d1 = new EventDate("04.11.2016-10", "04.11.2016-11");
-        assertEquals("04.11.2016-10 to 04.11.2016-11", d1.getValue());
+        EventDate d1 = new EventDate("4.11.2016", "05.11.2016");
+        assertEquals("04.11.2016 to 05.11.2016", d1.getValue());
         EventDate d2 = new EventDate("4 Nov 10am", "4 Nov 11am");
         assertEquals("04.11.2016-10 to 04.11.2016-11", d2.getValue());
     }
