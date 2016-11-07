@@ -133,6 +133,7 @@ The `Model`,
 * Does not depend on any of the other three components.
 <!-- @@author -->
 
+<!-- @@author A0158963M -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -141,8 +142,8 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
-
+* can save the ToDoList data in xml format and read it back.
+<!-- @@author -->
 ### Common classes
 
 Classes used by multiple components are in the `seedu.todolist.commons` package. 

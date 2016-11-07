@@ -206,16 +206,17 @@ Format: **`redo`**
 
 >If the undo operation is overwritten by other operations, the to-do-list can't be redone.
 
-<!-- @@author A0138601M-->
+<!-- @@author A0158963M -->
 ### Setting the storage location : `setstorage`
 Sets the location of the storage file. <br>
 Format: **`setstorage`**` [filepath]`
 
-> Data file in the previously used storage path will be moved over to the new path.
+> Data file in the previously used storage path will be deleted and create a new file in the new path.
+>If the folder doesn't exist, creating a new one. 
 
 Examples: 
-* **`setstorage`**` C://user/documents/todolist`.<br>
-
+* **`setstorage`**` user/documents/todolist`.<br>
+     
 ### Clearing all entries : `clear`
 Clears all entries from Task!t.<br>
 Format: `clear`  
