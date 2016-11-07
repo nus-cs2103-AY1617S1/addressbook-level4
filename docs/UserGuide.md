@@ -136,24 +136,24 @@ Example:
 <!-- @@author A0139930B -->
 #### Create a new task: `add`
 
-Format(Todo): `add <name> [#tag]...`<br>
-Format(Deadline): `add <name> [end datetime] [#tag]...`<br>
-Format(Event): `add <name> [start datetime] to [end datetime] [#tag]...`<br><br>
+Format (Todo): `add <name> [#tag]...`<br>
+Format (Deadline): `add <name> [end datetime] [#tag]...`<br>
+Format (Event): `add <name> [start datetime] to [end datetime] [#tag]...`<br><br>
 
 Adds a new task to the todo or deadline or event list in TasKitty.<br>
 <img src="images/AddCallout.png" width="900"><br>
 <!-- @@author A0130853L -->
-Example(Todo):<br>
+Example (Todo):<br>
 * `add buy new tie #work`<br>
   Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
 <br>
-Example(Deadline):<br>
+Example (Deadline):<br>
 * `add submit proposal 17 Nov 2pm #work`<br>
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
-Example(event):<br>
+Example (Event):<br>
 * `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
@@ -196,7 +196,7 @@ Example:
 <br>
 
 #### Delete task: `delete`
-* Format: `delete <index> [more indexes]...`<br><br>
+* Format: `delete <index>...`<br><br>
 Deletes one or more todo, deadline or event task already inside TasKitty using the index of the task.<br>
 <img src="images/DeleteCallout.png" width="900"><br>
 
@@ -375,10 +375,10 @@ View upcoming | `view`
 View all | `view all`
 View date | `view <date>`
 View done | `view done`
-Find | `find <keyword> [more keywords]...`
+Find | `find <keyword>...`
 Edit | `edit <index> <name> <datetime>`
-Delete | `delete <index> [more indexes]...`
-Done | `done <index> [more indexes]...`
+Delete | `delete <index>...`
+Done | `done <index>...`
 Path | `path <filepath>.xml`
 Undo | `undo`
 Redo | `redo`
