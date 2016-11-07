@@ -3,13 +3,16 @@ package seedu.flexitrack.model.task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 
+import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.logic.parser.Parser;
 
 /**
  * Represents a DateTimeInfo class in FlexiTrack
@@ -23,6 +26,8 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     private static final int DAYS_IN_A_WEEK = 7;
     private static final boolean FAIL_DUE_TO_EXCEPTION = false;
 
+    private final Logger logger = LogsCenter.getLogger(Parser.class);
+    
     private String setTime;
     private DateTimeInfoParser timeInfo;
 
@@ -67,14 +72,13 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
     /**
      * Change the format of the timing saved in setTime
      * 
-     * @param inferred  True if the timing is inferred 
      */
     void formatStartOrDueDateTime() {
         if (timeInfo.isTimeInferred()) {
             setTime = setTime.substring(0, 12) + "08:00";
+            changeTimeInfo();
         } 
     }
-
 
     /**
      * If the time is inferred, replace "08:00" with "17:00"
@@ -86,7 +90,21 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
         if (timeInfo.isTimeInferred()) { 
             setTime = setTime.substring(0, 12) + "17:00";
         }
+        changeTimeInfo();
     }
+
+    /**
+     * Update timeInfo after changing the setTime to the Default value
+     * 
+     */
+    private void changeTimeInfo() {
+        try {
+            timeInfo = new DateTimeInfoParser(setTime);
+        } catch (IllegalValueException e) {
+            logger.warning("----------------[DateTimeInfo][" + " THIS ERROR SHOULD NOT OCCUR. METHOD USING A VALID INPUT " + "]");
+        }
+    }
+    
     /**
      * Extract the month, date and year of a particular date
      * 
@@ -526,6 +544,14 @@ public class DateTimeInfo implements Comparable<DateTimeInfo> {
             return null;
         }
 
+    }
+
+    public void checkDueDateOrStartTime() {
+        this.formatStartOrDueDateTime();
+    }
+
+    public void checkEndTime(DateTimeInfo startTime) {
+        this.formatEndTime(startTime);
     }
 
 }
