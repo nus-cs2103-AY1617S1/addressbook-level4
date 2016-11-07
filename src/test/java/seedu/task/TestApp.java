@@ -61,6 +61,7 @@ public class TestApp extends MainApp {
     }
     // @@author
 
+    // @@author A0133369B
     @Override
     protected UserPrefs initPrefs(Config config) {
         UserPrefs userPrefs = super.initPrefs(config);
@@ -69,6 +70,7 @@ public class TestApp extends MainApp {
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(1500.0, 1000.0, (int) x, (int) y));
         return userPrefs;
     }
+    // @@author 
 
     @Override
     public void start(Stage primaryStage) {
