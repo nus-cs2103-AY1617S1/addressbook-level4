@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <activities>
+        <type>activity</type>
+        <name>find Alice2</name>
+        <reminder>30-12-2018 11:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>lunch</tagged>
+        <tagged>dinner</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>find Benson2</name>
+        <line1>3-01-2018 1:00 PM</line1>
+        <line2>3</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>lunch</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>find Carl2</name>
+        <line1>3-03-2018 11:59 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>find Daniel2</name>
+        <line1>5-05-2018 12:00 PM</line1>
+        <line2>1</line2>
+        <reminder>5-05-2018 11:59 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>lunch</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>find Elle2</name>
+        <line1>6-04-2018 12:00 PM</line1>
+        <line2>7-04-2018 12:00 PM</line2>
+        <reminder>6-04-2018 11:59 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>find Fiona2</name>
+        <line1>30-12-2018 12:00 PM</line1>
+        <line2>31-12-2018 12:00 PM</line2>
+        <reminder>29-12-2018 12:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>find George2</name>
+        <line1>31-12-2017 12:00 PM</line1>
+        <line2>1-01-2018 12:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>dinner</tagged>
+        <tagged>supper</tagged>
+    </activities>
+    <tags>
+        <tagName>dinner</tagName>
+    </tags>
+    <tags>
+        <tagName>lunch</tagName>
+    </tags>
+</addressbook>

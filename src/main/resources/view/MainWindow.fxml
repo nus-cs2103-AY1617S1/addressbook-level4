@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.lifekeeper.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
@@ -20,7 +20,10 @@
             <Menu mnemonicParsing="false" text="File">
                <!-- @@author A0125680H -->
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSaveLoc" text="Set Save Path..." />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOpen" text="Open" />
+               </items>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSaveLoc" text="Save" />
                </items>
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />

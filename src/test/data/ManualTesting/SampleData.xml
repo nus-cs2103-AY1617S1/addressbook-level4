@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <activities>
+        <type>task</type>
+        <name>IE4210 HW9</name>
+        <line1>9-11-2016 4:00 PM</line1>
+        <line2>2</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+        <tagged>HW</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>update CPLEX</name>
+        <line1></line1>
+        <line2>3</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>FYP</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE4210 Lecture</name>
+        <line1>7-11-2016 4:00 PM</line1>
+        <line2>7-11-2016 5:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>true</recurring>
+        <starttimeRecurring>every mon 1600</starttimeRecurring>
+        <endtimeRecurring>every mon 1600</endtimeRecurring>
+        <tagged>IE4210</tagged>
+        <tagged>lecture</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 lecture</name>
+        <line1>8-11-2016 2:00 PM</line1>
+        <line2>8-11-2016 4:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>true</recurring>
+        <starttimeRecurring>every tue 1400</starttimeRecurring>
+        <endtimeRecurring>every tue 1400</endtimeRecurring>
+        <tagged>EG2401</tagged>
+        <tagged>lecture</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 meeting</name>
+        <line1>31-10-2016 7:00 PM</line1>
+        <line2>31-10-2016 8:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+        <tagged>Meeting</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>EG2401 time presentation</name>
+        <reminder>1-11-2016 11:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>IE3110 output analysis</name>
+        <reminder>30-10-2016 12:00 PM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>IE3110 recommendation cases</name>
+        <reminder>31-10-2016 10:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>CS2103 fix failed tests</name>
+        <line1>2-11-2016 8:00 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>go through IE4210 tutorials</name>
+        <reminder>11-11-2016 7:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+        <tagged>tutorial</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>sensitivity analysis</name>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>CS2103 demo</name>
+        <reminder>3-11-2016 1:25 PM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>CS2103 V05rc</name>
+        <line1>3-11-2015 9:00 AM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>read notes on Heuristics</name>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>Send slides notes</name>
+        <line1>1-11-2016 10:00 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>CS2103 work on tests</name>
+        <reminder>29-11-2016 10:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+        <tagged>Project</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>Revise EG2401</name>
+        <line1></line1>
+        <line2>1</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 project meeting</name>
+        <line1>31-10-2016 12:00 PM</line1>
+        <line2>31-10-2016 3:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>Meeting</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>EG2401 report submission</name>
+        <line1>26-10-2016 5:00 PM</line1>
+        <line2>3</line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>print template and bring clipboard</name>
+        <reminder>3-11-2016 6:00 PM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>SDP</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>improve code quality</name>
+        <line1></line1>
+        <line2>3</line2>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>improve coverage</name>
+        <line1></line1>
+        <line2>3</line2>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>fix Optimization Model</name>
+        <line1>5-11-2016 10:00 AM</line1>
+        <line2></line2>
+        <reminder>4-11-2016 6:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>complete interview questions</name>
+        <line1>3-11-2016 7:00 AM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>SDP</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>Revise IE4210</name>
+        <reminder>14-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>Add Dynamic Prog into Simulation</name>
+        <line1></line1>
+        <line2>2</line2>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>FYP</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>Revise IE3110</name>
+        <reminder>12-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 rehearsal</name>
+        <line1>3-11-2016 9:00 AM</line1>
+        <line2>3-11-2016 9:45 AM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 lecture</name>
+        <line1>3-11-2016 6:00 PM</line1>
+        <line2>3-11-2016 8:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>CS2103 exam</name>
+        <line1>26-11-2016 1:00 PM</line1>
+        <line2>26-11-2016 3:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+        <tagged>exam</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>prepare IE3110 helpsheet</name>
+        <reminder>20-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>prepare IE4120 helpsheet</name>
+        <reminder>20-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 exam</name>
+        <line1>24-11-2016 5:00 PM</line1>
+        <line2>24-11-2016 7:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>exam</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE4210 exam</name>
+        <line1>23-11-2016 1:00 PM</line1>
+        <line2>23-11-2016 3:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+        <tagged>exam</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 exam</name>
+        <line1>22-11-2016 5:00 PM</line1>
+        <line2>22-11-2016 7:00 PM</line2>
+        <reminder>21-11-2016 7:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+        <tagged>exam</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>CS2103 product demo</name>
+        <line1>10-11-2016 1:15 PM</line1>
+        <line2>10-11-2016 1:30 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>CS2103 submission</name>
+        <line1>7-11-2016 11:59 PM</line1>
+        <line2>3</line2>
+        <reminder>5-11-2016 12:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>activity</type>
+        <name>Print CS2103 handouts</name>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>FYP mentor meeting</name>
+        <line1>11-11-2016 10:00 AM</line1>
+        <line2>11-11-2016 11:00 AM</line2>
+        <reminder>10-11-2016 6:00 PM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>FYP</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE4210 Group Assignment</name>
+        <line1>9-11-2016 11:59 PM</line1>
+        <line2>3</line2>
+        <reminder>8-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 tutorial</name>
+        <line1>7-11-2016 10:00 AM</line1>
+        <line2>7-11-2016 12:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>tutorial</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE3110 HW4</name>
+        <line1>9-11-2016 2:00 PM</line1>
+        <line2>2</line2>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>HW</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE4210 assignment 9</name>
+        <line1>9-11-2016 4:00 PM</line1>
+        <line2>2</line2>
+        <reminder>5-11-2016 10:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>NUH shadowing</name>
+        <line1>4-11-2016 7:00 AM</line1>
+        <line2>4-11-2016 9:30 AM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>SDP</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 presentation</name>
+        <line1>3-11-2016 10:00 AM</line1>
+        <line2>3-11-2016 12:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+        <tagged>presentation</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>EG2401 presentation</name>
+        <line1>2-11-2016 9:30 AM</line1>
+        <line2>2-11-2016 11:00 AM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+        <tagged>presentation</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE3110 Project Submission</name>
+        <line1>2-11-2016 12:00 PM</line1>
+        <line2>3</line2>
+        <reminder>1-11-2016 10:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE4210 HW8</name>
+        <line1>2-11-2016 4:00 PM</line1>
+        <line2>2</line2>
+        <reminder>29-10-2016 10:00 AM</reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE3110 HW2</name>
+        <line1>27-10-2016 10:00 AM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>IE4210 HW7</name>
+        <line1>26-10-2016 4:00 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>IE4210</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>Ethics Report Submission</name>
+        <line1>26-10-2016 5:00 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>IE3110 lab test</name>
+        <line1>24-10-2016 10:00 AM</line1>
+        <line2>24-10-2016 11:30 AM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>CS2103 V04</name>
+        <line1>26-10-2016 11:59 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>CS2103</tagged>
+    </activities>
+    <activities>
+        <type>task</type>
+        <name>Ethics report last section</name>
+        <line1>22-10-2016 11:59 PM</line1>
+        <line2></line2>
+        <reminder></reminder>
+        <completion>true</completion>
+        <recurring>false</recurring>
+        <tagged>EG2401</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>Prepare for lab test</name>
+        <line1>22-10-2016 1:00 PM</line1>
+        <line2>22-10-2016 2:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>SDP meeting</name>
+        <line1>27-10-2016 2:00 PM</line1>
+        <line2>27-10-2016 4:00 PM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>SDP</tagged>
+    </activities>
+    <activities>
+        <type>event</type>
+        <name>Simulation meeting</name>
+        <line1>28-10-2016 9:30 AM</line1>
+        <line2>28-10-2016 10:30 AM</line2>
+        <reminder></reminder>
+        <completion>false</completion>
+        <recurring>false</recurring>
+        <tagged>IE3110</tagged>
+    </activities>
+    <tags>
+        <tagName>IE3110</tagName>
+    </tags>
+    <tags>
+        <tagName>IE4210</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2103</tagName>
+    </tags>
+    <tags>
+        <tagName>EG2401</tagName>
+    </tags>
+    <tags>
+        <tagName>FYP</tagName>
+    </tags>
+    <tags>
+        <tagName>SDP</tagName>
+    </tags>
+    <tags>
+        <tagName>presentation</tagName>
+    </tags>
+    <tags>
+        <tagName>Project</tagName>
+    </tags>
+    <tags>
+        <tagName>Meeting</tagName>
+    </tags>
+    <tags>
+        <tagName>HW</tagName>
+    </tags>
+</addressbook>

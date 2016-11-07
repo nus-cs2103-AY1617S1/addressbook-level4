@@ -5,10 +5,10 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix A : User Stories](#appendix-a-user-stories)
+* [Appendix B : Use Cases](#appendix-b-use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D : Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
@@ -210,13 +210,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.lifekeeper.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.lifekeeper.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.lifekeeper.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -255,6 +255,7 @@ a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
+
 <!-- @@author A0131813R -->
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -278,8 +279,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | see his tasks ranked in terms of priority
 `*` | user | share tasks with other colleagues working on the same tasks.
 `*` | user | see how his tasks are interrelated, since many of the tasks have prerequisites.
-{More to be added}
+
 <!-- @@author -->
+
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Lifekeeper` and the **Actor** is the `user`, unless specified otherwise)
