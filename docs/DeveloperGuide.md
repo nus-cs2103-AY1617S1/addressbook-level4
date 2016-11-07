@@ -186,6 +186,8 @@ The InputHandler is the bridge facilitating the handoff from the View to the Con
 3. The InputHandler also maps aliased commands back to their original command keyword.
 3. If no Controllers were matched, the console would display an error, to indicate an invalid command.
 
+<!--- @@author A0093907W -->
+
 ### Controller component
 
 The Controllers are responsible for most of the back-end logic responsible for processing the user's input. They take in the full input command, parse, process, and construct the response messages which are handed over to the Renderer to be rendered on the View.
@@ -208,7 +210,6 @@ A brief description of each concern:
 * **`Renderer`** contains the bulk of the code required for renderering a success or failure message, as well as disambiguation prompts. We want disambiguation prompts from all Controllers to be more or less consistent in their wording, hence it makes sense to extract this out allow each Controller to provide a more detailed explanation that will be rendered together with the generic message.
 * **`Tokenizer`** contains the heavy logic that parses an input into its component token keys and values, while respecting the presence of quotes. All but the simplest of Controllers need to use this for parsing user input. Each Controller defines its own tokenDefinitions which the `Tokenizer` uses to parse the raw user input.
 
-<!--- @@author A0093907W -->
 ### Model component
 
 **API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
@@ -221,10 +222,7 @@ A brief description of each concern:
 * is a class that holds the entire persistent database for the TodoList app
 * is a singleton class. For obvious reasons, the TodoList app should not be working with multiple DB instances simultaneously
 * is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
-<!--- @@author -->
 
-
-<!--- @@author A0093907W -->
 ### Storage component
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
