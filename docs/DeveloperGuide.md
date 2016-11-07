@@ -12,7 +12,7 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E: Product Surveys](#appendix-e--product-surveys)
 
-
+<!--- @@author A0139516B -->
 ## Introduction
 
 This guide will allow you as a developer to obtain a better understanding of how 'The Practical Task Manager' functions. This task manager was designed based on two main principles, that the user would find it intuitive to use and simple to understand.
@@ -63,6 +63,7 @@ This guide will allow you as a developer to obtain a better understanding of how
 
 ## Design
 
+<!--- @@author A0141812R -->
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -117,6 +118,7 @@ The sections below give more details of each component.
 
 <div style="page-break-after: always;"></div>
 
+<!--- @@author A0139097U -->
 ### UI component
 
 <img src="images/UIdiagram.png" width="800"><br>
@@ -138,11 +140,13 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<!--- @@author A0144202Y -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 Figure 6 : Logic Class Diagram
 
+<!--- @@author  A0139516B -->
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 * `Logic` uses the `Parser` class to parse the user command.
@@ -293,7 +297,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task | determine what I should accomplish 
+`* * *` | user | add a new task | determine what I should accomplish
 `* * *` | user | know if any events clash | reschedule
 `* * *` | user | see all current tasks on the calendar | determine what I have to do over a longer period of time
 `* * *` | user | delete a task | remove entries that I no longer need

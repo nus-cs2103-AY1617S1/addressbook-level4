@@ -6,6 +6,7 @@
 * [Features](#features)
 * [FAQ](#faq)
 
+<!---@@author A0139516B-->
 ## About the Task Manager
 From Google Calendar to Todoist, Easynote and S Planner, there are many task managers out there that help users like yourself manage their lives more effectively. However, you may have noticed that such task managers often require you to go through a multitude of menu options and clicks before you can even input your activity into the manager. This results in you losing time throughout the day as work piles up with no end in sight and task managers that force you to jump through hoops just to keep track of everything.<br>
 
@@ -18,6 +19,7 @@ We believe that TPTM will greatly benefit any user who favours a command line in
 
 Figure 1: Graphical User Interface (GUI) <br>
 
+<!---@@author A0139516B-->
 ## Quick Start Guide
 
 0. Make sure you have Java version `1.8.0_60` or later installed in your computer.<br>
@@ -38,6 +40,7 @@ Figure 1: Graphical User Interface (GUI) <br>
 
 Refer to the [Basic Command Summary](#basic-command-summary) section below for the complete list of commands as well as their basic format and a simple example. If you need any further information the [Features](#features) section will provide you with all you need to know about each command.<br>
 
+<!---@@author A0139516B-->
 ## Basic Command Summary
 
 Command | Format | Usage Example
@@ -61,10 +64,9 @@ Clear | `clear`
 Repeat | `repeat INDEX SCHEDULE` | repeat 3 weekly
 Exit | `exit`
 
-
-//@@author<br>
 <div style="page-break-after: always;"></div>
 
+<!---@@author A0139097U-->
 ## Features
 
 **Command Format**
@@ -73,7 +75,7 @@ Exit | `exit`
 * Items with `...` after them can have multiple instances.
 * The order of parameters is fixed.
 
-
+<!---@@author A0139516B-->
 #### Adding a task: `add`
 Description: Adds a task to TPTM<br>
 Format: `add TASKNAME s/<STARTDATE> d/<DEADLINE> p/<PRIORITY> t/<TAG>...`<br>
@@ -94,6 +96,8 @@ Examples:
 * `add make sandwich s/111016 12:45 d/111016 13:00 p/5 t/hungry`<br>
   Adds an event named ‘make sandwich’ which starts at '12:45' on '11-10-16’ due on the same day at '13:00’ with a priority level of ‘5’ and the tag ‘hungry’
 
+
+<!---@@author A0139516B-->
 #### Editing a task: `edit`
 Description: Edits the index selected task.<br>
 Format: `edit INDEX INPUT <INPUT> <INPUT>`
@@ -111,6 +115,7 @@ Examples:
   Added in the tag `Johnwillbelate`
 
 
+<!---@@author A0139516B-->
 #### Deleting a task: `delete`
 Description: Deletes the specified task from TPTM.<br>
 Format: `delete INDEX`<br>
@@ -127,17 +132,21 @@ Examples:
   `delete 1`<br>
   Deletes the 1st task based on the results of the `find` command.
 
+<!---@@author A0139516B-->
 #### Listing all uncompleted tasks: `list`
 Description: Lists all uncompleted tasks in order of task index.<br>
 Format: `list`<br>
 Shortcut: `l`
 
 
+<!---@@author A0139516B-->
 #### Listing all tasks: `listall`
 Description: Lists all tasks except deleted tasks in order of task index.<br>
 Format: `listall`<br>
 Shortcut: `la`
 
+
+<!---@@author A0144202Y-->
 #### Listing all tasks with the same tag: `listtag`
 Description: Lists all tasks that have the same tag in order of task index.<br>
 Format: `listtag KEYWORD`<br>
@@ -148,7 +157,7 @@ Shortcut: `lt`
 > * A partial `KEYWORD` will bring up all tags that relate to it. e.g. `fri` will bring up `friends` and `friday`.<br>
 
 
-//@@author<br>
+<!---@@author A0139516B-->
 #### Finding all tasks containing any keyword in their name: `find`
 Description: Finds task/s whose names contain any of the specified keywords.<br>
 Format: `find KEYWORD <MORE_KEYWORDS>`<br>
@@ -167,10 +176,9 @@ Examples:
   Returns `Software Engineering` but not `software`
 * `find CS2103T Software Engineering`<br>
   Returns any task that has the names `CS2103T`, `Software`, or `Engineering`
-//@@author<br>
 
 
-//@@author<br>
+<!---@@author A0144202Y-->
 #### Completing a task: `complete`
 Description: Completes the task at the specified index in TPTM’s task list and appends ‘is completed’ to the end of the tasks name.
 Format: `complete INDEX`<br>
@@ -186,14 +194,15 @@ Examples:
 * `list`<br>
   `complete 2`<br>
   Completes the 2nd task in the task manager.
-//@@author
 
 
+<!---@@author A0139516B-->
 #### Viewing help: `help`
 Description: Displays this user guide<br>
 Format: `help`
 
 
+<!---@@author A0139516B-->
 #### Undoing a command: `undo`
 Description: Undoes a previously inputted command, by bringing TPTM back to a previous state.
 Format: `undo`
@@ -202,6 +211,7 @@ Format: `undo`
 > Undo can only be used for up to 10 commands in a row
 
 
+<!---@@author A0139516B-->
 #### Reverting back from an undo command: `rev`
 Description: Reverts TPTM back to its initial state, before the undo command was used.
 Format: `rev`
@@ -210,6 +220,7 @@ Format: `rev`
 > Revert can only be used for up to 10 undoes in a row
 
 
+<!---@@author A0139097U-->
 #### Updating TPTM: `update`
 Description: Updates the task manager if the date and time is out of synchronisation with the computer and checks the amount of time left to do a task or prepare for an event.<br>
 Format: `update`
@@ -222,6 +233,7 @@ Format: `update`
 > * The name will be highlighted in red, if the task or event is not labelled complete as it will be taken to be overdue or unattended.
 
 
+<!---@@author A0139516B-->
 #### Saving TPTM’s current state: `save`
 Description: Saves all tasks currently on TPTM to a new file or a previously saved file.<br>
 Format: `save ./data/FILE_NAME.xml`
@@ -238,6 +250,8 @@ Example:
 * `save ./data/jimsLife.xml`<br>
   Saves the current state of TPTM into a file known as `jimsLife`.
 
+
+<!---@@author A0139516B-->
 #### Loading a saved state into TPTM: `load`
 Description: Loads a user specified file that has been previously saved or has been imported to TPTM.
 Format: `load ./data/FILE_NAME.xml`
@@ -255,6 +269,7 @@ Examples:<br>
   Loads the imported file named `TomsLife` into TPTM.
 
 
+<!---@@author A0139516B-->
 #### Scrolling to a point on the list: `scroll`
 Description: Scrolls to a designated point on TPTM's task list.
 Format: `scroll POINT`
@@ -263,6 +278,7 @@ Format: `scroll POINT`
 > `POINT` can be any index number on TPTM's current list or the words `top` or `bottom`.
 
 
+<!---@@author A0139516B-->
 #### Clearing all entries : `clear`
 Description: Clears all entries from the task manager.<br>
 Format: `clear`
@@ -273,6 +289,7 @@ Format: `clear`
 > * Some scenarios where this could be used is if you need to pass the task manager to someone else at your work terminal or if you are changing jobs.
 
 
+<!---@@author A0139097U-->
 #### Repeating a task: `repeat`
 Description: Repeats an index specified task per a user defined schedule.<br>
 Format: `repeat INDEX SCHEDUELE`<br>
@@ -291,6 +308,7 @@ Examples:
   Repeats the first task on the CS2103 list every month after the original deadline of the task.
 
 
+<!---@@author A0141812R-->
 #### Exiting the program : `exit`
 Description: Exits the program.<br>
 Format: `exit`
@@ -299,6 +317,7 @@ Format: `exit`
 #### Saving the data
 Task Manager data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
 
 ## FAQ
 
