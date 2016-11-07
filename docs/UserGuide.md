@@ -38,8 +38,8 @@ This app will not work with earlier versions of Java 8.
 ### Viewing help : `help`
 Format: `help`
 * Help is also shown if you enter an incorrect command e.g. `abcd`
-<br><br><br>
-<!-- @@author A0130677A -->
+<br><br><br><!-- @@author A0130677A -->
+
 ### Adding a person: `add`
 **Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
 * Adds a task to the task list in a flexible format (in any order).
