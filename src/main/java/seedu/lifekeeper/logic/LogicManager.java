@@ -11,6 +11,7 @@ import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.storage.Storage;
 
+
 import java.util.logging.Logger;
 
 /**
@@ -44,4 +45,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyActivity> getFilteredActivityList() {
         return model.getFilteredTaskList();
     }
+
+	@Override
+	public ObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
+		return model.getFilteredOverdueTaskList();
+	}
+    
 }

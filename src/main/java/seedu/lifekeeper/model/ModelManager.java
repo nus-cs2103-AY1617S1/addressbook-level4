@@ -1,5 +1,6 @@
 package seedu.lifekeeper.model;
 
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.lifekeeper.commons.core.ComponentManager;
 import seedu.lifekeeper.commons.core.LogsCenter;
@@ -12,7 +13,13 @@ import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.Tag;
+import seedu.lifekeeper.model.tag.UniqueTagList;
+import seedu.lifekeeper.model.activity.event.Event;
+import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
+import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
+
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -153,7 +160,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredActivities.setPredicate(p->
         p.getCompletionStatus() == false && p.getisOver() == false);
-    }
+  		FilteredList<Activity> filteredList = new FilteredList<>(lifeKeeper.getAllEntries());
+  		
+  		filteredList.setPredicate(p->
+  		p.getClass().getSimpleName().equalsIgnoreCase("Task")
+  		 && (p.getCompletionStatus() == false && p.hasPassedDueDate() == true));
+  		
+  		
+  		return;
+  	}
+  	
     
     @Override
     public void updateFilteredByTagListToShowAll(String tag) {
@@ -198,6 +214,52 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredActivityList(Expression expression) {
         filteredActivities.setPredicate(expression::satisfies);
     }
+    /**
+     * Method to remove any Tasks and Events that are irrelevant for Upcoming Dashboard.
+     * @param filteredList
+     * @return filteredList
+     */
+    //@@ author A0125284H
+    private FilteredList<Activity> createUpcomingList(FilteredList<Activity> filteredList) {
+    	return filteredList;
+    	/*
+    	FilteredList<Activity> listOfEvents = new FilteredList<Activity> (filteredList);
+    	
+    	listOfEvents.setPredicate(p->
+		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
+    	
+    	(FilteredList<Events>) listOfEvents.setPredicate(p.);
+    	
+  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>( ervableList<? extends ReadOnlyTask>) filteredList);
+
+    	
+		for (int i=0; i<filteredList.size(); i++) {
+			
+			switch (filteredList.get(i).getClass().getSimpleName()) {
+			case "Event": {
+				Event listItem = (Event) filteredList.get(i);
+				if (!listItem.isUpcoming()) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+			case "Task": {
+				Task listItem = (Task) filteredList.get(i);
+				if (listItem.isDueDateApproaching() && !(listItem.hasPassedDueDate())) {
+					filteredList.remove(i);
+					i--;
+				}
+				break;
+			}
+
+			default: break;
+			}
+		}
+		return filteredList;
+		*/
+    }
+        
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -250,6 +312,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
 
 
 
