@@ -554,7 +554,7 @@ Use case ends.
 <!--@@author A0143107U -->
 ## Appendix E : Product Survey
 
-Task Managers | Google Calender | Wunderlist | HabitRPG | Ours
+Task Managers | Google Calender | Wunderlist | HabitRPG | Tusk
 -------- | :-------- | :-------- | :-------- | :--------
 Basic task manager features (CRUD) | Available | Available | Available (limited) | Available
 Quick add | Available | Not available | Available | Available | Available
