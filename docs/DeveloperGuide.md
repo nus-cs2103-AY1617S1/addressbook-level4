@@ -122,10 +122,12 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+1. `Logic` uses the `ParseSwitcher` to parse the command.
+2. `ParseSwitcher` uses `ParserMapping` to determine which `BaseParser` object to use.
+3. The `BaseParser` object is executed in `ParserMapping`, which parses the command.
+4. This results in a `Command` object which is executed by the `LogicManager`.
+5. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 
@@ -474,7 +476,12 @@ Use case ends.
 1a. There is no previous action
 
 > Use case ends
+<!-- @@author A0141052Y -->
 
+1b. The previous action does not support undo
+> Use case ends
+
+<!-- @@author -->
 #### Use case: Find task
 
 **MSS**
