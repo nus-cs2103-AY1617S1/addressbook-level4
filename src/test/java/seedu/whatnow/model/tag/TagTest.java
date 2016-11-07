@@ -1,7 +1,5 @@
 package seedu.whatnow.model.tag;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +7,7 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
@@ -147,6 +146,15 @@ public class TagTest {
         UniqueTagList list1 = new UniqueTagList(new Tag("tag1"), new Tag("tag2"));
         UniqueTagList list2 = new UniqueTagList(new Tag("tag3"), new Tag("tag4"), new Tag("tag5"));
         assertFalse(list1.hashCode() == list2.hashCode());
+    }
+    
+    @Test
+    public void createTag_invalidTagName_tagNotCreated() {
+        try {
+            new Tag("-");
+        } catch (IllegalValueException e) {
+            assertEquals(e.getMessage(), "Tags names should be alphanumeric");
+        }
     }
     
 }
