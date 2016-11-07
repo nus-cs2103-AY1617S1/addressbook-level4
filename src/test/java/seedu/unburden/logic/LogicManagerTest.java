@@ -963,7 +963,7 @@ public class LogicManagerTest {
 		ListOfTask expectedAB = helper.generateListOfTask(threeTasks);
 		helper.addToModel(model, threeTasks);
 
-		assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedAB,
+		assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
 				expectedAB.getTaskList());
 		assertEquals(1, targetedJumpIndex);
 		assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));

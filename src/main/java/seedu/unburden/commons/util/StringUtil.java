@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.unburden.model.tag.Tag;
 import seedu.unburden.model.tag.UniqueTagList;
+import seedu.unburden.model.task.ReadOnlyTask;
 
 /**
  * Helper functions for handling strings.
@@ -33,7 +34,6 @@ public class StringUtil {
         return truefalse;
     }*/
     
-    
     public static boolean containsDate(String source, String query){
     	List<String> strings = new ArrayList<String>(Arrays.asList(source));
     	return strings.stream().filter(s -> s.equals(query)).count() > 0;
@@ -56,5 +56,14 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+    
+    public static String getTaskDetails(ArrayList<ReadOnlyTask> taskList){
+    	StringBuilder resultedList=new StringBuilder();
+    	for(ReadOnlyTask p:taskList){
+    		resultedList.append(p.toString());
+    		resultedList.append("\n\n");
+    	}
+    	return resultedList.toString();
     }
 }
