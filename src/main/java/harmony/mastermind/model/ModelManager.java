@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
         currentTab = TAB_HOME;
     }
 
-    //@@author generated
+    //@@author
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
         currentTab = TAB_HOME;
     }
 
-    //@@author generated
+    //@@author
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    //@@author generated
+    //@@author
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
@@ -222,7 +222,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    // @@author A0124797R
     @Override
     public synchronized void markDue(ArrayList<Task> targets) throws TaskNotFoundException {
         for (Task t: targets) {
@@ -232,7 +231,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    // @@author A0124797R
     @Override
     public synchronized void unmarkTask(Task target) throws ArchiveTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.unmarkTask(target);
@@ -244,10 +242,10 @@ public class ModelManager extends ComponentManager implements Model {
         return this.currentTab;
     }
 
-    
-    //=========== Filtered List Accessors ===============================================================
 
     // @@author A0124797R
+    //=========== Filtered List Accessors ===============================================================
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return new UnmodifiableObservableList<>(filteredFloatingTasks);
@@ -270,7 +268,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     // =========== Methods for file access ================================
 
-    // @@author A0124797R
+    // @@author A0124797R-unused
+    //remove the use of importing txt file
     @Override
     public synchronized BufferedReader importFile(String fileToImport) throws FileNotFoundException {
         BufferedReader br = new BufferedReader(new FileReader(fileToImport));
@@ -296,6 +295,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    //@@author
     // =========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -391,7 +391,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredList(new PredicateExpression(new TagQualifier(keywords)));
     }
 
-    //@@author generated
+    /**
+     * update filtered list of specific tabs
+     * @param expression
+     */
     private void updateFilteredList(Expression expression) {
         switch (currentTab) {
             case TAB_HOME:
@@ -447,7 +450,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<ReadOnlyTask>(getCurrentObservableList());
     }
 
-    //@@author generated
+    //@@author
     private void searchTask(String keyword, Memory memory) {
         taskManager.searchTask(keyword, memory);
     }
@@ -506,7 +509,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0124797R
     /**
-     * used as a qualifier to filter tasks
+     * used as a qualifier to filter tasks by tags
      */
     private class TagQualifier implements Qualifier {
         private Set<Tag> tagKeyWords;
@@ -618,15 +621,21 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
-    @Override
-    //@@author generated
-    public void searchTask(String input) {
-        // implementing next milestone
-    }
     
+    /**
+     * handle changing of tabs when using specific commands
+     * @param event
+     */
     @Subscribe
     private void handleTabChangedEvent(TabChangedEvent event){
         this.updateCurrentTab(event.toTabId);
     }
+    
+    //@@author
+    @Override
+    public void searchTask(String input) {
+        // implementing next milestone
+    }
+
 
 }

@@ -65,6 +65,7 @@ public class GuiHandle {
         guiRobot.type(KeyCode.ENTER).sleep(200);
     }
     
+    //@@author A0124797R
     public void pressUp() {
         guiRobot.type(KeyCode.UP).sleep(50);
     }
@@ -73,6 +74,7 @@ public class GuiHandle {
         guiRobot.type(KeyCode.DOWN).sleep(50);
     }
 
+    //@@author
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         
         String s = ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();

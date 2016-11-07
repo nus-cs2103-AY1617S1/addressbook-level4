@@ -24,7 +24,7 @@ import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 
 //@@author A0138862W
 /**
- * Reads either ics/csv/txt file and import the tasks into Mastermind
+ * Reads either ics/csv file and import the tasks into Mastermind
  */
 public class ImportCommand extends Command {
     private static final int HEADER_LINE = 1;
@@ -82,14 +82,14 @@ public class ImportCommand extends Command {
     private String fileToImport;
     private String extension;
     private ArrayList<String> lstOfCmd;
-    
+
+    //@@author A0124797R
     public ImportCommand(String filePath, String extension) {
         this.fileToImport = filePath.trim();
         this.extension = extension;
         lstOfCmd = new ArrayList<String>();
     }
 
-    //@@author A0124797R
     @Override
     public CommandResult execute() {
         assert fileToImport != null;
@@ -161,7 +161,7 @@ public class ImportCommand extends Command {
                 }
             }
             
-        } catch (IOException e) {
+        } catch (IOException ioe) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_READ_FAILURE, fileToImport));
         }
 

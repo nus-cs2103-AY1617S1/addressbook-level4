@@ -7,9 +7,8 @@ import harmony.mastermind.logic.commands.ListCommand;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class ListCommandTest extends TaskManagerGuiTest {
-
-    @Test
     //@@author A0124797R
+    @Test
     public void list() {
 
         //start with the Home tab
@@ -47,7 +46,6 @@ public class ListCommandTest extends TaskManagerGuiTest {
      * Runs the list command to show the specific tab and confirms the current tab is correct.
      * param tab e.g. to show the Events tab, events should be given as the target tab.
      */
-    //@@author A0124797R
     private void assertListSuccess(String targetTab) {
         commandBox.runCommand("list " + targetTab);
 

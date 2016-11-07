@@ -38,7 +38,7 @@ public interface Model {
     /** Deletes the given Archived Task */
     void deleteArchive(ReadOnlyTask target) throws TaskNotFoundException, ArchiveTaskList.TaskNotFoundException;
 
-    //@@author generated
+    //@@author
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
@@ -50,7 +50,6 @@ public interface Model {
     /** Marks the given task as done */
     void markTask(Task target) throws UniqueTaskList.TaskNotFoundException;
     
-    //@@author A0124797R
     /** Marks the given List of due tasks as done */
     void markDue(ArrayList<Task> targets) throws UniqueTaskList.TaskNotFoundException;
 
@@ -108,6 +107,7 @@ public interface Model {
     /** Returns filtered task list as an {@code ObervableList<Task>} */
     ObservableList<Task> getListToMark();
 
+    //@@author A0124797R
     /** update current tab to the specified tab*/
     void updateCurrentTab(String tab);
 
@@ -121,7 +121,7 @@ public interface Model {
      * for Home tab to show all upcoming tasks */
     void updateFilteredListToShowUpcoming(long time, String taskType);
     
-    //@@author generated
+    //@@author
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredList(Set<String> keywords);
 

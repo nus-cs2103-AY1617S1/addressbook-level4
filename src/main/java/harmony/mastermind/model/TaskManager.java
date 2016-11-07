@@ -63,7 +63,6 @@ public class TaskManager implements ReadOnlyTaskManager {
                 toBeCopied.getUniqueTagList(), toBeCopied.getUniqueArchiveList());
     }
 
-    //@@author A0124797R
     /**
      * Tasks and Tags are copied into this TaskManager
      */
@@ -72,7 +71,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                 deadlines.getInternalList(), tags.getInternalList(), archiveTasks.getInternalList());
     }
 
-    //@@author generated
+    //@@author
     public static ReadOnlyTaskManager getEmptyTaskManager() {
         return new TaskManager();
     }
@@ -148,7 +147,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         setArchiveTasks(newArchiveTasks.stream().map(Task::new).map(Task::mark).collect(Collectors.toList()));
     }
 
-    //@@author A0124797R
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getFloatingTaskList(), newData.getEventList(), 
                 newData.getDeadlineList(), newData.getTagList(), newData.getArchiveList());
@@ -159,11 +157,11 @@ public class TaskManager implements ReadOnlyTaskManager {
 //// task-level operations
 
     /**
-     * Adds a task to the task manager.
+     * Adds a task to the task manager and synchronize with all the tabs.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
@@ -179,7 +177,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addNextTask(Task t) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
         syncTagsWithMasterList(t);
@@ -193,6 +191,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author A0124797R
     /**
      * returns a Task with the next recurring date given a recurring Task
+     * @throws NotRecurringTaskException
      */
     public Task getNextTask(Task t) throws NotRecurringTaskException {
         if (t.isFloating() || t.getRecur() == null){
@@ -266,7 +265,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    //@@author generated
+    //@@author
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
@@ -375,7 +374,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// tag-level operations
 
-    //@@author generated
+    //@@author
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
@@ -414,7 +413,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(archives.getInternalList());
     }
 
-    //@@author generated
+    //@@author
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
@@ -446,7 +445,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.archives;
     }
     
-    //@@author generated
+    //@@author
     @Override
     public UniqueTagList getUniqueTagList() {
         return this.tags;
@@ -465,7 +464,7 @@ public class TaskManager implements ReadOnlyTaskManager {
                 && this.archives.equals(((TaskManager) other).archives));
     }
 
-    //@@author generated
+    //@@author
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
