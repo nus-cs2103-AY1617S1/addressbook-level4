@@ -1,0 +1,17 @@
+- load ./data/ManualTesing/SampleData.xml
+- listtag lesson
+- find ger
+- delete 1
+- undo
+- rev
+- edit 1 s/010716
+- edit 1 t/play
+- listtag play
+- complete 20
+- list
+- listall
+- complete 21
+- undo
+- repeat 2 weekly
+- complete 2
+- repeat 2 off  
