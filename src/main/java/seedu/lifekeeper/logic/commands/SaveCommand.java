@@ -10,6 +10,10 @@ import seedu.lifekeeper.commons.events.ui.SaveFileChooserEvent;
 import seedu.lifekeeper.commons.util.FileUtil;
 import seedu.lifekeeper.storage.XmlAddressBookStorage;
 
+//@@author A0125680H
+/**
+ * Saves the Lifekeeper data to the file directory specified by the user.
+ */
 public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
 

@@ -13,7 +13,8 @@ import seedu.lifekeeper.model.activity.Activity;
 //@@author A0125680H
 /**
  * Keeps a queue of upcoming events. Events that are ongoing or over will not be
- * added to the queue.
+ * added to the queue. 
+ * The queue is ordered in such a way that the earliest incoming reminder is at the front of the queue. 
  */
 public class UpcomingReminders {
 
@@ -79,7 +80,7 @@ public class UpcomingReminders {
 
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.SECOND, 10);
-        Date offset10Secs = cal.getTime();
+        Date offset10Secs = cal.getTime(); //The current time is offset by 10 seconds to account for lag.
 
         while (!reminderQueue.isEmpty()
                 && reminderQueue.peek().getReminder().getCalendarValue().getTime().before(offset10Secs)) {
