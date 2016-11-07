@@ -362,4 +362,4 @@ For easy reference, the table below lists all commands and their corresponding d
 |List aliases|`list-alias`|
 |Delete alias(es)|`del-alias INDEX [MORE_INDICES] ...'`|
 |Set data storage location|`set-storage FOLDER_FILE_PATH save-as FILE_NAME`|
-|Exit Amethyst|`exit|
+|Exit Amethyst|`exit`|
