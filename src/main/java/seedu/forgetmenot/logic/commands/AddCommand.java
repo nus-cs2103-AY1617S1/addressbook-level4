@@ -8,6 +8,9 @@ import seedu.forgetmenot.model.task.Task;
 import seedu.forgetmenot.model.task.Time;
 import static seedu.forgetmenot.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
 
+import seedu.forgetmenot.commons.core.EventsCenter;
+import seedu.forgetmenot.commons.events.ui.JumpToListRequestEvent;
+
 //@@author A0147619W 
 /**
  * Adds a task to the task manager.
@@ -64,7 +67,17 @@ public class AddCommand extends Command {
             model.addRecurringTask(toAdd);
         model.updateFilteredTaskListToShowNotDone();
         
+        jumpToTask();
+        
     	return clashCheck? new CommandResult(MESSAGE_CLASH_WARNING + "\n" + String.format(MESSAGE_SUCCESS, toAdd)):
     					new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
+
+	/**
+	 * Jumps to the added Task
+	 */
+	private void jumpToTask() {
+		int targetIndex = model.getFilteredTaskList().indexOf(toAdd);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+	}
 }

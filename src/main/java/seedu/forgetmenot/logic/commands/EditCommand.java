@@ -63,7 +63,6 @@ public class EditCommand extends Command {
             model.saveToHistory();
             model.editTask(taskToEdit, newName, newStart, newEnd);
             model.updateFilteredTaskListToShowNotDone();
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
             
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
