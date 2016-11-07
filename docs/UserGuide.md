@@ -30,7 +30,7 @@ Welcome to WhatNow!
 
 <p align="center">
 
-<img src="images/UI_Actual/Startup.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/Startup.PNG" width="600"><br>
 
 Figure 1: GUI layout
 
@@ -65,7 +65,7 @@ Changes the data file storage location to C:\Users\user\Desktop.
 
 <p align="center">
 
-<img src="images/UI_Actual/change.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/change.PNG" width="600"><br>
 
 Figure 2: The storage location is changed
 
@@ -87,7 +87,7 @@ Adds a Todo task "Buy chocolate milk".
 
 <p align="center">
 
-<img src="images/UI_Actual/addFloating.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/addFloating.PNG" width="600"><br>
 
 Figure 3: A task without date and time specified added under Todo
 
@@ -113,7 +113,7 @@ Adds a Schedule task "Submit CS2101 User Guide" of high priority by 12 December 
 
 <p align="center">
 
-<img src="images/UI_Actual/addDeadline.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/addDeadline.PNG" width="600"><br>
 
 Figure 4: A deadline task with date, time and priority specified added under Schedule tasks
 
@@ -136,7 +136,7 @@ Adds a Schedule task "Java Workshop" of high priority from 8am to 5pm.
 
 <p align="center">
 
-<img src="images/UI_Actual/addEvent.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/addEvent.PNG" width="600"><br>
 
 Figure 5: An event task with period and priority added under Schedule tasks
 
@@ -159,7 +159,7 @@ Adds a Schedule task "French Beginner's Workshop" from 6-4-2017 to 8-4-2017 9pm.
 
 <p align="center">
 
-<img src="images/UI_Actual/addEvent.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/addEvent.PNG" width="600"><br>
 
 Figure 6: An event task with period and priority added under Schedule tasks
 
@@ -187,9 +187,25 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as completed.
 
 <p align="center">
 
-<img src="images/UI_Actual/done.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/doneOne.PNG" width="600"><br>
 
-Figure 7: Display after a task is marked done
+Figure 7: Display before a task is marked done
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/doneTwo.PNG" width="600"><br>
+
+Figure 8: Display after a task is marked done in the incomplete task list
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/doneThree.PNG" width="600"><br>
+
+Figure 9: Display after a task is marked done in the complete task list
 
 </p>
 
@@ -205,7 +221,7 @@ Returns the lists of all incomplete tasks.
 
 <p align="center">
 
-<img src="images/UI_Actual/incomplete.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/incomplete.PNG" width="600"><br>
 
 Figure 8: Display with ongoing task listed
 
@@ -217,7 +233,7 @@ Returns the lists of all completed tasks.
 
 <p align="center">
 
-<img src="images/UI_Actual/done.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/listDoneTwo.PNG" width="600"><br>
 
 Figure 9: Display with all completed tasks listed
 
@@ -229,7 +245,7 @@ Returns the lists of all incomplete and completed tasks.
 
 <p align="center">
 
-<img src="images/UI_Actual/all.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/listAllTwo.PNG" width="600"><br>
 
 Figure 10: Display with all tasks listed
 
@@ -254,15 +270,15 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as incomplete.
 
 <p align="center">
 
-<img src="images/UI_Actual/Undone_pic1.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/undoneOne.PNG" width="600"><br>
 
 Figure 11: Display of completed tasks.<br>
 
-<img src="images/UI_Actual/Undone_pic2.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/undoneTwo.PNG" width="600"><br>
 
 Figure 12: Display of completed tasks after undone command.<br>
 
-<img src="images/UI_Actual/Undone_pic3.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/undoneThree.PNG" width="600"><br>
 
 Figure 13: Display of incomplete tasks.<br>
 </p>
@@ -285,11 +301,20 @@ Deletes the 2nd Schedule task from the displayed list in WhatNow.
 
 <p align="center">
 
-<img src="images/UI_Actual/delete.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/deleteOne.PNG" width="600"><br>
+
+Figure 14: Display before delete
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/deleteTwo.PNG" width="600"><br>
 
 Figure 14: Display after delete
 
 </p>
+
 
 
 //@@author A0126240W
@@ -317,7 +342,15 @@ Selects the 3rd Schedule task from the displayed list and changes the date to th
 
 <p align="center">
 
-<img src="images/UI_Actual/update.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/updateOne.PNG" width="600"><br>
+
+Figure 15: Display before the update
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/updateTwo.PNG" width="600"><br>
 
 Figure 15: Display after the update
 
@@ -337,7 +370,15 @@ Undoes the previous action.
 
 <p align="center">
 
-<img src="images/UI_Actual/undo.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/undoOne.PNG" width="600"><br>
+
+Figure 16: Display before an undo is called after an update
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/undoTwo.PNG" width="600"><br>
 
 Figure 16: Display after an undo is called after an update
 
@@ -357,7 +398,15 @@ Redos the previous action.
 
 <p align="center">
 
-<img src="images/UI_Actual/redo.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/redoOne.PNG" width="600"><br>
+
+Figure 17: Display before a redo is called after an undo
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/redoTwo.PNG" width="600"><br>
 
 Figure 17: Display after a redo is called after an undo
 
@@ -384,7 +433,15 @@ Returns any tasks having the description CS2101.
 
 <p align="center">
 
-<img src="images/UI_Actual/find.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/findOne.PNG" width="600"><br>
+
+Figure 18: Display result before the find command is executed
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/findTwo.PNG" width="600"><br>
 
 Figure 18: Display result after the find command is executed
 
@@ -405,9 +462,17 @@ Returns no free time blocks on the day 9/3/2019.
 
 <p align="center">
 
-<img src="images/UI_Actual/.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/freeTimeOne.PNG" width="600"><br>
 
-Figure 19: Display result after the freetime command is executed
+Figure 19: Display result before the freetime command is executed
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/freeTimeTwo.PNG" width="600"><br>
+
+Figure 20: Display result after the freetime command is executed
 
 </p>
 
@@ -423,21 +488,23 @@ Examples:
 * `pin date 6-4-2018`
 Pins all tasks on 6/4/2018.
 
-<p align="center">
-
-<img src="images/UI_Actual/.PNG" width="600"><br>
-
-Figure 20: Display result after the pin command for date 6/4/8/2018 is executed<br>
-
-</p>
-
 * `pin tag high`
 Pins all tasks with a high tag.
 <p align="center">
 
-<img src="images/UI_Actual/.PNG" width="600"><br>
+<p align="center">
 
-Figure 21: Display result after the pin command for the high tag is executed<br>
+<img src="images/UI_Actual_Final/pinOne.PNG" width="600"><br>
+
+Figure 21: Display result before the pin command for tag high is executed<br>
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/pinTwo.PNG" width="600"><br>
+
+Figure 22: Display result after the pin command for tag high is executed<br>
 
 </p>
 
@@ -458,7 +525,15 @@ Format: `clear`
 
 <p align="center">
 
-<img src="images/UI_Actual/clear.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/clearOne.PNG" width="600"><br>
+
+Figure 22: Display cleared before the clear command is executed
+
+</p>
+
+<p align="center">
+
+<img src="images/UI_Actual_Final/clearTwo.PNG" width="600"><br>
 
 Figure 22: Display cleared after the clear command is executed
 
