@@ -3,10 +3,10 @@
 <img src="docs/images/main.png" alt="Mockup of Uncle Jim's Discount To-do List main interface" width="600"><br>
 
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C4/main)
-[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master&nocache=02-11-2016)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master&nocache=08-11-2016)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4780d0602a144b7a9edb9fc1e019a27b)](https://www.codacy.com/app/Logical-Reminding-Apartment/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W10-C4/main&amp;utm_campaign=Badge_Grade)
 
-#### Current Release: [v0.5rc Ferrari][release] (Release candidate pre-release) 
+#### Current Release: [v0.5 Grand Prix][release] (Release version) 
 
 #### About Uncle Jim's Discount To-do List
 
