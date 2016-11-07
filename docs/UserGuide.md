@@ -52,8 +52,8 @@ Examples:
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
 * Field Type Constraints
-> **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
-> * Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
+> Task duedate or startdate is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
+> Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
 > * Relaxed dates: The 31st of April in the year 2008, Fri, 21 Nov 1997, Jan 21, '97, Sun, Nov 21, jan 1st, february twenty-eighth 
 > * Relative dates: next thursday, last wednesday, today, tomorrow, yesterday, next week, next month, next year, 3 days from * now, three weeks ago 
 > * Prefixes: day after, the day before, the monday after, the monday before, 2 fridays before, 4 tuesdays after 
