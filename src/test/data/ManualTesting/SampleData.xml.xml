@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<whatnow>
+        <tasks>
+        <name>Buy milk</name>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Buy groceries</name>
+        <taskDate>12/10/2016</taskDate>
+        <status>completed</status>
+    </tasks>
+    <tasks>
+        <name>Sports Camp</name>
+		<startDate>12/10/2016</startDate>
+		<endDate>14/10/2016</endDate>
+		<status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Tea Break</name>
+		<taskDate>04/11/2016</taskDate>
+		<taskTime>03:00pm</taskTime>
+		<status>incomplete</status>
+    </tasks>
+	<tasks>
+		<name>Mountain Climbing</name>
+		<startDate>03/12/2016</startDate>
+		<endDate>05/12/2016</endDate>
+		<status>incomplete</status>
+	</tasks>
+    <tasks>
+        <name>Lunch with friends</name>
+		<taskDate>04/11/2016</taskDate>
+        <startTime>01:00pm</startTime>
+		<endTime>03:00pm</endTime>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting with Boss</name>
+        <taskDate>19/10/2016</taskDate>
+		<taskTime>11:00am</taskTime>
+		<status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting with clients</name>
+        <taskDate>23/10/2016</taskDate>
+		<startTime>10:00am</startTime>
+		<endTime>03:45pm</endTime>
+        <status>completed</status>
+    </tasks>
+	<tasks>
+        <name>Germany Trip</name>
+        <startDate>15/10/2016</startDate>
+		<endDate>20/10/2016</endDate>
+		<startTime>11:00pm</startTime>
+        <endTime>11:59pm</endTime>
+		<status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Genting Trip</name>
+        <startDate>22/10/2016</startDate>
+		<endDate>25/10/2016</endDate>
+		<startTime>08:45am</startTime>
+		<endTime>08:45pm</endTime>
+        <status>completed</status>
+    </tasks>
+	<tasks>
+        <name>Holiday in Denmark</name>
+        <startDate>09/10/2016</startDate>
+		<endDate>14/10/2016</endDate>
+		<startTime>04:45am</startTime>
+		<endTime>06:45pm</endTime>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Buy pen for sister</name>
+		<tagged>low</tagged>
+        <status>completed</status>
+    </tasks>
+    <tasks>
+        <name>Buy presents for friends</name>
+        <tagged>high</tagged>
+        <tagged>friends</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Granny's birthday</name>
+		<taskDate>13/10/2016</taskDate>
+		<tagged>medium</tagged>
+        <status>completed</status>
+    </tasks>
+    <tasks>
+        <name>Batam getaway</name>
+		<startDate>17/10/2016</startDate>
+		<endDate>25/10/2016</endDate>
+		<tagged>high</tagged>
+		<tagged>family</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Math lesson</name>
+        <taskDate>23/02/2017</taskDate>
+		<startTime>05:00pm</startTime>
+		<endTime>07:30pm</endTime>
+		<tagged>high</tagged>
+		<tagged>school</tagged>
+        <status>completed</status>
+    </tasks>
+	<tasks>
+        <name>Lunch with Amanda</name>
+        <taskDate>17/10/2016</taskDate>
+		<taskTime>12:30pm</taskTime>
+		<tagged>LUNCH</tagged>
+        <status>completed</status>
+    </tasks>
+	<tasks>
+		<name>Chalet with friends</name>
+		<startDate>12/12/2016</startDate>
+		<endDate>13/12/2016</endDate>
+		<startTime>12:00am</startTime>
+		<endTime>05:00pm</endTime>
+		<status>incomplete</status>
+	</tasks>
+	<tasks>
+        <name>Dinner with Jenny</name>
+        <startDate>17/10/2016</startDate>
+		<endDate>25/10/2016</endDate>
+		<startTime>07:30pm</startTime>
+		<endTime>08:45pm</endTime>
+		<tagged>DINNEERRRR</tagged>
+		<tagged>hungry</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Programming Workshop</name>
+        <taskDate>25/10/2016</taskDate>
+        <status>completed</status>
+    </tasks>
+	<tasks>
+		<name>SkateBoarding practice</name>
+		<startDate>16/10/2016</startDate>
+		<endDate>17/10/2016</endDate>
+		<status>completed</status>
+	</tasks>
+	<tasks>
+		<name>Sleep like a log</name>
+		<status>incomplete</status>
+	</tasks>
+	<tasks>
+        <name>Supper with Jane</name>
+        <taskDate>23/02/2017</taskDate>
+		<taskTime>09:00pm</taskTime>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Flower Arrangement Workshop</name>
+        <taskDate>23/02/2017</taskDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Overseas students coming over</name>
+        <startDate>12/10/2016</startDate>
+		<endDate>14/10/2016</endDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+		<name>Scuba Diving</name>
+		<taskDate>06/12/2016</taskDate>
+		<startTime>04:00pm</startTime>
+		<endTime>05:00pm</endTime>
+		<status>incomplete></status>
+	</tasks>
+    <tasks>
+        <name>Do Research Project</name>
+        <tagged>high</tagged>
+        <tagged>workworkwork</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+		<name>Buy pencil</name>
+		<status>incomplete</status>
+	</tasks>
+    <tasks>
+        <name>Party :)</name>
+		<taskDate>12/11/2016</taskDate>
+		<startTime>12:00am</startTime>
+		<endTime>09:00pm</endTime>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Danny's birthday</name>
+		<taskDate>14/10/2016</taskDate>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Overseas work trip to Holland</name>
+		<startDate>17/10/2016</startDate>
+		<endDate>25/10/2016</endDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting with Supervisor</name>
+        <taskDate>23/02/2017</taskDate>
+		<taskTime>12:30pm</taskTime>
+		<status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting Drashti in Orchard</name>
+        <taskDate>23/10/2016</taskDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting Cindy in Bugis</name>
+        <taskDate>25/10/2016</taskDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Dinner with Cindy</name>
+        <taskDate>17/10/2016</taskDate>
+		<startTime>07:45am</startTime>
+		<endTime>08:53pm</endTime>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Dinner with Annie</name>
+        <taskDate>03/11/2016</taskDate>
+		<tagged>low</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Study math</name>
+        <taskDate>29/10/2017</taskDate>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Go shopping with Sarah!</name>
+        <tagged>high</tagged>
+        <tagged>shopping</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Buy cake</name>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Trip to Bintan</name>
+		<startDate>30/10/2016</startDate>
+		<endDate>01/11/2016</endDate>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Buy birthday cake</name>
+        <taskDate>28/11/2016</taskDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting with BIG BOSS</name>
+        <taskDate>28/10/2016</taskDate>
+		<startTime>11:00am</startTime>
+		<endTime>02:00pm</endTime>
+		<tagged>high</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Aunt staying over</name>
+        <startDate>05/11/2016</startDate>
+		<endDate>10/11/2016</endDate>
+		<tagged>enemy</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Daniel coming to Singapore</name>
+        <startDate>27/10/2016</startDate>
+		<endDate>09/11/2016</endDate>
+		<startTime>05:00pm</startTime>
+		<endTime>07:30pm</endTime>
+		<tagged>swornEnemies</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Trip to Tanjong Pinang</name>
+        <startDate>29/12/2016</startDate>
+		<endDate>31/12/2016</endDate>
+		<startTime>05:56am</startTime>
+        <endTime>10:00pm</endTime>
+		<status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Buy birthday cake for Mandy</name>
+        <taskDate>29/11/2016</taskDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Mandy's birthday!</name>
+        <taskDate>26/11/2016</taskDate>
+		<tagged>friends</tagged>
+		<tagged>high</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Programming assignment deadline</name>
+		<taskDate>05/11/2016</taskDate>
+        <tagged>high</tagged>
+        <tagged>work</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Trip to Japan</name>
+		<startDate>29/10/2016</startDate>
+		<endDate>09/11/2016</endDate>
+		<startTime>05:00pm</startTime>
+		<endTime>10:30pm</endTime>
+		<tagged>enemy</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Trip to Europe</name>
+		<startDate>31/10/2016</startDate>
+		<endDate>09/11/2016</endDate>
+		<startTime>06:25am</startTime>
+		<endTime>06:25pm</endTime>
+		<tagged>important</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <name>Meeting with Bob</name>
+        <taskDate>26/10/2016</taskDate>
+		<taskTime>09:45pm</taskTime>
+		<tagged>insignificant</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meeting with Alice</name>
+        <taskDate>31/10/2016</taskDate>
+		<tagged>scared</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Go to office</name>
+        <taskDate>06/11/2016</taskDate>
+		<tagged>mundane</tagged>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Off Day</name>
+        <startDate>07/11/2016</startDate>
+		<endDate>08/11/2016</endDate>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Homework</name>
+        <taskDate>09/11/2016</taskDate>
+		<taskTime>11:59pm</taskTime>
+        <status>incomplete</status>
+    </tasks>
+	<tasks>
+        <name>Meet John</name>
+        <taskDate>15/10/2016</taskDate>
+		<tagged>unimportant</tagged>
+        <status>incomplete</status>
+    </tasks>
+    <tags>
+        <tagName>high</tagName>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+	</tags>
+	<tags>
+        <tagName>low</tagName>
+	</tags>
+	<tags>
+        <tagName>shopping</tagName>
+	</tags>
+	<tags>
+        <tagName>enemy</tagName>
+	</tags>
+	<tags>
+        <tagName>swornEnemies</tagName>
+	</tags>
+	<tags>
+        <tagName>work</tagName>
+	</tags>
+	<tags>
+        <tagName>workworkwork</tagName>
+	</tags>
+	<tags>
+        <tagName>important</tagName>
+	</tags>
+	<tags>
+        <tagName>insignificant</tagName>
+	</tags>
+	<tags>
+        <tagName>scared</tagName>
+	</tags>
+	<tags>
+        <tagName>mundane</tagName>
+	</tags>
+	<tags>
+        <tagName>unimportant</tagName>
+    </tags>
+	<tags>
+        <tagName>school</tagName>
+    </tags>
+	<tags>
+        <tagName>hungry</tagName>
+    </tags>
+	<tags>
+        <tagName>DINNEERRRR</tagName>
+    </tags>
+	<tags>
+        <tagName>LUNCH</tagName>
+    </tags>
+</whatnow>
