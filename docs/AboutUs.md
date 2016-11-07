@@ -21,15 +21,22 @@ We are a team of students studying CS2103 based in the [School of Computing, Nat
 
 #### [Abdul Haliq](https://github.com/AHaliq)
 <img src="images/AbdulHaliq.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI, scheduling and tracking
 
 -----
 
 #### [Syed Abdullah](https://github.com/Skaty)
 <img src="images/SyedAbdullah.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Code quality,integration,logic
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/DeveloperGuide.md#logic-component), [Model](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/DeveloperGuide.md#model-component), [UI](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)
+* Features implemented:
+	* [Update command: allow selective field changes and non-floating tasks](https://github.com/CS2103AUG2016-T14-C4/main/pull/33)
+	* [Undo command](https://github.com/CS2103AUG2016-T14-C4/main/pull/47)
+	* [Flexible command format](https://github.com/CS2103AUG2016-T14-C4/main/pull/65)
+	* [Live Search](https://github.com/CS2103AUG2016-T14-C4/main/pull/67)
+	* [Preset filters for Task list (e.g. all, completed, pending, pinned)](https://github.com/CS2103AUG2016-T14-C4/main/pull/85)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/main/A0141052Y.md)][[test code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/test/A0141052Y.md)][[docs](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/docs/A0141052Y.md)]
+* Other major contributions:
+	* Manage pull requests, merges and releases
+	* UI changes: nicer tags, visual indicator for pinned and completed tasks
 
 -----
 
