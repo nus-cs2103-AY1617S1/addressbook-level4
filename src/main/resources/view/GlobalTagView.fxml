@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="globalTagViewPanel" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" styleClass="spacing grey" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
+<VBox fx:id="globalTagViewPanel" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #2D2D2D;" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.GlobalTagView">
    <HBox alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" styleClass="spacing">
       <Label alignment="TOP_LEFT" styleClass="text2" text="Tags" />
       <Label styleClass="text4" text="All your tags in one place." />

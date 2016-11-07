@@ -54,8 +54,7 @@ public class HelpView extends UiPart {
      * Configure the UI layout of {@link CommandErrorView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(helpPanelView, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(helpGrid, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(helpPanelView, 0.0, 0.0, 0.0);
     }
 
     /**

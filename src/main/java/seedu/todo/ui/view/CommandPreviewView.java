@@ -34,7 +34,6 @@ public class CommandPreviewView extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandPreviewView.class);
 
     /*Layouts*/
-    private AnchorPane placeholder;
     private VBox previewPanelView;
 
     @FXML
@@ -58,8 +57,7 @@ public class CommandPreviewView extends UiPart {
      * Configure the UI layout of {@link CommandErrorView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(previewPanelView, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(previewGrid, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(previewPanelView, 0.0, 0.0, 0.0);
     }
 
     /* Interfacing Methods */
@@ -108,11 +106,6 @@ public class CommandPreviewView extends UiPart {
     }
 
     /* Override Methods */
-    @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeholder = placeholder;
-    }
-
     @Override
     public void setNode(Node node) {
         this.previewPanelView = (VBox) node;

@@ -9,7 +9,7 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="8.0" styleClass="main" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.MainWindow">
    <children>
-       <StackPane>
+       <StackPane alignment="BOTTOM_CENTER">
           <VBox>
              <children>
                 <AnchorPane fx:id="filterBarViewPlaceholder" />
