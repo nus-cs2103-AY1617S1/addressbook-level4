@@ -21,11 +21,16 @@ Responsibilities: Team Mentor
    * <kbd>[Undo](UserGuide.md#undo-the-modification--undo)</kbd> Command
    * <kbd>[Done](UserGuide.md#done-a-specific-task--done)</kbd> Command
    * <kbd>[Undone](UserGuide.md#undone-a-specific-task--undone)</kbd> Command
-   * Offline Help page
+   * <kbd>[Favorite](UserGuide.md#favorite-a-specific-task--favorite)</kbd> Command
+   * <kbd>[Unfavorite](UserGuide.md#unfavorite-a-specific-task--unfavorite)</kbd> Command
+   * <kbd>[Refresh](UserGuide.md#refresh-the-task-manager--refresh)</kbd> Command
+  
 * Code written: <kbd>[Functional code](../collated/main/A0147335E.md)</kbd> <kbd>[Test code](../collated/test/A0147335E.md)</kbd> <kbd>[Docs](../collated/docs/A0147335E.md)</kbd>
 * Other major contributions:
   * Did the initial porting from AddressBook to TaskManager
   * Did the initial porting of JUnit tests from AddressBook to TaskManager
+  * Did detection of task alert
+  * Did detection of overdue task
   
 **Role**: Developer <br>
 Responsibilities: Team Lead, Logic
