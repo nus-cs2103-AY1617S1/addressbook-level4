@@ -4,7 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.exceptions.FinishStateException;
 import seedu.address.commons.util.StringUtil;
@@ -41,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 	private final StateManager stateManager;
 
 	/**
-	 * Initializes a ModelManager with the given AddressBook AddressBook and its
+	 * Initializes a ModelManager with the given TaskManager and its
 	 * variables should not be null
 	 */
 	public ModelManager(TaskManager src, UserPrefs userPrefs) {
@@ -79,7 +79,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	/** Raises an event to indicate the model has changed */
 	private void indicateTaskManagerChanged() {
-		raise(new AddressBookChangedEvent(taskManager));
+		raise(new TaskManagerChangedEvent(taskManager));
 	}
 
 	@Override

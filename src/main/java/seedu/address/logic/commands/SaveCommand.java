@@ -32,7 +32,7 @@ public class SaveCommand extends Command {
         }
         
         try {
-			storage.saveAddressBook(model.getTaskManager(), this.taskManagerFilePath);
+			storage.saveTaskManager(model.getTaskManager(), this.taskManagerFilePath);
 		} catch (IOException e) {
 			return new CommandResult(MESSAGE_INCORRECT_FILE_PATH);
 		}

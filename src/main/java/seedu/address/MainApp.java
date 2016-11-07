@@ -56,7 +56,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -96,7 +96,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskManager> addressBookOptional;
         ReadOnlyTaskManager initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readTaskManager();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TaskManager");
             }

@@ -43,7 +43,7 @@ public class LoadCommand extends Command {
         	return new CommandResult(MESSAGE_INCORRECT_FILE);
         }
         
-        config.setAddressBookFilePath(this.taskManagerFilePath);
+        config.setTaskManagerFilePath(this.taskManagerFilePath);
         
         try {
         	 ConfigUtil.saveConfig(config, config.getDefaultConfigFile());

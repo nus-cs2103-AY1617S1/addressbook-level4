@@ -95,7 +95,7 @@ public class EditCommand extends Command {
         	}
         }
 
-        if (this.priority.toString() == ""){
+        if (this.priority.toString() == "0"){
         	String priorityEdit = taskToDelete.getPriority().toString();
 
         	try {
