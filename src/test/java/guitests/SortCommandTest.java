@@ -29,6 +29,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
 
         assertSortOrderCorrect("original");
         assertSortOrderCorrect("fav");
+        assertSortOrderCorrect("due");
 
         assertSortOrderCorrect("deadline");
         assertSortOrderCorrect("startTime");
@@ -81,6 +82,7 @@ public class SortCommandTest extends TaskManagerGuiTest {
 
         switch (sortParameterLowerCased) {
         case "d":
+        case "due":
         case "deadline":
         case "dead":
             // deadline

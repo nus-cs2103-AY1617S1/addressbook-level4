@@ -1,4 +1,3 @@
-// @@author A0147944U
 package guitests;
 
 import org.apache.commons.io.FileUtils;
@@ -15,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.logging.Logger;
 
+// @@author A0147944U
 public class BackupCommandTest extends TaskManagerGuiTest {
 
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
