@@ -27,9 +27,10 @@ public class CommandBoxHandle extends GuiHandle{
      */
     public void runCommand(String command) {
         enterCommand(command);
-        guiRobot.sleep(100000);
+        //guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
+        guiRobot.sleep(10000);
         pressEnter();
-        guiRobot.sleep(10000); //Give time for the command to take effect
+        guiRobot.sleep(500); //Give time for the command to take effect
     }
 
     public HelpWindowHandle runHelpCommand() {

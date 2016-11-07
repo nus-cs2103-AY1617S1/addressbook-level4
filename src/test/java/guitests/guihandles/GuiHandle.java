@@ -55,12 +55,14 @@ public class GuiHandle {
 
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
+        guiRobot.lookup(textFieldId).tryQuery().get();
+        guiRobot.sleep(10000);
         ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+        guiRobot.sleep(10000); // so that the texts stays visible on the GUI for a short period
     }
 
     public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(1000);
+        guiRobot.type(KeyCode.ENTER).sleep(500);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {

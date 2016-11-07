@@ -16,10 +16,6 @@ public class AddCommandTest extends AddressBookGuiTest {
 	@Test
 	public void add() {
 
-		// add duplicate person
-		commandBox.runCommand(td.learnPython.getAddCommand());
-		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-		assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
 
 		// add one person
 		TestTask[] currentList = td.getTypicalPersons();
@@ -31,6 +27,11 @@ public class AddCommandTest extends AddressBookGuiTest {
 		personToAdd = td.GoSkydiving;
 		assertAddSuccess(personToAdd, currentList);
 		currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+
+		// add duplicate person
+		commandBox.runCommand(td.learnPython.getAddCommand());
+		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+		assertTrue(personListPanel.isListMatching(currentList));
 
 		// add to empty list
 		commandBox.runCommand("clear");
