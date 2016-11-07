@@ -38,19 +38,19 @@ Result: A new task will be added to the incomplete tab.
 
 ####Finding a task
 #####Find task that contains either keywords
-1. Type `find either phone milk`
+1. Type `find either football dinner`
 ```
-Result: Only 2 tasks 'buy phone cover' and 'buy milk' will be listed.
+Result: 7 tasks displayed! 4 tasks in incomplete tab, 3 tasks in completed tab, 0 tasks in overdue tab.
 ```
 #####Find task that contains all keywords
-1. Type `find all buy phone`
+1. Type `find all submit lab`
 ```
-Result: Only 1 task 'buy phone cover' will be listed.
+Result: 1 tasks displayed! 0 tasks in incomplete tab, 0 tasks in completed tab, 1 tasks in overdue tab.
 ```
 #####Find task that fits exactly a phrase
-1. Type `find phrase watch movie`
+1. Type `find phrase christmas present`
 ```
-Result: Only 1 task 'watch movie' will be listed.
+Result: 1 tasks displayed! 1 tasks in incomplete tab, 0 tasks in completed tab, 0 tasks in overdue tab.
 ```
 
 
@@ -58,54 +58,50 @@ Result: Only 1 task 'watch movie' will be listed.
 #####Listing today's task
 1. Type `list today`
 ```
-Result: 0 task should be listed. Unless you are testing on 9 Dec 2016.
+Result: Shows all tasks with today's date.
 ```
 #####Listing this week's task
 1. Type `list week`
 ```
-Result: 1 task 'watch movie' will be listed. Unless you are testing on the week of 9 Dec 2016, which in that case will be 2 tasks.
+Result: Shows all tasks for the current week, from Sunday to Saturday.
 ```
 #####Listing this month's task
 1. Type `list month`
 ```
-Result: 1 task 'watch movie' will be listed. Unless you are testing in Dec 2016, which in that case will be 2 tasks.
+Result: Shows all tasks for the current month.
 ```
 #####Listing tasks on a specific date
-1. Type `list 9 Dec 2016`
+1. Type `list 1 Dec 2016`
 ```
-Result: 1 task 'buy phone cover' will be listed.
+Result: 1 tasks displayed! 1 tasks in incomplete tab, 0 tasks in completed tab, 0 tasks in overdue tab..
 ```
 #####Listing all task
 1. Type `list`
 ```
-Result: 3 tasks 'watch movie', 'buy phone cover' and 'buy milk' will be listed.
+Result: All tasks will be listed.
 ```
 
 
 ####Editing a task
 #####Editing a task name
-1. Type `edit 2 buy phone casing`
+1. Type `edit 2 cook dinner with friends`
 ```
-Result: The task name for index 2 will change to 'buy phone casing'. Other details remain unchanged.
+Result: The task name for index 2 will change to 'cook dinner with friends'. Other details remain unchanged.
 ```
 #####Editing a task date
-1. Type `edit 2 by 10 Dec 2016`
+1. Type `edit 2 from 10 Nov 2016 5pm to 10 Nov 2016 6pm`
 ```
-Result: The task date for index 2 will change to '10 Dec 2016'. Other details remain unchanged.
+Result: The task date for index 2 will change to '9 Nov 2016 5pm to 9 Nov 2016 6pm'. Other details remain unchanged.
 ```
 #####Editing a task location
-1. Type `edit 3 at NTUC`
+1. Type `edit 3 at Stadium`
 ```
-Result: A location will be added for task in index 3. Other details remain unchanged.
-```
-2. Type `edit 3 at Cold storage`
-```
-Result: The location for the task at index 3 will be changed to 'Cold storage'. Other details remain unchanged.
+Result: A location will be changed for task in index 3 to Stadium. Other details remain unchanged.
 ```
 #####Editing a task remark
-1. Type `edit 2 remarks buy from carousel`
+1. Type `edit 2 remarks buy rice`
 ```
-Result: The remarks for the task at index 2 will be changed to 'buy from carousel'. Other details remain unchanged.
+Result: The remarks for the task at index 2 will be added. Other details remain unchanged.
 ```
 
 
@@ -113,7 +109,7 @@ Result: The remarks for the task at index 2 will be changed to 'buy from carouse
 #####Marking a single task
 1. Type `done 1`
 ```
-Result: Incomplete tab will display 2 tasks 'buy phone casing' and 'buy milk'. Click completed tab, it will display 1 task 'watch movie'.
+Result: Incomplete tab will display 12 tasks. Click completed tab, it will display 43 tasks. The task should be at index 43.
 ```
 2. Stay in complete tab and type `done 1`
 ```
@@ -122,29 +118,53 @@ Result: The command box will display an error message 'This task is already comp
 #####Marking multiple tasks
 1. Click incomplete tab and type `done 1,2`
 ```
-Result: Incomplete tab will be empty. Click completed tab, it will display 3 tasks.
+Result: Incomplete tab will display 10 tasks. Click completed tab, it will display 45 tasks. The tasks should be at index 44, 45.
 ```
 
 
 ####Undo an action
 1. Type `undo`
 ```
-Result: Incomplete tab will display 2 tasks 'buy phone casing' and 'buy milk'. Click completed tab, it will display 1 task 'watch movie'.
+Result: Your previous action will be undone. In this case, your tasks 'cook dinner with friends' and 'football competition' will return to the incomplete tab.
 ```
 2. Type `undo` again
 ```
-Result: Incomplete tab will display 3 tasks. Click completed tab, it will be empty.
+Result: Your previous action will be undone again. In this case, your task 'play football' will return to the incomplete tab.
 ```
 
+####Deleting a task
+1. Type `redo`
+```
+Result: Your previous undo will be redoed. In this case, your task 'play football' will return to the complete tab
+Result: Your previous action will be undone. In this case, your tasks 'cook dinner with friends' and 'football competition' will return to the incomplete tab.
+```
+2. Type `redo` again
+```
+Result: Your previous undo will be redone. In this case, your tasks 'cook dinner with friends' and 'football competition' will return to the complete tab.
+```
 
 ####Deleting a task
 #####Deleting a single task
 1. Type `delete 1`
 ```
-Result: Incomplete tab will display 2 tasks 'buy phone casing' and 'buy milk'.
+Result: 'watch movie' will be deleted
 ```
 #####Deleting multiple tasks
 1. Type `done 1,2`
 ```
-Result: Incomplete tab will be empty. Click completed tab, it will display 3 tasks.
+Result: 'attending Jimmy 21st birthday celebration' and 'submit module feedback' will be deleted.
+```
+
+####Clear
+#####Delete all data from every tab
+1. Type `clear`
+```
+Result: Data in all tabs should be deleted
+```
+
+####Exit
+#####Exit the application
+1. Type `exit`
+```
+Result: Application should close.
 ```
