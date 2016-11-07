@@ -30,9 +30,6 @@ Once you type in a command to the command box, it will be reflected in the three
 Show features and respective commands of the app.<br>
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-
-
 <!-- @@author A0139923X -->
 <a name="add"></a>
 #### Adding a task: `add`
@@ -45,10 +42,12 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 > Example: `add Assignment 3 p/1`
 
 ###### Adding an Event:
+Events will be rearranged in the Event-List based on their starting time.<br>
 > Format: `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
 > Example: `add Tim's birthday party from/25-12-2016 to/26-12-2016 at/14:00 to/16:00`
 
 ###### Adding a Deadline:
+Deadlines will be rearranged in the Deadline-List based on their ending time.<br>
 > Format: `add TASK_NAME on/DATE at/END_TIME`<br>
 > Example: `add CS2103 v0.2 on/25-12-2016 at/16:00`
 
@@ -57,6 +56,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
 Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
+You can change the data type of a task by editing it with a different command format. For example, if you edit a Todo task with an Event data format, the Todo task will be transfromed into an Event task.
 
 ###### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
@@ -106,14 +106,15 @@ Shows a list of all tasks in the task-list.<br>
 > Example(All): `list all`
 
 <!-- @@author A0139923X -->
-  <a name="find"></a>#### Finding all tasks containing any keyword in their name: `find`
+<a name="find"></a>
+#### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
 > Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]` <br>
 > Example(all): `find all School work is fun` <br>
 > Example(Todo): `find todo Study is good` <br>
 > Example(Event): `find event Party all night long` <br>
-> Example(Deadline): `find deadline Assignment to hand up today`
+> Example(Deadline): `find deadline Assignment to hand up today` <br>
 > Example by Start Date: `find TASK_TYPE date/[By day,month,year or whole date(25th December 2016)]`
 
 <!-- @@author A0144061U -->
@@ -149,6 +150,11 @@ Change the storage directory of the app. If the given directory does not exist, 
 #### Exiting the program : `exit`
 Exits the program.<br>
 > Format: `exit`  
+
+#### Rearrangement of task lists
+Whenever a new task is added/edited/done, Elements in each list are sorted by their priority/date.<br>
+For Todo List, the tasks are arranged by their priority; Todos with higher priority are shifted up and those with lower priority are shifted down.<br>
+For Evnet/Deadline List, the tasks are arranged by their date. Those with earlier starting/ending date are shifted up and those with later starting/ending date are shifted down.
 
 #### Saving the data
 Task-list data are saved in the hard disk automatically after any command that changes the data.<br>
