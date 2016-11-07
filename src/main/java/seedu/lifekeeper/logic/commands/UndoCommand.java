@@ -1,7 +1,5 @@
 package seedu.lifekeeper.logic.commands;
 
-import java.util.Stack;
-
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;

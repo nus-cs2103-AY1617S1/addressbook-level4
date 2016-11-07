@@ -4,10 +4,7 @@ import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.model.activity.Name;
 import seedu.lifekeeper.model.activity.Reminder;
 import seedu.lifekeeper.model.activity.event.EndTime;
-import seedu.lifekeeper.model.activity.event.Event;
 import seedu.lifekeeper.model.activity.event.StartTime;
-import seedu.lifekeeper.model.activity.task.DueDate;
-import seedu.lifekeeper.model.activity.task.Priority;
 import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.testutil.TestEvent;
 

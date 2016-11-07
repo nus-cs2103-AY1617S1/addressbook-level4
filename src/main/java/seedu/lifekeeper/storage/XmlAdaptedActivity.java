@@ -12,8 +12,6 @@ import seedu.lifekeeper.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import javafx.scene.image.Image;
-
 import java.util.ArrayList;
 import java.util.List;
 

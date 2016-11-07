@@ -3,12 +3,8 @@ package seedu.lifekeeper.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
-import seedu.lifekeeper.model.activity.event.Event;
-import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
-import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
 import seedu.lifekeeper.model.activity.task.Task;
 
 public abstract class DashboardCard extends UiPart {

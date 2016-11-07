@@ -1,11 +1,6 @@
 package seedu.lifekeeper.testutil;
 
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-import seedu.lifekeeper.model.LifeKeeper;
-import seedu.lifekeeper.model.activity.Activity;
-import seedu.lifekeeper.model.activity.UniqueActivityList;
-import seedu.lifekeeper.model.activity.event.Event;
-import seedu.lifekeeper.model.activity.task.Task;
 
 /**
  * Test activities that match the data in testopen.xml.

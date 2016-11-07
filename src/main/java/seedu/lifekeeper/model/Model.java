@@ -6,8 +6,6 @@ import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
-import seedu.lifekeeper.model.activity.task.Task;
-
 import java.util.Set;
 
 /**

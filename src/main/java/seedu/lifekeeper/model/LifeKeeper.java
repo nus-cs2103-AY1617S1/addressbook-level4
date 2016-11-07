@@ -1,7 +1,6 @@
 package seedu.lifekeeper.model;
 
 import javafx.collections.ObservableList;
-import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.ActivityManager;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
@@ -9,11 +8,8 @@ import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UpcomingReminders;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
-import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.model.tag.UniqueTagList;
-import seedu.lifekeeper.storage.XmlAdaptedTag;
-
 import java.util.*;
 import java.util.stream.Collectors;
 

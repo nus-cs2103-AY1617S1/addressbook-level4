@@ -3,9 +3,7 @@ package seedu.lifekeeper.testutil;
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.model.activity.Name;
 import seedu.lifekeeper.model.activity.Reminder;
-import seedu.lifekeeper.model.activity.task.*;
 import seedu.lifekeeper.model.tag.Tag;
-import seedu.lifekeeper.testutil.TaskBuilder;
 
 /**
  * Used to constitute sample activities/tasks/events for testing purposes.

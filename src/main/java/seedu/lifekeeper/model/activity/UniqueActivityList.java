@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.lifekeeper.commons.exceptions.DuplicateDataException;
 import seedu.lifekeeper.commons.util.CollectionUtil;
-import seedu.lifekeeper.model.activity.task.Task;
-
 import java.util.*;
 
 /**
