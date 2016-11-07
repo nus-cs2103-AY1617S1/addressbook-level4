@@ -235,26 +235,32 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoNoPrevCommandExist_ErrorMessageShown() throws Exception {
+    public void execute_undoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
         List<Task> expectedList = null;
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
     }
-    
     //@@author A0139128A
     @Test
-    public void execute_undoAddCommand_ErrorMessageShown() throws Exception {
+    public void execute_undoAddCommand_SuccessMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        
+        TestDataHelper helper = new TestDataHelper();
+        
+        WhatNow expectedAB = helper.generateTaskList(1);
+    }
+    //@@author A0139128A
+    public void execute_redoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+        List<Task> expectedList = null;
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
+    }
+    //@@author A0139128A
+    public void execute_RedoCommand_UndoCommandDoesNotExist_ErrorMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> expectedList = helper.generateTaskList(1);
+        
         WhatNow expectedAB = helper.generateWhatNow(expectedList);
-        Task toBeAdded = helper.grapes();
-        expectedList.add(toBeAdded);
         
-        //expectedAB.addTask(toBeAdded);
-
-        helper.addToModel(model, expectedList);
-        model.getUndoStack().push("add");
-        
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, expectedAB, expectedAB.getTaskList());
     }
     
     /**
@@ -529,13 +535,6 @@ public class LogicManagerTest {
                 expectedMessage);
     }
 
-    /**
-     * Confirms the 'invalid behaviour' for the give undo command
-     * @throws Exception
-     */
-    private void assertInvalidUndoBehaviour() {
-
-    }
     @Test
     public void execute_changeLocationInvalidArgsFormat_errorMessageShown()
             throws Exception {
