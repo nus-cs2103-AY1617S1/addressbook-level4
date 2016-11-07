@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <items>
-        <name>Do Homework</name>
+        <name>Attempt MA1506 tutorial 3 again</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -10,7 +10,7 @@
         <done>true</done>
     </items>
     <items>
-        <name>Do Nothing</name>
+        <name>Walk the dog</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -64,7 +64,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Lecture Note Taking</name>
+        <name>Write follow-up email for interview</name>
         <itemType>deadline</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -146,7 +146,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Send text messages</name>
+        <name>Review research data</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -155,7 +155,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Send data</name>
+        <name>Send post on behalf of dad</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -227,7 +227,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Submit drive</name>
+        <name>Do policy planning 3 readings again</name>
         <itemType>event</itemType>
         <startDate>2016-10-27</startDate>
         <startTime>00:02</startTime>
@@ -326,7 +326,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>CS Webcast</name>
+        <name>Online Survey Submission</name>
         <itemType>deadline</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -335,7 +335,7 @@
         <done>true</done>
     </items>
     <items>
-        <name>CS Homework 2</name>
+        <name>EE1505 Tutorial 7</name>
         <itemType>deadline</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -389,7 +389,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Attend Lecture 1</name>
+        <name>Attend Make-Up Lab Sessions</name>
         <itemType>event</itemType>
         <startDate>2016-10-27</startDate>
         <startTime>00:06</startTime>
@@ -407,7 +407,7 @@
         <done>true</done>
     </items>
     <items>
-        <name>Group Discussion</name>
+        <name>Attend Seminar on food wastage</name>
         <itemType>event</itemType>
         <startDate>2016-10-27</startDate>
         <startTime>00:07</startTime>
@@ -488,7 +488,7 @@
         <done>true</done>
     </items>
     <items>
-        <name>do homework</name>
+        <name>Wash the car</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -497,7 +497,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Finish Notes</name>
+        <name>Attend BIZ Interview Workshop</name>
         <itemType>task</itemType>
         <startDate></startDate>
         <startTime></startTime>
@@ -506,7 +506,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>2103 lecture</name>
+        <name>Attempt ST3230 tutorial 6</name>
         <itemType>event</itemType>
         <startDate>2016-11-11</startDate>
         <startTime>14:00</startTime>
