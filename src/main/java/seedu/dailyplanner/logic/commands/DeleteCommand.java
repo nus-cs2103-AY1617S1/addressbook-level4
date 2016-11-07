@@ -7,16 +7,16 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a person identified using it's last displayed index from the address
+ * book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last person listing.\n"
-            + "Format: [INDEX] (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the task identified by the index number shown in current list\n"
+            + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
 
@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -38,12 +37,12 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-   
+
         try {
-        	model.getHistory().stackAddInstruction(taskToDelete);
+            model.getHistory().stackAddInstruction(taskToDelete);
             model.deletePerson(taskToDelete);
             model.updatePinBoard();
-            
+
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
