@@ -47,10 +47,6 @@
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
-/*
-.list-cell .label {
-    -fx-text-fill: #010504;
-}*/
 
 .anchor-pane {
      -fx-background-color: white;
@@ -108,7 +104,8 @@
 }
 
 .menu-bar {
-    -fx-background-color: white;
+    -fx-background-color: #cfe6f9;
+    /*-fx-background-image: url("../images/background.jpg");*/
 }
 
 .menu-bar .label {
@@ -211,36 +208,38 @@
 
 .cell_name_label {
 	-fx-font-family: "Imprint MT Shadow";
-	-fx-font-size: 30px;
+	-fx-font-size: 20px;
 	-fx-font-weight: bold;
 	-fx-text-fill: #010504;
 }
 
 .cell_date_label {
 	-fx-font-family: "Rockwell";
-	-fx-font-size: 20px;
+	-fx-font-size: 18px;
 	-fx-text-fill: #666666;
 }
 
 .cell_tag_label {
 	-fx-font-family: "Rockwell";
-	-fx-font-size: 15px;
+	/*-fx-font-size: 15px;*/
 	-fx-text-fill: #eb6073;
 }
 
 .cell_done_label{
 	-fx-font-family: "Rockwell";
-	-fx-font-size: 20px;
-	-fx-text-fill: #ff0000;
+	-fx-font-size: 18px;
+	-fx-text-fill: #a30d26;
 	-fx-font-weight: bold;
-	-fx-underline: true;
 }
 
 .cell_recurring_label {
 	-fx-font-family: "Rockwell";
-	-fx-font-size: 15px;
+	/*-fx-font-size: 15px;*/
 	-fx-font-family: fantasy;
 	-fx-text-fill: #eb6073;
 }
 
+.root {
+	-fx-font-size: 15px;
+}
 

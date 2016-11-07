@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -16,8 +17,9 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author A0138717X
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of task.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
@@ -58,7 +60,19 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        taskList.addListener(new ListChangeListener() {
+			@Override
+			public void onChanged(ListChangeListener.Change change) {
+				taskListView.scrollTo(taskList.size()-1);
+				taskListView.getSelectionModel().select(taskList.size()-1);
+				taskListView.getFocusModel().focus(taskList.size()-1);
+			}
+
+        });
     }
+    public final ObservableList<ReadOnlyTask> getItems(ObservableList<ReadOnlyTask> taskList) {
+		return taskList;
+	}
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
