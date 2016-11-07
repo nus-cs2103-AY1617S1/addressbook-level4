@@ -12,10 +12,9 @@ import seedu.todolist.model.task.*;
 public class TypicalTestTasks {
 
     public static TestTask  eventWithoutParameter, eventWithLocation, eventWithParameters,
-                            deadlineWithLocation, deadlineWithoutTime,
-                            floatWithoutParameter, floatWithParameters, 
-                            upcomingEvent, overdueDeadline, 
-                            taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
+                            deadlineWithLocation, deadlineWithoutTime, floatWithoutParameter, 
+                            floatWithParameters, upcomingEvent, overdueDeadline, invalidLocation, 
+                            duplicateNameFloat, taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
 
     //@@author A0138601M
     public TypicalTestTasks() {
@@ -58,7 +57,7 @@ public class TypicalTestTasks {
           
             //Manually added
             upcomingEvent = new TaskBuilder().withName("Upcoming event")
-                    .withInterval("1/1/2017", "10am", "1 jan 2017", "11:30am")
+                    .withInterval("29/1/2017", "10am", "29 jan 2017", "11:30am")
                     .withLocation("Orchard")
                     .withRemarks("prepare agenda")
                     .withStatus(Status.Type.Incomplete).build();

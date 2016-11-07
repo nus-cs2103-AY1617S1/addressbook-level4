@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
+import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Status;
@@ -171,12 +172,13 @@ public class TaskListPanelHandle extends GuiHandle {
         return true;
     }
 
-    public TaskCardHandle navigateToTask(String name, Status.Type type) {
+    public TaskCardHandle navigateToTask(TestTask taskToFind) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        Status.Type type = taskToFind.getStatus().getType();
         clickOnListTab(type);
-        final Optional<ReadOnlyTask> task = getListView(type).getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView(type).getItems().stream().filter(p -> p.equals(taskToFind)).findAny();
         if (!task.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            throw new IllegalStateException("Task not found: " + taskToFind.getName().fullName);
         }
 
         return navigateToTask(task.get(), type);

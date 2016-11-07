@@ -8,15 +8,20 @@ import java.time.LocalDate;
  * Converts a String to Date and vice versa.
  */
 public class DateParser {
-    
-    private static final int DATE_COMPONENT_TOTAL = 3;   
+     
     private static final int DATE_COMPONENT_INDEX_YEAR = 2;
     private static final int DATE_COMPONENT_INDEX_MONTH = 1;
     private static final int DATE_COMPONENT_INDEX_DAY = 0;
     
+    private static final String MONTH_NOT_FOUND = "Unable to find month ";
     private static final String[] MONTH_LIST = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", 
                                                 "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+    private static final int MONTH_DUMMY_VALUE = 0;
     private static final int MONTH_OFFSET_INDEX = 1;
+       
+    public static final String DATE_DELIMITER_SLASH = "/";
+    public static final String DATE_DELIMITER_SPACE = " ";
+    
     
     /**
      * Parses string date input into LocalDate date.
@@ -27,7 +32,7 @@ public class DateParser {
     public static LocalDate parseDate(String date) throws DateTimeException {
         assert date != null;
         LocalDate parsedDate;
-        if (date.contains("/")) {
+        if (date.contains(DATE_DELIMITER_SLASH)) {
             parsedDate = parseDateWithSlash(date);
         } else {
             parsedDate = parseDateWithMonthName(date);
@@ -42,11 +47,12 @@ public class DateParser {
      * @return LocalDate date based on the string date input
      */
     private static LocalDate parseDateWithSlash(String date) throws DateTimeException {
-        String[] dateComponents = date.split("/");
-
-        int day = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_DAY]);
-        int month = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_MONTH]);  
-        int year = getYearValue(dateComponents);
+        String[] dateComponents = date.split(DATE_DELIMITER_SLASH);
+        
+        int day, month, year;
+        day = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_DAY]);
+        month = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_MONTH]);  
+        year = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_YEAR]);
               
         return LocalDate.of(year, month, day);
     }
@@ -58,12 +64,12 @@ public class DateParser {
      * @return LocalDate date based on the string date input
      */
     private static LocalDate parseDateWithMonthName(String date) throws DateTimeException {
-        String[] dateComponents = date.split(" ");
+        String[] dateComponents = date.split(DATE_DELIMITER_SPACE);
         
         int day, month, year;
         day = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_DAY]);
         month = getMonthValue(dateComponents[DATE_COMPONENT_INDEX_MONTH]);
-        year = getYearValue(dateComponents);
+        year = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_YEAR]);
         
         return LocalDate.of(year, month, day);
     }
@@ -75,45 +81,15 @@ public class DateParser {
      * @return int month value based on string month name
      */
     private static int getMonthValue(String month) {
-        int monthValue = 0;
+        int monthValue = MONTH_DUMMY_VALUE;
         for (int i = 0; i < MONTH_LIST.length; i++) {
             if (MONTH_LIST[i].contains(month.toUpperCase())) {
                 monthValue = i + MONTH_OFFSET_INDEX;
             }
         }
-        if (monthValue == 0) {
-            throw new DateTimeException("Unable to find month " + month);
+        if (monthValue == MONTH_DUMMY_VALUE) {
+            throw new DateTimeException(MONTH_NOT_FOUND + month);
         }
         return monthValue;
-    }
-    
-    /**
-     * Get year in date components. If year does not exist, get the current year.
-     *
-     * @param string date components input
-     * @return int year value
-     */
-    private static int getYearValue(String[] dateComponents) {
-        if (isYearMissing(dateComponents)) {
-            return getCurrentYear();
-        } else {
-            return Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_YEAR]);
-        }
-    }
-    
-    /**
-     * Returns true if year in date component is missing
-     */
-    private static boolean isYearMissing(String[] dateComponents) {
-        return (dateComponents.length < DATE_COMPONENT_TOTAL);
-    }
-    
-    /**
-     * Get the current year based on the system time
-     */
-    private static int getCurrentYear() {
-        LocalDate now = LocalDate.now();
-        return now.getYear();
-    }
-
+    }  
 }
