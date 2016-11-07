@@ -16,6 +16,7 @@ public class TaskBuilder {
 
     public TaskBuilder() {
         this.task = new TestTask();
+        task.setCreateDate("today");
     }
 
     //@@author A0124797R

@@ -18,6 +18,7 @@ public class TestTask implements ReadOnlyTask {
     private String startDate;
     private String endDate;
     private String recur;
+    private String createdDate;
     private UniqueTagList tags;
     private boolean isMarked;
 
@@ -36,6 +37,10 @@ public class TestTask implements ReadOnlyTask {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
+    public void setCreateDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
     
     public void setRecur(String recur) {
         this.recur = recur;
@@ -53,8 +58,7 @@ public class TestTask implements ReadOnlyTask {
             cmd.append(" from ").append(startDate);
             cmd.append(" to ").append(endDate);
         }else if(endDate!=null){
-            cmd.append(" from ").append(startDate);
-            cmd.append(" to ").append(endDate);
+            cmd.append(" by ").append(endDate);
         }
         cmd.append(" #");
 
@@ -94,6 +98,14 @@ public class TestTask implements ReadOnlyTask {
         }else {
             return null;
         }
+    }
+    
+    @Override
+    public Date getCreatedDate() {
+        if (createdDate==null){
+            return null;
+        }
+        return TaskManagerGuiTest.prettyTimeParser.parse(createdDate).get(0);
     }
     
     @Override
@@ -173,13 +185,5 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Duration getEventDuration(){
         return null;
-    }
-
-    @Override
-    public Date getCreatedDate() {
-        return null;
-    }
-    
-    
-    
+    } 
 }
