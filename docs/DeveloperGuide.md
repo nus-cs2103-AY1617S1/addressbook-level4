@@ -576,7 +576,7 @@ Use case ends.
 > Application shows an error message.  
 Use case ends.
 
-<!--@@author-->
+<!-- @@author-->
 
 <!-- @@author A0093907W -->
 
