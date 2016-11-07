@@ -44,7 +44,7 @@ public class AddAliasCommand extends Command {
         
         try{
         	
-        	if(!model.validateAliasforAddAliasCommand(alias)){
+        	if (!model.validateAliasforAddAliasCommand(alias)){
         		
         		model.undoSaveState();
         		return new CommandResult(String.format(MESSAGE_INVALID_ALIAS, alias));	

@@ -293,7 +293,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
 
     @Override
-    public final boolean removeIf(Predicate<? super E> filter) {
+    public final boolean removeif (Predicate<? super E> filter) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 

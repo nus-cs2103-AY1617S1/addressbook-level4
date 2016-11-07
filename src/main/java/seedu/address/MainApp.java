@@ -76,7 +76,7 @@ public class MainApp extends Application {
 
         try {
             taskManagerOptional = storage.readTaskManager();
-            if(!taskManagerOptional.isPresent()){
+            if (!taskManagerOptional.isPresent()){
                 logger.info("Task manager data file not found. Will be starting with an empty TaskManager");
             }
             initialTaskManagerData = taskManagerOptional.orElse(new TaskManager());
@@ -90,7 +90,7 @@ public class MainApp extends Application {
         
         try {
             aliasManagerOptional = storage.readAliasManager();
-            if(!aliasManagerOptional.isPresent()){
+            if (!aliasManagerOptional.isPresent()){
                 logger.info("Alias manager data file not found. Will be starting with an empty AliasManager");
             }
             initialAliasManagerData = aliasManagerOptional.orElse(new AliasManager());
@@ -115,7 +115,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }

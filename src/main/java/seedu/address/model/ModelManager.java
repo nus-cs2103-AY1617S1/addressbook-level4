@@ -200,7 +200,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	ObservableList<Alias> aliasList = aliasManager.getFilteredAliases();
     	for(Alias currentAlias: aliasList){
-    		if(currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
+    		if (currentAlias.getAlias().contains(alias) || alias.contains(currentAlias.getAlias())){
     			return false;
     		}
     	}
@@ -232,11 +232,11 @@ public class ModelManager extends ComponentManager implements Model {
     		throws InvalidPathException, SecurityException, IllegalArgumentException {	
     	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
     	
-    	if(java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
+    	if (java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
     	} 
     	
-    	if(!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
+    	if (!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
     	}        	        	        	
     	
@@ -244,11 +244,11 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	Path oldStorageFileFilePath = Paths.get(getTaskManagerStorageFilePath());  //Throws InvalidPathException
     	
-    	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
+    	if (newStorageFileFilePath.equals(oldStorageFileFilePath)){
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
     	} 
     	
-    	if(java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
+    	if (java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
     		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
     				+ ".xml", userSpecifiedStorageFolder));
     	} 

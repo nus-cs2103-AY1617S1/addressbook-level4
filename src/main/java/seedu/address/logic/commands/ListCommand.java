@@ -40,7 +40,7 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	
-    	if(taskType.isPresent()) {
+    	if (taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
     				taskType.get().equals("event") || taskType.get().equals("ev"); 
@@ -59,7 +59,7 @@ public class ListCommand extends Command {
     			break;
     		}
     	}
-    	if(doneStatus.isPresent()) {
+    	if (doneStatus.isPresent()) {
     		switch(doneStatus.get()) {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();
@@ -72,13 +72,13 @@ public class ListCommand extends Command {
     		}
     	}
     	
-    	if(doneStatus.isPresent() && taskType.isPresent()) {
+    	if (doneStatus.isPresent() && taskType.isPresent()) {
     		model.updateFilteredTaskList(taskTypePredicate.and(donePredicate));
-    	} else if(!doneStatus.isPresent() && taskType.isPresent()) {
+    	} else if (!doneStatus.isPresent() && taskType.isPresent()) {
     		model.updateFilteredTaskList(taskTypePredicate);
-    	} else if(doneStatus.isPresent() && !taskType.isPresent()) {
+    	} else if (doneStatus.isPresent() && !taskType.isPresent()) {
     		model.updateFilteredTaskList(donePredicate);
-    	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
+    	} else if (!doneStatus.isPresent() && !taskType.isPresent()) {
     		model.updateFilteredListToShowAll();
     	}
     	

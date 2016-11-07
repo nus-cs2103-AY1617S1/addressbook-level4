@@ -78,7 +78,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     }
     
     public boolean removeAlias(ReadOnlyAlias aliasToRemove) throws UniqueAliasList.AliasNotFoundException {
-    	if(aliases.remove(aliasToRemove)) {
+    	if (aliases.remove(aliasToRemove)) {
     		return true;
     	} 
     	
@@ -88,7 +88,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     }
     
     public boolean editAlias(int key, Alias aliasToEdit) throws UniqueAliasList.AliasNotFoundException {
-    	if(aliases.set(key, aliasToEdit)){
+    	if (aliases.set(key, aliasToEdit)){
     		sortAliases();
     		return true;
     	}

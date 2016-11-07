@@ -32,7 +32,7 @@ public class TestTask implements ReadOnlyTask {
     
     public void setStatus(Status status) {
         this.status = status;
-        if(this.status.equals(new Status("pending")) && 
+        if (this.status.equals(new Status("pending")) && 
         		getEndDate().orElse(LocalDateTime.MAX).isBefore(LocalDateTime.now())) {
         	this.status = new Status("overdue");
         }
@@ -141,11 +141,11 @@ public class TestTask implements ReadOnlyTask {
     	postEdit.setTaskType(newTaskType);
     	postEdit.setName(newName);
     	
-    	if(newStartDate.isPresent()){
+    	if (newStartDate.isPresent()){
         	postEdit.setStartDate(newStartDate.get());
     	}
     	
-    	if(newEndDate.isPresent()){
+    	if (newEndDate.isPresent()){
         	postEdit.setEndDate(newEndDate.get());	
     	}
     	
