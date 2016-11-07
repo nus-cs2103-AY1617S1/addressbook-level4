@@ -35,18 +35,17 @@ Let's get started!
 
 #### Importing the project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+1. Fork this repo, and clone the fork to your computer
+2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above)
+3. Click `File` > `Import`
+4. Click `Gradle` > `Gradle Project` > `Next`
+5. Click `Browse`, then locate the project's directory
+6. Click `Next` > `Finish`
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+> * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+> * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+> * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 <br>
 ## Design
@@ -299,10 +298,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a task with a simple description | record general tasks
 `* * *` | user | add a task with a simple description and a deadline | record tasks that need to be done by a deadline
-`* * *` | user | add a task with a simple description, a start date and an end date | record tasks that have a date range
+`* * *` | user | add a task with a simple description, a start date, an end date and times | record tasks that have a date range
 `* * *` | user | search for tasks using their descriptions | look up a task quickly
 `* * *` | user | delete a task | get rid of tasks that I no longer care to track
 `* * *` | user | update tasks | change details of a task if they change or if I added wrongly
+`* * *` | user | complete tasks | know which tasks are yet to be done
 `* * *` | user | view all the tasks that I have created on a GUI | have a good overall picture of the tasks
 `* * *` | user | specify the location of the file containing my task data | choose to store the data locally or in the cloud
 `* * *` | user who has just executed a wrong command | undo the command | rectify my mistakes easily
@@ -321,19 +321,19 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User adds a task
-2. TaskManager adds the task<br>
+2. <i>Tusk</i> adds the task<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1b. The task limit has been reached
 
-> 1b1. TaskManager displays an error and prompts the user to delete a task <br>
+> 1b1. <i>Tusk</i> displays an error and prompts the user to delete a task <br>
 > Use Case ends.
 
 <br>
@@ -342,9 +342,9 @@ Use case ends.
 **MSS**
 
 1. User requests to list tasks
-2. TaskManager shows a list of tasks
+2. <i>Tusk</i> shows a list of tasks
 3. User requests to delete a specific task in the list
-4. TaskManager deletes the task <br>
+4. <i>Tusk</i> deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -355,7 +355,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error <br>
+> 3a1. <i>Tusk</i> displays an error <br>
 > Use Case ends.
 
 <br>
@@ -364,15 +364,15 @@ Use case ends.
 **MSS**
 
 1. User undos a command.
-2. TaskManager returns to state before command is executed.
-3. TaskManager displays that command that has been undone.<br>
+2. <i>Tusk</i> returns to state before command is executed.
+3. <i>Tusk</i> displays that command that has been undone.<br>
 Use case ends.
 
 **Extensions**
 
 1a. There is no command to be undone
 
-> 1a1. TaskManager displays an error <br>
+> 1a1. <i>Tusk</i> displays an error <br>
 > Use Case ends.
 
 <br>
@@ -381,19 +381,19 @@ Use case ends.
 **MSS**
 
 1. User adds an Alias
-2. TaskManager adds Alias<br>
+2. <i>Tusk</i> adds Alias<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1b. The user attempts to create an alias of a pre-existing alias
 
-> 1b1. TaskManager displays an error <br>
+> 1b1. <i>Tusk</i> displays an error <br>
 > Use Case continues at step 1.
 
 <br>
@@ -402,16 +402,16 @@ Use case ends.
 **MSS**
 
 1. User lists all tasks
-2. TaskManager displays all tasks
+2. <i>Tusk</i> displays all tasks
 3. User updates a task
-4. TaskManager updates the specified task<br>
+4. <i>Tusk</i> updates the specified task<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. The list of tasks is empty
@@ -420,7 +420,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error <br>
+> 3a1. <i>Tusk</i> displays an error <br>
 > Use Case resumes at step 3.
 
 <br>
@@ -429,16 +429,16 @@ Use case ends.
 **MSS**
 
 1. User lists all tasks
-2. TaskManager displays all tasks
+2. <i>Tusk</i> displays all tasks
 3. User pins a task
-4. TaskManager pins the specified task<br>
+4. <i>Tusk</i> pins the specified task<br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. The list of tasks is empty
@@ -447,7 +447,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. TaskManager displays an error <br>
+> 3a1. <i>Tusk</i> displays an error <br>
 > Use Case resumes at step 3.
 
 <br>
@@ -456,19 +456,90 @@ Use case ends.
 **MSS**
 
 1. User clears all tasks
-2. TaskManager clears all tasks <br>
+2. <i>Tusk</i> clears all tasks <br>
 Use case ends.
 
 **Extensions**
 
 1a. The format of the input is wrong
 
-> 1a1. TaskManager shows an error and prompts the user again reiterating the correct command format <br>
+> 1a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
 > Use Case resumes at step 1.
 
 1a. There are no tasks
 
 > Use Case ends.
+
+<br>
+#### Use case: Autocomplete a Command
+
+**MSS**
+
+1. User types in part of a command
+2. User presses <kbd>TAB</kbd>
+3. <i>Tusk</i> completes the command<br>
+Use case ends.
+
+**Extensions**
+
+3a. There is no command to autocomplete
+
+> Use Case ends.
+
+<br>
+#### Use case: Complete a task
+
+**MSS**
+
+1. User requests to list tasks
+2. <i>Tusk</i> shows a list of tasks
+3. User requests to complete a specific task in the list
+4. <i>Tusk</i> completes the task <br>
+Use case ends.
+
+**Extensions**
+
+3a. The format of the input is wrong.
+
+> 3a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
+
+3a. The task is already completed.
+
+> 3a1. <i>Tusk</i> shows that the task has already been completed. <br>
+> Use Case ends.
+
+<br>
+#### Use case: Find a task
+
+**MSS**
+
+1. User requests to find a task
+2. <i>Tusk</i> shows a list of tasks that match the keywords provided<br>
+Use case ends.
+
+**Extensions**
+
+2a. The given keywords do not match any tasks.
+
+> 3a1. <i>Tusk</i> shows an empty list and informs the user that no tasks were found <br>
+> Use Case ends.
+
+<br>
+#### Use case: Change Storage location
+
+**MSS**
+
+1. User requests to change storage location
+2. <i>Tusk</i> changes storage location
+Use case ends.
+
+**Extensions**
+
+1a. The format of the input is wrong.
+
+> 3a1. <i>Tusk</i> shows an error and prompts the user again reiterating the correct command format <br>
+> Use Case resumes at step 1.
 
 <br>
 ## Appendix C : Non Functional Requirements
@@ -479,7 +550,6 @@ Use case ends.
 4. Should process a user's request within 3 seconds.
 5. Should be available 24/7.
 
-<br>
 ## Appendix D : Glossary
 
 ##### Mainstream OS
