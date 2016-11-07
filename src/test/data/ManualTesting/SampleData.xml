@@ -82,7 +82,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Birthday John</name>
+        <name>John Birthday</name>
         <itemType>event</itemType>
         <startDate>2016-10-26</startDate>
         <startTime>23:57</startTime>
@@ -92,7 +92,7 @@
         <tagged>happy</tagged>
     </items>
     <items>
-        <name>Birthday Jack</name>
+        <name>Jack Birthday</name>
         <itemType>event</itemType>
         <startDate>2016-10-26</startDate>
         <startTime>23:57</startTime>
@@ -110,7 +110,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Birthday Jane</name>
+        <name>Joseph Birthday</name>
         <itemType>event</itemType>
         <startDate>2016-10-12</startDate>
         <startTime>23:58</startTime>
@@ -119,7 +119,7 @@
         <done>false</done>
     </items>
     <items>
-        <name>Birthday Julia</name>
+        <name>Julia Birthday</name>
         <itemType>event</itemType>
         <startDate>2016-10-27</startDate>
         <startTime>00:00</startTime>
@@ -462,11 +462,11 @@
     </items>
     <items>
         <name>Purchase Rice for cooking</name>
-        <itemType>task</itemType>
+        <itemType>deadline</itemType>
         <startDate></startDate>
         <startTime></startTime>
-        <endDate></endDate>
-        <endTime></endTime>
+        <endDate>2016-11-08</endDate>
+        <endTime>12:00</endTime>
         <done>false</done>
     </items>
     <items>
@@ -503,33 +503,6 @@
         <startTime></startTime>
         <endDate></endDate>
         <endTime></endTime>
-        <done>false</done>
-    </items>
-    <items>
-        <name>hello</name>
-        <itemType>task</itemType>
-        <startDate></startDate>
-        <startTime></startTime>
-        <endDate></endDate>
-        <endTime></endTime>
-        <done>false</done>
-    </items>
-    <items>
-        <name>tutorialx</name>
-        <itemType>task</itemType>
-        <startDate></startDate>
-        <startTime></startTime>
-        <endDate></endDate>
-        <endTime></endTime>
-        <done>false</done>
-    </items>
-    <items>
-        <name>reach v0.4</name>
-        <itemType>deadline</itemType>
-        <startDate></startDate>
-        <startTime></startTime>
-        <endDate>2016-11-10</endDate>
-        <endTime>14:00</endTime>
         <done>false</done>
     </items>
     <items>

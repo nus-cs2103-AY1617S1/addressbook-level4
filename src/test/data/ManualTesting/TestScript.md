@@ -24,13 +24,13 @@ Note:
 
 Command | Format  | Example | Expected Respose
 -----: | ----- | :------------------
-Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial` | The task will be added to your to do list and message "Added task" is displayed on console.
+Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial 3216` | The task will be added to your to do list and message "Added task" is displayed on console.
 Add Deadline | `a[dd] d[eadline] n/NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v1.0 edt/thursday 2pm` |  The task will be added to your to do list and message "Added task" is displayed on console.
 Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 guest lecture sdt/friday 2pm edt/friday 4pm` | The event will be added to your to do list and message "Added event" is displayed on console
 Delete | `del[ete] INDEX ...` | `delete 1` | Console displays deleted item in second box and refreshes list of items.
 Done | `d[one] INDEX` | `done 1` | Console refreshes list of items, with updated status for the updated item.
 Edit Task | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 1 n/CS2103` | App will display edited item's details in the results panel.
-Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm` | App will display edited item's details in the results panel. |
+Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm` | App will display edited item's details in the results panel.
 Edit Event | `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 11 sdt/yesterday` | App will display edited item's details in the results panel.
 Find | `f[ind] KEYWORD [MORE_KEYWORDS]` | `find tutorial` | App will display a list of items with names containing the keyword in the bottom left panel.
 Help | `h[elp]` | `help` | The list of commands, their format and their function will be shown.
