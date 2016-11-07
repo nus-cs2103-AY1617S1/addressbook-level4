@@ -140,11 +140,11 @@ Mark a Todo-task with given index number as done.<br>
 Mark a Todo-task with given index number as undone.<br>
 
 #### Marking a Todo 'Not Completed':
-> Command: `undone todo 3`<br>
-> Expected Outcome: A Todo task *(Implement edit and share)* at the 3rd entry of the Todo List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Todo task marked.
+> Command: `undone todo 4`<br>
+> Expected Outcome: A Todo task *(Operationalize RPi images)* at the 4th entry of the Todo List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Todo task marked.
 
 > Undo Command: `undo`<br>
-> Expected Outcome: A Todo task *(Implement edit and share)* is Marked back as 'Completed'.
+> Expected Outcome: A Todo task *(Operationalize RPi images)* is Marked back as 'Completed'.
 
 #### Marking an Event 'Not Completed':
 > Command: `undone event 3`<br>
@@ -154,11 +154,11 @@ Mark a Todo-task with given index number as undone.<br>
 > Expected Outcome: An Event task *(MA1505 Exam)* is Marked back as 'Completed'.
 
 #### Marking a Deadline 'Not Completed':
-> Command: `undone deadline 3`<br>
-> Expected Result: A Deadline task *(CS2103 v0.4)* at the 3rd entry of the Deadline List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Deadline task marked.
+> Command: `undone deadline 4`<br>
+> Expected Result: A Deadline task *(CS2103 v0.1)* at the 4th entry of the Deadline List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Deadline task marked.
 
 > Undo Command: `undo`<br>
-> Expected Outcome: A Deadline task *(CS2103 v0.4)* is Marked back as 'Completed'.
+> Expected Outcome: A Deadline task *(CS2103 v0.1)* is Marked back as 'Completed'.
 
 
 ## Clearing task lists
