@@ -35,13 +35,10 @@ public class MainWindow extends UiPart {
     private static StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
-
-    private String taskManagerName;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -112,9 +109,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = taskManagerName;
         this.config = config;
-        this.userPrefs = prefs;
 
         //Configure the UI
         setTitle(appTitle);

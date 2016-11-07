@@ -12,7 +12,6 @@ import seedu.taskitty.commons.core.Config;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskitty.commons.events.ui.ShowHelpRequestEvent;
-import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.model.UserPrefs;
@@ -108,11 +107,6 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
-    }
-
-    @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
 }
