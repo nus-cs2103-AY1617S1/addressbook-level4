@@ -1,6 +1,6 @@
 package seedu.todolist.logic.commands;
 
-import java.util.Set;
+import java.util.List;
 
 //@@author A0153736B
 /**
@@ -25,10 +25,10 @@ public class FindCommand extends Command {
             + "Parameters: FINDTYPE KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " " + FINDTYPE_PHRASE + " alice bob charlie";
 
-    private final Set<String> keywords;
+    private final List<String> keywords;
     private final String findType;
   
-    public FindCommand(Set<String> keywords, String findType) {
+    public FindCommand(List<String> keywords, String findType) {
         this.keywords = keywords;
         this.findType = findType;
     }
