@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.lifekeeper.commons.core.ComponentManager;
 import seedu.lifekeeper.commons.core.EventsCenter;
 import seedu.lifekeeper.commons.core.LogsCenter;
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.model.LoadLifekeeperEvent;
 import seedu.lifekeeper.commons.events.storage.DataSavingExceptionEvent;
 import seedu.lifekeeper.commons.events.ui.FileDirectoryChangedEvent;
@@ -87,7 +87,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(LifekeeperChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

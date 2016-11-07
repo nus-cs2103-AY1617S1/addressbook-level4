@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.lifekeeper.commons.core.EventsCenter;
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.ui.JumpToListRequestEvent;
 import seedu.lifekeeper.commons.events.ui.ShowHelpRequestEvent;
 import seedu.lifekeeper.logic.Logic;
@@ -54,7 +54,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+    private void handleLocalModelChangedEvent(LifekeeperChangedEvent abce) {
         latestSavedAddressBook = new LifeKeeper(abce.data);
     }
 

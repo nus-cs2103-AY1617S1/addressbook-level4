@@ -14,7 +14,7 @@ public class Reminder extends DateTime {
 
     public static final String MESSAGE_REMINDER_CONSTRAINTS = "Task reminder can only be in date format";
     public static final String MESSAGE_REMINDER_INVALID = "reminder time has passed";
-    public String RecurringMessage;
+    public String recurringMessage;
 
     public Reminder(Calendar date) {
         super(date);
@@ -32,7 +32,7 @@ public class Reminder extends DateTime {
         if (date != "") {
             if (date.contains("every")) {
                 this.recurring = true;
-                RecurringMessage = date;
+                recurringMessage = date;
                 recur = date.split(" ", 2);
                 if (recur.length == 1)
                     throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
