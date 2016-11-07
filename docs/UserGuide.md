@@ -197,13 +197,13 @@ Examples:
 Undo the last action performed in Task!t. Reversible by `redo`<br>
 Format: **`undo`**
 
->Supports until no historical action.
+>Undo can be performed multiple times until there are no actions left to undo.
 
 ### Redoing last undo action performed : `redo`
 Redo the most recent undo operation done by the user in Task!t.<br>
 Format: **`redo`**
 
->If the undo operation is overwritten by other operations, the to-do-list can't be redone.
+>If a command is used after undo, all previous undos will no longer be able to be redone.
 
 <!-- @@author A0158963M -->
 ### Setting the storage location : `setstorage`
