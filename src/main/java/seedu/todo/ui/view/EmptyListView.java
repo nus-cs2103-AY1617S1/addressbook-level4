@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -17,7 +18,6 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.UiPartLoaderUtil;
-import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
@@ -29,6 +29,22 @@ public class EmptyListView extends UiPart {
 
     /* Constants */
     private static final String FXML = "EmptyListView.fxml";
+
+    private static final String EMPTY_MESSAGE_DEFAULT
+            = "No tasks in view. Type 'add' to add a new tasks.";
+    private static final String EMPTY_MESSAGE_COMPLETED
+            = "You have no completed tasks.";
+    private static final String EMPTY_MESSAGE_INCOMPLETE
+            = "You have no incomplete tasks or upcoming events.";
+    private static final String EMPTY_MESSAGE_DUE_SOON
+            = "You have completed all your tasks.";
+    private static final String EMPTY_MESSAGE_EVENTS
+            = "You have no upcoming events. Type 'add' to add new events.";
+    private static final String EMPTY_MESSAGE_TODAY
+            = "You have no tasks/events for today. Type 'add' to add a new task.";
+
+    private static final String EMOJI_HAPPY_URL = "/images/emoji-happy.png";
+    private static final String EMOJI_SAD_URL = "/images/emoji-sad.png";
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(EmptyListView.class);
@@ -90,8 +106,34 @@ public class EmptyListView extends UiPart {
         FxViewUtil.setCollapsed(emptyListView, !isVisible);
     }
 
-    private void setEmptyListContent(TaskViewFilter viewFilter) {
-        emptyListLabel.setText(viewFilter.emptyListMessage);
+    /**
+     * Sets the content of empty list based on {@link TaskViewFilter}
+     */
+    private void setEmptyListContent(TaskViewFilter filter) {
+        if (filter == TaskViewFilter.DEFAULT) {
+            setEmptyListContent(EMPTY_MESSAGE_DEFAULT, EMOJI_HAPPY_URL);
+
+        } else if (filter == TaskViewFilter.COMPLETED) {
+            setEmptyListContent(EMPTY_MESSAGE_COMPLETED, EMOJI_SAD_URL);
+
+        } else if (filter == TaskViewFilter.INCOMPLETE) {
+            setEmptyListContent(EMPTY_MESSAGE_INCOMPLETE, EMOJI_HAPPY_URL);
+
+        } else if (filter == TaskViewFilter.DUE_SOON) {
+            setEmptyListContent(EMPTY_MESSAGE_DUE_SOON, EMOJI_HAPPY_URL);
+
+        } else if (filter == TaskViewFilter.EVENTS) {
+            setEmptyListContent(EMPTY_MESSAGE_EVENTS, EMOJI_HAPPY_URL);
+
+        }
+    }
+
+    /**
+     * Sets the content of empty list by {@code message} and {@code imageUrl}
+     */
+    private void setEmptyListContent(String message, String imageUrl) {
+        emptyListLabel.setText(message);
+        emptyListImage.setImage(new Image(imageUrl));
     }
 
     /* Override Methods */
