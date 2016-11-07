@@ -84,9 +84,7 @@ Let's say you have to attend a friend's birthday party on the weekend. You know 
 
 Example: add [Sam's birthday party; 20/12/16 ; 9pm] #birthday #rememberToBuyPresent
 
->Note: The start time and end time is optional when adding an event.
->Note: Time format accepted: 9pm, 9.45pm, 13:59
->Note: Date format accepted: 20/12/2016, 20/12/16, 201216
+>Note: The start time and end time is optional when adding an event. If neither is specified, the default date will be the current date, the default start time will be the current time and the default end time will be 2359.
 
 >Important: The square brackets are compulsory when adding an event.
 
@@ -192,7 +190,7 @@ Example: edit E1 #rememberToBuyPresent`>`#AbsolutelyRememberToBuyPresent
  
 ###3 Find Task by Keyword
 
-The find by keyword command enables you to search for any events, deadlines and to-dos that have been added to Simply by partial keyword. If the searched task is not found, an error message will be shown.
+Should you need to find any task based on details which you only partially remember, the find by keyword command can help you in finding them. Partial keywords are allowed and you can search for tasks by date, time or description. 
 
 > Format: **Find** &lt;keyword&gt;
 
@@ -210,7 +208,7 @@ Remember the report that we added at the start? Once you have done it, simply ty
 
 Example: Done D1
 
-This will hide that report that you have completed from the main screen.
+This will hide the report that you have completed from the main screen.
 
 <br>
 You can also complete multiple tasks at once by following the formats below.
