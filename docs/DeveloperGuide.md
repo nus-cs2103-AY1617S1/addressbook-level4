@@ -303,15 +303,8 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-    1. _Unit tests_ targeting the lowest level methods/classes.
-       e.g. `seedu.address.commons.UrlUtilTest`
-    2. _Integration tests_ that are checking the integration of multiple code units 
-        (those code units are assumed to be working).
-        e.g. `seedu.address.storage.StorageManagerTest`
-    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-        how the are connected together.
-        e.g. `seedu.address.logic.LogicManagerTest`
+2. **Non-GUI Tests** - These are tests not involving the GUI. They are _unit tests_ targeting the lowest level methods/classes.
+   * e.g. `seedu.todo.commons.DateUtilTest` and `seedu.todo.models.CalendarItemTests`
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -430,39 +423,22 @@ Use case ends.
 > 1b1. User specifies an invalid date deadline format.  
 Application shows an error message.
 Use case ends.
+<!-- @author -->
 
-#### Use case : UC04 - Find with specific keyword
+<!-- @author A0093907W -->
+#### Use case : UC04 - Find by keyword
 
 **MSS**
 
-1. User requests to find tasks with specific keyword/specific keywords.
-2. Application shows the list of tasks contains the specific keyword in its name or tag.  
-Use case ends.  
+1. User requests to find records with specified keyword(s)
+2. Application shows the list of records with the specified keyword(s)
+Use case ends.
 
 **Extensions**  
 
 2a. The list is empty.
 > 2a1. Application shows an error message.  
 Use case ends.
-
-2b. User did not provide any keyword
-> 2b1. Application shows an error message.  
-Use case ends.
-
-2c. User specifies a start date and end date
-> 2c1. User specifies an invalid date format for either start or end date.  
-Application shows an error message.  
-Use case ends.
-
-2d. User specifies a single date
-> 2d1. User specifies invalid date format.  
-Application shows an error message.  
-Use case ends.
-
-2e. User did not follow command syntax
-> 2e1. Application shows an error message.  
-Use case ends.
-
 <!-- @@author -->
 
 #### Use case : UC05 - List all tasks and events
@@ -602,33 +578,37 @@ Use case ends.
 
 <!--@@author-->
 
+<!-- @@author A0093907W -->
+
 #### Use case : UC12 - Undo command
 
 **MSS**  
 
-1. User requests to undo command by a specific number.
-2. Application undo the command repeatedly based on the given number.  
+1. User requests to undo a specified number of commands which defaults to 1.
+2. Application undoes this number of commands.
 Use case ends.
 
 **Extensions**  
 
-1a. The given number exceed the total number of tasks.
-> Application will show an error message.  
+1a. The given number exceeds the total number of possible undo states.
+> Application shows an error message.  
 Use case ends.
 
 #### Use case : UC13 - Redo command
 
 **MSS**  
 
-1. User requests to redo command by a specific number.
-2. Application redo the command repeatedly based on the given number.  
+1. User requests to redo a specified number of commands which defaults to 1.
+2. Application redoes this number of commands.  
 Use case ends.
 
 **Extensions**  
 
-1a. The given number exceed the total number of undo commands.
-> Application will show an error message.  
+1a. The given number exceeds the total number of possible redo states.
+> Application shows an error message.
 Use case ends.
+
+<!-- @@author -->
 
 <!-- @@author A0139922Y -->
 
@@ -765,8 +745,25 @@ Use case ends.
 
 <!--@@author -->
 
+<!-- @@author A0093907W -->
 #### Use case : UC18 - Config
-*To be filled*
+
+**MSS**
+
+1. User requests to set a config variable.
+2. Application sets the config variable.
+Use case ends.
+
+**Extensions**
+
+1a. The config variable key does not exist.
+> 1a1. Application shows an error message.
+Use case ends.
+
+1b. The config variable value is invalid.
+> 1b1. Application shows an error message.
+Use case ends.
+<!-- @@author -->
 
 #### Use case : UC19 - Alias
 
@@ -837,5 +834,3 @@ Use case ends.
 
 > However, one flaw with Todoist is that it does not possess any capabilities of having subproject hierarchy. Hence, it would make complex projects' task to be split among the team in an orderly fashion.
 <!-- @@author -->
-
-**{TODO: Add a summary of competing products}**

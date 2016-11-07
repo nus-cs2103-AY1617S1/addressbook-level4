@@ -14,6 +14,7 @@ import seedu.todo.models.TodoListDB;
  */
 public class DestroyController extends Controller {
     
+    private static final String DESTROY_TEMPLATE = "destroy %d";
     private static final String NAME = "Destroy";
     private static final String DESCRIPTION = "Destroys a task/event by listed index";
     private static final String COMMAND_SYNTAX = "destroy <index>";
@@ -34,8 +35,6 @@ public class DestroyController extends Controller {
 
     @Override
     public void process(String args) {
-        // TODO: Example of last minute work
-        
         // Extract param
         String param = args.replaceFirst("destroy", "").trim();
         
@@ -61,7 +60,7 @@ public class DestroyController extends Controller {
         TodoListDB db = TodoListDB.getInstance();
         
         if (calendarItem == null) {
-            Renderer.renderDisambiguation(String.format("destroy %d", index), MESSAGE_INDEX_OUT_OF_RANGE);
+            Renderer.renderDisambiguation(String.format(DESTROY_TEMPLATE, index), MESSAGE_INDEX_OUT_OF_RANGE);
             return;
         }
         
