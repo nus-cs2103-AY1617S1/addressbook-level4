@@ -1,8 +1,6 @@
 ------
 # Testscript
 ------
-
-------
 ## Load SampleData.xml
 ------
 > **Instructions:**
