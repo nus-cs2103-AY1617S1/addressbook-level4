@@ -261,13 +261,18 @@ public class TimeUtil {
         return now.isAfter(startTime) && now.isBefore(endTime);
     }
     
-    public boolean isToday(ImmutableTask task){
-        if (!task.getStartTime().isPresent() && !task.getEndTime().isPresent()){
+    public boolean isToday(ImmutableTask task) {
+        LocalDateTime timeToCompareTo;
+        if (task.getStartTime().isPresent()) {
+            timeToCompareTo = task.getStartTime().get();
+        }
+        
+        else if (task.getEndTime().isPresent()) {
+            timeToCompareTo = task.getEndTime().get();
+        }
+        else{
             return false;
         }
-        LocalDateTime timeToCompareTo = task.getStartTime().isPresent() ?
-                                        task.getStartTime().get() : 
-                                        task.getEndTime().get();
         return isToday(now, timeToCompareTo);
     }
 

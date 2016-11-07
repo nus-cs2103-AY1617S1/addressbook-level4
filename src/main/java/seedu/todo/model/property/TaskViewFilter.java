@@ -14,12 +14,15 @@ import java.util.function.Predicate;
 public class TaskViewFilter {
     private static TimeUtil timeUtil = new TimeUtil();
     private static final Comparator<ImmutableTask> CHRONOLOGICAL = (a, b) -> ComparisonChain.start()
-        .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
-        .result();
+            .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
+            .result();
     private static final Comparator<ImmutableTask> CHRONOLOGICAL_EVENT = (a, b) -> ComparisonChain.start()
+            //completed events are below
             .compareFalseFirst(a.isCompleted(), b.isCompleted())
+            //then followed by events which have passed/ tasks which are overdue 
             .compareFalseFirst(timeUtil.isOverdue(a.getEndTime().orElse(LocalDateTime.now())), 
                                timeUtil.isOverdue(b.getEndTime().orElse(LocalDateTime.now())))
+            //Then by chronological order
             .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
             .result();
     
