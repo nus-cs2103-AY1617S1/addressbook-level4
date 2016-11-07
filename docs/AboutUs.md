@@ -39,12 +39,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/logic) and [Common] (https://github.com/CS2103AUG2016-F10-C4/main/tree/master/src/main/java/seedu/address/commons)
 * Aspects/tools in charge of: Testing
 * Features implemented:
-  * [Flexi  addCommand for adding a task/event]
-  * [Delete Command]
-  * [Refresh Command to update all outdated recurring tasks or events]
-  * [Implement recurring tasks]
-  * [ListCommand]
-  * [Mark a task or event as done]
+  * [Flexi  addCommand for adding a task/event](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#adding-an-item-add)
+  * [Delete Command](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#deleting-items-delete)
+  * [Refresh Command to update all outdated recurring tasks or events](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#refresh-todolist-refresh)
+  * Implement recurring tasks[[#32](https://github.com/CS2103AUG2016-F10-C4/main/pull/32)]
+  * [ListCommand](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#listing-items-list)
+  * [Mark a task or event as done](https://github.com/CS2103AUG2016-F10-C4/main/blob/master/docs/UserGuide.md#mark-an-item-as-done-done)
 * Code written: [<a href="../collated/main/A0142325R.md">functional code</a>][<a href="../collated/test/A0142325R.md">test code</a>][<a href="../collated/docs/A0142325R.md">docs</a>]
 * Other major contributions:
   * Import natty to support natural language for date and time [[#36](https://github.com/CS2103AUG2016-F10-C4/main/pull/36)]
