@@ -48,7 +48,7 @@ public class RedoCommand extends Command {
            return new CommandResult(MESSAGE_FAILURE);
         undoInfo = model.getRedoStack().pop();
         int undoID = undoInfo.getUndoID();
-        switch(undoID){
+        switch(undoID) {
             case ADD_CMD_ID:
                 redoAdd(undoInfo.getTasks().get(CURRENT_TASK));
                 return new CommandResult(MESSAGE_SUCCESS);
@@ -74,10 +74,9 @@ public class RedoCommand extends Command {
 
     private void redoSetStorage() {
     	assert model != null;
-    	try{
+    	try {
     	   model.changeFileStorageRedo(undoInfo.getFilePath());
-    	}
-    	catch (IOException | ParseException | JSONException e) {
+    	} catch (IOException | ParseException | JSONException e) {
     		e.printStackTrace();
     	}
     }
@@ -85,17 +84,15 @@ public class RedoCommand extends Command {
     private void redoAdd(Task task) {
         try {
             model.addTaskRedo(task);
-        } 
-        catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             e.printStackTrace();
         }
     }
 
     private void redoDelete(Task task) {
-        try{
+        try {
             model.deleteTaskRedo(task);
-        }
-        catch (TaskNotFoundException e){
+        } catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
     }
@@ -114,8 +111,7 @@ public class RedoCommand extends Command {
     private void redoDone(Task task) {
         try {
             model.markTaskAsCompleteRedo(task);
-        }
-        catch (TaskNotFoundException e) {
+        } catch (TaskNotFoundException e) {
             assert false: "The target task cannot be missing";
         }
     }

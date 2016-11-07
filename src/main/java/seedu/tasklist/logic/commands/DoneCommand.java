@@ -44,10 +44,10 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if(doneByIndex){
+        if(doneByIndex) {
             return doneUsingIndex();
         }
-        else{
+        else {
             return doneUsingString();
         }   
     }
@@ -74,7 +74,7 @@ public class DoneCommand extends Command {
     	UnmodifiableObservableList<ReadOnlyTask> matchingTasks = model.getFilteredTaskList();
     	
     	// No tasks match string
-    	if (matchingTasks.isEmpty()){
+    	if (matchingTasks.isEmpty()) {
             return displayDoneFailure();
     	}
     	
