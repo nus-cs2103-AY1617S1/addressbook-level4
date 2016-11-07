@@ -1,12 +1,12 @@
-Manual Testing Steps:
-
-1. How to load sample data 
-	a. Make a copy of SampleData.xml from main\src\test\data\ManualTesting
-	b. Rename it to taskbook.xml
-	c. Navigate to main\data
-	d. Overwrite and replace the taskbook.xml file with the renamed taskbook.xml
-	
-2. Startup the application and presaved data will automatically be loaded
+# Manual Testing Steps:
+--------------
+<b> How to load sample data </b> <br> 
+<ol><li>Make a copy of SampleData.xml from main\src\test\data\ManualTesting</li>
+	 <li>Rename it to taskbook.xml</li>
+	 <li>Navigate to main\data</li>
+	 <li>Overwrite and replace the taskbook.xml file with the renamed taskbook.xml</li></ol>	
+ 
+ Double-click the .jar file and the pre-saved data will automatically be loaded.
 	
 3. Commands to enter in command box:
 
