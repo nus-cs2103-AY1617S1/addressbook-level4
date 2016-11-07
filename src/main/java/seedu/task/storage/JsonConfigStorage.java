@@ -10,9 +10,10 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.FileUtil;
 
+//@@author A0125534L
 /**
  * A class to access Config stored in the hard disk as a json file
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
 

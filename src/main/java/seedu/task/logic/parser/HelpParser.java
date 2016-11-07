@@ -21,11 +21,12 @@ import seedu.task.logic.commands.SaveCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
+//@@author A0125534L
 /**
  * Responsible for validating and preparing the arguments for HelpCommand
  * execution
  * 
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
 public class HelpParser implements Parser {

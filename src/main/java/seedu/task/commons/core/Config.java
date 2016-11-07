@@ -11,10 +11,10 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "dowat";
+    private String appTitle = "Dowat";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskBookFilePath = "dowat.xml";
+    private String taskBookFilePath = "Dowat.xml";
     private String taskBookName = "TypicalTaskBookName";
 
 

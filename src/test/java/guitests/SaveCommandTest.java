@@ -11,10 +11,11 @@ import seedu.task.logic.commands.SaveCommand;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.task.storage.JsonConfigStorage;
 
+//@@author A0125534L
 /**
  * Responsible for testing the GUI execution of SaveCommand
  * 
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
 //------------------------Tests for Valid arguments----------------
@@ -53,10 +54,10 @@ public class SaveCommandTest extends TaskBookGuiTest {
     @Test
     public void reset_ConfigFile() throws IOException {
         Config config = new Config();
-        config.setAppTitle("dowat");
+        config.setAppTitle("Dowat");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("preferences.json");
-        config.setTaskBookFilePath("data/taskmanager.xml");
+        config.setTaskBookFilePath("data/Dowat.xml");
         config.setTaskBookName("MyTaskManager");
         SaveCommand.setConfig(config);
         

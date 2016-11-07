@@ -1,12 +1,13 @@
 package seedu.task.logic.commands;
 
+//@@author A0125534L
 
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.ui.ShowHelpEvent;
 
 /**
  * Format full help instructions for every command for display.
- * @@author A0125534L
+ * @@author Yee Heng
  */
 public class HelpCommand extends Command {
 

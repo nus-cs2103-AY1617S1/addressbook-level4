@@ -16,13 +16,14 @@ import seedu.task.logic.commands.MarkCommand;
 import seedu.task.logic.commands.SelectCommand;
 import seedu.task.logic.commands.UndoCommand;
 
+//@@author A0125534L
 /**
  * Responsible for testing the execution of HelpCommand
  * 
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
-//@@author A0125534L
+
 public class HelpCommandTest extends CommandTest {
 	/******************************
 	 * Pre and Post set up

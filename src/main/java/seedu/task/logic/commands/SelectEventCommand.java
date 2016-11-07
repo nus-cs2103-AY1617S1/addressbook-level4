@@ -6,10 +6,11 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
 import seedu.task.model.item.ReadOnlyEvent;
 
+//@@author A0125534L
 /**
  * Selects an Event identified using it's last displayed index from the task
  * book.
- * @@author A0125534L
+ * @@author Yee Heng
  */
 
 public class SelectEventCommand extends SelectCommand {

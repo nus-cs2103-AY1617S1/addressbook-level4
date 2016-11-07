@@ -11,10 +11,10 @@ public class ConfigTest {
     @Test
     public void configTest() {
         Config config = new Config();
-        String expected = "App title : dowat\n"
+        String expected = "App title : Dowat\n"
                             + "Current log level : INFO\n"
                             + "Preference file Location : preferences.json\n"
-                            + "Local data file location : dowat.xml\n"
+                            + "Local data file location : Dowat.xml\n"
                             + "TaskBook name : TypicalTaskBookName";
         assertEquals(config.toString(),expected);
     }

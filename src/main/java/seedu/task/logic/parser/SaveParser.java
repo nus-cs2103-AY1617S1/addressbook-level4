@@ -9,6 +9,7 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.commands.SaveCommand;
 
+//@@author A0125534L
 /**
  * Parses arguments in the context of the save command.
  *
@@ -16,7 +17,7 @@ import seedu.task.logic.commands.SaveCommand;
  * full command args string
  * @return the prepared command
  * 
- * @@author A0125534L
+ * @@author Yee Heng
  */
 public class SaveParser implements Parser {
 

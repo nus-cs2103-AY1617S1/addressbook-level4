@@ -1,6 +1,11 @@
 
 package seedu.task.commons.events.storage;
 
+//@@author A0125534L
+/** Handles event changes in storage location
+ * @@author Yee Heng
+ * */
+
 import seedu.task.commons.core.Config;
 import seedu.task.commons.events.BaseEvent;
 

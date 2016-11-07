@@ -61,7 +61,7 @@ public class XmlTaskBookStorageTest {
 
     @Test
     public void readAndSaveTaskBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempTaskBook.xml";
+        String filePath = testFolder.getRoot().getPath() + "TempDowat.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskBook original = td.getTypicalTaskBook();
         XmlTaskBookStorage xmlTaskBookStorage = new XmlTaskBookStorage(filePath);
