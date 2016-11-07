@@ -73,6 +73,8 @@ Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
+> Use ISO date-time format for typing exact date. e.g. 2016/9/1 represents 1st September 2016
+
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
@@ -84,7 +86,7 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
-* `add test starts today` <br> Adds a task start today.
+* `add test starts 9/1 2pm ends 9/1 3pm ` <br> Adds a task starts on 1 September 2pm and ends on 1 September 3pm
 
 
 #### Aliasing a command: `alias`
@@ -264,7 +266,6 @@ In this example, you can see shopping is a floating task without a start time an
 **Q**: What can I do if I forget those commands?<br>
 
 **A**: You can use the help command or click help tab on the top which will give you a list of command summary. Even if you type the wrong command format, MESS will show you the correct command hints.
-
 <!-- @@author -->  	
 
 ## Command Summary
