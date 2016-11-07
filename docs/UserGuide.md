@@ -78,6 +78,7 @@ Format: `show [CATEGORY]`
 > * `p/high`, `p/med` and `p/low` stand for tasks with high, medium and low priority respectively.
 > * Other than `show complete`, all other inputs for `CATEGORY` will only display incomplete tasks, i.e., the tasks which have not been marked as done.
 > * The user can also enter the keywords `today`, `tomorrow`, `floating` and `overdue` without specifying the `show` keyword in front to quickly retrieve the corresponding tasks.
+> * If date is specified, it should be entered in the format mm/dd/yyyy.
 
 Examples:
 * `show incomplete`<br>
@@ -92,7 +93,7 @@ Examples:
 
 > * Lists all tasks for tomorrow
 
-* `show 30/10/2016`<br>
+* `show 10/30/2016`<br>
 
 > * Lists all the tasks scheduled on 30th October, 2016
 
