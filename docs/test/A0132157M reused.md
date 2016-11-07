@@ -1046,30 +1046,18 @@ public abstract class ListGuiTest {
 ```
 ###### /java/seedu/Tdoo/commons/util/XmlUtilTest.java
 ``` java
-	// public void saveDataToFile_validFile_dataSaved() throws Exception {
-	// TEMP_FILE.createNewFile();
-	//
-	// XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new
-	// TaskList());
-	// XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-	// XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
-	// XmlSerializableTodoList.class);
-	// assertEquals((new TaskList(dataToWrite)).toString(),(new
-	// TaskList(dataFromFile)).toString());
-	// //TODO: use equality instead of string comparisons
-	//
-	//
-	// TodoListBuilder builder = new TodoListBuilder(new TaskList());
-	// dataToWrite = new
-	// XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).build());
-	//
-	// XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-	// dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
-	// XmlSerializableTodoList.class);
-	//
-	// assertEquals((new TaskList(dataToWrite)).toString(),(new
-	// TaskList(dataFromFile)).toString());
-	// }
+	 public void saveDataToFile_validFile_dataSaved() throws Exception {
+	 TEMP_FILE.createNewFile();
+	
+	 XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new
+	 TaskList());
+	 XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+	 XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE,
+	 XmlSerializableTodoList.class);
+	 assertEquals((new TaskList(dataToWrite)).toString(),(new
+	 TaskList(dataFromFile)).toString());
+
+	 }
 }
 ```
 ###### /java/seedu/Tdoo/logic/LogicManagerTest.java

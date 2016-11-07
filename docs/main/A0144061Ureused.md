@@ -658,20 +658,20 @@ public class DeadlineCard extends UiPart {
 	@FXML
 	private Label id;
 	@FXML
-	private Label date;
-	@FXML
 	private Label endTime;
 	@FXML
 	private Label done;
+	@FXML
+    private Label countdown;
 
 	private Deadline task;
 	private int displayedIndex;
+    private Countdown count = Countdown.getInstance();
 
 	public DeadlineCard() {
 
 	}
 	
-	PrettyTime p = new PrettyTime();
     public static DeadlineCard load(ReadOnlyTask task, int displayedIndex){
         DeadlineCard card = new DeadlineCard();
         card.task = (Deadline) task;
@@ -683,27 +683,37 @@ public class DeadlineCard extends UiPart {
 ###### /java/seedu/Tdoo/ui/DeadlineCard.java
 ``` java
 	@FXML
-	public void initialize() {
+	public void initialize() throws ParseException {
 		name.setText(task.getName().name);
 		id.setText(displayedIndex + ". ");
+		endTime.setText("End Time: " + task.getStartDate().date + " " + task.getEndTime().endTime);
+        countdown.setText(task.getCountdown());
 		if (task.checkEndDateTime() && this.task.getDone().equals("true")) {
-			date.setText("Date: " + task.getStartDate().date);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Completed");
 			cardPane.setStyle("-fx-background-color: #01DF01");
 		} else if (!task.checkEndDateTime() && this.task.getDone().equals("false")) {
-			date.setText("Date: " + task.getStartDate().date);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Overdue");
 			cardPane.setStyle("-fx-background-color: #ff2002");
 		} else {
-			date.setText("Date: " + task.getStartDate().date);
-			endTime.setText("End Time: " + task.getEndTime().endTime);
 			done.setText("Not Completed");
 			cardPane.setStyle("-fx-background-color: #FFFFFF");
 		}
 	}
 
+	public HBox getLayout() {
+		return cardPane;
+	}
+
+	@Override
+	public void setNode(Node node) {
+		cardPane = (HBox) node;
+	}
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
+}
 ```
 ###### /java/seedu/Tdoo/ui/DeadlineListPanel.java
 ``` java
@@ -777,6 +787,12 @@ public class DeadlineListPanel extends UiPart {
 			deadlineListView.getSelectionModel().clearAndSelect(index);
 		});
 	}
+	
+	public void scrollTo(Deadline target) {
+		Platform.runLater(() -> {
+			deadlineListView.scrollTo(target);
+		});
+	}
 
 	class DeadlineListViewCell extends ListCell<ReadOnlyTask> {
 
@@ -811,15 +827,13 @@ public class EventCard extends UiPart {
 	@FXML
 	private Label id;
 	@FXML
-	private Label date;
-	@FXML
-	private Label endDate;
-	@FXML
 	private Label startTime;
 	@FXML
 	private Label endTime;
 	@FXML
 	private Label done;
+	@FXML
+    private Label countdown;
 
 	private Event task;
 	private int displayedIndex;
@@ -828,7 +842,6 @@ public class EventCard extends UiPart {
 
 	}
 	
-	PrettyTime p = new PrettyTime();
     public static EventCard load(ReadOnlyTask task, int displayedIndex){
         EventCard card = new EventCard();
         card.task = (Event) task;
@@ -908,6 +921,12 @@ public class EventListPanel extends UiPart {
 		Platform.runLater(() -> {
 			eventListView.scrollTo(index);
 			eventListView.getSelectionModel().clearAndSelect(index);
+		});
+	}
+	
+	public void scrollTo(Event target) {
+		Platform.runLater(() -> {
+			eventListView.scrollTo(target);
 		});
 	}
 
@@ -1068,6 +1087,12 @@ public class TodoListPanel extends UiPart {
 			todoListView.getSelectionModel().clearAndSelect(index);
 		});
 	}
+	
+	public void scrollTo(Todo target) {
+		Platform.runLater(() -> {
+			todoListView.scrollTo(target);
+		});
+	}
 
 	class TodoListViewCell extends ListCell<ReadOnlyTask> {
 
@@ -1088,4 +1113,255 @@ public class TodoListPanel extends UiPart {
 	}
 
 }
+```
+###### /resources/view/DeadlineCard.fxml
+``` fxml
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane HBox.hgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
+               <padding>
+                  <Insets bottom="5" left="15" right="5" top="5" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label fx:id="id" styleClass="cell_big_label" />
+                              <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
+                  <Label fx:id="done" styleClass="cell_small_label" text="\$done" />
+                  <Label fx:id="countdown" styleClass="cell_small_label" text="\$countdown" />
+               </children>
+            </VBox>
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</HBox>
+```
+###### /resources/view/DeadlineListPanel.fxml
+``` fxml
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.Tdoo.ui.DeadlineListPanel">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <children>
+      <ListView fx:id="deadlineListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="400.0" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
+```
+###### /resources/view/EventCard.fxml
+``` fxml
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <GridPane HBox.hgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+               <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+               </stylesheets>
+               <padding>
+                  <Insets bottom="5" left="15" right="5" top="5" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="5">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label fx:id="id" styleClass="cell_big_label" />
+                              <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+                  <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
+                  <Label fx:id="done" styleClass="cell_small_label" text="\$done" />
+                  <Label fx:id="countdown" styleClass="cell_small_label" text="\$countdown" />
+               </children>
+            </VBox>
+         </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</HBox>
+```
+###### /resources/view/EventListPanel.fxml
+``` fxml
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.Tdoo.ui.EventListPanel">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <children>
+      <ListView fx:id="eventListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="400.0" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
+```
+###### /resources/view/MainWindow.fxml
+``` fxml
+<VBox maxHeight="840.0" maxWidth="1246.0" minHeight="840.0" minWidth="1246.0" prefHeight="840.0" prefWidth="1246.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.Tdoo.ui.MainWindow">
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
+   <children>
+      <MenuBar VBox.vgrow="NEVER">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+         </padding>
+      </AnchorPane>
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+           <padding>
+               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+           </padding>
+       </AnchorPane>
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5, 0.5" VBox.vgrow="ALWAYS">
+         <items>
+            <VBox fx:id="todoList">
+               <children>
+                  <AnchorPane prefHeight="30.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="262.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" textAlignment="CENTER" AnchorPane.bottomAnchor="10.8984375" AnchorPane.leftAnchor="170.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="todoListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+            <VBox fx:id="eventList">
+               <children>
+                  <AnchorPane prefHeight="30.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="262.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EVENT" textAlignment="CENTER" AnchorPane.bottomAnchor="10.8984375" AnchorPane.leftAnchor="165.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="eventListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <VBox fx:id="deadlineList">
+               <children>
+                  <AnchorPane prefHeight="30.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="262.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DEADLINE" textAlignment="CENTER" AnchorPane.bottomAnchor="10.8984375" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="5.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="deadlineListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+         </items>
+      </SplitPane>
+      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+   </children>
+</VBox>
+```
+###### /resources/view/TodoCard.fxml
+``` fxml
+<HBox id="cardPane" fx:id="cardPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <children>
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                    <stylesheets>
+                        <URL value="@DarkTheme.css" />
+                        <URL value="@Extensions.css" />
+                    </stylesheets>
+                    <padding>
+                        <Insets bottom="5" left="15" right="5" top="5" />
+                    </padding>
+
+                    <children>
+                        <HBox alignment="CENTER_LEFT" spacing="5">
+                            <children>
+                                <HBox>
+                                    <Label fx:id="id" styleClass="cell_big_label" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                </HBox>
+                            </children>
+                        </HBox>
+                  		<Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
+                  		<Label fx:id="done" styleClass="cell_small_label" text="\$done" />
+                    </children>
+                </VBox>
+            </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </children>
+</HBox>
+```
+###### /resources/view/TodoListPanel.fxml
+``` fxml
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.Tdoo.ui.TodoListPanel">
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+    <children>
+        <ListView fx:id="todoListView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="400.0" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>
 ```
