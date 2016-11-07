@@ -110,8 +110,13 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
         	
+
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
+
+        case SetFilePathCommand.COMMAND_WORD:
+        	return prepareSetFilePath(arguments);
+
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -136,7 +141,7 @@ public class Parser {
         final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
-        
+ 
         String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "nil");
         String startDateToAdd = checkEmptyAndAddDefault(startDateMatcher, "startDate", "nil");
         String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "nil");
@@ -171,6 +176,7 @@ public class Parser {
         if (tagsMatcher.matches()) {
         	tagsProcessed = getTagsFromArgs(tagsMatcher.group("tagArguments"));
         }
+        
         
         // Validate arg string format
         if (!nameMatcher.matches()) {
@@ -233,6 +239,7 @@ public class Parser {
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
         }
+        
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);
@@ -535,4 +542,24 @@ private Command prepareList(String args) {
         final String commandWord = matcher.group("commandWord");
         return new HelpCommand(commandWord);
     }
+    
+    //@@author A0139072H
+    /**
+     * Parses arguments in the context of the setFilePath command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+	private Command prepareSetFilePath(String args) {
+		if(args.equals("")){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFilePathCommand.MESSAGE_USAGE));
+		}
+		final String filePath = args;
+		try {
+			return new SetFilePathCommand(filePath);
+		} catch (IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetFilePathCommand.MESSAGE_USAGE));
+		}
+	}
+
 }

@@ -4,43 +4,90 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS" >
+	        <stylesheets>
+		       <URL value="@DarkTheme.css" />
+		       <URL value="@Extensions.css" />
+		    </stylesheets>
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="50.0" prefWidth="50.0" />
             </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
 
-                    <children>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                                    <Label fx:id="isDone" text="\$isDone" styleClass="cell_big_label"/>
-                                </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                            </children>
-                        </HBox>
-                        <HBox spacing="7" alignment="CENTER_LEFT">
-                        	<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-                        	<Label fx:id="dueDate" styleClass="cell_small_label" text="\$dueDate" />
-                        </HBox>
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-                    </children>
-                </VBox>
+			<!-- @@author A0139072H -->
+            <!--MYSTUFF-->
+            <children>
+	            <HBox>
+	                <VBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="40.0" prefHeight="50.0" GridPane.columnIndex="0">
+	                    <padding>
+	                        <Insets bottom="2" left="5" right="5" top="2" />
+	                    </padding>
+						<children>
+	                        <HBox spacing="5" alignment="CENTER_LEFT">							
+	                        	<children>
+	                                <HBox alignment="CENTER_RIGHT">
+		                                <padding>
+		                                	<Insets right="10"/>
+		                                </padding>
+	                                    <Label fx:id="isDone" text="\$isDone" styleClass="cell_check_label"/>
+	                                </HBox>
+	                                <HBox spacing="3">
+	                                    <Label fx:id="id" styleClass="cell_big_label"/>
+	                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+	                        			<Label fx:id="startDate" styleClass="cell_date_label" text="\$startDate" />
+	                        			<Label fx:id="dueDate" styleClass="cell_date_label" text="\$dueDate" />
+				                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+	                                </HBox>
+
+	                            </children>
+	                        </HBox>
+                            <HBox>
+	                        	<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+	                        </HBox>
+						</children>
+	                </VBox>
+	           </HBox>
+	           <HBox spacing="1" alignment="CENTER_RIGHT">
+		       		<Label fx:id="priority" styleClass="cell_priority_label" text="\$priority" />
+		       </HBox>
             </children>
+            
+            <!-- @@author addressbook-level4 -->
+	        <!--RESTORE FROM HERE IF PROBLEMS	
+            <children>
+	            <HBox>
+	                <VBox alignment="CENTER_LEFT" maxHeight="60.0" minHeight="40.0" prefHeight="50.0" GridPane.columnIndex="0">
+	                    <padding>
+	                        <Insets bottom="2" left="5" right="5" top="2" />
+	                    </padding>
+	                    <children>
+	                        <HBox spacing="5" alignment="CENTER_LEFT">
+	                            <children>
+	                                <HBox>
+	                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
+	                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+	                                    <Label fx:id="isDone" text="\$isDone" styleClass="cell_check_label"/>
+	                                </HBox>
+	                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
+	                                <HBox spacing="7" alignment="CENTER_LEFT">
+	                        			<Label fx:id="startDate" styleClass="cell_date_label" text="\$startDate" />
+	                        			<Label fx:id="dueDate" styleClass="cell_date_label" text="\$dueDate" />
+	                        		</HBox>
+	                            </children>
+	                        </HBox>
+	                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+	                    </children>
+	                </VBox>
+	           </HBox>
+	           <HBox spacing="1" alignment="CENTER_RIGHT">
+		       		<Label fx:id="priority" styleClass="cell_priority_label" text="\$priority" />
+		       </HBox>
+            </children>
+	        -->
+	                    
         </GridPane>
     </children>
 </HBox>
