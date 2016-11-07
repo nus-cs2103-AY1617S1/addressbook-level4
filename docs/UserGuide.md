@@ -14,7 +14,7 @@
 1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your task manager.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="sask-manager-gui.png" width="300">
+   > <img src="images/task-manager-gui.png" width="300">
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
@@ -42,7 +42,7 @@ Format: `help`
 
 ### Adding a task: `add`
 Adds a task to the task management<br>
-Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [ts/TAG 1, TAG 2...] ...` 
+Format: `add TITLE d/DESCRIPTION [sd/START_DATE] [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [ts/TAG1 ts/TAG2...] ...` 
 
 > Tasks can have any number of tags (including 0)
 
@@ -130,7 +130,7 @@ Examples: <br>
 Deletes the specified task from the task management tool. Irreversible.<br>
 Format: `delete TASKID`<br>
 
-> Deletes the task at the specified `KEYWORD`. 
+> Deletes the task at the specified `TASKID`. 
  
 Examples: 
 * `delete 1`<br>
