@@ -14,7 +14,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateItemException extends DuplicateDataException {
-        protected DuplicateItemException() {
+        public DuplicateItemException() {
             super("Operation would result in duplicate items");
         }
     }
@@ -77,6 +77,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      */
     public void add(T toAdd) throws DuplicateItemException {
         assert toAdd != null;
+        
         if (contains(toAdd)) {
             throw new DuplicateItemException();
         }

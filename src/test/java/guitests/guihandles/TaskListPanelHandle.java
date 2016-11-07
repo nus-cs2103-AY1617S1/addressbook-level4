@@ -112,8 +112,7 @@ public class TaskListPanelHandle extends GuiHandle {
         guiRobot.sleep(100);
         return getTaskCardHandle(task);
     }
-
-
+    
     /**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
      */
@@ -127,15 +126,7 @@ public class TaskListPanelHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
-    /**
-     * Gets a person from the list by index
-     */
-    public Task getPerson(int index) {
-        return getListView().getItems().get(index);
-    }
-
     public TaskCardHandle getTaskCardHandle(int index) {
-        // TODO: check if having this to not be a new Task(..) etc is dangerous
         return getTaskCardHandle(getListView().getItems().get(index));
     }
 

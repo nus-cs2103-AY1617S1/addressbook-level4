@@ -242,6 +242,10 @@ public class MainWindow extends UiPart {
         AliasWindow aliasWindow = AliasWindow.load(primaryStage, logic);
         aliasWindow.show();
     }
+    
+    public void TaskListPanelScroll(int targetIndex) {
+        taskListPanel.scrollTo(targetIndex);
+    }
 
     public void show() {
         primaryStage.show();
@@ -254,10 +258,5 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
-    }
-
 
 }

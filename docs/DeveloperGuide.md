@@ -56,8 +56,8 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/w15c2/tusk/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+* At app launch: Initializing the components in the correct sequence, and connecting them up with each other.
+* At shut down: Shutting down the components and invoking cleanup methods where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Three of those classes play important roles at the architecture level.
@@ -65,14 +65,14 @@ Three of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 * `UniqueItemCollection<T>` : Used to store unique lists of Tasks and Aliases.
 
-The rest of the App consists four components, where each components defines its API in an interface and implements its functionality in one main class.
+The rest of the App consists of four components, where each components defines its API in an interface and implements its functionality in one main class.
 
 Component Name | Purpose | Interface | Implementation |
 -------- | :----------- | :----------- |:-----------
-[**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | `UIManager.java`
-[**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | `LogicManager.java`
-[**`Model`**](#model-component) | Holds all required data in-memory | [`InMemoryTaskList.java`](../src/main/java/w15c2/tusk/model/task/InMemoryTaskList.java) | `TaskManager.java`
-[**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | `TaskStorageManager.java`
+[**`UI`**](#ui-component) | Handles the <i>Tusk</i> UI | [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java) | [`UIManager.java`](../src/main/java/w15c2/tusk/ui/UiManager.java)
+[**`Logic`**](#logic-component) | Executes commands from the UI | [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java) | [`LogicManager.java`](../src/main/java/w15c2/tusk/logic/LogicManager.java)
+[**`Model`**](#model-component) | Holds all required data in-memory | [`Model.java`](../src/main/java/w15c2/tusk/model/task/Model.java) | [`TaskManager.java`](../src/main/java/w15c2/tusk/model/task/TaskManager.java)
+[**`Storage`**](#storage-component) | Reads data from, and writes data to, the hard disk. | [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) <br> [`AliasStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java) | [`StorageManager.java`](../src/main/java/w15c2/tusk/storage/StorageManager.java)
 
 ### Integrated Behavior
 
@@ -85,7 +85,7 @@ command `delete 3`.
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk. <br>
 <img src="images/SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -102,7 +102,7 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/w15c2/tusk/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+`HelpPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -122,10 +122,12 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/w15c2/tusk/logic/Logic.java)
 
-1. `Logic` uses the `TaskCommandsParser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+The `Logic` component,
+* Uses the `TaskCommandsParser` class to call the `ParserSelector` class to select the appropriate parser.
+* After the appropriate parser is selected, the parser prepares the `Command` object.
+* This results in a `Command` object which is executed by the `LogicManager`.
+* The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -136,7 +138,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`InMemoryTaskList.java`](../src/main/java/w15c2/tusk/model/task/InMemoryTaskList.java)
+**API** : [`Model.java`](../src/main/java/w15c2/tusk/model/Model.java)
 
 The `Model` component,
 * stores a `UserPref` object that represents the user's preferences.
@@ -150,7 +152,7 @@ The `Model` component,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`TaskStorage.java`](../src/main/java/w15c2/tusk/storage/task/TaskStorage.java)
+**API** : [`Storage.java`](../src/main/java/w15c2/tusk/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -167,7 +169,7 @@ Classes used by multiple components are in the `w15c2.tusk.commons` package.
 ### Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+and logging destinations. Take note that:
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
@@ -178,15 +180,37 @@ and logging destinations.
 **Logging Levels**
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
+* `WARNING` : Warnings that indicate events that are somewhat serious but do not represent critical errors
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ### Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `taskconfig.json`):
+
+### Autocomplete
+
+* `AutocompleteEngine` pulls data from `AutocompleteSource` to match the appropriate command words.
+* `AutocompleteResult` creates the iterator to allow for <kbd>TAB</kbd> to cycle through the matched commands.
+
+### Alias
+
+* Aliases are checked when a command is entered against a list of aliases in `Model`
+* If a match is found, the alias is replaced before the command is parsed as per normal.
+
+### Command History
+
+* Every command that is entered is added to a list in the `CommandHistory` class.
+* When <kbd>UP</kbd> is pressed, index pointer is reduced by one and previous command replaces text in the command box.
+* When <kbd>DOWN</kbd> is pressed, index pointer is increased by one and following command replaces text in the command box.
+
+### Undo
+* The `ModelHistory` class handles both the undo and redo commands
+* When an undo-able command is executed, a `UniqueItemCollection` of the previous state is saved.
+* An undo command will revert the state to before the command was executed by replacing the `UniqueItemCollection` in the `Model` class
+* Before the execution of an undo command, the current `UniqueItemCollection` is saved to support redo.
 
 <br>
 ## Testing
@@ -199,7 +223,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
@@ -220,11 +244,11 @@ We have two types of tests:
       how the are connected together.<br>
       e.g. `w15c2.tusk.logic.LogicManagerTest`
 
-**Headless GUI Testing** :
+**Headless GUI Testing**:
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode.
+ our GUI tests can be run in the headless mode.
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means that developers may do other things on their computers while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 <br>
@@ -254,7 +278,7 @@ A project often depends on third-party libraries. For example, Task Manager depe
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
+a. Include those libraries in the repository (this bloats the repository size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 <br>

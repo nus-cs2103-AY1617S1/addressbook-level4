@@ -1,6 +1,6 @@
 package w15c2.tusk.model.task;
 
-/*
+/**
  * Tasks that implement this interface can be completed
  */
 //@@author A0143107U

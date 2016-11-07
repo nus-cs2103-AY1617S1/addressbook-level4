@@ -105,9 +105,7 @@ public class MainApp extends Application {
             initialData = new UniqueItemCollection<Task>();
             initialAliasData = new UniqueItemCollection<Alias>();
         }
-
-        // TODO: Actually pass in data to use
-        return new ModelManager(initialData, initialAliasData, userPrefs);
+        return new ModelManager(initialData, initialAliasData);
     }
 
     private void initLogging(TaskConfig config) {
