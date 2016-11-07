@@ -213,10 +213,10 @@ These classes work together to categorize the different possible inputs from the
 
 The `Logic` component
 
-- `Logic` takes in the user&#39;s input and passes it to the `Parser` class to check for validity
--  Returns an error message for invalid inputs back to the user 
+-  Receives the user&#39;s input and passes it to the `Parser` class to check for validity
+-  Returns an error message to the user when a wrong input is given
 -  Parses the input in `Parser` and decides which Command class is able to handle the input
-- `LogicManager`  takes the command and executes it by calling `Model`
+-  Takes the command and executes it by calling `Model`
 - `TaskResult` is created and returned to the `UI` to be displayed to the user
 
 > <img src="DeveloperGuideImages/LogicDelete.png" width="600">
