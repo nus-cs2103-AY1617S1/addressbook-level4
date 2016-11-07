@@ -53,7 +53,7 @@ Want to use MESS immediately? Let's get started!
    * **`undo`** : undo previous one action
    * **`pin`**`1` : pin the first task in the list
    * **`unpin`**`1` : unpin the pinned first task in the list
-   * **`change-to`**`data/taskmanager.xml`: change the storage location
+   * **`change-to`**`./data/taskmanager.xml`: change the storage location
    * **`exit`** :exit the program
 6. Refer to the [Features](#features) section below for details of each command.<br>
 7. Our UI contains different parts. The following picture introduce the UI:
@@ -260,8 +260,10 @@ Changes to a new storage location and saves task manager data there<br>
 Note: If new file already has data, then the taskmanager will load that data.
 
 Format: `change-to NEWFILEPATH`
+Note: ./ for current folder works on both Windows and Unix machines.
 Example:
 * `change-to data/taskmanager.xml`
+* `change-to ./taskmanager.xml`
 
 <!-- @@author -->
 #### Exiting the program : `exit`
