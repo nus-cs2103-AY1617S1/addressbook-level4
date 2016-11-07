@@ -30,6 +30,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * property of the list.
      */
     public static class DuplicateTaskException extends DuplicateDataException {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
+
         protected DuplicateTaskException() {
             super("Operation would result in duplicate tasks");
         }
@@ -40,6 +45,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * fail because there is no such matching task in the list.
      */
     public static class TaskNotFoundException extends Exception {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 1L;
     }
 
     /**

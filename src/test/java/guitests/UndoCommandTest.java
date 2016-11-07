@@ -7,6 +7,7 @@ import org.junit.Test;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
     @Test
@@ -19,13 +20,13 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertResultMessage(UndoCommand.MESSAGE_NO_ACTION_TO_UNDO);
         
         // undo add command
-        assertUndoSuccess(td.hoon.getAddCommand(), currentList);
+        assertUndoSuccess(TypicalTestTasks.hoon.getAddCommand(), currentList);
         
         // undo delete command
         assertUndoSuccess("delete " + targetIndex, currentList);
         
         // undo update command
-        assertUndoSuccess("update " + targetIndex + td.ida.getArgs(), currentList);
+        assertUndoSuccess("update " + targetIndex + TypicalTestTasks.ida.getArgs(), currentList);
         
         // undo pin command
         assertUndoSuccess("pin " + targetIndex, currentList);
