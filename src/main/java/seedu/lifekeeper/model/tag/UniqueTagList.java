@@ -107,11 +107,14 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.contains(toCheck);
     }
 
-    public boolean contains1(String toCheck){
-        Tag tag;
+    public boolean contains(String toCheck){
         try {
-            tag = new Tag(toCheck);
-            return internalList.contains(tag);  
+            Tag tagToCheck = new Tag(toCheck);
+            for (Tag tag : internalList) {
+                if (tagToCheck.toString().toLowerCase().equals(tag.toString().toLowerCase())) {
+                    return true;
+                }
+            }
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }

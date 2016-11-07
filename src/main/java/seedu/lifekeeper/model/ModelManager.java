@@ -158,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredByTagListToShowAll(String tag) {
         filteredActivities.setPredicate(p->
-        p.getTags().contains1(tag));
+        p.getTags().contains(tag));
     }
     
     @Override

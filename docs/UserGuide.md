@@ -123,14 +123,14 @@ Examples:
 <!-- @@author A0125680H -->
 Finding all activities containing a certain tag    
 * Finds activities which has tags of given keywords attached to it.<br>    
-* Format: `find tags KEYWORD [MORE_KEYWORDS]`   
+* Format: `findtag KEYWORD [MORE_KEYWORDS]`   
     
 > * The search is not case sensitive.     
 > * Only full words will be matched.    
 > * Only tags matching the EXACT keyword will be returned.    
     
 Examples:   
-* `find CS2103`    
+* `findtag CS2103`    
   Returns Any activities containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
 
 #### Deleting an activity: `delete`
