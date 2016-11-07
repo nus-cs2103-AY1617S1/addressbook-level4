@@ -22,11 +22,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		TestTask[] currentList = td.getTypicalTasks();
 		currentList[6].setDate(new EventDate("12.10.2016-10","11.10.2016-12"));
 		assertEditSuccess("Project meeting","s/","12.10.2016-10", currentList);
-		assertItemSelected(7);
+
 		
 		currentList[3].setName(new Name("Borrow a book from library"));
 		assertEditSuccess("Read book","n/","Borrow a book from library", currentList);
-		assertItemSelected(4);
 	}
 
 	//test for use scenario 2: edit by a index in the last shown list
@@ -35,7 +34,6 @@ public class EditCommandTest extends TaskManagerGuiTest {
 		TestTask[] currentList = td.getTypicalTasks();
 		currentList[1].setDate(new Deadline("20.10.2016"));
 		assertEditSuccess("Meet old friends","d/","20.10.2016",2,currentList);
-		assertItemSelected(2);
 	}
 
     /**
@@ -73,9 +71,4 @@ public class EditCommandTest extends TaskManagerGuiTest {
 			assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT));
     }
 	
-    private void assertItemSelected(int index) {
-        assertEquals(taskListPanel.getSelectedTasks().size(), 1);
-        ReadOnlyTask selectedTask = taskListPanel.getSelectedTasks().get(0);
-        assertEquals(taskListPanel.getTask(index-1), selectedTask);
-    }
 }
