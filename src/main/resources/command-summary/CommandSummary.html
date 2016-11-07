@@ -1,0 +1,145 @@
+<!--@@author A0153467Y -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello!</title>
+<link rel="stylesheet" href="https://stackedit.io/res-min/themes/base.css" />
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body><div class="container"><h3 id="welcome-to-mess">Welcome to MESS!</h3>
+
+
+
+<h2 id="help-page"><i class="icon-file"></i><strong>Help Page</strong></h2>
+
+
+
+<h3 id="detailed-user-guide"><a href="https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/UserGuide.md">Detailed User Guide</a></h3>
+
+<hr>
+
+
+
+<h2 id="command-summary"><strong>Command Summary</strong></h2>
+
+<table>
+<thead>
+<tr>
+  <th>Command</th>
+  <th>Format</th>
+</tr>
+</thead>
+<tbody><tr>
+  <td>Add</td>
+  <td><strong>add</strong> TASK_NAME [<strong>starts</strong> START_DATE_TIME <strong>ends</strong> CLOSE_DATE_TIME <strong>tag</strong> TAG]</td>
+</tr>
+<tr>
+  <td>Alias</td>
+  <td><strong>alias</strong> COMMAND ALIAS</td>
+</tr>
+<tr>
+  <td>Delete</td>
+  <td><strong>delete</strong> INDEX</td>
+</tr>
+<tr>
+  <td>Complete</td>
+  <td><strong>complete</strong> INDEX</td>
+</tr>
+<tr>
+  <td>Uncomplete</td>
+  <td><strong>uncomplete</strong> INDEX</td>
+</tr>
+<tr>
+  <td>List</td>
+  <td><strong>list</strong></td>
+</tr>
+<tr>
+  <td>Find</td>
+  <td><strong>find</strong> KEYWORD</td>
+</tr>
+<tr>
+  <td>Update</td>
+  <td><strong>update</strong> INDEX [NAME <strong>starts</strong> START_DATE_TIME <strong>ends</strong> CLOSE_DATE_TIME <strong>tag</strong> TAG <strong>remove-tag</strong> TAG]</td>
+</tr>
+<tr>
+  <td>Undo</td>
+  <td><strong>undo</strong></td>
+</tr>
+<tr>
+  <td>Pin</td>
+  <td><strong>pin</strong> INDEX</td>
+</tr>
+<tr>
+  <td>Unpin</td>
+  <td><strong>unpin</strong> INDEX</td>
+</tr>
+<tr>
+  <td>Live Search</td>
+  <td><strong>searchbox</strong></td>
+</tr>
+<tr>
+  <td>Change Storage</td>
+  <td><strong>change-to</strong> PATH_NAME</td>
+</tr>
+<tr>
+  <td>Help</td>
+  <td><strong>help</strong></td>
+</tr>
+<tr>
+  <td>Exit</td>
+  <td><strong>exit</strong></td>
+</tr>
+</tbody></table>
+
+
+
+
+<h2 id="example-of-some-longer-commands">Example of some longer commands:</h2>
+
+
+
+<h4 id="add"><i class="icon-pencil"></i> <strong>Add</strong></h4>
+
+<p>Example: </p>
+
+<ul>
+<li>add meeting starts tomorrow 1pm ends tomorrow 3pm</li>
+<li>add quiz tag cs2102 tag easy</li>
+</ul>
+
+
+
+<h4 id="alias"><i class="icon-pencil"></i> <strong>Alias</strong></h4>
+
+<p>Example: </p>
+
+<ul>
+<li>alias add + </li>
+<li>alias alias q</li>
+</ul>
+
+
+
+<h4 id="update"><i class="icon-pencil"></i> <strong>Update</strong></h4>
+
+<p>Example:</p>
+
+<ul>
+<li>update 2 name shopping ends 9pm</li>
+<li>update 2 tag family remove-tag friends </li>
+<li>update 3 ends three hours later </li>
+</ul>
+
+
+
+<h4 id="change-to"><i class="icon-pencil"></i> <strong>Change-to</strong></h4>
+
+<p>Example:</p>
+
+<ul>
+<li>change-to data/taskmanager.xml</li>
+</ul></div></body>
+</html>
