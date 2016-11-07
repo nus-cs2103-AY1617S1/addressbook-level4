@@ -63,9 +63,10 @@ public abstract class UiPart {
         }
     }
     
-    //@@author A0147890U
+    //@@author A0147890U-unused
+    //unused because find cannot search by 12hr formats
     /**
-     * @param 24 hour string value
+     * @param 24 hour string values
      * @return 12 hour string value
      * this method converts 24 hour format to 12 hour format for display in event and deadline cards
      */
