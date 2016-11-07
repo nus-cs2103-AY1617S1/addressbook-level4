@@ -7,10 +7,13 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidPriority(String)}
  */
 public class Priority {
-
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority numbers should only contain numbers";
-    public static final String PRIORITY_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-
+	//@@author A0130677A
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority number should only contain a number from 1 to 5";
+    public static final String PRIORITY_VALIDATION_REGEX = "\\d{1}";
+    public static final int MAX_PRIORITY = 5;
+    public static final int MIN_PRIORITY = 1;
+    
+    //@@author
     public final String value;
 
     /**
@@ -30,10 +33,12 @@ public class Priority {
     /**
      * Returns true if a given string is a valid task priority number.
      */
+    //@@author A0130677A
     public static boolean isValidPriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+        return test.matches(PRIORITY_VALIDATION_REGEX) && 
+        		Integer.parseInt(test) >= MIN_PRIORITY && Integer.parseInt(test) <= MAX_PRIORITY;
     }
-
+    //@@author
     @Override
     public String toString() {
         return value;

@@ -632,7 +632,7 @@ public class LogicManagerTest {
                     new DueDate("" + Math.abs(seed)),
                     new DueDate("" + Math.abs(seed)),
                     new Address(seed + ", -address"),
-                    new Priority("1 " + seed),
+                    new Priority("1 "),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
