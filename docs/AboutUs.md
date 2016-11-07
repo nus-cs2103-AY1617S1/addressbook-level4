@@ -15,7 +15,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [Select Task]()
    * [Count Task]()
    * [Sort Task]()  
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0143884W.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0143884W.md)][[docs](A123456.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0143884W.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0143884W.md)][[docs](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/docs/A0143884W.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList [[#133]() ]
   * Set up Natty
@@ -30,7 +30,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: UI
 * Features implemented:
    * [Refresh Task Status]()
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139024M.md)][[test code](A123456.md)][[docs](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/docs/A0139024M.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139024M.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0139024M.md)][[docs](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/docs/A0139024M.md)]
 * Other major contributions:
   * Documentation of sTask
 
@@ -47,7 +47,7 @@ We are a team based in the [School of Computing, National University of Singapor
    * [List Command]()
    * [Delete Command]()
    * [Done Command]()
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139145E.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0139145E.md)][[docs](A123456.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139145E.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0139145E.md)][[docs](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/docs/A0139145E.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList [[#72](https://github.com/CS2103AUG2016-T11-C3/main/pull/72) ]
   * Set up Coveralls 
@@ -66,7 +66,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented:
    * [Find Command]()
    * [Save Command]()   
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139528W.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/main/A0139528W.md)][[test code](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/test/A0139528W.md)][[docs](https://github.com/CS2103AUG2016-T11-C3/main/blob/master/Collated/docs/A0139528W.md)]
 * Other major contributions:
   * Saving Feature of the sTask
  
