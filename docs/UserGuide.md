@@ -239,7 +239,13 @@ We would like to acknowledge the developers of Natty for their natural language 
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.1 Input Formats for Task Name</b><br>
 
+>> Each task description can have any characters except '/'.
+<br>
+
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.2 Input Formats for Task Description</b><br>
+
+>> Each task description can have any characters except '/'.<br>
+<br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.3 Input Formats for Date and Time</b><br>
 
@@ -277,3 +283,7 @@ Time | 230pm
 For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp <br><br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.4 Input formats for Tags</b><br>
+
+>> Each tag must be a word that only contains alphanumerics (A-Z, a-z, 0-9)<br>
+<br>
+
