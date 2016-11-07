@@ -81,12 +81,7 @@ public class UpdateController extends Controller {
         String naturalTo = naturalDates[1];
 
         // Record index
-        Integer recordIndex = null;
-        try {
-            recordIndex = parseIndex(parsedResult);
-        } catch (NumberFormatException e) {
-            recordIndex = null; // Later then disambiguate
-        }
+        Integer recordIndex = parseIndex(parsedResult);
 
         // Retrieve record and check if task or event
         EphemeralDB edb = EphemeralDB.getInstance();
@@ -105,14 +100,13 @@ public class UpdateController extends Controller {
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
         try {
-            dateFrom = naturalFrom == null ? null : DateParser.parseNatural(naturalFrom);
+            // Allow exception for "null"
+            dateFrom = (naturalFrom == null || STRING_NULL.equals(naturalFrom.trim()))
+                    ? null : DateParser.parseNatural(naturalFrom);
             dateTo = naturalTo == null ? null : DateParser.parseNatural(naturalTo);
         } catch (InvalidNaturalDateException e) {
-            // Allow exception for "null"
-            if (!naturalFrom.trim().equals(STRING_NULL)) {
-                renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
-                return;
-            }
+            renderDisambiguation(isTask, recordIndex, name, naturalFrom, naturalTo, MESSAGE_CANNOT_PARSE_DATE);
+            return;
         }
 
         // Validate isTask, name and times.
@@ -137,12 +131,15 @@ public class UpdateController extends Controller {
      */
     private Integer parseIndex(Map<String, String[]> parsedResult) {
         String indexStr = null;
-        if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
-            indexStr = parsedResult.get("default")[1].trim();
-            return Integer.decode(indexStr);
-        } else {
-            return null;
+        try {
+            if (parsedResult.get("default") != null && parsedResult.get("default")[1] != null) {
+                indexStr = parsedResult.get("default")[1].trim();
+                return Integer.decode(indexStr);
+            }
+        } catch (NumberFormatException e) {
+            // Everything is fine, just return null if cannot.
         }
+        return null;
     }
 
     /**
@@ -231,11 +228,9 @@ public class UpdateController extends Controller {
      */
     private boolean validateParams(boolean isTask, CalendarItem record, String name, LocalDateTime dateFrom,
             LocalDateTime dateTo, String naturalFrom) {
-        // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
 
-        if (name == null && dateFrom == null && dateTo == null
-                && (naturalFrom == null || !naturalFrom.equals(STRING_NULL))) {
+        if (!validateNameDateChange(name, dateFrom, dateTo, naturalFrom)) {
             return false;
         }
 
@@ -246,20 +241,41 @@ public class UpdateController extends Controller {
             }
         } else {
             Event event = (Event) record;
-
-            // Take union of existing fields and update params
-            LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
-            LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
-
-            if (newDateFrom == null || newDateTo == null) {
-                return false;
-            }
-
-            if (newDateTo.isBefore(newDateFrom)) {
+            if (!validateUpdatedEventDates(event, dateFrom, dateTo)) {
                 return false;
             }
         }
         return true;
+    }
+    
+    /**
+     * Checks that there is at least one update param specified.
+     * 
+     * @param name
+     * @param dateFrom
+     * @param dateTo
+     * @param naturalFrom
+     * @return
+     */
+    private boolean validateNameDateChange(String name, LocalDateTime dateFrom, LocalDateTime dateTo, String naturalFrom) {
+        return !(name == null && dateFrom == null && dateTo == null
+                && !STRING_NULL.equals(naturalFrom));
+    }
+    
+    /**
+     * Validates an event to be updated with dateFrom and dateTo.
+     * 
+     * @param oldEvent
+     * @param dateFrom
+     * @param dateTo
+     * @return
+     */
+    private boolean validateUpdatedEventDates(Event oldEvent, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        // Take union of existing fields and update params
+        LocalDateTime newDateFrom = (dateFrom == null) ? oldEvent.getStartDate() : dateFrom;
+        LocalDateTime newDateTo = (dateTo == null) ? oldEvent.getEndDate() : dateTo;
+
+        return (newDateFrom != null && newDateTo != null && !newDateTo.isBefore(newDateFrom));
     }
 
     /**
