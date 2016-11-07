@@ -12,230 +12,149 @@
 
 # Run the following commands
 
-Note:
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * `/` should only be used in user input after a parameter indicator (e.g. `n/`). Usage anywhere else may lead to unexpected results.
-> * The order of parameters is fixed unless otherwise specified.
-
-# Command Summary - Try these commands - (Commands elaborated below Command Summary)
-
-Command | Format  | Example | Expected Respose
------: | ----- | :------------------
-Add Task | `a[dd] t[ask] n/NAME [#TAG_TO_ADD]` | `add task tutorial 3216` | The task will be added to your to do list and message "Added task" is displayed on result panel.
-Add Deadline | `a[dd] d[eadline] n/NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v1.0 edt/thursday 2pm` |  The deadline will be added to your to do list and message "Added deadline" is displayed on results panel.
-Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 guest lecture sdt/friday 2pm edt/friday 4pm` | The event will be added to your to do list and message "Added event" is displayed on results panel
-Delete | `del[ete] INDEX ...` | `delete 1` | Results panel displays deleted item in results panel and item list panel refreshes list of items.
-Done | `d[one] INDEX` | `done 1` | Item list panel refreshes list of items, with updated status for the updated item in the results panel.
-Edit Task | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 1 n/CS2103` | App will display edited item's details in the results panel.
-Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm` | App will display edited item's details in the results panel.
-Edit Event | `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 11 sdt/yesterday` | App will display edited item's details in the results panel.
-Find | `f[ind] KEYWORD [MORE_KEYWORDS]` | `find tutorial` | App will display a list of items with names containing the keyword in the results panel.
-Help | `h[elp]` | `help` | The list of commands, their format and their function will be shown.
-List Tasks | `l[ist]t[ask]` |`lt` | Item list panel refreshes with all tasks displayed
-List Deadlines | `l[ist]d[eadline]` | `ld` | Item list panel refreshes with all deadlines displayed
-List Events | `l[ist]e[vent]` | `le` | Item list panel refreshes with all events displayed
-List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd` | Item list panel refreshes with all uncompleted items displayed
-List all items | `l[ist]` | `list` | Item list panel refreshes with all items displayed
-Notdone | `n[ot]d[one] INDEX` | `nd 1` | Item list panel refreshes with all not done items displayed
-Undo | `u[ndo]` | `undo` | Results panel shows action undone and item list panel refreshes
-Redo | `r[edo]` | `redo` | Results panel shows action redone and item list panel refreshes
-Specify custom save location | `save VALID_FILE_PATH_NAME` | `save C:\Users\Jim\data.xml` | File save location is refreshed at the bottom of the application
-Select | `s[elect] INDEX` | `select 1` | Results panel shows selected item
-Clear | `cl[ear]` | `clear` | Application is cleared of data
-
-______________________________________________________
-
-# Commands Elaborated
-
-### When you need help (To see a list of all commands)
-
-1. Type ‘h[elp]’ and press `Enter`.
-
-2. The list of commands, their format and their function will be shown.
-
-### When you have a new deadline, task or event
-
-#### Add a deadline
-
-1. Type `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] n/NAME edt/DATE_TIME_TEXT(e.g. next wed 3pm)`.
-
-2. `add` can be replaced by `a`. `deadline` can be replaced by `d`.
-
-3. If et is not specified, et is assumed to be 23:59. Press `Enter`.
-
-4. The deadline will be added to your to do list and message "Added deadline" is displayed on results panel.
-
-#### Add a task
-
-1. Type `a[dd] t[ask] [n/]NAME`.
-
-2. `add` can be replaced by `a`. `task` can be replaced by `t`. Press `Enter`.
-
-3. The task will be added to your to do list and message "Added task" is displayed on results panel.
-
-#### Add an event
-
-1. Type `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
-
-2. `add` can be replaced by `a`. `event` can be replaced by `e`.
-
-3. If st is empty, st is assumed to be 00:00.
-
-4. If et is empty, et is assumed to be 23:59. Press `Enter`.
-
-5. The event will be added to your to do list and message "Added event" is displayed on results panel.
-
-### When you need to find a deadline, task or event
-
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
-
-2. App will display a list of items with names containing the keyword in the results panel.
-
-### When you need to edit a deadline, task or event
-
-* At least one optional parameter must be specified.
-* All optional parameters can be in any order.
-* sdt/edt supports Natural Language Input. (Note: sdt/edt will be favoured if sdt/edt and sd/ed or st/et are entered together)
-* Editing tags: `#` prefix to add a tag, `#-` to delete an existing tag. (Note: You cannot add a duplicate tag or delete a non-existent tag.)
-
-#### Edit a task’s name
-For tasks, you can only edit the name, its tags and the end date and time. Note: editing the end date and time automatically converts the task into a deadline.
-
-##### If you know a keyword in the task's name
-
-1. Type `f[ind] KEYWORD`. Press `Enter`.
-
-2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-3. App will display edited item's details in the results panel (below the command box).
-
-##### If you know the index of the task in the displayed list
-
-1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-2. App will display edited item's details in the results panel.
-
-#### Edit a deadline's name, end date and end time
-For deadlines, you can only edit the name, end date and time and its tags.
-
-##### If you know the keyword of the deadline
-
-1. Type `f[ind] KEYWORD`. Press `Enter`.
-
-2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-3. App will display edited item's details in the results panel.
-
-##### If you know the index of the deadline in the displayed list
-
-1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-2. App will display edited item's details in the results panel.
-
-#### Edit an event’s name, start date, start time, end date and end time
-
-For events, you can edit all optional parameters.
-(Note: editing the end datetime to be before the start datetime is an illegal operation and is not allowed)
-
-##### If you know the keyword of the event
-
-1. Type `f[ind] KEYWORD`. Press `Enter`.
-
-2. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-3. App will display edited item's details in the results panel.
-
-##### If you know the index of the event in the displayed list
-
-1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
-
-2. App will display edited item's details in the results panel.
-
-### When you need to view the details of your deadlines, tasks and events
-
-1. Type `s[elect] INDEX` and press `Enter`. Alternatively, click on the item in the list in the results panel.
-
-2. App will display the item's details in the panel on the right.
-
-### When you need to view your deadlines, tasks and events
-
-#### View all deadlines, tasks and events
-
-1. Type `l[ist]`. Press `Enter`.
-
-2. Item list panel refreshes with all deadlines, tasks, and events displayed.
-
-#### View all uncompleted deadlines, tasks and events
-
-1. Type `l[ist]n[ot]d[one]`. Press `Enter`.
-
-2. App will display all uncompleted items in the results panel left panel.
-
-#### View all tasks
-
-1. Type `l[ist]t[ask]`. Press `Enter`.
-
-2. results panel refreshes with all tasks displayed.
-
-#### View all deadlines
-
-1. Type `l[ist]d[eadline]`. Press `Enter`.
-
-2. Item list panel refreshes with all deadlines displayed.
-
-#### View all events
-
-1. Type `l[ist]e[vent]`. Press `Enter`.
-
-2. Item list panel refreshes with all events displayed.
-
-### When you want to delete a deadline, task or event
-* The index(es) specified refers to the index number(s) shown in the most recent listing.
-* The index(es) must be positive integers 1, 2, 3...
-* This action is irreversible.
-
-#### Delete one deadline, task or event
-
-1. Type `del[ete] INDEX`. Press `Enter`.
-
-2. Application displays deleted item in results panel and refreshes list of items in item list panel.
-
-#### Delete multiple deadlines, tasks or events
-
-1. Type `del[ete] INDEX ...`. Press `Enter`.
-
-2. Results panel displays deleted item and refreshes list of items in the item list panel.
-
-### When you are done with a deadline, task or event
-
-1. Type `d[one] INDEX`. Press `Enter`.
-
-2. Item list panel refreshes list of items, with updated status for the updated item in the results panel. You can also use your mouse to click on done alternatively.
-
-### When you are not done with a deadline, task or event
-
-1. Type `n[ot]d[one] INDEX`. Press `Enter`.
-
-2. Item list panel refreshes list of items, with updated status for the updated item. You can also use your mouse to click on not done alternatively.
-
-### When you want to undo your last action that caused a changed in your todo list
-
-1. Type `u[ndo]`. Press `Enter`. <br>
-
-2. Results panel displays items as per previous state.
-
-### When you want to redo your last undone action
-
-1. Type `r[edo]`. Press `Enter`. <br>
-
-2. App's results panel reverts items to before the latest undo action.
-
-### When you want to specify a custom save location for your data
-
-> * File to save in is limited to .xml format.
-
-1. Type `save VALID_FILE_PATH`.
-2. Press `Enter`.
+Test Cases:
+
+* Add Command:
+    * Tasks
+        * 1. add task buy groceries
+        	* Response: Results panel displays details of the task added. Item list panel refreshes list of items with the task "buy groceries" added to the end of the list.
+        * 2. a t clear table
+        	* Response: Results panel displays details of the task added. Item list panel refreshes list of items with the task "clear table" added to the end of the list.
+		* 3. task add Diwali ball
+			* Response: Results panel displays "Invalid command format!"
+    * Deadlines
+         * 1. add deadline project report ed/tomorrow 3pm
+         	* Response: Results panel displays details of the task added. Item list panel refreshes list of items with the deadline "project report" added to the end of the list. Item is in orange font because deadline is nearing.
+         * 2. a d essay assignment ed/2016-11-09 et/23:59
+         	* Response: Results panel displays details of the task added. Item list panel refreshes list of items with the deadline "essay assignment" added to the end of the list. Item is in red font because deadline is over.
+    * Events
+         * 1. add event concert sd/2016-11-10 st/10:00 ed/2016-11-10 et/22:00
+         	* Response: Results panel displays details of the task added. Item list panel refreshes list of items with the event "concert" added to the end of the list. Item is in blue font because event is in progress.
+
+
+* Delete Command
+	* 1. delete 1
+	    * Response: Results panel displays deleted item details and item list panel refreshes list of items.
+	* 2. del 2 5 3
+		* Response: Results panel displays details of deleted items in ascending index order and item list panel refreshes list of items.
+	* 3. delete 0
+		* Respone: Results panel displays "Invalid command format!"
+
+* Done Command
+	* 1. done 1
+		* Response: Item list panel refreshes list of items, with first item marked as done.
+	* 2. d 2
+		* Respone: Item list panel refreshes list of items, with second item marked as done.
+	* 3. d 0
+		* Respone: Results panel displays "Invalid command format!"
+
+* Not Done Command
+    * 1. notdone 1
+        * Response: Item list panel refreshes list of items, with first item marked as not done.
+
+* Edit Command
+    * Tasks
+    	* 1. edit 1 n/CS2103
+    		* Response: App will display edited item's new details in the results panel.
+    	* 2. e 1 n/CS3216
+    		* Response: App will display edited item's new details in the results panel.
+    	* 3. e 1 3216
+    		* Response: Result panel shows "Unknown command"
+    * Deadlines
+    	* 1. edit 6 edt/tomorrow 6pm
+    		* Response: App will display edited item's new details in the results panel.
+    	* 2. e 6 edt/tomorrow 8pm
+    		* Response: App will display edited item's new details in the results panel.
+    	* 3. e 6 8pm
+    		* Response: Result panel shows "Unknown command"
+    * Events
+    	* 1. edit 11 sdt/yesterday
+    		* Response: App will display edited item's new details in the results panel.
+    	* 2. e 11 sdt/2 weeks ago edt/tomorrow
+    		* Response: App will display edited item's new details in the results panel.
+    	* 3. e 10 thursday
+    		* Response: Result panel shows "Unknown command"
+
+* Find Command
+	* 1. find tutorial
+		* Response: Item list panel refreshes list of items that contain "tutorial"
+	* 2. f birthday
+		* Response: Item list panel refreshes list of items that contain "birthday"
+	* 3. find assignmnt
+		* Response: Item list panel refreshes list of items that contain "assignmnt" and also "assignment" (fuzzy search)  
+	* 3. findassignment
+		* Response: Result panel shows "Unknown command"
+
+* Help Command
+	* 1. help
+		* Response: The list of commands, their input format and their functions will be shown.
+	* 2. h
+		* Response: The list of commands, their input format and their functions will be shown.
+
+* List Command
+	* List tasks
+		* 1. listtask
+			* Response: All tasks are listed in the item list panel
+		* 2. lt
+			* Response: All tasks are listed in the item list panel
+		* 3. listtasks
+			* Response: Result panel shows "Unknown command"
+	* List deadlines
+		* 1. listdeadline
+			* Response: All deadlines are listed in the item list panel
+		* 2. ld
+			* Response: All deadlines are listed in the item list panel
+		* 3. listdeadlines
+			* Response: Result panel shows "Unknown command"
+	* List events
+		* 1. listevent
+			* Response: All events are listed in the item list panel
+		* 2. le
+			* Response: All events are listed in the item list panel
+		* 3. listevents
+			* Response: Result panel shows "Unknown command"
+
+	* List not done items
+		* 1. listnotdone
+			* Response: All not done items are listed in the item list panel
+		* 2. lnd
+			* Response: All not done items are listed in the item list panel
+		* 3. listnd
+			* Response: Result panel shows "Unknown command"
+
+	* Undo Command
+		* 1a. delete 5
+			* Response: Results panel displays deleted item details and item list panel refreshes list of items.
+		* 1b. undo
+			* Response: Deleted item is restored. Item list panel refreshes list of items. Results panel shows the details of the undone command.
+
+		* 2a. clear
+			* Response: All items are deleted. Item list panel is cleared.
+		* 2b. undo
+			* Response: All deleted items are restored. Item list panel is refreshed with all previously saved items.
+
+	* Redo Command
+		* 1a. clear
+			* Response: All items are deleted. Item list panel is cleared.
+		* 1b. undo
+			* Response: All deleted items are restored. Item list panel is refreshed with all previously saved items.
+		* 1c. redo
+			* Response: All items are deleted. Item list panel is cleared.
+
+* Save Command
+	* 1. save C:\User\data.xml
+		* Response: App data saved to C:\User\ folder, under name data in .xml format.
+	* 2. save data\todolist.xml
+		* Response: App data saved to data folder in the home folder of the application, under name todolist in .xml format.
+	* 3. save C:\testing.xml
+		* Response: Message "Invalid command format! Specified directory is invalid!" is displayed in results panel.
+
+* Select Command
+	* 1. select 2
+		* Response: Item of index 2 in the list shown on the item list panel is selected and the selected item details are shown in the item details panel.
+	* 2. s 5
+		* Response: Item of index 5 in the list shown on the item list panel is selected and the selected item details are shown in the item details panel.
+
+* Clear Command
+	* 1. clear
+		* Response: All items are deleted. Item list panel is cleared.
