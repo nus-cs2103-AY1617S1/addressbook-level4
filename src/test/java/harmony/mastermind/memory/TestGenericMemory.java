@@ -77,23 +77,28 @@ public class TestGenericMemory {
         testToString();
         testDays();
         testCompare();
+        testStateType();
     }
     
+    //@@author A0143378Y
     private void testSetType(GenericMemory testMethod) { 
         testMethod.setType("cat");
         assertEquals("type", testMethod.getType(), "cat");
     }
     
+    //@@author A0143378Y
     private void testSetName(GenericMemory testMethod) { 
         testMethod.setName("Animals");
         assertEquals("Name", testMethod.getName(),"Animals");
     }
     
+    //@@author A0143378Y
     private void testSetDescription(GenericMemory testMethod) { 
         testMethod.setDescription("An organism");
         assertEquals("Description", testMethod.getDescription(), "An organism");
     }
     
+    //@@author A0143378Y
     private void testTime(GenericMemory testMethod) { 
         //2 parameters
         testMethod.setStartTime(03, 14);
@@ -104,22 +109,26 @@ public class TestGenericMemory {
         testMethod.setEndTime(07, 11, 20);
     }
     
+    //@@author A0143378Y
     private void testDate(GenericMemory testMethod) {
         testMethod.setStartDate(2014, 03, 27);
         testMethod.setEndDate(2015, 02, 05);
     }
     
+    //@@author A0143378Y
     private void testNewState(GenericMemory testMethod) { 
         testMethod.setState(0);
         assertEquals("State", testMethod.getState(), 0);
     }
     
+    //@@author A0143378Y
     private void testToString() { 
         taskToString();
         deadlineToString();
         eventToString();
     }
     
+    //@@author A0143378Y
     private void taskToString() { 
         //Task
         GenericMemory testTask = new GenericMemory("task", "name2", "description2");
@@ -136,6 +145,7 @@ public class TestGenericMemory {
         assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline);
     }
     
+    //@@author A0143378Y
     private void deadlineToString() { 
         //Deadline
         GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
@@ -148,6 +158,7 @@ public class TestGenericMemory {
         
     }
     
+    //@@author A0143378Y
     private void eventToString() { 
         //Event
         GenericMemory testEvent = new GenericMemory("event", "name", "description", start, end, 0);
@@ -171,6 +182,7 @@ public class TestGenericMemory {
         assertEquals("Event end time", testEvent.getTime(end), "07:11 AM");
     }
     
+    //@@author A0143378Y
     private void testDays() { 
         Calendar Sunday = new GregorianCalendar();
         Sunday.set(2014, 03, 20, 03, 14, 20);
@@ -215,28 +227,85 @@ public class TestGenericMemory {
         assertEquals("Saturday", GenericMemory.dayOfTheWeek(Saturday), "Sat");  
     }
     
+    //@@author A0143378Y
     private void testCompare() { 
         testCompareTask();
         testCompareDeadline();
         testCompareEvent();
     }
     
+    //@@author A0143378Y
     private void testCompareTask() { 
         GenericMemory testTask1 = new GenericMemory("task", "name2", "description2");
         GenericMemory testTask2 = new GenericMemory("task", "name3", "description3");
         assertEquals("Tasks", testTask1.compareTo(testTask2), -1);
     }
     
+    //@@author A0143378Y
     private void testCompareDeadline() { 
         GenericMemory testDeadline1 = new GenericMemory("deadline", "name1", "description1", end);
         GenericMemory testDeadline2 = new GenericMemory("deadline2", "name2", "description2", end);
         assertEquals("Deadlines", testDeadline1.compareTo(testDeadline2), 0);
     }
     
+    //@@author A0143378Y
     private void testCompareEvent() { 
         GenericMemory testEvent1 = new GenericMemory("event", "name", "description", start, end, 0);
         GenericMemory testEvent2 = new GenericMemory("event2", "name2", "description2", start, end, 0);
         assertEquals("Events", testEvent1.compareTo(testEvent2), 0);
         assertEquals("Event Comparison", testEvent1.eventCompare(testEvent2), 0);
+    }
+    
+    //@@author A0143378Y
+    private void testStateType() { 
+        testTaskState();
+        testDeadlineState();
+        testEventState();
+        testIncorrectState();
+    }
+    
+    //@@author A0143378Y
+    private void testTaskState() { 
+        GenericMemory testTask1 = new GenericMemory("Task", "name2", "description2");
+        assertEquals("No state yet", testTask1.getStateType(), "Incomplete");
+    }
+    
+    //@@author A0143378Y
+    private void testDeadlineState() { 
+        GenericMemory testDeadline = new GenericMemory("Deadline", "name1", "description1", end);
+        
+        //Set state to incomplete
+        testDeadline.setState(0);
+        assertEquals("Incomplete", testDeadline.getStateType(), "Incomplete");
+        
+        //Set state to Completed
+        testDeadline.setState(1);
+        assertEquals("Completed", testDeadline.getStateType(), "Completed");
+        
+        //Set state to Overdue
+        testDeadline.setState(2);
+        assertEquals("Overdue", testDeadline.getStateType(), "Overdue");
+    }
+    
+    //@@author A0143378Y
+    private void testEventState() { 
+        GenericMemory testEvent = new GenericMemory("Event", "name", "description", start, end, 0);
+        
+        //Upcoming
+        assertEquals("Upcoming", testEvent.getStateType(), "Upcoming");
+        
+        //Set state to over
+        testEvent.setState(1);
+        assertEquals("Over", testEvent.getStateType(), "Over");
+        
+        //Set state to ongoing 
+        testEvent.setState(2);
+        assertEquals("Ongoing", testEvent.getStateType(), "Ongoing");
+    }
+    
+    //@@author A0143378Y
+    private void testIncorrectState() { 
+        GenericMemory wrongState = new GenericMemory("aask", "name2", "description2");
+        assertEquals("Wrong", wrongState.getStateType(), null);
     }
 }
