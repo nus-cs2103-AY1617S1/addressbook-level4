@@ -8,19 +8,19 @@ We are a team of 3 Year 2 NUS students from SoC.
 #### [Praveer Tewari] (http://github.com/praveer922) <br>
 <img src="images/PraveerTewari.jpg" width="150"><br>
 **Role**:  Team lead, in charge of Model component, UI component<br>
-*Components in charge of :  `Parser`, `Model`, `UI`<br>
-*Aspects/tools in charge of: Git, JavaFX, natty<br>
-*Features implemented:<br>
-	*Add
-	*Edit tasks
-	*Delete completed
-	*Undo complete,pin
-	*Pinboard view
-	*Overdue, due soon notifications
-*Code written: [main](../collated/main/A0140124B.md)
-*Other major contributions:
-	*Learning and teaching Javafx to design GUI
-	*Source out and introduced external libraries e.g. natty
+- Components in charge of :  `Parser`, `Model`, `UI`<br>
+- Aspects/tools in charge of: Git, JavaFX, natty<br>
+- Features implemented:<br>
+	..* Add
+	..* Edit tasks
+	..* Delete completed
+	..* Undo complete,pin
+	..* Pinboard view
+	..* Overdue, due soon notifications
+* Code written: [main](../collated/main/A0140124B.md)
+* Other major contributions:
+	* Learning and teaching Javafx to design GUI
+	* Source out and introduced external libraries e.g. natty
 	
 -----
 
