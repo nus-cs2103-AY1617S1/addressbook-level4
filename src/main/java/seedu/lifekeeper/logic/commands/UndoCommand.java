@@ -4,16 +4,15 @@ import java.util.Stack;
 
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.UniqueActivityList;
+import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
 //@@author A0125097A
 /**
- * Undo previous add, delete and edit commands.
+ * Undo previous add, delete, edit and done commands.
  */
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";
-
-	public static final String MESSAGE_USAGE = COMMAND_WORD;
 
 	public static final String MESSAGE_SUCCESS = "Undo Command: %1$s";
 	public static final String MESSAGE_END_OF_UNDO = "There is no more commands to undo";
@@ -45,9 +44,8 @@ public class UndoCommand extends Command {
             case DoneCommand.COMMAND_WORD:
                 return undoDone(toUndo);
 			}
-
 		}
-		
+
 			return new CommandResult(MESSAGE_END_OF_UNDO);
 	}
 
@@ -88,21 +86,21 @@ public class UndoCommand extends Command {
      * Undo Edit command which was previously called
      */
     private CommandResult undoEdit(PreviousCommand toUndo) {
-        Activity taskToEdit = toUndo.getUpdatedTask();
-        Activity edittedTask = toUndo.getOldTask();
-        Activity taskAfterEdit = new Activity(taskToEdit);
+        Activity taskToRevert = toUndo.getUpdatedTask();
+        Activity revertedTask = toUndo.getOldTask();
+        Activity taskBeforeUndo = new Activity(taskToRevert);
+        Activity taskAfterUndo = null;
         
         try {
-            Activity taskBeforeEdit = model.undoEditTask(taskToEdit,edittedTask);
+            taskAfterUndo = model.undoEditTask(taskToRevert,revertedTask);
             
-            return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, taskBeforeEdit, taskAfterEdit));
         } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task to be edited cannot be missing";
-        return new CommandResult("not found");
-        } catch (UniqueActivityList.DuplicateTaskException e) {
-            assert false : "The unedited task should not be a duplicate of the edited task";
-        return new CommandResult("duplicate");
+            assert false : "The target task to be reverted cannot be missing";
+        } catch (DuplicateTaskException e) {
+            assert false : "The reverted task cannot be a duplicate of the unreverted task";
         } 
+        
+        return new CommandResult(String.format(MESSAGE_UNDO_EDIT_SUCCESS, taskAfterUndo, taskBeforeUndo));
     }
 
 	/**
@@ -116,7 +114,7 @@ public class UndoCommand extends Command {
     		
             return new CommandResult(String.format(MESSAGE_UNDO_DONE_SUCCESS, unmarkedTask));
         } catch (TaskNotFoundException tnfe) {
-            assert false : "The target task to be edited cannot be missing";
+            assert false : "The target task to be reverted cannot be missing";
         }
 		return null;
 	}

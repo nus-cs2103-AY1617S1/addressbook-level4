@@ -56,9 +56,9 @@ public abstract class Command {
     }
   //@@author A0125097A
     /**
-     * Raises an event to indicate an attempt to execute an incorrect command
-     * @return "float", "task" or "event"
-     * @throws IllegalValueException if Activity type cannot be determined
+     * Identify the type of activity from parameters input
+     * @return String "float", "task" or "event"
+     * @throws IllegalValueException if combination of parameters input doest not match any of the type
      */
     protected String identifyActivityType (String duedate, String priority, String start, String end) 
             throws IllegalValueException {
