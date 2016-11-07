@@ -421,6 +421,28 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_find_onlyShowsUncompletedTasks() throws Exception {
+    	//expected
+    	TestDataHelper helper = new TestDataHelper();    	
+        Task pTarget1 = helper.generateTaskWithDescription("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithDescription("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithDescription("key key");
+        Task p1 = helper.generateTaskWithDescription("key key key");
+
+        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        Emeraldo expectedAB = helper.generateEmeraldo(fourTasks);
+        expectedAB.completedTask(p1);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourTasks);
+    	
+    	//execute
+    	assertCommandBehavior("find key bla",
+    			Command.getMessageForTaskListShownSummary(expectedList.size()),
+    			expectedAB,
+    			expectedList);
+    }
 
 
     /**
