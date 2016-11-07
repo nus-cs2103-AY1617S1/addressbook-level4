@@ -24,7 +24,7 @@ public class TaskConfigTest {
                 "Preference file Location : task-userpreferences.json\n" +
                 "Local data file location : data/tasks.xml\n" +
                 "Local alias file location : " + "data/alias.xml\n" +
-                "AddressBook name : Tusk";
+                "Task Manager name : Tusk";
 
         assertEquals(defaultConfigAsString, new TaskConfig().toString());
     }

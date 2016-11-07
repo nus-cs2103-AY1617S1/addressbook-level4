@@ -33,8 +33,20 @@ public class CommandBox extends UiPart {
     private Logic logic;
     
     //@@author A0138978E
+    
+    /** 
+     * Indicates if the commandbox text has changed, and the 
+     * source of the change was not the autocomplete function. This means
+     * that the autocomplete source must be changed and the matches
+     * found again.
+     */
     private boolean hasTextChangedForAutocomplete = true;
     
+    /**
+     * A named listener for text in the command box changing.
+     * This function is named so that it can be specifically removed and re-added as a listener
+     * during the autocomplete function.
+     */
 	private final ChangeListener<? super String> textChangedListener = (observable, newVal, oldVal) -> {
 		hasTextChangedForAutocomplete = true;
 	};
@@ -202,7 +214,7 @@ public class CommandBox extends UiPart {
     
     //@@author A0138978E
     /**
-     * Sets the caret of the textfield to the end position
+     * Sets the text cursor to the end of the input in the commandbox currently
      */
     private void setCaretPositionToEnd() {
     	commandTextField.positionCaret(Integer.MAX_VALUE);

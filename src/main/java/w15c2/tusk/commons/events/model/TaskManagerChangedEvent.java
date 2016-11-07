@@ -5,7 +5,7 @@ import w15c2.tusk.commons.events.BaseEvent;
 import w15c2.tusk.model.task.Task;
 
 /*
- * Indicates the AddressBook in the model has changed
+ * Indicates to the Task Manager that the model has changed
  */
 public class TaskManagerChangedEvent extends BaseEvent {
 

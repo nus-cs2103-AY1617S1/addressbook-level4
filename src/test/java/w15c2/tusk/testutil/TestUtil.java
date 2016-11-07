@@ -267,7 +267,7 @@ public class TestUtil {
     }
     
     public static void main(String... s) {
-    	createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
+        createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
     /**
@@ -417,4 +417,5 @@ public class TestUtil {
     public static Object getLastElement(List<?> list) {
         return list.get(list.size() - 1);
     }
+
 }

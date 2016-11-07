@@ -36,6 +36,9 @@ public class UnpinTaskCommand extends Command {
 
 
     @Override
+    /**
+     * Unpin the specified task if it is currently pinned
+     */
     public CommandResult execute() {
 
 	    ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();
@@ -47,7 +50,6 @@ public class UnpinTaskCommand extends Command {
 
         Task taskToUnpin = lastShownList.get(targetIndex - 1);
         if(taskToUnpin.isPinned()){
-            
         	model.unpinTask(taskToUnpin);
         	closeHelpWindow();
         	return new CommandResult(String.format(MESSAGE_UNPIN_TASK_SUCCESS, taskToUnpin));

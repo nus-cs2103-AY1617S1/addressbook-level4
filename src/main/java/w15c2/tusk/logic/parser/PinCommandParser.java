@@ -12,7 +12,7 @@ import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.PinTaskCommand;
 
 //@@author A0138978E
-/*
+/**
  * Parses Pin commands
  */
 public class PinCommandParser extends CommandParser{

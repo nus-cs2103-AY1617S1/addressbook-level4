@@ -74,8 +74,9 @@ public class TaskConfig {
     }
     
     //@@author A0138978E
-    /*
-     * Modifes the task and alias file path based on the input storage location
+    /**
+     * Modifes the task and alias storage file path based on the new storage location provided.
+     * @param storageLocation new storage location for task and alias files
      */
     public void setStorageLocation(String storageLocation) {
     	this.setTasksFilePath(Paths.get(storageLocation, tasksFileName).toString());
@@ -84,6 +85,10 @@ public class TaskConfig {
 
 
     @Override
+    /**
+     * Checks equality with any other task config object by comparing essential fields.
+     * @param other the object to compare to
+     */
     public boolean equals(Object other) {
         if (other == this){
             return true;
@@ -116,7 +121,7 @@ public class TaskConfig {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + tasksFilePath);
         sb.append("\nLocal alias file location : " + aliasFilePath);
-        sb.append("\nAddressBook name : " + taskManagerName);
+        sb.append("\nTask Manager name : " + taskManagerName);
         return sb.toString();
     }
 

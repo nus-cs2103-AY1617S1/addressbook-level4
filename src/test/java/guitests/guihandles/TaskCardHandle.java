@@ -7,7 +7,7 @@ import w15c2.tusk.model.task.Task;
 
 //@@author A0138978E
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String DESCRIPTION_FIELD_ID = "#description";

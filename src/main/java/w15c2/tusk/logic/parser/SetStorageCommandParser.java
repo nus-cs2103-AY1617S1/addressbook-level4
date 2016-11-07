@@ -4,7 +4,7 @@ import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.SetStorageCommand;
 
 //@@author A0138978E
-/*
+/**
  * Parses the setstorage command
  */
 public class SetStorageCommandParser extends CommandParser{

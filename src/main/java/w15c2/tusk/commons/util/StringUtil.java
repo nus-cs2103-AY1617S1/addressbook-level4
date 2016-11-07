@@ -9,6 +9,11 @@ import java.util.List;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    //@@author A0138978E
+    private static final String REGEX_CHARS_FOLLOWED_BY_DATECHARS = "([a-zA-Z]+)(\\d+)(?!st|nd|rd|th)";
+    private static final String REGEX_DIGIT_FOLLOWED_BY_DATECHARS = "(\\d+)(?!st|nd|rd|th)([a-zA-Z]+)";
+
+    //@@author
     public static boolean containsIgnoreCase(String source, String query) {
     	if(query.equals("")){
     		return false;
@@ -48,8 +53,8 @@ public class StringUtil {
     public static String addSpacesBetweenNumbersAndWords(String s) {
     	if (s == null) return null;
     	
-    	s = s.replaceAll("(\\d+)(?!st|nd|rd|th)([a-zA-Z]+)", "$1 $2");
-    	s = s.replaceAll("([a-zA-Z]+)(\\d+)(?!st|nd|rd|th)", "$1 $2");
+    	s = s.replaceAll(REGEX_DIGIT_FOLLOWED_BY_DATECHARS, "$1 $2");
+    	s = s.replaceAll(REGEX_CHARS_FOLLOWED_BY_DATECHARS, "$1 $2");
     	return s;
 
     }

@@ -65,6 +65,8 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     //@@author A0138978E
     /**
      * Returns true if the list contains an equivalent item as the given argument.
+     * @param toCheck the item to check
+     * @return if the list contains an equivalent item
      */
     public boolean contains(T toCheck) {
         if (toCheck == null) {
@@ -77,7 +79,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
 
     /**
      * Adds a item to the list.
-     *
+     *@param toAdd item to add
      * @throws DuplicateItemException if the item to add is a duplicate of an existing item in the list.
      */
     public void add(T toAdd) throws DuplicateItemException {
@@ -91,7 +93,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
 
     /**
      * Removes the equivalent item from the list.
-     *
+     * @param toRemove item to remove
      * @throws ItemNotFoundException if no such item could be found in the list.
      */
     public boolean remove(T toRemove) throws ItemNotFoundException {
@@ -135,6 +137,9 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     }
 
     @Override
+    /**
+     * Check for reference equality, then compare equality element-wise
+     */
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueItemCollection// instanceof handles nulls

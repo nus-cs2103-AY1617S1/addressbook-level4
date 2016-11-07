@@ -13,10 +13,14 @@ import w15c2.tusk.logic.parser.CommandParserList;
  * source
  */
 public class AutocompleteSource {
-
+    
+    /**
+     * Iterate through all parsers and get the command words, fail with assertion errors on any problems
+       because we don't expect any non-programming related issues in this method
+     * @return
+     */
 	public static Set<String> getCommands() {
-		// Iterate through all parsers and get the command words, fail with assertion errors on any problems
-		// because we don't expect any non-programming related issues in this method
+
 		
 		Class<?>[] parserTypes = CommandParserList.getList();
 		Logger logger = LogsCenter.getLogger(AutocompleteSource.class);

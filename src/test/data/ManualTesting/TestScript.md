@@ -47,21 +47,33 @@ The following tests are specified as such:
 
 > Task should show two dates, `29th Dec 2016, 12.34 AM` and `30th Dec 2016, 2.34 PM`
 
-- `add overdue by 10 jan 2005`
+- `add overdue tasks by 10 jan 2005`
 
 > Task should appear below any pinned tasks in the task list, and should be coloured in red (overdue style)
 
 - `add event from 29 dec 12.34 am to 30 dec 2.66pm` (invalid end time)
 
-> Task should have the description "event from 29 dec 12.34 am to 30 dec 2.66pm" as Tusk assumes you meant this as a description since the time is not valid.
+> Task should have the description "event from 29 dec 12.34 am to 30 dec 2.66pm" as Tusk assumes you meant this as a description since the time is not valid
 
-- `find even`
+- `edit 1 desc clean desk table`
 
-> The tasks with "even" as a substring in their descriptions should be shown. The `find` tab at the top of the main window should now be highlighted
+> The description of task at index 1 should change from "clean desk" to "clean desk table"
+
+- `update 1 desc clean table`
+
+> The description of task at index 1 should change from "clean desk table" to "clean table" since update command is an alternative to edit command.
+
+- `edit 1 date 7 dec 10pm`
+
+> The task at index 1 changes from a floating task to a deadline task with date `07 Dec 2016, 10.00PM`
+
+- `edit 2 task buy groceries and bread by 6 dec 8pm`
+
+> The task at index 1 changes from a floating task to a deadline task with description "buy groceries and bread" and date `06 Dec 2016, 8.00PM`
 
 - `list`
 
-> All incomplete tasks should be listed and the `incomplete` tab should be highlighted
+> All incomplete tasks should be listed and the `Incomplete` tab should be highlighted
 
 - `delete 1`
 
@@ -73,7 +85,7 @@ The following tests are specified as such:
 
 - `list complete`
 
-> The previously completed task should be in this list. The `complete` tab should be highlighted
+> The previously completed task should be in this list. The `Complete` tab should be highlighted
 
 - `uncomplete 1`
 
@@ -81,11 +93,11 @@ The following tests are specified as such:
 
 - `list`
 
-> All incomplete tasks should be listed, the `incomplete` tab should be highlighted and the task that was just "uncompleted" should be in this list
+> All incomplete tasks should be listed, the `Incomplete` tab should be highlighted and the task that was just "uncompleted" should be in this list
 
-- `pin 5` 
+- `pin 8` 
 
-> The fifth task should now appear at the top of the list of tasks and be coloured yellow
+> The eighth task should now appear at the top of the list of tasks and be coloured yellow
 
 - `unpin 1`
 
@@ -126,6 +138,22 @@ The following tests are specified as such:
 - `undo`
 
 > All tasks that were just deleted should be restored
+
+- `find mee`
+
+> The tasks with "mee" as a substring in their descriptions should be shown. The `Find` tab at the top of the main window should now be highlighted
+
+- `clear`
+
+> The list of tasks with "mee" as a substring in their descriptions are all deleted and disappear. The incomplete task list should be shown
+
+- `undo`
+
+> All tasks with "mee" as a substring in their descriptions that were just deleted should be restored
+
+- `adsf`
+
+> Tasks remain unchanged since it is an invalid command
 
 - <kbd>Up</kbd> arrow key
 
