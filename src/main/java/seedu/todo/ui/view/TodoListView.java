@@ -1,21 +1,29 @@
 package seedu.todo.ui.view;
 
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.model.property.TaskViewFilter;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 //@@author A0135805H
@@ -31,8 +39,10 @@ public class TodoListView extends UiPart {
     private VBox panel;
     
     /*Layout Declarations*/
-    @FXML
-    private ListView<ImmutableTask> todoListView;
+    @FXML private ListView<ImmutableTask> todoListView;
+    @FXML private VBox emptyListView;
+    @FXML private ImageView emptyListImage;
+    @FXML private Label emptyListLabel;
 
     //@@author A0135805H-reused
     /**
@@ -47,38 +57,71 @@ public class TodoListView extends UiPart {
      *
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #todoListView} should be placed
+     * @param viewProperty the view that the user is at.
      * @return an instance of this class
      */
     public static TodoListView load(Stage primaryStage, AnchorPane placeHolder,
-                                    ObservableList<ImmutableTask> todoList) {
+            ObservableList<ImmutableTask> todoList, ObjectProperty<TaskViewFilter> viewProperty) {
         
-        TodoListView todoListView = UiPartLoaderUtil
-                .loadUiPart(primaryStage, placeHolder, new TodoListView());
-        todoListView.configure(todoList);
+        TodoListView todoListView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
+        todoListView.configure(todoList, viewProperty);
         return todoListView;
     }
 
+    //@@author A0135805H
     /**
      * Configures the {@link TodoListView}
      *
      * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
-    private void configure(ObservableList<ImmutableTask> todoList) {
-        setConnections(todoList);
+    private void configure(ObservableList<ImmutableTask> todoList, ObjectProperty<TaskViewFilter> viewProperty) {
+        setTodoListConnections(todoList);
+        setEmptyListConnections(todoList, viewProperty);
+    }
+
+    /* Empty List View Methods */
+    /**
+     * Configures the {@link }
+     * @param todoList
+     */
+    private void setEmptyListConnections(ObservableList<ImmutableTask> todoList,
+                                         ObjectProperty<TaskViewFilter> viewProperty) {
+
+        ListChangeListener<ImmutableTask> visibilityUpdate
+                = c -> setEmptyListViewVisibility(todoList.isEmpty());
+
+        ChangeListener<TaskViewFilter>  viewUpdate
+                = (observable, oldValue, newValue) -> setEmptyListContent(newValue);
+
+        todoList.addListener(visibilityUpdate);
+        visibilityUpdate.onChanged(null);
+
+        viewProperty.addListener(viewUpdate);
+        viewUpdate.changed(null, null, viewProperty.get());
     }
 
     /**
-     * Links the list of {@link ImmutableTask} to the todoListView.
+     * Displays the {@link #emptyListView} if {@code isVisible} is true, hides otherwise.
+     */
+    private void setEmptyListViewVisibility(boolean isVisible) {
+        FxViewUtil.setCollapsed(emptyListView, !isVisible);
+    }
+
+    private void setEmptyListContent(TaskViewFilter viewFilter) {
+        emptyListLabel.setText(viewFilter.emptyListMessage);
+    }
+
+    /* To-do List Ui Methods */
+    /**
+     * Links the list of {@link ImmutableTask} to the {@link #todoListView}.
      *
      * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
-    private void setConnections(ObservableList<ImmutableTask> todoList) {
+    private void setTodoListConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
         todoListView.setCellFactory(param -> new TodoListViewCell());
     }
 
-    //@@author A0135805H
-    /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
      *

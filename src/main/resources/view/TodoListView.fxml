@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--@@author generated-->
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="5000.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.TodoListView">
+<VBox stylesheets="@../style/DefaultStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.TodoListView">
     <children>
-        <ListView fx:id="todoListView" VBox.vgrow="ALWAYS" />
+      <StackPane fx:id="todoListStackPane" maxHeight="1.7976931348623157E308" prefHeight="5000.0" prefWidth="640.0">
+         <children>
+              <ListView fx:id="todoListView" />
+            <VBox fx:id="emptyListView" alignment="CENTER">
+               <children>
+                  <ImageView fx:id="emptyListImage" fitHeight="300.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/emoji.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="emptyListLabel" style="-fx-text-fill: #00A1FF;" styleClass="text1" text="No Tasks in View" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
     </children>
 </VBox>

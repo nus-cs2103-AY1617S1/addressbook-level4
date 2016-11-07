@@ -91,13 +91,14 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         //Initialise the view elements to each placeholders.
-        todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
         commandPreviewView = CommandPreviewView.load(primaryStage, commandPreviewViewPlaceholder);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
         globalTagView = GlobalTagView.load(primaryStage, globalTagViewPlaceholder);
+        todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList(),
+                model.getViewFilter());
 
         FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         SearchStatusView.load(primaryStage, searchStatusViewPlaceholder, model.getSearchStatus());
