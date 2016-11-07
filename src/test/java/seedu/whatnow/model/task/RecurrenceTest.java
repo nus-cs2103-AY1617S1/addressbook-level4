@@ -26,16 +26,16 @@ public class RecurrenceTest {
     public void setterForClass_recurrenceObjectInstantiated_allAttributesCorrect() {
         Recurrence test = new Recurrence("day", "12/12/2222", "12/12/2222", "14/12/2222", "14/12/2222");
         test.setPeriod("week");
-        test.setTaskDate("22/22/2222");
-        test.setStartDate("22/22/2222");
-        test.setEndDate("22/22/2222");
-        test.setEndPeriod("22/22/2222");
+        test.setTaskDate("22/12/2222");
+        test.setStartDate("22/12/2222");
+        test.setEndDate("22/12/2222");
+        test.setEndPeriod("22/12/2222");
        
         assertTrue("week".equals(test.getPeriod()));
-        assertTrue("22/22/2222".equals(test.getTaskDate()));
-        assertTrue("22/22/2222".equals(test.getStartDate()));
-        assertTrue("22/22/2222".equals(test.getEndDate()));
-        assertTrue("22/22/2222".equals(test.getEndPeriod()));
+        assertTrue("22/12/2222".equals(test.getTaskDate()));
+        assertTrue("22/12/2222".equals(test.getStartDate()));
+        assertTrue("22/12/2222".equals(test.getEndDate()));
+        assertTrue("22/12/2222".equals(test.getEndPeriod()));
     }
     
     @Test

@@ -241,7 +241,7 @@ public class Parser {
      * @param date The date to be formatted in DD/MM/YYYY format but DD and MM may be single digit
      * @return the formatted date with a zero padded in front of single digits in DD and MM
      */
-    private static String formatDate(String date) {
+    public static String formatDate(String date) {
         String[] splitDate = null;
         String formattedDate = EMPTY_STRING;
         if (date.contains(FORWARD_SLASH)) {
@@ -273,7 +273,7 @@ public class Parser {
      *            The time period
      * @return the formatted time
      */
-    private static String formatTime(String time, String period) {
+    public static String formatTime(String time, String period) {
         String[] splitTimePeriod = null;
         String[] splitTime = null;
         String formattedTime;
@@ -302,7 +302,7 @@ public class Parser {
      *            The time to be formatted
      * @return the formatted time
      */
-    private static String formatTime(String time) {
+    public static String formatTime(String time) {
         String formattedTime;
         if (time.contains(TIME_AM)) {
             formattedTime = formatTime(time, TIME_AM);
