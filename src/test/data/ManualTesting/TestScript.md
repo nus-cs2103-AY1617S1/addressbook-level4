@@ -2,8 +2,8 @@
 --------------
 <b>How to load sample data </b> <br> 
 <ol>
-<li><ol><li>Make a copy of SampleData.xml from main\src\test\data\ManualTesting</li>
-	 <li>Rename it to taskbook.xml</li>
+<li>Make a copy of SampleData.xml from main\src\test\data\ManualTesting</li>
+	 <ol><li>Rename it to taskbook.xml</li>
 	 <li>Navigate to main\data</li>
 	 <li>Overwrite and replace the taskbook.xml file with the renamed taskbook.xml</li></ol>	
 <li>Double-click the .jar file and the pre-saved data will automatically be loaded.</li>
