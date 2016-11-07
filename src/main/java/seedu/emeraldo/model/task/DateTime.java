@@ -13,19 +13,19 @@ import java.util.regex.Matcher;
 public class DateTime {
     
 	//@@author A0139749L
-    private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
+    public static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
             + "'from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM'\n"
             + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
             + "Accepted time formats:  14:20  |  14.20  |  1420  |  2.20pm  |  2:20pm\n"
     		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
-    private static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
+    public static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
             + "'by DD/MM/YYYY, HH:MM'\n"
             + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
             + "Accepted time formats:  14:20  |  14.20  |  1420  |  2.20pm  |  2:20pm\n"
     		+ "Type 'help' to see the full list of accepted formats in the user guide";
 
-    private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
+    public static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
             + "'on DD/MM/YYYY'\n"
             + "Accepted date formats:  4/03/2016  |  4/03/16  |  4-03-16  |  4 March 16  |  4/03  |  4 Mar\n"
             + "Type 'help' to see the full list of accepted formats in the user guide";
@@ -36,7 +36,7 @@ public class DateTime {
             + "Keyword 'by' : by DD/MM/YYYY, HH:MM\n"
             + "Keyword 'from' and 'to' : from DD/MM/YYYY, HH:MM to DD/MM/YYYY, HH:MM";
 
-	private static final String MESSAGE_PERIOD_INVALID = "Start date/time is later or same as end date/time!";
+	public static final String MESSAGE_PERIOD_INVALID = "Start date/time is later or same as end date/time!";
 
     public final String value;
     public String context;
