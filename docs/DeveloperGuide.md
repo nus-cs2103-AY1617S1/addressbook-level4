@@ -11,7 +11,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
 
 [](@@author A0139196U)
@@ -637,10 +637,10 @@ Use case resumes from step 4.
 [](@@author A0139342H)
 ### Todoist
  **Strengths**
-  * Able to identify dates in tasks statements e.g 18oct, mon. Useful for Jim's command line habits
+  * Able to identify dates in tasks statements e.g. 18oct, mon. Useful for Jim's command line habits
   * Has smartphone and desktop applications. Useful for Jim's requirement for portability
   * Has undo option
-  * Allows the use of tags to classify different tasks e.g personal, school work.
+  * Allows the use of tags to classify different tasks e.g. personal, school work.
   * Allows users to set priority levels to tasks
   * Has smartphone notifications for tasks due today
   * Multiple display formats: today, next 7 days, by tags

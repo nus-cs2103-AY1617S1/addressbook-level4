@@ -50,7 +50,7 @@ Format: `help`
 [](@@author A0139749L)
 #### Adding a task: `add`
 Adds a task to the Emeraldo <br>
-Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, AND_TIME] [#TAGS]...`
+Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME] [#TAGS]...`
 
 
 <br>
@@ -181,7 +181,7 @@ Examples:
 [](@@author A0142290N)
 #### Editing a task: `edit`
 Edits the specified task from Emeraldo.<br>
-Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, AND_TIME]`
+Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE, DEADLINE_TIME] [from START_DATE, START_TIME] [to END_DATE, END_TIME]`
 
 
 > * Task will be edited given the new parameter(s), and updated instantly.<br>
