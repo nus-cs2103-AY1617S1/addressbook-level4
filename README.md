@@ -22,5 +22,7 @@
 
 The [Address Book Level 4](https://github.com/se-edu/addressbook-level4) sample project created by SE-EDU initiative.
 
+GGist uses a simple yet excellent natural langugae parsing library from [PrettyTime-NLP](http://www.ocpsoft.org/prettytime/nlp/).
+
 
 #### Licence : [MIT](LICENSE)
