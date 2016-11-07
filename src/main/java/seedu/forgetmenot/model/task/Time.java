@@ -23,7 +23,7 @@ import seedu.forgetmenot.logic.parser.DatePreParse;
 public class Time {
     
     public static final String MESSAGE_TIME_CONSTRAINTS = "Invalid Time!";
-    public static final String MESSAGE_INCORRECT_DATE_FORMAT = "The date provided is invalid. Follow the dd/mm/yy format and make sure a valid date is provided";
+    public static final String MESSAGE_INCORRECT_DATE_FORMAT = "The date provided is invalid.";
     private static final String DEFAULT_DATE = "Thu Jan 01 07:30:00 SGT 1970";
     
     public Calendar time;

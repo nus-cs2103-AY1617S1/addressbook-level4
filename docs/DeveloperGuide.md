@@ -633,8 +633,6 @@ Day:
 8. Little color code for users to categorize
 9. Only available for apple products i.e. Mac, Iphone, Ipad etc.
 10. Requires quite a bit of point and clicking
-<!-- @@author A0139211R -->
-
 
 <!-- @@author A0139198N -->
 
@@ -661,7 +659,7 @@ Day:
 5. Steep learning curve.<br>
 6. Does not support categories.<br>
 
-<!-- @@author A0139671X-->
+<!-- @@author A0139671X -->
 
 ### Any.do
 ##### Strengths
