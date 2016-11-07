@@ -217,6 +217,7 @@ public class LogicManagerTest {
 		assertTrue(helpShown);
 	}
 	
+	//@@author A0143095H
 	@Test
 	public void execute_help_add() throws Exception {
 		assertCommandBehavior("help add", HelpCommand.HELP_MESSAGE_ADD);
@@ -277,20 +278,7 @@ public class LogicManagerTest {
 		assertTrue(helpShown);
 	}
 	
-//	@Test
-//	public void execute_done_InvalidArgsFormat() throws Exception {
-//		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
-//		for(int i=1 ; i <= DoneCommand.COMMAND_WORD.length(); i++ ){
-//			assertIncorrectIndexFormatBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i), expectedMessage);
-//		}
-//	}
-//	
-//	@Test
-//	public void execute_doneIndexNotFound() throws Exception {
-//		for(int i=0; i <= DoneCommand.COMMAND_WORD.length(); i++){
-//			assertIndexNotFoundBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i));
-//		}
-//	}
+	
 	
 	//@author A0143095H 
 	@Test 
@@ -379,7 +367,7 @@ public class LogicManagerTest {
 		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), expectedList, expectedList.getTaskList());
 	}
 	
-	
+	//@@author A0139714B
 	@Test
 	public void execute_clear_done() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
@@ -405,6 +393,7 @@ public class LogicManagerTest {
 		
 	}
 	
+	//@@author A0139714B
 	@Test
 	public void execute_clear_undone() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
@@ -478,7 +467,7 @@ public class LogicManagerTest {
 				Tag.MESSAGE_TAG_CONSTRAINTS);
 	}
 	
-	// @@author A0139678J
+	//s@@author A0139678J
 	@Test
 	public void execute_add_deadline() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
