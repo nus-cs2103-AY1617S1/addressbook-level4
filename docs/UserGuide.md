@@ -45,7 +45,8 @@ So, what are you waiting for? Let’s get started!
 > * Items in `SQUARE_BRACKETS` are optional parameters.
 > * The ordering of parameters is flexible.
 
-/* @@author A0146107M */
+[comment]: # (@@author A0146107M)
+
 #### Adding a task : `add`
 Adds a task, deadline, event or a floating task to the list. <br>
 Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING_FREQUENCY] [p/PRIORITY]`
@@ -55,6 +56,7 @@ Format: `add TASKNAME [at/from START_TIMEDATE] [by/to END_TIMEDATE] [r/RECURRING
 > * For floating tasks, `START_TIMEDATE` and `END_TIMEDATE` are unspecified.<br>
 > * If `TASKNAME` contains keywords like "add", the user can enter it using the escape character '\'.
 * `add Shop \at Topshop at 5pm`
+> * `TASKNAME` should not contain `'`.
 > * Priority must be low/med/high. If priority is not specified, default priority of low is set.
 > * `RECURRING_FREQUENCY` can be set as `daily`, `weekly`, `monthly` or `yearly`.
 > * Floating tasks do not have `RECURRING_FREQUENCY`. In the event that this is attempted, the floating task will be added but the `RECURRING_FREQUENCY` entered will be ignored, so the task will be added as a non-recurring one.
@@ -65,7 +67,8 @@ Examples:
 * `add Pay bills by friday 5pm`
 * `add Do laundry p/low`
 
-/* @@author A0142102E */
+[comment]: # (@@author A0142102E)
+
 #### Displaying tasks : `show`
 Displays tasks and their indexes in the specified category.<br>
 Format: `show [CATEGORY]`
@@ -97,7 +100,7 @@ Examples:
 
 > * Lists all the tasks that are overdue
 
-/* @@author A0146107M */
+[comment]: # (@@author A0146107M)
 
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
@@ -130,7 +133,7 @@ Examples:
 
 > * If only 1 task matches the entered text, it is deleted. Otherwise, the tasks matching `b*y*` will be listed for the user to choose from.
 
-/* @@author A0144919W */
+[comment]: # (@@author A0144919W)
 
 #### Updating a task : `update`
 Updates information for a task referred by its index.<br>
@@ -152,7 +155,7 @@ Examples:
 
 > * The priority of the task at index 1 is updated to high.
 
-/* @@author */
+[comment]: # (@@author)
 
 #### Marking a task as complete : `done`
 Marks a task as complete.<br>
@@ -165,7 +168,8 @@ Examples:
 * `done 1`
 * `done b*y`
 
-/* @@author A0135769N */
+[comment]: # (@@author A0135769N)
+
 #### Setting the storage location: `setstorage`
 Sets the data storage location to the specified file path. <br>
 Format: `setstorage FILEPATH`
@@ -175,7 +179,7 @@ Examples:
 
 > * If the `FILEPATH` does not contain a .xml file at the end, a default .xml file with a default name is appended to the file path.
 
-/* @@author A0144919W */
+[comment]: # (@@author A0144919W)
 
 #### Undo previous action(s): `undo`
 Undo the latest change made to the task list. <br>
@@ -190,7 +194,7 @@ Format: `redo`
 > * Allows redo to up to unlimited consecutive undo operations done.
 > * Does not work if the undo command was not used just before this command.
 
-/* @@author A0146107M*/
+[comment]: # (@@author A0146107M)
 
 #### Autocomplete feature: `TAB`/`SPACEBAR`
 Autocompletes the command that has been entered halfway in the command box, upon pressing `TAB` or `SPACEBAR`. <br>
@@ -217,7 +221,7 @@ Format: `help`
 > The help tooltip will open in a new window.
 > On pressing any key while in the help window, the help window will be closed and the user will be taken back to the command line.
 
-/* @@author */
+[comment]: # (@@author)
 
 #### Clear all tasks : `clear`
 Clears all tasks from the to-do list.<br>
