@@ -102,7 +102,7 @@ public class UndoCommand extends Command {
     }
 
 	/**
-     * Undo Edit command which was previously called
+     * Undo Done command which was previously called
      */
 	private CommandResult undoDone(PreviousCommand toUndo) {
 		boolean isComplete = false;
