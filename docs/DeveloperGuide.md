@@ -411,6 +411,6 @@ Priority Matrix : Strength and Weaknesses
 <!-- @@author A0142421X -->
 Any.Do : Strength and Weaknesses
 
->Any.Do is a cross platform task managment application that categorises the tasks in terms of when they need to be done. The tasks can also be further categorised into custom categories that can also be shared with friends and family. The application has a very simple and intuitive UI with words of encouragement when tasks are cleared.
+>Any.Do is a cross platform task management application that categorises the tasks in terms of when they need to be done. The tasks can also be further categorised into custom categories that can also be shared with friends and family. The application has a very simple and intuitive UI with words of encouragement when tasks are cleared.
 
 >However, the application does not provide the option to mark a task with a priority level. This means that it would be difficult to differentiate the important tasks from the trivial tasks at a glance. Furthermore, tasks are not sorted in date order, tasks that are more recent may be pushed below tasks that are dated relatively later.
