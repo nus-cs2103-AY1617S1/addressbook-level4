@@ -10,7 +10,7 @@ Ever wished for a tool that can manage all your daily activities in distinct cat
 
 Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days when you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type the command and hit enter!
 
-Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. Uncle Jim is also capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
+Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. Uncle Jim is also capable of managing both tasks *and* events so you don't have to use two different applications to be productive. Our unique product will intelligently sieve out urgent deadlines and serve up reminders for you, so you will no longer overlook another significant activity.
 
 Sounds exciting? Then let's get started!
 
@@ -32,7 +32,7 @@ Sounds exciting? Then let's get started!
 6. Here are some example commands you can try:
 
      * **`add`**` Finish CS2103T homework /d next Friday` - 
-       adds a new task with the deadline set at next Friday
+       adds a new task with the deadline set for next Friday
      * **`delete`**` 3` - deletes the 3<sup>rd</sup> task shown in the current list
      * **`exit`** - exits the app
      
@@ -41,7 +41,7 @@ Sounds exciting? Then let's get started!
 
 ## Command Reference
 
-You can refer to the section below for the full list of commands that are available in Uncle Jim. For quick reference you can also refer to the [command summary](#command-summary) at the end of this guide or use the `help` command when using the app.   
+You can refer to the section below for the full list of commands that are available in Uncle Jim. For quick reference, you can also refer to the [command summary](#command-summary) at the end of this guide or use the `help` command when using the app.   
 
 ### Notes regarding command format
 
@@ -70,7 +70,7 @@ Uncle Jim supports flexible date formats so you can enter dates in the formats s
 
 * **Relaxed dates**
 
-   It is not always necessary write it in full formal date formats, Uncle Jim allows relaxed date formats as well. If you don't include the full date we will use the current month or year 
+   It is not always necessary to write it in full formal date formats - Uncle Jim allows relaxed date formats as well. If you don't include the full date, we will use the current month or year 
   
     !!! example 
         Oct 12 9pm
@@ -89,7 +89,7 @@ Uncle Jim supports flexible date formats so you can enter dates in the formats s
 !!! note If no time is specified when entering a date, Uncle Jim will use the current time by default 
 
 
-### Viewing help : **`help`**
+### Viewing help: **`help`**
 
 Format: **`help`**
 
@@ -147,11 +147,11 @@ If you need something done by a specific time, add a deadline to your task by sp
 If you need to add more details to a task, you can add them under the `/m` flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to [the `show` command](#showing-details-of-a-task-show).
 
 !!! example
-    **`add`**` Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
+    **`add`**` Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them on sale on Friday - 50% discount on bulk orders!`
 
 #### Pinning a task
 
-Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) for more details.
+Have something you don't want to forget? These tasks or events can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) for more details.
 
 !!! example
     **`add`**` Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p`
@@ -182,7 +182,7 @@ Format: **`delete`**` INDEX`
 This allows you to delete the task specified by the `INDEX` parameter. The index refers to the index number shown in the current view.
 
 !!! note
-    If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See the [undo](#undoing-an-action-undo)
+    If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See [the undo command](#undoing-an-action-undo) for more information.
 
 !!! example
     
@@ -262,7 +262,7 @@ Sometimes you might not want to reuse tags you have used for other tasks previou
 
 #### Adding tags to a task 
 
-If you wish to add tags to a task, simply type `tag` with the `INDEX` and the tag names you wish to add to a task. This does not overwite any existing tags on a task:
+If you wish to add tags to a task, simply type `tag` with the `INDEX` and the tag names you wish to add to a task. This does not overwrite any existing tags on a task:
 
 !!! example
     **`tag`**` 1 cs2103T`
@@ -281,7 +281,7 @@ You can rename tags for either a single task, or all tasks using `/r`:
     :    Renames the `Business` tag to `Pleasure` only in task 1. 
 
 !!! note 
-    Note that without the *INDEX* parameter, this will affect all tasks tagged with the specified tag, such as *Business* in the example above.
+    Note that without the *INDEX* parameter, doing this will affect all tasks tagged with the specified tag, such as *Business* in the example above.
 
 #### Deleting tags 
 
@@ -418,11 +418,11 @@ For events which have passed, they will be <strong class="text-faded">faded</str
 
 ### Intelligent Command™
 
-As you get more advanced with Uncle Jim, you might find typing the full command slightly slow. But you can actually type less than required, because our Intelligent Command™ system can recognise commands even if you do not type them out fully.
+As you get more advanced with Uncle Jim, you might find typing the full command slightly cumbersome. To speed up your workflow you can type our just the first few characters of a command, because our Intelligent Command™ system can recognise commands even if you do not type them out fully.
 
 !!! example
     **`com`**`1`
-    :    Marks the first task on the current lsit as complete. Our system recognises it as the complete command
+    :    Marks the first task on the current list as complete. Our system recognises it as the complete command
 
 If the commands are ambiguous, our system will ask you for clarification of which command you wish to execute.
 
@@ -434,7 +434,7 @@ For example, typing just `e` could refer to `edit` or `exit` so a message as sho
 
 ### Command Preview™
 
-We also understand that it takes time for new users to remember all the commands. As such, we have a CommandPreview™ which tells you the parameters of the command you have to enter. For example, if you type `ad` the system will process your keypresses and display to you what commands it thinks you are going to execute and displays them as shown below:
+We also understand that it takes time for new users to remember all the commands. As such, we have a CommandPreview™ which tells you the parameters of the command you have to enter. For example, if you type `ad` the system will process your keystrokes and display to you what commands it thinks you are going to execute and displays them as shown below:
 
 <img src="images/app_command_preview.png" width="700" alt="CommandPreview™" />
 
