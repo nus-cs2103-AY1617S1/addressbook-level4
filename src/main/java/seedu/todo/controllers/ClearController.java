@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.exceptions.AmbiguousEventTypeException;
 import seedu.todo.commons.exceptions.InvalidNaturalDateException;
 import seedu.todo.commons.exceptions.ParseException;

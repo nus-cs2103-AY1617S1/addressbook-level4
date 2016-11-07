@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.todo.controllers.CommandDefinition;
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.guitests.GuiRobot;
 
 //@@author A0139812A

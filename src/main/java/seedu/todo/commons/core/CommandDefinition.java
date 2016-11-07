@@ -1,4 +1,4 @@
-package seedu.todo.controllers;
+package seedu.todo.commons.core;
 
 // @@author A0139812A
 /**

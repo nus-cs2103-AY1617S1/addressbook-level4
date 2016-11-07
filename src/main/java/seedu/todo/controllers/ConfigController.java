@@ -2,6 +2,7 @@ package seedu.todo.controllers;
 
 import java.io.IOException;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.CannotConfigureException;

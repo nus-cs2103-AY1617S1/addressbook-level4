@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.todo.controllers.CommandDefinition;
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.controllers.HelpController;
 import seedu.todo.guitests.guihandles.HelpItemHandle;
 

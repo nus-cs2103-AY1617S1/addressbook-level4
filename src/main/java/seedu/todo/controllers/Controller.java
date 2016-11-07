@@ -1,5 +1,6 @@
 package seedu.todo.controllers;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.exceptions.ParseException;
 
 // @@author A0093907W

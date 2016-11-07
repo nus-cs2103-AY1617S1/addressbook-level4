@@ -2,6 +2,7 @@ package seedu.todo.controllers;
 
 import java.util.Arrays;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.ui.UiManager;
 import seedu.todo.ui.views.HelpView;
 

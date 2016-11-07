@@ -5,8 +5,8 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.controllers.CommandDefinition;
 import seedu.todo.ui.components.HelpCommandItem;
 
 /**

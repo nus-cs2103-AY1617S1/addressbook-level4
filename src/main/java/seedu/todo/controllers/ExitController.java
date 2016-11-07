@@ -1,5 +1,6 @@
 package seedu.todo.controllers;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 

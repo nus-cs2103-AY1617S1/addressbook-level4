@@ -3,6 +3,7 @@ package seedu.todo.controllers;
 import java.io.IOException;
 import java.util.Map;
 
+import seedu.todo.commons.core.CommandDefinition;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.ConfigCenter;
 import seedu.todo.commons.exceptions.ParseException;
