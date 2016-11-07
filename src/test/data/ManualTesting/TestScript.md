@@ -24,7 +24,7 @@ For brevity, we will simply denote a disambiguation prompt with the prefix "disa
 
 Command | Expected behavior
 ------- | -----------------
-`add task Buy milk` | Floating task added
+`add task Buy donuts` | Floating task added
 `add task Buy milk by tmr 7pm` | Task with deadline added
 `add task` | Disambiguate: `add task "<name>" by "<deadline>"`
 
@@ -46,7 +46,7 @@ Command | Expected behavior
 
 ### Update Task / Event
 
-At this point, the following should be displayed on the screen:
+The following should be displayed on the screen:
 1. CS1010S meeting, 19:00 - 21:00
 2. Go to the zoo, 16:00 - 18:00
 3. Buy milk, 19:00
@@ -58,5 +58,24 @@ Command | Expected behavior
 `update 1 name CS1010FC meeting` | Event is renamed
 `update 1 from tmr 6pm` | Event start time is changed to 6pm
 `update 1 from tmr 4pm to tmr 5pm ` | Event time is changed to 4-5pm
+`update 3 Buy baby milk` | Task is renamed
 `update 3 by tmr 4pm` | Task deadline is changed to 4pm
 `update 3 from tmr 4pm to tmr 5pm` | Disambiguation: A task only has a single deadline
+
+### List query
+
+The following should be displayed on the screen:
+1. CS1010FC meeting, 16:00 - 17:00
+2. Go to the zoo, 16:00 - 18:00
+3. Buy baby milk, 16:00
+
+If the numbering differs from this order, please use the correct numbering in the commands.
+
+Command | Expected behavior
+------- | -----------------
+`list` | List shows all incomplete tasks, completed tasks in the future, and events in the future
+`list completed` | Only the completed task "Buy donuts" from much earlier shows up
+`list incomplete` | Only the incomplete task "Buy baby milk" shows up
+`list events` | Only the two events show up
+`list events before tmr 5.30pm`| Only "CS1010FC meeting" shows up
+`list before tmr 7pm` | Only tasks and events before tomorrow 7pm show up, which are "CS1010FC meeting", "Go to the zoo", and "Buy baby milk"
