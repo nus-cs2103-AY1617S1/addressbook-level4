@@ -30,7 +30,17 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Govind Venugopalan](https://github.com/cricketer94) @cricketer94
 <img src="images/Govind.jpg" width="150"><br>
 **Role**: Backend Developer <br>
-**Responsibilities**: Logic and Documentation
+
+* Components in charge of: Logic, Model 
+* Aspects/tools in charge of: Eclipse, ECl 
+* Features implemented:
+    * Edit, Clear, Complete, Pinning 
+    * Views and Showing of TodoList tasks
+* Code written: [functional code] [test code] [docs]
+* Other major contributions:
+    * Did the initial documentation drafts for User Guide
+    * Did some refactoring for Model to accomodate updateAll
+    * Designed TaskViewFilter enum for views
 
 -----
 
