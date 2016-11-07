@@ -60,11 +60,21 @@ public class EditCommand extends Command {
 
         switch (newParamsType.toLowerCase()) {
         case ("float"):
-            this.newParams = new Activity(new Name(name), new Reminder(reminder), new UniqueTagList(tagSet));
+            this.newParams = new Activity(
+                    new Name(name), 
+                    new Reminder(reminder), 
+                    new UniqueTagList(tagSet)
+                    );
+        
             break;
         case ("task"):
-            this.newParams = new Task(new Name(name), new DueDate(duedate), new Priority(priority),
-                    new Reminder(reminder), new UniqueTagList(tagSet));
+            this.newParams = new Task(
+                    new Name(name), 
+                    new DueDate(duedate), 
+                    new Priority(priority),
+                    new Reminder(reminder), 
+                    new UniqueTagList(tagSet)
+                    );
 
             if (duedate.length() > 0) {
                 if (((Task) newParams).getDueDate().isBeforeNow()) {
@@ -73,8 +83,13 @@ public class EditCommand extends Command {
             }
             break;
         case ("event"):
-            this.newParams = new Event(new Name(name), new StartTime(start), new EndTime(new StartTime(start), end),
-                    new Reminder(reminder), new UniqueTagList(tagSet));
+            this.newParams = new Event(
+                    new Name(name), 
+                    new StartTime(start), 
+                    new EndTime(new StartTime(start), end),
+                    new Reminder(reminder), 
+                    new UniqueTagList(tagSet)
+                    );
 
             if (((Event) newParams).getStartTime().isBeforeNow()) {
                 throw new IllegalValueException(StartTime.MESSAGE_STARTTIME_INVALID);
