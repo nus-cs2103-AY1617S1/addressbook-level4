@@ -116,7 +116,7 @@ public class DateTimeUtil {
      * Checks whether onDate is before byDate
      */
     public static boolean beforeOther(TaskDate onDate, TaskDate byDate) {
-        if (onDate == null || byDate == null) {
+        if (onDate.getDate() == null || byDate.getDate() == null) {
             return true;
         } else if (onDate.getDate().equals(byDate.getDate())) {
             return onDate.getTime().isBefore(byDate.getTime());
