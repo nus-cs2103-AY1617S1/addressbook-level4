@@ -43,18 +43,17 @@ public class TestTask implements ReadOnlyTask {
 	
 	@Override
 	public void markAsNotComplete() {
-		// TODO Auto-generated method stub
+		isComplete = false;
 	}
     
 	@Override
 	public void pin() {
-		// TODO Auto-generated method stub
-		
+		isPinned = true;
 	}
 
 	@Override
 	public void unpin() {
-		// TODO Auto-generated method stub
+		isPinned = false;
 	}
 
 
