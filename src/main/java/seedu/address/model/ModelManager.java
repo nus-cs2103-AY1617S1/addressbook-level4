@@ -147,11 +147,13 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
+    //@@author A0143756Y-reused
     /** Raise an event to indicate that the aliasManager in model has changed */
     private void indicateAliasManagerChanged() {
     	raise(new AliasManagerChangedEvent(aliasManager));
     }
-
+    //@@author
+    
     @Override
     public synchronized void deleteTasks(ArrayList<ReadOnlyTask> targets) throws TaskNotFoundException {
         for(ReadOnlyTask target : targets) {
@@ -193,6 +195,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0143756Y
+    
+    //@@author A0143756Y
     @Override
     public synchronized boolean validateAliasforAddAliasCommand(String alias) {
     	assert alias != null;
@@ -207,6 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	return true;
     }
+    //@@author
 
     //@@author A0141019U
     @Override

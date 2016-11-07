@@ -26,7 +26,7 @@ public class XmlAdaptedAlias {
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source future changes to this will not affect the created XmlAdaptedAlias
      */
     public XmlAdaptedAlias(ReadOnlyAlias source) {
         alias = source.getAlias();

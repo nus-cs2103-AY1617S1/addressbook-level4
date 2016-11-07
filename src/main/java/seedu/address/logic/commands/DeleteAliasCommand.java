@@ -10,7 +10,7 @@ import seedu.address.model.alias.Alias;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList.AliasNotFoundException;
 
-//@@author A0143756Y-reused
+//@@author A0143756Y
 /**
  * Deletes an alias identified using its displayed index from the last alias listing .
  */
@@ -57,7 +57,7 @@ public class DeleteAliasCommand extends Command {
         } catch (AliasNotFoundException pnfe) {
         	model.undoSaveState();
         	// TODO use variable instead
-        	return new CommandResult("Task index does not exist in displayed list.");
+        	return new CommandResult("Task index does not exist in displayed list.\n");
         }
         
         recentDeletedAliases = new ArrayList<>();

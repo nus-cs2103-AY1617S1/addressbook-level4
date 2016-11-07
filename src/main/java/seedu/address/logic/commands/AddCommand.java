@@ -22,16 +22,19 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday to the task manager.\n"
-            + "Event Parameters: event 'NAME' from hh:mm to hh:mm on dd-mm-yy\n"
-            + "Event Example: " + COMMAND_WORD
-            + " event 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
-            + "Deadline Parameters: deadline 'NAME' by hh:mm dd-mm-yy\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday (someday) to the task manager.\n"
+            + "Event Same Day Parameters: 'TASK_NAME' from HH:MM to HH:MM on DD-MM-YY\n"
+            + "Event Same Day Example: " + COMMAND_WORD
+            + " 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
+            + "Event Different Days Parameters: 'TASK_NAME' from HH:MM DD-MM-YY to HH:MM DD-MM-YY\n"
+            + "Event Different Days Example: " + COMMAND_WORD
+            + " 'business conference' from 19:00 20-12-16 to 21:00 25-12-16\n"
+            + "Deadline Parameters: 'TASK_NAME' by HH:MM DD-MM-YY\n"
             + "Deadline Example: " + COMMAND_WORD
-            + " deadline 'lab report' by 16:00 03-03-15\n"
-            + "Task to Be Done Someday Parameters: someday 'NAME'\n"
-            + "Task to Be Done Someday Example: " + COMMAND_WORD
-            + " someday 'water the plants'";
+            + " 'lab report' by 16:00 03-03-15\n"
+            + "Someday Parameters: 'TASK_NAME'\n"
+            + "Someday Example: " + COMMAND_WORD
+            + " 'water the plants'";
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
