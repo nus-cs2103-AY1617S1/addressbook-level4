@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.model.AddressBook;
@@ -11,20 +11,20 @@ import seedu.dailyplanner.model.task.UniqueTaskList;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class DailyPlannerBuilder {
 
     private AddressBook addressBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
+    public DailyPlannerBuilder(AddressBook addressBook){
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
+    public DailyPlannerBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
+    public DailyPlannerBuilder withTag(String tagName) throws IllegalValueException {
         addressBook.addTag(new Tag(tagName));
         return this;
     }

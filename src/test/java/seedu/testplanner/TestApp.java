@@ -1,14 +1,14 @@
-package seedu.address;
+package seedu.testplanner;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 import seedu.dailyplanner.MainApp;
 import seedu.dailyplanner.commons.core.Config;
 import seedu.dailyplanner.commons.core.GuiSettings;
 import seedu.dailyplanner.model.ReadOnlyAddressBook;
 import seedu.dailyplanner.model.UserPrefs;
 import seedu.dailyplanner.storage.XmlSerializableAddressBook;
+import seedu.testplanner.testutil.TestUtil;
 
 import java.util.function.Supplier;
 

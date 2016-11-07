@@ -3,8 +3,6 @@ package guitests;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.dailyplanner.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS;
@@ -12,13 +10,15 @@ import static seedu.dailyplanner.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.logic.parser.*;
 import seedu.dailyplanner.model.task.*;
+import seedu.testplanner.testutil.TestTask;
+import seedu.testplanner.testutil.TestUtil;
 
 public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit() throws IllegalValueException {
 
-	TestPerson[] currentList = td.getTypicalPersons();
+	TestTask[] currentList = td.getTypicalPersons();
 	int targetIndex = currentList.length;
 	
 	// edit task date
@@ -34,9 +34,9 @@ public class EditCommandTest extends AddressBookGuiTest {
 	assertEditSuccess(targetIndex, currentList, newEndTime);
     }
 
-    private void assertEditSuccess(int targetIndex, TestPerson[] currentList, String arg) throws IllegalValueException {
+    private void assertEditSuccess(int targetIndex, TestTask[] currentList, String arg) throws IllegalValueException {
 	
-	TestPerson personToEdit = currentList[targetIndex - 1];
+	TestTask personToEdit = currentList[targetIndex - 1];
 	char fieldToEdit = arg.charAt(0);
 	int len = arg.length();
 	String newField = arg.substring(2, len-1);

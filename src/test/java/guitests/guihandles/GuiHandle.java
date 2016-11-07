@@ -7,8 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seedu.address.TestApp;
 import seedu.dailyplanner.commons.core.LogsCenter;
+import seedu.testplanner.TestApp;
 
 import java.util.logging.Logger;
 

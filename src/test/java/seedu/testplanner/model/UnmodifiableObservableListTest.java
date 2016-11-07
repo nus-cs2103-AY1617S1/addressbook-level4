@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.testplanner.model;
 
 import javafx.collections.FXCollections;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
@@ -11,7 +11,7 @@ import org.junit.rules.ExpectedException;
 import java.util.*;
 
 import static org.junit.Assert.assertSame;
-import static seedu.address.testutil.TestUtil.assertThrows;
+import static seedu.testplanner.testutil.TestUtil.assertThrows;
 
 public class UnmodifiableObservableListTest {
 

@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.testplanner.testutil;
 
 import com.google.common.eventbus.Subscribe;
 

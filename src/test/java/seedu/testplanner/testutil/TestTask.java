@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.model.tag.UniqueTagList;
 import seedu.dailyplanner.model.task.*;
@@ -6,7 +6,7 @@ import seedu.dailyplanner.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestPerson implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private EndTime address;
@@ -16,7 +16,7 @@ public class TestPerson implements ReadOnlyTask {
     private UniqueTagList tags;
     private String isComplete;
 
-    public TestPerson() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 
