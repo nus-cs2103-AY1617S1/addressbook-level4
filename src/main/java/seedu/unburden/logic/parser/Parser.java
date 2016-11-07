@@ -635,6 +635,14 @@ public class Parser {
 			return new HelpCommand(ClearCommand.COMMAND_WORD);
 		case ListCommand.COMMAND_WORD:
 			return new HelpCommand(ListCommand.COMMAND_WORD);
+		case DoneCommand.COMMAND_WORD:
+			return new HelpCommand(DoneCommand.COMMAND_WORD);
+		case UndoCommand.COMMAND_WORD:
+			return new HelpCommand(UndoCommand.COMMAND_WORD);
+		case RedoCommand.COMMAND_WORD:
+			return new HelpCommand(RedoCommand.COMMAND_WORD);
+		case UnDoneCommand.COMMAND_WORD:
+			return new HelpCommand(UnDoneCommand.COMMAND_WORD);
 		case ExitCommand.COMMAND_WORD:
 			return new HelpCommand(ExitCommand.COMMAND_WORD);
 		case "":

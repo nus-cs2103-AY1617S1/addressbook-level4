@@ -17,7 +17,7 @@ public class UnDoneCommand extends Command {
 			+ ": Marks the task identified by the index number used in the last task listing as undone.\n"
 			+ "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task Marked as Undone";
+	public static final String MESSAGE_UNDONE_TASK_SUCCESS = "Task Marked as Undone";
 
 	public final int targetIndex;
 
@@ -39,6 +39,6 @@ public class UnDoneCommand extends Command {
 
 		model.saveToPrevLists();
 		model.doneTask(taskToDone, false);
-		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));
+		return new CommandResult(String.format(MESSAGE_UNDONE_TASK_SUCCESS, taskToDone));
 	}
 }
