@@ -10,7 +10,7 @@ import seedu.unburden.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.unburden.model.task.ReadOnlyTask;
 import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
-//@@Author A0147986H-unused
+//@@author A0147986H-unused
 /**
  * Deletes a task or a set of tasks identified 
  * using it's last displayed index from the address book.

@@ -58,6 +58,8 @@ public class StringUtil {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
     
+    //@@ author A0147986H-unused
+    
     public static String getTaskDetails(ArrayList<ReadOnlyTask> taskList){
     	StringBuilder resultedList=new StringBuilder();
     	for(ReadOnlyTask p:taskList){
