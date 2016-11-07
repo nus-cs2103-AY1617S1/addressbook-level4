@@ -4,13 +4,10 @@ If running this from Jar file, specify the path to this SampleData.xml file depe
 If running from Eclipse: `store src\test\data\ManualTesting\SampleData`. (for mac use `/`)<br>
 Result: SampleData.xml file data will be loaded into DearJim. You should see >50 Tasks, some done, some undone.
 
-Edit a task's name <br>
-Command: `edit 1 buy Akshay two farewell gifts`<br>
-Result: Task at index 1 name changed to "buy Akshay two farewell gifts"<br>
-
-Edit a task's priority<br>
-Command: `edit 2 -high`<br>
-Result: Task at index 2 priority bar shade turns from yellow to red.<br>
+|Action Details|Command Input|Result|
+|---|---|---|---|
+|Edit a task's name|`edit 1 buy Akshay two farewell gifts`|Task at index 1 name changed to "buy Akshay two farewell gifts"|
+|Edit a task's priority|`edit 2 -high`|Task at index 2 priority bar shade turns from yellow to red.|
 
 Undo previous edit command<br>
 Command: `undo`<br>
