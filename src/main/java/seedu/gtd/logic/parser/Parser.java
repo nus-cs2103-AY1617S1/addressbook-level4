@@ -140,7 +140,7 @@ public class Parser {
         final Matcher addressMatcher = ADDRESS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher priorityMatcher = PRIORITY_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
         final Matcher tagsMatcher = TAGS_TASK_DATA_ARGS_FORMAT.matcher(preprocessedArg);
-        
+ 
         String nameToAdd = checkEmptyAndAddDefault(nameMatcher, "name", "nil");
         String startDateToAdd = checkEmptyAndAddDefault(startDateMatcher, "startDate", "nil");
         String dueDateToAdd = checkEmptyAndAddDefault(dueDateMatcher, "dueDate", "nil");
@@ -160,6 +160,7 @@ public class Parser {
         if (tagsMatcher.matches()) {
         	tagsProcessed = getTagsFromArgs(tagsMatcher.group("tagArguments"));
         }
+        
         
         // Validate arg string format
         if (!nameMatcher.matches()) {
@@ -217,6 +218,7 @@ public class Parser {
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
         }
+        
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);

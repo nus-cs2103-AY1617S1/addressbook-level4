@@ -1,3 +1,8 @@
+
+
+
+
+
 package seedu.gtd.commons.core;
 
 import org.junit.Rule;
@@ -16,11 +21,11 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Address App\n" +
+        String defaultConfigAsString = "App title : TaryTest\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "Local data file location : data/tasklist.xml\n" +
+                "Task List name : MyTaskList";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
