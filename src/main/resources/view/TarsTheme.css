@@ -1,3 +1,11 @@
+/* @@author A0121533W */
+
+/*
+ * ====================================================================
+ * ============================Fonts===================================
+ * ====================================================================
+ */
+
 @font-face {
   font-family: Roboto;
   src: url("../fonts/roboto/Roboto-Regular.ttf");
@@ -22,7 +30,7 @@
   font-family: "Roboto Bold";
   src: url("../fonts/roboto/Roboto-Bold.ttf");
 }
-
+ 
 .root {
 	-fx-focus-color: transparent;
 }
@@ -31,32 +39,37 @@
     -fx-background-color: #455A64;
 }
 
-.text-field {
-    -fx-font-size: 14px;
-    -fx-border-color: transparent;
-    -fx-font-family: "Roboto";
-    -fx-background-insets: 0;       
-}
-
-.text-field:focused {
-    -fx-focus-color: transparent;
-}
-
-.text-area {
-	-fx-background-insets: 0;
-	-fx-background-color: transparent;
-}
-
-.text-area .content {
-    -fx-background-color: #F6F6F6;
-    -fx-border-color: transparent;
-    -fx-background-insets: 0;
-}
-
-.dateTimeListArea .content {
+.list-label {
+	-fx-font-size: 18px;
+	-fx-text-fill: #212121;
 	-fx-background-color: white;
+	-fx-font-family: "Roboto Black";
 }
 
+/*
+ * ====================================================================
+ * ========================SplitPane===================================
+ * ====================================================================
+ */
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-border-color: transparent;
+    -fx-background-color: lightgrey;
+    -fx-padding: 0 0.1 0 0.1;
+}
+
+.split-pane {
+    -fx-border-radius: 0;
+    -fx-border-width: 0;
+    -fx-background-color: white;
+}
+
+/*
+ * ====================================================================
+ * ==========================TabPane===================================
+ * ====================================================================
+ */
+ 
 .tab-pane {
     -fx-padding: 0 10 0 5;
 }
@@ -96,16 +109,83 @@
     -fx-border-width: 1 0 1 0;
 }
 
-.split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent;
-    -fx-background-color: lightgrey;
-    -fx-padding: 0 0.1 0 0.1;
+
+.thisWeek-panel {
+	-fx-background-color: white;
 }
 
-.split-pane {
-    -fx-border-radius: 0;
-    -fx-border-width: 0;
-    -fx-background-color: white;
+.thisWeek-panel-label {
+	-fx-font-size: 24px;
+	-fx-text-fill: #212121;
+}
+
+.date-label {
+	-fx-font-size: 32px;
+	-fx-text-fill: #212121;
+}
+
+/*
+ * ====================================================================
+ * =========================CommandBox=================================
+ * ====================================================================
+ */
+ 
+.text-field {
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+    -fx-font-family: "Roboto";
+    -fx-background-insets: 0;       
+}
+
+.text-field:focused {
+    -fx-focus-color: transparent;
+}
+
+/*
+ * ====================================================================
+ * ==============Results Display & RsvTask DateTimeList================
+ * ====================================================================
+ */
+ 
+ .anchor-pane {
+     -fx-background-color: #F6F6F6;
+}
+
+.result-display {
+    -fx-background-color: #F6F6F6;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.result-display .label {
+    -fx-text-fill: #212121;
+}
+ 
+.text-area {
+	-fx-background-insets: 0;
+	-fx-background-color: transparent;
+}
+
+.text-area .content {
+    -fx-background-color: #F6F6F6;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.dateTimeListArea .content {
+	-fx-background-color: white;
+}
+
+/*
+ * ====================================================================
+ * ========ListView and ListCell for TaskList/RsvTaskList==============
+ * ====================================================================
+ */
+
+.taskList {
+	-fx-border-width: 1 0 0 0;
+	-fx-border-color: lightgrey;
 }
 
 .list-view {
@@ -114,9 +194,10 @@
   -fx-padding: 0px;
 }
 
-.taskList {
-	-fx-border-width: 1 0 0 0;
-	-fx-border-color: lightgrey;
+#cardPane {
+    -fx-background-color: white;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 0 0 2 0;
 }
 
 .list-cell {
@@ -152,24 +233,21 @@
     -fx-font-family: "Roboto Thin";
 }
 
-.anchor-pane {
-     -fx-background-color: #F6F6F6;
+.circle_label {
+	-fx-font-weight: bold;
+	-fx-font-size: 16px;
 }
 
-.status-bar {
+
+/*
+ * ====================================================================
+ * ===========================Status Bar===============================
+ * ====================================================================
+ */
+ 
+ .status-bar {
     -fx-background-color: #2e8af7;
     -fx-text-fill: white;
-}
-
-.result-display {
-    -fx-background-color: #F6F6F6;
-    -fx-border-color: transparent;
-    -fx-focus-color: transparent;
-    -fx-background-insets: 0;
-}
-
-.result-display .label {
-    -fx-text-fill: #212121;
 }
 
 .status-bar .label {
@@ -177,26 +255,11 @@
     -fx-font-size: 12px;
 }
 
-.thisWeek-panel {
-	-fx-background-color: white;
-}
-
-.thisWeek-panel-label {
-	-fx-font-size: 24px;
-	-fx-text-fill: #212121;
-}
-
-.date-label {
-	-fx-font-size: 32px;
-	-fx-text-fill: #212121;
-}
-
-.list-label {
-	-fx-font-size: 18px;
-	-fx-text-fill: #212121;
-	-fx-background-color: white;
-	-fx-font-family: "Roboto Black";
-}
+/*
+ * ====================================================================
+ * ============================Dialog==================================
+ * ====================================================================
+ */
 
 .dialog-pane {
     -fx-background-color: white;
@@ -210,6 +273,7 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #212121;
+    -fx-font-family: "Roboto";
 }
 
 .dialog-pane:header *.header-panel {
@@ -221,11 +285,14 @@
     -fx-font-style: italic;
     -fx-fill: lightgrey;
     -fx-text-fill: #212121;
+    -fx-font-family: "Roboto";
 }
 
-.scroll-pane {
-    -fx-background-color:transparent;
-}
+/*
+ * ====================================================================
+ * =========================Scroll-Bar=================================
+ * ====================================================================
+ */
 
 .scroll-bar .thumb {
     -fx-background-color: darkgrey;
@@ -249,13 +316,3 @@
     -fx-padding: 5 1 5 1;
 }
 
-.circle_label {
-	-fx-font-weight: bold;
-	-fx-font-size: 16px;
-}
-
-#cardPane {
-    -fx-background-color: white;
-    -fx-border-color: lightgrey;
-    -fx-border-width: 0 0 2 0;
-}
