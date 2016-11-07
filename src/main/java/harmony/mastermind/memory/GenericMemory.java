@@ -236,7 +236,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
     
     //@@author A0143378Y
     // Converts description into string representation
-    String descriptionToString(String output) {
+    public String descriptionToString(String output) {
         if (description != null) { // If description exists
             output +=   DESCRIPTION_STRING + getDescription();
         }
@@ -245,7 +245,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts due date into string representation
-    String deadlineDateToString(String output) {
+    public String deadlineDateToString(String output) {
         if (end != null) {
             output += DUE_BY + getDate(end) + " " + getTime(end);
         }
@@ -254,7 +254,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event start and end dates into string representation
-    String eventDatesToString(String output) {
+    public String eventDatesToString(String output) {
         if (start != null) {
             output += START_STRING + getDate(start) + " " + getTime(start);
         }
@@ -266,7 +266,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event state into string representation
-    String eventStateToString(String output) {
+    public String eventStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_UPCOMING;
         } else if (getState() == 1) {
@@ -279,7 +279,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts task or deadline state into string representation
-    String taskDeadlineStateToString(String output) {
+    public String taskDeadlineStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_INCOMPLETE;
         } else if (getState() == 1) {
