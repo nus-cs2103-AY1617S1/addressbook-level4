@@ -210,7 +210,7 @@ Tests can be found in the `./src/test/java` folder.
      (those code units are assumed to be working).<br>
       e.g. `tars.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
+      how they are connected together.<br>
       e.g. `tars.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
@@ -252,7 +252,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :---------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new events (with start and end timings) | keep track of it and complete it in the future
+`* * *` | user | add a new event (with start and end timings) | keep track of it and complete it in the future
 `* * *` | user | add a new task (tasks that have to be done before a specific deadline) | keep track of the deadline
 `* * *` | user | add a floating task (tasks without specific times) | have a task that can roll over to the next day if I did not get to it
 `* * *` | user | delete a task | remove tasks that I no longer need to do
@@ -476,20 +476,55 @@ Use case ends.
   * require installation
   * violate other constraint
 
+[comment]: # (@@author A0121533W)
 ## Appendix D : Glossary
 
-##### Mainstream OS
+##### Command
+> Reserved keywords for you to execute a command e.g. add, edit, del, do, ud.
 
-> Windows, Linux, Unix, OS-X
+##### Event
+> Has a start time and end time.
+
+##### DateTime
+> Variable that has information on a particular date and time.
+
+##### Deadline
+> Tasks that have to be done before a specified deadline.
+
+##### Floating Tasks
+> Tasks without specific dateTimes.
+
+##### Index
+Positive number corresponding to the order at which the item is listed.
+
+##### Mainstream OS
+> Windows, Linux, Unix, OS-X.
+
+##### Prefix
+> Reserved keywords for commands e.g. /p /dt /t
+
+##### Reserved Task
+> Tasks that have multiple DateTimes at which one can be confirmed later.
+
+##### Storage Directory
+> Your system's file path (e.g. /data/tars.xml) at which data are stored.
+
+##### Tag
+> Categorization of a task.
+
+##### Task
+> Something that needs to be done (see Floating Task, Deadline, Event).
+
+
 
 [comment]: # (@@author A0121533W)
 ## Appendix E : Product Survey
 
 Product | Strength | Weaknesses
 -------- | :-------- | :--------
-[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there???s internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of ???clicks??? and fields to fill to save a task</li><li>Unable to ???block??? multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
+[Wunderlist](https://www.wunderlist.com/)|<ol type="1"><li>Cloud-based<ul><li>Ability to sync tasks</li></ul></li><li>Multiple-device Usage</li><li>Data is stored on the device and syncs with cloud storage when there's internet access<ul><li>Faster than internet based todo apps like Google Calendar</li></ul></li><li>Provides reminders</li><li>Simple user interface not too cluttered</li><li>Able to set a deadline (for dates only) for a task</li></ol>|<ol type="1"><li>Requires a lot of clicks and fields to fill to save a task</li><li>Unable to block multiple slots when the exact timing of a task is uncertain</li><li>Unable to set a due time for tasks</li></ol>
 [Todo.txt](http://todotxt.com/)|<ol type="1"><li>Quick & easy unix-y access</li><li>Solves Google calendar being too slow</li><li>Manage tasks with as few keystrokes as possible</li><li>Works without Internet connectivity</li></ol>|<ol type="1"><li>No block feature</li><li>Unable to look for suitable slot</li></ol>
 [Fantastical](https://flexibits.com/fantastical)|<ol type="1"><li>Flexible<ul><li>Choose between dark and light theme</li><li>Works with Google, iCloud, Exchange and more</li></ul></li><li>Use natural language to quickly create events and reminders</li></ol>|<ol type="1"><li>No block feature</li><li>Need to click to create an event</li><li>Only available for Mac</li></ol>
-[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. ???every day/week/month, every 27th, every Jan 27th???)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week???s overview of tasks or only today???s task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at anytime and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
+[Todoist](https://en.todoist.com/)|<ol type="1"><li>Good parser<ul><li>Extensive list of words to use that it is able to recognize (e.g. every day/week/month, every 27th, every Jan 27th)</li></ul></li><li>Able to reorganize task or sort by date, priority or name</li><li>Ability to tag labels</li><li>Able to see a week's overview of tasks or only today's task</li><li>Able to import and export task in CSV format</li><li>Able to search tasks easily (search bar at the top)</li><li>Able to add task at any time and at any page (add task button next to search bar)</li></ol>|<ol type="1"><li>No block feature</li><li>Certain features can only be accessed by paying</li></ol>
 
 
