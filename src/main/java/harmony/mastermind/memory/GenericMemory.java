@@ -236,7 +236,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
     
     //@@author A0143378Y
     // Converts description into string representation
-    private String descriptionToString(String output) {
+    public String descriptionToString(String output) {
         if (description != null) { // If description exists
             output +=   DESCRIPTION_STRING + getDescription();
         }
@@ -245,7 +245,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts due date into string representation
-    private String deadlineDateToString(String output) {
+    public String deadlineDateToString(String output) {
         if (end != null) {
             output += DUE_BY + getDate(end) + " " + getTime(end);
         }
@@ -254,7 +254,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event start and end dates into string representation
-    private String eventDatesToString(String output) {
+    public String eventDatesToString(String output) {
         if (start != null) {
             output += START_STRING + getDate(start) + " " + getTime(start);
         }
@@ -266,7 +266,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts event state into string representation
-    private String eventStateToString(String output) {
+    public String eventStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_UPCOMING;
         } else if (getState() == 1) {
@@ -279,7 +279,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts task or deadline state into string representation
-    private String taskDeadlineStateToString(String output) {
+    public String taskDeadlineStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_INCOMPLETE;
         } else if (getState() == 1) {
@@ -402,7 +402,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Compare's start date followed by end dates
-    private int eventCompare(GenericMemory o) {
+    int eventCompare(GenericMemory o) {
         if (this.start.compareTo(o.start) != 0) {
             return this.start.compareTo(o.start);
         } else {
