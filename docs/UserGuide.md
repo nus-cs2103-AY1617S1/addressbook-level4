@@ -431,7 +431,7 @@ Jimi will display an error message that tells you that the format for the comman
 As Jimi is specifically catered to use the command-line interface, support for mouse-input is limited. You can display certain sections of the summary panel by clicking on the headers with the mouse although that is pretty much what Jimi can allow you to do with the mouse.
 <br><br>
 ###How do I see all of my completed tasks?<br>
-You can do so by using the `show completed` command which will display [`show`](#show) of the completed tasks in the main window.
+You can do so by using the `show completed` command which will [`show`](#show) all of your completed tasks in the main window.
 <br><br>
 ###Can I use this with Google Cloud or my favourite cloud service?<br>
 As of now, Jimi does not support any online functionality. However, there are plans for the development of online cloud services integration so users can easilly access their data from multiple devices with ease.
