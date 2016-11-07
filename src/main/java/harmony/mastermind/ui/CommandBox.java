@@ -15,6 +15,7 @@ import harmony.mastermind.commons.util.FxViewUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.UpcomingCommand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -57,6 +58,16 @@ public class CommandBox extends UiPart {
     
     @FXML
     private TextField commandField;
+    
+    @FXML
+    private void initialize(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                commandField.requestFocus();
+            }
+        });
+    }
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());

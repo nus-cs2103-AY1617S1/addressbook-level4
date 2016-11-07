@@ -1,12 +1,13 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
+import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.logic.commands.AddCommand;
+import harmony.mastermind.testutil.TestTask;
+import harmony.mastermind.testutil.TestUtil;
 
 import org.junit.Test;
 
-import harmony.mastermind.commons.core.Messages;
-import harmony.mastermind.testutil.TestTask;
-import harmony.mastermind.testutil.TestUtil;
+import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 

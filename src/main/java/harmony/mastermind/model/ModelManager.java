@@ -1,6 +1,8 @@
 package harmony.mastermind.model;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -9,14 +11,12 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-
 import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.RelocateFilePathEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
@@ -272,10 +272,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     // @@author A0124797R
     @Override
-    public synchronized CSVParser importCsvFile(String fileToImport) throws IOException {
-        CSVParser csvParser = CSVParser.parse(fileToImport, CSVFormat.EXCEL);
+    public synchronized BufferedReader importFile(String fileToImport) throws FileNotFoundException {
+        BufferedReader br = new BufferedReader(new FileReader(fileToImport));
         
-        return csvParser;
+        return br;
     }
     
     // @@author: A0139194X

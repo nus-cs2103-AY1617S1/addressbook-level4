@@ -1,14 +1,18 @@
 package harmony.mastermind.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
+import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
+import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.DuplicateTaskException;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -28,7 +32,7 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
                                                + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-    public static final String COMMAND_FORMAT = COMMAND_WORD + " INDEX";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <index>";
     public static final String COMMAND_DESCRIPTION = "Deletes the task identified by the index number";
 
     public static final String MESSAGE_UNDO_SUCCESS = "[Undo Delete Command] Task added: %1$s";

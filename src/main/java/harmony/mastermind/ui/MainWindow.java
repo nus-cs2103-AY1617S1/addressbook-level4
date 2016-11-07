@@ -1,6 +1,7 @@
 package harmony.mastermind.ui;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -8,10 +9,12 @@ import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
+import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.logic.Logic;
+import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
@@ -69,6 +72,11 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
+
+    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
+
+    private CommandResult mostRecentResult;
+    private String currCommandText;
 
     ObservableList<Tab> tabLst;
 

@@ -1,31 +1,35 @@
 package harmony.mastermind.ui;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.logic.HelpPopupEntry;
+import javafx.scene.Node;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyEvent;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+import javafx.stage.Popup;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.KeyEvent;
-import javafx.stage.Popup;
 
 //@@author A0139194X
 public class HelpPopup extends UiPart {
 
     private static final String FXML = "HelpPopup.fxml";
+    private static final Logger logger = LogsCenter.getLogger(HelpPopup.class);
 
     private final String COMMAND_COL_HEADER = "Command";
     private final String FORMAT_COL_HEADER = "Format";
-    private final String USAGE_COL_HEADER = "Usage";
+    private final String DESCRIPTION_COL_HEADER = "Description";
     
-    private final int COMMAND_COL_MIN_WIDTH = 100;
-    private final int FORMAT_COL_MIN_WIDTH = 200;
-    private final int USAGE_COL_MIN_WIDTH = 200;
+    private final int COMMAND_COL_MIN_WIDTH = 150;
+    private final int FORMAT_COL_MIN_WIDTH = 300;
+    private final int DESCRIPTION_COL_MIN_WIDTH = 400;
     
     private final int DEFAULT_X_POS = 200;
     private final int DEFAULT_Y_POS = 100;
@@ -38,7 +42,7 @@ public class HelpPopup extends UiPart {
     
     TableColumn<HelpPopupEntry, String> commandCol;
     TableColumn<HelpPopupEntry, String> formatCol;
-    TableColumn<HelpPopupEntry, String> usageCol;
+    TableColumn<HelpPopupEntry, String> descriptionCol;
     
     ObservableList<HelpPopupEntry> entries;
     
@@ -53,7 +57,7 @@ public class HelpPopup extends UiPart {
     public void show(Node node) {
         assert node != null;
         table.setItems(entries);
-
+        logger.fine("Displaying help Popup");
         popup.show(node, DEFAULT_X_POS, DEFAULT_Y_POS);
         popup.centerOnScreen();
     }
@@ -83,6 +87,7 @@ public class HelpPopup extends UiPart {
     //@@author A0139194X
     @FXML
     private void initTable() {
+        logger.info("Initialising help popup's table");
         table = new TableView<HelpPopupEntry>();
         table.setEditable(false);
         
@@ -90,7 +95,7 @@ public class HelpPopup extends UiPart {
         initFormatCol();
         initUsageCol();
         
-        table.getColumns().addAll(commandCol, formatCol, usageCol);
+        table.getColumns().addAll(commandCol, formatCol, descriptionCol);
     }
     
     //@@author A0139194X
@@ -109,12 +114,13 @@ public class HelpPopup extends UiPart {
     
     //@@author A0139194X
     private void initUsageCol() {
-        usageCol = new TableColumn<HelpPopupEntry, String>(USAGE_COL_HEADER);
-        usageCol.setMinWidth(USAGE_COL_MIN_WIDTH);
-        usageCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
+        descriptionCol = new TableColumn<HelpPopupEntry, String>(DESCRIPTION_COL_HEADER);
+        descriptionCol.setMinWidth(DESCRIPTION_COL_MIN_WIDTH);
+        descriptionCol.setCellValueFactory(entry -> new ReadOnlyStringWrapper(entry.getValue().getDescription()));
     }
     
     //@@author A0139194X
+    //Handles the closing of the popup
     @FXML
     EventHandler<KeyEvent> keyEventHandler = new EventHandler<KeyEvent>() {
         public void handle(KeyEvent event) {
@@ -146,10 +152,12 @@ public class HelpPopup extends UiPart {
 //    }
 
     //@@author A0139194X
+    //Sets the data to display
     public void injectData(ArrayList<HelpPopupEntry> helpEntries) {
         entries = FXCollections.observableArrayList();
         for (int i = 0; i < helpEntries.size(); i++) {
             entries.add(helpEntries.get(i));
         }
+        logger.fine("Help Popup table entries injected and initialised succesfully");
     }
 }

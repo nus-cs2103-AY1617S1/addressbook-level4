@@ -4,7 +4,9 @@ import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.events.BaseEvent;
 import harmony.mastermind.commons.util.AppUtil;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**

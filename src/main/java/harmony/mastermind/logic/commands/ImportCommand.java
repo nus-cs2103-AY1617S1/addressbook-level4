@@ -196,6 +196,7 @@ public class ImportCommand extends Command {
         } else if (record.get(HEADER_START_TIME).equals(EMPTY_ARG)) {
             return Optional.empty();
         } else {
+            System.out.println("start");
             startDate = Optional.ofNullable(record.get(HEADER_START_DATE) + " " + record.get(HEADER_START_TIME));
         }
         if (record.get(HEADER_END_DATE).equals(EMPTY_ARG)) {
@@ -203,6 +204,7 @@ public class ImportCommand extends Command {
         } else if (record.get(HEADER_END_TIME).equals(EMPTY_ARG)) {
             return Optional.empty();            
         } else {
+            System.out.println("end");
             endDate = Optional.ofNullable(record.get(HEADER_END_DATE) + " " + record.get(HEADER_END_TIME));
         }
         if (startDate.isPresent() && !endDate.isPresent()) {

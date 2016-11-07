@@ -1,6 +1,7 @@
 package harmony.mastermind.logic.commands;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;
