@@ -78,7 +78,7 @@ Example:
 * `add Project meeting`
 
 ##### Deadline Tasks
-These tasks havea description and a deadline (due date) <br>
+These tasks have a description and a deadline (due date) <br>
 Format: `add TASK by DATE` <br>
 
 Examples:
@@ -205,17 +205,6 @@ Examples:
 * `list`
 * `unpin 2` <br>
   Unpins the 2nd task in the task list.
-
-<br>
-#### Listing pins: `list pin[s]`
-List all the pinned tasks. <br>
-Format: `list pin[s]`
-
-> You can type either `pin` or its plural form, `pins`
-
-Examples:
-* `list pin`
-* `list pins` <br>
 
 <br>
 #### Listing Completed Tasks: `list complete[d]`
