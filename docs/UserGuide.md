@@ -117,10 +117,10 @@ The index **must be a positive integer** 1, 2, 3, ...
 Examples: 
 * `list`<br>
   `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
+  Deletes the 2nd task in the task list.
+* `find CS2101`<br> 
   `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+  Deletes the 1st task in the results of the `find` command.
 <br><br><br>
 
 ### Select a person : `select`
@@ -135,7 +135,7 @@ Examples:
 * `list`<br>
   `select 2`<br>
   Selects the 2nd task in the task list.
-* `find Betsy` <br> 
+* `find a/NUS` <br> 
   `select 1`<br>
   Selects the 1st task in the results of the `find` command.
 <br><br><br>
@@ -143,6 +143,13 @@ Examples:
 ### Clearing all entries : `clear`
 Clears all entries from the task list.<br>
 Format: `clear` 
+<br><br><br>
+
+### Change file path of storage : `setPath`
+Change the path of the task list to be stored to the specified file path.<br>
+Format: `setPath NEW_PATH`
+Example:
+* `setPath data/newfilepath.xml`
 <br><br><br>
 
 ### Exiting the program : `exit`
