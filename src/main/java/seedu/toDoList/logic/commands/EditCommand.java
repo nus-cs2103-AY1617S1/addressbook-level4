@@ -141,7 +141,6 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
         } else {
-        	indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_EDIT_SAME_NAME);
         }
     }
