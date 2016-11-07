@@ -10,7 +10,7 @@
   * [Uncomplete](#unmarking-a-completed-task-as-not-completed-uncomplete)
   * [Pin](#pin-a-task-as-important-pin)
   * [Unpin](#unpin-a-pinned-task-unpin)
-  * [List](#listing-all-tasks--list)
+  * [List](#listing--list-allpinnedpendingcompletedoverdue)
   * [Find](#finding-all-tasks-and-events-containing-keyword-in-their-name--find)
   * [Find By Tags](#finding-all-tasks-by-tag-name--find)
   * [Search Box](#activate-real-time-search-searchbox)
@@ -190,9 +190,17 @@ Example:
 unpin the pinned and first task on the list.
 <!-- @@author -->
 
-#### Listing all tasks : `list`
+#### Listing : `list (all/pinned/pending/completed/overdue)`
 Shows a list of tasks and events in the todo list.<br>
-Format: `list`
+Format: `list (all/pinned/pending/completed/overdue)`
+
+> * Choose one of the words in the round bracket
+
+`list all`: List out all the task in the list<br>
+`list pinned`: List only pinned task<br>
+`list pending`: List tasks which are still pending<br>
+`list completed`: List tasks which are marked as completed<br>
+`list overdue`: List tasks which are already due<br>
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords including substring.<br>
@@ -288,8 +296,9 @@ Alias | `alias add a`
 Delete |`delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
-List | `list`
+List | `list (all/pinned/pending/completed/overdue)`
 Find | `find KEYWORD`
+Find tag | `find-tag TAG [MORE_TAG]`
 Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
 Pin | `pin INDEX`
