@@ -46,7 +46,7 @@
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/TaryArchitecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -72,12 +72,12 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/TaskLogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the GTD data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -94,7 +94,7 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/TaskUiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -114,7 +114,7 @@ The `UI` component,
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/TaskLogicClassDiagram.png" width="800"><br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -125,11 +125,11 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/TaskModelClassDiagram.png" width="800"><br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -142,7 +142,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/TaskStorageClassDiagram.png" width="800"><br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -333,4 +333,4 @@ Taskwarrior: feature-rich software that allows the user to manage his todo list 
 Uses a natural and expressive syntax
 Allows user to perform CRUD functions and prioritising of tasks in a fast manner
 Support for creating deadlines, searching of tasks
-However, it does not support Jim’s need for “blocking” and “unblocking” timeslots
+However, it does not support Jimâ€™s need for â€œblockingâ€� and â€œunblockingâ€� timeslots
