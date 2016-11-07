@@ -6,13 +6,14 @@ import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.ShowAliasListEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0139708W
 /**
  * Lists all tasks in the TaskManager to the user.
  */
-public class ListTaskCommand extends TaskCommand {
+public class ListTaskCommand extends Command {
     
     public static final String COMMAND_WORD = "list";
     public static final String ALTERNATE_COMMAND_WORD = null;

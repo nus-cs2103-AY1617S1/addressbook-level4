@@ -88,7 +88,7 @@ public class UpdateTaskCommandTest {
 	 * Testing correct updating of description of tasks (Floating, Deadline & Event)
 	 */
 	@Test
-	public void execute_floatingTask_updateDescription() throws IllegalValueException {
+	public void execute_floatingTaskUpdateDescription() throws IllegalValueException {
 		Description description = new Description("Hello");
 		
 		// Index 1 is a floating task
@@ -99,7 +99,7 @@ public class UpdateTaskCommandTest {
 	}
 	
 	@Test
-	public void execute_deadlineTask_updateDescription() throws IllegalValueException {
+	public void execute_deadlineTaskUpdateDescription() throws IllegalValueException {
 		Description description = new Description("Hello");
 		
 		// Index 2 is a deadline task
@@ -110,7 +110,7 @@ public class UpdateTaskCommandTest {
 	}
 	
 	@Test
-	public void execute_eventTask_updateDescription() throws IllegalValueException {
+	public void execute_eventTaskUpdateDescription() throws IllegalValueException {
 		Description description = new Description("Hello");
 		
 		// Index 3 is an event task
@@ -128,7 +128,7 @@ public class UpdateTaskCommandTest {
 	 * 		Deadline/Event tasks cannot be converted back to Floating tasks with update date.
 	 */
 	@Test
-	public void execute_floatingTask_updateDate() throws IllegalValueException {
+	public void execute_floatingTaskUpdateDate() throws IllegalValueException {
 		Date firstDate = new GregorianCalendar(2016, Calendar.AUGUST, 20).getTime();
 		Date secondDate = new GregorianCalendar(2016, Calendar.AUGUST, 21).getTime();
 		/*
@@ -151,7 +151,7 @@ public class UpdateTaskCommandTest {
 	}
 	
 	@Test
-	public void execute_deadlineTask_updateDate() throws IllegalValueException {
+	public void execute_deadlineTaskUpdateDate() throws IllegalValueException {
 		Date firstDate = new GregorianCalendar(2018, Calendar.AUGUST, 20).getTime();
 		Date secondDate = new GregorianCalendar(2018, Calendar.AUGUST, 21).getTime();
 		
@@ -174,7 +174,7 @@ public class UpdateTaskCommandTest {
 	}
 	
 	@Test
-	public void execute_eventTask_updateDate() throws IllegalValueException {
+	public void execute_eventTaskUpdateDate() throws IllegalValueException {
 		Date firstDate = new GregorianCalendar(2016, Calendar.AUGUST, 20).getTime();
 		Date secondDate = new GregorianCalendar(2016, Calendar.AUGUST, 21).getTime();
 		

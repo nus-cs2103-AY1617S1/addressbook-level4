@@ -1,9 +1,9 @@
 package w15c2.tusk.logic.parser;
 
 import w15c2.tusk.commons.exceptions.IllegalValueException;
-import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.DeleteAliasCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 
 //@@author A0143107U
 /**
@@ -21,17 +21,17 @@ public class DeleteAliasCommandParser extends CommandParser{
      * @param args full command args string
      * @return the prepared command
      */
-	public TaskCommand prepareCommand(String arguments) {
+	public Command prepareCommand(String arguments) {
 		// There should only be 1 word (no spaces)
 		int space = arguments.trim().indexOf(" ");
 		if (space != -1) {
-			return new IncorrectTaskCommand(MESSAGE_INVALID_ARGUMENT);
+			return new IncorrectCommand(MESSAGE_INVALID_ARGUMENT);
 		}
 		
 		try{
 	        return new DeleteAliasCommand(arguments.trim());
 		}catch (IllegalValueException ive) {
-            return new IncorrectTaskCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage());
         }
 	}
 }

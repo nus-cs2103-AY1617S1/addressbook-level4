@@ -2,8 +2,8 @@ package w15c2.tusk.logic.parser;
 
 import static w15c2.tusk.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 
 //@@author A0143107U
 /**
@@ -11,7 +11,7 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
  */
 public class IncorrectCommandParser extends CommandParser{
 	
-	public TaskCommand prepareCommand(String arguments) {
-		return new IncorrectTaskCommand(MESSAGE_UNKNOWN_COMMAND);
+	public Command prepareCommand(String arguments) {
+		return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 	}
 }

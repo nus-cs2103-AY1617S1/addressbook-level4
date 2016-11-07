@@ -48,7 +48,6 @@ import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 /**
  * A utility class for test cases.
  */
-//@@author A0139817U
 public class TestUtil {
     
     /**
@@ -109,8 +108,13 @@ public class TestUtil {
         return newTaskList;
     }
 	
+    //@@author A0139817U
 	/**
 	 * Setting up Floating tasks in the TaskList in order to find them in the tests
+	 * 
+	 * @param n 	Number of floating tasks to setup in the model.
+	 * @return		Model that contains the floating tasks.
+	 * @throws IllegalValueException 	If Floating task constructor failed.
 	 */
 	public static Model setupFloatingTasks(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
@@ -121,7 +125,14 @@ public class TestUtil {
 		return newTaskList;
 	}
 	
-	// Setting up tasks with more varied names
+	//@@author A0139817U
+	/**
+	 * Setting up tasks with more varied names
+	 * 
+	 * @param n 	Number of floating tasks with varied names to setup in the model.
+	 * @return		Model that contains the floating tasks with varied names.
+	 * @throws IllegalValueException 	If Floating task constructor failed.
+	 */
 	public static Model setupTasksWithVariedNames(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
 		// Add n tasks into the task manager
@@ -168,12 +179,18 @@ public class TestUtil {
 		}
 		return newTaskList;
 	}
+	
+	//@@author A0139817U
 	/**
 	 * Setting up interleaved Floating, Deadline and Event tasks.
 	 * Dates for Deadline tasks are set to 1 January 2016.
 	 * Date range for Event tasks are set from 1 January 2016 to 2 January 2016.
 	 * 
 	 * NOTE: Do not change the descriptions and dates because other tests depend on it.
+	 * 
+	 * @param n 	Number of mixed tasks to setup in the model.
+	 * @return		Model that contains the mixed tasks.
+	 * @throws IllegalValueException 	If task constructor failed.
 	 */
 	public static Model setupMixedTasks(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
@@ -400,5 +417,4 @@ public class TestUtil {
     public static Object getLastElement(List<?> list) {
         return list.get(list.size() - 1);
     }
-
 }

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.DeleteAliasCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.parser.DeleteAliasCommandParser;
 
 //@@author A0139817U
@@ -25,19 +25,19 @@ public class DeleteAliasCommandParserTest {
 		 */
 		
 		// EP: Empty string
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("");
 		String expected = "Shortcut to DeleteAliasCommand constructor is empty.\n"+ DeleteAliasCommand.MESSAGE_USAGE;
 		String actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Spaces only
-		command = (IncorrectTaskCommand) parser.prepareCommand("   ");
+		command = (IncorrectCommand) parser.prepareCommand("   ");
 		expected = "Shortcut to DeleteAliasCommand constructor is empty.\n"+ DeleteAliasCommand.MESSAGE_USAGE;
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Multiple strings
-		command = (IncorrectTaskCommand) parser.prepareCommand("am an");
+		command = (IncorrectCommand) parser.prepareCommand("am an");
 		expected = "You should only provide 1 alias";
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);

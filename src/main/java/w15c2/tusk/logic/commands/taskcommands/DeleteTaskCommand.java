@@ -5,13 +5,14 @@ import w15c2.tusk.commons.collections.UniqueItemCollection.ItemNotFoundException
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
 
 /**
  * Deletes a task identified using it's last displayed index from TaskManager.
  */
-public class DeleteTaskCommand extends TaskCommand {
+public class DeleteTaskCommand extends Command {
 
 	public static final String COMMAND_WORD = "delete";
     public static final String ALTERNATE_COMMAND_WORD = null;
@@ -32,7 +33,11 @@ public class DeleteTaskCommand extends TaskCommand {
         this.targetIndex = targetIndex;
     }
 
-
+    /**
+     * Delete the task at the targeted index in the Model.
+     * 
+     * @return CommandResult Result of the execution of the delete command.
+     */
     @Override
     public CommandResult execute() {
 

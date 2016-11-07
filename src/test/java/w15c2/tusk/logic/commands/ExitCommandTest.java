@@ -3,8 +3,6 @@ package w15c2.tusk.logic.commands;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-
-import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
 //@@author A0143107U
 /**
  * Tests Exit Command 

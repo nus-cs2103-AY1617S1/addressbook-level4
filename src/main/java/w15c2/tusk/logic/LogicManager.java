@@ -8,9 +8,9 @@ import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.logic.autocomplete.AutocompleteEngine;
 import w15c2.tusk.logic.autocomplete.AutocompleteResult;
 import w15c2.tusk.logic.autocomplete.AutocompleteSource;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandHistory;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.TaskCommandsParser;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
@@ -43,7 +43,7 @@ public class LogicManager extends ComponentManager implements Logic {
         commandHistory.addCommandTextToHistory(commandText);
         ReplaceAlias r = new ReplaceAlias(model);
         commandText = r.getAliasCommandText(commandText);
-        TaskCommand command = parser.parseCommand(commandText);
+        Command command = parser.parseCommand(commandText);
         command.setData(model);
         return command.execute();
     }
