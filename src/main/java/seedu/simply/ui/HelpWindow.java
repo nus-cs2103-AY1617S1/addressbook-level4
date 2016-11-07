@@ -49,7 +49,7 @@ public class HelpWindow extends UiPart {
         dialogStage = createDialogStage(TITLE, null, scene);
         setIcon(dialogStage, ICON);
         
-        ImageView summary = new ImageView( new Image ("/images/command.PNG")); 
+        ImageView summary = new ImageView( new Image ("/images/commandSummary_real.PNG")); 
         
         FxViewUtil.applyAnchorBoundaryParameters(summary, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(summary);
