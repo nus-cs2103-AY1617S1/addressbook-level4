@@ -89,4 +89,4 @@
 |Action|Command|Result|
 |---|---|---|
 |Change storage location again|`store nonexistingfile`|In the same folder where this DearJim is being run, a new file `nonexistingfile.xml` will be created, and all current data transfered over. The storage location in ui display also changes. (bottom left)|
-|Finish the manual testing and exit application|`exit|DearJim closes. Yay!|
+|Finish the manual testing and exit application|`exit`|DearJim closes. Yay!|
