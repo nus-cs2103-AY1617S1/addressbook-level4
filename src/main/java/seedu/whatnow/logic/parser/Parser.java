@@ -136,7 +136,7 @@ public class Parser {
 
     private static HashMap<String, Integer> MONTHS_IN_FULL = new HashMap<String, Integer>();
     private static HashMap<String, Integer> MONTHS_IN_SHORT = new HashMap<String, Integer>();
-    
+
     public Parser() {
         mapFullMonthsToMonthsInNumFormat();
         mapShortMonthsToMonthsInNumFormat();
@@ -260,7 +260,7 @@ public class Parser {
                 formattedDate += FORWARD_SLASH;
             }
         }
-        
+
         return formattedDate;
     }
 
@@ -286,7 +286,7 @@ public class Parser {
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         }
-                
+
         formattedTime = (splitTime != null) ? splitTime[TIME_HOUR].replaceAll(SINGLE_DIGIT, ZERO + splitTime[TIME_HOUR]) : splitTimePeriod[TIME_WITHOUT_PERIOD];
         formattedTime += TIME_COLON;
         formattedTime += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
@@ -994,7 +994,7 @@ public class Parser {
         if (args == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
         }
-        
+
         String date = args.trim();
         try {
             if (TODAY_OR_TOMORROW.matcher(date).find() || DAYS_IN_FULL.matcher(date).find() || DAYS_IN_SHORT.matcher(date).find()) {
@@ -1016,7 +1016,7 @@ public class Parser {
         if (args == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_MISSING_DATE));
         }
-        
+
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
         if(argComponents.length == 1) {
             if(argComponents[ZERO].equals(TASK_ARG_DATE)) {
