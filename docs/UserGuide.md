@@ -1,12 +1,17 @@
-//@@author A0139817U
+<!-- @@author A0139817U -->
 # Tusk: User Guide
 
 * [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [Commands Autocomplete](#commands-autocomplete)
+* [Command Autocomplete](#command-autocomplete)
+* [Command History](#command-history)
+* [Scrolling](#scrolling)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+* [Date Format](#date-format)
+* [Time Format](#time-format)
+* [Date-Time Format](#date-time-format)
 
 <br>
 ## Introduction
@@ -71,10 +76,11 @@ Adds a task to Tusk. <i>Tusk</i> supports three kinds of task: <i>Floating, Dead
 
 ##### Floating Tasks
 These tasks only have a description. <br>
-Format: `add TASK` <br>
+Format: `add TASK` or `add "TASK"` (double-inverted commas ("") forces the task to be a Floating task) <br>
 
 Example:
 * `add Project meeting`
+* `add "Exam on 1 Oct"`
 
 ##### Deadline Tasks
 These tasks have a description and a deadline (due date) <br>
@@ -322,7 +328,7 @@ Examples:
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
   `unpin`, `unalias` and `undo` displayed on the screen as possible commands.
-* `unf`<kbd>TAB</kbd><br>
+* `unp`<kbd>TAB</kbd><br>
   `unpin` completed for you.
 
 <br>
@@ -331,7 +337,7 @@ Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all 
 
 <br>
 ## Scrolling
-Pressing <kbd>Control</kbd>+<kbd>UP</kbd> or<kbd>Control</kbd>+<kbd>DOWN</kbd> scrolls through the list of tasks.
+Pressing <kbd>Control</kbd> + <kbd>UP</kbd> or <kbd>Control</kbd> + <kbd>DOWN</kbd> scrolls through the list of tasks.
 
 <br>
 ## FAQ
@@ -345,14 +351,14 @@ Pressing <kbd>Control</kbd>+<kbd>UP</kbd> or<kbd>Control</kbd>+<kbd>DOWN</kbd> s
 Command | Format
 -------- | :--------
 Help | `help`
-Add floating tasks | `add TASK`
-Add deadline tasks | `add TASK by/on/at DATE`
-Add event tasks | `add TASK from START_DATE to/- END_DATE`
+Add Floating tasks | `add TASK`
+Add Deadline tasks | `add TASK by/on/at DATE`
+Add Event tasks | `add TASK from START_DATE to/- END_DATE`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-Update task | `update/edit INDEX task UPDATED_VALUE`
-Update description | `update/edit INDEX desc UPDATED_VALUE`
-Update date | `update/edit INDEX date UPDATED_VALUE`
+Update/Edit task | `update/edit INDEX task UPDATED_VALUE`
+Update/Edit description | `update/edit INDEX desc UPDATED_VALUE`
+Update/Edit date | `update/edit INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
 Clear | `clear`
 Undo | `undo`
@@ -387,13 +393,14 @@ Supported Time Format | Example
 -------- | :--------
 HH:MM | 1:30 <br> 16:25
 HH.MM | 1.30 <br> 16.25
-HH:MMam/pm | 1:30am <br> 4:25pm
-HH.MMam/pm | 1.30am <br> 4.25pm
+HH:MM am/pm | 1:30am <br> 4:25pm
+HH.MM am/pm | 1.30am <br> 4.25pm
 
 
 <br>
 ## Date-Time Format
 
 Supported Date-Time Format | Example
+-------- | :--------
 DATE TIME | 1 October 2017 1.30am <br> 1 Oct 1.30am <br> Today 10pm <br> Next Tues 16:25
 TIME DATE | 1.30am 1 October 2017 <br> 1.30am 1 Oct <br> 10pm Today <br> 16:25 Next Tues
