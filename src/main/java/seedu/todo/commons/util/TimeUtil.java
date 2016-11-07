@@ -265,12 +265,9 @@ public class TimeUtil {
         LocalDateTime timeToCompareTo;
         if (task.getStartTime().isPresent()) {
             timeToCompareTo = task.getStartTime().get();
-        }
-        
-        else if (task.getEndTime().isPresent()) {
+        } else if (task.getEndTime().isPresent()) {
             timeToCompareTo = task.getEndTime().get();
-        }
-        else{
+        } else {
             return false;
         }
         return isToday(now, timeToCompareTo);

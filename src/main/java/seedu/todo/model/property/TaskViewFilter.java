@@ -22,7 +22,7 @@ public class TaskViewFilter {
             //then followed by events which have passed/ tasks which are overdue 
             .compareFalseFirst(timeUtil.isOverdue(a.getEndTime().orElse(LocalDateTime.now())), 
                                timeUtil.isOverdue(b.getEndTime().orElse(LocalDateTime.now())))
-            //Then by chronological order
+            //then by chronological order
             .compare(a.getEndTime().orElse(null), b.getEndTime().orElse(null), Ordering.natural().nullsLast())
             .result();
     
