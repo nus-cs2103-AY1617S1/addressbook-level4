@@ -17,6 +17,7 @@ import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
+import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.*;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.storage.StorageManager;
@@ -33,6 +34,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.whatnow.commons.core.Messages.*;
@@ -671,12 +673,12 @@ public class LogicManagerTest {
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
         assertCommandBehavior("freetime", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_farfarIntoTheFutureDate_freeSlotFound() throws Exception {
         assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_SUCCESS + "12/12/2222\n" + "[[12:00am, 11:59pm]]");
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_allFreeSlotsOnDateTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -694,7 +696,7 @@ public class LogicManagerTest {
                 expectedAB, expectedAB.getTaskList());
         model.deleteTask(test);
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_blockPeriodWithStartEndDateNotTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -710,7 +712,7 @@ public class LogicManagerTest {
         
         assertCommandBehavior("freetime 14/12/2222", FreeTimeCommand.MESSAGE_NO_FREE_TIME_FOUND + "14/12/2222");
     }
-    
+    //@@author A0139772U
     @Test
     public void executeFreeTime_blockPeriodWithStartAndEndDateTaken_freeSlotNotFound() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -741,7 +743,7 @@ public class LogicManagerTest {
         model.deleteTask(preloaded2);
         model.deleteTask(test);
     }
-    
+    //@@author A0139772U
     @Test
     public void getPinnedItems_pinByTag_pinnedCorrectly() throws Exception {
         model.updatePinnedItemsToShowMatchKeywords("date", "none");
@@ -764,7 +766,7 @@ public class LogicManagerTest {
         model.deleteTask(preload1);
         model.deleteTask(preload2);
     }
-    
+    //@@author A0139772U
     @Test
     public void getPinnedItems_pinToday_pinnedCorrectly() throws Exception {
         model.updatePinnedItemsToShowMatchKeywords("date", "none");
@@ -789,7 +791,7 @@ public class LogicManagerTest {
         model.deleteTask(preload1);
         model.deleteTask(preload2);
     }
-    
+    //@@author A0139772U
     @Test
     public void getPinnedItems_pinByDate_pinnedCorrectly() throws Exception {
         model.updatePinnedItemsToShowMatchKeywords("date", "none");
@@ -818,11 +820,13 @@ public class LogicManagerTest {
         model.deleteTask(preload3);
     }
     
+    //@@author A0139772U
     @Test
     public void getPinnedItems_rubbishCondition_invalidCommandFeedback() throws Exception {
         assertCommandBehavior("pin rubbish", String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
     }
     
+    //@@author A0139772U
     @Test
     public void list_listTodoTask_todoTaskDisplayedCorrectly() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -850,7 +854,7 @@ public class LogicManagerTest {
         model.deleteTask(preload2);
         
     }
-    
+    //@@author A0139772U
     @Test
     public void getOverdueScheduleList_noOverdue_listSizeZero() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -860,7 +864,18 @@ public class LogicManagerTest {
         
         UnmodifiableObservableList<ReadOnlyTask> overdue = model.getOverdueScheduleList();
         assertTrue(overdue.size() == 0);
-        
+    }
+    
+    //@@author A0139772U
+    @Test
+    public void addTask_duplicatedTag_exceptionThrown() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task test = helper.generateTask(0);
+            try {
+                test.setTags(new UniqueTagList(new Tag("high"), new Tag("high")));
+            } catch (DuplicateTagException e) {
+                assertEquals(e.getMessage(), "Operation would result in duplicate tags");
+            }
     }
     
     //@@author A0126240W
