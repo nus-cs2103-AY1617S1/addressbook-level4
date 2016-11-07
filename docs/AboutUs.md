@@ -45,9 +45,9 @@ Responsibilities: UI
   * Command format validation & regex
   * Set up Travis
  
- -----
+------
 
-# Acknoledgements
+# Acknowledgements
 
 #### [Chan Jun Wei](http://github.com/chanjunweimy) 
 <img src="images/ChanJunWei.jpg" width="150"><br>
