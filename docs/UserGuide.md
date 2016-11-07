@@ -223,7 +223,7 @@ Returns the lists of all incomplete tasks.
 
 <img src="images/UI_Actual_Final/incomplete.PNG" width="600"><br>
 
-Figure 8: Display with ongoing task listed
+Figure 10: Display with ongoing task listed
 
 </p>
 
@@ -235,7 +235,7 @@ Returns the lists of all completed tasks.
 
 <img src="images/UI_Actual_Final/listDoneTwo.PNG" width="600"><br>
 
-Figure 9: Display with all completed tasks listed
+Figure 11: Display with all completed tasks listed
 
 </p>
 
@@ -247,7 +247,7 @@ Returns the lists of all incomplete and completed tasks.
 
 <img src="images/UI_Actual_Final/listAllTwo.PNG" width="600"><br>
 
-Figure 10: Display with all tasks listed
+Figure 12: Display with all tasks listed
 
 </p>
 
@@ -272,15 +272,15 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as incomplete.
 
 <img src="images/UI_Actual_Final/undoneOne.PNG" width="600"><br>
 
-Figure 11: Display of completed tasks.<br>
+Figure 13: Display of completed tasks.<br>
 
 <img src="images/UI_Actual_Final/undoneTwo.PNG" width="600"><br>
 
-Figure 12: Display of completed tasks after undone command.<br>
+Figure 14: Display of completed tasks after undone command.<br>
 
 <img src="images/UI_Actual_Final/undoneThree.PNG" width="600"><br>
 
-Figure 13: Display of incomplete tasks.<br>
+Figure 15: Display of incomplete tasks.<br>
 </p>
 
 > * The total number of ongoing and overdue tasks can be viewed on the panel above the "Pinned Items" panel.
@@ -303,7 +303,7 @@ Deletes the 2nd Schedule task from the displayed list in WhatNow.
 
 <img src="images/UI_Actual_Final/deleteOne.PNG" width="600"><br>
 
-Figure 14: Display before delete
+Figure 16: Display before delete
 
 </p>
 
@@ -311,7 +311,7 @@ Figure 14: Display before delete
 
 <img src="images/UI_Actual_Final/deleteTwo.PNG" width="600"><br>
 
-Figure 14: Display after delete
+Figure 17: Display after delete
 
 </p>
 
@@ -344,7 +344,7 @@ Selects the 3rd Schedule task from the displayed list and changes the date to th
 
 <img src="images/UI_Actual_Final/updateOne.PNG" width="600"><br>
 
-Figure 15: Display before the update
+Figure 18: Display before the update
 
 </p>
 
@@ -352,7 +352,7 @@ Figure 15: Display before the update
 
 <img src="images/UI_Actual_Final/updateTwo.PNG" width="600"><br>
 
-Figure 15: Display after the update
+Figure 19: Display after the update
 
 </p>
 
@@ -372,7 +372,7 @@ Undoes the previous action.
 
 <img src="images/UI_Actual_Final/undoOne.PNG" width="600"><br>
 
-Figure 16: Display before an undo is called after an update
+Figure 20: Display before an undo is called after an update
 
 </p>
 
@@ -380,7 +380,7 @@ Figure 16: Display before an undo is called after an update
 
 <img src="images/UI_Actual_Final/undoTwo.PNG" width="600"><br>
 
-Figure 16: Display after an undo is called after an update
+Figure 21: Display after an undo is called after an update
 
 </p>
 
@@ -400,7 +400,7 @@ Redos the previous action.
 
 <img src="images/UI_Actual_Final/redoOne.PNG" width="600"><br>
 
-Figure 17: Display before a redo is called after an undo
+Figure 22: Display before a redo is called after an undo
 
 </p>
 
@@ -408,7 +408,7 @@ Figure 17: Display before a redo is called after an undo
 
 <img src="images/UI_Actual_Final/redoTwo.PNG" width="600"><br>
 
-Figure 17: Display after a redo is called after an undo
+Figure 23: Display after a redo is called after an undo
 
 </p>
 
@@ -435,7 +435,7 @@ Returns any tasks having the description CS2101.
 
 <img src="images/UI_Actual_Final/findOne.PNG" width="600"><br>
 
-Figure 18: Display result before the find command is executed
+Figure 24: Display result before the find command is executed
 
 </p>
 
@@ -443,7 +443,7 @@ Figure 18: Display result before the find command is executed
 
 <img src="images/UI_Actual_Final/findTwo.PNG" width="600"><br>
 
-Figure 18: Display result after the find command is executed
+Figure 25: Display result after the find command is executed
 
 </p>
 
@@ -464,7 +464,7 @@ Returns no free time blocks on the day 9/3/2019.
 
 <img src="images/UI_Actual_Final/freeTimeOne.PNG" width="600"><br>
 
-Figure 19: Display result before the freetime command is executed
+Figure 26: Display result before the freetime command is executed
 
 </p>
 
@@ -472,7 +472,7 @@ Figure 19: Display result before the freetime command is executed
 
 <img src="images/UI_Actual_Final/freeTimeTwo.PNG" width="600"><br>
 
-Figure 20: Display result after the freetime command is executed
+Figure 27: Display result after the freetime command is executed
 
 </p>
 
@@ -496,7 +496,7 @@ Pins all tasks with a high tag.
 
 <img src="images/UI_Actual_Final/pinOne.PNG" width="600"><br>
 
-Figure 21: Display result before the pin command for tag high is executed<br>
+Figure 28: Display result before the pin command for tag high is executed<br>
 
 </p>
 
@@ -504,7 +504,7 @@ Figure 21: Display result before the pin command for tag high is executed<br>
 
 <img src="images/UI_Actual_Final/pinTwo.PNG" width="600"><br>
 
-Figure 22: Display result after the pin command for tag high is executed<br>
+Figure 29: Display result after the pin command for tag high is executed<br>
 
 </p>
 
@@ -527,7 +527,7 @@ Format: `clear`
 
 <img src="images/UI_Actual_Final/clearOne.PNG" width="600"><br>
 
-Figure 22: Display cleared before the clear command is executed
+Figure 30: Display cleared before the clear command is executed
 
 </p>
 
@@ -535,7 +535,7 @@ Figure 22: Display cleared before the clear command is executed
 
 <img src="images/UI_Actual_Final/clearTwo.PNG" width="600"><br>
 
-Figure 22: Display cleared after the clear command is executed
+Figure 31: Display cleared after the clear command is executed
 
 </p>
 
