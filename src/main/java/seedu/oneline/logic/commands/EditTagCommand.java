@@ -57,63 +57,63 @@ public class EditTagCommand extends EditCommand {
     @Override
     public CommandResult execute() {
         String name = this.name; // Mutability
-        Tag curTag = null;
+        Tag oldTag = null;
         try {
-            curTag = Tag.getTag(name);
+            oldTag = Tag.getTag(name);
         } catch (IllegalValueException e1) {
             assert false;
         }
-        if (!model.getTaskBook().getTagList().contains(curTag)) {
+        if (!model.getTaskBook().getTagList().contains(oldTag)) {
             return new CommandResult(Messages.MESSAGE_EDIT_TAG_TAG_NOT_FOUND);
         }
         
         List<String> results = new ArrayList<String>();
-
+        
+        Tag newTag = null; 
+        if (fields.containsKey(TagField.COLOR)) {
+            try {
+                oldTag = Tag.getTag(name);
+                newTag = oldTag; 
+                TagColor color = new TagColor(fields.get(TagField.COLOR));
+                model.setTagColor(Tag.getTag(name), color);
+                results.add(String.format("color updated to " + color.toString()));
+            } catch (Exception e) {
+                assert false;
+            }
+        }
+        
         if (fields.containsKey(TagField.NAME)) {
             String newName = fields.get(TagField.NAME);
-            Tag newTag = null;
+            
             try {
-                newTag = newName.isEmpty() ?
-                            Tag.getDefault() :
-                            Tag.getTag(newName);
+                oldTag = Tag.getTag(name); 
+                newTag = Tag.getTag(newName);
             } catch (IllegalValueException e) {
-                assert false;
             }
             if (model.getTaskBook().getTagList().contains(newTag)) {
                 return new CommandResult(String.format(Tag.MESSAGE_DUPLICATE_TAG, newName));
             }
-            TagColor color = model.getTagColor(curTag);
-            model.setTagColor(curTag, TagColor.getDefault());
+            TagColor color = model.getTagColor(oldTag);
+            model.setTagColor(oldTag, TagColor.getDefault());
             model.setTagColor(newTag, color);
-            List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
-            Map<TaskField, String> fields = new HashMap<TaskField, String>();
-            fields.put(TaskField.TAG, newTag.getTagName());
-            for (ReadOnlyTask t : taskList) {
-                if (t.getTag().equals(curTag)) {
-                    try {
-                        Task newTask = t.update(fields);
-                        model.replaceTask(t, newTask);
-                    } catch (TaskNotFoundException | IllegalValueException e) {
-                        assert false : e.getMessage();
-                    }
-                }
-            }
             name = newName;
-            curTag = newTag;
             results.add("renamed to " + newTag.getTagName());
         }
         
-        if (fields.containsKey(TagField.COLOR)) {
-            TagColor color = null;
-            try {
-                color = new TagColor(fields.get(TagField.COLOR));
-            } catch (IllegalValueException e) {
-                assert false;
+        List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
+        Map<TaskField, String> fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.TAG, newTag.getTagName());
+        for (ReadOnlyTask t : taskList) {
+            if (t.getTag().equals(oldTag)) {
+                try {
+                    Task newTask = t.update(fields);
+                    model.replaceTask(t, newTask);
+                } catch (TaskNotFoundException | IllegalValueException e) {
+                    assert false : e.getMessage();
+                }
             }
-            model.setTagColor(curTag, color);
-            results.add(String.format("color updated to " + color.toString()));
         }
-          
+        
         String resultStr = updatesToString(results);
         return new CommandResult(resultStr);
     }
