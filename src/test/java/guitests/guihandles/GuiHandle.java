@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * Base class for all GUI Handles used in testing.
  */
 public class GuiHandle {
-    // @@author A0093960X
+    
     private static final String PRIORITY_LOW = "LOW";
     private static final String PRIORITY_MEDIUM = "MEDIUM";
     private static final String PRIORITY_HIGH = "HIGH";
@@ -88,12 +88,11 @@ public class GuiHandle {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
-    // @@author A0093960X
     /**
-     * Looks for the priority rectangle and returns a String that 
-     * @param fieldId
-     * @param parentNode
-     * @return
+     * Looks for the priority rectangle and returns a String that matches the priority of that rectangle
+     * @param fieldId The javaFx id of the prioirity rectangle
+     * @param parentNode The parent node of this rectangle
+     * @return The priority String that matches the priority rectangle
      */
     protected String getTextFromPriorityRectangle(String fieldId, Node parentNode) {
         Paint rectanglePaint = findPriorityRectangleAndGetPaint(fieldId, parentNode);
@@ -115,15 +114,14 @@ public class GuiHandle {
 
     /**
      * Looks for the priority rectangle and returns the Paint that fills the given priority rectangle.
-     * @param fieldId the fieldId of the priority rectangle to find
-     * @param parentNode the parent node that contains the priority rectangle
-     * @return the Paint that fills the specified priority rectangle
+     * @param fieldId The fieldId of the priority rectangle to find
+     * @param parentNode The parent node that contains the priority rectangle
+     * @return The Paint that fills the specified priority rectangle
      */
     private Paint findPriorityRectangleAndGetPaint(String fieldId, Node parentNode) {
         return ((Rectangle) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getFill();
     }
 
-    // @@author
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);

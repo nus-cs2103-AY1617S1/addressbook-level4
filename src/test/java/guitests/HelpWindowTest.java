@@ -46,15 +46,27 @@ public class HelpWindowTest extends DearJimGuiTest {
         assertHelpWindowClosed(helpWindow);
     }
 
+    /**
+     * Helper method to assert that the help window is open, and close the window after asserting it is.
+     * @param helpWindowHandle The handle for the help window
+     */
     private void assertHelpWindowOpenAndCloseIt(HelpWindowHandle helpWindowHandle) {
         assertTrue(helpWindowHandle.isWindowOpen());
         helpWindowHandle.closeWindow();
     }
     
+    /**
+     * Helper method to assert that the help window is open
+     * @param helpWindowHandle The handle for the help window
+     */
     private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
         assertTrue(helpWindowHandle.isWindowOpen());
     }
     
+    /**
+     * Helper method to assert that the help window is closed
+     * @param helpWindowHandle The handle for the help window
+     */
     private void assertHelpWindowClosed(HelpWindowHandle helpWindowHandle) {
         thrown.expect(IllegalStateException.class);
         helpWindowHandle.isWindowOpen();

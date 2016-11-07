@@ -35,7 +35,6 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    //@@author A0093960X
     public String getPriority() {
         return getTextFromPriorityRectangle(PRIORITY_FIELD_ID);
         
@@ -67,7 +66,6 @@ public class TaskCardHandle extends GuiHandle {
         return getName().equals(task.getName().getTaskName()) && getPriority().equals(task.getPriorityValue().toString());
     }
 
-    //@@author A0093960X
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {

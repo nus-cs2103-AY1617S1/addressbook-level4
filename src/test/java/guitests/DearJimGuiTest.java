@@ -34,7 +34,7 @@ public abstract class DearJimGuiTest {
 
     protected TypicalTestTasks td = new TypicalTestTasks();
 
-    /*
+    /**
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
