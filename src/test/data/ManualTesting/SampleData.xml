@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jimi>
+    <tasks>
+        <name>2021 lecture</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-07 09:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-07 11:00</eventEndDatetime>
+        <tagged>EE2021</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>Oral Presentation 2</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-04 10:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-04 12:00</eventEndDatetime>
+        <tagged>CS2101</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>Team Meeting</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-03 18:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-03 22:00</eventEndDatetime>
+        <tagged>CS2101</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>v0.5rc Submission</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-11-03 09:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>CS2103T</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>v0.5 Submission</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-07 23:59</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>CS2103T</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>GEH1027 Test 2</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-08 16:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-08 18:00</eventEndDatetime>
+        <tagged>GEH1027</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>Finish Manual Testing for v0.5 Submission</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-07 23:59</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>CS2103T</tagged>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <name>Team Meeting</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-01 14:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-01 18:00</eventEndDatetime>
+        <tagged>CS2101</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Lunch with friends</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-04 12:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-04 13:00</eventEndDatetime>
+        <priority>none</priority>
+    </tasks>
+    <tasks>
+        <name>Buy toilet paper</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>LOW</priority>
+    </tasks>
+    <tasks>
+        <name>Buy books</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Books</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Mid Terms Test 2</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-14 09:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-14 11:00</eventEndDatetime>
+        <tagged>EE2020</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Lab Submission</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-10 12:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>EE2020</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Practise driving</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Bring brother out</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Watch 'Your Name'</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Movie</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Finish forum posts</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-08 16:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>GEH1027</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Term Paper Submission</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-04 18:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>GEH1027</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>CS2101 Critical Reflection</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-08 10:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-08 12:00</eventEndDatetime>
+        <tagged>CS2101</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>CS2101 Oral Discussion</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-11 10:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-11 12:00</eventEndDatetime>
+        <tagged>CS2101</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Software Demo</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-10 09:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-10 10:00</eventEndDatetime>
+        <tagged>CS2103T</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Finish revision for GEH1027</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-08 16:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>GEH1027</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Practise windmills</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Breaking</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Buy new stationery</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Popular</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Buy pen refill</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Popular</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Buy Puma Suede sneakers</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Breaking</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Fetch sister to school</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-11-07 22:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>none</priority>
+    </tasks>
+    <tasks>
+        <name>Dinner with family</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-11-07 19:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>none</priority>
+    </tasks>
+    <tasks>
+        <name>Buy gift for friend's birthday</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-18 23:59</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Team Meeting</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-09 14:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-09 18:00</eventEndDatetime>
+        <tagged>CS2103T</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Arrange consultation with Dr Chua</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-14 09:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>EE2020</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>BreakiNUS Practice</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-10 19:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-10 22:00</eventEndDatetime>
+        <tagged>BreakiNUS</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>DHoppers Lesson</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-04 20:30</eventStartDatetime>
+        <eventEndDatetime>2016-11-04 22:00</eventEndDatetime>
+        <tagged>Dhoppers</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Freshman Jam</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-08 08:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-08 08:00</eventEndDatetime>
+        <tagged>BreakiNUS</tagged>
+        <priority>LOW</priority>
+    </tasks>
+    <tasks>
+        <name>Revise for Finals</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Water plants</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Gather stuff for Salvation Army</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Visit ex-colleagues</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Arrange meet-up with friends after finals</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>none</priority>
+    </tasks>
+    <tasks>
+        <name>Karaoke session</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-12-01 16:00</eventStartDatetime>
+        <eventEndDatetime>2016-12-01 19:00</eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Send brother off to Taiwan</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-16 05:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-16 06:00</eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Play Pokemon Sun</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Gaming</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Play FIFA17</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Gaming</tagged>
+        <priority>LOW</priority>
+    </tasks>
+    <tasks>
+        <name>Play soccer with friends</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Join weekly Frisbee sessions with friends</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Study session</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime>2016-11-12 09:00</eventStartDatetime>
+        <eventEndDatetime>2016-11-12 17:00</eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Buy present for Sister's birthday</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-10-11 12:10</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Buy present for Father's birthday</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-10-26 12:10</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Buy present for Ryan's birthday</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline>2016-10-01 12:11</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Ryan</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Buy new clothes for CNY</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-12-31 12:11</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Buy gift for Christmas Gift Exchange</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-12-25 00:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Arrange Dental Appointment</name>
+        <isCompleted>true</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Watch 'Shokugeki No Soma'</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Anime</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Watch 'Haikyuu'</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Anime</tagged>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Read 'Harry Potter and the Cursed Child'</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Books</tagged>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Finish Proposal</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-12-31 23:59</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Rag</tagged>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Lab Report Submission</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline>2016-11-16 12:00</taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>EE2020</tagged>
+        <priority>HIGH</priority>
+    </tasks>
+    <tasks>
+        <name>Buy cap</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>low</priority>
+    </tasks>
+    <tasks>
+        <name>Map modules for Summer school</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tasks>
+        <name>Practise footwork drills</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <tagged>Breaking</tagged>
+        <priority>med</priority>
+    </tasks>
+    <tasks>
+        <name>Go back school to visit teachers</name>
+        <isCompleted>false</isCompleted>
+        <taskDeadline></taskDeadline>
+        <eventStartDatetime></eventStartDatetime>
+        <eventEndDatetime></eventEndDatetime>
+        <priority>MED</priority>
+    </tasks>
+    <tags>
+        <tagName>CS2101</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2103T</tagName>
+    </tags>
+    <tags>
+        <tagName>GEH1027</tagName>
+    </tags>
+    <tags>
+        <tagName>EE2020</tagName>
+    </tags>
+    <tags>
+        <tagName>Movie</tagName>
+    </tags>
+    <tags>
+        <tagName>Breaking</tagName>
+    </tags>
+    <tags>
+        <tagName>runningout</tagName>
+    </tags>
+    <tags>
+        <tagName>Dhoppers</tagName>
+    </tags>
+    <tags>
+        <tagName>BreakiNUS</tagName>
+    </tags>
+    <tags>
+        <tagName>Gaming</tagName>
+    </tags>
+    <tags>
+        <tagName>GAMING</tagName>
+    </tags>
+    <tags>
+        <tagName>Ryan</tagName>
+    </tags>
+    <tags>
+        <tagName>Books</tagName>
+    </tags>
+    <tags>
+        <tagName>Rag</tagName>
+    </tags>
+</jimi>
