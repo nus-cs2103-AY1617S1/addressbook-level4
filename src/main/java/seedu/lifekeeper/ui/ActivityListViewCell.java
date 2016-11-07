@@ -10,14 +10,14 @@ public class ActivityListViewCell extends ListCell<ReadOnlyActivity>{
 	}
 	
     @Override
-    protected void updateItem(ReadOnlyActivity person, boolean empty) {
-        super.updateItem(person, empty);
+    protected void updateItem(ReadOnlyActivity activity, boolean empty) {
+        super.updateItem(activity, empty);
 
-        if (empty || person == null) {
+        if (empty || activity == null) {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(ActivityCard.load(person, getIndex() + 1).getLayout());
+            setGraphic(ActivityCard.load(activity, getIndex() + 1).getLayout());
         }
     }
 

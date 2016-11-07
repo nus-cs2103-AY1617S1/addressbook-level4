@@ -38,13 +38,13 @@ public abstract class ListPanel extends UiPart {
         //Do nothing by default.
     }
 
-    protected void configure(ObservableList<ReadOnlyActivity> personList) {
-        setConnections(personList);
+    protected void configure(ObservableList<ReadOnlyActivity> activityList) {
+        setConnections(activityList);
         addToPlaceholder();
     }
     
-    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
-        activityListView.setItems(personList);
+    protected void setConnections(ObservableList<ReadOnlyActivity> activityList) {
+        activityListView.setItems(activityList);
         activityListView.setCellFactory(listView -> new ActivityListViewCell());
     }
     

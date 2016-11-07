@@ -31,10 +31,10 @@ public class ActivityListPanel extends ListPanel {
 
 	public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
 		                            	ObservableList<ReadOnlyActivity> activityList) {
-		ActivityListPanel personListPanel = 
+		ActivityListPanel activityListPanel = 
 				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
-		personListPanel.configure(activityList);
-		return personListPanel;
+		activityListPanel.configure(activityList);
+		return activityListPanel;
 	}
     
 	public String getFxmlPath() {
