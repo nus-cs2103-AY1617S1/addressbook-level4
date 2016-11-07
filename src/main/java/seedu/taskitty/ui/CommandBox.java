@@ -163,6 +163,9 @@ public class CommandBox extends UiPart {
             commandTextField.getStyleClass().add("error"); 
             setCatImage(ResultDisplay.IMAGE_CAT_SAD);
             isInputValid = false;
+        } else {
+            //reset flag if style is already error
+            isInputValid = true;
         }
     }
     
