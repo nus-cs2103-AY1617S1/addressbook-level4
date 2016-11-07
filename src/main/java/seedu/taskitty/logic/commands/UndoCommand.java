@@ -13,7 +13,7 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_PARAMETER = COMMAND_WORD;
     public static final String MESSAGE_USAGE = "This command undos your previous action, Meow!";
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: ";
+    public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: %1$s";
     public static final String MESSAGE_NO_PREVIOUS_VALID_COMMANDS =
             "There is no more previous command in this session.";
 
@@ -21,7 +21,7 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         try {
             String commandUndone = model.undo();
-            return new CommandResult(MESSAGE_UNDO_SUCCESS + commandUndone);
+            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, commandUndone));
         } catch (NoPreviousValidCommandException e) {
             return new CommandResult(MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
         }

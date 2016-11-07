@@ -2,6 +2,7 @@ package seedu.taskitty.logic.parser;
 
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
+import seedu.taskitty.commons.util.DateTimeUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.logic.commands.*;
@@ -37,6 +38,9 @@ public class CommandParser {
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
     public static final int FILE_EXTENSION_LENGTH = 4;
+    
+    public static final int DAY_COMPONENT_INDEX = 0;
+    public static final int MONTH_COMPONENT_INDEX = 1;
 
     /**
      * Used for initial separation of command word and args.
@@ -46,7 +50,7 @@ public class CommandParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     // Used for checking for number date formats in arguments
-    private static final Pattern LOCAL_DATE_FORMAT = Pattern.compile("\\d{1,2}[/-]\\d{1,2}[/-]?(\\d{2}|\\d{4})?");
+    private static final Pattern LOCAL_DATE_FORMAT = Pattern.compile("[^\\d]*(?<date>\\d{1,2}[/-]\\d{1,2})[/-]?(\\d{2}|\\d{4})?[^\\d]*");
 
     // One or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
@@ -54,6 +58,16 @@ public class CommandParser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
 
+    // Parser to use Natty to parse dates and times
+    private static final Parser nattyParser = new Parser();
+    
+    public CommandParser() {
+        // Natty takes while to parse the first date.
+        // We parse today's date when CommandParser is initialized to allow Natty to "warm up"
+        logger.info("Starting Natty");
+        nattyParser.parse(DateTimeUtil.createCurrentTime().toString());
+    }
+    
     /**
      * Parses user input into command for execution.
      *
@@ -314,8 +328,7 @@ public class CommandParser {
      * Returns the index where the task name should end.
      */
     private int extractDateTimeUsingNatty(String dataArguments, ArrayList<String> details) {
-        Parser dateTimeParser = new Parser();
-        List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
+        List<DateGroup> dateGroups = nattyParser.parse(dataArguments);
         int nameEndIndex = dataArguments.length();
 
         for (DateGroup group : dateGroups) {
@@ -349,9 +362,11 @@ public class CommandParser {
             Matcher matchDate = LOCAL_DATE_FORMAT.matcher(arg);
 
             if (matchDate.matches()) {
-                String dateSeparator = getDateSeparator(arg);
-                String convertedDate = swapDayAndMonth(arg, dateSeparator);
-                convertedToNattyDateString = convertedToNattyDateString.replace(arg, convertedDate);
+                String localDate = matchDate.group("date");
+                String dateSeparator = getDateSeparator(localDate);
+                String convertedDate = swapDayAndMonth(localDate, dateSeparator);
+                convertedToNattyDateString = convertedToNattyDateString.replace(localDate, convertedDate);
+                logger.info("Date input converted from " + localDate + " to " + convertedDate + " for natty");
             }
         }
 
@@ -365,8 +380,7 @@ public class CommandParser {
      * @return the separator character used in localDateString
      */
     private String getDateSeparator(String localDateString) {
-        // if 2nd char in string is an integer, then the 3rd char must be the
-        // separator
+        // if 2nd char in string is an integer, then the 3rd char must be the separator
         if (StringUtil.isInteger(localDateString.substring(1, 2))) {
             return localDateString.substring(2, 3);
         } else { // else 2nd char is the separator
@@ -382,12 +396,8 @@ public class CommandParser {
      * @return the date string with its day and month component swapped
      */
     private String swapDayAndMonth(String localDate, String dateSeparator) {
-        String[] splitDate = localDate.split(dateSeparator);
-        if (splitDate.length == 3) {
-            return splitDate[1] + dateSeparator + splitDate[0] + dateSeparator + splitDate[2];
-        } else {
-            return splitDate[1] + dateSeparator + splitDate[0];
-        }
+        String[] splitDate = localDate.split(dateSeparator);        
+        return splitDate[MONTH_COMPONENT_INDEX] + dateSeparator + splitDate[DAY_COMPONENT_INDEX];
     }
 
     // @@author A0139930B
@@ -494,7 +504,7 @@ public class CommandParser {
             if (index.contains(INDEX_RANGE_SYMBOL)) {               
                 addMultipleIndexesToList(listOfIndexes, index);                
             } else {
-                addSingleIndex(listOfIndexes, index);
+                addSingleIndexToList(listOfIndexes, index);
             }
         }
         return listOfIndexes;
@@ -505,7 +515,7 @@ public class CommandParser {
      * @param listOfIndexes the list of indexes
      * @param index the index string to be checked and added to list
      */
-    private void addSingleIndex(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
+    private void addSingleIndexToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
         Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);               
         if (categoryAndIndex == null) {
             listOfIndexes.add(null);
@@ -549,6 +559,8 @@ public class CommandParser {
         }  
         
         Pair<Integer, Integer> categoryAndIndex;
+        String logMessage = Task.CATEGORIES[categoryIndex] + firstIndex + INDEX_RANGE_SYMBOL + secondIndex;
+        logger.info("Adding indexes from " + logMessage + " to list");
         for (int currentIndex = firstIndex; currentIndex <= secondIndex; currentIndex++) {
             categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, currentIndex);
             listOfIndexes.add(categoryAndIndex);

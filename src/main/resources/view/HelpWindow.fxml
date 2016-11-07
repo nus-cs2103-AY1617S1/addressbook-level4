@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane fx:id="helpWindowRoot" maxHeight="Infinity"
-    maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity"
-    stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.HelpWindow">
-    <children>
 
-    </children>
-</AnchorPane>
+<ScrollPane fx:id="helpWindowRoot" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.HelpWindow">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+  </content>
+</ScrollPane>

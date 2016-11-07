@@ -30,7 +30,6 @@ public class MainGuiHandle extends GuiHandle {
     }
     
     public boolean isMainWindowOpen() {
-        System.out.println(getNode("#commandTextField"));
         return getNode("#commandTextField") != null;
     }
 

@@ -13,14 +13,14 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_PARAMETER = COMMAND_WORD;
     public static final String MESSAGE_USAGE = "This command redos your previous undo action, Meow!";
 
-    public static final String MESSAGE_REDO_SUCCESS = "Undoed action restored: ";
+    public static final String MESSAGE_REDO_SUCCESS = "Undoed action restored: %1$s";
     public static final String MESSAGE_NO_RECENT_UNDO_COMMANDS = "There is no recent undoed command in this session.";
     
     @Override
     public CommandResult execute() {
         try {
             String commandRedone = model.redo();
-            return new CommandResult(MESSAGE_REDO_SUCCESS + commandRedone);
+            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, commandRedone));
         } catch (NoRecentUndoCommandException e) {
             return new CommandResult(MESSAGE_NO_RECENT_UNDO_COMMANDS);
         }
