@@ -72,7 +72,7 @@ public class TestUtil {
 		        new Task("Embroidery class", new DateTime(new Date("03/12/2016"), new Time("08.00PM")),  new DateTime(new Date("03/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
 		        new Task("Finance homework", new DateTime(new Date("06/12/2016"), new Time("07.00PM")),  new DateTime(new Date("06/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
 		        new Task("Geography homework", new DateTime(new Date("07/12/2016"), new Time("07.00AM")),  new DateTime(new Date("07/12/2016"), new Time("11.00AM")), false, false, new UniqueTagList()),
-		        new Task("HIIT workout", new DateTime(new Date("07/12/2016"), new Time("10.00PM")),  new DateTime(new Date("07/12/2016"), new Time("1q.00PM")), false, false, new UniqueTagList()),
+		        new Task("HIIT workout", new DateTime(new Date("07/12/2016"), new Time("10.00PM")),  new DateTime(new Date("07/12/2016"), new Time("11.00PM")), false, false, new UniqueTagList()),
 		        new Task("India trip", new DateTime(new Date("01/01/2017"), new Time("")),  new DateTime(new Date("15/01/2017"), new Time("")), false, false, new UniqueTagList()),
 		};
     }

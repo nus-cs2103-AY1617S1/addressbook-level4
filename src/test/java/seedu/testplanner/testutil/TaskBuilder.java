@@ -50,7 +50,7 @@ public class TaskBuilder {
 	
 	public TaskBuilder withEndDate(String et) {
 		String convertedEt = np.parseDate(et);
-		this.task.setStart(new DateTime(new Date(convertedEt), new Time("")));
+		this.task.setEnd(new DateTime(new Date(convertedEt), new Time("")));
 		return this;
 	}
 	
