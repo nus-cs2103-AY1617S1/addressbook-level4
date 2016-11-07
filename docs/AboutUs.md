@@ -28,7 +28,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [@Dewi Tan Jia Hui](https://github.com/jessidew95)
 <img src="images/DewiTanJiaHui.jpg" width="150"><br>
 * Components in charge of: UI, Logic <br>
-* Aspects/tools in charge of: Scenebuilder <br>
+* Aspects/tools in charge of: JavaFX, Scenebuilder <br>
 * Features Implemented:
     * Tag List Panel
     * Tag Command

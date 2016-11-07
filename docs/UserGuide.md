@@ -4,6 +4,12 @@
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+
+<!-- @@author A0142421X -->
+## About Do-Do Bird
+Have you ever wished that you could spend more time with people important to you? How about having more time for your hobbies? Wouldn’t it be great if there was an application that could help you sort through this chaos and let you focus on what’s important in life?
+Enter Do-Do Bird, an intelligent personal assistant that organises your tasks for you. Do-Do Bird uses natural language processing to execute your every command. With Do-Do Bird, your life will never be the same.
+
 <!-- @@author A0093896H -->
 ## Quick Start
 
@@ -28,7 +34,7 @@
 
 
 # Features
-
+<br>
 > **Command Format**
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
@@ -53,10 +59,24 @@
 > * **Time**
 >   * 24-hours format: 0930
 >   * 12-hours format: 0930pm
->   * Presets: monring, noon, evening, night, midnight
+>   * Presets: morning, noon, evening, night, midnight
+
+<!-- @@author A0142421X -->
+> **ID**
+> The ID of a task is the index of the task as displayed on the screen
+
+> **Task Fields**
+>Field | Specifier | Format
+>------|:----------|:-------
+>Task Name | | TASK_NAME
+>'On' Date | on | on DATE [TIME]
+>'By' Date | by | by DATE [TIME]
+>Priority | priority | priority LEVEL
+>Recurrence | every | every RECURRENCE
+>Details | ; | ; DETAILS
 
 ## Viewing help : `help`
-Shows the help page to user.<br>
+Directs user to the help page.<br>
 
 Format: `help`
 
@@ -65,9 +85,10 @@ Format: `help`
 
 ## Adding a task: `add`
 Adds a task to Do-Do Bird.<br>
+Below are the possible formats to follow in order to add a task.<br>
 
 Format:
-
+* `add TASK_NAME`
 * `add TASK_NAME [; a line of details]`
 * `add TASK_NAME by DATE [TIME] [; a line of details]`
 * `add TASK_NAME on DATE [TIME] [; a line of details]`
@@ -76,7 +97,8 @@ Format:
 * `add TASK_NAME on DATE [TIME] by DATE [TIME] priority [PRIORITY] [; a line of details]`
 
 
-> Date and Time formats follow the above guidelines.
+> * The Date and Time formats are provided above. <br>
+> * The available options for priority and recurrence are provided above.<br>
 
 Examples:
 
@@ -87,33 +109,30 @@ Examples:
 * **`add`**` cooking on today 1400 by 1500 every day ; recurring every day`
 
 Demo:<br>
-Type the `add` command: <br>
+Typing the below command will result in the task shown in the below GUI.
 <img src="images/ADD.png" width="600"><br><br>
 Result: <br>
 <img src="images/ADD_Result.png" width="600"><br>
+>Figure 1
 
+<!-- @@author A0142421X -->
 ## Searching tasks: `search`
-Search tasks whose names or details contain any of the given keywords. <br>
-Search for floating tasks.<br>
-Search for tasks before/after a date.<br>
-Search for tasks on a particular date.<br>
-Search for tasks with the specified tag.<br>
-Search for tasks that are done or not done.<br>
-Search for tasks based on priority.
+Do-Do Bird’s search function helps you to filter out tasks using different search specifiers. <br>
 
-Format:
-* `search`
-* `search done`
-* `search all`
-* `search floating`
-* `search KEYWORD [MORE_KEYWORDS]`
-* `search before DATE [TIME]`
-* `search after DATE [TIME]`
-* `search on DATE [TIME]`
-* `search from DATE [TIME] till DATE [TIME]`
-* `search tag TAG`
+Formats | Function
+--------|:-----------
+`search` | displays a list of all uncompleted tasks
+`search done` | displays a list of all completed tasks
+`search all` | displays a list of all tasks
+`search floating` | displays a list of floating tasks
+`search KEYWORD [MORE_KEYWORDS]` | displays a list of tasks with keyword in its task name
+`search before DATE [TIME]` | displays a list of tasks that start before the specified date and time
+`search after DATE [TIME]` | displays a list of tasks that end after the specified date and time
+`search on DATE [TIME]` | displays a list of tasks that starts on the specified date and time
+`search from DATE [TIME] to DATE [TIME]` | displays a list of tasks that start and end on the specified date and times
+`search tag TAG` | displays a list of tasks that are tagged under the specified tag
 
-
+<!-- @@author A0093896H -->
 Examples:
 * **`search`**` Party fun NIgHt OUTzz`
 * **`search`**` before 25/10/17 09:30`
@@ -121,7 +140,6 @@ Examples:
 * **`search`**` tag birthdays`
 * **`search`**` priority mid`
 * **`search`**` floating`
-
 
 > * Add `done` `undone` or `all` at the back of the command to indicate whether you want to see tasks that are completed or not.
 > * Default search results will list tasks that are not completed.
@@ -131,7 +149,7 @@ Examples:
     e.g. `Meeting` will match `Meeting Professor`
 
 Demo: <br>
-Type the `search` command: <br>
+Typing the below command will result in the task shown in the below GUI <br>
 <img src="images/SEARCH.png" width="600"><br><br>
 Result: <br>
 <img src="images/SEARCH_Result.png" width="600"><br>
@@ -142,12 +160,10 @@ Marking a task in Do-Do Bird as completed.<br>
 
 Format: `mark ID`
 
-> The ID must be a positive integer 1, 2, 3, ...
-
 Examples:
 
 * **`mark`**` 2`<br>
-Mark the task with `ID #2` in the Do-Do Bird as completed.
+Mark the task at index 2 as complete.
 
 Demo:<br>
 Type the `mark` command: <br>
@@ -156,16 +172,14 @@ Result: <br>
 <img src="images/MARK_Result.png" width="600"><br>
 
 ## Unmarking tasks : `unmark`
-Unmark a task in Do-Do Bird to be uncompleted.<br>
+Unmark a task as uncompleted.<br>
 
 Format: `unmark ID`
-
-> The ID must be a positive integer 1, 2, 3, ...
 
 Examples:
 
 * **`unmark`**` 2`<br>
-Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
+Mark the task with index 2 as uncompleted.
 
 
 ## Updating a task: `update`
@@ -173,28 +187,25 @@ Update an existing task inside Do-Do Bird.<br>
 
 Format:
 
-* `update ID [NEW_NAME] on DATE [Time] by DATE [Time] priority [PRIORITY] every [RECURRENCE] [; a line of new details]`
+* `update ID [NEW_NAME] [on DATE Time] [by DATE Time] [priority PRIORITY] [every RECURRENCE] [; a line of new details]`
 
 > * Date and Time formats follow the above guidelines.
-> * The ID must be a positive integer 1, 2, 3, ...
+> * The available options for priority and recurrence are provided above
 > * To remove any pre-existing optional fields, prefix a `-` to the field specifier.
 
 Examples:
 
-* **`search`**<br>
-  **`update`**` 2 on thursday every week ; weekly affair` <br>
-  Update the task with `ID #2` to reflect new starting date and recurrence
+* **`update`**` 1 every week ; weekly affair` <br>
+  Update the task with `ID #1` to reflect new recurrence and details
 
-* **`search`**` tomorrow`<br>
-  **`update`**` 2 on 14/10/17 by 18/10/17;` <br>
-  Update the task with `ID #2` to reflect new dates
+* **`update`**` 2 on 14/10/17 by 18/10/17;` <br>
+  Update the task with `ID #2` to reflect new start and end dates
 
-* **`search`**` hello`<br>
-  **`update`**`  1 test task on Oct 29 1600 by mon priority mid every week; update all fields ` <br>
-  Update the task with `ID #3` to remove old on date.
+* **`update`**`  3 test task on - priority mid ` <br>
+  Update the task with `ID #3` to remove old on date and reflect new priority level
 
 Demo: <br>
-Type the `update` command: <br>
+Typing the below command will result in the task shown in the below GUI. <br>
 <img src="images/UPDATE.png" width="600"><br><br>
 Result: <br>
 <img src="images/UPDATE_Result.png" width="600"><br>
@@ -205,15 +216,13 @@ Deletes the specified task from the Do-Do Bird.<br>
 
 Format: `delete ID`
 
-> The ID **must be a positive integer** 1, 2, 3, ...
-
 Examples:
 
 * **`delete`**` 3`<br>
-Deletes the task with `ID #1` in the Do-Do Bird.
+Deletes the task with `ID #3` in the Do-Do Bird.
 
 Demo: <br>
-Type the `delete` command: <br>
+Typing the below command will result in the task shown in the below GUI. <br>
 <img src="images/DELETE.png" width="600"><br><br>
 Result: <br>
 <img src="images/DELETE_Result.png" width="600"><br>
@@ -222,35 +231,31 @@ Result: <br>
 <!-- @@author A0142421X -->
 
 ## Tagging a task : `tag`
-Tags the specified task with the specified tag.<br>
+Tags the task with the specified tag.<br>
 
 Format: `tag ID TAG`
-
-> The ID **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 
 **`tag`**` 2 Tutorial`<br>
-Tags the task with `ID #2` with `Homework` tag
+Tags the task with `ID #2` with the `Tutorial` tag
 
 Demo: <br>
-Type the `tag` command: <br>
+Typing the below command will result in the task shown in the below GUI. <br>
 <img src="images/TAG.png" width="600"><br><br>
 Result: <br>
 <img src="images/TAG_Result.png" width="600"><br>
 
 
 ## Untagging a task : `untag`
-Untags the specified task from the specified tag.<br>
+Untags the task from the specified tag.<br>
 
 Format: `untag ID TAG`
-
-> The ID **must be a positive integer** 1, 2, 3, ...
 
 Examples:
 
 * **`untag`**` 2 Tutorial`<br>
-Untags the task with `ID #2` from `Homework` tag
+Untags the task with `ID #2` from `Tutorial` tag
 
 <!-- @@author A0138967J -->
 ## Storing : `store`
@@ -326,3 +331,5 @@ Update | `update ID TASKNAME`| update 10 hello again
 	   | `update ID TASKNAME on DATE by DATE priority PRIORITY`| update 10 hello again on today 5pm by sunday 12:34am priority mid
 	   | `update ID TASKNAME on DATE by DATE priority PRIORITY ; DETAILS`| update 10 hello again on today 05:00pm by sunday 12:34am priority high ; a line of details
       | `update ID TASKNAME on DATE by DATE priority PRIORITY every RECURRENCE; DETAILS`| update 10 hello again on today 19:00 by sunday 12:34am priority high every day ; a line of details
+Store | `store` file path | store C:/Users/user/Documents/myList
+Reset | `reset` |
