@@ -19,9 +19,8 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String whatNowFilePath = "data/whatnow.xml";
     private String whatNowName = "MyWhatNow";
-
-    public Config() {
-    }
+    private String pinnedItemType ="tag";
+    private String pinnedItemKeyword = "highPriority";
 
     public String getAppTitle() {
         return appTitle;
@@ -62,6 +61,22 @@ public class Config {
     public void setWhatNowName(String whatNowName) {
         this.whatNowName = whatNowName;
     }
+    
+    public String getPinnedItemType() {
+        return pinnedItemType;
+    }
+    
+    public void setPinnedItemType(String pinnedItemType) {
+        this.pinnedItemType = pinnedItemType;
+    }
+    
+    public String getPinnedItemKeyword() {
+        return pinnedItemKeyword;
+    }
+    
+    public void setPinnedItemKeyword(String pinnedItemKeyword) {
+        this.pinnedItemKeyword = pinnedItemKeyword;
+    }
 
     @Override
     public boolean equals(Object other) {
@@ -76,7 +91,8 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName);
+                && Objects.equals(whatNowFilePath, o.whatNowFilePath) && Objects.equals(whatNowName, o.whatNowName)
+                && Objects.equals(pinnedItemType, o.pinnedItemType) && Objects.equals(pinnedItemKeyword, o.pinnedItemKeyword);
     }
 
     @Override
@@ -92,6 +108,8 @@ public class Config {
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + whatNowFilePath);
         sb.append("\nWhatNow name : " + whatNowName);
+        sb.append("\nPinnedItemType : " + pinnedItemType);
+        sb.append("\nPinnedItemKeyword : " + pinnedItemKeyword);
         return sb.toString();
     }
 
@@ -315,6 +333,15 @@ import java.util.logging.Level;
  * Converts a Java object instance to JSON and vice versa
  */
 public class JsonUtil {
+    
+    private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
+            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
+            .registerModule(new SimpleModule("SimpleModule").addSerializer(Level.class, new ToStringSerializer())
+                    .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
+    
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
         protected LevelDeserializer(Class<?> vc) {
@@ -343,14 +370,6 @@ public class JsonUtil {
             return Level.class;
         }
     }
-
-    private static ObjectMapper objectMapper = new ObjectMapper().findAndRegisterModules()
-            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE)
-            .setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY)
-            .registerModule(new SimpleModule("SimpleModule").addSerializer(Level.class, new ToStringSerializer())
-                    .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
     /**
      * Converts a given string representation of a JSON data to instance of a
@@ -385,6 +404,38 @@ public class JsonUtil {
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
+   
+    public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
+        whatNow = new WhatNow(initialData);
+        new Config();
+        filteredTasks = new FilteredList<>(whatNow.getTasks());
+        filteredSchedules = new FilteredList<>(whatNow.getTasks());
+        filteredOverdue = new FilteredList<>(whatNow.getTasks());
+        pinnedItems = new FilteredList<>(whatNow.getTasks());
+        stackOfUndo = new Stack<>();
+        stackOfRedo = new Stack<>();
+        stackOfOldTask = new Stack<>();
+        stackOfCurrentTask = new Stack<>();
+        stackOfOldNextTask = new Stack<>();
+        stackOfNewNextTask = new Stack<>();
+        stackOfWhatNow = new Stack<>();
+        stackOfDeletedTasks = new Stack<>();
+        stackOfDeletedTaskIndex = new Stack<>();
+        stackOfDeletedTasksRedo = new Stack<>();
+        stackOfDeletedTaskIndexRedo = new Stack<>();
+        stackOfDeletedTasksAdd = new Stack<>();
+        stackOfDeletedTasksAddRedo = new Stack<>();
+        stackOfMarkDone = new Stack<>();
+        stackOfMarkDoneRedo = new Stack<>();
+        stackOfMarkUndone = new Stack<>();
+        stackOfMarkUndoneRedo = new Stack<>();
+        stackOfListTypes = new Stack<>();
+        stackOfListTypesRedo = new Stack<>();
+        stackOfChangeFileLocationOld = new Stack<>();
+        stackOfChangeFileLocationNew = new Stack<>();
+        freeTimes = new HashMap<String, FreePeriod>();
+        initialiseFreeTime();
+    }
 
 ```
 ###### \java\seedu\whatnow\model\ModelManager.java
@@ -401,16 +452,28 @@ public class JsonUtil {
     private void indicateUpdateTask(Task task) {
         raise(new UpdateTaskEvent(task));
     }
+    
+    private void indicatePinnedItemsChanged(String type, String keyword) {
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE);
+            Config config = configOptional.orElse(new Config());
+            config.setPinnedItemType(type);
+            config.setPinnedItemKeyword(keyword);
+            raise (new PinnedItemChangedEvent(config, type, keyword));
+        } catch (DataConversionException e) {
+            logger.warning("Config file is not in the correct format. " +
+                    "Using default config properties");
+        }
+    }
 
 ```
 ###### \java\seedu\whatnow\storage\Storage.java
 ``` java
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.Optional;
-
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.PinnedItemChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
@@ -449,5 +512,7 @@ public interface Storage extends WhatNowStorage, UserPrefsStorage {
     void saveConfig(Config config) throws IOException;
 
     void saveConfig(Config config, String filePath) throws IOException;
+    
+    void handlePinnedItemChangedEvent(PinnedItemChangedEvent pice);
 }
 ```

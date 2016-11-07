@@ -36,11 +36,11 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
+        String nameRemovedTrailSpace = name.trim();
+        if (!isValidName(nameRemovedTrailSpace)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.fullName = nameRemovedTrailSpace;
     }
 
     /**
@@ -114,17 +114,21 @@ public class XmlFileStorage {
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;
+import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.UniqueTaskList;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -133,15 +137,12 @@ import java.util.stream.Collectors;
 @XmlRootElement(name = "whatnow")
 public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
 
+    private static final Logger logger = LogsCenter.getLogger(XmlSerializableWhatNow.class);
+    
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTask> tasks = new ArrayList<>();
     @XmlElement
-    private List<Tag> tags;
-
-    {
-        tasks = new ArrayList<>();
-        tags = new ArrayList<>();
-    }
+    private List<Tag> tags = new ArrayList<>();
 
     /**
      * Empty constructor required for marshalling
@@ -157,14 +158,14 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
         tags = src.getTagList();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public UniqueTagList getUniqueTagList() {
         try {
             return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            // TODO: better error handling
-            e.printStackTrace();
-            return null;
+        } catch (DuplicateTagException e) {
+            logger.info("Duplicated tags will be removed from the data file.");
+            return new UniqueTagList((Set<Tag>)CollectionUtil.getUniqueElements(tags));
         }
     }
 
@@ -190,12 +191,10 @@ public class XmlSerializableWhatNow implements ReadOnlyWhatNow {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
-                e.printStackTrace();
-                // TODO: better error handling
+                logger.warning("At XmlSerializableWhatNow, getTaskList: \n" + e.getMessage());
                 return null;
             } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                logger.warning("At XmlSerializableWhatNow, getTaskList: \n" + e.getMessage());
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
