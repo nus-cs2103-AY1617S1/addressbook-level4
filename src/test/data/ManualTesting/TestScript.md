@@ -23,12 +23,12 @@
 * <img src="priority3.png" width="15"> shown on the right side of the card indicates the important or priority of the task. There are four levels of priority 0, 1, 2, 3 which are indicated by the number of exclamation marks shown. Priority is only applicable to task but not activity or event. 
 
 ## Loading saved data
-Method 1
-1. Go to File > Open.
-2. Navigate to the folder src > test > data > ManualTesting.
+Method 1<br>
+1. Go to File > Open.<br>
+2. Navigate to the folder src > test > data > ManualTesting.<br>
 3. Choose the file SampleData.xml and click 'Open'.
 
-Method 2
+Method 2<br>
 1. Type open src/test/data/ManualTesting/SampleData.xml to load the sample data.
 
 ## Testing Commands
