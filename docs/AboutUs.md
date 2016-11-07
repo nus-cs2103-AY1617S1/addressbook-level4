@@ -45,15 +45,16 @@ We are a team of students studying CS2103 based in the [School of Computing, Nat
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) 
 * Aspects in charge of: Documentation, deliverables and deadlines
 * Features implemented: 
-	* Pin Task
-	* Unpin Task
-	* Complete Task
-	* Uncomplete Task
+	* [Pin Task](https://github.com/CS2103AUG2016-T14-C4/main/pull/43)
+	* [Unpin Task](https://github.com/CS2103AUG2016-T14-C4/main/pull/63)
+	* [Complete Task](https://github.com/CS2103AUG2016-T14-C4/main/pull/44)
+	* [Uncomplete Task](https://github.com/CS2103AUG2016-T14-C4/main/pull/62)
+	* [Update Task: only write the basic feature](https://github.com/CS2103AUG2016-T14-C4/main/pull/33) -- implementation is done by Syed
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/main/A0153467Y.md)][[test code](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/test/A0153467Y.md)][[docs](https://github.com/CS2103AUG2016-T14-C4/main/blob/master/collated/docs/A0153467Y.md)]
 * Other major contributions:
-    * Make diagrams in Developer Guide
-    * Make mock-up picture of MESS UI
-    * Make help page
+    * [Make diagrams in Developer Guide](https://github.com/CS2103AUG2016-T14-C4/main/pull/60)
+    * [Make mock-up picture of MESS UI](https://github.com/CS2103AUG2016-T14-C4/main/pull/90)
+    * [Make help page](https://github.com/CS2103AUG2016-T14-C4/main/pull/94)
     
  -----
 
