@@ -168,7 +168,7 @@
 ------
 ### 3.1 Delete task
 > **Command:** `delete (index)`<br>
- - index: the second last index in the list, which is an instance of `tennis training`.<br>
+ - index: the third last index in the list, which is an instance of `tennis training`.<br>
  
 > **Result:**<br>
  - Result display panel posts message:<br>
@@ -194,7 +194,7 @@
 ------
 ### 4.1 Archive non-recurring task
 > **Command:** `done (index)`<br>
- - index: the fourth last index in the list, which is `business report`.<br>
+ - index: the fifth last index in the list, which is `business report`.<br>
  
 > **Result:**<br>
  - Result display panel posts message: <br>
@@ -208,7 +208,7 @@
  
 ### 4.2 Archive recurring task
 > **Command:** `done (index)`<br>
- - index: the second last index in the list, which is `jogging`.<br>
+ - index: the third last index in the list, which is `jogging`.<br>
  
 > **Result:**<br>
  - Result display panel posts message: <br>
@@ -266,17 +266,17 @@
 > **Command:** `find -C`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `12 tasks listed!`
+    `13 tasks listed!`
  - TaskList panel lists all archived tasks.
- - Note: If the test is performed followed by given order, there should be exactly 12 tasks. 
+ - Note: If the test is performed followed by given order, there should be exactly 13 tasks. 
  
 #### 5.5.2 Find floating tasks
 > **Command:** `find -F`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `10 tasks listed!`
+    `9 tasks listed!`
  - TaskList panel lists all floating tasks.
- - Note: If the test is performed followed by given order, there should be exactly 10 tasks. 
+ - Note: If the test is performed followed by given order, there should be exactly 9 tasks. 
  
 ### 5.6 Find by multiple attributes
 > **Command:** `find read t/western`<br>
@@ -317,12 +317,12 @@
  
 #### 6.2.2 Edit the time slot for a recurring task with recurring period specified
 > **Before:** `find civ`<br>
-> **Command:** `edit 7 from 9 nov 11pm to 11.30pm`<br>
+> **Command:** `edit 7 from 9 nov 10.30pm to 11pm`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
     `Edit Task: read civ encyclopedia Tags: `
 	`Recurring: DAILY repeat 9 times`
-	`From: Wed, Nov 9 11.00PM To: Wed, Nov 9 11.30PM`
+	`From: Wed, Nov 9 10.30PM To: Wed, Nov 9 11.00PM`
  - TaskList panel navigates to newly edited task card with task date changed.
  - Agenda panel displays the newly edited task in new position.
  - Note: Only the selected instance of the recurring task will be affected.
