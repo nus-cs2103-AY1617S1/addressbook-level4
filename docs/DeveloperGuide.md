@@ -1,5 +1,6 @@
 # Developer Guide
 
+<!-- @@author A0139655U -->
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -22,6 +23,7 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+<!-- @@author -->
 
 ## Introduction
 *DearJim* is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is a Java desktop application that has a GUI, and the main mode of input in *DearJim* is through keyboard commands.
