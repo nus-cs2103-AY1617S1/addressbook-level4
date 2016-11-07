@@ -101,6 +101,9 @@ public class Parser {
 
 		case CompleteCommand.COMMAND_WORD:
 			return prepareComplete(arguments);
+			
+		case UncompleteCommand.COMMAND_WORD:
+            return prepareUncomplete(arguments);
 
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -122,7 +125,8 @@ public class Parser {
 		}
 	}
 
-	private Command prepareUnpin(String arguments) {
+
+    private Command prepareUnpin(String arguments) {
 		String trimmedArg = arguments.trim();
 		Optional<Integer> index = parseIndex(trimmedArg);
 		if (!index.isPresent()) {
@@ -148,6 +152,15 @@ public class Parser {
 		}
 		return new CompleteCommand(index.get());
 	}
+	
+	private Command prepareUncomplete(String arguments) {
+	    String trimmedArg = arguments.trim();
+        Optional<Integer> index = parseIndex(trimmedArg);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UncompleteCommand.MESSAGE_USAGE));
+        }
+        return new UncompleteCommand(index.get());
+    }
 
 	// @@author A0139102U
 

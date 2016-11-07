@@ -104,8 +104,16 @@ public class ModelManager extends ComponentManager implements Model {
 
 	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
 		addressBook.markTaskAsComplete(taskToComplete);
+		setLastTaskAddedIndex(addressBook.indexOf((Task) taskToComplete));
 		indicateAddressBookChanged();
 	}
+	
+	public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws PersonNotFoundException {
+        int targetIndex = addressBook.indexOf((Task) taskToIncomplete);
+	    uncompleteTask(targetIndex);
+        setLastTaskAddedIndex(targetIndex);
+        indicateAddressBookChanged();
+    }
 
 	@Override
 	public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {

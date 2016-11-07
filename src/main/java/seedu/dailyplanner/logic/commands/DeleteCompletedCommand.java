@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
+import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.logic.parser.nattyParser;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
@@ -48,6 +49,7 @@ public class DeleteCompletedCommand extends Command {
 		}
 		
 		model.updateFilteredListToShowAll();
+		model.setLastShowDate(StringUtil.EMPTY_STRING);
 		return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, "all completed"));
 	}
 

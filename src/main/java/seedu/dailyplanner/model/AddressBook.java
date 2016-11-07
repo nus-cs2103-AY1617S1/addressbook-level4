@@ -120,6 +120,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
         persons.complete(key);
     }
+    
 
     public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
         persons.pin(taskToPin);

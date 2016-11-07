@@ -36,6 +36,9 @@ public interface Model {
     /** Marks the given task as complete  */
     void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException;
     
+    /** Unmarks the given task as incomplete  */
+    void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws PersonNotFoundException;
+    
     /** Pins the given task. */
     void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException;
 
@@ -72,7 +75,7 @@ public interface Model {
     /** Returns last shown date command */
     public String getLastShowDate();
     
-    /** Sets last shown date given by show command*/
+    /** Sets last shown date given by show command, this date is dislayed in green beside 'Your Tasks' in GUI*/
     public void setLastShowDate(String showInput);
     
     /** Returns the StringProperty holding the last shown date command */

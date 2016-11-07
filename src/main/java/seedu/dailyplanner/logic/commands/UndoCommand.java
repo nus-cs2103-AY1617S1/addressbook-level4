@@ -85,6 +85,14 @@ public class UndoCommand extends Command {
             model.uncompleteTask(indexInTaskList);
         }
 		
+		if (undoInstruction.getReverse().equals("C")) {
+            try {
+                model.markTaskAsComplete(taskToUndo);
+            } catch (PersonNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+		
 		model.updatePinBoard();
 
 		return new CommandResult(String.format(MESSAGE_SUCCESS));
