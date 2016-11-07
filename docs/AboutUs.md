@@ -31,8 +31,19 @@ Responsibilities: UI
 
 #### [Voon Soo Yin](http://github.com/tessav) 
 <img src="images/SooYin.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: Logic
+ 
+* Components in charge of: [Logic](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Documentation
+* Features implemented:
+   * [Add task with flexibility in command format]()
+   * [Support for adding floating task and event task]()
+   * [Find task by field type]()
+   * [Support marking of a task as done]()
+   * [Separate listing of tasks that are done/not done]()
+* Code written: [[functional code](A0130677A.md)][[test code](A0130677A.md)][[docs](A0130677A.md)]
+* Other major contributions:
+  * Command format validation & regex
+  * Set up Travis
  
  -----
 
