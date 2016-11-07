@@ -215,7 +215,7 @@ public class LogicManagerTest {
         
         assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
     }
-
+    
     //@@author A0139128A
     @Test
     public void executeList_correctArgument_showsAllTasks() throws Exception {
