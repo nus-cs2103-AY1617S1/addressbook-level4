@@ -80,10 +80,7 @@ public class TaskDate implements Comparable<TaskDate> {
     
     @Override
     public String toString() {
-        if (this.date != null) {
-            return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
-        }
-        return null;
+        return date.format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT));
     }
 
     @Override
@@ -98,8 +95,7 @@ public class TaskDate implements Comparable<TaskDate> {
      * Use this method when both TaskDates could be null
      */
     public static boolean isEquals(TaskDate date, TaskDate other) {
-        if (date == null && other == null) {
-            //both are null, they are equal
+        if (date == null && other == null) { //both are null, they are equal
             return true;
         }
         
