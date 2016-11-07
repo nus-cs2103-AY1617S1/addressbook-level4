@@ -34,7 +34,7 @@ Get started with <i>Tusk</i> now!
 2. Copy the file to the folder you want to use as the home folder for Tusk.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
- > <img src="images/Ui.png" width="600"><br>
+ > <img src="images/UIDemo.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -184,18 +184,20 @@ Format: `clear`
 Undoes the previous command.<br>
 Format: `undo`
 
+> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
+
 Examples:
 * `list`
 * `delete 1`
 * `undo` <br>
   Undoes your latest `delete` command
 
-> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
-
 <br>
 #### Redoing an undo: `redo`
 Redoes the previous undo command.<br>
 Format: `redo`
+
+> Only 1 consecutive `redo` command after an `undo` command is allowed.
 
 Examples:
 * `list`
@@ -203,8 +205,6 @@ Examples:
 * `undo` 
 * `redo` <br>
   Redoes your latest `undo` command
-
-> Only 1 consecutive `redo` command after an `undo` command is allowed.
 
 <br>
 #### Marking a task as completed: `complete`
@@ -221,7 +221,7 @@ Examples:
 
 <br>
 #### Marking a task as incomplete: `uncomplete`
-Marks the specified task as incomplete<br>
+Marks the specified task as incompleted.<br>
 Format: `uncomplete INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
@@ -236,7 +236,7 @@ Examples:
 Lists all the tasks that you have completed. <br>
 Format: `list complete[d]`
 
-> You can type either `complete` or its past tense form, `completed`
+> You can type either `complete` or its past tense form, `completed`.
 
 Examples:
 * `list complete`
