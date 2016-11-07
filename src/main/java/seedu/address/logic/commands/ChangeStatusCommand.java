@@ -21,7 +21,7 @@ public class ChangeStatusCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD_DONE + " or " + COMMAND_WORD_PENDING
             + ": Set the task identified by the index number used in the last task listing as done or pending.\n"
-            + "Parameters: INDEX [MORE_INDICES] ... \n"
+            + "Parameters: INDEX [MORE_INDICES]... \n"
             + "Example: " + COMMAND_WORD_PENDING + " 1 3";
  
     public static final String MESSAGE_TASK_SUCCESS_DONE = "Task(s) marked as " + COMMAND_WORD_DONE + ": %1$s";

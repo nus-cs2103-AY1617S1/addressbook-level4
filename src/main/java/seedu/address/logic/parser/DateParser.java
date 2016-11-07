@@ -41,8 +41,10 @@ public class DateParser {
 	
 	
 	/**
-	 * @return LocalDateTime if date format is valid
-	 * @throws ParseException if unable to parse
+	 * Parses a string into a LocalDateTime.
+	 * 
+	 * @return LocalDateTime if date format is valid.
+	 * @throws ParseException if unable to parse.
 	 */
 	public static LocalDateTime parse(String dateString) throws ParseException {
 		dateString = dateString.trim().toLowerCase();
@@ -62,9 +64,11 @@ public class DateParser {
 	}
 	
 	/**
+	 * Checks whether a given string contains a date, either in a standard
+	 * format like `31-10-16` or in natural language like `today`.
 	 * 
 	 * @param dateString
-	 *            a string that may contain a date. eg. `31-10-16`, `today`
+	 *            a string that may contain a date.
 	 * @return true if a date is present, false otherwise. If only a time is
 	 *         given, false is returned.
 	 */
@@ -79,27 +83,46 @@ public class DateParser {
 			return false;
 		}
 		
+		return !isTodayInferred(dateString, dateTime);
+	}
+
+	/**
+	 * Checks whether the date was inferred from an input string. This occurs
+	 * when only the time is supplied and results in a date of today.
+	 * 
+	 * @param dateString
+	 *            string that was parsed
+	 * @param parsedDateTime
+	 *            parsed date from dateString
+	 * @return true if date was inferred, false if date was specified
+	 */
+	private static boolean isTodayInferred(String dateString, LocalDateTime parsedDateTime) {
 		LocalDateTime nowWithHhmmReplaced = LocalDateTime.now()
-				.withHour(dateTime.getHour())
-				.withMinute(dateTime.getMinute())
+				.withHour(parsedDateTime.getHour())
+				.withMinute(parsedDateTime.getMinute())
 				.truncatedTo(ChronoUnit.MINUTES);
 		
-		// If string does not contain explicit identifiers
-		// for today ("today" or standard date format symbol "-"), date was inferred
-		if (dateTime.equals(nowWithHhmmReplaced)
+		// If date parsed is today, and
+		// string does not contain explicit identifiers for today 
+		// ("today" or standard date format symbol "-"), date was inferred
+		if (parsedDateTime.equals(nowWithHhmmReplaced)
 				&& !(dateString.contains("today") || dateString.contains("-"))) {
-			return false;
+			return true;
 		} 
 		else {
-			return true;
+			return false;
 		}
 	}
 	
 	
 	/**
+	 * Attempts to parse a string using regex matching natural language words
+	 * like `today` and `sunday`. Returns null if unable to parse.
 	 * 
-	 * @param dateString a string that uses natural language words like `today` and `tomorrow` to describe the date.
-	 * @return a LocalDateTime
+	 * @param dateString
+	 *            a string containing a date.
+	 * @return a LocalDateTime if string was parsed successfully, null
+	 *         otherwise.
 	 * @throws ParseException
 	 */
 	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
@@ -130,13 +153,14 @@ public class DateParser {
 	}
 
 	/**
+	 * Attempts to parse a string using regex matching the standard date formats
+	 * dd-mm-yy, dd-MMM-yy, yyyy-mm-dd, dd-mm-yyyy and dd-MMM-yyyy and time in
+	 * the HH:mm, hh:mm am/pm format. The hyphens in the date may be replaced by
+	 * forward slashes an the colon in the time format may be omitted. Returns
+	 * null if unable to parse.
 	 * 
 	 * @param dateString
-	 *            a string that identifies a date in the dd-mm-yy, dd-MMM-yy,
-	 *            yyyy-mm-dd, dd-mm-yyyy and dd-MMM-yyyy formats and time in the
-	 *            HH:mm, hh:mm am/pm format. The hyphens in the date may be
-	 *            replaced by forward slashes an the colon in the time format
-	 *            may be omitted.
+	 *            a string containing a date.
 	 * @return a LocalDateTime
 	 * @throws ParseException
 	 */
@@ -199,6 +223,7 @@ public class DateParser {
 				return month;
 			}
 		}
+		// if monthString is not a number
 		catch (NumberFormatException e) {
 
 			switch (monthString.toLowerCase()) {
@@ -324,7 +349,4 @@ public class DateParser {
 		}
 	}
 	
-	public static void main(String[] args) {
-	}
-
 }

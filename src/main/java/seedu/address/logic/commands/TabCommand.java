@@ -10,7 +10,7 @@ public class TabCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows the tab on the right hand pane "
             + "corresponding to the time period input.\n"
-            + "Parameters: (today | tomorrow | week | month | someday)\n"
+            + "Parameters: (today | tomorrow | tmr | week | month | someday | sd)\n"
             + "Example: " + COMMAND_WORD + " tomorrow";
     
     public static final String MESSAGE_SUCCESS = "Switched to %1$s tab.";
