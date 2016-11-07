@@ -154,7 +154,7 @@ public class TaskTime implements Comparable<TaskTime> {
         } else if (o.value == null){
             return 1;
         } else {
-            return this.value.compareTo(o.value);
+            return (int) (this.value.getTime() - o.value.getTime());
         }
     }
     
