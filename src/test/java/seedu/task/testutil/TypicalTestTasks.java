@@ -10,13 +10,13 @@ import seedu.task.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, hoon, ida, same, recur, recur2, name;
+    public static TestTask cs2103, laundry, carl, daniel, elle, fiona, george, first, last, hoon, ida, same, recur, recur2, name;
 
     public TypicalTestTasks() {
         try {
             cs2103 =  new TaskBuilder().withName("Do CS 2103").withOpenTime("9 hours from now")
                     .withCloseTime("17 hours from now").withTags("friends").withImportance(false).build();
-            laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
+            laundry = new TaskBuilder().withName("Do Meier laundry").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").withImportance(false).withTags("urgent", "important").build();
             carl = new TaskBuilder().withName("Meet Carl").withOpenTime("5 days from now")
                     .withCloseTime("14 days from now").build();
@@ -30,16 +30,22 @@ public class TypicalTestTasks {
                     .withCloseTime("day after tomorrow").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).build();//.withRecurrentWeek(0)
-            ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("tomorrow")
-                    .withCloseTime("the day after tomorrow").build();
-            same =new TaskBuilder().withName("Ida Mueller").withOpenTime("one week from now")
-                    .withCloseTime("two weeks from now").build();
-            recur = new TaskBuilder().withName("Ida").withOpenTime("one week from now")
-                    .withCloseTime("two weeks from now").build();
-            recur2 = new TaskBuilder().withName("Do Homework").withOpenTime("two days from now")
-                    .withCloseTime("five days from now").build();
+            first = new TaskBuilder().withName("Alphabet soup making session").withOpenTime("1 hour from now")
+                    .withCloseTime("2 hours from now").withTags("first").build();
+            last = new TaskBuilder().withName("Zebra feeding").build();
+            
+            hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("one hour from now")
+                    .withCloseTime("tomorrow").withTags("omg").withImportance(false).build();//.withRecurrentWeek(0)
+            ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("two weeks from now")
+                    .withCloseTime("one month from now").build();
+            same =new TaskBuilder().withName("Ida Mueller").withOpenTime("one month from now")
+                    .withCloseTime("two months from now").build();
+            
+            recur = new TaskBuilder().withName("Prepare for future").withOpenTime("10 days from now")
+                    .withCloseTime("16 days from now").build();
+            
+            recur2 = new TaskBuilder().withName("Do Homework for next semester").withOpenTime("20 days from now")
+                    .withCloseTime("24 days from now").build();
             name = new TaskBuilder().withName("task name").build();
             
         } catch (IllegalValueException e) {
@@ -64,7 +70,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{cs2103, laundry, carl, daniel, elle, fiona, george};
+        return new TestTask[]{daniel, elle, cs2103, fiona, laundry, george, carl};
     }
 
     public TaskManager getTypicalTaskManager(){

@@ -17,24 +17,30 @@ import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestTasks;
 
 public class AddCommandTest extends TaskManagerGuiTest {
+    //@@author A0141052Y
     @Test
     public void add() {
-        //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = TypicalTestTasks.hoon;
+        //add task that will appear on the front of the list
+        TestTask taskToAdd = TypicalTestTasks.first;
+        assertAddSuccess(1, taskToAdd, currentList);
+        
+        currentList = TestUtil.insertTaskToList(currentList, taskToAdd, 0);
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
+        
+        //adds a task that will be added at the back
+        taskToAdd = TypicalTestTasks.last;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
-        //add another task
-        taskToAdd = TypicalTestTasks.ida;
-        assertAddSuccess(taskToAdd, currentList);
+        //adds a task to the middle, before fiona
+        taskToAdd = TypicalTestTasks.hoon;
+        assertAddSuccess(5, taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, taskToAdd));
         
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(TypicalTestTasks.cs2103);
        
         //add a task which has endTime < openTime 
         commandBox.runCommand("add testEvent starts tomorrow ends today");
@@ -42,6 +48,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         //add test with only name
     }
+    //@@author
     
     @Test
     public void add_same_task_name() {
@@ -102,21 +109,29 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("add testRecurring recurs ");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
-    //@@author
-      
+    
+    //@@author A0141052Y
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        assertAddSuccess(currentList.length + 1, taskToAdd, currentList);
+    }
+    /**
+     * Asserts the success of the add command operation.
+     * @param taskId The expected ID of the Task to be added (according to the GUI)
+     * @param taskToAdd The expected Task to be added
+     * @param currentList The current list of Tasks that are being displayed
+     */
+    private void assertAddSuccess(int taskId, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskId - 1);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TestTask[] expectedList = TestUtil.insertTaskToList(currentList, taskToAdd, taskId - 1);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
     
-    //@@author A0141052Y
     private TestTask[] assertAddRecurringSuccess(int numTimes, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand() + " recurs " + numTimes);
         
