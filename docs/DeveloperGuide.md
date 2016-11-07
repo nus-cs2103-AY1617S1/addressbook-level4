@@ -177,6 +177,8 @@ public void componentDidMount() {
 
 ### InputHandler component
 
+The InputHandler is the bridge facilitating the handoff from the View to the Controller when the user enters an input.
+
 **API** : [`InputHandler.java`](../src/main/java/seedu/todo/ui/components/InputHandler.java)
 
 1. The console input field will find a `Controller` which matches the command keyword (defined to be the first space-delimited word in the command).
@@ -184,34 +186,52 @@ public void componentDidMount() {
 3. The InputHandler also maps aliased commands back to their original command keyword.
 3. If no Controllers were matched, the console would display an error, to indicate an invalid command.
 
+<!--- @@author A0093907W -->
+
 ### Controller component
+
+The Controllers are responsible for most of the back-end logic responsible for processing the user's input. They take in the full input command, parse, process, and construct the response messages which are handed over to the Renderer to be rendered on the View.
 
 **API** : [`Controller.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
 1. `Controller`s have a `process()` method which processes the command passed in by `InputHandler`.
 2. The command execution can affect the `Model` (e.g. adding a person), raise events, and/or have other auxilliary effects like updating the config or modifying the UI directly.
-3. After invoking `process()`, a new `View` will be created and loaded to `MainWindow` whether it was successful or an exception occured.
+3. After doing the required processing, the `Controller` calls the `Renderer` concern with appropriate parameters to be rendered on the user window. This is regardless of whether the command was successful (if not, then an error message or disambiguation prompt is rendered).
 
-<!--- @@author A0093907W -->
+#### Controller concerns
+
+Controller concerns are intended to contain helper methods to be shared across Controllers, in the spirit of code reuse. These are methods that are not generic enough to be considered utility functions (in `commons.utils`), but are at the same time not specific to a single Controller.
+
+A brief description of each concern:
+
+* **`CalendarItemFilter`** extracts out the parsing and filtering logic that is used by `ListController`, `ClearController` and to a small extent, `FindController`. These controllers depend on being able to filter out  CalendarItems before doing some processing on it. Extracting this out into a concern allows us to maintain a consistent filtering syntax for the user.
+* **`Disambiguator`** contains the disambiguation helper methods to be used by Controllers which rely heavily on CalendarItemFilter. Since the token parsing is extracted out into a common concern, so should the code for populating disambiguation fields. 
+* **`DateParser`** extracts out the parsing methods for single and paired dates. Virtually all Controllers need some support for converting a natural date input to a LocalDateTime object.
+* **`Renderer`** contains the bulk of the code required for renderering a success or failure message, as well as disambiguation prompts. We want disambiguation prompts from all Controllers to be more or less consistent in their wording, hence it makes sense to extract this out allow each Controller to provide a more detailed explanation that will be rendered together with the generic message.
+* **`Tokenizer`** contains the heavy logic that parses an input into its component token keys and values, while respecting the presence of quotes. All but the simplest of Controllers need to use this for parsing user input. Each Controller defines its own tokenDefinitions which the `Tokenizer` uses to parse the raw user input.
+
 ### Model component
 
 **API** : [`CalendarItem.java`](../src/main/java/seedu/todo/models/CalendarItem.java)
 
+A Model represents a single database record that is part of the persistent state of the TodoList app.
+
 `CalendarItem`
-* represents a single database record that is part of the persistent state of the TodoList app
 * is subclassed by two record types, namely `Event` and `Task`
+* Both subclasses contain setters and getters to be used to manipulate records
+* Both subclasses implement dynamic predicate constructors to be chained together for use in a `.where()` query
+* Has **NO** support for dirty records. In the spirit of Java's LBYL (and against my personal preferences...), all Controllers doing database operations are expected to validate parameters before updating a record. Once a record field is changed, if a validation fails, the only way to rollback the change is by reloading from disk or calling `undo`.
 
 `TodoListDB`
 * is a class that holds the entire persistent database for the TodoList app
 * is a singleton class. For obvious reasons, the TodoList app should not be working with multiple DB instances simultaneously
 * is recursively serialized to disk - hence object-to-object dynamic references should not be expected to survive serialization/deserialization 
-<!--- @@author -->
 
-
-<!--- @@author A0093907W -->
 ### Storage component
 
 **API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
+
+The `Storage` module should be considered to be a black box which provides read/write functionality and a few bonus features to the TodoListDB. This can be compared to a MySQL database implementation - no one needs to know how this is implemented, and in actual fact our implementation does little more than wrap around a serializer / deserializer in order to provide undo/redo functionality.
 
 The `Storage` component,
 * holds the logic for saving and loading the TodoListDB from disk
