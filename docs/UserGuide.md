@@ -243,26 +243,32 @@ The daily planner stores all of the users events as a `Task`.
 
 A `Task` can be viewed, added, searched, edited or deleted with the right command word as can be found in [Commands](#commands).
 
-**Every `Task` must consist of a mandatory `TASKNAME` field and optional `STARTDATE`, `STARTTIME`, `ENDDATE`, `ENDTIME`, `isRECURRING` fields.**
+**Every `Task` must consist of a mandatory `TASKNAME` field and optional `START`, `END`, `CATEGORY` fields.**
 
-#### `STARTDATE` and `ENDDATE` Field
-The `STARTDATE` and `ENDDATE` field, if specified, tells the Daily Planner which date(s) the task is meant for. If no `ENDDATE` is specified, Daily Planner assumes the task is meant to be done today. 
-
-The `STARTDATE` and `ENDDATE` field can accept natural descriptions of dates. The following are all valid dates:
+#### `START` and `END` Field
+The `START` and `END` field, if specified, tells the Daily Planner when a task should start and end.
+<br>
+Both `START` and `END` fields consist of either a `DATE` field, a `TIME` field or both `DATE` `TIME` fields, separated by a whitespace.
+<br>
+This allows for natural descriptors of starting and ending times.
+<br>
+The `TIME` field must be given in 12hr am or pm format.
+<br>
+The following are all valid `START` and `END` fields:
 ```
 
-11/11/2016
+11/11/2016 5pm
 The 31st of April in the year 2008
 Fri, 21 Nov 1997
 Jan 21, '97
-Sun, Nov 21
-jan 1st
+Sun, Nov 21 5am
+jan 1st 9pm
 february twenty-eighth
 next thursday
 last wednesday
 today
-tomorrow
-yesterday
+tomorrow 6pm
+yesterday 3pm
 next week
 next month
 next year
@@ -270,22 +276,3 @@ next year
 three weeks ago
 ```
 
-#### `STARTTIME` and `ENDTIME` fields
-
-1. No `STARTTIME` or `ENDTIME` fields have to be entered for tasks with no specific timing
-2. For a task that must occur within a fixed time period, `STARTTIME` and `ENDTIME` fields must be given in the following format:
-    * `s/STARTTIME e/ENDTIME`
-    * Example: `s/2pm e/4pm` 
-3. For tasks with only a deadline, only the `ENDTIME` has to be entered after `e/` keyword:
-    * `e/ENDTTIME`
-    * Example: `e/6pm`
-4. Both fields require users to specify am or pm after the number.
-
-`STARTTIME` and `ENDTIME` fields can also accept various natural descriptions:
-
-```
-
-6pm
-8am
-
-```
