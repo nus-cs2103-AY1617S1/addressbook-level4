@@ -173,7 +173,7 @@ Examples:
 * `list /a` or `list /t /e /a` <br>
   Lists everything in the app. 
 
-
+<img src="images/list.gif" width="600">
 <!-- @@author A0127570H -->
 
 #### Editing a task
@@ -323,6 +323,8 @@ Examples:
 * `find cs210X /power`
   Returns any tasks or events having which contain similar words of "cs210X" in the descriptiosn or names. 
 
+<img src="images/find.gif" width="600">
+
 <!-- @@author A0121608N -->
 
 #### Clearing of tasks
@@ -387,6 +389,8 @@ Examples:
  It will focus on the current time of today's calendar in the day mode. 
 * `show next week 8pm /wk`  
  It will focus on the 8pm time frame of the next week's calendar. 
+
+<img src="images/show.gif" width="600">
 
 <!-- @@author-->
   

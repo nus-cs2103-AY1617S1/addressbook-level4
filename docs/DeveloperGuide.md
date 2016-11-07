@@ -185,9 +185,13 @@ of loggers and handlers (for output of log messages)
 **Logging Levels**
 
 - SEVERE
-  - Critical use case affected, which may possibly cause the termination of the application
-  eg: Fatal error during initializing,
+  - Critical use case affected, which may possibly cause the termination of the application  
+  eg: Fatal error during initializing,  
   eg: Unsync Calendar during execution. 
+
+-WARNING:
+  - Critical use case happen, but can recover and continue execution:
+    eg:Can't find stage Test App, Therefore, aborting focusin  
 
 - INFO
   - Information important for the application's purpose
