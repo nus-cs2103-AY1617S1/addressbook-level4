@@ -3,7 +3,7 @@
 ## How to load the sample data
 
 1. Download saavytasker.jar
-1. Download the [SampleData.xml](/test/data/ManualTesting/SampleData.xml) file
+1. Download the [SampleData.xml](/src/test/data/ManualTesting/SampleData.xml) file
 2. Make a copy, and rename it is to `savvytasker.xml`
 3. Copy `savvytasker.xml` and overwrite the same named file \data\savvytasker.xml
 4. Launch savvytasker.jar
