@@ -50,7 +50,7 @@ public class RecurrenceTest {
         LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(
                 toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
-        assertEquals(toBeRecur.toString(), Frequency.WEEK.toString());
+        assertEquals(toBeRecur.getRecurrence().toString(), Frequency.WEEK.toString());
         assertEquals(oldOnDateTime.plusWeeks(1), newOnDateTime);
         assertEquals(oldByDateTime.plusWeeks(1), newByDateTime);
         
@@ -76,7 +76,7 @@ public class RecurrenceTest {
         LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(
                 toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
-        assertEquals(toBeRecur.toString(), Frequency.DAY.toString());
+        assertEquals(toBeRecur.getRecurrence().toString(), Frequency.DAY.toString());
         assertEquals(oldOnDateTime.plusDays(1), newOnDateTime);
         assertEquals(oldByDateTime.plusDays(1), newByDateTime);
         
@@ -102,7 +102,7 @@ public class RecurrenceTest {
         LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(
                 toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
-        assertEquals(toBeRecur.toString(), Frequency.MONTH.toString());
+        assertEquals(toBeRecur.getRecurrence().toString(), Frequency.MONTH.toString());
         assertEquals(oldOnDateTime.plusMonths(1), newOnDateTime);
         assertEquals(oldByDateTime.plusMonths(1), newByDateTime);
         
@@ -128,7 +128,7 @@ public class RecurrenceTest {
         LocalDateTime newByDateTime = DateTimeUtil.combineLocalDateAndTime(
                 toBeRecur.getByDate().getDate(), toBeRecur.getByDate().getTime());
         
-        assertEquals(toBeRecur.toString(), Frequency.YEAR.toString());
+        assertEquals(toBeRecur.getRecurrence().toString(), Frequency.YEAR.toString());
         assertEquals(oldOnDateTime.plusYears(1), newOnDateTime);
         assertEquals(oldByDateTime.plusYears(1), newByDateTime);
         
