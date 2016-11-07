@@ -53,6 +53,7 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
   * Fixed major bugs
 -----
 
+<!-- @@author A0139198N -->
 #### [Tan Jun Hao](https://github.com/e0003083)  <br>
 <img src="images/Jun Hao.jpg" width="150"><br>
 
