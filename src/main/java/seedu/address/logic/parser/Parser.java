@@ -190,9 +190,6 @@ public class Parser {
 		
 		String taskNameWithoutQuotes = getTaskName(arguments);
 		String args = StringUtil.getNonQuotedText(arguments);
-
-		System.out.println("name: " + taskNameWithoutQuotes);
-		System.out.println("args: " + args);
 		
 		String argsLowerCase = args.toLowerCase();	
 		

@@ -25,9 +25,6 @@ public class ClearCommandTest extends TaskManagerGuiTest {
 
         // verify clear command works when the list is empty
         assertClearCommandSuccess();
-        
-        // verify the lists in the tab pane can be cleared
-        // TODO
     }
 
     private void assertClearCommandSuccess() {

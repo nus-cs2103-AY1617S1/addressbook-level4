@@ -80,6 +80,9 @@ public class EditCommand extends Command {
 			
 			this.checkNotDuplicateTask(lastShownList);
 			model.editTask(internalListIndex, taskToEdit);
+    	} catch (IllegalArgumentException e) {
+    		model.undoSaveState();
+			return new CommandResult(e.getMessage());
 		} catch (IllegalValueException ive) {
 			model.undoSaveState();
 			return new CommandResult(ive.getMessage());
@@ -196,7 +199,7 @@ public class EditCommand extends Command {
 	}    
 	
 	//@@author A0143756Y
-	private void validateEndDateTimeAfterStartDateTime(){
+	private void validateEndDateTimeAfterStartDateTime() throws IllegalArgumentException {
 		
 		if (newStartDateTime.isPresent() && newEndDateTime.isPresent()){
         	LocalDateTime startDateTime = newStartDateTime.get();

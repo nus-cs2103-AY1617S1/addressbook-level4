@@ -215,7 +215,7 @@ public class LogicManagerTest {
 //        assertCommandBehavior("find ", expectedMessage);
 //    }
 
-    // TODO
+    //@@author A0141019U-unused
 //    @Test
 //    public void execute_find_matchesPartialWordsInNames() throws Exception {
 //        TestDataHelper helper = new TestDataHelper();
@@ -235,6 +235,7 @@ public class LogicManagerTest {
 //                expectedAB,
 //                expectedList);
 //    }
+    //@@author
 
 //    @Test
 //    public void execute_find_isNotCaseSensitive() throws Exception {
@@ -256,7 +257,7 @@ public class LogicManagerTest {
 //                expectedList);
 //    }
 
-    // TODO
+      
 //    @Test
 //    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
 //        TestDataHelper helper = new TestDataHelper();

@@ -18,7 +18,6 @@ public class CommandBoxTest extends TaskManagerGuiTest {
     public void commandBox_commandFails_textStays(){
         commandBox.runCommand("invalid command");
         assertEquals("invalid command", commandBox.getCommandInput());
-        //TODO: confirm the text box color turns to red
     }
 
 }

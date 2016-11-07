@@ -10,6 +10,8 @@ import seedu.address.model.task.UniqueTaskList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -49,7 +51,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -62,7 +63,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
             }
         }
         return lists;
@@ -75,7 +75,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

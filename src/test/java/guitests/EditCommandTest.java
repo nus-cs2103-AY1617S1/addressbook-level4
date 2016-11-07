@@ -21,7 +21,6 @@ package guitests;
 //import seedu.address.testutil.TestUtil;
 //import seedu.address.testutil.TypicalTestTasks;
 
-//TODO: Change arguments for postEdit for //Edits the first task in the list to //Edits an in-30-days task from the list
 
 public class EditCommandTest extends TaskManagerGuiTest{
 //	@Test
