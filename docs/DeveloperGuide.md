@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A : User Stories](#appendix-a-user-stories)
-* [Appendix B : Use Cases](#appendix-b-use-cases)
-* [Appendix C : Non Functional Requirements](#appendix-c-non-functional-requirements)
-* [Appendix D : Glossary](#appendix-d-glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A : User Stories](#appendix-a-:-user-stories)
+* [Appendix B : Use Cases](#appendix-b-:-use-cases)
+* [Appendix C : Non Functional Requirements](#appendix-c-:-non-function-requirements)
+* [Appendix D : Glossary](#appendix-d-:-glossary)
+* [Appendix E : Product Survey](#appendix-e-:-product-survey)
 
 
 ## Setting up
@@ -84,7 +84,7 @@ The _Sequence Diagram_ below shows how they interact when the user issues the co
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` in both cases simply raises a `AddressBookChangedEvent` when the Lifekeeper data are changed,
+>Note how the `Model` in both cases simply raises a `LifekeeperChangedEvent` when the Lifekeeper data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to those events, which eventually results in the updates
@@ -101,7 +101,7 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/lifekeeper/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
@@ -121,7 +121,7 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/lifekeeper/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
@@ -137,7 +137,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <!-- @@author A0125680H -->
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/lifekeeper/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -150,7 +150,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/lifekeeper/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -158,7 +158,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.lifekeeper.commons` package.
 
 ## Implementation
 
@@ -262,29 +262,58 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | user | be able to quickly make changes onto his lifekeeper with just one single step | focus on tasks at hand
-`* * *` | user | be able to set reminders for tasks | track his schedule despite being overwhelmed by work
-`* * *` | user | mark out completed task | remove entries that I no longer need
-`* * *` | user | undo the previous command that made change to the list
-`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`* * *` | user | be able to view his schedule in a visual display |  understand the flow of tasks.
-`* * *` | user | see uncompleted tasks that are overdue marked out in red | visually see what are the task that I failed to complete on time
-`* * *` | user | delete the unwanted task | keep my Lifekeep neat and clean
-`* * *` | user | add task due date | I can set due time for my tasks
-`* * *` | user | add event | I can set start and end time for the events
-`* * *` | user | be able to add details such as priority and deadline only if I want to | add task even when I dont know the due date for it yet
-`* *` | user | be able to block out multiple possible timings and confirm the exact timeslot at a later time
-`* *` | user | have access to his schedule even without internet access.
-`* *` | user | find out the next upcoming task without having to scan through the calendar or the task list.
-`* *` | user | see his tasks ranked in terms of priority
-`*` | user | share tasks with other colleagues working on the same tasks.
-`*` | user | see how his tasks are interrelated, since many of the tasks have prerequisites.
+`* * *` | user	| be able to quickly make changes onto his lifekeeper with just one single step | focus on tasks at hand
+`* * *` | user 	| be able to set reminders for tasks | track his schedule despite being overwhelmed by work
+`* * *` | user 	| mark out completed task | remove entries that I no longer need
+`* * *` | user 	| undo the previous command that made change to the list
+`* * *` | user 	| find a task by name | locate details of tasks without having to go through the entire list
+`* * *` | user 	| see uncompleted tasks that are overdue marked out in red | visually see what are the task that I failed to complete on time
+`* * *` | user 	| delete the unwanted task | keep my Lifekeep neat and clean
+`* * *` | user 	| add task due date | set due time for my tasks
+`* * *` | user 	| add event | set start and end time for the events
+`* * *` | user 	| add recurring event | recording events that happens every week
+`* * *` | user 	| be able to add details such as priority and deadline only if I want to | add task even when I dont know the due date for it yet
+`* *` | user 	| be able to block out multiple possible timings and confirm the exact timeslot at a later time
+`* *` | user 	| see his tasks ranked with priority | visually find out what task are the important ones
+`*` | user 	| list tasks by task type | filter tasks by task type
 
-<!-- @@author -->
+
 
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `Lifekeeper` and the **Actor** is the `user`, unless specified otherwise)
+#### Use case: Delete task
+
+**MSS**
+
+Prerequisite steps:
+1. User requests to add task that (s)he wishes to add <br>
+
+
+Preconditions:
+-
+
+1. User add the task with desirable parameters
+2. Lifekeeper updates the storage of the adding of task
+3. Lifekeeper displays added tasks in the App <br>
+Use case ends.
+
+**Extensions**
+
+1a. User keys in invalid parameters
+
+> 1a1. Lifekeeper gives an error message and returns an empty Command Box
+  Use case resumes at step 1
+
+1b. User does not want to add any task
+
+> 1b1. User types in `undo` to go back to previous menu
+  Use case ends
+
+2a. Lifekeeper has exact same task existed in the storage file
+
+> 2a1. Lifekeeper gives an error message and returns an empty Command Box
+  Use case resumes at step 1
 
 
 #### Use case: Delete task
@@ -292,16 +321,14 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 Prerequisite steps:
-1. User requests to search for task that (s)he wishes to delete
-2. Lifekeeper shows an indexed list of tasks that matches the search 
+1. User requests to search for task that (s)he wishes to delete <br>
+2. Lifekeeper shows an indexed list of tasks that matches the search <br>
 
 Preconditions:
 Lifekeeper has returned an indexed list of tasks that matches the search
 
 1. User finds the index of the task (s)he wants to delete and enters the index of the task to be deleted
-2. Lifekeeper asks the user to confirm the decision.
-3. User enters 'Yes' into the CLI
-4. Lifekeeper deletes the task, shows an acknowledgement message to user. <br>
+2. Lifekeeper deletes the task, shows an acknowledgement message to user. <br>
 Use case ends.
 
 **Extensions**
@@ -322,16 +349,6 @@ Use case ends.
 > 1c1. Lifekeeper gives an error message and returns an empty Command Box
   Use case resumes at step 1
 
-3a. User types 'No' into the CLI
-
-> 3a1. Lifekeeper returns to the indexed list of tasks that was searched by the user. <br>
-  Use case ends
-
-3a. The given index is invalid
-
-> 3a1. Lifekeeper shows an error message <br>
-  Use case resumes at step 2
-
 #### Use case: Edit task
 
 **MSS**
@@ -345,18 +362,18 @@ Preconditions:
 User has already selected the task that (s)he wants to edit.
 
 Editing steps:
-1. Lifekeeper will return the Task with its corresponding parameters onto the CLI for users to directly edit.
-2. User will edit the Task parameters directly through the CLI, or add new parameters through the CLI
-3. Lifekeeper will update the Task parameters accordingly, and then show the updated Task and its parameters to the user.
+1. Lifekeeper will return the Task with its corresponding parameters onto the CLI for users to directly edit.<br>
+2. User will edit the Task parameters directly through the CLI, or add new parameters through the CLI <br>
+3. Lifekeeper will update the Task parameters accordingly, and then show the updated Task and its parameters to the user.<br>
 Use case ends.
 
 **Extensions**
 
 2a. Parameters input by user is invalid
 
-> 2a1. Lifekeeper shows the relevant error message to user (depending on the error found by Lifekeeper).
-> 2a2. Lifekeeper return the Task with its corresponding parameters onto the CLI for users to directly edit, and highlights the parameter that is causing the error
-> 2a3. User makes edits the parameters by changing the words on the CLI
+> 2a1. Lifekeeper shows the relevant error message to user (depending on the error found by Lifekeeper).<br>
+> 2a2. Lifekeeper return the Task with its corresponding parameters onto the CLI for users to directly edit, and highlights the parameter that is causing the error<br>
+> 2a3. User makes edits the parameters by changing the words on the CLI<br>
 Repeat steps 2a1-2a3 until Lifekeeper judges that the input parameters are all valid
 Use case resumes from step 3.
 
@@ -366,10 +383,9 @@ Use case resumes from step 3.
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Should be able to be opened by hotkey
-6. Should have clear documentations
-7. Should be user-friendly with neat layout
-8. Output should be exportable to another computer (example through XML files)
+5. Should have clear documentations
+6. Should be user-friendly with neat layout
+7. Output should be exportable to another computer (example through XML files)
 
 ## Appendix D : Glossary
 
