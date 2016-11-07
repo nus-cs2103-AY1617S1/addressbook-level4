@@ -8,8 +8,6 @@ import java.time.temporal.ChronoUnit;
 
 import org.junit.Test;
 
-import com.google.api.services.tasks.model.Task;
-
 import guitests.guihandles.TaskCardHandle;
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddCommand;
