@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.testplanner.commons.util;
 
 import static org.junit.Assert.*;
 import seedu.dailyplanner.commons.util.DateUtil;

@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.testplanner.storage;
 
 
 import org.junit.Before;
@@ -6,7 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
 import seedu.dailyplanner.commons.events.storage.DataSavingExceptionEvent;
 import seedu.dailyplanner.model.AddressBook;
@@ -16,7 +15,8 @@ import seedu.dailyplanner.storage.JsonUserPrefsStorage;
 import seedu.dailyplanner.storage.Storage;
 import seedu.dailyplanner.storage.StorageManager;
 import seedu.dailyplanner.storage.XmlAddressBookStorage;
-import seedu.address.testutil.EventsCollector;
+import seedu.testplanner.testutil.EventsCollector;
+import seedu.testplanner.testutil.TypicalTestTask;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        AddressBook original = new TypicalTestTask().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));

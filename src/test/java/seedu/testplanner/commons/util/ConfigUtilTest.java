@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.testplanner.commons.util;
 
 
 import org.junit.Rule;

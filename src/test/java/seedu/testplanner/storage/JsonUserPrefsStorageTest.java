@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.testplanner.storage;
 
 
 import org.junit.Rule;

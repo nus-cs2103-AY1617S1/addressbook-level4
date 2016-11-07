@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.testplanner.storage;
 
 
 import org.junit.Rule;
@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestPersons;
 import seedu.dailyplanner.commons.exceptions.DataConversionException;
 import seedu.dailyplanner.commons.util.FileUtil;
 import seedu.dailyplanner.model.AddressBook;
 import seedu.dailyplanner.model.ReadOnlyAddressBook;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.storage.XmlAddressBookStorage;
+import seedu.testplanner.testutil.TypicalTestTask;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalTestTask td = new TypicalTestTask();
         AddressBook original = td.getTypicalAddressBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestPersons.learnPython));
-        original.removePerson(new Task(TypicalTestPersons.CS2103_Project));
+        original.addPerson(new Task(TypicalTestTask.learnPython));
+        original.removePerson(new Task(TypicalTestTask.CS2103_Project));
         xmlAddressBookStorage.saveAddressBook(original, filePath);
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Task(TypicalTestPersons.learnSpanish));
+        original.addPerson(new Task(TypicalTestTask.learnSpanish));
         xmlAddressBookStorage.saveAddressBook(original); //file path not specified
         readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

@@ -8,12 +8,13 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+
 import seedu.dailyplanner.commons.core.EventsCenter;
 import seedu.dailyplanner.model.AddressBook;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
+import seedu.testplanner.TestApp;
+import seedu.testplanner.testutil.TestUtil;
+import seedu.testplanner.testutil.TypicalTestTask;
 
 import java.util.concurrent.TimeoutException;
 
@@ -31,7 +32,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTask td = new TypicalTestTask();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,7 +78,7 @@ public abstract class AddressBookGuiTest {
      */
     protected AddressBook getInitialData() {
         AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalTestTask.loadAddressBookWithSampleData(ab);
         return ab;
     }
 
