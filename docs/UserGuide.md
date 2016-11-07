@@ -62,14 +62,14 @@ Format: `help`
 * Relative times: 10 seconds ago, in 5 minutes, 4 minutes from now.
 <br><br><br>
 
-#### Listing all tasks : `list`
+### Listing all tasks : `list`
 Format: `list [done]`
 Shows a list of all tasks done or not done in the task list.<br>
 * `list` shows all tasks not done
 * `list done` shows all tasks done
 <br><br><br>
 
-#### Finding all tasks containing any keyword in their name: `find`
+### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose descriptions contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -86,7 +86,7 @@ Examples:
 * `find Homework Dentistry`<br>
   Returns Any person having names `Homework`, `Dentistry` or `Dentist`
 <br><br><br>
-#### Deleting a task : `delete`
+### Deleting a task : `delete`
 Deletes the specified task from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
@@ -102,7 +102,7 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 <br><br><br>
-#### Select a person : `select`
+### Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
 
@@ -118,15 +118,15 @@ Examples:
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
 <br><br><br>
-#### Clearing all entries : `clear`
+### Clearing all entries : `clear`
 Clears all entries from the task list.<br>
 Format: `clear` 
 <br><br><br>
-#### Exiting the program : `exit`
+### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 <br><br><br>
-#### Saving the data 
+### Saving the data 
 Task List data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 <br><br><br>
