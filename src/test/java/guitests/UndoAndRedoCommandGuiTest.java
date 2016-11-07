@@ -181,50 +181,45 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     public void undoAndRedoCommand_doneTask_undoneForUndoDoneForRedo() {
         //Setup for done
         TestTask aliceEdit = new TestTask(td.alice);
-
         editTaskHelper(aliceEdit);
-        
         TestTask aliceRecur = new TestTask(aliceEdit);
-        
         editWithRecurHelper(aliceRecur);
+        
+        TestTask[] undoneListBeforeDone = getNewUndoneListAfterEditFirstTask(aliceEdit);
+        TestTask[] undoneListAfterDone = getNewUndoneListAfterEditFirstTask(aliceRecur);
+
         
         commandBox.runCommand("list done");
         commandBox.runCommand("delete 1");
         commandBox.runCommand("list");
         
-        originalUndoneList[0] = aliceEdit;
         commandBox.runCommand("edit 1 Meet Alice at jUnit mall from today 2pm to 3pm repeat every 3 days -high");
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        assertTrue(personListPanel.isListMatching(undoneListBeforeDone));
 
         // Real done test
         commandBox.runCommand("done 1");
-        originalUndoneList[0] = aliceRecur;
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
-        originalUndoneList[0] = aliceEdit;
-        assertUndoSuccess(originalUndoneList);
-        originalUndoneList[0] = aliceRecur;
-        assertRedoSuccess(originalUndoneList);
+        assertTrue(personListPanel.isListMatching(undoneListAfterDone));
+        assertUndoSuccess(undoneListBeforeDone);
+        assertRedoSuccess(undoneListAfterDone);
         
         TestTask[] doneListBeforeDone = TestUtil.removeTaskFromList(originalDoneList, 1);
-        TestTask[] newDoneList = Arrays.copyOf(originalDoneList, originalDoneList.length);
-        newDoneList[0] = aliceEdit;
+        
+        TestTask[] doneListAfterDone = getNewDoneListAfterDoneFirstTask(aliceEdit);
         
         // check if it works on the done list too
         commandBox.runCommand("list done");
-        assertTrue(personListPanel.isListMatching(newDoneList));
+        assertTrue(personListPanel.isListMatching(doneListAfterDone));
         assertUndoSuccess(doneListBeforeDone);
         commandBox.runCommand("list");
-        originalUndoneList[0] = aliceEdit;
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        assertTrue(personListPanel.isListMatching(undoneListBeforeDone));
         commandBox.runCommand("list done");
-        assertRedoSuccess(newDoneList);
+        assertRedoSuccess(doneListAfterDone);
         commandBox.runCommand("list");
-        originalUndoneList[0] = aliceRecur;
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        assertTrue(personListPanel.isListMatching(undoneListAfterDone));
 
     }
- 
-    
+
+   
     @Test
     public void undoAndRedoCommand_undoableCommandAfterUndo_resetUndo() {
         
@@ -236,6 +231,19 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertRedoSuccess(withHoon);
         
     }
+    
+    /**
+     * Helper method to generate the new done list after edit (assuming the first task was edited)
+     * 
+     * @param editedTask The task that was edited
+     * @return The new done list
+     */
+    private TestTask[] getNewDoneListAfterDoneFirstTask(TestTask editedTask) {
+        TestTask[] doneListAfterDone = Arrays.copyOf(originalDoneList, originalDoneList.length);
+        doneListAfterDone[0] = editedTask;
+        return doneListAfterDone;
+    }
+ 
     
     /**
      * Helper method to generate the new undone list after edit (assuming first task was edited)
