@@ -16,12 +16,12 @@ import static org.junit.Assert.assertTrue;
 public class CompleteCommandTest extends AddressBookGuiTest {
 
 	@Test
-	public void add() {
-		// add one person
+	public void complete() {
+		
 		TestTask[] currentList = td.getTypicalPersons();
-		TestTask personToAdd = td.learnPython;
-		assertCompleteSuccess(personToAdd, currentList);
-		currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+		TestTask personToComplete = td.learnPython;
+		assertCompleteSuccess(personToComplete, currentList);
+		currentList = TestUtil.addPersonsToList(currentList, personToComplete);
 
 	}
 
