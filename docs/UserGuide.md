@@ -135,7 +135,7 @@ Examples:
 
 <!-- @@author A0139932X -->
 <a id="save_storage" class="anchor" aria-hidden="true">
-#### Change the file directory stored: `save`
+### Change the file directory stored: `save`
 Change the folder path name
 Format: `save folderpath`
 
@@ -144,7 +144,7 @@ Example:
 
 
 <a id="find_substring" class="anchor" aria-hidden="true">
-#### Find an event: `find`
+### Find an event: `find`
 Find an event on the list task according to the Substring based on the TITLE
 Format: `find KEYWORD`
 
@@ -172,7 +172,7 @@ Examples:
 * `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
 
 <a id="color_coding" class="anchor" aria-hidden="true">
-#### Coloring a task
+### Coloring a task
 Color can be added or edited with the add or edit commands and the c/ parameter. <br>
 The available colors are "red", "blue", "green", and "none". None represents no color/white.
 Examples: 
@@ -188,21 +188,21 @@ Examples:
       
 ## Command Summary
 
-Command | Format  
+Command | Format | IsReversible
 -------- | :-------- 
-Add | `add TASK d/DESCRIPTION [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [c/COLOR] [ts/TAG]...`
-Edit | `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAG]...`
-Clear | `clear`
-Delete | `delete TASKID`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Undo | `undo` 
-Redo | `redo` 
-History | `history` 
-Save | `save`
-Help | `help`
-Customize | `help [COMMAND f/NEW_FORMAT]` 
-Done | `done TASKID`
+Add | `add TASK d/DESCRIPTION [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [c/COLOR] [ts/TAG]...` | YES
+Edit | `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAG]...` | YES
+Clear | `clear` | YES
+Delete | `delete TASKID` | YES
+Find | `find KEYWORD [MORE_KEYWORDS]` | NO 
+List | `list` | NO 
+Undo | `undo` | YES 
+Redo | `redo` | YES 
+History | `history` | NO  
+Save | `save` | NO 
+Help | `help` | NO 
+Customize | `help [COMMAND f/NEW_FORMAT]` | NO 
+Done | `done TASKID` | YES
 <!-- //@@author -->
 <!-- @@author A0153411W -->
 ## Parameters 
@@ -213,10 +213,10 @@ Parameter     | Flag               |  Format           		| Required             
 TITLE         |  /t (editing only) |  Text             		|   Yes                             | Title of a task 
 DESCRIPTION   |  /d                |  Text             		|   Yes                             | Description of a task
 START_DATE    |  /sd               |  Date(DD-MM-YYYY hh:mm) |   NO                              | Start date of a task
-DUE_DATE      |  /dd               |  Date(DD-MM-YYYY hh:mm) |   YES(if START_DATE is specified) | Due Date of a task
-INTERVAL      |  /i                |  Integer Number   		|   NO                              | Interval of a task specifies how many times should be duplicated
+DUE_DATE      |  /dd               |  Date(DD-MM-YYYY hh:mm) |   YES (if START_DATE is specified) | Due Date of a task
+INTERVAL      |  /i                |  Integer Number   		|   NO                              | Interval of a task specifies how many times task should be duplicated
 TIME_INTERVAL |  /ti               |  Integer Number   		|   NO                              | Time interval of a task specifies how many days are between duplicated tasks
 TASK_COLOR    |  /c                |  Text                  |   NO                              | Color code of a task
-NEW_FORMAT    |  /f                |  Text                  |   YES(if COMMAND is specified)                              | New format of customized command
+NEW_FORMAT    |  /f                |  Text                  |   YES (if COMMAND is specified)                              | New format of customized command
 TAG           |  /ts               |  Text                  |   NO                               | Tag of a command
 <!-- //@@author -->
