@@ -11,12 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
-
+// @@author A0125284H
 /**
  * Base class for all List Panels.
- * 
- * @@author A0125284H
- *
  */
 
 public abstract class ListPanel extends UiPart {
