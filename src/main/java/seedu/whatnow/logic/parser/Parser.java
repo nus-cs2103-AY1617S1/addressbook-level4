@@ -303,6 +303,7 @@ public class Parser {
         taskToAdd.setEndTime(null);
         taskToAdd.setPeriod(null);
         taskToAdd.setEndPeriod(null);
+        tags = new HashSet<String>();
     }
     
     //@@author A0126240W
@@ -467,15 +468,12 @@ public class Parser {
     //@@author A0126240W
     private boolean hasTags(String argument) {
         if (TAG_FORMAT.matcher(argument).find()) {
-            String[] splitTag = argument.trim().split(DELIMITER_FORWARD_SLASH);
-            tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
+            return true;
         } else {
             return false;
         }
-        
-        return true;
     }
-
+    
     //@@author A0126240W
     public boolean hasDate(String argument) {
         if (TODAY_OR_TOMORROW.matcher(argument).find()) {
@@ -558,7 +556,7 @@ public class Parser {
     }
     
     //@@author A0126240W
-    private boolean setDate(int numOfDate, String date) {
+    public boolean setDate(int numOfDate, String date) {
         if (numOfDate == ONE) {
             taskToAdd.setTaskDate(date);
         } else if (numOfDate == TWO) {
@@ -573,7 +571,7 @@ public class Parser {
     }
     
     //@@author A0126240W
-    private boolean setTime(int numOfTime, String time) {
+    public boolean setTime(int numOfTime, String time) {
         if (numOfTime == ONE) {
             taskToAdd.setTaskTime(time);
             if (taskToAdd.getStartDate() != null && taskToAdd.getEndDate() != null) {
@@ -622,6 +620,12 @@ public class Parser {
         }
         
         return true;
+    }
+    
+    //@@author A0126240W
+    private void setTags(String argument) {
+        String[] splitTag = argument.trim().split(DELIMITER_FORWARD_SLASH);
+        tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
     }
     
     //@@author A0126240W
@@ -689,8 +693,10 @@ public class Parser {
                     if (!setTime(numOfTime, argComponents[i])) {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                     }
+                } else if (hasTags(argComponents[i])) {
+                    setTags(argComponents[i]);
                 } else {
-                    if (!hasKeyword(argComponents[i].toLowerCase()) && hasTags(argComponents[i])) {
+                    if (!hasKeyword(argComponents[i].toLowerCase())) {
                         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                     }
                 }

@@ -42,19 +42,19 @@ public class ParserTest {
     
     @Test
     public void formatTime_stringTimePM_timeColonFormatReturned() {
-        assertEquals(Parser.formatTime("1pm"), "1:00pm");
+        assertEquals(Parser.formatTime("1pm"), "01:00pm");
     }
     
     @Test
     public void validateDate_hyphenFormat_isValidFormat() {
         Parser parser = new Parser();
-        assertEquals(parser.getDate("12-12-2222"), "12-12-2222");
+        assertEquals(parser.setDate(1, "12-12-2222"), true);
     }
     
     @Test
     public void validateDate_dotFormat_isValidFormat() {
         Parser parser = new Parser();
-        assertEquals(parser.getDate("12.12.2222"), "12.12.2222");
+        assertEquals(parser.setDate(1, "12.12.2222"), true);
     }
     
     @Test
@@ -96,13 +96,13 @@ public class ParserTest {
     @Test
     public void validateTimeFormat_correctFormat_timeReturned() {
         Parser parser = new Parser();
-        assertEquals(parser.getTime("1:00pm"), "1:00pm");
+        assertEquals(parser.setTime(1, "1:00pm"), true);
     }
     
     @Test
     public void validateTimeFormat_incorrectFormat_timeReturned() {
         Parser parser = new Parser();
-        assertFalse("1:00pm".equals(parser.getTime("1-00pm")));
+        assertFalse("1:00pm".equals(parser.setTime(1, "1-00pm")));
     }
 }
 
