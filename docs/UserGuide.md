@@ -63,6 +63,26 @@ Format: `help`
 * Relative times: 10 seconds ago, in 5 minutes, 4 minutes from now.
 <br><br><br>
 
+### Mark task as done : `done`
+Format: `done INDEX`
+Marks a task as done by the index displayed on the task panel.<br>
+* tasks marked as done can be shown when using command 'list done'
+* once marked as done, cannot be undone unless using `undone` command immediately
+<br><br><br>
+
+### Edit task by attributes: `edit`
+Format: `edit INDEX [NEW_NAME] FIELD_TYPE/NEW_FIELD_DETAILS`
+Edits a task as done by the index displayed on the task panel.<br>
+* to change the name only, use `edit NEW_NAME` without specifying field type
+* able to accept multiple field types e.g. `edit 2 taskA a/NUS d/friday`
+<br><br><br>
+
+### Undo previous command: `undo`
+Format: `undo`
+Undo the last command.<br>
+* multiple undos supported.
+<br><br><br>
+
 ### Listing all tasks : `list`
 Format: `list [done]`
 Shows a list of all tasks done or not done in the task list.<br>
@@ -115,10 +135,10 @@ The index **must be a positive integer** 1, 2, 3, ...
 Examples: 
 * `list`<br>
   `select 2`<br>
-  Selects the 2nd person in the address book.
+  Selects the 2nd task in the task list.
 * `find Betsy` <br> 
   `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+  Selects the 1st task in the results of the `find` command.
 <br><br><br>
 
 ### Clearing all entries : `clear`
@@ -147,11 +167,13 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Add | `add NAME [s/startdate d/duedate a/address p/priorityrank(1- highest,5-lowest) t/TAG]...`
-Edit | `edit INDEX [Detail Type] x/detail change` where x is either d, a, p or s
+Edit | `edit INDEX [NEW_NAME] FIELD_TYPE/NEW_FIELD_DETAILS` where FIELD_TYPE is either `d/` `a/` `s/` `p/`
+Done | `done INDEX`
 Clear | `clear`
 Delete | `delete INDEX`
 Find | `find [FIELD_TYPE] KEYWORD` FIELD_TYPE options: `t/` `a/` `s/` `d/` `p/`
 List | `list [done]`
 Help | `help`
 Select | `select INDEX`
+SetPath | `setPath NEW_FILE_PATH` NEW_FILE_PATH: e.g. `data/newfile.xml`  
 Exit | `exit`
