@@ -9,6 +9,7 @@ import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.commons.util.DateUtil;
 import seedu.lifekeeper.model.activity.DateTime;
+
 //@@author A0131813R
 /**
  * Represents a Task's DueDate in the Lifekeeper. Guarantees: immutable; is
@@ -23,7 +24,7 @@ public class DueDate extends DateTime {
     public DueDate(Calendar date) {
         super(date);
     }
-    
+
     /**
      * Validates given Due Date.
      *
@@ -35,22 +36,20 @@ public class DueDate extends DateTime {
         if (!DateUtil.isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
-        
+
         if (!date.equals("")) {
 
             Date taskDate = DateUtil.convertDueDate(date);
 
             if (taskDate == null) {
                 assert false : "Date should not be null";
-            } /*else if (DateUtil.hasPassed(taskDate)) {
-                throw new IllegalValueException(MESSAGE_DUEDATE_INVALID);
-            }*/
+            }
             this.value.setTime(taskDate);
             this.value.set(Calendar.MILLISECOND, 0);
             this.value.set(Calendar.SECOND, 0);
         }
     }
-    
+
     public String forDisplay() {
         if (this.value == null) {
             return "";
@@ -58,17 +57,18 @@ public class DueDate extends DateTime {
             return "Due on ".concat(this.toString());
         }
     }
-    
+
     /**
      * Function to output date in concise form for Dashboard.
+     * 
      * @return
      */
-    //@@ author A0125284H
+    // @@ author A0125284H
     public String forDashboardDisplay() {
-    	if (this.value == null) {
-    		return "";
-    	} else {
-    		return (DASHBOARD_DATE_FORMATTER.format(this.getCalendarValue().getTime()));
-    	}
+        if (this.value == null) {
+            return "";
+        } else {
+            return (DASHBOARD_DATE_FORMATTER.format(this.getCalendarValue().getTime()));
+        }
     }
 }

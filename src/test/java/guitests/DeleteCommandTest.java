@@ -6,13 +6,16 @@ import seedu.lifekeeper.testutil.TestActivity;
 import seedu.lifekeeper.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.lifekeeper.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.lifekeeper.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.lifekeeper.logic.commands.DeleteCommand.MESSAGE_USAGE;
+import seedu.lifekeeper.commons.core.Messages;
+
 //@@author A0125097A
 public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void delete() {
-
+    public void delete_validIndex() {
         //delete the first in the list
         TestActivity[] currentList = td.getTypicalActivities();
         int targetIndex = 1;
@@ -22,16 +25,22 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.removeActivityFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
-
+ 
         //delete from the middle of the list
         currentList = TestUtil.removeActivityFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+        targetIndex = currentList.length / 2;        
         assertDeleteSuccess(targetIndex, currentList);
-
-        //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
-
+    }
+    
+    @Test
+    public void delete_invalidIndex() {
+        TestActivity[] currentList = td.getTypicalActivities();
+        int targetIndex = currentList.length + 1;
+        commandBox.runCommand("delete " + targetIndex);
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+        commandBox.runCommand("delete " + 0);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
     }
 
     /**

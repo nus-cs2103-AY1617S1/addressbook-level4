@@ -11,17 +11,10 @@ import java.util.concurrent.TimeUnit;
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 
 public class DateUtil {
-    private static List<SimpleDateFormat> DATE_FORMATS; // validate date format
-                                                        // if both time and date
-                                                        // are present
-    private static List<SimpleDateFormat> DATE_FORMATS1; // validate date format
-                                                         // if only date is
-                                                         // present
-    private static List<SimpleDateFormat> DATE_FORMATS2; // convert
-                                                         // DATE_FORMATS1 date
-                                                         // to date and time
-    private static List<SimpleDateFormat> TIME_FORMATS; // convert DATE_FORMATS1
-                                                        // date to date and time
+    private static List<SimpleDateFormat> DATE_FORMATS; // validate date format if both time and date are present
+    private static List<SimpleDateFormat> DATE_FORMATS1; // validate date format if only date is present
+    private static List<SimpleDateFormat> DATE_FORMATS2; // convert DATE_FORMATS1 date to date and time
+    private static List<SimpleDateFormat> TIME_FORMATS; // convert DATE_FORMATS1 date to date and time
     public static final String INVALID_FORMAT = "Invalid Format";
     public static final String INVALID_TIME = "Time Input is missing";
 
@@ -148,14 +141,16 @@ public class DateUtil {
      * Returns true if a given string is a valid task reminder.
      */
     public static boolean isValidDate(String test) {
-        if (validate(test) || test.equals("") ||test.contains("today") || test.contains("tomorrow")||test.contains("mon")||test.contains("tue")||test.contains("wed")||test.contains("thu")||test.contains("fri")||test.contains("sat")||test.contains("sun"))
+        if (validate(test) || test.equals("") || test.contains("today") || test.contains("tomorrow")
+                || test.contains("mon") || test.contains("tue") || test.contains("wed") || test.contains("thu")
+                || test.contains("fri") || test.contains("sat") || test.contains("sun"))
             return true;
         else
             return false;
     }
 
     /**
-     * Convert days of the week into date formats 
+     * Convert days of the week into date formats
      * 
      * @param String Date
      * @return Date in String format
@@ -216,7 +211,7 @@ public class DateUtil {
         else if (date.contains("sun"))
             dayindex = Calendar.SUNDAY;
         diff = (today >= dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
-        if(diff == 7)
+        if (diff == 7)
             diff = 0;
         return diff;
     }
@@ -301,9 +296,10 @@ public class DateUtil {
         }
         return false;
     }
+
     // @@author A0131813R
     /**
-     * Set date based on the date passed in 
+     * Set date based on the date passed in
      * 
      * @param String
      * @return Calendar date
@@ -325,16 +321,17 @@ public class DateUtil {
                 }
                 if (taskDate == null) {
                     assert false : "Date should not be null";
-                } 
+                }
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(taskDate);
                 cal.set(Calendar.MILLISECOND, 0);
                 cal.set(Calendar.SECOND, 0);
-            
-            return cal;}
+
+                return cal;
+            }
 
         }
-        if(date.equals(""))
+        if (date.equals(""))
             return null;
         throw new IllegalValueException(INVALID_FORMAT);
     }
