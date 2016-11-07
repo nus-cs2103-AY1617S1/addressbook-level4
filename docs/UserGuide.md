@@ -66,6 +66,16 @@ Need to _Unburden_? Let's get started!
    > <img src="UserGuideImages/Layout2.JPG" width="700">
 
 <br>
+
+Command | Format  
+-------- | :-------- 
+Command Box | `You may enter your command here. `
+Result Display Panel | `Once you have entered your command, the result of the command will be displayed here. `
+Date Panel | `Today’s date will be displayed here.`
+Summary Panel | `This panel displays the number of tasks you have due today, tomorrow, done,undone and overdue. `
+Task List Panel  | `This panel displays the list of tasks you have input and this list is sorted according to the date of the task.  The tasks are color coded according to their various statuses. Unburden automatically updates each task to have 3 different statuses which are undone, done and overdue. `
+
+<br>
 <br>
 
 ## 1. Help Command
@@ -95,6 +105,7 @@ If you wish to know the specific formats of each individual command or require a
    
     > <img src="UserGuideImages/Help_1.JPG" width="400">
     
+   
 This command will show you the command format of the specific command you have entered in the result display panel. For example, if i type “help add,” the result display panel will show the specific format of the add command. 
 
 <br>
@@ -106,6 +117,7 @@ The add command enables you to add 4 different type of tasks : floating, deadlin
 
 
 Upon entering your command, the task will be displayed in the task list panel and the entry will also be shown in the result display panel as shown below. <br>
+
 
    > <img src="UserGuideImages/AddMain.JPG" width="400">
    
