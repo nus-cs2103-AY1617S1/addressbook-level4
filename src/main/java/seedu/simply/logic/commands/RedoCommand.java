@@ -36,7 +36,7 @@ public class RedoCommand extends Command {
         assert model != null;
         
         if (numTimes > model.getRedoStack().size()) {
-            Command command = new IncorrectCommand("There are not so many tasks available to be redone.");
+            Command command = new IncorrectCommand("There are not so many tasks available to be redo.");
             return command.execute();
         }
         

@@ -2,8 +2,8 @@
 --------------
 <b>How to load sample data </b> <br> 
 <ol>
-<li><ol><li>Make a copy of SampleData.xml from main\src\test\data\ManualTesting</li>
-	 <li>Rename it to taskbook.xml</li>
+<li>Make a copy of SampleData.xml from main\src\test\data\ManualTesting</li>
+	 <ol><li>Rename it to taskbook.xml</li>
 	 <li>Navigate to main\data</li>
 	 <li>Overwrite and replace the taskbook.xml file with the renamed taskbook.xml</li></ol>	
 <li>Double-click the .jar file and the pre-saved data will automatically be loaded.</li>
@@ -230,5 +230,50 @@ Note: This is able to work for events and deadlines too.<br>
 <ol><li>Type: add </li>
 	<li>Expected result: It will print the invalid command format.</li>
 	<li>In the result display box, directly below the command box, there will be a message pritned<br>
-	"Invalid command format!"
+	"Invalid command format!"</li></ol>
 Note: The examples of the add command will be printed in as well. <br>
+<ol><li>Type: delete t1</li>
+	<li>Expected result: It is an incorrect command as the index is case insensitive.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Invalid command format!"</li></ol>
+Note: The examples of the delete command will be printed in as well. <br>
+<ol><li>Type: add [event; 121212; 2359; 2200]</li>
+	<li>Expected result: It is an incorrect command as the start time cannot be later than the end time.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"The end time cannot be earlier or equal to the start time!"</li></ol>
+<ol><li>Type: add deadline; 12\12\12</li>
+	<li>Expected result: The format of the dates are wrong.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Dates should be entered in the format DDMMYY, DD.MM.YY, DD/MM/YY, DD-MM-YY"</li></ol>
+<ol><li>Type: add E1 #YOLO!</li>
+	<li>Expected result: Tags should be alphanumeric.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Tags names should be alphanumeric"</li></ol>
+<ol><li>Type: edit E1 start 2359</li>
+	<li>Expected result: It is an incorrect command as the start time cannot be later than the end time.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"The start time cannot be later or equals to the end time!"</li></ol>
+<ol><li>Type: edit E1 end 0001</li>
+	<li>Expected result: It is an incorrect command as the end time cannot be earlier than the start time.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"The end time cannot be earlier or equals to the start time!"</li></ol>
+<ol><li>Type: undo 2000</li>
+	<li>Expected result: It is not accepted as there are not so many things to be undo.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"There are not so many tasks available to be undone"</li></ol>
+<ol><li>Type: redo 2000</li>
+	<li>Expected result: It is not accepted as there are not so many things to redo.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"There are not so many tasks available to redo"</li></ol>
+<ol><li>Type: List anything</li>
+	<li>Expected result: It is not accepted as the command format is not in the right format.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Invalid command format."</li></ol>
+Note: The correct command examples will be listed in the results display window.
+<ol><li>Type: storage myfile</li>
+	<li>Expected result: It is not accpeted as the command is not in the right format.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Please enter a valid file path"</li></ol>
+	
+--------------------------
+## End of manual testing
