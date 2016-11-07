@@ -9,17 +9,17 @@
  Command: `add "Eat chocolate"` <br>
  Expected: New task added: Eat chocolate <br> 
  
- Command: `add "RollerSkating in east coast" on wednesday to sunday`<br>
- Expected: New task added: roller skating from 09/11/2016 to 13/11/2016 <br>
+ Command: `add "RollerSkating in east coast" on thursday to sunday`<br>
+ Expected: New task added: roller skating from 10/11/2016 to 13/11/2016 <br>
  
  Command: `add "Fishing in village" on today to 24/12/2016 3pm` <br>
- Expected: New task added: Fishing in village from 07/11/2016 12:00am to 24/12/2016 3:00pm  <br>
+ Expected: New task added: Fishing in village from 09/11/2016 12:00am to 24/12/2016 3:00pm  <br>
  
  Command: `add "Fly kite in marina bay" on tomorrow to sunday 5pm` <br>
- Expected: New task added: Fly kite in marina bay from 08/11/2016 12:00am to 13/11/2016 5:00pm  <br>
+ Expected: New task added: Fly kite in marina bay from 10/11/2016 12:00am to 13/11/2016 5:00pm  <br>
  
  Command: `add "Fix computer" on today to tomorrow` <br>
- Expected: New task added: Fix computer from "08/11/2016" to "09/11/2016"  <br>
+ Expected: New task added: Fix computer from "09/11/2016" to "10/11/2016"  <br>
  
  Command: `add "Sleep in orchard hotel" on 6/11/2016 to 7/11/2016` <br>
  Expected: The task date range is invalid!  <br>
@@ -36,8 +36,8 @@
  Command: `add "Climb tree" on 14/12/2016 to sunday 4pm to 4:01pm` <br>
  Expected: Entered an invalid date range format  <br>
  
- Command: `add "Go school for karate" on 11/12/2016 every week till 30/12/2016`
- Expected:  New task added: Go school for karate on 11/12/2016 every week till 30/12/2016
+ Command: `add "Go school for karate" on 11/12/2016 every week till 30/12/2016` <br>
+ Expected:  New task added: Go school for karate on 11/12/2016 every week till 30/12/2016 <br>
 
 ###Delete Command
  Command: `delete schedule 1` <br>
