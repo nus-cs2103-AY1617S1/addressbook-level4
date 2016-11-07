@@ -34,8 +34,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.isPinned = isPinned;
 	}
 
-
-    /**
+	/**
 	 * Copy constructor.
 	 */
 	public Task(ReadOnlyTask source) {
@@ -75,32 +74,41 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public void unpin() {
 		this.isPinned = false;
 	}
-	
+
 	private String calculateDueStatus(DateTime end) {
-	    if(end.getTime().toString().equals("")) {
-	        return "";
-	        
-	    }
-	    DateTime nowAsDateTime = DateUtil.nowAsDateTime();
-	    if (!DateUtil.checkDatePrecedence(end, nowAsDateTime) && (!end.getDate().equals(nowAsDateTime.getDate()))) {
-	        return "OVERDUE";
-	    }
-	    else if (end.getDate().equals(nowAsDateTime.getDate())) {
-         int overDueHours = end.getTime().m_hour - nowAsDateTime.getTime().m_hour;
-         if (overDueHours<0) {
-             return "OVERDUE";
-         } else if (overDueHours == 0) {
-             if(DateUtil.checkTimePrecendence(end, nowAsDateTime)) {
-                 return "OVERDUE";
-             } else {
-                 return "DUE SOON";
-             }
-         }
-         else if (overDueHours>=0 && overDueHours<=3) {
-             return "DUE SOON";
-         }
-        }
-        return "";
+	
+		// if there is no end date, return empty string
+		if (end.getDate().equals("")) {
+			return "";
+		}
+		
+		DateTime nowAsDateTime = DateUtil.nowAsDateTime();
+		
+		// if end date is strictly before current date
+		if (end.getDate().compareTo(nowAsDateTime.getDate()) < 0 ) {
+			return "OVERDUE";
+		}
+		
+		// if end date is today or later but there is no end time
+		if (end.getTime().toString().equals("")) {
+			return "";
+		}
+		
+		// if end date is same as current date
+		else if (end.getDate().equals(nowAsDateTime.getDate())) {
+			// if end time is before or equal to current time
+			if (end.getTime().compareTo(nowAsDateTime.getTime()) <= 0) {
+				return "OVERDUE";
+			} else {
+				int endHour = DateUtil.convertTo24HrFormat(end.getTime());
+				int nowHour = DateUtil.convertTo24HrFormat(nowAsDateTime.getTime());
+				int overDueHours = endHour - nowHour;
+				if (overDueHours <= 3) {
+					return "DUE SOON";
+				}
+			}
+		}
+		return "";
 	}
 
 	@Override
@@ -122,23 +130,21 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public String getCompletion() {
 		return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
 	}
-	
-	 @Override
-	    public String getDueStatus() {
-	        return calculateDueStatus(end);
-	    }
+
+	@Override
+	public String getDueStatus() {
+		return calculateDueStatus(end);
+	}
 
 	@Override
 	public boolean isComplete() {
 		return isComplete;
 	}
-	
+
 	@Override
-    public void setCompletion(boolean completion) {
-        isComplete = completion;
-    }
-	
-	
+	public void setCompletion(boolean completion) {
+		isComplete = completion;
+	}
 
 	public boolean isPinned() {
 		return isPinned;
@@ -182,8 +188,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		} else
 			return taskName.compareTo(o.taskName);
 	}
-
-
-   
 
 }

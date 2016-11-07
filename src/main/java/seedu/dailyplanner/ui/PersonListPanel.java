@@ -95,6 +95,7 @@ public class PersonListPanel extends UiPart {
       @Override
       public void changed(ObservableValue observableValue, Object oldValue,
           Object newValue) {
+          System.out.println("SCROLLING NOW");
         scrollTo((int) newValue);
       }
     });
