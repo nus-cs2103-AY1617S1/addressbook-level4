@@ -1,5 +1,89 @@
 # A0139021Ureused
-###### \src\main\java\seedu\todo\storage\XmlAdaptedTask.java
+###### \java\seedu\todo\model\UserPrefs.java
+``` java
+/**
+ * Represents User's preferences.
+ */
+public class UserPrefs {
+
+    private GuiSettings guiSettings;
+    private static final Logger logger = LogsCenter.getLogger(UserPrefs.class);
+    private UserPrefsStorage storage;
+
+    public GuiSettings getGuiSettings() {
+        return guiSettings == null ? new GuiSettings() : guiSettings;
+    }
+
+    public void updateLastUsedGuiSetting(GuiSettings guiSettings) {
+        this.guiSettings = guiSettings;
+    }
+
+    public UserPrefs(){
+        this.setDefaultGuiSettings();
+    }
+
+    public UserPrefs(Config config) {
+        assert config != null;
+
+        String prefsFilePath = config.getUserPrefsFilePath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        this.storage = new UserPrefsStorage(prefsFilePath);
+        try {
+            this.updateLastUsedGuiSetting(storage.read().getGuiSettings());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
+                    "Using default user prefs");
+            this.setDefaultGuiSettings();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        this.save();
+    }
+
+    private void setDefaultGuiSettings() {
+        this.setGuiSettings(680, 780, 0, 0);
+    }
+
+    public void setGuiSettings(double width, double height, int x, int y) {
+        guiSettings = new GuiSettings(width, height, x, y);
+    }
+
+    public void save() {
+        try {
+            storage.save(this);
+        } catch (IOException e) {
+            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this){
+            return true;
+        }
+        if (!(other instanceof UserPrefs)){ //this handles null as well.
+            return false;
+        }
+
+        UserPrefs o = (UserPrefs)other;
+
+        return Objects.equals(guiSettings, o.guiSettings);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(guiSettings);
+    }
+
+    @Override
+    public String toString(){
+        return guiSettings.toString();
+    }
+
+}
+```
+###### \java\seedu\todo\storage\XmlAdaptedTask.java
 ``` java
 /**
  * JAXB-friendly version of the task.
@@ -41,9 +125,8 @@ public class XmlAdaptedTask {
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source
-     *            future changes to this will not affect the created
-     *            XmlAdaptedPerson
+     * @param source future changes to this will not affect the created
+     * XmlAdaptedTask
      */
     public XmlAdaptedTask(ImmutableTask source) {
         title = source.getTitle();
@@ -94,7 +177,7 @@ public class XmlAdaptedTask {
     }
 }
 ```
-###### \src\main\java\seedu\todo\storage\XmlSerializableTodoList.java
+###### \java\seedu\todo\storage\XmlSerializableTodoList.java
 ``` java
 /**
  * An Immutable TodoList that is serializable to XML format
@@ -128,10 +211,13 @@ public class XmlSerializableTodoList implements ImmutableTodoList {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // This likely means that the task format changed between versions of 
+                // the app. Unfortunately there's no good way to migrate data yet, 
+                // so unfortunately we will lose some data here
                 return null;
             }
-        }).collect(Collectors.toCollection(ArrayList::new));
+        }).filter(task -> task != null)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 }
 ```

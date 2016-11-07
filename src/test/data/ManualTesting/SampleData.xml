@@ -1,0 +1,559 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<todolist>
+    <tasks>
+        <title>Watch football match with Jim</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-06T16:00</startTime>
+        <endTime>2016-11-06T15:15</endTime>
+        <lastUpdated>2016-11-08T00:34:38.431</lastUpdated>
+        <uuid>4934bc2c-99f7-4718-a36a-cad57bbcfca5</uuid>
+    </tasks>
+    <tasks>
+        <title>Do CS2104 lab #4</title>
+        <description>Et saepe aut et natus aspernatur est quasi. Eveniet ut excepturi corrupti. Aliquam repellendus quibusdam ipsa inventore.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-18T16:15</endTime>
+        <lastUpdated>2016-11-08T00:34:38.776</lastUpdated>
+        <uuid>d735b215-6a11-4109-b996-3bff86ae4661</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Li Kai</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-22T19:15</startTime>
+        <endTime>2016-11-22T19:15</endTime>
+        <lastUpdated>2016-11-08T00:34:39.816</lastUpdated>
+        <uuid>74d10510-87e7-475d-b70e-453b3018a82e</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch rugby match with Xien Dong</title>
+        <location>Cafe Nowhere</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-01T00:37:05.135</startTime>
+        <endTime>2016-12-08T00:37:05.135</endTime>
+        <lastUpdated>2016-11-08T00:34:40.778</lastUpdated>
+        <uuid>dbb65863-b92f-4190-9e1e-ad1ee7099cdc</uuid>
+    </tasks>
+    <tasks>
+        <title>Research on new ways to get Super Breath</title>
+        <description>Inventore qui ducimus quasi alias temporibus qui. Sequi optio excepturi nulla itaque eaque.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-23T16:00</endTime>
+        <lastUpdated>2016-11-08T00:34:41.726</lastUpdated>
+        <uuid>5fc9749d-76f6-4517-8d91-26524db9be20</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch baseball match with Louie</title>
+        <location>Cinnamon College</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-25T16:15</startTime>
+        <endTime>2016-11-25T17:00</endTime>
+        <lastUpdated>2016-11-08T00:34:42.665</lastUpdated>
+        <uuid>717e861e-0ea8-48f7-849a-387f3c7a6df7</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Cyborg Longshot movie with Alex</title>
+        <location>LT15</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-09T10:15</startTime>
+        <endTime>2016-11-09T10:30</endTime>
+        <lastUpdated>2016-11-08T00:34:43.643</lastUpdated>
+        <uuid>39a6a462-c0fb-48d0-96ee-245e9df36c13</uuid>
+        <tags>urgent</tags>
+        <tags>pokemon_go</tags>
+        <tags>physics</tags>
+        <tags>tea_time</tags>
+    </tasks>
+    <tasks>
+        <title>Watch the next Shocker movie with Xien Dong</title>
+        <location>School of Computing</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-22T19:45</startTime>
+        <endTime>2016-10-22T20:15</endTime>
+        <lastUpdated>2016-11-08T00:34:44.603</lastUpdated>
+        <uuid>0e4e081d-f32b-48cd-b5f4-59526442bfef</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Callisto Dragon movie with Li Kai</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-18T08:30</startTime>
+        <endTime>2016-11-18T09:30</endTime>
+        <lastUpdated>2016-11-08T00:34:45.549</lastUpdated>
+        <uuid>94e6a822-92aa-4f27-917c-94029d1d0fb9</uuid>
+    </tasks>
+    <tasks>
+        <title>Read new novel from Misael Streich</title>
+        <description>Assumenda quaerat nulla rem. A at quo doloribus expedita non quia culpa. Voluptatum rerum mollitia saepe ut. Aut veniam nihil in blanditiis doloremque dolor.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-23T18:15</endTime>
+        <lastUpdated>2016-11-08T00:34:46.474</lastUpdated>
+        <uuid>a9cd519d-7772-44e2-b980-c5760ce6769b</uuid>
+        <tags>tea_time</tags>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Govind</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-03T19:45</startTime>
+        <endTime>2016-11-03T20:15</endTime>
+        <lastUpdated>2016-11-08T00:34:47.400</lastUpdated>
+        <uuid>813146e9-ef52-4515-8929-ec855e927e0c</uuid>
+    </tasks>
+    <tasks>
+        <title>Discuss CS2100 project with Govind</title>
+        <description>Nesciunt esse velit velit eum itaque. Modi et quia maxime vel repellat natus. Nobis facilis aut magni. Repudiandae at similique iusto rerum.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-30T12:15</endTime>
+        <lastUpdated>2016-11-08T00:34:48.344</lastUpdated>
+        <uuid>2359a63c-c0e7-4d22-8745-1b6b9e1e29b8</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Vagabond movie with Louie</title>
+        <location>Cinnamon College</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-06T15:00</startTime>
+        <endTime>2016-11-06T15:30</endTime>
+        <lastUpdated>2016-11-08T00:34:49.291</lastUpdated>
+        <uuid>1acf0def-4eaa-4b06-9835-ce5a5afb9ae6</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Giant Renata Soliz movie with Alex</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-03T09:45</startTime>
+        <endTime>2016-11-03T10:00</endTime>
+        <lastUpdated>2016-11-08T00:34:50.219</lastUpdated>
+        <uuid>200de698-81d0-4f96-9e51-55a6cb066306</uuid>
+        <tags>pokemon_go</tags>
+        <tags>econs</tags>
+        <tags>tea_time</tags>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Alex</title>
+        <location>Cinnamon College</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-07T09:30</startTime>
+        <endTime>2016-11-07T10:15</endTime>
+        <lastUpdated>2016-11-08T00:34:51.128</lastUpdated>
+        <uuid>f2531c7f-8b8e-4966-b1e6-caea2ee0660f</uuid>
+    </tasks>
+    <tasks>
+        <title>Research on new ways to get Reality Warping</title>
+        <description>Quam ut dolorum nesciunt ut. Eius quo quia voluptatem enim.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-25T18:00</endTime>
+        <lastUpdated>2016-11-08T00:34:52.047</lastUpdated>
+        <uuid>4f685c26-1be8-429c-9875-61c3bd5ed9b5</uuid>
+        <tags>math</tags>
+        <tags>cs2103t</tags>
+    </tasks>
+    <tasks>
+        <title>Do CS1231 assignment #6</title>
+        <description>Atque ducimus corporis et corrupti voluptatem. Qui sunt atque voluptatem perspiciatis dolor reprehenderit.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-02T10:00</endTime>
+        <lastUpdated>2016-11-08T00:34:52.961</lastUpdated>
+        <uuid>58c5bd01-d6b8-4cb0-8e9e-bf66bfc133fe</uuid>
+        <tags>homework</tags>
+        <tags>to-do-12</tags>
+        <tags>cs2103t</tags>
+        <tags>math</tags>
+    </tasks>
+    <tasks>
+        <title>Research on new ways to get Flight</title>
+        <description>Minus ea optio mollitia ullam doloremque. Repudiandae explicabo et. Tempore eaque quaerat sequi.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-17T18:15</endTime>
+        <lastUpdated>2016-11-08T00:34:53.883</lastUpdated>
+        <uuid>d6d9b048-71b2-410f-ba21-eb6b68a4ca18</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Alex</title>
+        <location>School of Computing</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-15T14:00</startTime>
+        <endTime>2016-11-15T14:30</endTime>
+        <lastUpdated>2016-11-08T00:34:54.804</lastUpdated>
+        <uuid>f2e2488d-f1fb-4149-b3dc-90b2ab6e0ddd</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Xien Dong</title>
+        <location>LT15</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-11T10:15</startTime>
+        <endTime>2016-11-11T10:30</endTime>
+        <lastUpdated>2016-11-08T00:34:55.722</lastUpdated>
+        <uuid>87c62dab-456c-47c6-be59-026d1aa28f98</uuid>
+        <tags>urgent</tags>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Xien Dong</title>
+        <location>Cinnamon College</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-26T14:30</startTime>
+        <endTime>2016-11-26T15:15</endTime>
+        <lastUpdated>2016-11-08T00:34:56.626</lastUpdated>
+        <uuid>703362c6-50f0-4c41-9d82-b68482d92959</uuid>
+    </tasks>
+    <tasks>
+        <title>Discuss CS1231 project with Li Kai</title>
+        <description>Et ut nesciunt. Dignissimos nobis inventore dolorem atque tempore placeat. Et dolor eum.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-27T20:00</endTime>
+        <lastUpdated>2016-11-08T00:34:57.535</lastUpdated>
+        <uuid>d9d32926-80cd-4819-9439-0c6e27b9e835</uuid>
+        <tags>sports</tags>
+        <tags>urgent</tags>
+    </tasks>
+    <tasks>
+        <title>Do MA1521 assignment #1</title>
+        <description>Illo et reiciendis vel adipisci. At illum suscipit ab sit quidem corporis ut. Molestias voluptatibus temporibus corrupti mollitia sit mollitia. Voluptas ipsum soluta.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-12T17:30</endTime>
+        <lastUpdated>2016-11-08T00:34:58.450</lastUpdated>
+        <uuid>4bce8adb-1a96-472c-9290-c78e9f81edbd</uuid>
+    </tasks>
+    <tasks>
+        <title>Prepare for GET1025 test</title>
+        <description>Vel eum vel id. Eligendi vel quia. Consequatur et vitae odit.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-28T19:30</endTime>
+        <lastUpdated>2016-11-08T00:34:59.352</lastUpdated>
+        <uuid>c1366b99-7d4a-4bca-8585-f03a6e92431f</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Cyborg A-Bomb Strike movie with Govind</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-08T00:36:47.751</startTime>
+        <endTime>2016-12-08T00:36:47.751</endTime>
+        <lastUpdated>2016-11-08T00:35:00.265</lastUpdated>
+        <uuid>e48e92e8-f9c3-41d3-8f85-c9c5497a278b</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Li Kai</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-07T08:15</startTime>
+        <endTime>2016-11-07T09:15</endTime>
+        <lastUpdated>2016-11-08T00:35:01.202</lastUpdated>
+        <uuid>d4d89716-4bb6-4703-a1e9-5e661261724a</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Jim</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-26T13:00</startTime>
+        <endTime>2016-10-26T13:00</endTime>
+        <lastUpdated>2016-11-08T00:35:02.102</lastUpdated>
+        <uuid>ddbc100a-a8ea-451d-ae53-38e7956bb578</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch baseball match with Louie</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-21T16:30</startTime>
+        <endTime>2016-11-21T17:15</endTime>
+        <lastUpdated>2016-11-08T00:35:03.004</lastUpdated>
+        <uuid>b8ba51d2-10e0-4706-b765-57428cc1f2b8</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch the next Supah Hercules Thirteen movie with Jim</title>
+        <location>Cinnamon College</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-10T14:00</startTime>
+        <endTime>2016-11-10T14:30</endTime>
+        <lastUpdated>2016-11-08T00:35:03.892</lastUpdated>
+        <uuid>3a467916-07dc-4f0f-bdf2-920327542bc0</uuid>
+    </tasks>
+    <tasks>
+        <title>Discuss MA1521 project with Xien Dong</title>
+        <description>Facilis corrupti similique nulla doloribus voluptatem eos necessitatibus. Ut laboriosam nostrum rerum exercitationem et.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-26T16:30</endTime>
+        <lastUpdated>2016-11-08T00:35:04.790</lastUpdated>
+        <uuid>e84eeeb9-b0ec-4ea8-a549-dd61ee2feae7</uuid>
+        <tags>to-do-12</tags>
+        <tags>dinner</tags>
+    </tasks>
+    <tasks>
+        <title>Watch the next Red Bat Lord movie with Govind</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-11T16:15</startTime>
+        <endTime>2016-11-11T17:15</endTime>
+        <lastUpdated>2016-11-08T00:35:05.692</lastUpdated>
+        <uuid>cce86b21-d43d-4c27-8f32-29d57fcfdcf7</uuid>
+    </tasks>
+    <tasks>
+        <title>Fix bug #4</title>
+        <description>Quas repellendus dolor. Amet quo libero ut. Dolores ab fuga.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-31T20:00</endTime>
+        <lastUpdated>2016-11-08T00:35:06.577</lastUpdated>
+        <uuid>7e56988e-90da-460a-92ed-72f9558dd387</uuid>
+        <tags>physics</tags>
+        <tags>assignment</tags>
+        <tags>pokemon_go</tags>
+    </tasks>
+    <tasks>
+        <title>Watch basketball match with Jim</title>
+        <location>Cafe Nowhere</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-25T13:15</startTime>
+        <endTime>2016-11-25T13:45</endTime>
+        <lastUpdated>2016-11-08T00:35:07.470</lastUpdated>
+        <uuid>399b1797-8b17-44f6-a352-02d2fc6af7b3</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Li Kai</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-08T00:37:35.988</startTime>
+        <endTime>2016-12-08T00:37:35.988</endTime>
+        <lastUpdated>2016-11-08T00:35:08.375</lastUpdated>
+        <uuid>2ba569bc-d523-47ba-8251-47c22f7cd7e4</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch football match with Louie</title>
+        <location>West Coast Plaza</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-27T18:15</startTime>
+        <endTime>2016-10-27T19:15</endTime>
+        <lastUpdated>2016-11-08T00:35:09.314</lastUpdated>
+        <uuid>de605602-1bda-428d-9f09-42ce14c9b0ef</uuid>
+    </tasks>
+    <tasks>
+        <title>Do CS2104 lab #1</title>
+        <description>Et ut est qui in magnam consequuntur. Possimus aut quis delectus quis hic modi quod. Dolor nostrum natus aut consequatur omnis eligendi nostrum.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-25T14:00</endTime>
+        <lastUpdated>2016-11-08T00:35:10.209</lastUpdated>
+        <uuid>aceeac15-03fe-4ac5-af50-9c1f2cd173ca</uuid>
+        <tags>to-do-12</tags>
+    </tasks>
+    <tasks>
+        <title>Discuss GET1025 project with Jim</title>
+        <description>Possimus similique tenetur inventore laborum quae ea adipisci. Accusantium eos repellat sapiente culpa. Quo nostrum nemo cumque quasi.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-07T12:30</endTime>
+        <lastUpdated>2016-11-08T00:35:11.102</lastUpdated>
+        <uuid>260e77f7-9af5-4f5b-b418-ccbec64866f4</uuid>
+    </tasks>
+    <tasks>
+        <title>Finish CS1231 homework 5</title>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <lastUpdated>2016-11-08T00:35:11.995</lastUpdated>
+        <uuid>afb48aa0-af10-44b1-bd23-36e4f3e6bfbc</uuid>
+    </tasks>
+    <tasks>
+        <title>Read new novel from Mr. Brannon Bogisich</title>
+        <description>Dolore qui ut. Adipisci doloribus reprehenderit possimus aut. Magni ea aut. Eligendi rerum quam consequatur quae eum qui ut.</description>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-28T10:30</endTime>
+        <lastUpdated>2016-11-08T00:35:12.889</lastUpdated>
+        <uuid>2d2f0b81-ca02-4d57-825c-2eeb7190822d</uuid>
+    </tasks>
+    <tasks>
+        <title>Finish CS2104 homework 4</title>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <lastUpdated>2016-11-08T00:35:13.780</lastUpdated>
+        <uuid>fda7b69a-5557-48de-b339-556a3d57c959</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Jim</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2015-11-08T00:36:29.517</startTime>
+        <endTime>2017-11-08T00:36:29.517</endTime>
+        <lastUpdated>2016-11-08T00:35:14.682</lastUpdated>
+        <uuid>6cba42db-0580-42e3-a844-2bcb7b0a1c32</uuid>
+        <tags>to-do-12</tags>
+        <tags>math</tags>
+        <tags>cs2103t</tags>
+        <tags>pokemon_go</tags>
+    </tasks>
+    <tasks>
+        <title>Watch the next Sunspot movie with Govind</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-27T18:30</startTime>
+        <endTime>2016-10-27T18:30</endTime>
+        <lastUpdated>2016-11-08T00:35:15.566</lastUpdated>
+        <uuid>7ca5c354-a0a3-4b96-b10c-ae59f92c1a9a</uuid>
+    </tasks>
+    <tasks>
+        <title>Watch lacrosse match with Xien Dong</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-03T14:15</startTime>
+        <endTime>2016-11-03T15:15</endTime>
+        <lastUpdated>2016-11-08T00:35:16.464</lastUpdated>
+        <uuid>da1f118b-6d10-481f-b91d-add145e02cd9</uuid>
+    </tasks>
+    <tasks>
+        <title>Read new novel from Nestor Abbott</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <lastUpdated>2016-11-08T00:35:17.385</lastUpdated>
+        <uuid>b6fc9f10-19c1-4242-93e8-4011c04fc79d</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Li Kai</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-20T14:00</startTime>
+        <endTime>2016-10-20T15:00</endTime>
+        <lastUpdated>2016-11-08T00:35:18.277</lastUpdated>
+        <uuid>9175bc4a-fbfc-42f1-88b4-4b4ca206b737</uuid>
+        <tags>econs</tags>
+        <tags>to-do-12</tags>
+    </tasks>
+    <tasks>
+        <title>Watch the next Jubilee movie with Xien Dong</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-11-07T00:37:27.664</startTime>
+        <endTime>2016-11-15T00:37:27.664</endTime>
+        <lastUpdated>2016-11-08T00:35:19.171</lastUpdated>
+        <uuid>2fc204b1-e084-4533-ac86-507dc559dcb0</uuid>
+    </tasks>
+    <tasks>
+        <title>Do MA1521 lab #3</title>
+        <description>Voluptatem sint dolorum eum. Ducimus sapiente totam non quas. Modi dolor atque dignissimos laborum veniam tempore et.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-15T13:30</endTime>
+        <lastUpdated>2016-11-08T00:35:20.067</lastUpdated>
+        <uuid>a865311e-10e3-40f6-8846-e3819b14038f</uuid>
+    </tasks>
+    <tasks>
+        <title>Attend concert with Alex</title>
+        <location>Engineering Canteen</location>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <startTime>2016-10-28T17:30</startTime>
+        <endTime>2016-10-28T18:15</endTime>
+        <lastUpdated>2016-11-08T00:35:20.964</lastUpdated>
+        <uuid>4ce144a0-9f0c-47ff-9117-95cb43247671</uuid>
+        <tags>urgent</tags>
+        <tags>sports</tags>
+    </tasks>
+    <tasks>
+        <title>Research on new ways to get Duplication</title>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <lastUpdated>2016-11-08T00:35:21.853</lastUpdated>
+        <uuid>043effd2-6cb0-4cff-8b50-24890544ba67</uuid>
+    </tasks>
+    <tasks>
+        <title>Do MA1521 assignment #3</title>
+        <description>Facilis suscipit aut harum eos autem qui error. Id magnam totam praesentium ducimus. Aliquid fugiat vel ducimus sit doloremque vero.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-12T10:00</endTime>
+        <lastUpdated>2016-11-08T00:35:22.748</lastUpdated>
+        <uuid>43d43715-b26d-4659-a137-02a484b4c57e</uuid>
+    </tasks>
+    <tasks>
+        <title>Discuss MA1521 project with Li Kai</title>
+        <description>Et autem id non quo ipsum unde. Eveniet minima illo pariatur dicta id et. Accusantium quaerat esse enim dolor.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-19T11:15</endTime>
+        <lastUpdated>2016-11-08T00:35:23.626</lastUpdated>
+        <uuid>27195e8c-e2dd-4327-925d-2b208e8e113f</uuid>
+        <tags>homework</tags>
+        <tags>cs2103t</tags>
+        <tags>assignment</tags>
+    </tasks>
+    <tasks>
+        <title>Research on new ways to get Regeneration</title>
+        <description>Voluptatum ad illo. Eos optio consectetur. Recusandae consectetur minima et nisi quis ratione. Aliquam iure veritatis.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-22T20:15</endTime>
+        <lastUpdated>2016-11-08T00:35:24.504</lastUpdated>
+        <uuid>8faa5d63-3769-42a2-8a39-96d7e8e44f6a</uuid>
+        <tags>chemistry</tags>
+        <tags>econs</tags>
+        <tags>cs2103t</tags>
+        <tags>sports</tags>
+    </tasks>
+    <tasks>
+        <title>Discuss CS1231 project with Xien Dong</title>
+        <description>Rem ab quo. Aliquid incidunt perspiciatis qui. Ut cumque ad perferendis dolorem ex. Adipisci sit qui doloribus possimus laudantium est magni.</description>
+        <pinned>false</pinned>
+        <completed>false</completed>
+        <endTime>2016-10-31T20:00</endTime>
+        <lastUpdated>2016-11-08T00:35:25.412</lastUpdated>
+        <uuid>0e020100-8b80-470e-b978-fddad5f52514</uuid>
+        <tags>to-do-12</tags>
+        <tags>physics</tags>
+        <tags>cs2103t</tags>
+        <tags>pokemon_go</tags>
+    </tasks>
+    <tasks>
+        <title>Finish GET1025 homework 1</title>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <lastUpdated>2016-11-08T00:35:26.303</lastUpdated>
+        <uuid>fba6657f-6ffc-423c-9488-7b315a6b3137</uuid>
+    </tasks>
+    <tasks>
+        <title>Do MA1521 lab #1</title>
+        <description>Consequuntur ut delectus a quia occaecati ut. Enim nam tempora amet labore rerum ea qui. Doloremque natus assumenda eum in.</description>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-24T12:15</endTime>
+        <lastUpdated>2016-11-08T00:35:27.195</lastUpdated>
+        <uuid>aa70dc2e-1593-4d2c-8f27-bda7f276d219</uuid>
+    </tasks>
+    <tasks>
+        <title>Finish CS2100 homework 2</title>
+        <description>Nobis tempora et nulla veniam et suscipit. Porro vero tenetur velit alias itaque at ea. Architecto voluptatem nostrum a.</description>
+        <pinned>true</pinned>
+        <completed>false</completed>
+        <endTime>2016-11-22T15:30</endTime>
+        <lastUpdated>2016-11-08T00:35:28.089</lastUpdated>
+        <uuid>e5fd45e6-f8ca-4c78-840f-204dba3a98e7</uuid>
+        <tags>physics</tags>
+        <tags>cs2103t</tags>
+    </tasks>
+</todolist>

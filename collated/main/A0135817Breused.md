@@ -1,5 +1,44 @@
-# A0135817Breuse
-###### \src\main\java\seedu\todo\commons\util\TimeUtil.java
+# A0135817Breused
+###### \java\seedu\todo\commons\events\ui\ExitAppRequestEvent.java
+``` java
+/**
+ * Indicates a request for App termination
+ */
+public class ExitAppRequestEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### \java\seedu\todo\commons\exceptions\DataConversionException.java
+``` java
+/**
+ * Represents an error during conversion of data from one format to another
+ */
+public class DataConversionException extends Exception {
+    public DataConversionException(Exception cause) {
+        super(cause);
+    }
+
+}
+```
+###### \java\seedu\todo\commons\exceptions\IllegalValueException.java
+``` java
+/**
+ * Signals that some given data does not fulfill some constraints.
+ */
+public class IllegalValueException extends Exception {
+    /**
+     * @param message should contain relevant information on the failed constraint(s)
+     */
+    public IllegalValueException(String message) {
+        super(message);
+    }
+}
+```
+###### \java\seedu\todo\commons\util\TimeUtil.java
 ``` java
     // From http://stackoverflow.com/a/27378709/313758
     /**
