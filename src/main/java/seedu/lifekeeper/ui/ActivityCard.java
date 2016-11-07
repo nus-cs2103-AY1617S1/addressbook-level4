@@ -42,9 +42,9 @@ public class ActivityCard extends UiPart {
 
     }
 
-    public static ActivityCard load(ReadOnlyActivity person2, int displayedIndex) {
+    public static ActivityCard load(ReadOnlyActivity activity, int displayedIndex) {
         ActivityCard card = new ActivityCard();
-        card.activity = person2;
+        card.activity = activity;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
@@ -52,19 +52,23 @@ public class ActivityCard extends UiPart {
     @FXML
 	public void initialize() {
 
-		name.setText(activity.getName().fullName);
-		id.setText(displayedIndex + ". ");
+        name.setText(activity.getName().fullName);
+        id.setText(displayedIndex + ". ");
+        reminder.setText(activity.getReminder().forDisplay());
+        tags.setText(activity.tagsString());
+        completion.setText(activity.toStringCompletionStatus());
+
 		String type = activity.getClass().getSimpleName().toLowerCase();
 
 		switch (type) {
 
-		case "activity":
+		case "activity" :
 			dateTime.setText("");
 
 			break;
 
-		case "task":
-			dateTime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
+		case "task" :
+		    dateTime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
 			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
 
 			if (((Task) activity).isDueDateApproaching()) {
@@ -72,15 +76,16 @@ public class ActivityCard extends UiPart {
                         + " -fx-font-size: 13;"
                         + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: yellow;");
+				
 			} else if (((Task) activity).hasPassedDueDate()) {
 			    completion.setStyle("-fx-text-fill: #500000;"
-                + " -fx-font-size: 13;"
-                + " -fx-font-family: Georgia;");
+                        + " -fx-font-size: 13;"
+                        + " -fx-font-family: Georgia;");
 				cardPane.setStyle("-fx-background-color: salmon;");
 			}
 			break;
 
-		case "event":
+		case "event" :
 			dateTime.setText(((ReadOnlyEvent) activity).displayTiming());
 			if (((Event) activity).isOngoing()) {
 			    completion.setStyle("-fx-text-fill: #000080;"
@@ -96,14 +101,10 @@ public class ActivityCard extends UiPart {
 			break;
 		}
 
-		reminder.setText(activity.getReminder().forDisplay());
-		tags.setText(activity.tagsString());
-		completion.setText(activity.toStringCompletionStatus());
-		
 		if (activity.getCompletionStatus()) {
 		    completion.setStyle("-fx-text-fill: #005000;"
-	                + " -fx-font-size: 13;"
-	                + " -fx-font-family: Georgia;");
+	                    + " -fx-font-size: 13;"
+	                    + " -fx-font-family: Georgia;");
 			cardPane.setStyle("-fx-background-color: springgreen;");
 		}
 	}
