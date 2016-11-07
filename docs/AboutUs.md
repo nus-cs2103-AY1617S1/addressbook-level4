@@ -56,6 +56,14 @@ Role: Developer <br>
  
 ------
 
+#### [Nyan Lin Cho](http://github.com/NachosNLC) 
+<img src="images/Nachos.jpg" width="150"><br>
+
+* Components in charge of: [Model](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#model-component)
+* Features implemented:
+	* [Extended Help Command]()
+ -----
+
 # Acknowledgements
 
 #### [Chan Jun Wei](http://github.com/chanjunweimy) 
