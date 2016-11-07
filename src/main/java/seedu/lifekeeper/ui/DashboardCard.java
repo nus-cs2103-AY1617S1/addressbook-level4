@@ -37,20 +37,6 @@ public abstract class DashboardCard extends UiPart {
 		
 		DashboardCard card = new OverdueTaskCard();
 		String type = activity.getClass().getSimpleName().toLowerCase();
-		/*
-		switch (type) {
-		case "task":
-			if (((Task) activity).isDueDateApproaching()) {
-				// DashboardCard card = new UpcomingTaskCard();
-				card = new OverdueTaskCard();
-			} else if (((Task) activity).hasPassedDueDate()) {
-				card = new OverdueTaskCard();
-			}
-		case "event":
-			card = new OverdueTaskCard();
-			// DashboardCard card = new UpcomingEventCard();
-		}
-		*/
 		
 		card.activity = activity;
 		return UiPartLoader.loadUiPart(card);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -9,7 +10,7 @@
 
 <!-- @@author A0125097A -->
 
-<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel" style="-fx-background-color: derive( #800000,30%);" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel"  style="-fx-background-color: salmon;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="overdueTaskCard" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -39,4 +40,8 @@
          </rowConstraints>
         </GridPane>
     </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </HBox>
