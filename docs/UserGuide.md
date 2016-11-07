@@ -118,13 +118,23 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [repeat REPE
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework from  24 sep 7.15pm to 25 sep 9pm daily repeat 4 t/CS1231`
-* `add Homework from today 8.03pm to today 8.15pm t/CS1231`
+* `add Homework from today 8.03pm to 8.15pm t/CS1231`
 	<img src="images/ug_add_fromto_date_before.PNG" width="600">
 	<img src="images/ug_add_fromto_date_after.PNG" width="600">
-* `add Homework from 26 oct 10am to 26 oct 11am daily`
+* `add Homework from 26 oct 10am to 11am daily`
 	<img src="images/ug_add_fromto_date_recurring_before.PNG" width="600">
 	<img src="images/ug_add_fromto_date_recurring_after.PNG" width="600">
 
+#### Select tasks : `select`
+Format: select TASK_ID
+
+> If TASK_ID is more than or less than the task present in the task list
+> it is invalid.
+
+Examples:
+* `select 1`	
+	<img src="images/ug_select_before.PNG" width="600">
+	<img src="images/ug_select_after.PNG" width="600">
 <!--@@author-->
 
 #### Lists all active tasks : `list`
@@ -288,6 +298,7 @@ Command | Format
 Add | `add TASK_NAME [t/TAG]...`
 Add | `add TASK_NAME by DATE TIME [RECURRING_TYPE] [repeat REPEAT_PERIOD] [t/TAG]...`
 Add | `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [repeat REPEAT_PERIOD] [t/TAG]...`
+Select | `select TASK_ID`
 Edit | `edit TASK_ID [from EDIT_START_DATE EDIT_START_TIME to EDIT_END_DATE EDIT_END_TIME] [by EDIT_END_DATE EDIT_END_TIME] [t/EDIT_TAG]...`
 Delete | `delete TASK_ID`
 Complete | `done TASK_ID`
