@@ -509,7 +509,7 @@ Since it does not need to retrieve or modidfy data in the model.
 
   Use case ends.
   
-The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+The Use case for clearing completed tasks can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearTask.png" width="700"><br>
 <img src="images/SDClearTaskDetailed.png" width="700"><br>
@@ -527,7 +527,7 @@ The SD for clear past events is similiar to clear completed tasks.
 
   Use case ends.
   
-The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+The Use case for clearing completed tasks and past events can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearTasksEvents.png" width="700"><br>
 The detailed SD is not unlike SD clear task.
@@ -544,7 +544,7 @@ The detailed SD is not unlike SD clear task.
 
   Use case ends.
   
-The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+The Use case for clearing all events can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearAllEvents.png" width="700"><br>
 The detailed SD is not unlike SD clear task.
@@ -562,7 +562,7 @@ The SD for clear all tasks is similiar to clear all events.
 
   Use case ends.
 
-The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
+The Use case for clearing all tasks and events can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearAll.png" width="700"><br>
 The detailed SD is not unlike SD clear task.
@@ -578,7 +578,7 @@ The SD for clear all tasks is similiar to clear all events.
 
   Use case ends.
 
-**Extensions**
+**Extensions**<br>
 2a. UP key is pressed
   > 2a1. `Dowat` accesses command directly above the current position in Command history
 2b. DOWN key is pressed
@@ -605,7 +605,8 @@ The SD for clear all tasks is similiar to clear all events.
  3. `Dowat` displays the updated Panel
 
   Use case ends.
-**Extensions**
+  
+**Extensions**<br>
 2a. UP key is pressed
   > 2a1. `Dowat` scrolls the Panel upwards.
 2b. DOWN key is pressed
