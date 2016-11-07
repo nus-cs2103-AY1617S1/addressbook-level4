@@ -195,7 +195,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
             getHour = 11;
             break;
         default:
-            getHour = 12;
+            getHour = Integer.parseInt(hour);
         }
 
         switch (minute) {
@@ -233,8 +233,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
             getMinute = Integer.parseInt(minute);
         }
 
-        // Check year or if same year, check month or if same year, same month ,
-        // check day
+        // Check year or if same year, check month or if same year, same month , check day
         if ((Integer.parseInt(dateArr[2]) < Integer.parseInt(curDate[2]))
                 || (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2])
                         && month < Integer.parseInt(curDate[1]))
@@ -247,12 +246,8 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
                 && Integer.parseInt(day) == Integer.parseInt(curDate[0])) {
             if ((AM_PM.equals("am") && curTime[2].equals("AM")) || (AM_PM.equals("pm") && curTime[2].equals("PM"))) {
                 // Check if same hour then check minute difference
-                if (getHour == Integer.parseInt(curTime[0])) {
-                    if (getMinute < Integer.parseInt(curTime[1])) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                if (getHour == Integer.parseInt(curTime[0]) && getMinute < Integer.parseInt(curTime[1])) {
+                    return false;
                     // Check if task end time is less than current time
                     // Check if task is in morning or noon and 12 is suppose to
                     // be lesser than current time (1am/pm is more than 12am/pm)
@@ -262,8 +257,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
                 } else {
                     return true;
                 }
-                // Check if task end time is am(morning) while current time is
-                // pm(night)
+            // Check if task end time is am(morning) while current time is pm(night)
             } else if ((AM_PM.equals("am") && curTime[2].equals("PM"))) {
                 return false;
             } else {
@@ -277,7 +271,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
     public String getCountdown() throws ParseException {
         //Get count down timer
         Countdown count = Countdown.getInstance();
-        String result = count.convertDateToMilli(this.endDate.toString(), this.endTime.toString());
+        String result = count.convertDateToMilli(this.startDate.toString(), this.startTime.toString());
         return result;
     }
     

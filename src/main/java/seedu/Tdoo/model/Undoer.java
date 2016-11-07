@@ -71,6 +71,11 @@ public class Undoer {
 	public void prepareUndoDone(String dataType, int index) {
 		undoStack.push(new UndoneCommand(dataType, index));
 	}
+	
+	// @@author A0139920A
+    public void prepareUndoUndone(String dataType, int index) {
+        undoStack.push(new DoneCommand(dataType, index));
+    }
 
 	// @author A0144061U
 	public void executeUndo() {

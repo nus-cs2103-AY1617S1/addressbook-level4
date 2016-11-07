@@ -67,6 +67,15 @@ public class EndTime {
 		case "13":
 			hour = "1:";
 			break;
+		case "12":
+            hour = "12:";
+            break;
+		case "11":
+            hour = "11:";
+            break;
+		case "10":
+            hour = "10:";
+            break;    
 		default:
 			hour = etimeArr[0].substring(1, 2) + ":";
 		}

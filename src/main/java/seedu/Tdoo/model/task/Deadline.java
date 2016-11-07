@@ -176,7 +176,7 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
             getHour = 11;
             break;
         default:
-            getHour = 12;
+            getHour = Integer.parseInt(hour);
         }
 
         switch (minute) {
@@ -214,8 +214,7 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
             getMinute = Integer.parseInt(minute);
         }
 
-        // Check year or if same year, check month or if same year, same month ,
-        // check day
+        // Check year or if same year, check month or if same year, same month , check day
         if ((Integer.parseInt(dateArr[2]) < Integer.parseInt(curDate[2]))
                 || (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2])
                         && month < Integer.parseInt(curDate[1]))
@@ -223,28 +222,23 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
                         && month == Integer.parseInt(curDate[1])
                         && Integer.parseInt(day) < Integer.parseInt(curDate[0]))) {
             return false;
-            // Same day so check time
+        // Same day so check time
         } else if (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month == Integer.parseInt(curDate[1])
                 && Integer.parseInt(day) == Integer.parseInt(curDate[0])) {
             if ((AM_PM.equals("am") && curTime[2].equals("AM")) || (AM_PM.equals("pm") && curTime[2].equals("PM"))) {
                 // Check if same hour then check minute difference
-                if (getHour == Integer.parseInt(curTime[0])) {
-                    if (getMinute < Integer.parseInt(curTime[1])) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                    // Check if task end time is less than current time
-                    // Check if task is in morning or noon and 12 is suppose to
-                    // be lesser than current time (1am/pm is more than 12am/pm)
+                if (getHour == Integer.parseInt(curTime[0]) && getMinute < Integer.parseInt(curTime[1])) {
+                    return false;
+                // Check if task end time is less than current time
+                // Check if task is in morning or noon and 12 is suppose to
+                // be lesser than current time (1am/pm is more than 12am/pm)
                 } else if ((getHour < Integer.parseInt(curTime[0])) || ((AM_PM.equals("am") || AM_PM.equals("pm"))
                         && getHour == 12 && getHour > Integer.parseInt(curTime[0]))) {
                     return false;
                 } else {
                     return true;
                 }
-                // Check if task end time is am(morning) while current time is
-                // pm(night)
+            // Check if task end time is am(morning) while current time is pm(night)
             } else if ((AM_PM.equals("am") && curTime[2].equals("PM"))) {
                 return false;
             } else {
