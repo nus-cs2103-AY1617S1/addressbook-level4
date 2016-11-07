@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.EventDate;
-import seedu.address.model.task.Recurring;
-import seedu.address.testutil.TestTask;
-import seedu.address.ui.FilterPanel;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.model.task.EventDate;
+import seedu.toDoList.model.task.Recurring;
+import seedu.toDoList.testutil.TestTask;
+import seedu.toDoList.ui.FilterPanel;
 
 //@@author A0146123R
 /**

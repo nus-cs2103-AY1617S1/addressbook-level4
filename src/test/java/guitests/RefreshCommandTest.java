@@ -1,9 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.RefreshCommand;
-import seedu.address.testutil.TestTask;
+
+import seedu.toDoList.commons.core.Messages;
+import seedu.toDoList.logic.commands.RefreshCommand;
+import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 

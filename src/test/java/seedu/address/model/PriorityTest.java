@@ -6,8 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.task.Priority;
+import seedu.toDoList.commons.exceptions.IllegalValueException;
+import seedu.toDoList.model.task.Priority;
 
 //@@author A0146123R
 /**

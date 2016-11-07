@@ -2,14 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.task.Date;
-import seedu.address.model.task.Deadline;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.toDoList.commons.exceptions.IllegalValueException;
+import seedu.toDoList.logic.commands.RedoCommand;
+import seedu.toDoList.logic.commands.UndoCommand;
+import seedu.toDoList.model.task.Date;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.testutil.TestTask;
+import seedu.toDoList.testutil.TestUtil;
+import seedu.toDoList.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 

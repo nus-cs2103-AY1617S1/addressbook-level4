@@ -111,7 +111,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
-
+<!-- @@author A0142325R-->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -126,7 +126,7 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
-
+<!-- @@author-->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -321,6 +321,10 @@ Use case ends.
 >1b1. toDoList displays an error message and command usage<br>
  Use case resumes at step 1.
 
+The Activity Diagram for add task or event can be used to elaborate the above two use cases:
+<img src="images/ADforAddCommand.png" width="800"><br>
+
+
 #### Use case 3: Delete task or event
 
 **MSS**
@@ -407,6 +411,10 @@ Use case resumes at step 3
 
 >3a1. toDoList displays an error message and ussage instructions<br>
 Use case ends
+
+The use case can be elaborated by the Sequence Diagram as below:
+<img src="images/SDforDone1.png" width="800"><br>
+<img src="images/SDforDone2.png" width="800"><br>
 
 ####Use case 6: Refresh all tasks and events
 
