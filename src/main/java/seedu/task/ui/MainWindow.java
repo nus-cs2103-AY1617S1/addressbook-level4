@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -97,7 +98,9 @@ public class MainWindow extends UiPart {
 
     // @@author A0133369B
     public void fillInnerParts() {
-        new Image(getClass().getResourceAsStream("/images/haha.png"));
+        Image image = new Image(getClass().getResourceAsStream("/images/logo.png"));
+        ImageView imageView = new ImageView(image);
+        label.setGraphic(imageView);
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         ResultDisplay resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -105,6 +108,7 @@ public class MainWindow extends UiPart {
                 config.getTaskManagerFilePath());
         CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
+    // @@author
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
