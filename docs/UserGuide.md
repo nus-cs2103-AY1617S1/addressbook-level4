@@ -308,7 +308,7 @@ edit t2 due 8pm | edit the deadline of task t2.
 edit e9 on tmr to next monday | edit the start date and end date of event e9.
 
 > When editting an event, you can either edit just the start date alone or the end date alone or both.
-> But if you wish to convert to an event from a task, `on NEW_START_DATETIME` is no longer optional, as will be shown below. 
+> But if you wish to convert to an event from a task, `on|from NEW_START_DATETIME` is no longer optional, as will be shown below. 
 
 <br>
 
@@ -321,7 +321,7 @@ Dateless Task | dateless | `edit e1 dateless`
 Tagless item | tagless | `edit t1 tagless`
 No priority item | p/none | `edit t4 p/none`
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | `edit e3 due tomorrow p/HIGH`
-Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | `edit t1 "skip CS2103 lecture" on 29 oct t/IMPT`
+Event | ["NEW_TASK_DETAILS"] on\|from NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | `edit t1 "skip CS2103 lecture" on 29 oct t/IMPT`
 
 > * If you ever make a mistake, don't be afraid to use the [`undo`](#undo) command. <br>
 
