@@ -14,19 +14,19 @@ public class TypicalTestTask {
 
     public TypicalTestTask() {
         try {
-            CS2103_Project =  new TaskBuilder().withName("CS2103 Project").withAddress("6pm")
-                    .withEmail("3pm").withPhone("today").build();
-            CS2103_Lecture = new TaskBuilder().withName("CS2103 Lecture").withAddress("4pm")
-                    .withEmail("2pm").withPhone("next friday").build();
-            MA1101R_Homework = new TaskBuilder().withName("MA1101R Homework").withPhone("today").withEmail("3pm").withAddress("5pm").build();
-            soccerWithFriends = new TaskBuilder().withName("Soccer with friends").withPhone("tomorrow").withEmail("1pm").withAddress("5pm").build();
-            buyGroceries = new TaskBuilder().withName("Buy groceries").withPhone("Sunday").withEmail("10am").withAddress("12pm").build();
-            goSkydiving = new TaskBuilder().withName("Go skydiving").withPhone("next month").withEmail("2am").withAddress("10am").build();
-            watchMovie = new TaskBuilder().withName("Watch movie").withPhone("tomorrow").withEmail("10pm").withAddress("12am").build();
+            CS2103_Project =  new TaskBuilder().withName("CS2103 Project").withEndDateAndTime("6pm")
+                    .withEmail("3pm").withStart("today").build();
+            CS2103_Lecture = new TaskBuilder().withName("CS2103 Lecture").withEndDateAndTime("4pm")
+                    .withEmail("2pm").withStart("next friday").build();
+            MA1101R_Homework = new TaskBuilder().withName("MA1101R Homework").withStart("today").withEmail("3pm").withEndDateAndTime("5pm").build();
+            soccerWithFriends = new TaskBuilder().withName("Soccer with friends").withStart("tomorrow").withEmail("1pm").withEndDateAndTime("5pm").build();
+            buyGroceries = new TaskBuilder().withName("Buy groceries").withStart("Sunday").withEmail("10am").withEndDateAndTime("12pm").build();
+            goSkydiving = new TaskBuilder().withName("Go skydiving").withStart("next month").withEmail("2am").withEndDateAndTime("10am").build();
+            watchMovie = new TaskBuilder().withName("Watch movie").withStart("tomorrow").withEmail("10pm").withEndDateAndTime("12am").build();
 
             //Manually added
-            learnPython = new TaskBuilder().withName("Hoon Meier").withPhone("today").withEmail("2pm").withAddress("5pm").build();
-            learnSpanish = new TaskBuilder().withName("Ida Mueller").withPhone("tomorrow").withEmail("1am").withAddress("2am").build();
+            learnPython = new TaskBuilder().withName("Hoon Meier").withStart("today").withEmail("2pm").withEndDateAndTime("5pm").build();
+            learnSpanish = new TaskBuilder().withName("Ida Mueller").withStart("tomorrow").withEmail("1am").withEndDateAndTime("2am").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

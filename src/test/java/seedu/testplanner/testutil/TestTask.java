@@ -27,6 +27,9 @@ public class TestTask implements ReadOnlyTask {
     public void setStart(DateTime start) {
         this.start = start;
     }
+    
+    public void setStartTime() {
+	}
 
     public void setEnd(DateTime email) {
         this.end = email;
@@ -44,6 +47,10 @@ public class TestTask implements ReadOnlyTask {
 	@Override
 	public void markAsNotComplete() {
 		isComplete = false;
+	}
+	
+	public void setPin(boolean pinStatus) {
+		this.isPinned = pinStatus;
 	}
     
 	@Override
