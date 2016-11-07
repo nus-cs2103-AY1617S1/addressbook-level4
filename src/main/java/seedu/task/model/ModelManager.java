@@ -6,8 +6,10 @@ import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.task.DateTime;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
@@ -186,6 +188,10 @@ public class ModelManager extends ComponentManager implements Model {
             break;
         }
     }
+    
+    public void updateFilteredListByTags(Set<Tag> tags) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tags)));
+    }
     //@@author
 
     @Override
@@ -260,6 +266,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0141052Y
+    /**
+     * Qualifier that checks for matching tags
+     * @author Syed Abdullah
+     *
+     */
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tags;
+
+        TagQualifier(Set<Tag> tags) {
+            this.tags = tags;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return tags.stream()
+                    .allMatch(tag -> task.getTags().contains(tag));
+        }
+    }
+    
     /**
      * Qualifier that checks if Task is not due based on reference time
      * @author Syed Abdullah
