@@ -59,7 +59,7 @@ public class RedoController extends Controller {
         int numRedo = 1;
         if (parsedResult.get("default")[1] != null) {
             try {
-                numRedo = Integer.parseInt(parsedResult.get("default")[1]);
+                numRedo = Integer.decode(parsedResult.get("default")[1]);
             } catch (NumberFormatException e) {
                 Renderer.renderDisambiguation(String.format(REDO_TEMPLATE, INDEX_FIELD), MESSAGE_INDEX_NOT_NUMBER);
                 return;
