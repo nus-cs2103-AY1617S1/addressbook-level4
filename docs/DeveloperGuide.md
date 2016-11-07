@@ -159,10 +159,14 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save `Dowat` data in xml format and read it back.
 <!-- @@author  -->
-
+<!-- @@author A0144702N -->
 ### Common classes
 
-Classes used by multiple components are in the `seedu.taskbook.commans` package.
+Classes used by multiple components are in the `seedu.taskbook.commons` package.
+Some examples of common classes include:
+  - CalendarView: enum describes the calendar view.
+  - Status: enum describes the filtered status of tasks and events. 
+  - Messages: standardized messages used throughout the app. 
 
 ## Implementation
 
@@ -181,20 +185,30 @@ of loggers and handlers (for output of log messages)
 **Logging Levels**
 
 - SEVERE
-  - Critical use case affected, which may possibly cause the termination of the application
+  - Critical use case affected, which may possibly cause the termination of the application  
+  eg: Fatal error during initializing,  
+  eg: Unsync Calendar during execution. 
 
-- WARNING
-  - Can continue, but with caution
+-WARNING:
+  - Critical use case happen, but can recover and continue execution:
+    eg:Can't find stage Test App, Therefore, aborting focusin  
 
 - INFO
   - Information important for the application's purpose
-    - e.g. update to local model/request sent to cloud
-  - Information that the layman user can understand
-
-- FINE
-  - Used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
-  - Should include more detailed information as compared to `INFO` i.e. log useful information!
-    - e.g. print the actual list instead of just its size
+    - Setting up and init. 
+      eg:  `Setting up Calendar panel...`  
+    - User command:
+      `----------------[USER COMMAND][<Command>]`  
+      eg: `----------------[USER COMMAND][mark 1]`  
+    - System command (for undo):
+      `-----------[SYSTEM UNDO COMMAND][<Command>]`  
+      eg: `-----------[SYSTEM UNDO COMMAND][mark 1]`  
+    - Posting an event:
+      `-----[Event Posted][<Event Information>]`  
+      eg: `------[Event Posted] seedu.task.commons.events.model.TaskBookChangedEvent: [number of tasks 10] [number of events 9]`  
+    - Reveiving an event:
+      `--[Event Handled] [<Response Message>]`  
+      eg: `--[Event handled][[number of tasks 10] [number of events 9]Local data changed, saving to file]`
 
 ### Configuration
 
@@ -202,7 +216,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 (default: `config.json`):
 
 
-<!-- @@author A0144702N -->
+
 ## Managing Dependencies
 We use several external dependencies:
 

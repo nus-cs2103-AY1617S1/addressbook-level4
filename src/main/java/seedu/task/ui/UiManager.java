@@ -10,6 +10,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.task.MainApp;
+import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.ui.JumpToEventListRequestEvent;
@@ -20,9 +23,6 @@ import seedu.task.commons.exceptions.CalendarUnsyncException;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
-import seedu.taskcommons.core.ComponentManager;
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.LogsCenter;
 
 /**
  * The manager of the UI component.
@@ -117,18 +117,28 @@ public class UiManager extends ComponentManager implements Ui {
 	}
 
 	@Subscribe
-	private void handleJumpToTListRequestEvent(JumpToTaskListRequestEvent event) throws CalendarUnsyncException {
+	private void handleJumpToTListRequestEvent(JumpToTaskListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-		mainWindow.getCalendarPanel().select(event.targetTask);
+		try {
+			mainWindow.getCalendarPanel().select(event.targetTask);
+		} catch (CalendarUnsyncException e) {
+			logger.severe(StringUtil.getDetails(e));
+			showFatalErrorDialogAndShutdown("Fatal error unsycn calendar:", e);
+		}
 	}
 
 	//@@author A0144702N
 	@Subscribe
-	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) throws CalendarUnsyncException {
+	private void handleJumpToEListRequestEvent(JumpToEventListRequestEvent event) {
 		logger.info(LogsCenter.getEventHandlingLogMessage(event));
 		mainWindow.getEventListPanel().scrollTo(event.targetIndex);
-		mainWindow.getCalendarPanel().select(event.targetEvent);
+		try {
+			mainWindow.getCalendarPanel().select(event.targetEvent);
+		} catch (CalendarUnsyncException e) {
+			logger.severe(StringUtil.getDetails(e));
+			showFatalErrorDialogAndShutdown("Fatal error unsycn calendar:", e);
+		}
 	}
 	
 	@Subscribe

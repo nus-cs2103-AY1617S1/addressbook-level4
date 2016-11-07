@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
+import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddEventCommand;
 import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.testutil.TestEvent;
@@ -13,7 +14,6 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.taskcommons.core.Messages;
 
 //@@author A0127570H
 /*

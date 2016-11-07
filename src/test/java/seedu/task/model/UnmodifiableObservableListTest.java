@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
-import seedu.taskcommons.core.UnmodifiableObservableList;
+import seedu.task.commons.core.UnmodifiableObservableList;
 
 public class UnmodifiableObservableListTest {
 

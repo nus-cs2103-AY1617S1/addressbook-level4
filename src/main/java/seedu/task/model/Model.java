@@ -2,14 +2,14 @@ package seedu.task.model;
 
 import java.util.Set;
 
+import seedu.task.commons.core.Status;
+import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueTaskList;
-import seedu.taskcommons.core.Status;
-import seedu.taskcommons.core.UnmodifiableObservableList;
 
 /**
  * The API of the Model component.

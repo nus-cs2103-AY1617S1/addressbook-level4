@@ -3,9 +3,9 @@ package seedu.task.logic.commands;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.LogsCenter;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.storage.StorageLocationChangedEvent;
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.storage.JsonConfigStorage;

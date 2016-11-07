@@ -2,9 +2,9 @@ package seedu.task.logic.commands;
 
 import java.util.logging.Logger;
 
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Status;
 import seedu.task.logic.parser.ListParser.ListTarget;
-import seedu.taskcommons.core.Status;
-import seedu.taskcommons.core.LogsCenter;
 
 //@@author A0144702N
 /**

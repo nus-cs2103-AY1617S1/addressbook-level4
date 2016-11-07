@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.util.FxViewUtil;
-import seedu.taskcommons.core.LogsCenter;
 
 /**
  * Controller for a help page

@@ -16,14 +16,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.task.commons.core.CalendarView;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.GuiSettings;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.logic.Logic;
 import seedu.task.model.UserPrefs;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
-import seedu.taskcommons.core.CalendarView;
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.GuiSettings;
 
 /**
  * The Main Window. Provides the basic application layout containing

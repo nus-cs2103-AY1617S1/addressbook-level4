@@ -23,13 +23,13 @@ import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.taskcommons.core.EventsCenter;
 
 /**
  * A GUI Test class for TaskBook.

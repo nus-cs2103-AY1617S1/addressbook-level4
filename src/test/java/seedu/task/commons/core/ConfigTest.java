@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import seedu.taskcommons.core.Config;
+import seedu.task.commons.core.Config;
 
 public class ConfigTest {
 

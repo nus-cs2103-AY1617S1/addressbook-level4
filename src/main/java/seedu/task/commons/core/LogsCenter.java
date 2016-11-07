@@ -1,4 +1,4 @@
-package seedu.taskcommons.core;
+package seedu.task.commons.core;
 
 import java.io.IOException;
 import java.util.logging.ConsoleHandler;

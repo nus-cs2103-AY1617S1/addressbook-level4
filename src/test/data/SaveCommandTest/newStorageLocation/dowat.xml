@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskbook>
+    <tasks>
+        <name>CS1010 CodeCrunch Practices</name>
+        <description>20 Practices up to Lecture 7 syllabus</description>
+        <status>false</status>
+        <deadline>Jan 1, 2017 1:05 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>CS1020 CodeCrunch Practices</name>
+        <description>20 Practices up to Lecture 7 syllabus</description>
+        <status>false</status>
+        <deadline>Jan 1, 2017 1:05 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>Engineering Project 1</name>
+        <description>Complete my part before meeting</description>
+        <status>false</status>
+        <deadline>Jan 1, 2017 1:05 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>Music Project 1</name>
+        <description>Complete my part before meeting</description>
+        <status>false</status>
+        <deadline>Jan 1, 2017 1:05 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>slack for one hour</name>
+        <description>do not do any work</description>
+        <status>true</status>
+        <deadline></deadline>
+    </tasks>
+    <events>
+        <name>ms v0</name>
+        <description>for CS2103t project</description>
+        <startDuration>Nov 6, 2016 1:00 PM</startDuration>
+        <endDuration>Nov 6, 2016 2:00 PM</endDuration>
+    </events>
+    <events>
+        <name>ms v1</name>
+        <description>for CS2103t project</description>
+        <startDuration>Nov 8, 2016 2:00 PM</startDuration>
+        <endDuration>Nov 8, 2016 4:00 PM</endDuration>
+    </events>
+    <events>
+        <name>ms v2</name>
+        <description>for CS2103 discussion</description>
+        <startDuration>Nov 8, 2016 8:00 PM</startDuration>
+        <endDuration>Nov 8, 2016 11:00 PM</endDuration>
+    </events>
+</taskbook>

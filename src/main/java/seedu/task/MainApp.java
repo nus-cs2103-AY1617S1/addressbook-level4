@@ -10,6 +10,10 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.Version;
 import seedu.task.commons.events.storage.StorageLocationChangedEvent;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
 import seedu.task.commons.exceptions.DataConversionException;
@@ -27,10 +31,6 @@ import seedu.task.storage.Storage;
 import seedu.task.storage.StorageManager;
 import seedu.task.ui.Ui;
 import seedu.task.ui.UiManager;
-import seedu.taskcommons.core.Config;
-import seedu.taskcommons.core.EventsCenter;
-import seedu.taskcommons.core.LogsCenter;
-import seedu.taskcommons.core.Version;
 /**
  * The main entry point to the application.
  */
