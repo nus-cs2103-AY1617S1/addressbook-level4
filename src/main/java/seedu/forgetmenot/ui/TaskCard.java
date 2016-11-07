@@ -53,7 +53,7 @@ public class TaskCard extends UiPart{
     //@@author A0139211R
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(task.getName().fullName.replace('\\', '\0'));
         id.setText(displayedIndex + ". ");
         end.setText("End: " + task.getEndTime().easyReadDateFormatForUI());
         start.setText("Start: " + task.getStartTime().easyReadDateFormatForUI());
