@@ -1,6 +1,5 @@
 package seedu.todo.model.tag;
 
-import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.Collection;

@@ -1,24 +1,14 @@
 package seedu.todo.logic.commands;
 
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Rule;
 
 //@@author A0139021U

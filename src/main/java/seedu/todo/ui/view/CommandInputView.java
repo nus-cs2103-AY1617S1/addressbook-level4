@@ -8,15 +8,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.controller.TextAreaResizer;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
-
-import java.util.logging.Logger;
 
 //@@author A0135805H
 /**
@@ -25,9 +22,6 @@ import java.util.logging.Logger;
 public class CommandInputView extends UiPart {
     /* Constants */
     private static final String FXML = "CommandInputView.fxml";
-
-    /* Variables */
-    private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
 
     /* Layout Elements */
     private AnchorPane commandInputPane;

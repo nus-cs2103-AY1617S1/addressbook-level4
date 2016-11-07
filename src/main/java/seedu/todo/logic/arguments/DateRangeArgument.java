@@ -46,7 +46,7 @@ public class DateRangeArgument extends Argument<DateRange> {
 
         if (dates.size() > 2) {
             tooManyDatesError(dates);
-        } else if (dates.size() == 0) {
+        } else if (dates.isEmpty()) {
             throw new IllegalValueException(String.format(DateRangeArgument.NO_DATE_FOUND_FORMAT, input));
         }
         
