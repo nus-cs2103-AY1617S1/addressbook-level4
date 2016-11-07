@@ -54,7 +54,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     private void assertFilterResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertResultMessage(expectedHits.length + " events and tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 
