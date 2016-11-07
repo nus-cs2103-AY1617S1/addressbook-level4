@@ -1,7 +1,6 @@
 package seedu.lifekeeper.ui;
 
 import javafx.fxml.FXML;
-import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
 import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
 
 public class OverdueTaskCard extends DashboardCard{

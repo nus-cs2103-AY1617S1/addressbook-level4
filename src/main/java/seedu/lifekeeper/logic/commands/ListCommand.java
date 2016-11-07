@@ -1,7 +1,5 @@
 package seedu.lifekeeper.logic.commands;
 
-import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-
 /**
  * Lists all persons in the address book to the user.
  */

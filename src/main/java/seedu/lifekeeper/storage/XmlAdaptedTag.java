@@ -1,7 +1,6 @@
 package seedu.lifekeeper.storage;
 
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;
