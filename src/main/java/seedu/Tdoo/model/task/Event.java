@@ -195,7 +195,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
             getHour = 11;
             break;
         default:
-            getHour = 12;
+            getHour = Integer.parseInt(hour);
         }
 
         switch (minute) {
@@ -241,6 +241,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
                 || (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2])
                         && month == Integer.parseInt(curDate[1])
                         && Integer.parseInt(day) < Integer.parseInt(curDate[0]))) {
+            System.out.println("im here");
             return false;
             // Same day so check time
         } else if (Integer.parseInt(dateArr[2]) == Integer.parseInt(curDate[2]) && month == Integer.parseInt(curDate[1])

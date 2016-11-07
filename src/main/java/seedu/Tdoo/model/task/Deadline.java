@@ -176,7 +176,7 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
             getHour = 11;
             break;
         default:
-            getHour = 12;
+            getHour = Integer.parseInt(hour);
         }
 
         switch (minute) {
