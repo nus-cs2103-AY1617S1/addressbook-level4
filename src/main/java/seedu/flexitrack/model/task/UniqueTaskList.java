@@ -231,4 +231,20 @@ public class UniqueTaskList implements Iterable<Task> {
         }
     }
 
+    //@@ A0127686R
+    /**
+     * Find the index of a task of interest 
+     * 
+     * @param task  The task of interest 
+     * @return      index of the task in int 
+     */
+    public int findIndexOfTask(Task task) {
+        int numberOfTask = internalList.size(); 
+        for (int i = 0; i < numberOfTask; i++){
+            if (internalList.get(i).equals(task)){
+                return i; 
+            }
+        }
+        return -1; 
+    }
 }

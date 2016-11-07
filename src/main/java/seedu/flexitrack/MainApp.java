@@ -15,6 +15,7 @@ import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.Version;
 import seedu.flexitrack.commons.events.ui.ExitAppRequestEvent;
+import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
 import seedu.flexitrack.commons.events.ui.StoragePathChangeEvent;
 import seedu.flexitrack.commons.exceptions.DataConversionException;
 import seedu.flexitrack.commons.util.ConfigUtil;
@@ -208,4 +209,5 @@ public class MainApp extends Application {
         storage.setStoragePath(event.toString());
         model.indicateFlexiTrackerChanged();
     }
+
 }

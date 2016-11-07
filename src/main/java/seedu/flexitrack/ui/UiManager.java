@@ -16,7 +16,6 @@ import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.events.storage.DataSavingExceptionEvent;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
 import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
-import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.model.UserPrefs;
