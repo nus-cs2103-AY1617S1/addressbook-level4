@@ -29,20 +29,20 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Undo: ";
     public static final String MESSAGE_FAIL = "Cannot undo anymore!";
 
-    
+
 
     public static final String EMPTY_STRING = "";
     public static final String DELIMITER = " ";
     public static final String NEW_LINE = "\n";
-    
+
     public static final int UNDO_ONE_TIME = 1;
-    
+
     public static final int COMMAND_NAME = 0;
     public static final int COMMAND_INDEX = 1;
     public static final int COMMAND_FIELD = 2;
-    
+
     public static final int FIRST_INDEX_OF_LIST= 0;
-    
+
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     public final int numOfTimes;
@@ -88,7 +88,7 @@ public class UndoCommand extends Command {
                 result += DELIMITER + MESSAGE_SUCCESS + getPreviousCommandText() + NEW_LINE;
                 String[] commandParts = splitPreviousCommandTextIntoFourParts();
                 String previousCommand = getPreviousCommandName(commandParts);
-                
+
                 switch (previousCommand) {
 
                 case AddCommand.COMMAND_WORD:
@@ -106,7 +106,7 @@ public class UndoCommand extends Command {
                 case EditCommand.COMMAND_WORD_ALT:      
                     prepareUndoEdit(commandParts);      
                     break;
-                    
+
                 case ClearCommand.COMMAND_WORD:
                     prepareUndoClear();
                     break;
@@ -130,23 +130,23 @@ public class UndoCommand extends Command {
                 case RefreshCommand.COMMAND_WORD:
                     prepareUndoRefreshCommand();
                     break;
-                    
+
                 case FindCommand.COMMAND_WORD:
                     result = prepareUndoFindCommand(result);
                     break;
-                    
+
                 case SortCommand.COMMAND_WORD:
-                    result = prepareUndoSortCommand(result);
+                    prepareUndoSortCommand(result);
                     break;
 
                 default:
                     break;
                 }
-                
+
                 if (!isPreviousCommandListEmpty()) {
                     removePreviousCommandText();
                 }
-                
+
             } else {
                 if (!isMultiUndo) {
                     result = MESSAGE_FAIL;
@@ -190,88 +190,70 @@ public class UndoCommand extends Command {
 
     private void prepareUndoRefreshCommand() {
         Command command = new RefreshCommand();
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private String prepareUndoFindCommand(String result) {
         return result;
-        
-        
+
+
     }
-    
-    private String prepareUndoSortCommand(String result) {
+
+    private void prepareUndoSortCommand(String result) {
         int undoIndex = lastIndexOfUndoList();
-        String currentSort = "";
+        String currentSort = EMPTY_STRING;
         Command command = null;
         if(getUndoList().size() > 1) {
-        currentSort = getUndoList().get(undoIndex - 1).getCurrentSort(); 
-        if(currentSort != null)
-        command = new SortCommand(currentSort);
-        else
-            command = new SortCommand("");
-        
-        
+            currentSort = getUndoList().get(undoIndex - 1).getCurrentSort(); 
+            if(currentSort != null) {
+                command = new SortCommand(currentSort);
+            }
+            else {
+                command = new SortCommand(EMPTY_STRING);
+            }
+
+
         }
-        else{
+        else {
             command = new SortCommand(currentSort);
         }
-        
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
-        return result;
-        
-        
-        
+
+        runCommand(command);
     }
     private void prepareUndoDone(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
-
         int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
 
         Command command = new UndoneCommand(index, currentIndex);
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private void prepareUndoUndone(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
-
         int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
-
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
-       
         
         Command command = new DoneCommand(index, currentIndex);
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private void prepareUndoFavorite(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
-
         int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
+        
         Command command = new UnfavoriteCommand(index, currentIndex);
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private void prepareUndoUnfavorite(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
-
         int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
+        
         Command command = new FavoriteCommand(index, currentIndex);
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private void prepareUndoClear() {
@@ -361,9 +343,7 @@ public class UndoCommand extends Command {
     private void prepareUndoAdd() {
         int undoIndex = lastIndexOfUndoList();
         Command command = new DeleteCommand(getUndoList().get(undoIndex).getCurrentIndex() + 1);
-        setData(command);
-        executeCommand(command);
-        removePreviousCommand();
+        runCommand(command);
     }
 
     private void prepareUndoDelete(String[] previousCommandDetails) {
@@ -395,7 +375,7 @@ public class UndoCommand extends Command {
         getUndoList().remove(getUndoList().size() - 1);
     }
 
-    
+
     private void removePreviousCommand(int index) {
         getUndoList().remove(index);
     }
@@ -419,6 +399,12 @@ public class UndoCommand extends Command {
 
     private boolean isPreviousCommandListEmpty() {
         return getPreviousCommandList().isEmpty();
+    }
+
+    private void runCommand(Command command) {
+        setData(command);
+        executeCommand(command);
+        removePreviousCommand();
     }
 
     public CommandResult execute(int index) {

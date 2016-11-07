@@ -34,6 +34,10 @@ import seedu.task.model.task.Status;
  */
 // @@author A0133369B
 public class TaskListPanel extends UiPart {
+    private static final String FX_STYLE_ALERT = "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;";
+    private static final String DASH = "-";
+    private static final String EMPTY_STRING = "";
+    private static final String FX_ALIGNMENT_CENTER = "-fx-alignment: center;";
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -87,6 +91,18 @@ public class TaskListPanel extends UiPart {
     // table initialization
     private void initialize() {
 
+        createFavColumn();
+        createIdColumn();
+        createTaskNameColumn();
+        createStartTimeColumn();
+        createEndTimeColumn();
+        createDeadlineColumn();
+        createTagColumn();
+
+        updateTableRowColumn();
+    }
+
+    private void createFavColumn() {
         statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStatus()));
         statusColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, Status>() {
@@ -103,7 +119,7 @@ public class TaskListPanel extends UiPart {
 
                     } else {
 
-                        setStyle("");
+                        setStyle(EMPTY_STRING);
 
                     }
 
@@ -111,148 +127,25 @@ public class TaskListPanel extends UiPart {
 
             };
         });
+    }
 
-        // statusColumn.setCellValueFactory(new
-        // Callback<TableColumn.CellDataFeatures<ReadOnlyTask, Status>,
-        // ObservableValue<Status>>());
-        // taskTable.getItems().get(0)
+    private void createIdColumn() {
         idColumn.setCellValueFactory(
                 column -> new ReadOnlyObjectWrapper<Number>(taskTable.getItems().indexOf(column.getValue()) + 1));
+    }
 
+    private void createTaskNameColumn() {
         taskNameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getName()));
+    }
 
-        startTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStartTime()));
-        startTimeColumn.setCellFactory(column -> {
-            return new TableCell<ReadOnlyTask, StartTime>() {
-                @Override
-                protected void updateItem(StartTime item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("-fx-alignment: center;");
-                    } else if (item.toString().equals("")) {
-                        setText("-");
-                        setStyle("-fx-alignment: center;");
-
-                    }
-
-                    else {
-
-                        setStyle("-fx-alignment: center;");
-                        setText(compareWithCurrentTime(item.toString()));
-                        if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-
-                    }
-                }
-            };
-        });
-
-        endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getEndTime()));
-        endTimeColumn.setCellFactory(column -> {
-            return new TableCell<ReadOnlyTask, EndTime>() {
-                @Override
-                protected void updateItem(EndTime item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("");
-                    } else if (item.toString().equals("")) {
-                        setText("-");
-
-                    } else {
-
-                        setText(compareWithCurrentTime(item.toString()));
-                        if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-
-                    }
-                }
-            };
-        });
-
-        dueTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getDeadline()));
-        dueTimeColumn.setCellFactory(column -> {
-            return new TableCell<ReadOnlyTask, Deadline>() {
-                @Override
-                protected void updateItem(Deadline item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("");
-                    } else if (item.toString().equals("")) {
-                        setText("-");
-
-                    } else {
-
-                        setText(compareWithCurrentTime(item.toString()));
-                        if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-                        if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
-                            setStyle(
-                                    "-fx-font-weight: bold; -fx-text-fill: #8B0000; -fx-font-size: 12pt; -fx-alignment: center;");
-                        }
-
-                    }
-                }
-            };
-        });
-
-        tagColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
-        tagColumn.setCellFactory(column -> {
-            return new TableCell<ReadOnlyTask, String>() {
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("-");
-                    } else {
-                        // Format date.
-                        setText(item);
-                        setStyle("");
-
-                    }
-                }
-            };
-        });
-        tagColumn.setStyle("-fx-alignment: center;");
+    private void updateTableRowColumn() {
+        // @@author A0147335E
         taskTable.setRowFactory(tv -> new TableRow<ReadOnlyTask>() {
             @Override
             public void updateItem(ReadOnlyTask item, boolean empty) {
                 super.updateItem(item, empty);
                 if (item == null) {
-                    setStyle("");
+                    setStyle(EMPTY_STRING);
                 } else if (item.getStatus().getDoneStatus()) {
                     setStyle("-fx-background-color: #ADDBAC; -fx-border-color: #006400");
 
@@ -263,12 +156,157 @@ public class TaskListPanel extends UiPart {
                 }
 
                 else {
-                    setStyle("");
+                    setStyle(EMPTY_STRING);
 
                 }
             }
         });
+        // @@author
+    }
 
+    private void createTagColumn() {
+        tagColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
+        tagColumn.setCellFactory(column -> {
+            return new TableCell<ReadOnlyTask, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setStyle(FX_ALIGNMENT_CENTER);
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle(DASH);
+                    } else {
+                        // Format date.
+                        setText(item);
+                        setStyle(EMPTY_STRING);
+
+                    }
+                }
+            };
+        });
+        tagColumn.setStyle(FX_ALIGNMENT_CENTER);
+    }
+
+    // @@author A0147335E
+    private void createDeadlineColumn() {
+
+        dueTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getDeadline()));
+
+        dueTimeColumn.setCellFactory(column -> {
+            return new TableCell<ReadOnlyTask, Deadline>() {
+                @Override
+                protected void updateItem(Deadline item, boolean empty) {
+                    super.updateItem(item, empty);
+                    setStyle(FX_ALIGNMENT_CENTER);
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle(EMPTY_STRING);
+                    } else if (item.toString().equals(EMPTY_STRING)) {
+                        setText(DASH);
+
+                    } else {
+
+                        setText(compareWithCurrentTime(item.toString()));
+                        displayDeadlineAlert(item);
+
+                    }
+                }
+
+                private void displayDeadlineAlert(Deadline item) {
+                    if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                }
+            };
+        });
+        // @@author
+    }
+
+    // @@author A0147335E
+    private void createEndTimeColumn() {
+
+        endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getEndTime()));
+        endTimeColumn.setCellFactory(column -> {
+            return new TableCell<ReadOnlyTask, EndTime>() {
+                @Override
+                protected void updateItem(EndTime item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    setStyle(FX_ALIGNMENT_CENTER);
+                    if (item == null || empty) {
+                        setText(null);
+                    } else if (item.toString().equals(EMPTY_STRING)) {
+                        setText(DASH);
+
+                    } else {
+
+                        setText(compareWithCurrentTime(item.toString()));
+                        displayEndTimeAlert(item);
+
+                    }
+                }
+
+                private void displayEndTimeAlert(EndTime item) {
+                    if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                }
+            };
+        });
+        // @@author
+    }
+
+    // @@author A0147335E
+    private void createStartTimeColumn() {
+        startTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStartTime()));
+        startTimeColumn.setCellFactory(column -> {
+            return new TableCell<ReadOnlyTask, StartTime>() {
+                @Override
+                protected void updateItem(StartTime item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else if (item.toString().equals(EMPTY_STRING)) {
+                        setText(DASH);
+                        setStyle(FX_ALIGNMENT_CENTER);
+                    } else {
+
+                        setStyle(FX_ALIGNMENT_CENTER);
+                        setText(compareWithCurrentTime(item.toString()));
+
+                        // set font alerts for today,yesterday, and tomorrow
+                        displayStartTimeAlert(item);
+
+                    }
+                }
+
+                private void displayStartTimeAlert(StartTime item) {
+                    if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(TOMORROW)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                    if (compareWithCurrentTime(item.toString()).startsWith(YESTERDAY)) {
+                        setStyle(FX_STYLE_ALERT);
+                    }
+                }
+            };
+        });
+        // @@author
     }
 
     // prenvent columns reordering
@@ -339,30 +377,55 @@ public class TaskListPanel extends UiPart {
 
     }
 
+    // @@author A0147335E
     public String compareWithCurrentTime(String time) {
+
+        // parse time
         String strDatewithTime = time.replace(" ", "T");
         LocalDateTime newTaskDateTime = LocalDateTime.parse(strDatewithTime);
 
+        // current time
         Date currentDate = new Date();
         LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(), ZoneId.systemDefault());
+
+        // time format
         SimpleDateFormat timeOnly = new SimpleDateFormat("h.mm a");
         Date getTime = Date.from(newTaskDateTime.atZone(ZoneId.systemDefault()).toInstant());
         String strTime = timeOnly.format(getTime);
 
-        if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().minusDays(1))) {
+        // compare task time with current time
+        if (isYesterday(newTaskDateTime, localDateTime)) {
             return YESTERDAY + strTime;
-        } else if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate())) {
+        }
+
+        else if (isToday(newTaskDateTime, localDateTime)) {
             return TODAY + strTime;
-        } else if (newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().plusDays(1))) {
+        }
+
+        else if (isTomorrow(newTaskDateTime, localDateTime)) {
             return TOMORROW + strTime;
-        } else {
+        }
+
+        else {
+            // date format for start time, end time, and deadline
             SimpleDateFormat dateTime = new SimpleDateFormat("[E] d-M-yyyy h.mm a");
             Date out = Date.from(newTaskDateTime.atZone(ZoneId.systemDefault()).toInstant());
             String strDate = dateTime.format(out);
-
             return strDate;
         }
 
     }
 
+    private boolean isTomorrow(LocalDateTime newTaskDateTime, LocalDateTime localDateTime) {
+        return newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().plusDays(1));
+    }
+
+    private boolean isToday(LocalDateTime newTaskDateTime, LocalDateTime localDateTime) {
+        return newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate());
+    }
+
+    private boolean isYesterday(LocalDateTime newTaskDateTime, LocalDateTime localDateTime) {
+        return newTaskDateTime.toLocalDate().isEqual(localDateTime.toLocalDate().minusDays(1));
+    }
+    // @@author
 }
