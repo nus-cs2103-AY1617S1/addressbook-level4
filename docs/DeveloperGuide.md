@@ -102,7 +102,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SDforDeleteTaskFinal.PNG" width="800">
+<img src="images\SDForDeleteTaskFinal.PNG" width="800">
 > _The sequence diagram for the scenario `delete 1`_
 
 
