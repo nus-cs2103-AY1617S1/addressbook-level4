@@ -48,14 +48,12 @@ public class ActivityManager {
                 } else { // remain as activity
                     newActivity = updateActivity(oldTask, newParams, type);
                 }
+                
                 newActivity.setCompletionStatus(oldTask.getCompletionStatus());
-
                 break;
             case ENTRY_TYPE_TASK:
-                if (newParamsType.equals(ENTRY_TYPE_TASK)) {
-                    newActivity = updateTask((Task) oldTask, newParams, type, true);
-                } else if (newParamsType.equals(ENTRY_TYPE_ACTIVITY) && type.equals(COMMAND_TYPE_EDIT)) {
-                    newActivity = updateTask(oldTask, newParams, type, false);
+                if (type.equals(COMMAND_TYPE_EDIT)) {
+                    newActivity = updateTask((Task) oldTask, newParams, type, newParamsType.equals(ENTRY_TYPE_TASK));
                 } else if (type.equals(COMMAND_TYPE_UNDO)) {
                     newActivity = updateActivity(oldTask, newParams, type);
                 }
@@ -63,14 +61,12 @@ public class ActivityManager {
                 newActivity.setCompletionStatus(oldTask.getCompletionStatus());
                 break;
             case ENTRY_TYPE_EVENT:
-                if (newParamsType.equals(ENTRY_TYPE_EVENT)) {
-                    newActivity = updateEvent((Event) oldTask, newParams, type, true);
-                } else if (newParamsType.equals(ENTRY_TYPE_ACTIVITY) && type.equals(COMMAND_TYPE_EDIT)) {
-                    newActivity = updateEvent((Event) oldTask, newParams, type, false);
-                }
-                if (newParamsType.equals(ENTRY_TYPE_ACTIVITY) && (type.equals(COMMAND_TYPE_UNDO))) {
+                if (type.equals(COMMAND_TYPE_EDIT)) {
+                    newActivity = updateEvent((Event) oldTask, newParams, type, newParamsType.equals(ENTRY_TYPE_EVENT));
+                } else if (type.equals(COMMAND_TYPE_UNDO)) {
                     newActivity = updateActivity(oldTask, newParams, type);
                 }
+                
                 break;
             default:
                 assert false : "Invalid class type";
@@ -158,6 +154,11 @@ public class ActivityManager {
         }
     }
 
+    /**
+     * Marks the specified task to the specified completion status.
+     * @param task the task to be marked.
+     * @param isComplete the completion status.
+     */
     public static void markTask(Activity task, boolean isComplete) {
         task.setCompletionStatus(isComplete);
     }
