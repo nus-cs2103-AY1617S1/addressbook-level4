@@ -64,17 +64,17 @@ The events and tasks will be both sync to your calendar. You are not able to do 
 
 <!-- @@author A0121608N -->
 #### Traversing between Windows
-The four main windows in which the user can traverse are:
+The four main windows in you can traverse are:
 
   * Command Box
   * Result Display Panel
   * Task Panel
   * Event Panel
 
-By utilizing the TAB key, the user is able to switch between the different windows in the above-mentioned order. 
+By utilizing the TAB key, you are able to switch between the different windows in the above-mentioned order. 
 The order of traversal is descending down the list before it loops back to the beginning. 
 
-The window in which the user is currently on is shown by a brown border highlight. 
+The window in which you are currently on is shown by a brown border highlight. 
 An example of window traversal is shown in the figure below.
 
 <img src="images/WindowTraversal.gif" width="700">
@@ -270,10 +270,10 @@ Examples:
 dowat data will saved in a file called dowat.txt in the project root folder by dafault or the file path is not specified. 
 You can change the location by specifying the file path as a program argument.
 New folders with the file will be auto-created as long as given directory is valid.
-            
->>>>>>> master
+
 Format: `save FILEPATH`
-FILEPATH (must be valid)
+
+> FILEPATH (must be valid)
 
 Examples:
 * `save C:\`
@@ -307,7 +307,7 @@ Examples:
 
 
 #### Undo modifications
-Can go back to historical versions of Dowat with the use of undo commands. Only commands that modify Dowat in the same session will be restored. Any versions of current session will not be accessible after restarting Dowat.  
+You can go back to historical versions of Dowat with the use of undo commands. Only commands that modify Dowat in the same session will be restored. Any versions of current session will not be accessible after restarting Dowat.  
 
 Format: `undo`
 
@@ -318,20 +318,23 @@ With the find command, you can find for tasks or events which contain some keywo
 
 Format: `find KEYWORD [/ MORE_KEYWORDS]`
 
+Examples:
+* `find cs2103`
+  Shows tasks and events which have 'CS2103' (ignoring cases) in their names or description
+* `find cs2103 / project`
+  Shows tasks and events which have 'CS2103' or 'project' (ignoring cases) in their names or description, or have similar words
+
 You can supply the `/power` flag to indicate a more powerful search, where events or tasks will be found as long as they contain some of the keywords. 
 
-Format: `find KEYWORD [/ MORE_KEYWORDS] [/power]`
+Format: `find KEYWORD [/ MORE_KEYWORDS] /power`
 
 > When finding items, two strings are matched if they are similar, where they have a distance of less than 2. Refer to [FAQ](#faq) for a detailed definition of word distance. 
 > `KEYWORDS` are case insensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
+> Minor typos are accepted.
 
 Examples:
-* `find cs2103`
-  Shows tasks and events which have CS2103 (ignoring cases) in their names or description, or have similar words. 
-* `find CS`
-  Partial match is not supported. Will not return any other tasks or events unless they contain "CS" (ignoring cases) in the names or description.
 * `find cs210X /power`
-  Returns any tasks or events having which contain similar words of "cs210X" in the descriptiosn or names. 
+  Returns any tasks or events having which contain similar words of "cs210X" in the descriptions or names. 
 
 <img src="images/find.gif" width="600">
 
