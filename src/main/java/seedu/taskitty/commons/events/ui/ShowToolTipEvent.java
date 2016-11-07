@@ -8,7 +8,7 @@ import seedu.taskitty.logic.ToolTip;
  * An event requesting to view the help page.
  */
 public class ShowToolTipEvent extends BaseEvent {
-    ToolTip tooltip;
+    private ToolTip tooltip;
     
     public ShowToolTipEvent(String userInput) {
         tooltip = ToolTip.getInstance();
