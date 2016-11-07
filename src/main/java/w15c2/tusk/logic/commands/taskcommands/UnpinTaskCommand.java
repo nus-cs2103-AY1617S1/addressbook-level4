@@ -56,7 +56,7 @@ public class UnpinTaskCommand extends TaskCommand {
         }
     }
     
-  //@@author
+    //@@author
     /*
      * Retrieves index for testing purposes
      */

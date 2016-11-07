@@ -41,7 +41,7 @@ public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{
         tasks.addAll(src.getInternalList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }
     
-    /*
+    /**
      * This method is called after all the properties (except IDREF) are unmarshalled for this object, 
      *  but before this object is set to the parent object. This allows us to set the correct internal
      *  when loading from XML storage.

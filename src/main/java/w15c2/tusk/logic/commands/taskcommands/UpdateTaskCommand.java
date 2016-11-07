@@ -18,10 +18,10 @@ import w15c2.tusk.model.task.EventTask;
 import w15c2.tusk.model.task.FloatingTask;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0139817U
 /**
  * Updates a task identified using it's last displayed index from TaskManager.
  */
-//@@author A0139817U
 public class UpdateTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "update";

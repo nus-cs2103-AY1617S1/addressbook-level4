@@ -83,8 +83,8 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 	// Return the specifics of the task (with or without details of time)
 	public abstract String getTaskDetails(boolean withTime);
 	
-	/*
-	 * Checks for equality between possible subclasses of Task
+	/**
+	 * Checks for equality between possible subclasses of Task.
 	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
@@ -125,7 +125,7 @@ public abstract class Task implements PinnableTask, CompletableTask, Comparable<
 
 	}
 	
-    /*
+    /**
      * Defines an ordering of tasks in a list.
      * Ordering: 1. Pinned 2. Overdue 3. Floating 4. Date order
      * (non-Javadoc)

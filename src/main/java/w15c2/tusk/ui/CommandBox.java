@@ -104,7 +104,7 @@ public class CommandBox extends UiPart {
     	commandTextField.setOnKeyPressed(keyListener);
     }
     
-    /*
+    /**
      * Handles Up/Down keys to replace commandbox content with previous/next commands.
      * Makes sure that this isn't part of a control-up/down combination.
      * Handles Tab key by autocompleting command in the current box if it's a new command,

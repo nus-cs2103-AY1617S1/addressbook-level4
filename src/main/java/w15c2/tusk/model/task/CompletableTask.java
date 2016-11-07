@@ -1,9 +1,9 @@
 package w15c2.tusk.model.task;
 
-/**
+//@@author A0143107U
+/*
  * Tasks that implement this interface can be completed
  */
-//@@author A0143107U
 public interface CompletableTask {
 	/*
 	 * Gives the task a 'complete' status

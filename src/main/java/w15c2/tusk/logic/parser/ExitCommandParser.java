@@ -7,11 +7,10 @@ import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-
+//@@author A0143107U
 /**
  * Parses Exit commands
  */
-//@@author A0143107U
 public class ExitCommandParser extends CommandParser {
     public static final String COMMAND_WORD = ExitCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = ExitCommand.ALTERNATE_COMMAND_WORD;

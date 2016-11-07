@@ -4,8 +4,8 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.events.BaseEvent;
 import w15c2.tusk.model.Alias;
 
-/** Indicates the AddressBook in the model has changed*/
 //@@author A0143107U
+/** Indicates the AddressBook in the model has changed*/
 public class AliasChangedEvent extends BaseEvent {
 
     public final UniqueItemCollection<Alias> data;

@@ -1,9 +1,9 @@
 package w15c2.tusk.model;
 
-/**
+//@@author A0143107U
+/*
  * A one-word alias for any sentence to be used as a command
  */
-//@@author A0143107U
 public class Alias implements Copiable<Alias> {
 	private String shortcut;
 	private String sentence;

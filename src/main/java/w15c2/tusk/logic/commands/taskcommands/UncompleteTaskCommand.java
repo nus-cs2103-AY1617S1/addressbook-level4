@@ -7,10 +7,10 @@ import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
 
+//@@author A0143107U
 /**
  * Unpins a task identified using it's last displayed index from TaskManager.
  */
-//@@author A0143107U
 public class UncompleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "uncomplete";

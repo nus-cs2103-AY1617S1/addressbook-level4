@@ -7,10 +7,10 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.exceptions.DataConversionException;
 import w15c2.tusk.model.Alias;
 
+//@@author A0143107U
 /**
  * Represents a storage for {@link w15c2.tusk.model.Alias}.
  */
-//@@author A0143107U
 public interface AliasStorage {
 
     /**

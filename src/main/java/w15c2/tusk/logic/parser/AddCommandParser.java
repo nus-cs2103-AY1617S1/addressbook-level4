@@ -8,11 +8,11 @@ import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
+//@@author A0139817U
 /**
  * Parses arguments and create the appropriate add commands that will enable Floating, Deadline
  * and Event tasks to be added.
  */
-//@@author A0139817U
 public class AddCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = AddTaskCommand.ALTERNATE_COMMAND_WORD;

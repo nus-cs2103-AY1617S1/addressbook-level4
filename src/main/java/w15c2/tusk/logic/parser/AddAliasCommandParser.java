@@ -5,10 +5,10 @@ import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/**
+//@@author A0143107U
+/*
  * Parses Alias commands
  */
-//@@author A0143107U
 public class AddAliasCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddAliasCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = AddAliasCommand.ALTERNATE_COMMAND_WORD;

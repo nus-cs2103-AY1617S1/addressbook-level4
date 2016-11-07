@@ -34,6 +34,9 @@ public class PinTaskCommand extends TaskCommand {
 
 
     @Override
+    /**
+     * Sets a task as pinned if it is currently not pinned
+     */
     public CommandResult execute() {
 
 	    ObservableList<Task> lastShownList = model.getCurrentFilteredTasks();

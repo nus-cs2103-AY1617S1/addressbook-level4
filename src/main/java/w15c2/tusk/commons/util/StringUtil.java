@@ -38,10 +38,12 @@ public class StringUtil {
     }
     
     //@@author A0138978E
-    /*
+    /**
      * Returns a string where spaces are added between
      * word-character and character-word boundaries
      * E.g. 31Oct2016 -> 31 Oct 2016
+     * @param s the original string with numbers and words possibly
+     * @return a string with spaces between numbers and words
      */
     public static String addSpacesBetweenNumbersAndWords(String s) {
     	if (s == null) return null;

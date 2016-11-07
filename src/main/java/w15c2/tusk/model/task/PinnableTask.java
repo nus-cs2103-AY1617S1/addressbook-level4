@@ -1,6 +1,9 @@
 package w15c2.tusk.model.task;
 
 //@@author A0138978E
+/*
+ * Tasks that implement this interface can be pinned
+ */
 public interface PinnableTask {
 	
 	/*

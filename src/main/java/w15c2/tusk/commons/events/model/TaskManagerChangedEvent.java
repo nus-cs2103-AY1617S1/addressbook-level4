@@ -4,7 +4,9 @@ import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.events.BaseEvent;
 import w15c2.tusk.model.task.Task;
 
-/** Indicates the AddressBook in the model has changed*/
+/*
+ * Indicates the AddressBook in the model has changed
+ */
 public class TaskManagerChangedEvent extends BaseEvent {
 
     public final UniqueItemCollection<Task> data;

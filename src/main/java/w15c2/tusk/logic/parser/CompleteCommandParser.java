@@ -11,10 +11,10 @@ import w15c2.tusk.logic.commands.taskcommands.CompleteTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/**
+//@@author A0143107U
+/*
  * Parses Complete commands
  */
-//@@author A0143107U
 public class CompleteCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = CompleteTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = CompleteTaskCommand.ALTERNATE_COMMAND_WORD;

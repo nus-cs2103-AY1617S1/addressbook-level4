@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import w15c2.tusk.model.Alias;
 
 //@@author A0138978E
-/*
+/**
  * Provides a handle to a particular alias card
  */
 public class AliasCardHandle extends GuiHandle {
