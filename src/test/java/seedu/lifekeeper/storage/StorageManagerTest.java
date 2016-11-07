@@ -14,7 +14,7 @@ import seedu.lifekeeper.model.UserPrefs;
 import seedu.lifekeeper.storage.JsonUserPrefsStorage;
 import seedu.lifekeeper.storage.Storage;
 import seedu.lifekeeper.storage.StorageManager;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 import seedu.lifekeeper.testutil.EventsCollector;
 import seedu.lifekeeper.testutil.TypicalTestActivities;
 
@@ -85,7 +85,7 @@ public class StorageManagerTest {
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlAddressBookStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlLifekeeperStorage{
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);

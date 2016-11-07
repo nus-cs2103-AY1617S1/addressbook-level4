@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
+public class XmlSerializableLifekeeper implements ReadOnlyLifeKeeper {
 
     @XmlElement
     private List<XmlAdaptedActivity> activities;
@@ -33,12 +33,12 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableLifekeeper() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyLifeKeeper src) {
+    public XmlSerializableLifekeeper(ReadOnlyLifeKeeper src) {
         activities.addAll(src.getActivityList().stream().map(XmlAdaptedActivity::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }

@@ -17,7 +17,7 @@ import seedu.lifekeeper.logic.LogicManager;
 import seedu.lifekeeper.model.*;
 import seedu.lifekeeper.storage.Storage;
 import seedu.lifekeeper.storage.StorageManager;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 import seedu.lifekeeper.ui.Ui;
 import seedu.lifekeeper.ui.UiManager;
 
@@ -145,7 +145,7 @@ public class MainApp extends Application {
         }
         
         //If the lifekeeper storage file as specified in the UserPrefs does not exist, use the default file.
-        if (!XmlAddressBookStorage.checkIfDataFileExists(initializedPrefs.getDataFilePath())) {
+        if (!XmlLifekeeperStorage.checkIfDataFileExists(initializedPrefs.getDataFilePath())) {
             initializedPrefs.setDataFilePath(Config.getDefaultSaveFile());
         }
 

@@ -4,7 +4,7 @@ import java.io.File;
 import seedu.lifekeeper.commons.core.EventsCenter;
 import seedu.lifekeeper.commons.events.ui.SaveFileChooserEvent;
 import seedu.lifekeeper.commons.util.FileUtil;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 
 //@@author A0125680H
 /**
@@ -38,10 +38,10 @@ public class SaveCommand extends Command {
             }
             
             EventsCenter.getInstance().post(new SaveFileChooserEvent(filePath));
-            return new CommandResult(String.format(SAVE_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
+            return new CommandResult(String.format(SAVE_MESSAGE, XmlLifekeeperStorage.getFilePathForSaveCommand()));
         } else {
             EventsCenter.getInstance().post(new SaveFileChooserEvent(""));
-            return new CommandResult(String.format(SAVE_MESSAGE, XmlAddressBookStorage.getFilePathForSaveCommand()));
+            return new CommandResult(String.format(SAVE_MESSAGE, XmlLifekeeperStorage.getFilePathForSaveCommand()));
         }
     }
 }

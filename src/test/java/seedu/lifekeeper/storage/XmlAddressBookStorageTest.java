@@ -11,7 +11,7 @@ import seedu.lifekeeper.commons.util.FileUtil;
 import seedu.lifekeeper.model.LifeKeeper;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
 import seedu.lifekeeper.model.activity.Activity;
-import seedu.lifekeeper.storage.XmlAddressBookStorage;
+import seedu.lifekeeper.storage.XmlLifekeeperStorage;
 import seedu.lifekeeper.testutil.TypicalTestActivities;
 
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyLifeKeeper> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlLifekeeperStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -65,7 +65,7 @@ public class XmlAddressBookStorageTest {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestActivities td = new TypicalTestActivities();
         LifeKeeper original = td.getTypicalAddressBook();
-        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
+        XmlLifekeeperStorage xmlAddressBookStorage = new XmlLifekeeperStorage(filePath);
 
         //Save in new file and read back
         xmlAddressBookStorage.saveAddressBook(original, filePath);
@@ -94,7 +94,7 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyLifeKeeper lifeKeeper, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(lifeKeeper, addToTestDataPathIfNotNull(filePath));
+        new XmlLifekeeperStorage(filePath).saveAddressBook(lifeKeeper, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

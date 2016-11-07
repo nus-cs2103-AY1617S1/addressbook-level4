@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.lifekeeper.model.LifeKeeper}.
  */
-public interface AddressBookStorage {
+public interface LifekeeperStorage {
 
     /**
      * Returns the file path of the data file.

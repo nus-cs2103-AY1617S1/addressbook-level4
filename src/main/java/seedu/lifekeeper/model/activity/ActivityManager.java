@@ -154,6 +154,7 @@ public class ActivityManager {
         }
     }
 
+ // @@author A0125097A
     /**
      * Marks the specified task to the specified completion status.
      * @param task the task to be marked.
@@ -163,6 +164,7 @@ public class ActivityManager {
         task.setCompletionStatus(isComplete);
     }
 
+ // @@author A0125680H
     private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
         if (newParams.getName().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
             return new Name(oldTask.getName().toString());
