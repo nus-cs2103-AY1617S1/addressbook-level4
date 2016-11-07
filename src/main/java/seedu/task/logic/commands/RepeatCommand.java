@@ -16,10 +16,12 @@ public class RepeatCommand extends Command {
             + ": Repeat the task identified by the index number used in the last task listing with given interval.\n"
             + "Parameters: INDEX TASKNAME, INTERVAL\n" + "Example: " + COMMAND_WORD + " 4 weekly";
 
-    public static final String MESSAGE_REPEAT_TASK_SUCCESS = "Task %1$s repeating: %2$s";
+    public static final String MESSAGE_REPEAT_TASK_SUCCESS = "Task '%1$s' repeating: %2$s";
 
     public static final String MESSAGE_INVALID_INTERVAL = "Invalid interval provided: %1$s\n"
             + "Allowed intervals: daily, weekly, fortnightly, monthly, yearly\n" + "or d, w, f, m, y respectively.";
+
+    public static final String MESSAGE_INVALID_FOR_FLOATING_TASK = "ERROR: Tasks without a time are not allowed to repeat.";
 
     public final int targetIndex;
 
@@ -45,8 +47,8 @@ public class RepeatCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
+
         // Parses the interval input
-        ReadOnlyTask selectedTask = lastShownList.get(targetIndex - 1);
         if (this.interval.equals("daily") || this.interval.equals("d")) {
             this.interval = "daily";
         } else if (this.interval.equals("weekly") || this.interval.equals("w")) {
@@ -59,11 +61,18 @@ public class RepeatCommand extends Command {
             this.interval = "yearly";
         } else if (this.interval.equals("stop") || this.interval.equals("end")) {
             this.interval = "false";
-        } else {
+        } else if (!this.interval.equals("")) {
             // Interval input is not accepted as it is invalid
             return new CommandResult(String.format(MESSAGE_INVALID_INTERVAL, interval));
         }
         // Set the interval of the task to the input
+        ReadOnlyTask selectedTask = lastShownList.get(targetIndex - 1);
+
+        // Fail if task is floating task
+        if (selectedTask.getStartTime().value.equals("") && selectedTask.getEndTime().value.equals("")
+                && selectedTask.getDeadline().value.equals("")) {
+            return new CommandResult(MESSAGE_INVALID_FOR_FLOATING_TASK);
+        }
         selectedTask.getRecurring().setRecurring(interval);
         return new CommandResult(String.format(MESSAGE_REPEAT_TASK_SUCCESS, selectedTask.getName(), interval));
     }

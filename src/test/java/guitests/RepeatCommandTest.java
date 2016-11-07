@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.task.commons.core.Messages;
+import seedu.task.logic.commands.RepeatCommand;
 import seedu.task.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
@@ -92,6 +93,17 @@ public class RepeatCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("repeat 1 weekly");
         commandBox.runCommand("done 1");
         assertTrue(taskListPanel.getTask(0).getStartTime().compareTo(taskListPanel.getTask(1).getStartTime()) < 0);
+    }
+
+    /**
+     * Check if parser correctly rejects repeat command on floating tasks.
+     */
+    @Test
+    public void rejectRepeatOnFloatingTask() {
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add floating task");
+        commandBox.runCommand("repeat 1");
+        assertResultMessage(RepeatCommand.MESSAGE_INVALID_FOR_FLOATING_TASK);
     }
 
     /**

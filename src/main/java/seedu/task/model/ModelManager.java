@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public void repeatRecurringTask(Task recurringTask) {
-        if (!recurringTask.getRecurring().toString().equals("false")) {
+        if (!"false".equals(recurringTask.getRecurring().toString())) {
             String newStartTime = recurringTask.getStartTime().toString();
             String newEndTime = recurringTask.getEndTime().toString();
             String newDeadline = recurringTask.getDeadline().toString();
