@@ -30,6 +30,7 @@
 
 ## HappyJimTaskMaster's GUI
  <img src="images/Ui.PNG" width="700">
+ 
 1. Command box. This is where the commands are entered. Simply type in the command and press enter to execute it.
 2. Result display. This is where the results of commands are shown.
 3. Agenda. This where the agenda of this week is shown.
@@ -37,7 +38,7 @@
 5. Navigation bar panel. This is where the navigation categories are displayed.
 <!--@@author-->
 
-### Color Secheme
+### Color Scheme
 1. Yellow for floating tasks.
 2. Blue for normal non-floating tasks.
 3. Brown for blocked time slots.
