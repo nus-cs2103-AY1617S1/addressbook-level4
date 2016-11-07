@@ -24,7 +24,7 @@ public class AddTaskCommand extends Command {
     public static final String ALTERNATE_COMMAND_WORD = null;
     public static final String COMMAND_DESCRIPTION = "Add a Task\nAdd a Deadline\nAdd an Event";
     public static final String COMMAND_FORMAT = "add <description> \n" +
-            "add <description> by <date> \n" +
+            "add <description> by / on / at <date> \n" +
             "add <description> from <startDate> to <endDate>";
     
     

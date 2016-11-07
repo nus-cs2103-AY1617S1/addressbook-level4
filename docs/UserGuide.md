@@ -34,7 +34,7 @@ Get started with <i>Tusk</i> now!
 2. Copy the file to the folder you want to use as the home folder for Tusk.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
- > <img src="images/UiMockup.png" width="600"><br>
+ > <img src="images/UI.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -135,7 +135,7 @@ Examples:
 * `list`
 * `update 1 task overseas from oct 31 to nov 1` <br>
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
-  <br> <br>
+  <br>
 
 ##### Update Description
 Format (description): `update INDEX desc UPDATED_VALUE` <br>
@@ -146,7 +146,7 @@ Examples:
 * `list`
 * `update 2 desc project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
-  <br><br>
+  <br>
 
 ##### Update Date
 Format (date): `update INDEX date UPDATED_VALUE` <br>
