@@ -6,6 +6,8 @@ import seedu.address.model.task.TaskDate;
 
 //@@author A0135782Y
 public class TaskDateStub extends TaskDate {
+    private static final int DUMMY_TIME = 0;
+
     public String getFormattedDate() {
         return "";
     }
@@ -26,7 +28,7 @@ public class TaskDateStub extends TaskDate {
      */
     @Override
     public Date getDate() {
-        return new Date(0);
+        return new Date(DUMMY_TIME);
     }
     
     @Override

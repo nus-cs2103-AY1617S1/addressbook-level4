@@ -12,7 +12,6 @@ import org.junit.Test;
 import seedu.address.logic.util.RecurringTaskUtil;
 import seedu.address.model.task.RecurringType;
 
-//@@author A0135782Y
 public class RecurringTaskUtilTest {
     private static final String CURRENT_DATE = "2016-10-13";
     RecurringTaskUtilHelper helper;
@@ -66,7 +65,13 @@ public class RecurringTaskUtilTest {
         assertEquals(numElapsed, 1);
     }
 
+    /**
+     * A utility class to generate test data.
+     */
     class RecurringTaskUtilHelper {
+        /**
+         * Gets the LocalDate by string
+         */
         public LocalDate getLocalDateByString(String dateToConsider) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             formatter = formatter.withLocale(Locale.getDefault());  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH

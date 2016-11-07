@@ -19,7 +19,7 @@ public class TaskStub extends Task {
         super(name, tags);
     }
     public TaskStub() throws IllegalValueException {
-        name = new NameStub("dummy");
+        name = new NameStub();
         new ArrayList<TaskOccurrenceStub>();
     }
     @Override
@@ -62,7 +62,8 @@ public class TaskStub extends Task {
     public void completeTaskWhenAllOccurrencesArchived() {
     }
     @Override
-    public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType, int index) {
+    public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, 
+                           RecurringType recurringType, int index) {
     }
     
     @Override
