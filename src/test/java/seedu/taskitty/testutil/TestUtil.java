@@ -385,7 +385,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask person) {
         return card.isSameTask(person);
     }
 
