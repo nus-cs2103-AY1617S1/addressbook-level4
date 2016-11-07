@@ -16,7 +16,11 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class FavoriteCommand extends Command {
 
-    public static final String COMMAND_WORD = "fav";
+    // @@author A0147944U
+    public static final String COMMAND_WORD = "favorite";
+    public static final String COMMAND_WORD_ALT_1 = "favourite";
+    public static final String COMMAND_WORD_ALT_2 = "fav";
+    // @@author A0147335E
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Favorite the task identified by the index number used in the last task listing.\n"

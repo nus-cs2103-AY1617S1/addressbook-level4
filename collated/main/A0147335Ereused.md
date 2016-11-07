@@ -6,7 +6,7 @@
         assert model != null;
         try {
             model.addTask(toAdd);
-            
+
 ```
 ###### \java\seedu\task\logic\commands\AddCommand.java
 ``` java
@@ -23,7 +23,7 @@
     private ArrayList<RollBackCommand> getUndoList() {
         return history.getUndoList();
     }
-    
+
     // insert a task at a specific index
     public CommandResult execute(int index) {
         assert model != null;
@@ -35,8 +35,6 @@
         }
 
     }
-
-}
 ```
 ###### \java\seedu\task\logic\commands\ClearCommand.java
 ``` java
@@ -54,14 +52,10 @@
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
-```
-###### \java\seedu\task\logic\commands\ClearCommand.java
-``` java
+	
 	private ArrayList<RollBackCommand> getUndoList() {
 		return history.getUndoList();
 	}
-
-}
 ```
 ###### \java\seedu\task\logic\commands\Command.java
 ``` java
@@ -155,7 +149,7 @@ public abstract class Command {
         
         logger.info("SUCCESS");
 
-        if (!isUndo(commandText)) {
+        if (!isUndo(commandText) || commandText.startsWith("undone")) {
             getPreviousCommandList().add(commandText);
             return command.execute(false);
         } else {
