@@ -154,47 +154,26 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     @Test
     public void undoAndRedoCommand_editTask_reverseEditForUndoReeditforRedo() {
         TestTask aliceEdit = new TestTask(td.alice);
-        TestTask aliceTaskBackup = new TestTask(td.alice);
         
-        aliceEdit.setName(new Name("Meet Alice at jUnit mall"));
-        try {
-            aliceEdit.setStartDate(DateTime.convertStringToDate("2pm"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceEdit.setEndDate(DateTime.convertStringToDate("3pm"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceEdit.setRecurrence(new RecurrenceRate("3", "days"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        aliceEdit.setPriority(Priority.HIGH);
+        editTaskHelper(aliceEdit);
         
-        originalUndoneList[0] = aliceEdit;
+        TestTask[] newUndoneList = getNewUndoneListAfterEditFirstTask(aliceEdit);
                 
         commandBox.runCommand("edit 1 Meet Alice at jUnit mall from 2pm to 3pm repeat every 3 days -high");
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        assertTrue(personListPanel.isListMatching(newUndoneList));
         
-        originalUndoneList[0] = aliceTaskBackup;
         assertUndoSuccess(originalUndoneList);
-        originalUndoneList[0] = aliceEdit;
-        assertRedoSuccess(originalUndoneList);
+        assertRedoSuccess(newUndoneList);
         
         // check if this works on the list done view
         commandBox.runCommand("list done");
         assertUndoSuccess(originalDoneList);
-        originalUndoneList[0] = aliceTaskBackup;
         commandBox.runCommand("list");
         assertTrue(personListPanel.isListMatching(originalUndoneList));
         commandBox.runCommand("list done");
         assertRedoSuccess(originalDoneList);
         commandBox.runCommand("list");
-        originalUndoneList[0] = aliceEdit;
-        assertTrue(personListPanel.isListMatching(originalUndoneList));
+        assertTrue(personListPanel.isListMatching(newUndoneList));
         
     }
     
@@ -203,44 +182,18 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         //Setup for done
         TestTask aliceEdit = new TestTask(td.alice);
 
-        aliceEdit.setName(new Name("Meet Alice at jUnit mall"));
-        try {
-            aliceEdit.setStartDate(DateTime.convertStringToDate("today 2pm"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceEdit.setEndDate(DateTime.convertStringToDate("tomorrow 3pm"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        try {
-            aliceEdit.setRecurrence(new RecurrenceRate("3", "days"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        aliceEdit.setPriority(Priority.HIGH);
+        editTaskHelper(aliceEdit);
         
         TestTask aliceRecur = new TestTask(aliceEdit);
         
-        try {
-            aliceRecur.setStartDate(DateTime.convertStringToDate("2pm 3 days later"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        
-        try {
-            aliceRecur.setEndDate(DateTime.convertStringToDate("3pm 4 days later"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
+        editWithRecurHelper(aliceRecur);
         
         commandBox.runCommand("list done");
         commandBox.runCommand("delete 1");
         commandBox.runCommand("list");
         
         originalUndoneList[0] = aliceEdit;
-        commandBox.runCommand("edit 1 Meet Alice at jUnit mall from today 2pm to tomorrow 3pm repeat every 3 days -high");
+        commandBox.runCommand("edit 1 Meet Alice at jUnit mall from today 2pm to 3pm repeat every 3 days -high");
         assertTrue(personListPanel.isListMatching(originalUndoneList));
 
         // Real done test
@@ -270,6 +223,7 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(originalUndoneList));
 
     }
+ 
     
     @Test
     public void undoAndRedoCommand_undoableCommandAfterUndo_resetUndo() {
@@ -284,7 +238,54 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     }
     
     /**
+     * Helper method to generate the new undone list after edit (assuming first task was edited)
+     * @param editedTask The task that was edited
+     * @return The new undone list
+     */
+    private TestTask[] getNewUndoneListAfterEditFirstTask(TestTask editedTask) {
+        TestTask[] newUndoneList = Arrays.copyOf(originalUndoneList, originalUndoneList.length); 
+        newUndoneList[0] = editedTask;
+        return newUndoneList;
+    }
+    
+    /**
+     * Helper method to edit a test task to the desired edit.
+     * 
+     * @param aliceEdit The task to edit
+     */
+    private void editTaskHelper(TestTask aliceEdit) {
+        try {
+            aliceEdit.setName(new Name("Meet Alice at jUnit mall"));
+            aliceEdit.setStartDate(DateTime.convertStringToDate("2pm"));
+            aliceEdit.setEndDate(DateTime.convertStringToDate("3pm"));
+            aliceEdit.setRecurrence(new RecurrenceRate("3", "days"));
+            aliceEdit.setPriority(Priority.HIGH);
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+    }
+    
+    /**
+     * Helper method to edit a test task to the desired edit, with a recurrence rate.
+     * @param aliceRecur The task to edit
+     */
+    private void editWithRecurHelper(TestTask aliceRecur) {
+        try {
+            aliceRecur.setStartDate(DateTime.convertStringToDate("2pm 3 days later"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+        
+        try {
+            aliceRecur.setEndDate(DateTime.convertStringToDate("3pm 3 days later"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+    }
+    
+    /**
      * Runs the undo command to undo the previous undoable command and confirms the result is correct.
+     * 
      * @param expectedList A copy of the expected list after the undo command executes successfully.
      */
     private void assertUndoSuccess(TestTask... expectedList) {
@@ -294,6 +295,7 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     
     /**
      * Runs the redo command to redo the previous undone command and confirms the result is correct.
+     * 
      * @param expectedList A copy of the expected list after the redo command executes successfully.
      */
     private void assertRedoSuccess(TestTask... expectedList) {
@@ -301,9 +303,11 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(expectedList));
     }
     
+    //@@author
     /**
      * Runs the add command to add the specified task and confirms the result is correct.
-     * @param taskToAdd the task to be added
+     * 
+     * @param taskToAdd The task to be added
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
@@ -320,6 +324,7 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
+     * 
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the 
      *        target index.
      * @param currentList A copy of the current list of tasks (before deletion).
