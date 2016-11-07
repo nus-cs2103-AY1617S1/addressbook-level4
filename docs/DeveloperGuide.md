@@ -530,6 +530,7 @@ The SD for clear past events is similiar to clear completed tasks.
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearTasksEvents.png" width="700"><br>
+The detailed SD is not unlike SD clear task.
 
   
 <!-- Clearing an empty list of tasks or events does not change `Dowat` behavior --> 
@@ -546,6 +547,7 @@ The Use case can be elaborated by the SD as below in addition to the SD mentione
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearAllEvents.png" width="700"><br>
+The detailed SD is not unlike SD clear task.
 
 The SD for clear all tasks is similiar to clear all events.
   
@@ -563,6 +565,7 @@ The SD for clear all tasks is similiar to clear all events.
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDClearAll.png" width="700"><br>
+The detailed SD is not unlike SD clear task.
 
 The SD for clear all tasks is similiar to clear all events.
   
