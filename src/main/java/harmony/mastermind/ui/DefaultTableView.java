@@ -27,8 +27,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-//@@author A0138862W
-@DefaultProperty("defaultTableView")
 public class DefaultTableView extends UiPart {
 
     private static final double WIDTH_MULTIPLIER_INDEX = 0.049;
@@ -74,7 +72,6 @@ public class DefaultTableView extends UiPart {
         return ui;
     }
     
-    // @@author A0124797R
     /**
      * Initialize the displaying of tabs
      */
@@ -123,7 +120,6 @@ public class DefaultTableView extends UiPart {
     /**
      * Initializes the indexing of tasks
      */
-    // @@author A0138862W
     protected void initIndex() {
         indexColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
@@ -148,7 +144,6 @@ public class DefaultTableView extends UiPart {
     /**
      * Initialize the Names of the tasks
      */
-    // @@author A0138862W
     protected void initName() {
         nameColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -212,7 +207,6 @@ public class DefaultTableView extends UiPart {
     /**
      * Initialize the start dates of the tasks
      */
-    // @@author A0138862W
     protected void initStartDate() {
         startDateColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
         startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -255,7 +249,6 @@ public class DefaultTableView extends UiPart {
     /**
      * Initialize the end dates of the tasks
      */
-    // @@author A0138862W
     protected void initEndDate() {
         endDateColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
         endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -298,7 +291,6 @@ public class DefaultTableView extends UiPart {
     /**
      * Initialize the tags of the tasks
      */
-    // @@author A0138862W
     protected void initTags() {
         tagsColumn.prefWidthProperty().bind(defaultTableView.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
@@ -329,7 +321,6 @@ public class DefaultTableView extends UiPart {
 
     }
 
-    // @@author A0124797R
     /**
      * Initialize a checkbox to determine whether task is recurring
      */
@@ -363,7 +354,6 @@ public class DefaultTableView extends UiPart {
      * normal(blue)
      * 
      */
-    // @@author A0138862W
     private Text generateStyledText(ReadOnlyTask readOnlyTask, String text) {
         Text taskName = new Text(text);
 
