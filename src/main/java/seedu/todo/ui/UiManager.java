@@ -101,21 +101,22 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTodoListView().toggleExpandCollapsed(event.task);
     }
 
-    //@@author A0139021U
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().displayCommandSummaries(event.getCommandSummaries());
     }
 
-    //@@author A0135805H
+    //@@author A0139021U
     @Subscribe
     private void handleShowPreviewEvent(ShowPreviewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().hideHelpPanel();
         mainWindow.getCommandPreviewView().displayCommandSummaries(event.getPreviewInfo());
+        mainWindow.getCommandFeedbackView().clearMessage();
     }
 
+    //@@author A0135805H
     @Subscribe
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -130,6 +131,13 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTodoListView().scrollAndSelect(event.getTask());
     }
 
+    //@@author A0092382A
+    @Subscribe
+    private void handleShowTagsEvent(ShowTagsEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getGlobalTagView().displayGlobalTags(event.getListOfTags());
+    }
+
     //@@author reused
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
@@ -137,11 +145,4 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(AlertType.ERROR, "File Operation Error", 
             "There was a problem when saving/loading your data", event.message);
     }
-    
-    @Subscribe
-    private void handleShowTagsEvent(ShowTagsEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getGlobalTagView().displayGlobalTags(event.getListOfTags());;
-    }
-
 }

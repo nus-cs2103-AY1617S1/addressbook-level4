@@ -13,7 +13,7 @@ import java.util.List;
  * Shows the help panel
  */
 public class HelpCommand extends BaseCommand {
-    private final static String HELP_MESSAGE = "Showing help...";
+    private final static String HELP_MESSAGE = "Start typing in the command to dismiss.";
 
     @Override
     public CommandResult execute() throws ValidationException {

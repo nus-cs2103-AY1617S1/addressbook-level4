@@ -26,7 +26,6 @@ public class GlobalTagView extends UiPart {
 
     /* Constants */
     private static final String FXML = "GlobalTagView.fxml";
-    private static final int PREF_WIDTH = 340;
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(GlobalTagView.class);
@@ -53,8 +52,7 @@ public class GlobalTagView extends UiPart {
      * Configure the UI layout of {@link GlobalTagView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(globalTagViewPanel, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(tagFlowPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(globalTagViewPanel, 0.0, 0.0, 0.0);
     }
 
     private void appendTag(Tag tag) {
