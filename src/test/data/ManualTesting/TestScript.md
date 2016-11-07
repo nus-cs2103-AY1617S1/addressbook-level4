@@ -9,6 +9,7 @@
 ## Script
 ### 1. Add Command
 * Add a floating task: `add buy coffee`
+> adds floating task with name: buy coffee, priority set as default (1) and all other fields: nil.
 * Add an event task: `add nus hackathon s/saturday d/sunday`
 * Add a deadline task: `add CS2103 tutorial d/tomorrow`
 * Add a full task: `add write letter a/NUS s/today d/tomorrow p/5 t/formal`
