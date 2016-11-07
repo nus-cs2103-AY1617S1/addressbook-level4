@@ -9,6 +9,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    private final String currentFilePath;
 
     // Config values customizable through config file
     private String appTitle = "MESS";
@@ -16,9 +17,13 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFilePath = "data/taskmanager.xml";
     private String taskManagerName = "MESS";
-
-
+    
     public Config() {
+        currentFilePath = Config.DEFAULT_CONFIG_FILE;
+    }
+    
+    public Config(String filePath) {
+        currentFilePath = filePath;
     }
 
     public String getAppTitle() {
@@ -60,7 +65,7 @@ public class Config {
     public void setTaskManagerName(String taskManagerName) {
         this.taskManagerName = taskManagerName;
     }
-
+    
 
     @Override
     public boolean equals(Object other) {
@@ -94,6 +99,10 @@ public class Config {
         sb.append("\nLocal data file location : " + taskManagerFilePath);
         sb.append("\ntaskManager name : " + taskManagerName);
         return sb.toString();
+    }
+    
+    public String getFilePath() {
+        return currentFilePath;
     }
 
 }

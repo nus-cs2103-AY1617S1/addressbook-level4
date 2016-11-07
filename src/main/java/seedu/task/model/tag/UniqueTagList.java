@@ -21,6 +21,9 @@ public class UniqueTagList implements Iterable<Tag> {
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicateTagException extends DuplicateDataException {
+
+        private static final long serialVersionUID = 1L;
+
         protected DuplicateTagException() {
             super("Operation would result in duplicate tags");
         }
@@ -29,7 +32,9 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Signals that an operation tried to operate on a tag that does not exist
      */
-    public static class TagNotFoundException extends Exception { }
+    public static class TagNotFoundException extends Exception {
+
+        private static final long serialVersionUID = 1L; }
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 

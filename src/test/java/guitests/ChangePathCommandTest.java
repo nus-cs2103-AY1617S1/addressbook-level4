@@ -33,8 +33,14 @@ public class ChangePathCommandTest extends TaskManagerGuiTest {
         
         //Try with empty String
         String emptyPath = TestUtil.getFilePathInSandboxFolder("");
-        commandBox.runCommand("change-to "+emptyPath);
+        commandBox.runCommand("change-to " + emptyPath);
         assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_FAIL, emptyPath));
+        
+        //Test successful
+        String newFilePath = TestUtil.getFilePathInSandboxFolder("newFile.xml");
+        commandBox.runCommand("change-to " + newFilePath);
+        assertResultMessage(String.format(ChangePathCommand.MESSAGE_PATH_CHANGE_SUCCESS, newFilePath));
+        
 
     }
 }
