@@ -14,7 +14,7 @@ import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class TypicalTestTasks {
 
-    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8, task9, task10;
+    public static TestTask task1, task2, task3, task4, task5, task6, task7, task8, task9, task10, task11, task12;
 
     public TypicalTestTasks() {
         
@@ -44,6 +44,14 @@ public class TypicalTestTasks {
                     .withEndDate("23 Oct 6pm").withRecur("weekly").build();
             task10 = new TaskBuilder().withName("pick up grocery")
                     .withEndDate("30 Oct 6pm").withRecur("weekly").build();
+            
+            //deadlines within a week
+            task11 = new TaskBuilder().withName("dinner with parents")
+                    .withEndDate("tomorrow").build();
+            
+            //events within a week
+            task12 = new TaskBuilder().withName("feed my pet hamster")
+                    .withStartDate("tomorrow 5pm").withEndDate("tomorrow 6pm").build();
             
         } catch (IllegalValueException e) {
             assert false : "should not reach here";
