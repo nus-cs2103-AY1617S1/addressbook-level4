@@ -77,7 +77,7 @@ The order of traversal is descending down the list before it loops back to the b
 The window in which the user is currently on is shown by a brown border highlight. 
 An example of window traversal is shown in the figure below.
 
-	<img src="images/WindowTraversal.gif" width="700">
+<img src="images/WindowTraversal.gif" width="700">
 
 #### Command Box Features
 When the Command Box is selected, it has 2 main features:
