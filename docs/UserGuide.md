@@ -67,8 +67,7 @@ Command | Format
 [Undo](#undo) | `undo`
 [Redo](#redo) | `redo`
 [Find](#find) | `find "KEYWORD [MORE_KEYWORDS]..."`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]..." from DATE_TIME`
-&nbsp;| `find "KEYWORD [MORE_KEYWORDS]..." from DATE_TIME to DATE_TIME`
+&nbsp;| `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 [SaveAs](#saveas) | `saveas NEW_DIRECTORY`
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
@@ -354,7 +353,7 @@ Examples:
 <!-- @@author A0138915X -->
 #### <a id="find"></a>Finding all tasks according to the dates you specify: `find`
 Finds and lists all tasks and events in Jimi whose dates matches the requirements specified.<br>
-Format: `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME to DATE_TIME` or `find ["KEYWORD [MORE_KEYWORDS]"] from DATE_TIME`
+Format: `find ["KEYWORD [MORE_KEYWORDS]..."] on|from DATE_TIME [to DATE_TIME]`
 
 > * You can also input just a single date to search for tasks and events relevant to that day.
 > * You can search the tasks and events by dates along with keywords as well.
