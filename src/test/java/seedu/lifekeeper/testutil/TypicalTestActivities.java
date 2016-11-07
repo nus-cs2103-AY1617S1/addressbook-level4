@@ -35,7 +35,7 @@ public class TypicalTestActivities {
 
             
             //To test activities and events with recurring parameters.
-            findLisa = new ActivityBuilder().withName("find Lisa").withReminder("every thu 1300").withTags("bringgift").build();
+            findLisa = new ActivityBuilder().withName("find Lisa").withReminder("every sun 1300").withTags("bringgift").build();
             findMoney = new EventBuilder().withName("find Money").withStartTime("every fri 1400").withEndTime("every fri 1500").withReminder("Sat, Dec 30, 2017 11:59 PM").withTags("dinner").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
