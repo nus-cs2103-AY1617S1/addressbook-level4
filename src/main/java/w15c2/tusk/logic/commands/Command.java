@@ -1,17 +1,16 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.IncorrectTaskCommandAttemptedEvent;
-import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.Model;
 
 //@@author A0138978E
 /**
  * Represents a Task command with hidden internal logic and the ability to be executed.
  */
-public abstract class TaskCommand {
+public abstract class Command {
 	protected Model model;
 	
     /**

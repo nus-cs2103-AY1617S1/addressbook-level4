@@ -2,13 +2,14 @@ package w15c2.tusk.logic.commands.taskcommands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 
 //@@author A0139817U
 /**
  * Deletes all the tasks in the Model that are currently listed.
  */
-public class ClearTaskCommand extends TaskCommand {
+public class ClearTaskCommand extends Command {
 
         public static final String COMMAND_WORD = "clear";
         public static final String ALTERNATE_COMMAND_WORD = null;

@@ -11,7 +11,7 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_IN
 import org.junit.Test;
 
 import w15c2.tusk.commons.util.DateUtil;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
 import w15c2.tusk.logic.parser.UpdateCommandParser;
 
@@ -36,11 +36,11 @@ public class UpdateCommandParserTest {
 		 */
 		String expectedTask = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTaskCommand.MESSAGE_USAGE);
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("1taskworkshop");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("1taskworkshop");
 		String actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("1task workshop");
+		command = (IncorrectCommand) parser.prepareCommand("1task workshop");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 	}
@@ -52,11 +52,11 @@ public class UpdateCommandParserTest {
 		 */
 		String expectedTask = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("-1 task workshop");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("-1 task workshop");
 		String actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("a task workshop");
+		command = (IncorrectCommand) parser.prepareCommand("a task workshop");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 	}
@@ -68,19 +68,19 @@ public class UpdateCommandParserTest {
 		 */
 		String expectedTask = UpdateCommandParser.MESSAGE_INVALID_UPDATE_TYPE;
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("2 tasks workshop");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("2 tasks workshop");
 		String actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 descriptio workshop");
+		command = (IncorrectCommand) parser.prepareCommand("3 descriptio workshop");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 dat oct 1 to oct 2");
+		command = (IncorrectCommand) parser.prepareCommand("3 dat oct 1 to oct 2");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 random oct 1 to oct 2");
+		command = (IncorrectCommand) parser.prepareCommand("3 random oct 1 to oct 2");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 	}
@@ -92,24 +92,24 @@ public class UpdateCommandParserTest {
 		 */
 		String expectedTask = MESSAGE_INVALID_DATE_FORMAT;
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("2 date octo 1");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("2 date octo 1");
 		String actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 date oct 1 t oct 2");
+		command = (IncorrectCommand) parser.prepareCommand("3 date oct 1 t oct 2");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 date oct 1 to oct 32");
+		command = (IncorrectCommand) parser.prepareCommand("3 date oct 1 to oct 32");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 date some words");
+		command = (IncorrectCommand) parser.prepareCommand("3 date some words");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 		
 		// End date should not be earlier than start date
-		command = (IncorrectTaskCommand) parser.prepareCommand("3 date today 1pm to 1am");
+		command = (IncorrectCommand) parser.prepareCommand("3 date today 1pm to 1am");
 		actualTask = command.feedbackToUser;
 		assertEquals(actualTask, expectedTask);
 	}

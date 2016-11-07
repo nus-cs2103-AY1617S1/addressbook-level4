@@ -1,12 +1,10 @@
 package w15c2.tusk.logic.commands;
 
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
-
 //@@author A0139817U
 /**
  * Undoes the latest change to tasks or aliases of the Model.
  */
-public class UndoCommand extends TaskCommand {
+public class UndoCommand extends Command {
     
     public static final String COMMAND_WORD = "undo";
     public static final String ALTERNATE_COMMAND_WORD = null;

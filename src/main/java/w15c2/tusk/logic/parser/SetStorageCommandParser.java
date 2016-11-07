@@ -1,7 +1,7 @@
 package w15c2.tusk.logic.parser;
 
-import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.SetStorageCommand;
 
 //@@author A0138978E
 /*
@@ -12,7 +12,7 @@ public class SetStorageCommandParser extends CommandParser{
     public static final String ALTERNATE_COMMAND_WORD = SetStorageCommand.ALTERNATE_COMMAND_WORD;
 
     @Override
-    public TaskCommand prepareCommand(String arguments) {
+    public Command prepareCommand(String arguments) {
         return new SetStorageCommand(arguments);
     }
 

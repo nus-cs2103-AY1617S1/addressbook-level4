@@ -21,7 +21,7 @@ import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent;
 import w15c2.tusk.commons.events.ui.FilterLabelChangeEvent.COMMANDTYPE;
 import w15c2.tusk.commons.util.StringUtil;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommandList;
+import w15c2.tusk.logic.commands.CommandList;
 import w15c2.tusk.model.Alias;
 import w15c2.tusk.model.HelpGuide;
 import w15c2.tusk.model.ModelHistory;
@@ -206,11 +206,13 @@ public class ModelManager extends ComponentManager implements Model {
 	    indicateAliasChanged();
 	}
 	
-	/**
-	 * Undoes the previous command that has to do with tasks or aliases
-	 * (Can only be called if the previous successful command was a successful task/alias command)
-	 */
 	//@@author A0139817U
+	/**
+	 * Undoes the previous command that has to do with tasks or aliases.
+	 * (Can only be called if the previous successful command was a successful task/alias command)
+	 * 
+	 * @throws IllegalStateException	If undo is not allowed.
+	 */
 	@Override
 	public void undo() throws IllegalStateException {
 		// Undoing task type command
@@ -251,11 +253,13 @@ public class ModelManager extends ComponentManager implements Model {
 		indicateAliasChanged();
 	}
 	
-	/**
-	 * Redoes the command that has been undone
-	 * (Can only be called if the previous successful command was a successful undo command)
-	 */
 	//@@author A0139817U
+	/**
+	 * Redoes the command that has been undone.
+	 * (Can only be called if the previous successful command was a successful undo command)
+	 * 
+	 * @throws IllegalStateException	If redo is not allowed.
+	 */
 	@Override
 	public void redo() throws IllegalStateException {
 		// Redoing task type command
@@ -295,10 +299,11 @@ public class ModelManager extends ComponentManager implements Model {
 		indicateNewTaskListEvent();
 		indicateAliasChanged();
 	}
+
 	//@@author A0139708W
     @Override
     public ObservableList<HelpGuide> getHelpList() {
-        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList(TaskCommandList.getHelpList());
+        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList(CommandList.getHelpList());
         return helpItems;
     }
     

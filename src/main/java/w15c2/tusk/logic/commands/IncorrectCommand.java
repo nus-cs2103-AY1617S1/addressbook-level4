@@ -1,15 +1,13 @@
-package w15c2.tusk.logic.commands.taskcommands;
-
-import w15c2.tusk.logic.commands.CommandResult;
+package w15c2.tusk.logic.commands;
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
-public class IncorrectTaskCommand extends TaskCommand {
+public class IncorrectCommand extends Command {
 
 	 public final String feedbackToUser;
 
-	    public IncorrectTaskCommand(String feedbackToUser){
+	    public IncorrectCommand(String feedbackToUser){
 	        this.feedbackToUser = feedbackToUser;
 	    }
 

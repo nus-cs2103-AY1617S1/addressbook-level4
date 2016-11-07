@@ -11,6 +11,7 @@ import w15c2.tusk.commons.core.Messages;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.DateUtil;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.Description;
@@ -22,7 +23,7 @@ import w15c2.tusk.model.task.Task;
 /**
  * Updates a task identified using it's last displayed index from Task Manager.
  */
-public class UpdateTaskCommand extends TaskCommand {
+public class UpdateTaskCommand extends Command {
 
 	public static final String COMMAND_WORD = "update";
     public static final String ALTERNATE_COMMAND_WORD = "edit";

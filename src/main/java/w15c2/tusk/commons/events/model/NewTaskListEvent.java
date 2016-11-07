@@ -14,6 +14,12 @@ public class NewTaskListEvent extends BaseEvent {
 	public final UniqueItemCollection<Task> newTasks;
     public final FilteredList<Task> filteredTasks;
 
+    /**
+     * Event raised when task list have been replaced.
+     * 
+     * @param newTasks			New collection of tasks.
+     * @param filteredTasks		Filtered tasks to display.
+     */
     public NewTaskListEvent(UniqueItemCollection<Task> newTasks, FilteredList<Task> filteredTasks){
         this.newTasks = newTasks;
         this.filteredTasks = filteredTasks;

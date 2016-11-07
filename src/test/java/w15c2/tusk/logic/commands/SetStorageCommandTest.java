@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.SetStorageCommand;
 
 //@@author A0138978E
 public class SetStorageCommandTest {

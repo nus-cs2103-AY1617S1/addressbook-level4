@@ -4,9 +4,9 @@ import java.util.Date;
 
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.DateUtil;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0139817U
 /**
@@ -23,12 +23,12 @@ public class AddCommandParser extends CommandParser{
      * @param arguments Details of the task to add.
      * @return 			A prepared add command.
      */
-	public TaskCommand prepareCommand(String arguments) {
+	public Command prepareCommand(String arguments) {
 		try {
 			// Call the appropriate AddTaskCommand constructor based on the arguments
 			return createAppropriateAddTaskCommand(arguments);
 		} catch (IllegalValueException ive) {
-            return new IncorrectTaskCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage());
         }
 	}
 	
@@ -56,6 +56,7 @@ public class AddCommandParser extends CommandParser{
     	int indexOfLastOn = description.lastIndexOf(" on ");
     	int indexOfLastAt = description.lastIndexOf(" at ");
     	
+    	// Determine which word came the last
     	if (indexOfLastFrom > finalIndex) {
     		finalIndex = indexOfLastFrom;
     		finalString = " from ";

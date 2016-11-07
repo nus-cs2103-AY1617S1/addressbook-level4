@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.commons.util.DateUtil;
 import w15c2.tusk.commons.util.StringUtil;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.AddTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UpdateTaskCommand;
 import w15c2.tusk.model.task.Description;
 import w15c2.tusk.model.task.Task;
@@ -41,8 +41,8 @@ public class UpdateCommandParser extends CommandParser {
      * @param arguments 	Target index, update type and updated value.
      * @return 				A prepared update command.
      */
-	public TaskCommand prepareCommand(String arguments) {
-		TaskCommand taskCommand;
+	public Command prepareCommand(String arguments) {
+		Command taskCommand;
 		
 		// Matches the arguments to the update command format
         matcher = UPDATE_COMMAND_FORMAT.matcher(arguments.trim());
@@ -51,11 +51,11 @@ public class UpdateCommandParser extends CommandParser {
         	// Checks validity of index and update type using the matcher
         	checkIndexAndUpdateType();
         	
-        	// Creates an appropriate UpdateTaskCommand or IncorrectTaskCommand using the matcher
+        	// Creates an appropriate UpdateTaskCommand or IncorrectCommand using the matcher
 		    taskCommand = createAppropriateTaskCommand();
 		    
         } catch (IllegalValueException ive) {
-        	return new IncorrectTaskCommand(ive.getMessage());
+        	return new IncorrectCommand(ive.getMessage());
         }
 	    
 	    return taskCommand;
@@ -65,18 +65,18 @@ public class UpdateCommandParser extends CommandParser {
 	 * Based on the arguments provided to the update command, determine if the user wants to change
 	 * the task, description or date.
 	 * Then, return the appropriate UpdateTaskCommand by calling the corresponding constructor or
-	 * the IncorrectTaskCommand.
+	 * the IncorrectCommand.
 	 * 
 	 * @return 	A prepared update command.
 	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
-	private TaskCommand createAppropriateTaskCommand() throws IllegalValueException {
-		TaskCommand taskCommand = null;
+	private Command createAppropriateTaskCommand() throws IllegalValueException {
+		Command taskCommand = null;
 		int index = Integer.parseInt(matcher.group("targetIndex"));
 		String updateType = matcher.group("updateType");
 		String arguments = matcher.group("arguments");
 		
-		// Depending on the update type, choose an appropriate TaskCommand
+		// Depending on the update type, choose an appropriate Command
 		switch(updateType) {
 			case "task": 
 				taskCommand = createTaskUpdateTaskCommand(index, arguments);
@@ -102,7 +102,7 @@ public class UpdateCommandParser extends CommandParser {
 	 * @return 			A prepared update task command.
 	 * @throws IllegalValueException	When update task constructor fails.
 	 */
-	private TaskCommand createTaskUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+	private Command createTaskUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		// Use AddCommandParser to create the new task that the user wants
 		AddCommandParser parser = new AddCommandParser();
 		Task task = ((AddTaskCommand) parser.prepareCommand(arguments)).getTask();
@@ -117,7 +117,7 @@ public class UpdateCommandParser extends CommandParser {
 	 * @return 			A prepared update description command.
 	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
-	private TaskCommand createDescriptionUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+	private Command createDescriptionUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		Description description = new Description(arguments);
 		return new UpdateTaskCommand(index, description);
 	}
@@ -130,7 +130,7 @@ public class UpdateCommandParser extends CommandParser {
 	 * @return 			A prepared update date command.
 	 * @throws IllegalValueException 	When update task constructor fails.
 	 */
-	private TaskCommand createDateUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
+	private Command createDateUpdateTaskCommand(int index, String arguments) throws IllegalValueException {
 		// Check if the arguments that the user provided is a valid date or a valid date range.
 		// Then, call the appropriate UpdateTaskCommands or throw an exception (if date is invalid).
 		if (DateUtil.isValidDateFormat(arguments)) {
@@ -150,7 +150,7 @@ public class UpdateCommandParser extends CommandParser {
 	
 	/**
 	 * Determines if the index and update type is valid. If it is, return null.
-	 * Else, return an IncorrectTaskCommand.
+	 * Else, return an IncorrectCommand.
 	 * 
 	 * @throws IllegalValueException	When format, target index or update type is not valid.
 	 */

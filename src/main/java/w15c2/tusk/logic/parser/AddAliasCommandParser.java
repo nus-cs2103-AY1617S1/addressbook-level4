@@ -1,9 +1,9 @@
 package w15c2.tusk.logic.parser;
 
 import w15c2.tusk.commons.exceptions.IllegalValueException;
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.AddAliasCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 
 //@@author A0143107U
 /*
@@ -20,7 +20,7 @@ public class AddAliasCommandParser extends CommandParser{
      * @param args full command args string
      * @return the prepared command
      */
-	public TaskCommand prepareCommand(String alias) {
+	public Command prepareCommand(String alias) {
 		String shortcut = null;
 		String sentence = null;
 		if(!alias.isEmpty()){
@@ -37,7 +37,7 @@ public class AddAliasCommandParser extends CommandParser{
 		try {
 			return new AddAliasCommand(shortcut, sentence);
 		} catch (IllegalValueException ive) {
-            return new IncorrectTaskCommand(ive.getMessage());
+            return new IncorrectCommand(ive.getMessage());
         }
 	
 	}

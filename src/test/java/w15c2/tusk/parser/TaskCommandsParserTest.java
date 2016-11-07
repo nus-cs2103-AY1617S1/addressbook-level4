@@ -5,8 +5,8 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.parser.*;
 
 //@@author A0143107U
@@ -24,7 +24,7 @@ public class TaskCommandsParserTest {
          * command is invalid.
          */
 		TaskCommandsParser parser = new TaskCommandsParser();
-		TaskCommand command = parser.parseCommand("");
+		Command command = parser.parseCommand("");
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
         assertTrue(feedback.equals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Type help if you want to know the list of commands.")));

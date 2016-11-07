@@ -2,13 +2,12 @@ package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0139817U
 /**
  * Redoes the latest undo to tasks or aliases of the Model.
  */
-public class RedoCommand extends TaskCommand {
+public class RedoCommand extends Command {
     
     public static final String COMMAND_WORD = "redo";
     public static final String ALTERNATE_COMMAND_WORD = null;

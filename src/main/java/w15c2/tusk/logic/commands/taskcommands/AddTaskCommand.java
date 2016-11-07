@@ -7,6 +7,7 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.JumpToListRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.DeadlineTask;
 import w15c2.tusk.model.task.EventTask;
@@ -17,7 +18,7 @@ import w15c2.tusk.model.task.Task;
 /**
  * Adds a Floating, Deadline or Event task to the Model.
  */
-public class AddTaskCommand extends TaskCommand {
+public class AddTaskCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
     public static final String ALTERNATE_COMMAND_WORD = null;

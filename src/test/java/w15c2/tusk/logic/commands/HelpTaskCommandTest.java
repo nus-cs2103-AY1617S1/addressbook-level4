@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 //@@author A0143107U
 /**
  * Tests Help Command 
@@ -17,9 +16,9 @@ public class HelpTaskCommandTest {
 		/* CommandResult should return a string that denotes that 
          * help is being shown.
          */
-		HelpTaskCommand command = new HelpTaskCommand();
+		HelpCommand command = new HelpCommand();
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-        assertTrue(feedback.equals(HelpTaskCommand.SHOWING_HELP_MESSAGE));
+        assertTrue(feedback.equals(HelpCommand.SHOWING_HELP_MESSAGE));
 	}
 }

@@ -38,7 +38,9 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     
     //@@author A0139817U
     /**
-     * Duplicates an existing UniqueItemCollection
+     * Duplicates an existing UniqueItemCollection.
+     * 
+     * @return 	Duplicate of the internal list of the collection.
      */
     @SuppressWarnings("unchecked")
 	public UniqueItemCollection<T> copyCollection()  {
@@ -105,6 +107,9 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     /**
      * Replaces an item to remove with an item to add from the list.
      * 
+     * @param toRemove	Item to remove from the internal list.
+     * @param toAdd		Item to add into the internal list.
+     * @return			Whether replacement succeeded.
      * @throws ItemNotFoundException if the item to be removed cannot be found in the list.
      */
     public boolean replace(T toRemove, T toAdd) throws ItemNotFoundException {

@@ -7,8 +7,8 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.FindTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.FindCommandParser;
 //@@author A0143107U
 /**
@@ -24,7 +24,7 @@ public class FindCommandParserTest {
 	public void prepareCommand_invalidFormat() {
 		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTaskCommand.MESSAGE_USAGE);
 		
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("");
 		String feedback = command.feedbackToUser;
 		assertEquals(feedback, expected);
 	}

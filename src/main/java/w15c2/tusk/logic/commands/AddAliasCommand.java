@@ -1,10 +1,9 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
-import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.parser.ParserSelector;
 import w15c2.tusk.model.Alias;
 
@@ -12,7 +11,7 @@ import w15c2.tusk.model.Alias;
 /**
  * Adds a task to TaskManager.
  */
-public class AddAliasCommand extends TaskCommand {
+public class AddAliasCommand extends Command {
 
     public static final String COMMAND_WORD = "alias";
     public static final String ALTERNATE_COMMAND_WORD = null;

@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import w15c2.tusk.commons.util.StringUtil;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
+import w15c2.tusk.logic.commands.Command;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 
 //@@author A0138978E
@@ -27,10 +27,10 @@ public class UnpinCommandParser extends CommandParser{
      * @param args full command args string
      * @return the prepared command
      */
-	public TaskCommand prepareCommand(String arguments) {
+	public Command prepareCommand(String arguments) {
 		 Optional<Integer> index = parseIndex(arguments);
 	        if(!index.isPresent()){
-	            return new IncorrectTaskCommand(
+	            return new IncorrectCommand(
 	                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpinTaskCommand.MESSAGE_USAGE));
 	        }
 

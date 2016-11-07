@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
-import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
+import w15c2.tusk.logic.commands.AddAliasCommand;
+import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.parser.AddAliasCommandParser;
 
 //@@author A0139817U
@@ -24,24 +24,24 @@ public class AddAliasCommandParserTest {
 		 * Invalid format EPs: No space, Nothing after space, Spaces only, Empty string
 		 */
 		// EP: No space
-		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("amaddMeeting");
+		IncorrectCommand command = (IncorrectCommand) parser.prepareCommand("amaddMeeting");
 		String expected = "Sentence to AliasCommand constructor is empty.\n" + AddAliasCommand.MESSAGE_USAGE;
 		String actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Nothing after space
-		command = (IncorrectTaskCommand) parser.prepareCommand("am ");
+		command = (IncorrectCommand) parser.prepareCommand("am ");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Spaces only
-		command = (IncorrectTaskCommand) parser.prepareCommand("    ");
+		command = (IncorrectCommand) parser.prepareCommand("    ");
 		expected = "Shortcut to AddAliasCommand constructor is empty.\n" + AddAliasCommand.MESSAGE_USAGE;
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 		
 		// EP: Empty string
-		command = (IncorrectTaskCommand) parser.prepareCommand("");
+		command = (IncorrectCommand) parser.prepareCommand("");
 		actual = command.feedbackToUser;
 		assertEquals(actual, expected);
 	}
