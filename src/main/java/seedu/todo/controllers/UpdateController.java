@@ -67,8 +67,6 @@ public class UpdateController extends Controller {
 
     @Override
     public void process(String input) throws ParseException {
-        // TODO: Example of last minute work
-
         Map<String, String[]> parsedResult;
         parsedResult = Tokenizer.tokenize(getTokenDefinitions(), input);
 

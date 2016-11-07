@@ -35,8 +35,6 @@ public class DestroyController extends Controller {
 
     @Override
     public void process(String args) {
-        // TODO: Example of last minute work
-        
         // Extract param
         String param = args.replaceFirst("destroy", "").trim();
         

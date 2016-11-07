@@ -77,7 +77,6 @@ public abstract class GuiTest {
             aliasView = mainGui.getAliasView();
             configView = mainGui.getConfigView();
             helpView = mainGui.getHelpView();
-            // TODO: create handles for other components
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();

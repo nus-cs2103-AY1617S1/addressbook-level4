@@ -212,7 +212,7 @@ public class AddController extends Controller {
         name = StringUtil.replaceEmpty(name, NAME_FIELD);
 
         String disambiguationString;
-        String errorMessage = STRING_WHITESPACE; // TODO
+        String errorMessage = STRING_WHITESPACE;
         
         if (isTask) {
             naturalFrom = StringUtil.replaceEmpty(naturalFrom, DEADLINE_FIELD);
