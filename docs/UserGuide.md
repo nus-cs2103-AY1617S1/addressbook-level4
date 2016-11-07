@@ -19,7 +19,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`**` Homework  d/MathTut sd/08-01-2012 10:00 dd/08-01-2012 23:00` : 
+   * **`add Homework d/MathTut sd/08-01-2012 10:00 dd/08-01-2012 23:00`** : 
      adds a task named `Homework` to the Task Management Tool.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
