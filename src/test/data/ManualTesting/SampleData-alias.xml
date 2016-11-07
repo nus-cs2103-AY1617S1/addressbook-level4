@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<alias>
+    <alias>
+        <shortcut>d</shortcut>
+        <sentence>delete 1</sentence>
+    </alias>
+    <alias>
+        <shortcut>done</shortcut>
+        <sentence>complete</sentence>
+    </alias>
+    <alias>
+        <shortcut>f</shortcut>
+        <sentence>find</sentence>
+    </alias>
+    <alias>
+        <shortcut>lc</shortcut>
+        <sentence>list completed</sentence>
+    </alias>
+</alias>
