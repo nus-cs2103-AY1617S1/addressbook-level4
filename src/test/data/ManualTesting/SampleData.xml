@@ -9,6 +9,7 @@
         <endTime></endTime>
         <done>true</done>
         <tagged>school</tagged>
+        <tagged>groupwork</tagged>
     </items>
     <items>
         <name>Walk the dog</name>
@@ -66,6 +67,7 @@
         <endDate>2016-11-09</endDate>
         <endTime>23:55</endTime>
         <done>false</done>
+        <tagged>groupwork</tagged>
     </items>
     <items>
         <name>Write follow-up email for interview</name>
@@ -192,6 +194,7 @@
         <endDate>2016-10-27</endDate>
         <endTime>00:01</endTime>
         <done>false</done>
+        <tagged>groupwork</tagged>
     </items>
     <items>
         <name>Submit Report</name>
@@ -202,6 +205,7 @@
         <endTime>00:01</endTime>
         <done>false</done>
         <tagged>work</tagged>
+        <tagged>groupwork</tagged>
     </items>
     <items>
         <name>Submit tax claims</name>
@@ -293,6 +297,7 @@
         <endTime></endTime>
         <done>true</done>
         <tagged>work</tagged>
+        <tagged>groupwork</tagged>
     </items>
     <items>
         <name>Buy lunch</name>
@@ -504,6 +509,7 @@
         <endDate>2016-11-06</endDate>
         <endTime>19:52</endTime>
         <done>true</done>
+        <tagged>groupwork</tagged>
         <tagged>Engin</tagged>
     </items>
     <items>
@@ -582,5 +588,8 @@
     </tags>
     <tags>
         <tagName>orientation</tagName>
+    </tags>
+    <tags>
+        <tagName>groupwork</tagName>
     </tags>
 </taskmanager>
