@@ -128,10 +128,13 @@ public class DateTimeUtilTest {
     	TaskDate onDate = new TaskDate("8-12-2000", "on");
     	assertTrue(DateTimeUtil.beforeOther(onDate, null));
     }
-
-    @Test
+    
+    //@@author A0142421X-unused
+    /*
+     * @Test
     public void testBeforeOther_onDate_null_byDate_null_true() throws IllegalValueException {
     	assertTrue(DateTimeUtil.beforeOther(null, null));
     }
+    */
     //@@author
 }
