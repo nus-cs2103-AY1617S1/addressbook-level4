@@ -69,7 +69,7 @@ Two of those classes play an important role at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -258,7 +258,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able undo the most recent modification | revert from unintended modifications
 `* *` | user | be able to have flexibility in order of fields in commands | have greater flexibility in keying in commands
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
-`* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
+`* *` | user | see a snapshot of events in the calendar view | retrieve information in a graphical way.
 
 
 ## Appendix B : Use Cases
@@ -395,7 +395,6 @@ The SD for delete event is similiar to delete task.
 1a. The selected directory is invalid
   > 1a1. `Dowat` displays an error message that directory cannot be found
   Use case resumes at step 1
-
 <br>
 <!-- @@author A0125534L -->
 
@@ -411,8 +410,10 @@ The SD for delete event is similiar to delete task.
 **Extensions**<br>
 1a. The KEYWORD for Help Command is invalid
   > 1a1. `Dowat` displays an error message that KEYWORD cannot be found
-  Use case resumes at step 1
+  Use case resumes at step 1<br>
 
+<img src="images/HelpSD.png" width="700"><br>
+<img src="images/HelpSD1.png" width="700"><br>
 <br>
 <!-- @@author A0125534L -->
 
@@ -430,7 +431,10 @@ The SD for delete event is similiar to delete task.
 **Extensions**
 3a. The given index is invalid
   > 3a1. `Dowat` displays an error message that the task or event cannot be found
-  Use case resumes at step 2
+  Use case resumes at step 2<br>
+
+<img src="images/SDSelect.png" width="700"><br>
+<img src="images/SDSelect1.png" width="700"><br>
 
 <br>
 <!-- @@author A0144702N -->

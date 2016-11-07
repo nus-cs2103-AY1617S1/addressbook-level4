@@ -432,10 +432,10 @@ Format : `exit`
  Command | Format  
 -------- | :-------- 
 [Add Task](#adding-a-task) | `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATETIME]`
-[Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATETIME [> END_DATETIME] [/desc DESCRIPTION] `
+[Add Event](#adding-an-event) | `add EVENT_NAME /from START_DATETIME [/to END_DATETIME] [/desc DESCRIPTION] `
 [List Task or Event](#listing-tasks-or-events) | `list [/t|/e] [/a]`
 [Edit Task](#editing-a-task) | `edit /t INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/by NEW_DEADLINE_DATETIME]`
-[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/from NEW_START_DATETIME > NEW_END_DATETIME]`
+[Edit Event](#editing-an-event) | `edit /e INDEX [/name NEW_NAME] [/desc NEW_DESCRIPTION] [/from NEW_START_DATETIME /to NEW_END_DATETIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-taskevent) |`delete /t|/e INDEX`
 [Select Task or Event](#selecting-a-taskevent) |`select /t|/e INDEX`
