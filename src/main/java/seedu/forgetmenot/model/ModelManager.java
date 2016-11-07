@@ -180,7 +180,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.addTask(task);
         updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.indexOf(task)));
     }
 
   //@@author A0139671X
@@ -266,8 +265,18 @@ public class ModelManager extends ComponentManager implements Model {
 
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
+        
+        jumpToTask(task);
     }
     //@@author
+
+	/**
+	 * Jumps to 'task'
+	 */
+	private void jumpToTask(ReadOnlyTask task) {
+		int targetIndex = taskManager.getTasks().indexOf(task) - 3;
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+	}
 
     //@@author A0147619W
     /**
