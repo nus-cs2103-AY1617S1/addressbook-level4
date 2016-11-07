@@ -18,7 +18,7 @@ import seedu.todolist.ui.MainWindow;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.EmptyStackException;
-import java.util.Set;
+import java.util.List;
 import java.util.Stack;
 import java.util.logging.Logger;
 
@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords, String findType){
+    public void updateFilteredTaskList(List<String> keywords, String findType){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords, findType)));
     }
     
@@ -263,10 +263,10 @@ public class ModelManager extends ComponentManager implements Model {
      * Determine if task name contain any/all/phrase of provided keywords according to the provided findType.
      */    
     private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+        private List<String> nameKeyWords;
         private String findType;
 
-        NameQualifier(Set<String> nameKeyWords, String findType) {
+        NameQualifier(List<String> nameKeyWords, String findType) {
             this.nameKeyWords = nameKeyWords;
             this.findType = findType;
         }

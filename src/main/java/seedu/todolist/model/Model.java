@@ -7,7 +7,7 @@ import seedu.todolist.model.task.UniqueTaskList;
 
 import java.time.DateTimeException;
 import java.util.EmptyStackException;
-import java.util.Set;
+import java.util.List;
 
 /**
  * The API of the Model component.
@@ -53,7 +53,7 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords */
-    void updateFilteredTaskList(Set<String> keywords, String findType);
+    void updateFilteredTaskList(List<String> keywords, String findType);
     
     /** Updates the filter of the filtered task list to filter by the given date filter */
     void updateFilteredTaskList(String dateFilter) throws DateTimeException;
