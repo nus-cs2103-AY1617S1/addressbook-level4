@@ -18,8 +18,17 @@
 <img src="images/ruiwen.png" width="150"><br>
 **Role**: Developer <br>  
 Responsibilities: Team Lead<br>
-Component SME: UI
-
+Component SME: [UI](DeveloperGuide.md#UI-component)
+* Aspects/tools in charge of: Documentation, Code Quality
+* Features implemented:
+   * [Storage](UserGuide.md#change-storage-location--storage)
+   * [UP](UserGuide.md#command-stack-history) 
+   * [DOWN](UserGuide.md#command-stack-history)
+   * [LEFT](UserGuide.md#week-selection)
+   * [RIGHT](UserGuide.md#week-selection)
+* Code written: [[functional code](../collated/main/A0138431L.md)][[test code](../collated/test/A0138431L.md)][[docs](../collated/docs/A0138431L.md)]
+* Other major contributions:
+  * Design of UI which includes MainWindow.fxml, DailyList.fxml, FloatingList.fxml and UpcomingList.fxml
 -----
 
 #### [Low Zheng Heng Henry](http://github.com/e0003801)

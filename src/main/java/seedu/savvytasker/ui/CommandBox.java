@@ -51,6 +51,7 @@ public class CommandBox extends UiPart {
     private final String LIST_PRIORITY_COMMAND = "list priorityLevel";
     private final String LIST_ALIAS_COMMAND = "list alias";
     private final String CLEAR_COMMAND = "clear";
+    private final String STORAGE_COMMAND = "storage .";
     
 	KeyCombination saveKey = new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN);
 	KeyCombination undoKey = new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN);
@@ -265,7 +266,7 @@ public class CommandBox extends UiPart {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		File selectedFile = directoryChooser.showDialog(primaryStage);
 		String filepath = selectedFile.getAbsolutePath();
-		executeCommand("save " + filepath);
+		executeCommand(STORAGE_COMMAND + filepath + "/savvytasker.xml");
 	    
 	}
 	
