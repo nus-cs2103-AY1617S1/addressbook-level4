@@ -1,9 +1,7 @@
 package seedu.dailyplanner.logic.commands;
 
-import seedu.dailyplanner.commons.core.EventsCenter;
 import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
-import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -17,9 +15,8 @@ public class CompleteCommand extends Command {
     public static final String COMMAND_WORD = "complete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the last task listing as complete.\n"
-            + "Format: complete [INDEX] (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Marks the task identified by the index number shown in current list\n"
+            + "Format: complete [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Completed Task: %1$s";
 
@@ -36,7 +33,7 @@ public class CompleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
+
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);
 
         try {

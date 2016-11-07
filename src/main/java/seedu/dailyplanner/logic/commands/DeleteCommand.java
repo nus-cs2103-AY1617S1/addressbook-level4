@@ -14,9 +14,8 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Format: [INDEX] (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the task identified by the index number shown in current list\n"
+            + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
@@ -25,7 +24,6 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -38,7 +36,7 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-   
+
         try {
         	model.getHistory().stackAddInstruction(taskToDelete);
             model.deleteTask(taskToDelete);

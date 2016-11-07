@@ -25,10 +25,10 @@ public class EditCommand extends Command {
 
 	public static final String COMMAND_WORD = "edit";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD
-			+ ": Edits the task identified by the index number used in the last task listing.\n"
-			+ "Format: edit [INDEX] (must be a positive integer) s/[STARTDATE] [STARTTIME] e/[ENDDATE] [ENDTIME]\n"
-			+ "Example: " + COMMAND_WORD + " 2 s/3pm";
+public static final String MESSAGE_USAGE = COMMAND_WORD
++ ": Edits the task identified by the index number shown in current list.\n"
++ "Format: edit [INDEX] (must be a positive integer)[TASKNAME] s/[STARTDATE] [STARTTIME] e/[ENDDATE] [ENDTIME]\n"
++ "Example: " + COMMAND_WORD + " 2 s/3pm";
 
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the daily planner";
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
@@ -103,5 +103,4 @@ public class EditCommand extends Command {
 		}
 		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
 	}
-
 }

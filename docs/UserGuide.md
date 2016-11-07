@@ -30,58 +30,6 @@
 
 # Features
 
-## Descriptions and Usage
-### Tasks
-The daily planner stores all of the users events as a `Task`.
-
-A `Task` can be viewed, added, searched, edited or deleted with the right command word as can be found in [Commands](#commands).
-
-**Every `Task` must consist of a mandatory `TASKNAME` field and optional `STARTDATE`, `STARTTIME`, `ENDDATE`, `ENDTIME`, `isRECURRING` fields.**
-
-#### `STARTDATE` and `ENDDATE` Field
-The `STARTDATE` and `ENDDATE` field, if specified, tells the Daily Planner which date(s) the task is meant for. If no `ENDDATE` is specified, Daily Planner assumes the task is meant to be done today. 
-
-The `STARTDATE` and `ENDDATE` field can accept natural descriptions of dates. The following are all valid dates:
-```
-
-11/11/2016
-The 31st of April in the year 2008
-Fri, 21 Nov 1997
-Jan 21, '97
-Sun, Nov 21
-jan 1st
-february twenty-eighth
-next thursday
-last wednesday
-today
-tomorrow
-yesterday
-next week
-next month
-next year
-3 days from now
-three weeks ago
-```
-
-#### `STARTTIME` and `ENDTIME` fields
-
-1. No `STARTTIME` or `ENDTIME` fields have to be entered for tasks with no specific timing
-2. For a task that must occur within a fixed time period, `STARTTIME` and `ENDTIME` fields must be given in the following format:
-    * `s/STARTTIME e/ENDTIME`
-    * Example: `s/2pm e/4pm` 
-3. For tasks with only a deadline, only the `ENDTIME` has to be entered after `e/` keyword:
-    * `e/ENDTTIME`
-    * Example: `e/6pm`
-4. Both fields require users to specify am or pm after the number.
-
-`STARTTIME` and `ENDTIME` fields can also accept various natural descriptions:
-
-```
-
-6pm
-8am
-
-```
 
 
 ## Commands 
@@ -118,7 +66,7 @@ Examples:<br>
 
 ### Viewing a schedule : `show`
 
-Shows tasks on a particular day
+Shows tasks based on query(date or completion)
 
 Format: 
 
@@ -129,10 +77,13 @@ show STARTDATE(optional)
 Examples:<br>
 1. `show today`
 >Shows schedule for today<br>
+
 2. `show next wednesday`
 >Shows schedule for next wednesday <br>
+
 3. `show complete`
 >Shows completed tasks <br>
+
 4. `show not complete`
 >Shows uncompleted tasks <br>
 
@@ -237,7 +188,7 @@ Format: `unpin INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
   
-Examples: <br>
+Examples:<br>
 ```unpin 5```
 >Task 5 of pinned list is being removed and put back to the schedule list<br>
 
@@ -248,11 +199,11 @@ Description: Undo the latest command. <br>
 
 Format: `undo` 
 
-> Undo the last command. 
+>Undo the last command. 
   If the last command was `add`, the task added will be removed if `undo` is invoked<br>
   
 
-Examples: <br>
+Examples:<br>
 ```undo```
 >Undo previous command <br>
 
@@ -263,12 +214,13 @@ Description: Clears all tasks. <br>
 
 Format: `clear` 
 
-> Clears all task from the list<br>
+>Clears all task from the list<br>
     
 
 Examples: <br>
 ```clear```
 >The list is now empty <br>
+
 
 ### Exiting the program : `exit`
 Exits the program.<br>
@@ -278,3 +230,62 @@ Format: `exit`  <br>
 ### Saving the data 
 Daily Planner data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
+
+<br> 
+
+
+
+
+
+## Descriptions and Usage
+### Tasks
+The daily planner stores all of the users events as a `Task`.
+
+A `Task` can be viewed, added, searched, edited or deleted with the right command word as can be found in [Commands](#commands).
+
+**Every `Task` must consist of a mandatory `TASKNAME` field and optional `STARTDATE`, `STARTTIME`, `ENDDATE`, `ENDTIME`, `isRECURRING` fields.**
+
+#### `STARTDATE` and `ENDDATE` Field
+The `STARTDATE` and `ENDDATE` field, if specified, tells the Daily Planner which date(s) the task is meant for. If no `ENDDATE` is specified, Daily Planner assumes the task is meant to be done today. 
+
+The `STARTDATE` and `ENDDATE` field can accept natural descriptions of dates. The following are all valid dates:
+```
+
+11/11/2016
+The 31st of April in the year 2008
+Fri, 21 Nov 1997
+Jan 21, '97
+Sun, Nov 21
+jan 1st
+february twenty-eighth
+next thursday
+last wednesday
+today
+tomorrow
+yesterday
+next week
+next month
+next year
+3 days from now
+three weeks ago
+```
+
+#### `STARTTIME` and `ENDTIME` fields
+
+1. No `STARTTIME` or `ENDTIME` fields have to be entered for tasks with no specific timing
+2. For a task that must occur within a fixed time period, `STARTTIME` and `ENDTIME` fields must be given in the following format:
+    * `s/STARTTIME e/ENDTIME`
+    * Example: `s/2pm e/4pm` 
+3. For tasks with only a deadline, only the `ENDTIME` has to be entered after `e/` keyword:
+    * `e/ENDTTIME`
+    * Example: `e/6pm`
+4. Both fields require users to specify am or pm after the number.
+
+`STARTTIME` and `ENDTIME` fields can also accept various natural descriptions:
+
+```
+
+6pm
+8am
+
+```

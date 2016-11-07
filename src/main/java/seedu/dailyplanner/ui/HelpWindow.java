@@ -58,29 +58,8 @@ public class HelpWindow extends UiPart {
            dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
            setIcon(dialogStage, ICON);
            
-           WebView browser = new WebView();
-         
-			/*BufferedReader textFile;
-			try {
-				textFile = new BufferedReader(new FileReader("/images/HelpDoc.html"));
-				try {
-					String contentLine = textFile.readLine();
-					System.out.println(contentLine);
-					
-					while(!(contentLine == null)){
-						browser.getEngine().loadContent(contentLine);
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  */      
-           
-          
-           browser.getEngine().loadContent("<h1>Help</h1><p style=\"color:blue;\"><b>add </b></br></p><p>add [TASKNAME] s/[START] e/[END]</p><p><sub>Except <mark>TASKNAME</mark>, all the fields above are optional</sub></p><em>Examples: </em><p>add Math Assignment s/today </p><p>add Music Lesson s/12Nov 2pm e/5pm</p><p>add Sleepover s/today 9pm e/11/11/2016 9am </p><p>add CS1020 Revision </p><p style=\"color:blue;\"><br><b>delete </b></br></p><p>delete [INDEX]</p><em>Examples: </em><p>delete 1 </p><p style=\"color:blue;\"><br><b>edit </b></br></p><p>edit [TASKNAME] s/[START] e/[END]</p><p><sub>Except <mark>TASKNAME</mark>, all the fields above are optional</sub></p><em>Examples: </em><p>edit 1 Math Assignment</p><p>edit 5 Music Lesson s/6pm e/7pm</p><p>edit 9 Freshmen Camp s/18Dec 1pm e/17112016 9am </p><p>edit 11 CS1020 Revision s/tomorrow </p><p style=\"color:blue;\"><br><b>find </b></br></p><p>find [TASKNAME]</p><em>Examples: </em><p>find CS1020 </p><p style=\"color:blue;\"><br><b>complete </b></br></p><p>complete[INDEX]</p><em>Examples: </em><p>complete 5 </p><p style=\"color:blue;\"><br><b>show </b></br></p><p>show [DATE]/[COMPLETED]</p><em>Examples: </em><p>show complete </p><p>show all </p><p>show today </p><p style=\"color:blue;\"><br><b>undo </b></br></p><p>undo</p><em>Examples: </em><p>undo</p><p style=\"color:blue;\"><br><b>help </b></br></p><p>help</p><em>Examples: </em><p>help </p>" );
+           WebView browser = new WebView();                 
+           browser.getEngine().loadContent("<h1>Help</h1><p style=\"color:blue;\"><b>add </b></br></p><p>add [TASKNAME] s/[START] e/[END] c/[CATEGORY]..</p><p><sub>Except <mark>TASKNAME</mark>, all the fields above are optional</sub></p><em>Examples: </em><p>add Math Assignment s/today </p><p>add Music Lesson s/12 nov 2pm e/5pm</p><p>add Sleepover s/today 9pm e/tomorrow 9am </p><p>add CS1020 Revision </p><p style=\"color:blue;\"><br><b>delete </b></br></p><p>delete [INDEX] or delete[COMPLETED]</p><em>Examples: </em><p>delete 1 </p><p>delete completed <em>(deletes all completed tasks)</em></p><p style=\"color:blue;\"><br><b>edit </b></br></p><p>edit [INDEX] [TASKNAME] s/[START] e/[END]</p><p><sub>Except <mark>INDEX</mark>, only one of the other fields has to be entered.</sub></p><em>Examples: </em><p>edit 1 Math Assignment</p><p>edit 5 Music Lesson s/6pm e/7pm</p><p>edit 9 Freshmen Camp s/18Dec 1pm e/17112016 9am </p><p>edit 11 CS1020 Revision s/tomorrow </p><p style=\"color:blue;\"><br><b>find </b></br></p><p>find [TASKNAME]</p><em>Examples: </em><p>find CS1020 </p><p style=\"color:blue;\"><br><b>complete </b></br></p><p>complete[INDEX]</p><em>Examples: </em><p>complete 5 </p><p style=\"color:blue;\"><br><b>show </b></br></p><p>show [DATE]/[COMPLETED]</p><em>Examples: </em><p>show complete </p><p>show <em>(shows all tasks)</em></p><p>show today </p><p>show not complete</p><p style=\"color:blue;\"><br><b>undo </b></br></p><p>undo</p><em>Examples: </em><p>undo</p><p style=\"color:blue;\"><br><b>pin </b></br></p><p>pin[INDEX]</p><em>Examples: </em><p>pin 5 <em>(pins a task to the pin board)</em></p>" );
            FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
            mainPane.getChildren().add(browser);
        }

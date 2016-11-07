@@ -17,9 +17,9 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class DeleteCompletedCommand extends Command {
 
-	public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD
-			+ ": Deletes the task identified by the index number used in the last task listing.\n"
-			+ "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
+public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + ": Deletes all completed tasks.\n"
+        + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD
+        + " completed";
 
 	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
@@ -51,5 +51,4 @@ public class DeleteCompletedCommand extends Command {
 		model.setLastShowDate(StringUtil.EMPTY_STRING);
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, "all completed"));
 	}
-
 }
