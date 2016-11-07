@@ -228,7 +228,6 @@ public class UpdateController extends Controller {
      */
     private boolean validateParams(boolean isTask, CalendarItem record, String name, LocalDateTime dateFrom,
             LocalDateTime dateTo, String naturalFrom) {
-        // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
 
         if (!validateNameDateChange(name, dateFrom, dateTo, naturalFrom)) {
