@@ -50,7 +50,7 @@ public class StringUtilTest {
     
     //@@author A0138978E
     @Test
-    public void addSpacesBetweenNumbersAndWords_combinedNumberWordStringsGiven() {
+    public void addSpacesBetweenNumbersAndWords_combinedNumberWordStrings() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("31Oct2016"), "31 Oct 2016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct312016"), "Oct 312016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct201631"), "Oct 201631");
@@ -76,19 +76,19 @@ public class StringUtilTest {
     
     
     @Test
-    public void addSpacesBetweenNumbersAndWords_separatedNumberWordStringsGiven() {
+    public void addSpacesBetweenNumbersAndWords_separatedNumberWordStrings() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("31 Oct 2016"), "31 Oct 2016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct 31 2016"), "Oct 31 2016");
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("Oct 2016 31"), "Oct 2016 31");
     }
     
     @Test
-    public void addSpacesBetweenNumbersAndWords_nullGiven() {
+    public void addSpacesBetweenNumbersAndWords_null() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords(null), null);
     }
     
     @Test
-    public void addSpacesBetweenNumbersAndWords_emptyGiven() {
+    public void addSpacesBetweenNumbersAndWords_empty() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords(""), "");
     }
 

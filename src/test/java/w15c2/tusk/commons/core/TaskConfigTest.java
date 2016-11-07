@@ -30,14 +30,14 @@ public class TaskConfigTest {
     }
 
     @Test
-    public void equalsMethod(){
+    public void equals(){
         TaskConfig defaultConfig = new TaskConfig();
         assertFalse(defaultConfig.equals(null));
         assertTrue(defaultConfig.equals(defaultConfig));
     }
     
     @Test
-    public void setStorageLocationMethod() {
+    public void setStorageLocation() {
     	TaskConfig config = new TaskConfig();
     	String validPath = System.getProperty("user.home");
     	config.setStorageLocation(validPath);

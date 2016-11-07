@@ -10,7 +10,7 @@ import w15c2.tusk.logic.commands.CommandResult;
 public class SetStorageCommandTest {
 
 	@Test
-	public void setStorage_nullInput() {
+	public void setStorageCommand_nullInput() {
 		SetStorageCommand command = new SetStorageCommand(null);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
@@ -18,7 +18,7 @@ public class SetStorageCommandTest {
 	}
 	
 	@Test
-	public void setStorage_emptyInput() {
+	public void setStorageCommand_emptyInput() {
 		SetStorageCommand command = new SetStorageCommand("");
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
@@ -26,7 +26,7 @@ public class SetStorageCommandTest {
 	}
 	
 	@Test
-	public void setStorage_validLocation() {
+	public void setStorageCommand_validLocation() {
 		String homeDir = System.getProperty("user.home");
 		SetStorageCommand command = new SetStorageCommand(homeDir);
 		CommandResult result = command.execute();

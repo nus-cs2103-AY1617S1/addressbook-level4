@@ -15,11 +15,11 @@ public class DeleteAliasCommand extends Command {
 	public static final String COMMAND_WORD = "unalias";
     public static final String ALTERNATE_COMMAND_WORD = null;
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + "<alias>";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <ALIAS>";
     public static final String COMMAND_DESCRIPTION = "Delete an Alias"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the shortcut of the alias.\n"
+            + ": Deletes the alias identified by its shortcut.\n"
             + "Parameters: SHORTCUT\n"
             + "Example: " + COMMAND_WORD + " am";
 
@@ -28,6 +28,11 @@ public class DeleteAliasCommand extends Command {
 
     public final String shortcut;
 
+    /**
+     * This DeleteAliasCommand constructor takes in a shortcut and deletes the Alias with the shortcut.
+     * 
+     * @param shortcut 	Shortcut of the alias to be deleted
+     */
     public DeleteAliasCommand(String shortcut) 
             throws IllegalValueException {
     	if(shortcut == null || shortcut.isEmpty()){
@@ -36,9 +41,10 @@ public class DeleteAliasCommand extends Command {
         this.shortcut = shortcut;
     }
 
-    /*
-     * Deletes the alias based on its shortcut and 
-     * returns CommandResult to indicate whether it is successful
+    /**
+     * Deletes the Alias from the Model.
+     * 
+     * @return CommandResult Result of the execution of the delete alias command.
      */
     @Override
     public CommandResult execute() {

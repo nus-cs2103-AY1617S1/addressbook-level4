@@ -4,7 +4,7 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.ShowHelpRequestEvent;
 
 //@@author A0139708W
-/*
+/**
  * Shows Help for Commands
  */
 public class HelpCommand extends Command {
@@ -18,14 +18,15 @@ public class HelpCommand extends Command {
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help panel.";
 
+    /**
+     * Shows help and gives user feedback.
+     * 
+     * @return  Result of command.
+     */
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
-
-    @Override
-    public String toString(){
-        return SHOWING_HELP_MESSAGE;
-    }
+    
 }

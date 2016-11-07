@@ -47,11 +47,17 @@ public class StorageManager extends ComponentManager implements Storage {
 
     // ================ UserPrefs methods ==============================
 
+    /**
+     * Reads userPrefs from UserPrefsStorage
+     */
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
     }
 
+    /**
+     * Saves userPrefs to UserPrefsStorage
+     */
     @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
@@ -65,17 +71,23 @@ public class StorageManager extends ComponentManager implements Storage {
         return taskManagerStorage.getTaskManagerFilePath();
     }
 
+    /**
+     * Reads task manager from TaskStorage
+     */
     @Override
     public Optional<UniqueItemCollection<Task>> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(taskManagerStorage.getTaskManagerFilePath());
     }
-
+    
     @Override
     public Optional<UniqueItemCollection<Task>> readTaskManager(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return taskManagerStorage.readTaskManager(filePath);
     }
 
+    /**
+     * Saves task manager to TaskStorage
+     */
     @Override
     public void saveTaskManager(UniqueItemCollection<Task> taskManager) throws IOException {
         saveTaskManager(taskManager, taskManagerStorage.getTaskManagerFilePath());
@@ -117,6 +129,9 @@ public class StorageManager extends ComponentManager implements Storage {
         return aliasStorage.getAliasFilePath();
     }
 
+    /**
+     * Reads alias from AliasStorage
+     */
     @Override
     public Optional<UniqueItemCollection<Alias>> readAlias() throws DataConversionException, IOException {
         return readAlias(aliasStorage.getAliasFilePath());
@@ -128,6 +143,9 @@ public class StorageManager extends ComponentManager implements Storage {
         return aliasStorage.readAlias(filePath);
     }
 
+    /**
+     * Saves alias to AliasStorage
+     */
     @Override
     public void saveAlias(UniqueItemCollection<Alias> alias) throws IOException {
         saveAlias(alias, aliasStorage.getAliasFilePath());
@@ -139,7 +157,7 @@ public class StorageManager extends ComponentManager implements Storage {
         aliasStorage.saveAlias(alias, filePath);
     }
 
-
+    
     @Override
     @Subscribe
     public void handleAliasChangedEvent(AliasChangedEvent event) {

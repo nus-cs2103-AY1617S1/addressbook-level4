@@ -19,11 +19,16 @@ import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
 /**
- * Container for Task Commands to create help information
+ * Container for Commands to create help information
  */
 public class CommandList {
     private static final Logger logger = LogsCenter.getLogger(CommandList.class);
     
+    /**
+     * List of all available task commands.
+     * 
+     * @return  list of task command classes.
+     */
     private static Class<?>[] getList(){
         
         return new Class[]{
@@ -48,7 +53,7 @@ public class CommandList {
     
     /**
      * Returns help information for all task
-     * commands in Class list from getList()
+     * commands from class list.
      * 
      * @return  List of help information.
      */

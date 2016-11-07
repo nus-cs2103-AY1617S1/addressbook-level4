@@ -21,7 +21,6 @@ public class ExitCommandParser extends CommandParser {
     * @param args full command args string
     * @return the prepared command
     */
-
     @Override
     public Command prepareCommand(String arguments) {
         if(!arguments.equals("")){

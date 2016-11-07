@@ -21,7 +21,7 @@ public class ParserSelector {
      * Iterates through the list of available parsers to select the first one with a matching
      * command word, or selects one that has a matching alternate command word if no matches are found
      * @param commandWord
-     * @return
+     * @return command parser type
      */
 	public static CommandParser getByCommandWord(String commandWord){
 		for(int i=0; i<parserTypes.length; i++){
@@ -43,20 +43,22 @@ public class ParserSelector {
 			} 
 			catch (NoSuchFieldException e) {
 				logger.severe("Error: Non-parser class placed into list");
-				e.printStackTrace();
-				System.exit(0);
+	        	assert false : "Non-parser class should not have been placed into list";
 			} catch (Exception e) {
 				logger.severe("Exception encountered");
-				e.printStackTrace();
-				System.exit(0);			
 			}
 		}
 		return new IncorrectCommandParser();
 	}
 	
-	public static boolean getIsCommandWord(String commandWord){
+	/**
+     * Checks if the command is a commandWord
+     * 
+     * @return true if command is a commandWord
+     */
+	public static boolean getIsCommandWord(String command){
 		isCommandWord = false;
-		getByCommandWord(commandWord);
+		getByCommandWord(command);
 		return isCommandWord;
 	}
 }

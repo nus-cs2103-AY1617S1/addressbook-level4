@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void delete() {
+    public void deleteCommand() {
 
         //add one task
         List<Task> currentTaskList = TestUtil.getInitialTasks().getInternalList();

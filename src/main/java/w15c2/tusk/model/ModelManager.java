@@ -301,6 +301,12 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	//@@author A0139708W
+	/**
+	 * Creates an observable list of HelpGuide
+	 * and returns them.
+	 * 
+	 * @return     ObservableList of HelpGuide.
+	 */
     @Override
     public ObservableList<HelpGuide> getHelpList() {
         ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList(CommandList.getHelpList());
