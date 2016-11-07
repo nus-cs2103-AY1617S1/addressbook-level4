@@ -43,7 +43,7 @@ public class ParserSearch extends ParserMemoryMain {
     /*
      * Initializing variables
      */
-    private static void initVar(){
+    public static void initVar(){
         dateTime =  new GregorianCalendar();
         setType(-1);
         setLength(-1);
