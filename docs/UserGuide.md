@@ -30,11 +30,11 @@ Get started with <i>Tusk</i> now!
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
 
-1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
+1. Download the latest `tusk.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for Tusk.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
- > <img src="images/UI.png" width="600"><br>
+ > <img src="images/Ui.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -65,13 +65,9 @@ Format: `help`
 #### Adding a task: `add`
 Adds a task to Tusk. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
-> **Date Format**
-> * Note that `DATE` and all other dates follow the following format: <br>
->   1) `DAY MONTH` or `MONTH DAY`
->   2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
-> * `MONTH` should be in alphabets instead of numbers.
-> * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
-> * Any deviations from the above format may not be interpreted correctly.
+> **Date-Time Format**
+> * Note that dates and timings follow [strict formats](#date-time-format) <br>
+> * Any deviations from the format may not be interpreted correctly.
 
 
 ##### Floating Tasks
@@ -84,12 +80,12 @@ Example:
 
 ##### Deadline Tasks
 These tasks have a description and a deadline (due date) <br>
-Format: `add TASK by DATE` <br>
+Format: `add TASK by/on/at DATE` <br>
 
 Examples:
 * `add Project meeting by Oct 10`
-* `add Project meeting by 10 October 2016`
-* `add Project meeting by OcToBeR 10 2017`
+* `add Project meeting on 10 October 2016`
+* `add Project meeting at OcToBeR 10 2017`
 
 ##### Event Tasks
 These tasks have a description, start date and an end date.<br>
@@ -99,7 +95,7 @@ Examples:
 * `add Project meeting from Oct1-Oct2`
 * `add Project meeting from Oct 1 to Oct 2`
 * `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
-* `add Overseas work from 1 August 2016 - 31 August 2017`
+* `add Overseas work from 1 August 2016 - 31 August 2017` <br>
   For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
 
 
@@ -179,6 +175,38 @@ Examples:
   Deletes the 1st task in the results of the `find` command
 
 <br>
+#### Clearing all entries : `clear`
+Clears all entries from the currently displayed list in Tusk.<br>
+Format: `clear`
+
+<br>
+#### Undoing an action: `undo`
+Undoes the previous command.<br>
+Format: `undo`
+
+Examples:
+* `list`
+* `delete 1`
+* `undo` <br>
+  Undoes your latest `delete` command
+
+> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
+
+<br>
+#### Redoing an undo: `redo`
+Redoes the previous undo command.<br>
+Format: `redo`
+
+Examples:
+* `list`
+* `delete 1`
+* `undo` 
+* `redo` <br>
+  Redoes your latest `undo` command
+
+> Only 1 consecutive `redo` command after an `undo` command is allowed.
+
+<br>
 #### Marking a task as completed: `complete`
 Marks the specified task as completed.<br>
 Format: `complete INDEX`
@@ -192,6 +220,17 @@ Marks the specified task as incomplete<br>
 Format: `uncomplete INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+
+<br>
+#### Listing Completed Tasks: `list complete[d]`
+Lists all the tasks that you have completed. <br>
+Format: `list complete[d]`
+
+> You can type either `complete` or its past tense form, `completed`
+
+Examples:
+* `list complete`
+* `list completed` <br>
 
 <br>
 #### Pinning a task: `pin`
@@ -221,17 +260,6 @@ Examples:
 * `list`
 * `unpin 2` <br>
   Unpins the 2nd task in the task list.
-
-<br>
-#### Listing Completed Tasks: `list complete[d]`
-Lists all the tasks that you have completed. <br>
-Format: `list complete[d]`
-
-> You can type either `complete` or its past tense form, `completed`
-
-Examples:
-* `list complete`
-* `list completed` <br>
 
 <br>
 #### Setting an alias: `alias`
@@ -276,46 +304,14 @@ Examples:
 * `list aliases` <br>
 
 <br>
-#### Undoing an action: `undo`
-Undoes the previous command.<br>
-Format: `undo`
-
-Examples:
-* `list`
-* `delete 1`
-* `undo` <br>
-  Undoes your latest `delete` command
-
-> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
-
-<br>
-#### Redoing an undo: `redo`
-Redoes the previous undo command.<br>
-Format: `redo`
-
-Examples:
-* `list`
-* `delete 1`
-* `undo` 
-* `redo` <br>
-  Redoes your latest `undo` command
-
-> Only 1 consecutive `redo` command after an `undo` command is allowed.
-
-<br>
-#### Clearing all entries : `clear`
-Clears all entries from the currently displayed list in Tusk.<br>
-Format: `clear`
+#### Changing the storage location : `setstorage`
+Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
+Format: `setstorage PATH` <br>
 
 <br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`
-
-<br>
-#### Changing the storage location : `setstorage`
-Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
-Format: `setstorage PATH` <br>
 
 Examples:
 * `setstorage C:/Users/Bob/Documents`
