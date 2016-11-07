@@ -25,6 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -242,7 +243,7 @@ public class LogicManagerTest {
         
         Task pinned1 = helper.generateTaskWithName("Pinned");
         pinned1.setIsImportant(true);
-        Task pinned2 = helper.generateTaskWithName("Pinned Too");
+        Task pinned2 = helper.generateTaskAfterWithName("Pinned Too", pinned1);
         pinned2.setIsImportant(true);
         List<Task> pinnedTasks = helper.generateTaskList(pinned1, pinned2);
         
@@ -262,7 +263,7 @@ public class LogicManagerTest {
         
         Task complete1 = helper.generateTaskWithName("Completed");
         complete1.setIsCompleted(true);
-        Task complete2 = helper.generateTaskWithName("Completed Also");
+        Task complete2 = helper.generateTaskAfterWithName("Completed Also", complete1);
         complete2.setIsCompleted(true);
         List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
         
@@ -279,7 +280,7 @@ public class LogicManagerTest {
         
         Task complete1 = helper.generateTaskWithName("Completed");
         complete1.setIsCompleted(true);
-        Task complete2 = helper.generateTaskWithName("Completed Also");
+        Task complete2 = helper.generateTaskAfterWithName("Completed Also", complete1);
         complete2.setIsCompleted(true);
         List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
         
@@ -299,12 +300,12 @@ public class LogicManagerTest {
     private void assertCommandFilteredList(String command, String message, List<Task> taskList, boolean isInverse) throws Exception {
         // prepare initial state
         TestDataHelper helper = new TestDataHelper();
-        helper.addToModel(model, 10);
+        helper.addToModel(model, 9);
         helper.addToModel(model, taskList);
 
         // prepare expected
         ReadOnlyTaskManager expectedTaskManager = model.getTaskManager();
-        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(10) : taskList;
+        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(9) : taskList;
         
         assertCommandBehavior(command, message, expectedTaskManager, expectedTaskList);
     }
@@ -457,10 +458,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesPartialWordInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generateTaskAfterWithName("bla bla KEY bla", p1);
+        Task p2 = helper.generateTaskAfterWithName("KEYKEYKEY sduauo", pTarget1);
+        Task pTarget2 = helper.generateTaskAfterWithName("bla KEY bla bceofeia", p2);
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
@@ -477,11 +478,11 @@ public class LogicManagerTest {
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        Task p2 = helper.generateTaskAfterWithName("bla KEY bla bceofeia", p1);
+        Task p3 = helper.generateTaskAfterWithName("key key", p2);
+        Task p4 = helper.generateTaskAfterWithName("KEy sduauo", p3);
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
@@ -651,5 +652,22 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        //@@author A0141052Y
+        /**
+         * Generates a Task object with given name and ensures that the Task appears
+         * after the specified Task. No guarantee that other Task will appear before it.
+         */
+        Task generateTaskAfterWithName(String name, Task preceedingTask) throws Exception {
+            return new Task(
+                    new Name(name),
+                    DateTime.fromUserInput("tomorrow"),
+                    DateTime.fromDateTimeOffset(preceedingTask.getCloseTime(), 5, ChronoUnit.MINUTES),
+                    false,
+                    false,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        //@@author
     }
 }
