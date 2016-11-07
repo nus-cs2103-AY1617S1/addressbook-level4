@@ -14,7 +14,9 @@ import seedu.task.commons.util.ConfigUtil;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -107,11 +109,15 @@ public class StorageManager extends ComponentManager implements Storage {
     //@@author A0144939R
     @Subscribe
     public void handleFilePathChangedEvent(FilePathChangedEvent event) throws DataConversionException {
-        //ReadOnlyTaskManager taskManager
         try {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "File path change requested, updating file path"));
-            setTaskManagerFilePath(event.newFilePath);
-            saveTaskManager(event.taskManager);
+            String newFilePath = event.newFilePath;
+            setTaskManagerFilePath(newFilePath);
+            if(!isFileAlreadyPresent(newFilePath)) { 
+                saveTaskManager(event.taskManager);                
+            } else {
+                //load from pre existing task manager xml
+            }
             config.setTaskManagerFilePath(event.newFilePath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             raise(new ConfigFilePathChangedEvent(event.newFilePath));
@@ -119,5 +125,14 @@ public class StorageManager extends ComponentManager implements Storage {
             e.printStackTrace();
         }
     }
-
+    
+    /**
+     * Returns true if the file already exists
+     * @param filePath
+     * @return boolean value indicating whether file already exists
+     */
+    private boolean isFileAlreadyPresent(String filePath) {
+        File newFile = new File(filePath);
+        return newFile.exists() && !newFile.isDirectory();
+    }
 }
