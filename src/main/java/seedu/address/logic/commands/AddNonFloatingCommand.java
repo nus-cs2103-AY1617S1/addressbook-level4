@@ -21,7 +21,6 @@ import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
  * Adds a non floating task to the task list
  */
 public class AddNonFloatingCommand extends AddCommand {
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a non floating task to the task list. "
             + "Parameters: TASK_NAME from START_DATE to END_DATE [RECURRING_TYPE] [repeat RECURRING_PERIOD] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
@@ -39,22 +38,17 @@ public class AddNonFloatingCommand extends AddCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType, int recurringPeriod)
-            throws IllegalValueException {
+    public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate,
+           RecurringType recurringType, int recurringPeriod) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags, startDate, endDate, recurringType);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
-                new Name(name),
-                new UniqueTagList(tagSet),
-                new TaskDate(startDate),
-                new TaskDate(endDate),
-                recurringType,
-                recurringPeriod
-        );
-        if(!this.toAdd.getLastAppendedComponent().isValidNonFloatingTime()){
+        this.toAdd = new Task(new Name(name), new UniqueTagList(tagSet),
+                              new TaskDate(startDate), new TaskDate(endDate),
+                              recurringType, recurringPeriod);
+        if (!this.toAdd.getLastAppendedComponent().isValidNonFloatingTime()) {
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }
@@ -67,7 +61,7 @@ public class AddNonFloatingCommand extends AddCommand {
             model.addTask(toAdd);
             CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
             int targetIndex = model.getFilteredTaskComponentList().size();
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - INDEX_OFFSET));
             return result;
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	indicateAttemptToExecuteFailedCommand();
@@ -78,7 +72,5 @@ public class AddNonFloatingCommand extends AddCommand {
         	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
-
     }
-
 }

@@ -16,8 +16,8 @@ import seedu.address.model.task.UniqueTaskList;
 
 //@@author A0135782Y
 /**
- * Handles the behavior of recurring tasks Dictates when should the recurring
- * tasks be shown.
+ * Handles the behavior of recurring tasks 
+ * Dictates when should the recurring tasks be shown.
  * This class is using a singleton pattern. 
  * Use RecurringTaskManager.getInstance() to get the instance of the class
  */
@@ -91,7 +91,8 @@ public class RecurringTaskManager {
      * @param task Recurring Task to be considered, cannot be null
      * @param currentDate The current date as aLocalDate object.
      */    
-    private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate, LocalDate localDateCurrently) {
+    private void attemptAppendRecurringTask(Task task, Calendar startDate, Calendar endDate, 
+            LocalDate localDateCurrently) {
         LocalDate startDateInLocalDate = RecurringTaskUtil.getStartLocalDate(task.getLastAppendedComponent());
         LocalDate endDateInLocalDate = RecurringTaskUtil.getEndLocalDate(task.getLastAppendedComponent());
         final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToAppend(localDateCurrently, 
@@ -158,8 +159,8 @@ public class RecurringTaskManager {
      */
     private void attemptCorrectRecurringTask(Task task, LocalDate localDateCurrently,
             LocalDate startDateInLocalDate, LocalDate endDateInLocalDate) {
-        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToCorrect(localDateCurrently, startDateInLocalDate, 
-                endDateInLocalDate, task.getRecurringType());
+        final int elapsedPeriod = RecurringTaskUtil.getElapsedPeriodToCorrect(
+                localDateCurrently, startDateInLocalDate, endDateInLocalDate, task.getRecurringType());
         if (elapsedPeriod > 0) {
             RecurringTaskUtil.correctRecurringTask(task, elapsedPeriod, task.getRecurringType());
         }        
@@ -220,17 +221,15 @@ public class RecurringTaskManager {
         TaskOccurrence target = taskDesc.getLastAppendedComponent();
         Calendar startDate = RecurringTaskUtil.getStartCalendar(target);
         Calendar endDate = RecurringTaskUtil.getEndCalendar(target );
-        while(taskDesc.getRecurringPeriod() != NO_MORE_RECURRING_PERIOD) {
+        while (taskDesc.getRecurringPeriod() != NO_MORE_RECURRING_PERIOD) {
             appendRecurringTask((Task) taskDesc, startDate, endDate);
             if (taskDesc.getRecurringPeriod()  == Task.NO_RECURRING_PERIOD) {
                 return;
             }
-            (taskDesc).decrementRecurringPeriod();
+            taskDesc.decrementRecurringPeriod();
             target = taskDesc.getLastAppendedComponent();
-            if (startDate != null) {
-                startDate.setTime(target.getStartDate().getDate());
-            }
-            endDate.setTime(target.getEndDate().getDate());
+            startDate = RecurringTaskUtil.getStartCalendar(target);
+            endDate = RecurringTaskUtil.getEndCalendar(target);
         } 
     }
 

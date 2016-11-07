@@ -12,11 +12,8 @@ import seedu.address.model.task.stub.TaskOccurrenceStub;
 import seedu.address.model.task.stub.UniqueTagListStub;
 
 //@@author A0135782Y
-/**
- * Unit Tester that tests the methods of the Task class
- *
- */
 public class TaskTester {
+    private static final int TASK_OCCURENCE_SIZE = 2;
     private Task task;
     private TaskTesterHelper helper;
     
@@ -67,19 +64,28 @@ public class TaskTester {
         task.appendRecurringDate(toAppend);
         TaskOccurrenceStub component = (TaskOccurrenceStub) task.getLastAppendedComponent();
         assertEquals("Task component just appended must be the last appended component", toAppend, component);
-        assertEquals("Task occurrences should be properly appended", task.getTaskDateComponent().size(), 2);
+        assertEquals("Task occurrences should be properly appended", task.getTaskDateComponent().size(), TASK_OCCURENCE_SIZE);
     }
     
     class TaskTesterHelper {
+        /**
+         * Creates floating task
+         */
         public Task createFloatingTask() throws IllegalValueException {
-            return new Task(new NameStub("dummy"), new UniqueTagListStub());
+            return new Task(new NameStub(), new UniqueTagListStub());
         }
         
+        /**
+         * Creates non floating task
+         */
         public Task createNonFloatingTask(RecurringType type) throws IllegalValueException {
-            return new Task(new NameStub("dummy"), new UniqueTagListStub(),
+            return new Task(new NameStub(), new UniqueTagListStub(),
                     new TaskDateStub(), new TaskDateStub(), type, Task.NO_RECURRING_PERIOD);
         }
         
+        /**
+         * Create task occurrence stub 
+         */
         public TaskOccurrenceStub createTaskOccurenceStub(Task task) {
             return new TaskOccurrenceStub(task, new TaskDateStub(), new TaskDateStub());
         }

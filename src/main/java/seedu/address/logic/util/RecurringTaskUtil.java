@@ -17,13 +17,13 @@ import seedu.address.model.task.UniqueTaskList;
  * General utility class for recurring task manager
  */
 public class RecurringTaskUtil {
+    private static final int INVALID_PERIOD = -1;
     private static final int INDEPTH_CHECK_REQUIRED = 0;
     private static final int APPEND_INCREMENT = 1;
     private static final double NUM_MONTHS_IN_YEAR = 12.0;
     private static final double NUM_WEEKS_IN_MONTH = 4.0;
     private static final double NUM_DAYS_IN_WEEK = 7.0;
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
-    
     /**
      * Appends recurring tasks into TaskMaster 
      * 
@@ -44,7 +44,7 @@ public class RecurringTaskUtil {
             editedStartDate.setDateInLong(calendar.getTime().getTime());
             startDate.setTime(editedStartDate.getDate());
         } else {
-            editedStartDate.setDateInLong((new TaskDate()).getDateInLong());
+            editedStartDate.setDateInLong(TaskDate.DATE_NOT_PRESENT);
         }
 
         calendar.setTime(endDate.getTime());
@@ -93,7 +93,8 @@ public class RecurringTaskUtil {
      * @param elapsedPeriod The period between days or weeks or months or years
      * @param recurringType Recurring type of the task
      */
-    private static void correctCalendarByElapsed(Calendar calendar, int elapsedPeriod, RecurringType recurringType) {
+    private static void correctCalendarByElapsed(Calendar calendar, int elapsedPeriod, 
+            RecurringType recurringType) {
         switch (recurringType) {
             case DAILY:
                 calendar.add(Calendar.DAY_OF_MONTH, elapsedPeriod);
@@ -127,7 +128,8 @@ public class RecurringTaskUtil {
     public static int getElapsedPeriodToAppend(LocalDate localDateCurrently, LocalDate startDateInLocalDate,
             LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsed;
-        elapsed = getElapsedPeriodByRecurringType(localDateCurrently, startDateInLocalDate, endDateInLocalDate, recurringType);
+        elapsed = getElapsedPeriodByRecurringType(
+                          localDateCurrently, startDateInLocalDate, endDateInLocalDate, recurringType);
         return elapsed;
     }
     
@@ -141,13 +143,15 @@ public class RecurringTaskUtil {
      * @param recurringType The recurring type of the task
      * @return The elapsed period based on the recurring type and based on start or end date.
      */
-    public static int getElapsedPeriodToCorrect(LocalDate localDateCurrently,
-            LocalDate startDateInLocalDate, LocalDate endDateInLocalDate, RecurringType recurringType) {
+    public static int getElapsedPeriodToCorrect(LocalDate localDateCurrently, LocalDate startDateInLocalDate,
+            LocalDate endDateInLocalDate, RecurringType recurringType) {
         final int elapsedPeriod;
         if (startDateInLocalDate != null) {
-            elapsedPeriod = getPeriodBetweenDatesToCorrect(startDateInLocalDate, localDateCurrently, recurringType);
+            elapsedPeriod = getPeriodBetweenDatesToCorrect(
+                                    startDateInLocalDate, localDateCurrently, recurringType);
         } else {
-            elapsedPeriod = getPeriodBetweenDatesToCorrect(endDateInLocalDate, localDateCurrently, recurringType);
+            elapsedPeriod = getPeriodBetweenDatesToCorrect(
+                                    endDateInLocalDate, localDateCurrently, recurringType);
         }
         return elapsedPeriod;
     }
@@ -158,7 +162,8 @@ public class RecurringTaskUtil {
      * 
      * @return The elapsed time between two dates and based on the recurring type.
      */
-    private static int getPeriodBetweenDatesToCorrect(LocalDate before, LocalDate after, RecurringType recurringType) {
+    private static int getPeriodBetweenDatesToCorrect(LocalDate before, LocalDate after, 
+            RecurringType recurringType) {
         int elapsedPeriod;
         switch (recurringType) {
             case DAILY:
@@ -180,7 +185,7 @@ public class RecurringTaskUtil {
                 }
                 break;
             default:
-                elapsedPeriod = -1;
+                elapsedPeriod = INVALID_PERIOD;
                 assert false : "RecurringType cannot be NONE";
                 break;
         }
@@ -237,27 +242,33 @@ public class RecurringTaskUtil {
                 break;
             case WEEKLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math.ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                    elapsed = (int) Math.ceil(ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) 
+                                               / NUM_DAYS_IN_WEEK);
                 } else {
-                    elapsed = (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                    elapsed = (int) Math.ceil(ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) 
+                                               / NUM_DAYS_IN_WEEK);
                 }
                 break;
             case MONTHLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) 
+                                              / NUM_WEEKS_IN_MONTH);
                 } else {
-                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                    elapsed = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) 
+                                              / NUM_WEEKS_IN_MONTH);
                 }                
                 break;
             case YEARLY:
                 if (startDateInLocalDate != null) {
-                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) 
+                                              / NUM_MONTHS_IN_YEAR);
                 } else {
-                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                    elapsed = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) 
+                                              / NUM_MONTHS_IN_YEAR);
                 }                
                 break;
             default:
-                elapsed = -1;
+                elapsed = INVALID_PERIOD;
                 assert false : "Recurring Type must not be NONE";
         }
         return elapsed;

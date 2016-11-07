@@ -60,12 +60,10 @@ public class ModelManager extends ComponentManager implements Model {
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
-        previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-        previousExpression = new PredicateExpression(new InitialQualifier());
-        
+        initPreviousDateAndExpression();
     }
-
     //@@author
+
     public ModelManager() {
         this(new TaskMaster(), new UserPrefs());
     }
@@ -77,8 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskOccurrenceList());
         initRecurringTaskManager();
-        previousDate = new TaskDate(new Date(System.currentTimeMillis()));
-        previousExpression = new PredicateExpression(new InitialQualifier());
+        initPreviousDateAndExpression();
     }
     
     /**
@@ -130,7 +127,8 @@ public class ModelManager extends ComponentManager implements Model {
      * If it is a recurring task, it will be handled by RecurringTaskManager
      */
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
+    public synchronized void addTask(Task task) 
+            throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
         RecurringTaskManager.getInstance().addTask(task);
         updateFilteredListToShowAll();
@@ -432,4 +430,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    private void initPreviousDateAndExpression() {
+        previousDate = new TaskDate(new Date(System.currentTimeMillis()));
+        previousExpression = new PredicateExpression(new InitialQualifier());
+    }
 }

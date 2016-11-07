@@ -35,14 +35,12 @@ public class XmlAdaptedTaskOccurrence {
     private int recurringPeriod;
     @XmlElement
     private boolean isArchived;
-    //@@author
     
     /**
      * No-arg constructor for JAXB use.
      */
     public XmlAdaptedTaskOccurrence() {}
 
-    //@@author A0135782Y
     /**
      * Converts a given Task into this class for JAXB use.
      *
@@ -99,7 +97,6 @@ public class XmlAdaptedTaskOccurrence {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        
         if (endDate != TaskDate.DATE_NOT_PRESENT) {
             return toModelTypeNonFloating(name, tags);
         }
@@ -111,13 +108,7 @@ public class XmlAdaptedTaskOccurrence {
      */
     private Task toModelTypeFloating(final Name name, final UniqueTagList tags) {
     	Task task = new Task(name, tags);
-    	
-    	if(isArchived){
-    		task.setTaskType(TaskType.COMPLETED);
-        	for(TaskOccurrence t: task.getTaskDateComponent()){
-        		t.archive();
-        	}
-        }
+    	processArchivedTasks(task);
         return task;
     }
 
@@ -132,14 +123,21 @@ public class XmlAdaptedTaskOccurrence {
             toBeAdded = RecurringType.valueOf(recurringType);
         }
         Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded, recurringPeriod);
-        if(isArchived){
+        processArchivedTasks(task);
+        return task;
+    }
+
+    /**
+     * Processes archived task before it is loaded into the UI.
+     * @param task The task that we are currently loading
+     */
+    private void processArchivedTasks(Task task) {
+        if (isArchived) {
         	task.setTaskType(TaskType.COMPLETED);
-        	for(TaskOccurrence t: task.getTaskDateComponent()){
+        	for (TaskOccurrence t: task.getTaskDateComponent()) {
         		t.archive();
         	}
         }
-
-        return task;
     }
     //@@author
 }

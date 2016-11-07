@@ -4,11 +4,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import seedu.address.logic.util.DateFormatterUtil;
+
 //@@author A0135782Y
 /**
  * Helper class for storing date for the Task
  */
 public class TaskDate {
+    private static final String NO_DATE_PRESENT = "";
     public static final int DATE_NOT_PRESENT = -1;
     private long date;
     
@@ -32,11 +35,13 @@ public class TaskDate {
         this.date = copy.date;
     }
     
+    //@@author
     //For sake of testing, not implemented in main app
     public TaskDate(String inputDate) {
         this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
     }
     
+    //@@author A0135782Y
     public void setDateInLong(long date) {
         this.date = date;
     }
@@ -48,21 +53,22 @@ public class TaskDate {
      */
     public String getFormattedDate() {
         if (date == DATE_NOT_PRESENT) {
-            return "";
+            return NO_DATE_PRESENT;
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma", Locale.ENGLISH);
-        return formatter.format(new Date(date));
+        return DateFormatterUtil.getFormattedDate(new Date(date));
     }
+    //@author
     
     //For sake of testing
     public String getInputDate() {
         if (date == DATE_NOT_PRESENT) {
-            return "";
+            return NO_DATE_PRESENT;
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM hha", Locale.ENGLISH);
         return formatter.format(new Date(date));
     }
     
+    //@@author A0135782Y
     public long getDateInLong() {
         return date;
     } 
@@ -76,9 +82,9 @@ public class TaskDate {
     
     @Override
     public boolean equals(Object other){
-		return other == this ||
-				(other instanceof TaskDate // instanceof handles nulls
-		         && this.getDate().equals(((TaskDate) other).getDate()));
+		return other == this 
+		       || (other instanceof TaskDate // instance of handles nulls
+		           && this.getDate().equals(((TaskDate) other).getDate()));
     }
 
     public boolean isPresent() {
@@ -89,5 +95,4 @@ public class TaskDate {
     public String toString() {
         return getFormattedDate();
     }
-
 }
