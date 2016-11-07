@@ -76,6 +76,7 @@ Role: Integration / Git Expert <br>
 * Other major contributions:
 	* Refactor Addressbook to TaskManager [[c7a25dc](https://github.com/CS2103AUG2016-T14-C3/main/commit/c7a25dcae23ba1f9282584ab5a6f627195411172)]
 
+[comment]: # (@@author A0143641M)
 -----
 
 #### [Yeo Kai Yan @kaiyanyeo](http://github.com/kaiyanyeo)
