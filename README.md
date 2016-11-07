@@ -1,6 +1,6 @@
 <img src="docs/images/app_logo_full.png" alt="Uncle Jim's Discount To-do List" width="600"><br>
 
-<img src="docs/images/app_screenshot.png" alt="Mockup of Uncle Jim's Discount To-do List main interface" width="600"><br>
+<img src="docs/images/main.png" alt="Mockup of Uncle Jim's Discount To-do List main interface" width="600"><br>
 
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W10-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W10-C4/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W10-C4/main/badge.svg?branch=master&nocache=02-11-2016)](https://coveralls.io/github/CS2103AUG2016-W10-C4/main?branch=master)
@@ -23,7 +23,19 @@
 
 
 #### Acknowledgements
+
 * This project was based on [Address Book (Level 4)](https://github.com/nus-cs2103-AY1617S1/addressbook-level4).
+* This project uses a number of external third-party libraries, building on the shoulder of giants: 
+    - PrettyTimeNLP: http://www.ocpsoft.org/prettytime/nlp/
+    - TestFX: https://github.com/TestFX/TestFX
+    - JUnit: http://junit.org/junit4/
+    - Faker: https://github.com/DiUS/java-faker
+    - Mockito: http://mockito.org/
+    - Jackson: https://github.com/FasterXML/jackson
+    - Google Core Libraries: https://github.com/google/guava
+    - Apache Commons: https://commons.apache.org/ 
+    - Evo Inflector: https://github.com/atteo/evo-inflector/
+    
 
 
 #### Licence : [MIT](LICENSE)
