@@ -156,13 +156,49 @@
 
 ## 7 Find Command <br>
 
-
+    7.1.1   Type in the Command Box : Find 13-11-2016
+    7.1.2   Task List panel would be updated to show all tasks that are due on 13-11-2016. 
+    7.1.3   The result display would show the message that all tasks have been listed. 
+    
+    7.2.1   Type in the Command Box : Find homework
+    7.2.2   Task List panel would be updated to show all tasks that have the name and tags in the main widow.
+    7.2.3   The result display would show the message of the number of tasks that have been listed.
 
 ## 8 Clear Command <br>
+
+    8.1.1   Type in the Command Box : Clear
+    8.1.2   Task List panel would be cleared.
+    8.1.2   The result display would show the message that all tasks in the current list have been cleared.
+    
 ## 9 Undo Command <br>
+    
+    9.1.1   Type in the Command Box : Add hello
+    9.1.2   Type in the Commmand Box : Undo
+    9.1.3   Task would be deleted.
+    
+    9.2.1   Type in the Command Box : Delete 2
+    9.2.2   Type in the Command Box : Undo
+    9.2.3   Task would be restored and the task list willbe updated in the main window.
+    
 ## 10 Redo Command <br>
+    10.1.1  Type in the Command Box : Delete 3
+    10.1.2  Type in the Command Box : Undo
+    10.1.3  Type in the Command Box : Redo
+    10.1.4  Task would be deleted and the task list would be updated in the main window.
+    
 ## 11 Help Command <br>
+    11.1.1  Type in the Command Box : Help
+    11.1.2  The result display would show the help message for the formats for all the commands
+    
 ## 12 Save to Directory <br>
+    12.1.1  Type in the Command Box : setdir ListTask.xml
+    12.1.2  The result display would show the message of the new file path
+    
+    12.2.1 Type in the Command Box : setdir reset
+    12.2.2 The result display will show the message that the file directory has been reverted to its original file path
+    
 ## 13 Exit Command <br>
+    13.1.1 Type in the Commmand Box : Exit
+    13.1.2 The application will exit
  
  
