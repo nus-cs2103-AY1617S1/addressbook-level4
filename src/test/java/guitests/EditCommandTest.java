@@ -52,12 +52,12 @@ public class EditCommandTest extends AddressBookGuiTest {
 	case 's':
 	    String newStartTimeString = np.parseTime(newField);
 	    StartTime newStartTime = new StartTime(newStartTimeString);
-	    personToEdit.setStartTime(newStartTime);
+	    personToEdit.setEnd(newStartTime);
 	    
 	case 'e':
 	    String newEndTimeString = np.parseTime(newField);
 	    EndTime newEndTime = new EndTime(newEndTimeString);
-	    personToEdit.setEndTime(newEndTime);
+	    personToEdit.setStart(newEndTime);
 	}
 	
 	commandBox.runCommand("edit " + targetIndex + arg);

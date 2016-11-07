@@ -75,13 +75,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		this.isPinned = false;
 	}
 
-	private String calculateDueStatus(DateTime end) {
-	
+	public static String calculateDueStatus(DateTime end) {
 		// if there is no end date, return empty string
 		if (end.getDate().equals("")) {
 			return "";
 		}
-		
 		DateTime nowAsDateTime = DateUtil.nowAsDateTime();
 		
 		// if end date is strictly before current date

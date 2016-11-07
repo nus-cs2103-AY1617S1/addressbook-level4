@@ -8,58 +8,95 @@ import seedu.dailyplanner.model.task.*;
  */
 public class TestTask implements ReadOnlyTask {
 
-    private Name name;
-    private EndTime address;
-    private StartTime email;
-    private Date1 phone;
-    private boolean isCompleted;
+    private String name;
+    private DateTime start;
+    private DateTime end;
+    private boolean isComplete;
+    private boolean isPinned;
     private UniqueTagList tags;
-    private String isComplete;
+  
 
     public TestTask() {
         tags = new UniqueTagList();
     }
 
-    public void setName(Name name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setEndTime(EndTime address) {
-        this.address = address;
+    public void setStart(DateTime start) {
+        this.start = start;
     }
 
-    public void setStartTime(StartTime email) {
-        this.email = email;
+    public void setEnd(DateTime email) {
+        this.end = email;
     }
+    
+    public void setCompletion(boolean completeStatus) {
+    	this.isComplete = completeStatus;
+    }
+    
+	@Override
+	public void markAsComplete() {
+		isComplete = true;
+	}
+	
+	@Override
+	public void markAsNotComplete() {
+		// TODO Auto-generated method stub
+	}
+    
+	@Override
+	public void pin() {
+		// TODO Auto-generated method stub
+		
+	}
 
-    public void setDate(Date1 phone) {
-        this.phone = phone;
-    }
+	@Override
+	public void unpin() {
+		// TODO Auto-generated method stub
+	}
+
 
     @Override
-    public Name getName() {
+	public String getName() {
         return name;
     }
 
     @Override
-    public Date1 getStart() {
-        return phone;
+    public DateTime getStart() {
+        return start;
     }
 
     @Override
-    public StartTime getEnd() {
-        return email;
+    public DateTime getEnd() {
+        return end;
     }
-
+    
     @Override
-    public EndTime getAddress() {
-        return address;
+	public boolean isComplete() {
+		return isComplete;
+	}
+    
+    @Override
+    public String getCompletion() {
+    	return (isComplete) ? "COMPLETE" : "NOT COMPLETE";
+    }
+    
+    @Override
+    public boolean isPinned() {
+    	return isPinned;
     }
 
     @Override
     public UniqueTagList getTags() {
         return tags;
     }
+    
+    @Override
+	public String getDueStatus() {
+		return Task.calculateDueStatus(end);
+	}
 
     @Override
     public String toString() {
@@ -68,27 +105,10 @@ public class TestTask implements ReadOnlyTask {
     //@@author A0146749N
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("d/" + this.getStart().value + " ");
-        sb.append("s/" + this.getEnd().value + " ");
-        sb.append("e/" + this.getAddress().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add " + this.getName() + " ");
+        sb.append("s/" + this.getStart().toString() + " ");
+        sb.append("e/" + this.getEnd().toString() + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("c/" + s.tagName + " "));
         return sb.toString();
-    }
-
-    @Override
-    public void markAsComplete() {
-	// TODO Auto-generated method stub
-	
-    }
-
-    @Override
-    public String getCompletion() {
-	return isComplete;
-    }
-
-    @Override
-    public void setCompletion(String completion) {
-        this.isComplete = completion;
     }
 }
