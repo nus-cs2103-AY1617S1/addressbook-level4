@@ -59,8 +59,6 @@ Get started with <i>Tusk</i> now!
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-
 <br>
 #### Adding a task: `add`
 Adds a task to <i>Tusk</i>. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
