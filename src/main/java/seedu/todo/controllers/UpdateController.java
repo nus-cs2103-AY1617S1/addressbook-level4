@@ -245,12 +245,7 @@ public class UpdateController extends Controller {
             }
         } else {
             Event event = (Event) record;
-
-            // Take union of existing fields and update params
-            LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
-            LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
-
-            if (newDateFrom == null || newDateTo == null || newDateTo.isBefore(newDateFrom)) {
+            if (!validateUpdatedEventDates(event, dateFrom, dateTo)) {
                 return false;
             }
         }
@@ -269,6 +264,22 @@ public class UpdateController extends Controller {
     private boolean validateNameDateChange(String name, LocalDateTime dateFrom, LocalDateTime dateTo, String naturalFrom) {
         return !(name == null && dateFrom == null && dateTo == null
                 && !STRING_NULL.equals(naturalFrom));
+    }
+    
+    /**
+     * Validates an event to be updated with dateFrom and dateTo.
+     * 
+     * @param oldEvent
+     * @param dateFrom
+     * @param dateTo
+     * @return
+     */
+    private boolean validateUpdatedEventDates(Event oldEvent, LocalDateTime dateFrom, LocalDateTime dateTo) {
+        // Take union of existing fields and update params
+        LocalDateTime newDateFrom = (dateFrom == null) ? oldEvent.getStartDate() : dateFrom;
+        LocalDateTime newDateTo = (dateTo == null) ? oldEvent.getEndDate() : dateTo;
+
+        return (newDateFrom != null && newDateTo != null && !newDateTo.isBefore(newDateFrom));
     }
 
     /**
