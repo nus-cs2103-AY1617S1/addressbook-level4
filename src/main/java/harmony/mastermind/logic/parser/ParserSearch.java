@@ -69,7 +69,6 @@ public class ParserSearch extends ParserMemoryMain {
      */
     private static void searchTerm(Memory memory) {
         String[] toSearch = command.split(", ");
-        System.out.println(SEARCHING_FOR_TERM);
         FindCommand.searchTerms(toSearch, memory);
     }
 
@@ -81,9 +80,7 @@ public class ParserSearch extends ParserMemoryMain {
      */
     private static void searchDate(String[] details, Memory memory) {
         setProper(setDate(details[1], dateTime));
-        if(!setProper){
-            System.out.println(ERROR_INVALID_DATE);
-        }else{
+        if(setProper) { 
             assert setProper == true;
             searchDate(memory);
         }
@@ -120,8 +117,6 @@ public class ParserSearch extends ParserMemoryMain {
             searchDate(details, memory);
             break;
             
-        default:
-            System.out.println(ERROR_INVALID_COMMAND);
         }
     }
     
@@ -132,15 +127,14 @@ public class ParserSearch extends ParserMemoryMain {
      * If list has exactly one item, displayDetailed is called (display an item)
      * If list has more than one item, then displayList is called (display a list)
      */
-    private static void displayResult(ArrayList<GenericMemory> result, String reportSuccess, String type){
+    private static String displayResult(ArrayList<GenericMemory> result, String reportSuccess, String type){
         if (result.size() == 0) {
-            System.out.println(ERROR_ITEM_NOT_FOUND);
-        } else if (result.size() == 1) {
-            System.out.println(reportSuccess);
-            ListCommand.displayDetailed(result.get(0));
+            return ERROR_ITEM_NOT_FOUND;
+        } else if (result.size() == 1) {;
+            return ListCommand.displayDetailed(result.get(0));
         } else {
             assert result.size() >1;
-            ListCommand.displayList(result, type);
+            return ListCommand.displayList(result, type);
         }
     }
 

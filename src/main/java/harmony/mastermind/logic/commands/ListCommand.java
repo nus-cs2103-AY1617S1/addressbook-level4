@@ -84,49 +84,48 @@ public class ListCommand extends Command {
 
     //@author A0143378Y
     // Displays an individual GenericMemory item with all non-null details
-    public static void displayDetailed(GenericMemory item) {
+    public static String displayDetailed(GenericMemory item) {
         displayClear();
         detailedView = item;
 
         assert detailedView != null;
 
-        formatItem(item);
+        return formatItem(item);
     }
 
     //@author A0143378Y
     // Formats the item display
-    private static void formatItem(GenericMemory item) {
-        System.out.println(ITEM_VIEW);
-        System.out.println(LINE);
-        System.out.println(item);
-        System.out.println(LINE2);
+    private static String formatItem(GenericMemory item) {
+        String result = ITEM_VIEW + "\n" + LINE + "\n" + item + "\n" + LINE2;
+        return result;
     }
 
     //@author A0143378Y
     // Takes an ArrayList of GenericMemoryitems, and display them in a list form, with name as the heading
-    public static void displayList(ArrayList<GenericMemory> list, String name) {
+    public static String displayList(ArrayList<GenericMemory> list, String name) {
         displayClear();
         detailedView = null;
         listName = name;
 
         assert listName != null;
 
-        formatList(list);
+        return formatList(list);
     }
 
     //@author A0143378Y
     // Formats the list display
-    private static void formatList(ArrayList<GenericMemory> list) {
-        System.out.println(listName);
-        System.out.println(LINE);
+    private static String formatList(ArrayList<GenericMemory> list) {
+        String result = listName + "\n" + LINE;
         for (int i=0; i < list.size(); i++) {
             String line = i + 1 + BRACKET_OPEN;
             line = markSymbol(list, i, line);
             line += BRACKET_CLOSE + list.get(i).getName();
 
-            System.out.println(line);
+            result = result + "\n" + line;
         }
-        System.out.println(LINE2);
+        
+        result = result + "\n" + LINE2;
+        return result;
     }
 
     //@author A0143378Y
