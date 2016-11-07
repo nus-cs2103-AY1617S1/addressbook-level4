@@ -44,6 +44,7 @@ import javafx.collections.transformation.FilteredList;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    private final int FAIL = -1;
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> filteredFloatingTasks;
@@ -250,22 +251,22 @@ public class ModelManager extends ComponentManager implements Model {
     // @@author A0124797R
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
-        return new UnmodifiableObservableList<>(taskManager.getFloatingTasks());
+        return new UnmodifiableObservableList<>(filteredFloatingTasks);
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
-        return new UnmodifiableObservableList<>(taskManager.getEvents());
+        return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
-        return new UnmodifiableObservableList<>(taskManager.getDeadlines());
+        return new UnmodifiableObservableList<>(filteredDeadlines);
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredArchiveList() {
-        return new UnmodifiableObservableList<>(taskManager.getArchives());
+        return new UnmodifiableObservableList<>(filteredArchives);
     }
     
     // =========== Methods for file access ================================
@@ -353,28 +354,63 @@ public class ModelManager extends ComponentManager implements Model {
                 break;
         }
     }
+    
+    @Override
+    public int getCurrentListSize() {
+        switch (currentTab) {
+            case TAB_HOME:
+                return filteredTasks.size();
+            case TAB_TASKS:
+                return filteredFloatingTasks.size();
+            case TAB_EVENTS:
+                return filteredEvents.size();
+            case TAB_DEADLINES:
+                return filteredDeadlines.size();
+            case TAB_ARCHIVES:
+                return filteredArchives.size();
+            default:
+                //should not reach here
+                return FAIL;
+        }
+    }
 
-    //@@author A0124797R
     @Override
     public void updateFilteredListToShowUpcoming(long time, String taskType) {
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(time, taskType)));
+        updateFilteredList(new PredicateExpression(new DateQualifier(time, taskType)));
     }
 
     //@@author generated
     @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredList(Set<String> keywords) {
+        updateFilteredList(new PredicateExpression(new NameQualifier(keywords)));
+        indicateTaskManagerChanged();
     }
 
     // @@author A0124797R
     @Override
     public void updateFilteredTagTaskList(Set<Tag> keywords) {
-        updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));
+        updateFilteredList(new PredicateExpression(new TagQualifier(keywords)));
     }
 
     //@@author generated
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    private void updateFilteredList(Expression expression) {
+        switch (currentTab) {
+            case TAB_HOME:
+                filteredTasks.setPredicate(expression::satisfies);
+                break;
+            case TAB_TASKS:
+                filteredFloatingTasks.setPredicate(expression::satisfies);
+                break;
+            case TAB_EVENTS:
+                filteredEvents.setPredicate(expression::satisfies);
+                break;
+            case TAB_DEADLINES:
+                filteredDeadlines.setPredicate(expression::satisfies);
+                break;
+            case TAB_ARCHIVES:
+                filteredArchives.setPredicate(expression::satisfies);
+                break;
+        }
     }
 
     // @@author A0124797R
@@ -383,7 +419,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private ObservableList<Task> getCurrentObservableList() {
         ObservableList<Task> list = filteredTasks;
-
+        
         switch (currentTab) {
             case "Home":
                 list = filteredTasks;
