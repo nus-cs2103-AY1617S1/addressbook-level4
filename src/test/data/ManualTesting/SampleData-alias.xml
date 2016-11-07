@@ -16,4 +16,8 @@
         <shortcut>lc</shortcut>
         <sentence>list completed</sentence>
     </alias>
+    <alias>
+        <shortcut>l</shortcut>
+        <sentence>list</sentence>
+    </alias>
 </alias>
