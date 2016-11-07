@@ -1,11 +1,19 @@
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.RollBackCommand;
+import seedu.task.model.ReadOnlyTaskManager;
+import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
+import seedu.task.model.task.Task;
+import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 
 // @@author A0147335E
 /**
@@ -34,6 +42,8 @@ public class UndoCommand extends Command {
     public static final int COMMAND_FIELD = 2;
     
     public static final int FIRST_INDEX_OF_LIST= 0;
+    
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     public final int numOfTimes;
 
@@ -120,6 +130,14 @@ public class UndoCommand extends Command {
                 case RefreshCommand.COMMAND_WORD:
                     prepareUndoRefreshCommand();
                     break;
+                    
+                case FindCommand.COMMAND_WORD:
+                    result = prepareUndoFindCommand(result);
+                    break;
+                    
+                case SortCommand.COMMAND_WORD:
+                    result = prepareUndoSortCommand(result);
+                    break;
 
                 default:
                     break;
@@ -177,6 +195,37 @@ public class UndoCommand extends Command {
         removePreviousCommand();
     }
 
+    private String prepareUndoFindCommand(String result) {
+        return result;
+        
+        
+    }
+    
+    private String prepareUndoSortCommand(String result) {
+        int undoIndex = lastIndexOfUndoList();
+        String currentSort = "";
+        Command command = null;
+        if(getUndoList().size() > 1) {
+        currentSort = getUndoList().get(undoIndex - 1).getCurrentSort(); 
+        if(currentSort != null)
+        command = new SortCommand(currentSort);
+        else
+            command = new SortCommand("");
+        
+        
+        }
+        else{
+            command = new SortCommand(currentSort);
+        }
+        
+        setData(command);
+        executeCommand(command);
+        removePreviousCommand();
+        return result;
+        
+        
+        
+    }
     private void prepareUndoDone(String[] commandParts) {
         int undoIndex = lastIndexOfUndoList();
 
@@ -204,16 +253,22 @@ public class UndoCommand extends Command {
     }
 
     private void prepareUndoFavorite(String[] commandParts) {
+        int undoIndex = lastIndexOfUndoList();
+
+        int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
-        Command command = new UnfavoriteCommand(index);
+        Command command = new UnfavoriteCommand(index, currentIndex);
         setData(command);
         executeCommand(command);
         removePreviousCommand();
     }
 
     private void prepareUndoUnfavorite(String[] commandParts) {
+        int undoIndex = lastIndexOfUndoList();
+
+        int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
         int index = Integer.parseInt(commandParts[COMMAND_INDEX]);
-        Command command = new FavoriteCommand(index);
+        Command command = new FavoriteCommand(index, currentIndex);
         setData(command);
         executeCommand(command);
         removePreviousCommand();

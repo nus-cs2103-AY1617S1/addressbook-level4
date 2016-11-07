@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import seedu.task.logic.RollBackCommand;
+
 // @@author A0147944U
 /**
  * Lists all tasks in the task manager to the user.
@@ -98,6 +100,9 @@ public class SortCommand extends Command {
         model.saveCurrentSortPreference(keyword);
         if ("Default".equals(keyword)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_DEFAULT));
+        }
+        if (!isUndo) {
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, null, null, keyword));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }

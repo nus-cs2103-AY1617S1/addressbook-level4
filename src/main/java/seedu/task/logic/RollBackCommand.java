@@ -15,6 +15,7 @@ public class RollBackCommand {
     private Task newTask;
     private Task oldTask;
     private int currentIndex;
+    private String currentSort;
     
     public RollBackCommand(String commandWord, Task newTask, Task oldTask) {
         this.commandWord = commandWord;
@@ -27,6 +28,15 @@ public class RollBackCommand {
         this.newTask = newTask;
         this.oldTask = oldTask;
         this.currentIndex = currentIndex;
+        
+        
+    }
+    
+    public RollBackCommand(String commandWord, Task newTask, Task oldTask, String currentSort) {
+        this.commandWord = commandWord;
+        this.newTask = newTask;
+        this.oldTask = oldTask;
+        this.currentSort = currentSort;
         
     }
     
@@ -44,5 +54,9 @@ public class RollBackCommand {
     
     public int getCurrentIndex() {
         return currentIndex;
+    }
+    
+    public String getCurrentSort() {
+        return currentSort;
     }
 }

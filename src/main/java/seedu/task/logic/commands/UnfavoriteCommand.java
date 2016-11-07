@@ -26,22 +26,30 @@ public class UnfavoriteCommand extends Command {
 
     public static final String MESSAGE_ALREADY_UNFAVORITED = "Task has already been unfavorited!";
 
-    public final int targetIndex;
+    public int targetIndex;
+    public int currentIndex;
 
     public UnfavoriteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
+        currentIndex = targetIndex;
     }
 
+    public UnfavoriteCommand(int targetIndex, int currentIndex)
+    {
+        this.targetIndex = targetIndex;
+        this.currentIndex = currentIndex;
+    }
+    
     @Override
     public CommandResult execute(boolean isUndo) {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         assert model != null;
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() < currentIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask currentTask = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask currentTask = lastShownList.get(currentIndex - 1);
         boolean oldStatus = currentTask.getStatus().getFavoriteStatus();
 
         try {
@@ -50,24 +58,26 @@ public class UnfavoriteCommand extends Command {
 
         }
 
-        Task newTask = new Task(currentTask);
-        newTask.getStatus().setFavoriteStatus(false);
+        Task taskToUnfavorite = new Task(currentTask);
+        taskToUnfavorite.getStatus().setFavoriteStatus(false);
         try {
-            model.addTask(targetIndex - 1, newTask);
+            model.addTask(targetIndex - 1, taskToUnfavorite);
         } catch (DuplicateTaskException e) {
         }
 
-        if (oldStatus == newTask.getStatus().getFavoriteStatus()) {
+        if (oldStatus == taskToUnfavorite.getStatus().getFavoriteStatus()) {
             return new CommandResult(MESSAGE_ALREADY_UNFAVORITED);
         }
-        if (!isUndo) {
-            getUndoList().add(new RollBackCommand(COMMAND_WORD, newTask, null));
-        }
+        
         // @@author A0147944U
         // Sorts updated list of tasks
         model.autoSortBasedOnCurrentSortPreference();
         // @@author A0147335E
-        return new CommandResult(String.format(MESSAGE_UNFAVORITE_TASK_SUCCESS, newTask.getName()));
+        int currentIndex = model.getTaskManager().getTaskList().indexOf(taskToUnfavorite);
+        if (!isUndo) {
+            getUndoList().add(new RollBackCommand(COMMAND_WORD, taskToUnfavorite, null, currentIndex));
+        }
+        return new CommandResult(String.format(MESSAGE_UNFAVORITE_TASK_SUCCESS, taskToUnfavorite.getName()));
     }
 
     private ArrayList<RollBackCommand> getUndoList() {
