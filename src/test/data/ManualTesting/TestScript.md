@@ -11,16 +11,6 @@
 * [Getting Started](#getting-started)
 * [Features](#features)
     * [Help Command](#1-help-command)
-    * [Edit Command](#4-edit-command)
-    * [Done Command](#5-done-command)
-    * [Undone Command](#6-undone-command)
-    * [List Command](#7-list-command)
-    * [Find Command](#8-find-command)
-    * [Clear Command](#9-clear-command)
-    * [Undo Command](#10-undo-command)
-    * [Redo Command](#11-redo-command)
-    * [Exit Command](#12-exiting-the-program-exit)
-    * [Save to Directory](#13-saving-to-directory)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -88,7 +78,7 @@
 
 
  
-## 1 Delete Command <br>
+## 2 Delete Command <br>
  
     1.1.1   Type in the Command Box : delete 1
     1.1.2    Task should be deleted from the task list panel in the main window and the list would be updated.
@@ -103,6 +93,16 @@
     1.1.3    Task deleted would be displayed on the result display panel.
  
  
- ## 2 Edit Command <br>
+## 3 Edit Command <br>
+## 4 Done Command <br>
+## 5 Undone Command <br>
+## 6 List Command <br>
+## 7 Find Command <br>
+## 8 Clear Command <br>
+## 9 Undo Command <br>
+## 10 Redo Command <br>
+## 11 Help Command <br>
+## 12 Save to Directory <br>
+## 13 Exit Command <br>
  
  
