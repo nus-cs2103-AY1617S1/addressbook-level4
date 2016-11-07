@@ -1008,6 +1008,7 @@ public class LogicManagerTest {
 		 *  This is unused because I did not discuss with my teammates in advanced so they decided 
          * not to include this method
 		 */
+		/*
 		@Test
 		public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
 			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE);
@@ -1206,13 +1207,14 @@ public class LogicManagerTest {
 			assertCommandBehavior("multipledelete 02-01 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
+		*/
 				
 	// @@author A0139714B
 	@Test
 	public void execute_editIndexNotFound_errorMessageShown() throws Exception {
 		assertIndexNotFoundBehaviorForCommand("edit");
 	}
-
+	
 	// @@author A0139714B
 	@Test
 	public void execute_edit_validAllFields() throws Exception {
@@ -1917,7 +1919,7 @@ public class LogicManagerTest {
 		for (Task t : fiveTasks) {
 			model.addTask(t);
 		}
-		
+	
 		expectedAB.doneTask(p5, true);
 		
 		assertThreePartCommandBehavior("done 5", "undo", "redo",

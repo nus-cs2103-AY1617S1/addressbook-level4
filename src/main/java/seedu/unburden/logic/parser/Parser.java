@@ -172,9 +172,10 @@ public class Parser {
 		case UnDoneCommand.COMMAND_WORD:
 			return prepareUnDone(arguments);
 
+		/*
 		case UnwantedDeleteCommand.COMMAND_WORD:
 		    return prepareUnwantedDelete(arguments);
-		
+		*/
 		default:
 			if (AddCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
 				return prepareAdd(arguments);
@@ -388,6 +389,7 @@ public class Parser {
 	 * This is unused because I did not discuss with my teammates in advanced so they decided 
      * not to include this method
 	 */
+	/*
 	private Command prepareUnwantedDelete(String args) throws ParseException {
 		final Matcher matcherList = INDEX_LIST_FORMAT.matcher(args.trim());
 		final Matcher matcherPhase = INDEX_PHASE_FORMAT.matcher(args.trim());  
@@ -445,6 +447,7 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));	
 
 	}
+	*/
 	
 	//@@author A0139678J
 	private Command prepareList(String args) throws ParseException {

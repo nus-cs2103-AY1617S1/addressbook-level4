@@ -59,7 +59,6 @@ public class StringUtil {
     }
     
     //@@author A0147986H-unused
-    
     public static String getTaskDetails(ArrayList<ReadOnlyTask> taskList){
     	StringBuilder resultedList=new StringBuilder();
     	for(ReadOnlyTask p:taskList){
