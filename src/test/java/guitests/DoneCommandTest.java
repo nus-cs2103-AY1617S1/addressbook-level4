@@ -25,4 +25,8 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         expectedList[0].getStatus().setDoneStatus(false);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
+    
+//    private void assertDoneColorSuccess(TestTask... currentList){
+//    	asserTrue(taskListPanel.getListView().getColumns().get(7).getCellData(0).);
+//    }
 }

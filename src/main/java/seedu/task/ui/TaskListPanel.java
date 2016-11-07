@@ -39,8 +39,6 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
-    @FXML
     private TableView<ReadOnlyTask> taskTable;
     @FXML
     private TableColumn<ReadOnlyTask, Number> idColumn;
@@ -86,41 +84,31 @@ public class TaskListPanel extends UiPart {
 
     // table initialization
     private void initialize() {
+    	setIdColumn();
+    	setTaskNameColumn();
+        setStartTimeColumn();
+        setEndTimeColumn();
+        setDueColumn();
+        setTagColumn();
+        checkStatus();
 
-        statusColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStatus()));
-        statusColumn.setCellFactory(column -> {
-            return new TableCell<ReadOnlyTask, Status>() {
-                @Override
-                protected void updateItem(Status item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (item == null || empty) {
-                        setText(null);
-                        setStyle("-fx-background-color");
-                    } else if (item.getFavoriteStatus()) {
-
-                        setStyle("-fx-background-color: yellow");
-
-                    } else {
-
-                        setStyle("");
-
-                    }
-
-                }
-
-            };
-        });
-
-        // statusColumn.setCellValueFactory(new
-        // Callback<TableColumn.CellDataFeatures<ReadOnlyTask, Status>,
-        // ObservableValue<Status>>());
-        // taskTable.getItems().get(0)
-        idColumn.setCellValueFactory(
+    }
+    
+    private void setIdColumn(){
+    	// id column initialization
+    	idColumn.setCellValueFactory(
                 column -> new ReadOnlyObjectWrapper<Number>(taskTable.getItems().indexOf(column.getValue()) + 1));
 
+    }
+    
+    private void setTaskNameColumn(){
+    	// task name column initialization
         taskNameColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getName()));
 
+    }
+    
+    private void setStartTimeColumn(){
+    	// start time column initialization
         startTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getStartTime()));
         startTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, StartTime>() {
@@ -130,16 +118,14 @@ public class TaskListPanel extends UiPart {
 
                     if (item == null || empty) {
                         setText(null);
-                        setStyle("-fx-alignment: center;");
+           
                     } else if (item.toString().equals("")) {
                         setText("-");
-                        setStyle("-fx-alignment: center;");
 
                     }
 
                     else {
-
-                        setStyle("-fx-alignment: center;");
+                    	
                         setText(compareWithCurrentTime(item.toString()));
                         if (compareWithCurrentTime(item.toString()).startsWith(TODAY)) {
                             setStyle(
@@ -158,14 +144,17 @@ public class TaskListPanel extends UiPart {
                 }
             };
         });
-
-        endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getEndTime()));
+    }
+    
+    private void setEndTimeColumn(){
+    	// end time column initialization
+    	endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getEndTime()));
         endTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, EndTime>() {
                 @Override
                 protected void updateItem(EndTime item, boolean empty) {
                     super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
+ 
                     if (item == null || empty) {
                         setText(null);
                         setStyle("");
@@ -192,14 +181,17 @@ public class TaskListPanel extends UiPart {
                 }
             };
         });
-
+    }
+    
+    private void setDueColumn(){
+    	//due time column initialization
         dueTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty(cellData.getValue().getDeadline()));
         dueTimeColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, Deadline>() {
                 @Override
                 protected void updateItem(Deadline item, boolean empty) {
                     super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
+
                     if (item == null || empty) {
                         setText(null);
                         setStyle("");
@@ -227,13 +219,17 @@ public class TaskListPanel extends UiPart {
             };
         });
 
+    }
+    
+    private void setTagColumn(){
+    	// tag column initialization
         tagColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
         tagColumn.setCellFactory(column -> {
             return new TableCell<ReadOnlyTask, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
-                    setStyle("-fx-alignment: center;");
+
                     if (item == null || empty) {
                         setText(null);
                         setStyle("-");
@@ -246,8 +242,12 @@ public class TaskListPanel extends UiPart {
                 }
             };
         });
-        tagColumn.setStyle("-fx-alignment: center;");
-        taskTable.setRowFactory(tv -> new TableRow<ReadOnlyTask>() {
+    }
+    
+    
+    // set green color for done tasks, red color for overdue tasks
+    private void checkStatus(){
+    	taskTable.setRowFactory(tv -> new TableRow<ReadOnlyTask>() {
             @Override
             public void updateItem(ReadOnlyTask item, boolean empty) {
                 super.updateItem(item, empty);
@@ -268,8 +268,8 @@ public class TaskListPanel extends UiPart {
                 }
             }
         });
-
     }
+    
 
     // prenvent columns reordering
     private void disableTableColumnReordering() {
@@ -294,6 +294,7 @@ public class TaskListPanel extends UiPart {
         taskTable.getColumns().addAll(columns);
     }
 
+    // auto scroll to a specific index
     public <S> void addAutoScroll(final TableView<ReadOnlyTask> view) {
         if (view == null) {
             throw new NullPointerException();
@@ -319,6 +320,7 @@ public class TaskListPanel extends UiPart {
 
     }
 
+    // set connection between table view with observable list
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskTable.setPlaceholder(new Label("Come on and add something!"));
 
@@ -332,6 +334,7 @@ public class TaskListPanel extends UiPart {
 
     }
 
+    // add vbox of tasklist to ancher pane in main window
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
 
@@ -339,6 +342,7 @@ public class TaskListPanel extends UiPart {
 
     }
 
+    // display current time
     public String compareWithCurrentTime(String time) {
         String strDatewithTime = time.replace(" ", "T");
         LocalDateTime newTaskDateTime = LocalDateTime.parse(strDatewithTime);

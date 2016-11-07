@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 
-<VBox alignment="TOP_CENTER" maxHeight="540.0" maxWidth="1000.0" minHeight="530.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.task.ui.TaskListPanel">
+<VBox alignment="TOP_CENTER" maxWidth="1000.0" minWidth="1000.0" prefHeight="450.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.task.ui.TaskListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
@@ -20,12 +20,12 @@
          <TableColumn fx:id="statusColumn" editable="false" minWidth="14.0" prefWidth="14.0" resizable="false" text="STATUS" />
         
           <TableColumn fx:id="idColumn" minWidth="50.0" prefWidth="52.0" resizable="false" text="ID" />
-            <TableColumn fx:id="taskNameColumn" minWidth="275.0" maxWidth="800.0" prefWidth="300.0" resizable="true" text="TASK" />
+            <TableColumn fx:id="taskNameColumn" minWidth="275.0" prefWidth="300.0" resizable="false" text="TASK" />
             
             <TableColumn fx:id="startTimeColumn" minWidth="100.0" prefWidth="210.0" resizable="false" text="START" />
             <TableColumn fx:id="endTimeColumn" minWidth="82.0" prefWidth="210.0" resizable="false" text="END" />
             <TableColumn fx:id="dueTimeColumn" minWidth="77.0" prefWidth="210.0" resizable="false" text="DUE" />
-          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="200.0" resizable="false" text="TAG" />
+          <TableColumn fx:id="tagColumn" minWidth="35.0" prefWidth="100.0" resizable="false" text="TAG" />
         </columns>
       </TableView>
         

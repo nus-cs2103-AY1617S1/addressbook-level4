@@ -51,7 +51,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         commandBox.runCommand("add Christmas party, to christmas 8pm from 2pm");
         assertAddSuccess(TypicalTestTasks.taskN);
-
+        
 
         //invalid command
         commandBox.runCommand("adds Meet Jim");
@@ -81,5 +81,5 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-
+    
 }

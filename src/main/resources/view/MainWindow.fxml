@@ -31,12 +31,12 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Label id="label" fx:id="label" prefHeight="0.0" prefWidth="451.0" styleClass="label-logo" />
-      <SplitPane id="splitPane" fx:id="splitPane" minHeight="0.0" prefHeight="540.0" VBox.vgrow="ALWAYS">
+      <Label id="label" fx:id="label" prefHeight="60.0" prefWidth="451.0" styleClass="label-logo" />
+      <SplitPane id="splitPane" fx:id="splitPane" minHeight="0.0" prefHeight="450.0" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="personList" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0">
+            <VBox fx:id="personList" minWidth="1000.0" prefHeight="450.0" prefWidth="1000.0">
                <children>
-                  <AnchorPane id="table-view" fx:id="taskListPanelPlaceholder" minHeight="540.0" minWidth="1000.0" prefHeight="540.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+                  <AnchorPane id="table-view" fx:id="taskListPanelPlaceholder" minWidth="1000.0" prefHeight="450.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
