@@ -159,7 +159,7 @@ Adds a Schedule task "French Beginner's Workshop" from 6-4-2017 to 8-4-2017 9pm.
 
 <p align="center">
 
-<img src="images/UI_Actual_Final/addEvent.PNG" width="600"><br>
+<img src="images/UI_Actual_Final/twodatetwotimeTwo.PNG" width="600"><br>
 
 Figure 6: An event task with period and priority added under Schedule tasks
 
