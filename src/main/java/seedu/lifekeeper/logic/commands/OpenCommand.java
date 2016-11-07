@@ -7,6 +7,10 @@ import seedu.lifekeeper.commons.events.ui.OpenFileChooserEvent;
 import seedu.lifekeeper.commons.util.FileUtil;
 import seedu.lifekeeper.storage.XmlAddressBookStorage;
 
+//@@author A0125680H
+/**
+* Loads data from the specified file into the Lifekeeper App.
+*/
 public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
     

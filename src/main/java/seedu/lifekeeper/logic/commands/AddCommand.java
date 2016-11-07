@@ -74,7 +74,6 @@ public class AddCommand extends Command {
 
     }
 
-    // @@author
     @Override
     public CommandResult execute() {
         assert model != null;

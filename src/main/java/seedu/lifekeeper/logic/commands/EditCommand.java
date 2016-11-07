@@ -23,6 +23,10 @@ import seedu.lifekeeper.model.tag.Tag;
 import seedu.lifekeeper.model.tag.UniqueTagList;
 
 //@@author A0125680H
+/**
+ * Edits the activity in the indicated index
+ * by replacing data specified in the new parameters.
+ */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
