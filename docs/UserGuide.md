@@ -19,6 +19,8 @@ Love typing? You will love sTask, as you only need to use the keyboard to type s
 
 ## 2. Getting Started
 
+Not sure how to start? Do not worry, follow the steps below and sTask will be up and running in no time!
+
 ### 2.1 Setting Up sTask
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.1.1</b> Please ensure that you have Java version `1.8.0_60` or later installed in your Computer.<br>
