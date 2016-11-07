@@ -98,7 +98,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
         sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
-        System.out.println("COMMAND" +sb.toString());
         return sb.toString();
     }
     
