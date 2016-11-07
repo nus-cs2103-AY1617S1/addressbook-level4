@@ -73,6 +73,18 @@ public class ConfigUtilTest {
 
         assertEquals(expected, actual);
     }
+    
+    //@Test
+    public void test_config_toString_success() {
+        StringBuilder expected = new StringBuilder();
+        expected.append("App title : Typical App Title");
+        expected.append("\nCurrent log level : " + Level.INFO);
+        expected.append("\nPreference file Location : C:\\preferences.json");
+        expected.append("\nLocal data file location : todolist.xml");
+        expected.append("\nToDoList name : TypicalToDoListName");
+        Config config = getTypicalConfig();
+        assertEquals(expected.toString(), config.toString());
+    }
 
     private Config getTypicalConfig() {
         Config config = new Config();
