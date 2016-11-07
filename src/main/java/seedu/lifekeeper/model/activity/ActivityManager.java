@@ -164,36 +164,44 @@ public class ActivityManager {
     }
 
     private static Name updateTaskName(Activity oldTask, Activity newParams, String type) throws IllegalValueException {
-        Name newTaskName;
-
         if (newParams.getName().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
-            newTaskName = new Name(oldTask.getName().toString());
+            return new Name(oldTask.getName().toString());
         } else {
-            newTaskName = new Name(newParams.getName().toString());
+            return new Name(newParams.getName().toString());
+        }
+    }
+    
+    private static Reminder updateReminder(Activity oldTask, Activity newParams, String type)
+            throws IllegalValueException {
+        Reminder newReminder;
+
+        if (newParams.getReminder().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
+            newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
+            newReminder.recurring = oldTask.getReminder().recurring;
+            newReminder.RecurringMessage = oldTask.getReminder().RecurringMessage;
+        } else {
+            newReminder = new Reminder(newParams.getReminder().getCalendarValue());
+            newReminder.recurring = newParams.getReminder().recurring;
+            newReminder.RecurringMessage = newParams.getReminder().RecurringMessage;
         }
 
-        return newTaskName;
+        return newReminder;
     }
 
     private static DueDate updateDueDate(Activity oldTask, Activity newParams, String type)
             throws IllegalValueException {
-        DueDate newDueDate;
-
-        if (!newParams.getClass().getSimpleName().equalsIgnoreCase(ENTRY_TYPE_TASK)) {
+        if (!newParams.getClass().getSimpleName().equalsIgnoreCase(ENTRY_TYPE_TASK)
+                || (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY) 
+                        && type.equals(COMMAND_TYPE_EDIT)
+                        && oldTask.getClass().getSimpleName().equalsIgnoreCase(ENTRY_TYPE_TASK))) {
             return new DueDate(((Task) oldTask).getDueDate().getCalendarValue());
-        }
-
-        if (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
-            if (oldTask.getClass().getSimpleName().equalsIgnoreCase(ENTRY_TYPE_ACTIVITY)) {
-                newDueDate = new DueDate("");
-            } else {
-                newDueDate = new DueDate(((Task) oldTask).getDueDate().getCalendarValue());
-            }
+        } else if (((Task) newParams).getDueDate().toString().equals(NULL_ENTRY) 
+                && type.equals(COMMAND_TYPE_EDIT)
+                && oldTask.getClass().getSimpleName().equalsIgnoreCase(ENTRY_TYPE_ACTIVITY)) {
+            return new DueDate("");
         } else {
-            newDueDate = new DueDate(((Task) newParams).getDueDate().getCalendarValue());
+            return new DueDate(((Task) newParams).getDueDate().getCalendarValue());
         }
-
-        return newDueDate;
     }
 
     private static Priority updatePriority(Activity oldTask, Activity newParams, String type)
@@ -215,23 +223,6 @@ public class ActivityManager {
         }
 
         return newPriority;
-    }
-
-    private static Reminder updateReminder(Activity oldTask, Activity newParams, String type)
-            throws IllegalValueException {
-        Reminder newReminder;
-
-        if (newParams.getReminder().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
-            newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
-            newReminder.recurring = oldTask.getReminder().recurring;
-            newReminder.RecurringMessage = oldTask.getReminder().RecurringMessage;
-        } else {
-            newReminder = new Reminder(newParams.getReminder().getCalendarValue());
-            newReminder.recurring = newParams.getReminder().recurring;
-            newReminder.RecurringMessage = newParams.getReminder().RecurringMessage;
-        }
-
-        return newReminder;
     }
 
     private static StartTime updateStartTime(Activity oldTask, Activity newParams, String type)
@@ -286,16 +277,18 @@ public class ActivityManager {
     }
 
     private static UniqueTagList updateTags(Activity oldTask, Activity newParams, String type) {
-        UniqueTagList newTags = new UniqueTagList();
+        UniqueTagList newTags;
         if (type.equals(COMMAND_TYPE_EDIT)) {
             newTags = new UniqueTagList(oldTask.getTags());
+        } else {
+            newTags = new UniqueTagList();
         }
 
         for (Tag toAdd : newParams.getTags()) {
             try {
                 newTags.add(toAdd);
             } catch (DuplicateTagException e) {
-                continue;
+                continue; //ignore dupliate tags
             }
         }
 

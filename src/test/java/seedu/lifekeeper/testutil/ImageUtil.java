@@ -20,15 +20,15 @@ public class ImageUtil {
             BufferedImage imgA = SwingFXUtils.fromFXImage(first, null);
             BufferedImage imgB = SwingFXUtils.fromFXImage(second, null);
 
-            // The images must be the same size.
+            // Returns false if the images are of different size.
             if (imgA.getWidth() == imgB.getWidth() && imgA.getHeight() == imgB.getHeight()) {
                 int width = imgA.getWidth();
                 int height = imgA.getHeight();
 
-                // Loop over every pixel.
+                // Loop over every pixel of both images.
                 for (int y = 0; y < height; y++) {
                     for (int x = 0; x < width; x++) {
-                        // Compare the pixels for equality.
+                        // Compares every pixels for equality.
                         if (imgA.getRGB(x, y) != imgB.getRGB(x, y)) {
                             return false;
                         }
