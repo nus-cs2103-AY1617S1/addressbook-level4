@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.MissingRecurringDateException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.Tag;

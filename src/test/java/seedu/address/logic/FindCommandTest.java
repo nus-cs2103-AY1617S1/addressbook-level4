@@ -11,6 +11,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.Task;
 
+//@@author A0146123R
 /**
  * Responsible for testing the correct execution of FindCommand
  */

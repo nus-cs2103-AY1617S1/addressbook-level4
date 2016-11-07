@@ -28,7 +28,6 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         TestTask taskToAdd = td.lecture;
         commandBox.runCommand(taskToAdd.getAddCommand());
         assertFilterResult("filter r/weekly", taskToAdd);
-
     }
 
     @Test

@@ -53,7 +53,7 @@ public class ChangeCommandTest extends TaskManagerGuiTest {
     /**
      * Runs the change command to change the storage location and clear data
      * saved in the previous location and confirms the new storage location is
-     * correct.
+     * correct and the previous data file is deleted.
      */
     private void assertChangeClearCommandSuccess(String previousFilePath, String newFilePath) throws Exception {
         commandBox.runCommand("change " + newFilePath + " clear");

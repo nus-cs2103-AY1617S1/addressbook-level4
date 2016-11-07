@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void find_nonEmptyList_success() {
         assertFindResult("find Mark"); // no results
         assertFindResult("find friends", td.friend, td.friendEvent, td.lunch); // multiple results
 
@@ -20,7 +20,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void find_emptyList() {
+    public void find_emptyList_success() {
         commandBox.runCommand("clear");
         assertFindResult("find project"); // no results
     }
@@ -33,7 +33,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     // @@author A0146123R
     @Test
-    public void find_advancedCommand() {
+    public void find_advancedCommand_success() {
         assertFindResult("find project meeting", td.friend, td.friendEvent, td.meeting); // OR operator
                                                                                          //near match search
         assertFindResult("find meet AND friend", td.friend, td.friendEvent); // AND operator

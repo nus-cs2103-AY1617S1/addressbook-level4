@@ -116,12 +116,16 @@ public class XmlTaskManagerStorageTest {
         assertFalse(setTaskManagerFilePath(new FilePath("SomeFile.xml", true)));
     }
 
+    /**
+     * Sets the task manager to the new file path.
+     * @return whether the previous storage file exists
+     */
     private boolean setTaskManagerFilePath(FilePath filePath) throws IOException {
         String defaultFilePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         TypicalTestTasks td = new TypicalTestTasks();
-        TaskManager original = td.getTypicalTaskManager();
+        TaskManager taskManager = td.getTypicalTaskManager();
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(defaultFilePath);
-        xmlTaskManagerStorage.saveTaskManager(original, defaultFilePath);
+        xmlTaskManagerStorage.saveTaskManager(taskManager, defaultFilePath);
 
         xmlTaskManagerStorage.setTaskManagerFilePath(filePath);
         assertEquals(filePath.getPath(), xmlTaskManagerStorage.getTaskManagerFilePath());

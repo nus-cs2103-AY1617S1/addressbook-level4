@@ -1,9 +1,5 @@
 package seedu.address.testutil;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.TaskManager;
