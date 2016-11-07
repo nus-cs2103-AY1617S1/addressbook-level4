@@ -251,12 +251,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredDateTaskList(LocalDate date) {
         allTasks.setPredicate(p -> isDateRelevantDeadlinesAndEvents(p, date));
-        filteredTodos.setPredicate(null);
+        filteredTodos.setPredicate(p-> isUndoneTodo(p));
         filteredDeadlines.setPredicate(p -> isUndoneDeadlineAndIsNotAfterDate(p, date));
         filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
         indicateViewChanged(ViewCommand.ViewType.date, date);
     }
-
+  
     // @@author
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
@@ -399,6 +399,14 @@ public class ModelManager extends ComponentManager implements Model {
         LocalDate today = DateTimeUtil.createCurrentDate();
         return isEventAndIsNotBeforeDate(task, today);
     }
+    
+    /**
+     * Evaluates of the task is a todo that is uncompleted.
+     */
+    
+    private boolean isUndoneTodo(Task task) {
+        return task.isTodo() && !task.getIsDone();
+    }
 
     /**
      * Abstracted boolean expression method for filtering according to the function `view date`.
@@ -408,7 +416,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @return the combined boolean expression from the 3 respective task-derived expressions.
      */
     private boolean isDateRelevantDeadlinesAndEvents(Task p, LocalDate date) {
-        boolean todos = p.isTodo();
+        boolean todos = isUndoneTodo(p);
         boolean relDeadlines = isUndoneDeadlineAndIsNotAfterDate(p, date);
         boolean relEvents = isEventAndDateIsWithinEventPeriod(p, date);
         return todos || relDeadlines || relEvents;
