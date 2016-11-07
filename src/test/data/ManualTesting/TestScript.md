@@ -84,18 +84,12 @@ Method 2
 > An invalid error will be shown, prompting the user that `Event end time is before start time`.
 > For all tasks with reminder, the reminder will automatically pop up at the scheduled time when the app is open.
 
-#### Testing Command: `add do IE 3101 Tutorial d/today p/3 t/IE3101`
-
-> A new task is added to the top of the list with name `do IE 3101 Tutorial`, duedate ` Due on (Today's Date) 11:59PM`, tag `[IE3101]` and <img src="src/main/resources/images/priority3.png" width="15">
-> A new task is added to the top of the list with name `do IE 3101 Tutorial`, duedate ` Due on (Today's Date) 11:59PM`, tag `[IE3101]` and <img src="priority3.png" width="15">. 
-> The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
-
-#### Testing Command: `add IE3100 Assignment 4 d/wed 1800 t/IE3100`. 
+#### Testing Command: `add IE3100 Tutorial d/wed 1800 t/IE3100`. 
 
 > A new task is added to the top of the list with name `IE3100 Assignment 4`, duedate ` Due on (upcoming Wednesday's date) 6:00P` and `Reminder: -`
 > There is also a tag `[IE3100]` shown.
 
-#### Testing Command: `add IE3100 Assignment 4 p/2 t/IE3100`
+#### Testing Command: `add IE3100 Group Assignment p/2 t/IE3100`
 
 > A new task is added to the top of the list with name `IE3100 Assignment 4`, `Reminder: -` and  <img src="priority2.png" width="15">.
 > There is also a tag `[IE3100]` shown.
