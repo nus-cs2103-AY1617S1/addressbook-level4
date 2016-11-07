@@ -30,7 +30,7 @@
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <p align="center">
-<img src="images/guiDearJim.PNG" width="550">
+<img src="images/dearJimGUI.PNG" width="550">
 </p>
 
 <p align="center">
