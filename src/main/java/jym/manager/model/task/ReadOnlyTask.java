@@ -14,7 +14,7 @@ public interface ReadOnlyTask {
 	Deadline getEndTime();
 	Priority getPriority();
 	Complete getComplete();
-
+	
 	String getDateString();
 
     Status getStatus();
@@ -35,7 +35,9 @@ public interface ReadOnlyTask {
                 && other.getDescription().equals(this.getDescription()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
                 && other.getLocation().equals(this.getLocation())
-                && other.getEndTime().equals(this.getEndTime()));
+                && ((other.getEndTime() != null && this.getEndTime() != null) 
+                ||	(other.getEndTime() == null && this.getEndTime() == null))
+                && (other.getEndTime() != null && other.getEndTime().equals(this.getEndTime())));
     }
 
     /**

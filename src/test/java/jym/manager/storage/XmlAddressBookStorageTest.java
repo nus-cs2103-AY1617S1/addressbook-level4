@@ -60,34 +60,6 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestTasks td = new TypicalTestTasks();
-        TaskManager original = td.getTypicalAddressBook();
-        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
-
-        //Save in new file and read back
-        xmlTaskManagerStorage.saveTaskManager(original, filePath);
-        ReadOnlyTaskManager readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
-        assertEquals(original, new TaskManager(readBack));
-
-        //Modify data, overwrite exiting file, and read back
-
-        original.addTask(new Task(TypicalTestTasks.buyFan));
-        original.removeTask(new Task(TypicalTestTasks.doLaundry));
-        xmlTaskManagerStorage.saveTaskManager(original, filePath);
-        readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
-        assertEquals(original, new TaskManager(readBack));
-
-        //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.goToWork));
-        xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
-        readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
-        assertEquals(original, new TaskManager(readBack));
-
-    }
-
-    @Test
     public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveAddressBook(null, "SomeFile.xml");

@@ -34,7 +34,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)([^/]+)*");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -233,9 +233,10 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-    	String[] sections = args.split(" ");
+    	//NEED TO CHECK FOR INVALID INDICES
+    //	String[] sections = args.split(" ");
     	
-        Optional<Integer> index = parseIndex(sections[1]); //there is an extra space in front, so we take the second section.
+        Optional<Integer> index = parseIndex(args); //there is an extra space in front, so we take the second section.
         
         if(!index.isPresent() || args.length() > 14){ //14 is the upper bound for how long the args can be.
             return new IncorrectCommand(

@@ -44,6 +44,7 @@ public class TestTask implements ReadOnlyTask {
         this.status = status;
     }
 
+
     @Override
     public Description getDescription() {
         return description;
@@ -111,13 +112,9 @@ public class TestTask implements ReadOnlyTask {
 	public Deadline getEndTime() {
 		return null;
 	}
-	public jym.manager.model.task.Status getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+	public Status getStatus() {
+		return this.status;
 	}
 
-	public String getEditCommand(int i) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
