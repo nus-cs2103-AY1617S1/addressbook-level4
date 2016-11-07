@@ -68,6 +68,7 @@ public class ActivityCard extends UiPart {
 			break;
 
 		case "task" :
+		    if(((ReadOnlyTask) activity).getDueDate()!=null)
 		    dateTime.setText(((ReadOnlyTask) activity).getDueDate().forDisplay());
 			priorityIcon.setImage(((ReadOnlyTask) activity).getPriority().getPriorityIcon());
 
