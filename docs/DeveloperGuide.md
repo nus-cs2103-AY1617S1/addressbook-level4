@@ -10,7 +10,7 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
-* [Appendix F: Pull Request](#appendix-f--pull-request)
+* [Appendix F: Pull Request](#appendix-f--pull-request-format)
 
 
 ## Setting up
