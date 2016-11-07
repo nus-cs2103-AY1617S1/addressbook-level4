@@ -195,13 +195,11 @@ public class ModelManager extends ComponentManager implements Model {
             Status status) throws DuplicateTaskException {
         tars.mark(toMarkList, status);
         indicateTarsChanged();
-
     }
 
+    // @@author A0124333U
     /**
      * Returns a string of tasks and rsv tasks whose datetime conflicts with a specified datetime
-     * 
-     * @@author A0124333U
      */
     public String getTaskConflictingDateTimeWarningMessage(
             DateTime dateTimeToCheck) {
@@ -279,6 +277,8 @@ public class ModelManager extends ComponentManager implements Model {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }
+    
+    // @@author
 
     // =========== Filtered Task List Accessors ===========
 
@@ -320,8 +320,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Sorts filtered list based on keywords
-     * 
-     * @@author A0140022H
      */
     public void sortFilteredTaskList(Set<String> keywords) {
         if (keywords.contains(LIST_ARG_PRIORITY)) {
@@ -338,6 +336,8 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
+    
+    // @@author
 
     // ========== Inner classes/interfaces used for filtering ==========
 
@@ -348,9 +348,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class PredicateExpression implements Expression {
-
-
-        // @@author
         private final Qualifier qualifier;
 
         PredicateExpression(Qualifier qualifier) {

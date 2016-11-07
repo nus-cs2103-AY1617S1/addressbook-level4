@@ -8,12 +8,10 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static tars.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+// @@author A0121533W
 /**
  * GUI test for delete command
- * 
- * @@author A0121533W
  */
-
 public class DeleteCommandTest extends TarsGuiTest {
 
     @Test

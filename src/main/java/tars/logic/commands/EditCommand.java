@@ -23,10 +23,9 @@ import tars.model.task.Priority;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Task;
 
+// @@author A0121533W
 /**
  * Edits a task identified using it's last displayed index from tars.
- * 
- * @@author A0121533W
  */
 public class EditCommand extends UndoableCommand {
 
@@ -95,10 +94,10 @@ public class EditCommand extends UndoableCommand {
         }
     }
     
+    // @@author A0139924W
     /**
      * Update task if there is a change
      * 
-     * @@author A0139924W
      * @throws IllegalValueException
      * @throws TagNotFoundException
      */
@@ -208,15 +207,13 @@ public class EditCommand extends UndoableCommand {
     /**
      * Checks if the field need to be updated
      * 
-     * @@author A0139924W
      * @return true if the field need update
      */
     private boolean isFieldChanged(Prefix prefix) {
         return !argsTokenizer.getValue(prefix).orElse(StringUtil.EMPTY_STRING)
                 .equals(StringUtil.EMPTY_STRING);
     }
-
-    // @@author A0139924W
+    
     @Override
     public CommandResult undo() {
         assert model != null;
@@ -231,7 +228,6 @@ public class EditCommand extends UndoableCommand {
         }
     }
 
-    // @@author A0139924W
     @Override
     public CommandResult redo() {
         assert model != null;

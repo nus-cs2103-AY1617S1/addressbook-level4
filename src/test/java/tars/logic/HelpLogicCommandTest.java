@@ -7,9 +7,8 @@ import org.junit.Test;
 
 import tars.logic.commands.HelpCommand;
 
+// @@author A0139924W
 /**
- * @@author A0139924W
- * 
  * Logic command test for help
  */
 public class HelpLogicCommandTest extends LogicCommandTest {

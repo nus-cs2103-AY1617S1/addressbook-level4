@@ -4,9 +4,8 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 
+// @@author A0124333U
 /**
- * @@author A0124333U
- *
  * A utility class to help with building reserve task objects.
  */
 public class RsvTaskBuilder {

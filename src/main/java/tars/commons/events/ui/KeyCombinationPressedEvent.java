@@ -3,10 +3,9 @@ package tars.commons.events.ui;
 import javafx.scene.input.KeyCombination;
 import tars.commons.events.BaseEvent;
 
+// @@author A0124333U
 /**
  * Indicates that the user has pressed a key combination
- * 
- * @@author A0124333U
  */
 public class KeyCombinationPressedEvent extends BaseEvent {
 

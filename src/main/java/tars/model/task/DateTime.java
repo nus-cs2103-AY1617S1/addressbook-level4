@@ -100,8 +100,7 @@ public class DateTime implements Comparable<DateTime> {
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
                         && this.toString()
-                                .equals(((DateTime) other).toString())); // state
-                                                                         // check
+                                .equals(((DateTime) other).toString())); // state check
     }
 
     /**

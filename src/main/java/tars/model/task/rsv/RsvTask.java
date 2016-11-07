@@ -6,10 +6,9 @@ import tars.commons.util.CollectionUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
 
+// @@author A0124333U
 /**
  * A task that has unconfirmed, reserved dates.
- * 
- * @@author A0124333U
  */
 public class RsvTask {
 

@@ -32,14 +32,15 @@ public interface Storage extends TarsStorage, UserPrefsStorage {
     void saveTars(ReadOnlyTars tars) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Saves the current version of the Address Book to the hard disk. Creates the data file if it
+     * is missing. Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTarsChangedEvent(TarsChangedEvent abce);
     
-    /** Updates Tars Storage Directory
-     * @@author A0124333U
+    // @@author A0124333U
+    /**
+     * Updates Tars Storage Directory
+     * 
      * @param newFilePath
      * @param newConfig
      */

@@ -150,10 +150,9 @@ public class CommandBox extends UiPart {
                 mostRecentResult.feedbackToUser));
     }
 
+    // @@author A0139924W
     /**
      * Handle any undo and redo request
-     * 
-     * @@author A0139924W
      */
     private void handleUndoAndRedoKeyRequest(String commandWord) {
         if (UndoCommand.COMMAND_WORD.equals(commandWord)) {
@@ -166,10 +165,9 @@ public class CommandBox extends UiPart {
                 mostRecentResult.feedbackToUser));
     }
 
+    // @@author A0124333U
     /**
      * Adds the user input command text into the "prev" stack
-     * 
-     * @@A0124333U
      */
     private void addCmdTextToPrevStack(String cmdText) {
         if (!prevCmdTextHistStack.contains(cmdText)) {

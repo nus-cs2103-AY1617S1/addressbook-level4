@@ -108,6 +108,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raises from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0139924W -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -118,6 +119,8 @@ The `UI` component,
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+
+<!-- @@author -->
 
 ### Model component
 

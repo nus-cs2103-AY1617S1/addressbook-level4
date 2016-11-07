@@ -18,10 +18,9 @@ import tars.model.task.Name;
 import tars.model.task.Priority;
 import tars.model.task.Task;
 
+// @@author A0139924W
 /**
  * Logic command test for add
- * 
- * @@author A0139924W
  */
 public class AddLogicCommandTest extends LogicCommandTest {
 

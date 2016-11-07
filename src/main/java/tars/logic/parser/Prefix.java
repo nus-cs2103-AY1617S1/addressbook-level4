@@ -1,10 +1,9 @@
 package tars.logic.parser;
 
+// @@author A0139924W
 /**
  * A prefix that marks the beginning of an argument e.g. '/t' in 'add CS2103 Project Meeting /t
  * meeting'
- * 
- * @@author A0139924W
  */
 public class Prefix {
     private static final int HASHCODE_NULL_VALUE = 0;

@@ -8,10 +8,9 @@ import tars.model.task.*;
 
 import java.util.ArrayList;
 
+// @@author A0121533W
 /**
  * Marks a task identified using it's last displayed index from tars as done.
- * 
- * @@author A0121533W
  */
 public class DoCommand extends Command {
 

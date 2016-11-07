@@ -9,10 +9,9 @@ import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.rsv.RsvTask;
 
+// @@author A0139924W
 /**
  * Container for formatting
- * 
- * @@author A0139924W
  */
 public class Formatter {
     private static final int INITIAL_COUNT = 1;
@@ -88,10 +87,9 @@ public class Formatter {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
 
+    // @@author A0121533W
     /**
      * Formats a given RsvTask dateTime list to display
-     * 
-     * @@author A0121533W
      */
     public static String formatDateTimeList(ArrayList<DateTime> dateTimeList) {
         String formatted = StringUtil.EMPTY_STRING;
@@ -106,8 +104,6 @@ public class Formatter {
 
     /**
      * Formats a given tasks list to display on This Week Panel
-     * 
-     * @@author A0121533W
      */
     public static String formatThisWeekPanelTasksList(
             List<ReadOnlyTask> overduedTasks) {

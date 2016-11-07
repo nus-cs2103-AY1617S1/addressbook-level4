@@ -12,10 +12,9 @@ import org.junit.Test;
 import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
+// @@author A0139924W
 /**
  * Date formatter test
- * 
- * @@author A0139924W
  */
 public class DateFormatterTest {
 

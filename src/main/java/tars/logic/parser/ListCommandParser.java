@@ -13,10 +13,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.ListCommand;
 
+// @@author A0140022H
 /**
- * @@author A0140022H
- * 
- *          List command parser
+ * List command parser
  */
 public class ListCommandParser extends CommandParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =

@@ -2,7 +2,6 @@ package tars.logic;
 
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -12,10 +11,9 @@ import tars.model.Tars;
 import tars.model.task.DateTime;
 import tars.model.task.Task;
 
+// @@author A0124333U
 /**
  * Logic command test for free
- * 
- * @@author A0124333U
  */
 public class FreeLogicCommandTest extends LogicCommandTest {
     @Test

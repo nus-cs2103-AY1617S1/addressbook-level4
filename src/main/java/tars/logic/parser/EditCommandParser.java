@@ -7,10 +7,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.EditCommand;
 import tars.logic.commands.IncorrectCommand;
 
+// @@author A0121533W
 /**
  * Edit command parser
- * 
- * @@author A0121533W
  */
 public class EditCommandParser extends CommandParser {
 

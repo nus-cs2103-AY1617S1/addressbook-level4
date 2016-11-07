@@ -4,9 +4,6 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.model.task.*;
 import tars.model.tag.Tag;
 
-/**
- *
- */
 public class TaskBuilder {
 
     private TestTask task;

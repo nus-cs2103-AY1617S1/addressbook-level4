@@ -8,10 +8,9 @@ import tars.model.Tars;
 import tars.model.task.Status;
 import tars.model.task.Task;
 
+// @@author A0121533W
 /**
  * Logic command test for ud
- * 
- * @@author A0121533W
  */
 public class UdLogicCommandTest extends LogicCommandTest {
     @Test

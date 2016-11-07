@@ -1,9 +1,8 @@
 package tars.logic.commands;
 
+// @@author A0139924W
 /**
  * Undo an undoable command.
- * 
- * @@author A0139924W
  */
 public class UndoCommand extends Command {
 

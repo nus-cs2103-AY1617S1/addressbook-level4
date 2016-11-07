@@ -12,10 +12,9 @@ import tars.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
+// @@author A0140022H
 /**
  * GUI test for add command
- * 
- * @@author A0140022H
  */
 public class AddCommandTest extends TarsGuiTest {
 

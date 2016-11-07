@@ -35,7 +35,6 @@ public class MainApp extends Application {
     private static final String PARAMETER_CONFIG = "config";
     private static final String LOG_MESSAGE_PREFS_SAVE_FAILURE =
             "Failed to save preferences ";
-    private static final String DAY_STRING_TODAY = "today";
     private static String LOG_MESSAGE_PREFS_FILE_INCORRECT_FORMAT =
             "UserPrefs file at %s is not in the correct format. Using default user prefs";
     private static String LOG_MESSAGE_CONFIG_FILE_INCORRECT_FORMAT =
@@ -57,16 +56,14 @@ public class MainApp extends Application {
     private static final String LOG_MESSAGE_PROBLEM_READING_FROM_FILE =
             "Problem while reading from the file. . Will be starting with an empty Tars";
     private static final String LOG_MESSAGE_STARTING_TARS = "Starting Tars ";
+    private static final String DAY_STRING_TODAY = "today";
     private static final String STOPPING_TARS_HEADER =
             "============================ [ Stopping TARS ] =============================";
     private static final int SYSTEM_EXIT_NO_ERROR = 0;
 
-
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
-
-
 
     protected Ui ui;
     protected Logic logic;

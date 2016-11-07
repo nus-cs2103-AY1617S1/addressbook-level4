@@ -2,10 +2,9 @@ package tars.commons.events.ui;
 
 import tars.commons.events.BaseEvent;
 
+// @@author A0140022H
 /**
  * An event requesting to view the help page.
- * 
- * @@author A0140022H
  */
 public class ShowHelpRequestEvent extends BaseEvent {
 

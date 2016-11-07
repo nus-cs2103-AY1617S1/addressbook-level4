@@ -10,10 +10,9 @@ import tars.model.Model;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
 
+// @@author A0121533W
 /**
  * Tracks changes made (if any) during do and ud command
- * 
- * @@author A0121533W
  */
 public class MarkTaskUtil {
 
@@ -150,8 +149,6 @@ public class MarkTaskUtil {
 
     /**
      * Returns feedback message of mark command to user
-     * 
-     * @return
      */
     public String getResultFromTracker() {
         String commandResult = getResult();

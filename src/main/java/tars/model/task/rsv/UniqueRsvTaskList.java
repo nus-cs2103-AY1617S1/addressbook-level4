@@ -8,13 +8,11 @@ import javafx.collections.ObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.util.CollectionUtil;
 
+// @@author A0124333U
 /**
- * A list of reserved tasks that enforces uniqueness between its elements and
- * does not allow nulls.
+ * A list of reserved tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
- * 
- * @@author A0124333U
  *
  * @see RsvTask#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
@@ -24,8 +22,8 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
     private final ObservableList<RsvTask> internalList = FXCollections.observableArrayList();
 
     /**
-     * Signals that an operation targeting a specified task in the list would
-     * fail because there is no such matching task in the list.
+     * Signals that an operation targeting a specified task in the list would fail because there is
+     * no such matching task in the list.
      */
     public static class RsvTaskNotFoundException extends Exception {}
 
@@ -36,8 +34,7 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
     }
 
     /**
-     * Returns true if the list contains an equivalent reserved task as the
-     * given argument.
+     * Returns true if the list contains an equivalent reserved task as the given argument.
      */
     public boolean contains(RsvTask toCheck) {
         assert toCheck != null;
@@ -47,9 +44,8 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
     /**
      * Adds a reserved task to the list.
      *
-     * @throws DuplicateTaskException
-     *             if the reserved task to add is a duplicate of an existing
-     *             reserved task in the list.
+     * @throws DuplicateTaskException if the reserved task to add is a duplicate of an existing
+     *         reserved task in the list.
      */
     public void add(RsvTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
@@ -62,8 +58,7 @@ public class UniqueRsvTaskList implements Iterable<RsvTask> {
     /**
      * Removes the equivalent reserved task from the list.
      *
-     * @throws TaskNotFoundException
-     *             if no such task could be found in the list.
+     * @throws TaskNotFoundException if no such task could be found in the list.
      */
     public boolean remove(RsvTask toRemove) throws RsvTaskNotFoundException {
         assert toRemove != null;

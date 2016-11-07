@@ -19,10 +19,9 @@ import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.RsvTaskAddedEvent;
 import tars.model.task.rsv.RsvTask;
 
+// @@author A0121533W
 /**
  * UI Controller for panel containing the list of reserved tasks.
- * 
- * @@author A0121533W
  */
 public class RsvTaskListPanel extends UiPart {
     private static String LOG_MESSAGE_LAYOUT_UPDATING =

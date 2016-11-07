@@ -12,10 +12,9 @@ import tars.model.Tars;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 
+// @@author A0124333U
 /**
  * Logic command test for find
- * 
- * @@author A0124333U
  */
 public class FindLogicCommandTest extends LogicCommandTest {
 

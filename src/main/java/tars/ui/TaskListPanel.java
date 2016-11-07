@@ -19,10 +19,9 @@ import tars.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
+// @@author A0121533W
 /**
  * UI Controller for panel containing the list of tasks.
- * 
- * @@author A0121533W
  */
 public class TaskListPanel extends UiPart {
     private static String LOG_MESSAGE_LAYOUT_UPDATING =

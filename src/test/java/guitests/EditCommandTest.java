@@ -12,10 +12,9 @@ import tars.testutil.TestUtil;
 import static org.junit.Assert.*;
 import static tars.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+// @@author A0124333U
 /**
  * GUI test for edit command
- * 
- * @@author A0124333U
  */
 public class EditCommandTest extends TarsGuiTest {
 

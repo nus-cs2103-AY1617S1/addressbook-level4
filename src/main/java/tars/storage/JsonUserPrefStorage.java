@@ -1,15 +1,14 @@
 package tars.storage;
 
-import tars.commons.core.LogsCenter;
-import tars.commons.exceptions.DataConversionException;
-import tars.commons.util.FileUtil;
-import tars.commons.util.StringUtil;
-import tars.model.UserPrefs;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import tars.commons.core.LogsCenter;
+import tars.commons.exceptions.DataConversionException;
+import tars.commons.util.FileUtil;
+import tars.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

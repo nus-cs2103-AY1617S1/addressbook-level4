@@ -10,11 +10,9 @@ import tars.logic.commands.Command;
 import tars.logic.commands.IncorrectCommand;
 import tars.logic.commands.TagCommand;
 
+// @@author A0139924W
 /**
  * Tag command parser
- * 
- * @@author A0139924W
- *
  */
 public class TagCommandParser extends CommandParser {
     private static final Pattern TAG_EDIT_COMMAND_FORMAT =

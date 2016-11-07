@@ -12,10 +12,9 @@ import tars.model.task.Task;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import tars.ui.formatter.Formatter;
 
+// @@author A0121533W
 /**
  * Deletes a task identified using it's last displayed index from tars.
- * 
- * @@author A0121533W
  */
 public class DeleteCommand extends UndoableCommand {
 

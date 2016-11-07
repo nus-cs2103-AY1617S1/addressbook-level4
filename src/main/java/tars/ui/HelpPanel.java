@@ -8,10 +8,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
+// @@author A0121533W
 /**
  * UI Controller for a help page
- * 
- * @@author A0121533W
  */
 public class HelpPanel extends UiPart {
     private static final String FXML = "HelpPanel.fxml";
@@ -57,9 +56,7 @@ public class HelpPanel extends UiPart {
 
     }
 
-    /**
-     * @@author A0140022H
-     */
+    // @@author A0140022H
     private String configureURL(String args) {
         String url =
                 HelpPanel.class.getResource(USERGUIDE_URL).toExternalForm();
@@ -134,13 +131,9 @@ public class HelpPanel extends UiPart {
 
         return url;
     }
-    // @@author
 
-    /**
-     * @@author A0140022H
-     */
     public void loadUserGuide(String args) {
         browser.getEngine().load(configureURL(args));
     }
-    // @@author
+    
 }

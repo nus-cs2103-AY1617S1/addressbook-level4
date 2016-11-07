@@ -42,10 +42,10 @@ public class DateTimeUtil {
             StringUtil.STRING_NEWLINE + "%1$s. %2$shrs to %3$shrs (%4$s)";
     private static String MESSAGE_DURATION = "%1$s hr %2$s min";
 
+    // @@author A0139924W
     /**
-     * @@author A0139924W
+     * Extracts the new task's dateTime from the string arguments.
      * 
-     *          Extracts the new task's dateTime from the string arguments.
      * @return String[] with first index being the startDate time and second index being the end
      *         date time
      */
@@ -54,10 +54,9 @@ public class DateTimeUtil {
     }
     // @@author
 
+    // @@author A0121533W
     /**
-     * @@author A0121533W
-     * 
-     *          Checks if given endDateTime is within the start and end of this week
+     * Checks if given endDateTime is within the start and end of this week
      */
     public static boolean isWithinWeek(LocalDateTime endDateTime) {
         if (endDateTime == null) {
@@ -72,10 +71,9 @@ public class DateTimeUtil {
         }
     }
 
+    // @@author A0121533W
     /**
-     * @@author A0121533W
-     * 
-     *          Checks if given endDateTime is before the end of today
+     * Checks if given endDateTime is before the end of today
      */
     public static boolean isOverDue(LocalDateTime endDateTime) {
         if (endDateTime == null) {
@@ -86,11 +84,11 @@ public class DateTimeUtil {
         }
     }
 
+    // @@author A0124333U
     /**
-     * @@author A0124333U Checks whether the dateTimeQuery falls within the range of the
-     *          dateTimeSource i.e. dateTimeQuery startDateTime is equals to or before the
-     *          dateTimeSource endDateTime && dateTimeQuery endDateTime is equals to or after the
-     *          dateTimeSource startDateTime
+     * Checks whether the dateTimeQuery falls within the range of the dateTimeSource i.e.
+     * dateTimeQuery startDateTime is equals to or before the dateTimeSource endDateTime &&
+     * dateTimeQuery endDateTime is equals to or after the dateTimeSource startDateTime
      * 
      * @param dateTimeSource
      * @param dateTimeQuery
@@ -115,7 +113,6 @@ public class DateTimeUtil {
      * Checks whether the dateTimeQuery conflicts with the dateTimeSource i.e. dateTimeQuery
      * endDateTime occurs after the dateTimeSource startDateTime && dateTimeQuery startDateTime
      * occurs before the dateTimeSource endDateTime
-     * 
      */
     public static boolean isDateTimeConflicting(DateTime dateTimeSource,
             DateTime dateTimeQuery) {
@@ -149,7 +146,6 @@ public class DateTimeUtil {
 
     /**
      * Returns an arraylist of free datetime slots in a specified date
-     * 
      */
     public static ArrayList<DateTime> getListOfFreeTimeSlotsInDate(
             DateTime dateToCheck,
@@ -214,8 +210,6 @@ public class DateTimeUtil {
             counter++;
         }
 
-
-
         return sb.toString();
     }
 
@@ -228,10 +222,9 @@ public class DateTimeUtil {
         return String.format(MESSAGE_DURATION, hours, minutes);
     }
 
+    // @@author A0139924W
     /**
-     * @@author A0139924W
-     * 
-     *          Modify the date based on the new hour, min and sec
+     * Modify the date based on the new hour, min and sec
      */
     public static Date setDateTime(Date toBeEdit, int hour, int min, int sec) {
         Calendar calendar = Calendar.getInstance();
@@ -244,10 +237,9 @@ public class DateTimeUtil {
         return toBeEdit;
     }
 
+    // @@author A0140022H
     /**
-     * @@author A0140022H
-     * 
-     *          Modifies the date based on the frequency for recurring tasks.
+     * Modifies the date based on the frequency for recurring tasks.
      */
     public static String modifyDate(String dateToModify, String frequency) {
         LocalDateTime date = LocalDateTime.parse(dateToModify, formatter);

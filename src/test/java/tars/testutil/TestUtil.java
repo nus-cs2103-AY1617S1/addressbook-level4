@@ -290,10 +290,8 @@ public class TestUtil {
     /**
      * Removes a subset from the list of tasks.
      * 
-     * @param tasks
-     *            The list of tasks
-     * @param tasksToRemove
-     *            The subset of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
@@ -364,10 +362,9 @@ public class TestUtil {
         return listOfRsvTasks.toArray(new TestRsvTask[listOfRsvTasks.size()]);
     }
 
+    // @@author A0124333U
     /**
      * Edits the task with index 1 on the list of tasks.
-     * 
-     * @@author A0124333U
      * 
      * @param tasks An array of tasks.
      * @param indexToEdit Index of the task to edit.
@@ -384,10 +381,9 @@ public class TestUtil {
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
+    // @@author A0121533W
     /**
      * Marks the task as done with index 1 in the list of tasks.
-     * 
-     * @@author A0121533W
      * 
      * @param tasks An array of tasks.
      * @param indexes An array of indexes to mark

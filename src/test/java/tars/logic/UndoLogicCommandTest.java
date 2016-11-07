@@ -6,10 +6,9 @@ import org.junit.Test;
 
 import tars.logic.commands.UndoCommand;
 
+// @@author A0139924W
 /**
  * Logic command test for undo
- *
- * @@author A0139924W
  */
 public class UndoLogicCommandTest extends LogicCommandTest {
 
