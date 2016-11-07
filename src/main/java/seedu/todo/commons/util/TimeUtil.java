@@ -282,7 +282,7 @@ public class TimeUtil {
         return DATE_REGEX.matcher(input).replaceAll("$3$2$1");
     }
     
-    //@@author A0135817B-reuse
+    //@@author A0135817B-reused
     // From http://stackoverflow.com/a/27378709/313758
     /**
      * Calls {@link #asLocalDate(Date, ZoneId)} with the system default time zone.
