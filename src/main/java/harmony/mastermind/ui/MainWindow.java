@@ -11,6 +11,7 @@ import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
+import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.logic.Logic;
@@ -361,9 +362,9 @@ public class MainWindow extends UiPart {
     
     // @@author A0138862W
     @Subscribe
-    public void highlightLastActionedRow(Task task){
-        homeTableView.getTableView().getSelectionModel().select(task);
-        homeTableView.getTableView().scrollTo(task);
+    public void highlightLastActionedRow(HighlightLastActionedRowRequestEvent event){
+        homeTableView.getTableView().getSelectionModel().select(event.task);
+        homeTableView.getTableView().scrollTo(event.task);
     }
    
 }
