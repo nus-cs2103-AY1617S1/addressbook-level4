@@ -1,3 +1,4 @@
+/*@@author A0139021U-reused */
 .codehilite .hll { background-color: #ffffcc }
 .codehilite .c { color: #408080; font-style: italic } /* Comment */
 .codehilite .err { border: 1px solid #FF0000 } /* Error */
@@ -63,6 +64,7 @@
 .codehilite .vi { color: #19177C } /* Name.Variable.Instance */
 .codehilite .il { color: #666666 } /* Literal.Number.Integer.Long */
 
+/*@@author A0135817B */
 abbr[title] {
   cursor: help;
   border-bottom: 1px dotted; 
