@@ -1,4 +1,4 @@
-// @@author A0147335E
+
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
-
+//@@author A0147335E
 
 /**
  * Refresh the task manager.
