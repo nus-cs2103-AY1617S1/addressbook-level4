@@ -66,7 +66,7 @@ public class EditCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
@@ -102,6 +102,7 @@ public class EditCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, taskToEdit));
+
     }
 
 }

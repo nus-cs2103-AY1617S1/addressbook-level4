@@ -18,15 +18,15 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 
 
 		// add one person
-		TestTask[] currentList = td.getTypicalPersons();
-		TestTask personToAdd = td.learnSpanish;
-		assertAddSuccess(personToAdd, currentList);
-		currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+		TestTask[] currentList = td.getTypicalTasks();
+		TestTask taskToAdd = td.learnSpanish;
+		assertAddSuccess(taskToAdd, currentList);
+		currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
 		// add another person
-		personToAdd = td.GoSkydiving;
-		assertAddSuccess(personToAdd, currentList);
-		currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+		taskToAdd = td.GoSkydiving;
+		assertAddSuccess(taskToAdd, currentList);
+		currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
 		// add duplicate person
 		commandBox.runCommand(td.learnPython.getAddCommand());
@@ -42,16 +42,16 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 		assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 	}
 
-	private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
-		commandBox.runCommand(personToAdd.getAddCommand());
+	private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+		commandBox.runCommand(taskToAdd.getAddCommand());
 
 		// confirm the new card contains the right data
-		TaskCardHandle addedCard = taskListPanel.navigateToPerson(personToAdd.getName());
-		assertMatching(personToAdd, addedCard);
+		TaskCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName());
+		assertMatching(taskToAdd, addedCard);
 
 		// confirm the list now contains all previous persons plus the new
 		// person
-		TestTask[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+		TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
 		assertTrue(taskListPanel.isListMatching(expectedList));
 	}
 

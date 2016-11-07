@@ -1,9 +1,7 @@
 package seedu.dailyplanner.logic.commands;
 
-import seedu.dailyplanner.commons.core.EventsCenter;
 import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
-import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 
@@ -34,7 +32,7 @@ public class CompleteCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToComplete = lastShownList.get(targetIndex - 1);

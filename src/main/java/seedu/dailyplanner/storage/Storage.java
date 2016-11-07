@@ -25,7 +25,7 @@ public interface Storage extends DailyPlannerStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyDailyPlanner> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyDailyPlanner> readDailyPlanner() throws DataConversionException, IOException;
 
     @Override
     void saveAddressBook(ReadOnlyDailyPlanner addressBook) throws IOException;

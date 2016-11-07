@@ -58,7 +58,7 @@ public class TypicalTestTask {
 		}
 	}
 
-	public TestTask[] getTypicalPersons() {
+	public TestTask[] getTypicalTasks() {
 		return new TestTask[] { CS2103_Project, CS2103_Lecture, MA1101R_Homework, SoccerWithFriends, BuyGroceries,
 				WatchMovie, learnPython };
 	}

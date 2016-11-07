@@ -62,7 +62,7 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         DailyPlanner original = new TypicalTestTask().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ReadOnlyDailyPlanner retrieved = storageManager.readAddressBook().get();
+        ReadOnlyDailyPlanner retrieved = storageManager.readDailyPlanner().get();
         assertEquals(original, new DailyPlanner(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }

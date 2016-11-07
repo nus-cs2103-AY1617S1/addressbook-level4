@@ -56,7 +56,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyDailyPlanner> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyDailyPlanner> readDailyPlanner() throws DataConversionException, IOException {
         return readAddressBook(dailyPlannerStorage.getAddressBookFilePath());
     }
 
