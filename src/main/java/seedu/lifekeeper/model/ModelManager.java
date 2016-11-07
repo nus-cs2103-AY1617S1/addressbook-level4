@@ -143,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredActivities);
     }
     
-  //@@author A0125284H A0131813R
+  //@@author A0125284H
   	@Override
   	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
@@ -269,10 +269,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-
-
-
-
 
 }
