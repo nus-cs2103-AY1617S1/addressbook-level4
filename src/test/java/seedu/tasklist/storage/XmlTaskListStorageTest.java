@@ -9,10 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.model.ReadOnlyTaskList;
 import seedu.tasklist.model.TaskList;
-import seedu.tasklist.model.task.Task;
 import seedu.tasklist.storage.XmlTaskListStorage;
-import seedu.tasklist.testutil.TypicalTestTasks;
-
 import static org.junit.Assert.*;
 
 import java.io.IOException;

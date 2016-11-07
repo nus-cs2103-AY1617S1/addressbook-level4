@@ -1,7 +1,6 @@
 //@@author A0144919W
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
 
 import seedu.tasklist.commons.core.Messages;
@@ -9,8 +8,6 @@ import seedu.tasklist.logic.commands.AddCommand;
 import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
 import seedu.tasklist.testutil.TypicalTestTasks;
-
-import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskListGuiTest {
 

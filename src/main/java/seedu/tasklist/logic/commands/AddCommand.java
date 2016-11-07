@@ -1,8 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.*;
 

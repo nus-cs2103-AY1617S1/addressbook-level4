@@ -6,13 +6,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.event.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.util.FxViewUtil;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import java.util.logging.Logger;
 

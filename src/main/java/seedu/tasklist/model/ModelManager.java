@@ -7,7 +7,6 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.TickEvent;
-import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.events.model.TaskModifiedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;

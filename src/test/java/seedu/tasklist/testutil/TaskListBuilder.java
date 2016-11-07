@@ -1,6 +1,5 @@
 package seedu.tasklist.testutil;
 
-import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.UniqueTaskList;

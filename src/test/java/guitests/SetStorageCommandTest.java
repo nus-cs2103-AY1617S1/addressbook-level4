@@ -2,13 +2,11 @@
 package guitests;
 
 import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertNull;
 import static seedu.tasklist.logic.commands.SetStorageCommand.MESSAGE_SUCCESS;
 
 import seedu.tasklist.logic.commands.SetStorageCommand;
 import seedu.tasklist.testutil.TestTask;
-import seedu.tasklist.testutil.TestUtil;
 
 public class SetStorageCommandTest extends TaskListGuiTest {
 	@Test

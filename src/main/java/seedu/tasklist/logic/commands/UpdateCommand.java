@@ -9,7 +9,6 @@ import seedu.tasklist.model.task.Priority;
 import seedu.tasklist.model.task.StartTime;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.TaskDetails;
-import seedu.tasklist.model.task.UniqueTaskList;
 
 /**
  * Updates task information such as task details, start time, end time, priority or recurring frequency for a particular task specified by index

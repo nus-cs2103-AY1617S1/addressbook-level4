@@ -5,9 +5,6 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.task.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * JAXB-friendly version of the Person.
  */

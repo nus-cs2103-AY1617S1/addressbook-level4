@@ -88,9 +88,6 @@ public class CategoryPanel extends UiPart {
         addToPlaceholder();
     }
 
-    private void setConnections() {
-    }
-
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(gridpane);

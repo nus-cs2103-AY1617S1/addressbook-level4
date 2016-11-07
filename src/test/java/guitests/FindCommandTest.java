@@ -8,8 +8,6 @@ import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
 import seedu.tasklist.testutil.TypicalTestTasks;
 
-import static org.junit.Assert.assertTrue;
-
 public class FindCommandTest extends TaskListGuiTest {
     
     @Test

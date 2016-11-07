@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
-import seedu.tasklist.logic.commands.AddCommand;
 import seedu.tasklist.logic.commands.ClearCommand;
 import seedu.tasklist.logic.commands.DoneCommand;
 import seedu.tasklist.logic.commands.RedoCommand;

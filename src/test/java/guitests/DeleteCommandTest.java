@@ -7,7 +7,6 @@ import org.junit.Test;
 import seedu.tasklist.testutil.TestTask;
 import seedu.tasklist.testutil.TestUtil;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.tasklist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends TaskListGuiTest {

@@ -1,8 +1,6 @@
 package seedu.tasklist.testutil;
-import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.ConfigTest;
 
-import static org.junit.Assert.assertTrue;
 import com.google.common.io.Files;
 
 import edu.emory.mathcs.backport.java.util.Collections;
@@ -19,7 +17,6 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 
 import seedu.tasklist.TestApp;
-import seedu.tasklist.commons.core.ConfigTest;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.commons.util.XmlUtil;

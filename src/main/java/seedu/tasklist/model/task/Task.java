@@ -1,10 +1,8 @@
 package seedu.tasklist.model.task;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
-import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 
 
