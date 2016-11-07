@@ -210,7 +210,6 @@ public class TaskTimeTest {
   //@@author A0139128A
   @Test
   public void TaskTime_DateAndDayAndTwoTime_IncorrectArguments() throws IllegalValueException {
-      
       try {
           TaskTime test = new TaskTime(null, "10:50am", "10:10pm", null , "21/2/2017", "saturday");
       } catch (IllegalValueException e) {

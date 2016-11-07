@@ -3,11 +3,13 @@ package seedu.whatnow.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.EventsCenter;
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
+import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.logic.LogicManager;
 import seedu.whatnow.logic.commands.*;
@@ -20,6 +22,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.*;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.whatnow.storage.StorageManager;
 import org.junit.After;
 import org.junit.Before;
@@ -28,12 +31,14 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -113,12 +118,12 @@ public class LogicManagerTest {
         assertEquals(expectedMessage, result.feedbackToUser);
 
         if (!inputCommand.contains(FindCommand.COMMAND_WORD) && !inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD)
-                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD)) {
+                && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD) && !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(AddCommand.COMMAND_WORD)) {
             assertEquals(expectedShownList, model.getAllTaskTypeList());
         }
 
         // Confirm the state of data (saved and in-memory) is as expected
-        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD)&& !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD)) {
+        if (!inputCommand.contains(ChangeCommand.COMMAND_WORD) && !inputCommand.contains(FreeTimeCommand.COMMAND_WORD)&& !inputCommand.contains(UndoCommand.COMMAND_WORD) && !inputCommand.contains(RedoCommand.COMMAND_WORD) && !inputCommand.contains(AddCommand.COMMAND_WORD)) {
             assertEquals(expectedWhatNow, model.getWhatNow());
             //assertEquals(expectedWhatNow, latestSavedWhatNow);
         }
@@ -197,6 +202,19 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    //@@author A0139128A
+    @Test
+    public void executeAdd_alphabeticalMonths_successMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        WhatNow expectedAB = new WhatNow();
+        Task toBeAdded = new Task(new Name("Drink coke"), ("18/03/2017"), null , null, null, null, null, null, null, new UniqueTagList(new Tag("tag")),
+                    "incomplete", null);
+        expectedAB.addTask(toBeAdded);
+        
+        logic.execute("add \"Drink coke\" on 18 March 2017");
+        
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded), String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
+    }
 
     //@@author A0139128A
     @Test
@@ -244,7 +262,7 @@ public class LogicManagerTest {
 
     //@@author A0139128A
     @Test
-    public void execute_undoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+    public void execute_undoCommand_launch_doesNotExist_errorMessageShown() throws Exception {
         List<Task> expectedList = null;
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
     }
@@ -252,14 +270,14 @@ public class LogicManagerTest {
 
     //@@author A0139128A
     @Test
-    public void execute_redoCommand_launch_doesNotExist_ErrorMessageShown() throws Exception {
+    public void execute_redoCommand_launch_doesNotExist_errorMessageShown() throws Exception {
         List<Task> expectedList = null;
         assertCommandBehavior("redo", RedoCommand.MESSAGE_FAIL, new WhatNow(), expectedList);
     }
 
     //@@author A0139128A
     @Test
-    public void execute_undoCommandForAdd_SuccessMessageShown() throws Exception {
+    public void execute_undoCommandForAdd_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         WhatNow expectedA = helper.generateWhatNow(1);
         List<? extends ReadOnlyTask> expectedList = expectedA.getTaskList();
@@ -271,7 +289,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoCommandForNewAddCommandAfterAnUndoAndRedo_FailureMessageShown() throws Exception {
+    public void execute_redoCommandForNewAddCommandAfterAnUndoAndRedo_failureMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -286,7 +304,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoTheUndoForAdd_SuccessMessageShown() throws Exception {
+    public void execute_redoTheUndoForAdd_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -298,7 +316,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoCommandForAdd_FailMessageShown() throws Exception {
+    public void execute_redoCommandForAdd_failMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -310,7 +328,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoCommandForDelete_SuccessMessageShown() throws Exception {
+    public void execute_undoCommandForDelete_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
 
         List<Task> expectedList = helper.generateTaskList(1);
@@ -323,7 +341,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoCommandForDelete_FailMessageShown() throws Exception {
+    public void execute_redoCommandForDelete_failMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -337,7 +355,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoCommandForClear_SuccessMessageShown() throws Exception {
+    public void execute_undoCommandForClear_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -350,7 +368,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoTwiceTheUndoForClear_FailMessageShown() throws Exception {
+    public void execute_redoTwiceTheUndoForClear_failMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         helper.addToModel(model, 3);
         logic.execute("clear");
@@ -360,7 +378,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoDoneCommand_SuccessMessageShown() throws Exception {
+    public void execute_undoDoneCommand_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -371,7 +389,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void excute_undoUndoneCommand_SuccessMessageShown() throws Exception {
+    public void excute_undoUndoneCommand_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -386,7 +404,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_redoTheUndoForDoneCommand_SuccessMessageShown() throws Exception {
+    public void execute_redoTheUndoForDoneCommand_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -400,7 +418,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoDeleteCommand_SuccessMessageShown() throws Exception {
+    public void execute_undoDeleteCommand_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -412,7 +430,7 @@ public class LogicManagerTest {
     }
     //@@author A0139128A
     @Test
-    public void execute_undoTheRedoCommand_SuccessMessageShown() throws Exception {
+    public void execute_undoTheRedoCommand_successMessageShown() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
         WhatNow expectedAB = helper.generateWhatNow(threeTasks);
@@ -722,7 +740,29 @@ public class LogicManagerTest {
                 String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml",
                         null, null));
     }
-
+    @Test
+    public void execute_undoChangeLocation_movesToCorrectPath() throws Exception {
+        String egPath = "./docs";
+        String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+        Config config = configOptional.orElse(new Config());
+        String currPath = config.getWhatNowFilePath();
+        
+        logic.execute("change location to " + egPath);
+        assertCommandBehavior("undo", String.format(ChangeCommand.MESSAGE_UNDO_SUCCESS, currPath), null, null);
+    }
+    @Test
+    public void execute_redoTheundoChangeLocation_movesToCorrectPath() throws Exception {
+        String egPath = "./docs";
+        String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+        Config config = configOptional.orElse(new Config());
+        String currPath = config.getWhatNowFilePath();
+        
+        logic.execute("change location to " + egPath);
+        logic.execute("undo");
+        assertCommandBehavior("redo", String.format(ChangeCommand.MESSAGE_REDO_SUCCESS, egPath + "/whatnow.xml"), null, null);
+    }
     @Test
     public void executeFind_invalidArgsFormat_incorrectComandFeedback() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
