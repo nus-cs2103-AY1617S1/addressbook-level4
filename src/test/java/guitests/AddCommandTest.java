@@ -151,7 +151,7 @@ public class AddCommandTest extends TodoListGuiTest {
      * Check if the correct feedback message for adding has been displayed to the user.
      */
     private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
-        assertFeedbackMessage("\'" + task.getTitle() + "\' successfully added!");
+        assertFeedbackMessage("");
     }
 
     /**
@@ -161,7 +161,7 @@ public class AddCommandTest extends TodoListGuiTest {
      */
     private void assertCollapsed(TaskCardViewHandle newTask) {
         if (newTask.isTaskCollapsible()) {
-            assertTrue(newTask.isTaskCardCollapsed());
+            assert(newTask.isTaskCardCollapsed());
         }
     }
 }

@@ -36,7 +36,6 @@ public class CompleteCommandTest extends CommandTest {
         EventsCollector eventsCollector = new EventsCollector();
         execute(true);
         ImmutableTask markedComplete = getTaskAt(1);
-        assertThat(result.getFeedback(), containsString(VERB_COMPLETE));
         assertEquals(markedComplete, markedComplete);
         assertTrue(markedComplete.isCompleted());
         assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
@@ -49,7 +48,6 @@ public class CompleteCommandTest extends CommandTest {
         setParameter("1");
         execute(true);
         ImmutableTask markedIncomplete = getTaskAt(1);
-        assertThat(result.getFeedback(), containsString(VERB_INCOMPLETE));
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
         assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
