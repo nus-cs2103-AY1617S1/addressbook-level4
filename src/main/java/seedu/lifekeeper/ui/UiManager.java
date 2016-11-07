@@ -179,7 +179,7 @@ public class UiManager extends ComponentManager implements Ui {
         if (event.saveDirectory.equals("")) {
             mainWindow.handleSaveLoc();
         } else {
-            mainWindow.setSaveLoc(event.saveDirectory);
+            mainWindow.setSaveLocation(event.saveDirectory);
         }
     }
     
@@ -203,7 +203,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleDirectoryChangedEvent(FileDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.changeFileLoc(event.filePath);
+        mainWindow.changeFileLocation(event.filePath);
     }
     
     //==================== Refresh Handling Code =================================================================

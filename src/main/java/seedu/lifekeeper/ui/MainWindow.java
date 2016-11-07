@@ -223,10 +223,11 @@ public class MainWindow extends UiPart {
                 selectedFile = new File(selectedFile.getAbsolutePath() + ".xml");
             }
             
-            setSaveLoc(selectedFile.getAbsolutePath());
+            setSaveLocation(selectedFile.getAbsolutePath());
         }
     }
     
+    //@@author A0125680H
     public void handleOpen() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(userPrefs.getDataFilePath()));
@@ -245,13 +246,15 @@ public class MainWindow extends UiPart {
         }
     }
     
-    public void setSaveLoc(String filePath) {
+    //@@author A0125680H
+    public void setSaveLocation(String filePath) {
         resultDisplay.postMessage("New save location: " + filePath);
-        changeFileLoc(filePath);
+        changeFileLocation(filePath);
         
         EventsCenter.getInstance().post(new SaveEvent());
     }
     
+    //@@author A0125680H
     public void openFile(File selectedFile) {
         if (!selectedFile.exists()) {
             resultDisplay.postMessage("The specified file doesn't exist");
@@ -261,7 +264,8 @@ public class MainWindow extends UiPart {
         }
     }
     
-    public void changeFileLoc(String filePath) {
+    //@@author A0125680H
+    public void changeFileLocation(String filePath) {
         XmlAddressBookStorage.setAddressBookFilePath(filePath);
         userPrefs.setDataFilePath(filePath);
         statusBarFooter.setSaveLocation(filePath);
