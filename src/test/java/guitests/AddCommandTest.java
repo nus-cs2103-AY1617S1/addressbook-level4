@@ -3,6 +3,7 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import seedu.stask.commons.core.Messages;
 import seedu.stask.logic.commands.AddCommand;
+import seedu.stask.model.TaskBook.TaskType;
 import seedu.stask.testutil.TestTask;
 import seedu.stask.testutil.TestUtil;
 import seedu.stask.testutil.TypicalTestTasks;
@@ -17,37 +18,70 @@ public class AddCommandTest extends TaskBookGuiTest {
     public void add() {
         //add datedOne task
         TestTask[] currentDatedList = td.getTypicalDatedTasks();
+        TestTask[] currentUndatedList = td.getTypicalUndatedTasks();
+        
+        //adds a dated task
         TestTask taskToAdd = TypicalTestTasks.datedFour;
-        assertAddSuccess(taskToAdd, currentDatedList);
-        currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
-
-        //add another task
-        taskToAdd = TypicalTestTasks.datedFive;
-        assertAddSuccess(taskToAdd, currentDatedList);
+        assertAddSuccess(TaskType.DATED, taskToAdd, currentDatedList);
         currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
         assertTrue(datedListPanel.isListMatching(currentDatedList));
-
-        //TODO add duplicate, add undated task
+        //adds a undated task
+        taskToAdd = TypicalTestTasks.undatedFour;
+        assertAddSuccess(TaskType.UNDATED, taskToAdd, currentUndatedList);
+        currentUndatedList = TestUtil.addTasksToList(currentUndatedList, taskToAdd);
+        assertTrue(undatedListPanel.isListMatching(currentUndatedList));
+        
+        //add another dated task
+        taskToAdd = TypicalTestTasks.datedFive;
+        assertAddSuccess(TaskType.DATED, taskToAdd, currentDatedList);
+        currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
+        assertTrue(datedListPanel.isListMatching(currentDatedList));
+        //adds a undated task
+        taskToAdd = TypicalTestTasks.undatedFive;
+        assertAddSuccess(TaskType.UNDATED, taskToAdd, currentUndatedList);
+        currentUndatedList = TestUtil.addTasksToList(currentUndatedList, taskToAdd);
+        assertTrue(undatedListPanel.isListMatching(currentUndatedList));
+        
+        //add duplicate dated task success
+        taskToAdd = TypicalTestTasks.datedFive;
+        assertAddSuccess(TaskType.DATED, taskToAdd, currentDatedList);
+        currentDatedList = TestUtil.addTasksToList(currentDatedList, taskToAdd);
+        assertTrue(datedListPanel.isListMatching(currentDatedList));
+        //adds a undated task
+        taskToAdd = TypicalTestTasks.undatedFive;
+        assertAddSuccess(TaskType.UNDATED, taskToAdd, currentUndatedList);
+        currentUndatedList = TestUtil.addTasksToList(currentUndatedList, taskToAdd);
+        assertTrue(undatedListPanel.isListMatching(currentUndatedList));
         
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(TypicalTestTasks.datedOne);
+        assertAddSuccess(TaskType.DATED, TypicalTestTasks.datedFour);
+        assertAddSuccess(TaskType.UNDATED, TypicalTestTasks.undatedFour);
 
         //invalid command
-        commandBox.runCommand("adds Johnny");
+        commandBox.runCommand("adds task but command is wrong");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+    private void assertAddSuccess(TaskType type, TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = datedListPanel.navigateToTask(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard;
+        if (type == TaskType.DATED) {
+            addedCard = datedListPanel.navigateToTask(taskToAdd.getName().fullName);
+        } else {
+            addedCard = undatedListPanel.navigateToTask(taskToAdd.getName().fullName);
+        }
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous task plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(datedListPanel.isListMatching(expectedList));
+        if (type == TaskType.DATED) {
+            assertTrue(datedListPanel.isListMatching(expectedList));
+        } else {
+            assertTrue(undatedListPanel.isListMatching(expectedList));
+        }
     }
 
 }
