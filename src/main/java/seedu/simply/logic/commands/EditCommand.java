@@ -74,8 +74,7 @@ public class EditCommand extends Command{
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            }
-            catch (IllegalValueException ive) {
+            } catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
@@ -101,8 +100,7 @@ public class EditCommand extends Command{
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            }
-            catch (IllegalValueException ive) {
+            } catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
@@ -128,8 +126,7 @@ public class EditCommand extends Command{
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            }
-            catch (IllegalValueException ive) {
+            } catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();

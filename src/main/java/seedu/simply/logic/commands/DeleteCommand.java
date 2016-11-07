@@ -52,13 +52,13 @@ public class DeleteCommand extends Command {
             String temp = targetIndexes.get(i);
             String stringIdx = temp.substring(1);
             Integer intIdx = Integer.valueOf(stringIdx);
-            if(temp.charAt(0)=='E'){
+            if (temp.charAt(0)=='E') {
                 targetIndexesE.add(intIdx);
             }
-            else if(temp.charAt(0)=='D'){
+            else if (temp.charAt(0)=='D') {
                 targetIndexesD.add(intIdx);
             }
-            else if(temp.charAt(0)=='T'){
+            else if (temp.charAt(0)=='T') {
                 targetIndexesT.add(intIdx);
             }
             else{
@@ -75,8 +75,8 @@ public class DeleteCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownTodoList = model.getFilteredTodoList();
         ArrayList<ReadOnlyTask> tasksToDeleteList = new ArrayList<ReadOnlyTask>();
         
-        if(targetIndexesE.size()>0){
-            for(int i=0; i<targetIndexesE.size();i++){    
+        if (targetIndexesE.size()>0) {
+            for (int i=0; i<targetIndexesE.size();i++) {    
                 Integer idx = targetIndexesE.get(i); 
                 if (lastShownEventList.size() < idx) {
                     indicateAttemptToExecuteIncorrectCommand();
@@ -92,7 +92,7 @@ public class DeleteCommand extends Command {
         }
         
         if(targetIndexesD.size()>0){
-            for(int i=0; i<targetIndexesD.size();i++){    
+            for (int i=0; i<targetIndexesD.size();i++) {    
                 Integer idx = targetIndexesD.get(i); 
                 if (lastShownDeadlineList.size() < idx) {
                     indicateAttemptToExecuteIncorrectCommand();
@@ -108,7 +108,7 @@ public class DeleteCommand extends Command {
         }
         
         if(targetIndexesT.size()>0){
-            for(int i=0; i<targetIndexesT.size();i++){    
+            for (int i=0; i<targetIndexesT.size();i++) {    
                 Integer idx = targetIndexesT.get(i); 
                 if (lastShownTodoList.size() < idx) {
                     indicateAttemptToExecuteIncorrectCommand();

@@ -195,7 +195,6 @@ public class Parser {
         Integer pass = index.get();
         args = "add ".concat(args);
 
-        //uses Edit command to add tags
         return new EditCommand(pass, args, category);
     }
     
@@ -367,7 +366,7 @@ public class Parser {
                     DeleteCommand.MESSAGE_USAGE));
         }       
         ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(args.trim().replaceAll(" ", "").split(",")));       
-        if(args.contains("-")){        
+        if (args.contains("-")) {        
             char cat = args.charAt(1);
             String[] temp = args.replaceAll(" ", "").replaceAll(Character.toString(cat),"").split("-");
             int start;
@@ -387,12 +386,12 @@ public class Parser {
         String tempIndex = itr.next();
         String indexToDelete = tempIndex.substring(1, tempIndex.length());
         Optional<Integer> index = parseIndex(indexToDelete);      
-        if(!index.isPresent()){
+        if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }          
         //check if index is an integer the rest
-        while(itr.hasNext()){
+        while (itr.hasNext()) {
             tempIndex = itr.next();
             indexToDelete = tempIndex.substring(1, tempIndex.length());
             index = parseIndex(indexToDelete);
