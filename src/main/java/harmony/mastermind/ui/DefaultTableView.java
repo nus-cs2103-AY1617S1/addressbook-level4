@@ -42,6 +42,7 @@ public abstract class DefaultTableView extends UiPart {
     
     public abstract TableView getTableView();
     
+    //@@author A0138862W
     protected TableCell<ReadOnlyTask, ReadOnlyTask> renderIndexCell() {
         return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
             @Override
@@ -61,6 +62,7 @@ public abstract class DefaultTableView extends UiPart {
         };
     }
     
+    //@@author A0138862W
     protected TableCell<ReadOnlyTask, ReadOnlyTask> renderNameCell() {
         return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
@@ -90,6 +92,7 @@ public abstract class DefaultTableView extends UiPart {
         };
     }
     
+    //@@author A0138862W
     protected TableCell<ReadOnlyTask, ReadOnlyTask> renderStartDateCell() {
         return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
@@ -113,6 +116,7 @@ public abstract class DefaultTableView extends UiPart {
         };
     }
     
+    //@@author A0138862W
     protected TableCell<ReadOnlyTask, ReadOnlyTask> renderEndDateCell() {
         return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
@@ -135,6 +139,7 @@ public abstract class DefaultTableView extends UiPart {
         };
     }
     
+    //@@author A0138862W
     protected TableCell<ReadOnlyTask, ReadOnlyTask> renderTagsCell() {
         return new TableCell<ReadOnlyTask, ReadOnlyTask>() {
 
@@ -161,6 +166,7 @@ public abstract class DefaultTableView extends UiPart {
         };
     }
     
+    // @@author A0124797R
     protected TableCell<ReadOnlyTask, Boolean> renderRecurCell() {
         return new TableCell<ReadOnlyTask, Boolean>() {
 
