@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <tasks>
+        <name>Look for internships</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-10-25T20:00</startDate>
+        <endDate>2016-10-25T22:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Salt water gargles</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-10-27T22:00</startDate>
+        <endDate>2016-10-27T22:15</endDate>
+        <tagged>urgent</tagged>
+    </tasks>
+    <tasks>
+        <name>Pay rent</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-10-28T18:00</endDate>
+    </tasks>
+    <tasks>
+        <name>reactjs tutorial</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-10-30T14:00</startDate>
+        <endDate>2016-10-30T16:00</endDate>
+        <tagged>programming</tagged>
+    </tasks>
+    <tasks>
+        <name>Complete report on cuban missile crisis</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-01T20:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Impress during presentation</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-03T10:15</startDate>
+        <endDate>2016-11-03T11:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Revise EE2021</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-03T14:00</startDate>
+        <endDate>2016-11-06T17:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Iron clothes for dinner event</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-03T18:00</endDate>
+    </tasks>
+    <tasks>
+        <name>recycle batteries before they explode</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-04T16:00</endDate>
+        <tagged>environment</tagged>
+        <tagged>safety</tagged>
+    </tasks>
+    <tasks>
+        <name>Nap</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-04T17:00</startDate>
+        <endDate>2016-11-04T18:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Profile Amethyst</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-04T19:00</startDate>
+        <endDate>2016-11-04T20:30</endDate>
+        <tagged>programming</tagged>
+    </tasks>
+    <tasks>
+        <name>lunch with client from Sapper</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-05T12:00</startDate>
+        <endDate>2016-11-05T14:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Talk by discus group</name>
+        <taskType>Event</taskType>
+        <status>Overdue</status>
+        <startDate>2016-11-05T16:00</startDate>
+        <endDate>2016-11-05T18:00</endDate>
+    </tasks>
+    <tasks>
+        <name>CFG1010 Essay</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-05T20:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Plan december holidays</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-05T21:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Submit cmc report</name>
+        <taskType>Deadline</taskType>
+        <status>Overdue</status>
+        <startDate></startDate>
+        <endDate>2016-11-06T23:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Complete EE2020 project</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-07T23:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Revise 2103 material</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-08T13:00</startDate>
+        <endDate>2016-11-08T14:00</endDate>
+        <tagged>programming</tagged>
+    </tasks>
+    <tasks>
+        <name>Stop shower dripping when off</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-08T18:00</endDate>
+        <tagged>housework</tagged>
+    </tasks>
+    <tasks>
+        <name>Attend secret meeting</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-08T23:00</startDate>
+        <endDate>2016-11-09T00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Submit EE2021 reflection</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-09T14:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Plan Pintoos bday party</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-09T18:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Figure out new tasks to do</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-10T21:30</startDate>
+        <endDate>2016-11-10T22:30</endDate>
+    </tasks>
+    <tasks>
+        <name>Reflect on 2103 experiences</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-11T21:00</startDate>
+        <endDate>2016-11-11T23:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Movie night!</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-12T18:00</startDate>
+        <endDate>2016-11-12T21:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Meet with Joy</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-13T11:00</startDate>
+        <endDate>2016-11-13T13:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Vote for goodreads best scifi book of the year</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-15T22:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Fix leaky faucet</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-16T18:00</endDate>
+        <tagged>housework</tagged>
+    </tasks>
+    <tasks>
+        <name>Read up on abstract syntax trees</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-16T18:00</startDate>
+        <endDate>2016-11-16T20:00</endDate>
+        <tagged>programming</tagged>
+    </tasks>
+    <tasks>
+        <name>Buy Coldplay concert tickets</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-18T08:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Go for salsa dance lesson</name>
+        <taskType>Event</taskType>
+        <status>Pending</status>
+        <startDate>2016-11-20T14:00</startDate>
+        <endDate>2016-11-20T17:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Repaint kitchen walls</name>
+        <taskType>Deadline</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate>2016-11-20T18:00</endDate>
+        <tagged>housework</tagged>
+    </tasks>
+    <tasks>
+        <name>Borrow Girl with the Dragon Tattoo from Yao</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>bookshelf</tagged>
+    </tasks>
+    <tasks>
+        <name>Find new jazz music</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>music</tagged>
+        <tagged>jazz</tagged>
+    </tasks>
+    <tasks>
+        <name>Fix speakers</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+    </tasks>
+    <tasks>
+        <name>Learn how git really works</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>programming</tagged>
+    </tasks>
+    <tasks>
+        <name>Learn to play paranoid android on guitar</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>music</tagged>
+    </tasks>
+    <tasks>
+        <name>Listen to rhcps new album</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>rock</tagged>
+        <tagged>music</tagged>
+    </tasks>
+    <tasks>
+        <name>Read Tintin book 5</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>bookshelf</tagged>
+    </tasks>
+    <tasks>
+        <name>Spend more time with doggy</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+    </tasks>
+    <tasks>
+        <name>buy snacks, preferably healthy</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>groceries</tagged>
+    </tasks>
+    <tasks>
+        <name>get tissue paper</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+        <tagged>urgent</tagged>
+        <tagged>groceries</tagged>
+    </tasks>
+    <tasks>
+        <name>happy birthday</name>
+        <taskType>Someday</taskType>
+        <status>Pending</status>
+        <startDate></startDate>
+        <endDate></endDate>
+    </tasks>
+    <tasks>
+        <name>Check out weird bump on driveway</name>
+        <taskType>Deadline</taskType>
+        <status>Done</status>
+        <startDate></startDate>
+        <endDate>2016-10-21T17:00</endDate>
+        <tagged>urgent</tagged>
+    </tasks>
+    <tasks>
+        <name>Find a book on history of india</name>
+        <taskType>Event</taskType>
+        <status>Done</status>
+        <startDate>2016-10-22T20:00</startDate>
+        <endDate>2016-10-22T21:00</endDate>
+        <tagged>bookshelf</tagged>
+    </tasks>
+    <tasks>
+        <name>Read history of india book</name>
+        <taskType>Event</taskType>
+        <status>Done</status>
+        <startDate>2016-10-22T23:00</startDate>
+        <endDate>2016-10-23T00:00</endDate>
+        <tagged>bookshelf</tagged>
+    </tasks>
+    <tasks>
+        <name>Intro to ballet lesson</name>
+        <taskType>Event</taskType>
+        <status>Done</status>
+        <startDate>2016-10-24T15:00</startDate>
+        <endDate>2016-10-24T17:00</endDate>
+    </tasks>
+    <tasks>
+        <name>learn to play blackbird on guitar</name>
+        <taskType>Event</taskType>
+        <status>Done</status>
+        <startDate>2016-10-27T14:00</startDate>
+        <endDate>2016-10-29T14:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Submit exhange application</name>
+        <taskType>Deadline</taskType>
+        <status>Done</status>
+        <startDate></startDate>
+        <endDate>2016-10-29T23:50</endDate>
+    </tasks>
+    <tasks>
+        <name>finish report on lincoln</name>
+        <taskType>Deadline</taskType>
+        <status>Done</status>
+        <startDate></startDate>
+        <endDate>2016-10-30T23:59</endDate>
+        <tagged>urgent</tagged>
+    </tasks>
+    <tasks>
+        <name>Mock US debate</name>
+        <taskType>Event</taskType>
+        <status>Done</status>
+        <startDate>2016-11-02T19:00</startDate>
+        <endDate>2016-11-02T21:00</endDate>
+    </tasks>
+    <tags>
+        <tagName>bookshelf</tagName>
+    </tags>
+    <tags>
+        <tagName>programming</tagName>
+    </tags>
+    <tags>
+        <tagName>swing</tagName>
+    </tags>
+    <tags>
+        <tagName>jazz</tagName>
+    </tags>
+    <tags>
+        <tagName>music</tagName>
+    </tags>
+    <tags>
+        <tagName>rock</tagName>
+    </tags>
+    <tags>
+        <tagName>environment</tagName>
+    </tags>
+    <tags>
+        <tagName>safety</tagName>
+    </tags>
+    <tags>
+        <tagName>groceries</tagName>
+    </tags>
+    <tags>
+        <tagName>urgent</tagName>
+    </tags>
+    <tags>
+        <tagName>housework</tagName>
+    </tags>
+</addressbook>
