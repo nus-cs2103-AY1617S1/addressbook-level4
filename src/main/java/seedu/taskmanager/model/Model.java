@@ -20,10 +20,11 @@ public interface Model {
     
     //@@author A0143641M
     /** Raises relevant event when run command to save to specified location */
-    void saveAction(String location);
+    void saveAction(String oldLocation, String newLocation);
     
     /** Deletes the specified multiple items. **/
     void deleteItems(ArrayList<ReadOnlyItem> targets, String actionTaken) throws UniqueItemList.ItemNotFoundException;
+    //@@author
     
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;

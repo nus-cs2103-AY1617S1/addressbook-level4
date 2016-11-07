@@ -56,6 +56,9 @@ public class Parser {
 
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s*([0-9]+\\s*)+)"); // variable number of indexes
+    
+    private static final Pattern SAVE_LOCATION_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
+    private static final String XML_FILE_EXTENSION = ".xml";
 
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
@@ -123,15 +126,18 @@ public class Parser {
     
     //@@author
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[\\d]+)" 
-                                                                            + "(?<editCommandArguments>.+)");
+    		                                                                + "(?<editCommandArguments>.+)");
 
-    private static final Pattern ADD_TASK_COMMAND_ARGS_FORMAT = Pattern.compile("(T|t)((A|a)(S|s)(K|k))?" 
-            																+ "(?<addCommandArguments>.+)");
+    private static final Pattern ADD_TASK_COMMAND_ARGS_FORMAT = Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s+" 
+                                                                            + "(n/)?(?<name>[^/#]+)\\s*"
+            																+ "(?<addCommandArguments>.+)?");
     
-    private static final Pattern ADD_DEADLINE_COMMAND_ARGS_FORMAT = Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?" 
+    private static final Pattern ADD_DEADLINE_COMMAND_ARGS_FORMAT = Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s+" 
+                                                                            + "(n/)?(?<name>[^/#]+)\\s+"
 																			+ "(?<addCommandArguments>.+)");
     
-    private static final Pattern ADD_EVENT_COMMAND_ARGS_FORMAT = Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?" 
+    private static final Pattern ADD_EVENT_COMMAND_ARGS_FORMAT = Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s+" 
+                                                                            + "(n/)?(?<name>[^/#]+)\\s+"
 																			+ "(?<addCommandArguments>.+)");
     
     public Parser() {}
@@ -171,11 +177,11 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
         case ClearCommand.SHORT_COMMAND_WORD:
             return new ClearCommand();
-
+          
         case FindCommand.COMMAND_WORD:            
         case FindCommand.SHORT_COMMAND_WORD:
             return prepareFind(arguments);
-
+          
         case ListCommand.COMMAND_WORD:
         case ListCommand.SHORT_COMMAND_WORD:
             return new ListCommand();
@@ -183,7 +189,7 @@ public class Parser {
         case ListNotDoneCommand.COMMAND_WORD:
         case ListNotDoneCommand.SHORT_COMMAND_WORD:
             return new ListNotDoneCommand();
-            
+          //@@author A0135792X
         case ListTaskCommand.COMMAND_WORD:
         case ListTaskCommand.SHORT_COMMAND_WORD:
         	return new ListTaskCommand();
@@ -195,7 +201,7 @@ public class Parser {
         case ListEventCommand.COMMAND_WORD:
         case ListEventCommand.SHORT_COMMAND_WORD:
         	return new ListEventCommand();
-
+        	//@@author 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -266,9 +272,9 @@ public class Parser {
     
     private Command addNlpEvent(final Matcher eventNlpMatcher) throws IllegalValueException {
     	String addCommandArgs = eventNlpMatcher.group("addCommandArguments");
-    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDateTimePrefix, endDateTimePrefix, tagPrefix);
+    	String name = eventNlpMatcher.group("name");
+    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(startDateTimePrefix, endDateTimePrefix, tagPrefix);
     	argsTokenizer.tokenize(addCommandArgs);
-        String name = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, namePrefix);
         String startDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, startDateTimePrefix);
         String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
         if (name == null || startDateTime == null || endDateTime == null) {
@@ -307,9 +313,9 @@ public class Parser {
     
     private Command addNlpDeadline(final Matcher deadlineNlpMatcher) throws IllegalValueException {
     	String addCommandArgs = deadlineNlpMatcher.group("addCommandArguments");
-    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDateTimePrefix, tagPrefix);
+    	String name = deadlineNlpMatcher.group("name");
+    	ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(endDateTimePrefix, tagPrefix);
         argsTokenizer.tokenize(addCommandArgs);
-        String name = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, namePrefix);
         String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
         if (name == null || endDateTime == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -338,13 +344,13 @@ public class Parser {
 
 	private Command addEvent(final Matcher eventMatcher) throws IllegalValueException {
         String addCommandArgs = eventMatcher.group("addCommandArguments");
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDatePrefix, endTimePrefix,
+        String name = eventMatcher.group("name");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(endDatePrefix, endTimePrefix,
                                                                 endDateTimePrefix, startDatePrefix, startTimePrefix,
                                                                 startDateTimePrefix, tagPrefix);
         argsTokenizer.tokenize(addCommandArgs);
         
         //Capture argument values into their respective variables if available
-        String name = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, namePrefix);
         String endDate = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDatePrefix);
         String endTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endTimePrefix);
         String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
@@ -416,12 +422,12 @@ public class Parser {
 
 	private Command addDeadline(final Matcher deadlineMatcher) throws IllegalValueException {
         String addCommandArgs = deadlineMatcher.group("addCommandArguments");
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, endDatePrefix, endTimePrefix,
+        String name = deadlineMatcher.group("name");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(endDatePrefix, endTimePrefix,
                                                                 endDateTimePrefix, tagPrefix);
         argsTokenizer.tokenize(addCommandArgs);
         
         //Capture argument values into their respective variables if available
-        String name = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, namePrefix);
         String endDate = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDatePrefix);
         String endTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endTimePrefix);
         String endDateTime = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, endDateTimePrefix);
@@ -463,13 +469,17 @@ public class Parser {
         }
     }
 	
-	private Command addTask(final Matcher taskDeadline) throws IllegalValueException {
-		String addCommandArgs = taskDeadline.group("addCommandArguments");
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, tagPrefix);
-        argsTokenizer.tokenize(addCommandArgs);
+	private Command addTask(final Matcher taskMatcher) throws IllegalValueException {
+		String addCommandArgs = taskMatcher.group("addCommandArguments");
+		String name = taskMatcher.group("name");
+		System.out.println(name);
+		System.out.println(addCommandArgs);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(tagPrefix);
+        if (addCommandArgs != null) {
+            argsTokenizer.tokenize(addCommandArgs);
+        }
         
         //Capture argument values into their respective variables if available
-        String name = getParsedArgumentFromArgumentTokenizerWithoutOptional(argsTokenizer, namePrefix);
         if (name == null) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -526,6 +536,7 @@ public class Parser {
     //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
+     * Assumes args is not null
      *
      * @param args full command args string
      * @return the prepared EditCommand
@@ -663,6 +674,7 @@ public class Parser {
 
     /**
      * Extracts tag from string containing tag and tag removal prefix
+     * Assumes tag string contains tag removal prefix
      */
     private String extractTagToBeRemoved(String tag) {
         assert isATagToBeRemoved(tag);
@@ -678,15 +690,17 @@ public class Parser {
     }
 
     /**
-     * Parses date and time from argument acquired through NLP input 
+     * Parses date and time from argument acquired through NLP input
+     *  Assumes datetime contains user input and time and date formats are not null
+     *  
      * @param datetime datetime to be parsed
      * @param dateFormat the format the date should be returned in
      * @param timeFormat the format the time should be returned in
      * @return parsed argument as string or null if argument not parsed 
      */
     private String[] parseDateTime(String datetime, String dateFormat, String timeFormat) throws IllegalValueException {
-        assert containsInput(dateFormat) && !dateFormat.isEmpty();
-        assert containsInput(timeFormat) && !timeFormat.isEmpty();
+        assert dateFormat != null && !dateFormat.isEmpty();
+        assert timeFormat != null && !timeFormat.isEmpty();
         assert containsInput(datetime);
         
         String[] parsedDateTime = new String[2];
@@ -710,45 +724,6 @@ public class Parser {
         return parsedDateTime;
     }
     
-    //@@author A0140060A-unused
-    //Used in earlier version, functionality replaced due to ArgumentTokenizer
-    /**
-     * Extracts argument from a string containing command arguments
-     * @param argumentPattern the pattern used to extract the argument from commandArgs
-     * @param argumentGroupName the matcher group name of the argument used in argumentPattern
-     * @param commandArgs string containing command arguments
-     * @return parsed argument as string or null if argument not parsed 
-     */
-    private String parseArgument(Pattern argumentPattern, String argumentGroupName, String commandArgs) {
-        String argument = null;
-        final Matcher argumentMatcher = argumentPattern.matcher(commandArgs);
-        if (argumentMatcher.find()) {
-            argument = argumentMatcher.group(argumentGroupName);
-            argument = removeTrailingCommandChars(argument, commandArgs);
-        }
-        return argument;
-    }
-
-    /**
-     * Removes unwanted trailing command characters from argument
-     * @param argument
-     * @param commandArgs
-     * @return cleaned argument string
-     */
-    private String removeTrailingCommandChars(String argument, String commandArgs) {
-        //maximum size of trailing command characters is 3, including the space before them
-        if (argument.length() >= 3 && argument.length() < commandArgs.trim().length()-3) {
-            //size of trailing name command characters is 2, including the space before it
-            if (argument.substring(argument.length()-2, argument.length()).matches(" n")) {
-                argument = argument.substring(0, argument.length()-2);
-            } else if (argument.substring(argument.length()-3, argument.length()).matches(" (sd|st|ed|et)")) {
-            //size of trailing command characters is 3, including the space before them
-                argument = argument.substring(0, argument.length()-3);
-            }
-        }
-        return argument;
-    }
-    
     //@@author A0143641M
     /**
      * Parses argument in the context of the saveAs specified file command.
@@ -756,21 +731,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSave(String args) {
-        args = args.trim();
-        if(parseSaveCommandFormat(args)) {
-            return new SaveCommand(args);
+        try {
+            final Matcher matcher = SAVE_LOCATION_ARGS_FORMAT.matcher(args.trim());
+            
+            if(!matcher.matches()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+            }
+            return new SaveCommand(matcher.group("filePath") + XML_FILE_EXTENSION);
+        } catch (IllegalValueException ive){
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
         
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
-    }
-
-    /**
-     * Checks valid file path is given as argument for SaveCommand.
-     * @param args parameter input by user for save command
-     * @return true if parameter is valid
-     */
-    private boolean parseSaveCommandFormat(String args) {
-        return !args.equals("") && args.endsWith(".xml");
     }
     //@@author
     

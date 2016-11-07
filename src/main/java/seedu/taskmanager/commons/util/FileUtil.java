@@ -73,6 +73,21 @@ public class FileUtil {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
 
+    //@@author A0143641M
+    /** 
+     * Checks if a given string {@code path} is a valid file path
+     */
+    public static boolean isValidFilePath(String path) {
+            File file= new File(path);
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                return false;
+            }
+            return file.canWrite();
+    }
+    //@@author
+
     /**
      * Converts a string to a platform-specific file path
      * @param pathWithForwardSlash A String representing a file path but using '/' as the separator

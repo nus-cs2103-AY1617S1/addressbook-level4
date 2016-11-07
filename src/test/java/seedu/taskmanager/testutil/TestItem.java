@@ -1,5 +1,11 @@
 package seedu.taskmanager.testutil;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import seedu.taskmanager.logic.commands.AddCommand;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
@@ -151,5 +157,72 @@ public class TestItem implements ReadOnlyItem {
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public boolean isInProgress() {
+        assert this.getItemType().isEvent();
+        return isPastStartDateTime() && !isPastDeadline();
+    }
+    
+    @Override
+    public boolean isPastStartDateTime() {
+        assert this.getItemType().isEvent();
+        Date startFromNowDate = getStartDateTime();
+        Date currentDate = new Date();
+        return currentDate.after(startFromNowDate);
+    }
+    
+    @Override
+    public Date getStartDateTime() {
+        assert this.getItemType().isEvent();
+        String startDateString = this.getStartDate().value + " " + this.getStartTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date startDateTime = null;
+        try {
+            startDateTime = df.parse(startDateString);
+        } catch (ParseException e) {
+            assert false : "Date and Time Formats are incorrect.";
+        }
+        return startDateTime;
+    }
+    
+    //@@author A0143641M
+	@Override
+	public boolean isPastDeadline() {
+        assert !this.getItemType().equals(ItemType.TASK_WORD);
+        
+        Date endFromNowDate = getEndDateTime();
+        Date currentDate = new Date();
+        if (currentDate.before(endFromNowDate)) { // Future Deadline
+            return false;
+        } else { // Past Deadline
+            return true;
+        }
+	}
+
+	@Override
+	public Date getEndDateTime() {
+		String endDateString = this.getEndDate().value + " " + this.getEndTime().value;
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date endDateTime = null;
+        try {
+            endDateTime = df.parse(endDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return endDateTime;
+	}
+
+    @Override
+    public boolean isNearDeadline() {
+        Date thisEndDate = getEndDateTime();
+        Date todayDate = new Date();
+        
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, +1);
+        Date tomorrowDate = cal.getTime();
+
+        return thisEndDate.after(todayDate) && thisEndDate.before(tomorrowDate);
     }
 }

@@ -3,7 +3,7 @@ package seedu.taskmanager.logic.commands;
 //@@author A0135792X
 
 /**
- * Lists all items in the task manager to the user.
+ * Lists all items in the task manager to the user, regardless of the type.
  */
 public class ListCommand extends Command {
 
@@ -15,7 +15,7 @@ public class ListCommand extends Command {
  
   //@@author A0135792X
     
-    public static final String MESSAGE_SUCCESS = "Listed all items";
+    public static final String MESSAGE_SUCCESS = "Listed all items in task manager";
 
     public ListCommand() {}
 

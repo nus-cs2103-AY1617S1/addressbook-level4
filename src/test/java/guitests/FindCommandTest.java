@@ -12,7 +12,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult(FindCommand.COMMAND_WORD + " Mark"); //no results
+        assertFindResult(FindCommand.COMMAND_WORD + " thi isz an", td.deadline1, td.event2, td.task2); //no results
         assertFindResult(FindCommand.COMMAND_WORD + " this is a", td.deadline1, td.event2, td.task2); //multiple results
         assertFindResult(FindCommand.SHORT_COMMAND_WORD + " this is a", td.deadline1, td.event2, td.task2); //test SHORT_COMMAND_WORD
         

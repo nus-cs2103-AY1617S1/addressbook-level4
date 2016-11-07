@@ -14,6 +14,7 @@ import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -156,8 +157,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged(actionTaken);
     }
     
-    public synchronized void saveAction(String location) {
-        raise(new SaveLocationChangedEvent(location));
+    public synchronized void saveAction(String oldLocation, String newLocation) {
+        raise(new SaveLocationChangedEvent(oldLocation, newLocation));
         raise(new TaskManagerChangedEvent(taskManager));
     }
     //@@author
@@ -312,19 +313,31 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", itemType);
         }
     }
-  //@@author A0135792X
+    //@@author A0135792X
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-
+        
         @Override
         public boolean run(ReadOnlyItem item) {
             
-            for (String keyword : nameKeyWords ) {
-                if (!item.getName().value.toLowerCase().contains(keyword.toLowerCase())) {
+        	int threshold = 2;
+            String itemName = item.getName().value.toLowerCase();
+            String[] itemWords = itemName.split("\\W+");
+        	
+            for (String keyword : nameKeyWords) {
+                boolean returnValue = false;
+                String nextKeyWord = keyword.toLowerCase();
+            	for (int i=0; i<itemWords.length; i++) {
+            	    if (StringUtils.getLevenshteinDistance(itemWords[i], nextKeyWord) <= threshold) {
+            	        returnValue = true;
+            	        break;
+            	    }
+            	}
+                if (!returnValue) {
                     return false;
                 }
             }

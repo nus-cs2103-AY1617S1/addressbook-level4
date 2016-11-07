@@ -2,15 +2,18 @@ package seedu.taskmanager.logic.commands;
 
 import java.util.Set;
 
+//@@author A0140060A
+
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds and lists all persons in task manager whose name contains all of the argument keywords 
+ * Keyword matching is not case sensitive.
+ * Search results take into account typos from the user (fuzzy search) where search query can be 2 characters away from actual item name
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     
-    //@@author A0140060A
+   
     public static final String SHORT_COMMAND_WORD = "f";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all items whose names contain any of "

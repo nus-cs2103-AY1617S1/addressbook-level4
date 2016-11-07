@@ -14,13 +14,6 @@ import seedu.taskmanager.logic.commands.DeleteCommand;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.ocpsoft.prettytime.PrettyTime;
-
 //@@author A0065571A
 public class ShortItemCard extends UiPart{
 
@@ -84,6 +77,8 @@ public class ShortItemCard extends UiPart{
         name.setText(item.getName().value);
         id.setText(displayedIndex + ". ");
         tags.setText(item.tagsString());
+        
+        setColour();
     }
 
     public HBox getLayout() {
@@ -98,5 +93,35 @@ public class ShortItemCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    //@@author A0143641M
+    private void setColour() {
+        if (item.getDone()) {
+            id.setStyle("-fx-text-fill: #009309");
+            name.setStyle("-fx-text-fill: #009309");
+            tags.setStyle("-fx-text-fill: #009309");
+        } else if (item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            if (item.isInProgress()) {
+                id.setStyle("-fx-text-fill: #0083ff");
+                name.setStyle("-fx-text-fill: #0083ff");
+                tags.setStyle("-fx-text-fill: #0083ff");
+            } else if (item.isPastDeadline()) {
+                id.setStyle("-fx-text-fill: #898989");
+                name.setStyle("-fx-text-fill: #898989");
+                tags.setStyle("-fx-text-fill: #898989");
+            }
+        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
+            if (item.isNearDeadline()) { // 24 Hours Before End Date
+                id.setStyle("-fx-text-fill: #E65C00");
+                name.setStyle("-fx-text-fill: #E65C00");
+                tags.setStyle("-fx-text-fill: #E65C00");
+            }
+            if (item.isPastDeadline()) { // Past End Date
+                id.setStyle("-fx-text-fill: #FF0000");
+                name.setStyle("-fx-text-fill: #FF0000");
+                tags.setStyle("-fx-text-fill: #FF0000");
+            }
+        }
     }
 }

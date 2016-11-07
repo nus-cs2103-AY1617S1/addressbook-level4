@@ -192,7 +192,7 @@ public class LogicManagerTest {
                 "add []\\[;] n/12345 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         // Invalid Name
         assertCommandBehavior(
-                "add deadline n/# ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add deadline n/# ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         // Invalid EndDate
         assertCommandBehavior(
                 "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
