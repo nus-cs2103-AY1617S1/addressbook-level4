@@ -12,7 +12,7 @@ Responsibilities: Team Mentor
 -----
 
 ## Project Team
-  
+  [//]: # "@@author A0147335E"
 #### [Musa Bin Rahamat](http://github.com/ghurabah93) 
 <img src="images/musa.jpg" width="150"><br>
 
@@ -36,7 +36,7 @@ Responsibilities: Team Mentor
 Responsibilities: Team Lead, Logic
 
 -----
-
+[//]: # "@@author A0152958R"
 #### [Yan Nuoyuan](http://github.com/nyannnnnnn)
 <img src="images/nuoyuan.jpg" width="150"><br>
 
@@ -51,7 +51,7 @@ Responsibilities: Team Lead, Logic
 Responsibilities: Natural time input parsing, Add & edit command parsing
 
 -----
-
+[//]: # "@@author A0133369B"
 #### [Han Xue](http://github.com/Hanxnow77)
 <img src="images/hanxue.png" width="150"><br>
 
@@ -65,7 +65,7 @@ Responsibilities: Natural time input parsing, Add & edit command parsing
 Responsibilities: Testing, GUI
 
 -----
-
+[//]: # "@@author A0147944U"
 #### [Lim Jun Hao](http://github.com/evilmtv)
 <img src="images/junhao.jpg" width="150"><br>
 
