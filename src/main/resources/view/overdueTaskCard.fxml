@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel" minHeight="40.0" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: derive( #800000,30%);" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<!-- @@author A0125097A -->
+
+<HBox id="overdueTaskCardPanel" fx:id="displayCardPanel" style="-fx-background-color: salmon; -fx-border-color: #d6d6d6; -fx-border-width: 1 1 1 1;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane fx:id="overdueTaskCard" prefHeight="56.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+        <GridPane fx:id="overdueTaskCard" HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -18,11 +22,17 @@
                <children>
                            <Label fx:id="name" style="-fx-font-size: 12pt;" styleClass="label-bright" text="\$task" />
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+               </padding>
                     </HBox>
-                  <HBox alignment="CENTER_RIGHT" spacing="5" GridPane.columnIndex="1">
+                  <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                <children>
                         <Label fx:id="datetime" style="-fx-font-size: 10pt;" styleClass="label-bright" text="\$line1" />
                </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="15.0" top="5.0" />
+               </padding>
                   </HBox>
             </children>
          <rowConstraints>
@@ -30,4 +40,8 @@
          </rowConstraints>
         </GridPane>
     </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </HBox>

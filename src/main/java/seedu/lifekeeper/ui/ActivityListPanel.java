@@ -1,11 +1,15 @@
 package seedu.lifekeeper.ui;
 
+import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import seedu.lifekeeper.commons.core.LogsCenter;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of activities.
  */
 public class ActivityListPanel extends ListPanel {
     private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
@@ -24,6 +28,15 @@ public class ActivityListPanel extends ListPanel {
                 }
         });
     }
+
+	public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+		                            	ObservableList<ReadOnlyActivity> activityList) {
+		ActivityListPanel personListPanel = 
+				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
+		personListPanel.configure(activityList);
+		return personListPanel;
+	}
+    
     
 	public String getFxmlPath() {
 		return FXML;
