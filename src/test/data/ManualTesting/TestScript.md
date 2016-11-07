@@ -1,47 +1,27 @@
 # Test Script
 
-* [Quick Start](#quick-start)
 * [Description](#description)
-* [Testing Commands](#Testing Commands)
+* [Testing Commands](#testing-commands)
 * [Command Summary](#command-summary)
-
-## Quick Start
-
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-
-1. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-2. To open the SampleData, type **`open`** and press <kbd>Enter</kbd>. Then choose the saved location of SampleData, which should end with *src\test\data\ManualTesting\SampleData.xml*
-3. Some example commands you can try:
-   * **`list`** : lists all activities
-   * **`add`**` CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2` : 
-     adds an activity named `CS2103 T7A1` to the Lifekeeper.
-   * **`delete`**` 3` : deletes the 3rd activity shown in the current list
-   * **`exit`** : exits the app
-4. Refer to the [Description](#description) section below for details of the LifeKeeper.<br>
-
 
 ## Description
 
-0. Each card in the bottom left panel is a task added to the LifeKeeper.
-1. The LifeKeeper supports three types of entries:		
+* Each card in the bottom left panel is a task added to the LifeKeeper.
+* The LifeKeeper supports three types of entries:		
    * `Activity`
    * `Task`
    * `Event`
-2. Activity is a floating task which must have a valid `NAME` and optional `[REMINDER]`.<br>
-3. Task is a task which must have a valid `NAME` and either `[DUEDATE]` or [PRIORITY]`. `[REMINDER]` can also be entered together with the rest.<br>
-4. Event is a task which must have a valid `NAME` and `[STARTTIME]` and optional `[ENDTIME]`. `[REMINDER]` can also be entered together with the rest.<br>
-5. All task types can have optional `[TAG]`, each task accepts multiple tags. `Tags` are shown with `[]`. <br>
-6. Colours of the background of the cards indicate the status of the task. 
-* `Green`: Task or Activity that has been marked as done, or an Event that has passed. A text `Completed` or `Event Over` is shown to notify user of the status of the task/event
-* `Yellow`: Task with a deadline within three days. A text `Task Deadline Approaching` is also shown to notify user of the impending deadline.
-* `Red`: Task with a duedate that has passed and yet not marked as done. A text `Task Overdue` is also shown to reminder user of the overdue task.
-* `Blue`: Events that are ongoing. This is defined as an event with a start time before the current time, and an end time after the current time. A text `Event Ongoing` is shown to notify the user of the event status.
-* `White`: The default colour indicating all other types of tasks.
-7. <img src="priority3.png" width="15"> shown on the right side of the card indicates the important or priority of the task. There are four levels of priority 0, 1, 2, 3 which are indicated by the number of exclamation marks shown. Priority is only applicable to task but not activity or event. 
+* Activity is a floating task which must have a valid `NAME` and optional `[REMINDER]`.<br>
+* Task is a task which must have a valid `NAME` and either `[DUEDATE]` or [PRIORITY]`. `[REMINDER]` can also be entered together with the rest.<br>
+* Event is a task which must have a valid `NAME` and `[STARTTIME]` and optional `[ENDTIME]`. `[REMINDER]` can also be entered together with the rest.<br>
+* All task types can have optional `[TAG]`, each task accepts multiple tags. `Tags` are shown with `[]`. <br>
+* Colours of the background of the cards indicate the status of the task. 
+  * `Green`: Task or Activity that has been marked as done, or an Event that has passed. A text `Completed` or `Event Over` is shown to notify user of the status of the task/event
+  * `Yellow`: Task with a deadline within three days. A text `Task Deadline Approaching` is also shown to notify user of the impending deadline.
+  * `Red`: Task with a duedate that has passed and yet not marked as done. A text `Task Overdue` is also shown to reminder user of the overdue task.
+  * `Blue`: Events that are ongoing. This is defined as an event with a start time before the current time, and an end time after the current time. A text `Event Ongoing` is shown to notify the user of the event status.
+  * `White`: The default colour indicating all other types of tasks.
+* <img src="priority3.png" width="15"> shown on the right side of the card indicates the important or priority of the task. There are four levels of priority 0, 1, 2, 3 which are indicated by the number of exclamation marks shown. Priority is only applicable to task but not activity or event. 
 
 ## Loading saved data
 Method 1
@@ -61,9 +41,13 @@ Method 2
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is not fixed.
 
+### Help Command
+
 #### Testing Command: `help`
 
 > Help window pops up
+
+### Add Command
  
 #### Testing Command: `add activity`
 
@@ -186,19 +170,15 @@ Method 2
 
 > Invalid command since the reminder time is before the current time. Result Bar shows the error that `reminder time has passed`.
 
-#### Testing Command: `add revision for IE3120 s/10-10-2016 1200
+#### Testing Command: `add revision for IE3120 s/10-10-2016 1200`
 
 > Invalid command since the start time for the adding event is before the current time.
 
-#### Testing Command: `add YellowCare Concert e/10-10-2017 1200
+#### Testing Command: `add YellowCare Concert e/10-10-2017 1200`
 
 > Invalid command since there is only end time without a start time for the event.
 
-
-
-
-
-### Test Edit Command:
+### Edit Command
 
 #### Testing Command: `add assignment 2`, <kbd>Enter</kbd> , `edit 1 n/assignment 3`
 
@@ -251,13 +231,13 @@ Method 2
 
 
 
-###Test Find tag Command
+### Find tag Command
 
 #### Testing Command: `findtag IE3100`
 
 > The command returns all the entries with the tag IE3100
 
-### Test Done Command
+### Done Command
 
 #### Testing Command: `add speak to Prof r/today 2300`, <kbd>Enter</kbd> , 'done'
 
@@ -269,7 +249,7 @@ Method 2
 > The newly added task `speak to ISE Department` will be marked as a done task. 
 > It will be removed from the list and moved to the done list.
 
-### Test List Command
+### List Command
 
 #### Testing Command: `list all`
 
