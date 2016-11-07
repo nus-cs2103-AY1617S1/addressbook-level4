@@ -915,9 +915,9 @@ public class Parser {
                     if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
                         numOfDate++;
                         if (numOfDate == ONE)
-                            arg = argComponents[i];
+                            arg = formatDate(argComponents[i]);
                         else if (numOfDate == TWO)
-                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
+                            arg += DELIMITER_BLANK_SPACE + formatDate(argComponents[i]);
                     } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
                         numOfDate++;
                         if (numOfDate == ONE)
@@ -962,23 +962,29 @@ public class Parser {
                             arg += FORWARD_SLASH;
                             arg += argComponents[i].toLowerCase();
                         }
+                        
+                        arg = formatDate(arg);
                     } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0) {
                         arg = null;
                     }
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TIME) == 0) {
                     if (TIME_FORMAT.matcher(argComponents[i]).find()) {
                         numOfTime++;
-                        if (numOfTime == ONE)
-                            arg = argComponents[i];
-                        else if (numOfTime == TWO)
-                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
-                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        if (numOfTime == ONE) {
+                            arg = formatTime(argComponents[i]);
+                        }
+                        else if (numOfTime == TWO) {
+                            arg += DELIMITER_BLANK_SPACE + formatTime(argComponents[i]);
+                        }
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0) {
                         arg = null;
+                    }
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TAG) == 0) {
-                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0) {
                         arg = null;
-                    else
+                    } else {
                         arg += argComponents[i] + DELIMITER_BLANK_SPACE;
+                    }
                 }
             }
 
