@@ -12,7 +12,7 @@ import seedu.task.model.tag.UniqueTagList;
  * Represents a Task in the task list.
  * Guarantees: field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private Name name;
     private DateTime openTime;
@@ -148,5 +148,35 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    //@@author A0141052Y
+    /**
+     * Uses Comparator.compareTo.
+     * The comparison is based on:<br/>
+     * - Starred tasks have higher priority<br/>
+     * - Completed tasks have lower priority<br/>
+     * - For tasks with same completion/starred status,
+     *   base comparison on endDate and the task name
+     */
+    @Override
+    public int compareTo(Task o) {
+        /*
+         * The (^) operator is also a logical XOR, according to Java Language Standards 15.22.2.
+         * See: https://docs.oracle.com/javase/specs/jls/se8/html/jls-15.html#jls-15.22.2
+         */
+        if (this.isCompleted ^ o.getComplete()) {
+            return (this.isCompleted) ? 1 : -1;
+        } else if (this.isImportant ^ o.getImportance()) {
+            return (this.isImportant) ? -1 : 1;
+        }
+        
+        int timeComparison = this.closeTime.compareTo(o.getCloseTime());
+        
+        if (timeComparison == 0) {
+            return this.name.compareTo(o.getName());
+        } else {
+            return timeComparison;
+        }
     }
 }

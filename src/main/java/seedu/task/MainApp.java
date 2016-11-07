@@ -19,8 +19,6 @@ import seedu.task.storage.Storage;
 import seedu.task.storage.StorageManager;
 import seedu.task.ui.Ui;
 import seedu.task.ui.UiManager;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -33,7 +31,6 @@ public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
-
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
@@ -56,7 +53,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -107,13 +104,12 @@ public class MainApp extends Application {
 
         try {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            initializedConfig = configOptional.orElse(new Config());
+            initializedConfig = configOptional.orElse(new Config(configFilePathUsed));
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
                     "Using default config properties");
             initializedConfig = new Config();
         }
-
         //Update config file in case it was missing to begin with or there are new/unused fields
         try {
             ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);

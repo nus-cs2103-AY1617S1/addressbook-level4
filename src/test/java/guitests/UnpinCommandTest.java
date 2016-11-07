@@ -31,10 +31,10 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
         assertFalse(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_UNPIN_TASK_SUCCESS, newTask));
 
-        // unpin one more task
+        // unpin one more task, also checks that pinning moves task to top
         targetIndex = currentList.length;
         commandBox.runCommand("pin " + targetIndex);
-        commandBox.runCommand("unpin " + targetIndex);
+        commandBox.runCommand("unpin " + 1);
         newTask = taskListPanel.getTask(targetIndex - 1);
         assertFalse(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_UNPIN_TASK_SUCCESS, newTask));
@@ -61,7 +61,7 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void unpinTask_emtpyList() {
+    public void unpinTaskEmptyList() {
         // unpin at an empty list
         commandBox.runCommand("clear");
         commandBox.runCommand("unpin " + (currentList.length + 1));

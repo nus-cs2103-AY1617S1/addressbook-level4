@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.logic.CommandKeys.Commands;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
@@ -67,6 +68,9 @@ public interface Model {
     //@@author A0141052Y
     /** Updates the filter of the filtered task list to show based on the preset **/
     void updateFilteredList(FilterType filter);
+    
+    /** Updates the filter to show based on a list of tags provided **/
+    void updateFilteredListByTags(Set<Tag> tags);
     //@@author
 
     /**

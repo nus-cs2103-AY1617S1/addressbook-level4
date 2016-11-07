@@ -1,20 +1,34 @@
 package seedu.task.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.model.ReloadFromNewFileEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.task.commons.events.storage.FilePathChangedEvent;
+import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.logic.CommandKeys.Commands;
+import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.model.tag.Tag;
 import seedu.task.model.task.DateTime;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
+import seedu.task.storage.Storage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task list data. All changes to any
@@ -25,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final SortedList<Task> sortedTasks;
     private final UserPrefs userPrefs;
 
     /**
@@ -39,7 +54,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task list: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(taskManager.getTasks(), this::totalOrderSorting);
+        filteredTasks = new FilteredList<>(sortedTasks);
         this.userPrefs = userPrefs;
     }
 
@@ -49,7 +65,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(taskManager.getTasks(), this::totalOrderSorting);
+        filteredTasks = new FilteredList<>(sortedTasks);
         this.userPrefs = userPrefs;
     }
 
@@ -124,6 +141,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     //@@author
+    
+    // ========== Methods for aliasing ==========================================================================
+    
+    //@@author A0144939R
+
+    public HashMap<String, Commands> getAliasMap() {
+        return userPrefs.getAliasMap();
+    }
+    
+    public void setMapping(Commands command, String alias) {
+        userPrefs.setMapping(command, alias);
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -134,6 +164,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.size() - 1));
     }
     
     //@@author A0141052Y
@@ -169,6 +200,10 @@ public class ModelManager extends ComponentManager implements Model {
             break;
         }
     }
+    
+    public void updateFilteredListByTags(Set<Tag> tags) {
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(tags)));
+    }
     //@@author
 
     @Override
@@ -179,6 +214,14 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    //@@author A0141052Y
+    // ========== Methods for sorting ==========================================================================
+    
+    private int totalOrderSorting(Task task, Task otherTask) {
+        return task.compareTo(otherTask);
+    }
+    //@@author
 
     // ========== Inner classes/interfaces used for filtering ==================================================
 
@@ -235,6 +278,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0141052Y
+    /**
+     * Qualifier that checks for matching tags
+     * @author Syed Abdullah
+     *
+     */
+    private class TagQualifier implements Qualifier {
+        private Set<Tag> tags;
+
+        TagQualifier(Set<Tag> tags) {
+            this.tags = tags;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return tags.stream()
+                    .allMatch(tag -> task.getTags().contains(tag));
+        }
+    }
+    
     /**
      * Qualifier that checks if Task is not due based on reference time
      * @author Syed Abdullah
@@ -297,15 +359,11 @@ public class ModelManager extends ComponentManager implements Model {
             return (task.getComplete() == this.isCompleted);
         }
     }
-
+    
     //@@author A0144939R
-
-    public HashMap<String, Commands> getAliasMap() {
-        return userPrefs.getAliasMap();
+    @Subscribe
+    public void handleReloadFromNewFileEvent(ReloadFromNewFileEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Load from new file path requested"));
+        resetData(event.taskManager);
     }
-    
-    public void setMapping(Commands command, String alias) {
-        userPrefs.setMapping(command, alias);
-    }
-    
 }

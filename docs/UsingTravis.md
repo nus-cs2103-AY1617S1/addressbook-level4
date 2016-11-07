@@ -31,7 +31,6 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
     
     * If repository cannot be found, click `Sync account`
 4. Activate the switch.<br>
-   ![Activate the switch](images/flick_repository_switch.png)
 5. This repo comes with a [`.travis.yml`](.travis.yml) that tells Travis what to do.
    So there is no need for you to create one yourself.
 6. To see the CI in action, push a commit to the master branch!  
@@ -39,7 +38,7 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
       ![Commit build](images/build_pending.png)
 
     * As the build is run on a provided remote machine, we can only examine the logs it produces:<br>
-      ![Travis build](images/travis_build.png)
+      ![Travis build](images/travis_build.PNG)
 
 7. If the build is successful, you should be able to check the coverage details of the tests
    at [Coveralls](http://coveralls.io/)

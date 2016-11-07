@@ -19,7 +19,7 @@
 
 	> Having any Java 8 version is not enough. <br>
 	This app will not work with earlier versions of Java 8.
-   
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -59,7 +59,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -73,15 +73,19 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `add shopping` which refers to adding a floating task named shopping.
 
 <img src="images\SDforAddTask.png" width="800">
+
+This _Sequence Diagram_ below shows how components interact similarly as above with a different command `delete 1` which refers to delete the first task on the to-do list.
+
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManager ChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. The sequence diagram below is the one showing the event handling of add command. <br>
 <img src="images\SDforAddTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -105,6 +109,8 @@ that are in the `src/main/resources/view` folder.<br>
 For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in
 [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
+<img src="images/UiPanelImage.png" width="800"><br>
+
 The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
@@ -116,10 +122,12 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/task/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+1. `Logic` uses the `ParseSwitcher` to parse the command.
+2. `ParseSwitcher` uses `ParserMapping` to determine which `BaseParser` object to use.
+3. The `BaseParser` object is executed in `ParserMapping`, which parses the command.
+4. This results in a `Command` object which is executed by the `LogicManager`.
+5. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.<br>
 
@@ -213,6 +221,7 @@ our GUI tests can be run in the _headless_ mode.
 In the headless mode, GUI tests do not show up on the screen.
 That means the developer can do other things on the Computer while the tests are running.<br>
 See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
 ## Dev Ops
 
 ### Build Automation
@@ -231,20 +240,22 @@ Here are the steps to create a new release.
 2. Tag the repo with the version number. e.g. `v0.1`
 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
 	and upload the JAR file your created.
-  
+
 ### Managing Dependencies
 
 A project often depends on third-party libraries. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
+PrettyTime is another library which is used for time formatting.
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+
 <!-- @@author A0153467Y-->
 ## Appendix A : User Stories
- 
+
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
- 
+
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
@@ -257,25 +268,32 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` |user | undo my previous action | recover from commands entered by mistake
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
 `* * *` | user | update a task | change the specifications of a specific task
-`* * *` | user | see the entire to-do list | know the number of task/ event that I have
-`* * *` | user | specify the file location of the task list | store the list in a more convenient location (such as Dropbox)
+`* * *` | user | filter a list of pinned tasks or task which are pending | Know what tasks need to be done and what tasks are important
+`* * *` | user | specify the file location of the task list | store the list in a more convenient location
+`* *` | user | see the entire to-do list | know the number of task/ event that I have
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
 `* *` | user | alias commands to symbols
 `* *` | user | do a live search for commands
- 
+`* *` | user | find task by their tag
+`*` | user | unmark a completed task| change my mind if that task is actullay not completed
+`*` | user | unpin a pinned task| change my mind if that task is not important anymore
+
 ## Appendix B : Use Cases
- 
+
+The activity diagram below shows the simple flow of getting command from user<br>
+<img src="images/ActivityDiagram.jpg" width="600"><br>
+
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
- 
+
 #### Use case: Add task
- 
+
 **MSS**
- 
+
 1. User requests to add a task
 2. MESS adds the task to the list<br>
 Use case ends.
- 
+
 **Extensions**
 
 1a. The input command format is wrong
@@ -285,16 +303,16 @@ Use case ends.
 1b. The task name already exists on the list.
 > MESS shows a message to inform user that task already exists
 Use case ends.
-
+<!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Alias command
- 
+
 **MSS**
- 
+
 1. User requests to alias a command
 2. MESS aliases the command to the given symbol<br>
 Use case ends.
- 
+
 **Extensions**
 
 1a. The symbol is already aliased to another command
@@ -308,67 +326,147 @@ Use case ends.
 1c. The command already has an alias
 > MESS maps the given symbol to the command, as a command can have multiple aliases
 Use case ends.
-<!- @@author --> 
- 
-#### Use case: Delete task by task name
- 
-**MSS**
- 
-1. User request to delete task by task name
-2.  MESS deletes the task <br>
-Use case ends.
- 
-**Extensions**
- 
-1a. The list is empty
->Use case ends
- 
-1b. No task match with task name
-> Use case ends
- 
+
+<!-- @@author -->
+
+<!-- @@author A0153467Y -->
 #### Use case: Delete task by index
- 
+
 **MSS**
- 
+
 1. User requests to list tasks
 2. MESS shows a list of tasks
 3. User requests to delete a specific task in the list
 4. MESS deletes the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > Use case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    Use case ends.
- 
+
 #### Use case: Update task
- 
+
 **MSS**
 
 1. User requests to list tasks
 2. MESS shows a list of tasks
-3. User requests to update a specific task in the list
-4. MESS deletes the person <br>
+3. User requests to update a specific task by index in the list
+4. MESS updates the task <br>
 Use case ends.
- 
+
 **Extensions**
- 
+
 1a. The list is empty
- 
+
 > User case ends
- 
+
 3a. The given index is invalid
- 
+
 >MESS shows an error message <br>
    User case ends.
 
- #### Use case: Undo previous action
+#### Use case: Pin task
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to pin a specific task by index in the list
+4. MESS pins the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> User case ends
+
+3a. The given index is invalid
+
+>MESS shows an error message <br>
+   User case ends.   
+
+#### Use case: Unpin task
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to unpin a pinned task by index in the list
+4. MESS unpins the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> User case ends
+
+3a. The given index is invalid
+
+> MESS shows an error message <br>
+   User case ends.
+
+3b. The task is not pinned before
+
+> MESS shows an error message <br>
+  User case ends.   
+
+#### Use case: Complete task
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a specific task as completed by index in the list
+4. MESS marks the task <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> User case ends
+
+3a. The given index is invalid
+
+>MESS shows an error message <br>
+   User case ends.   
+
+#### Use case: Uncomplete task
+
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a completed task as not completed by index in the list
+4. MESS marks the task back to not completed <br>
+Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> User case ends
+
+3a. The given index is invalid
+
+>MESS shows an error message <br>
+   User case ends.  
+
+3b. The task is not marked as completed before
+
+>MESS shows an error message <br>
+   User case ends.
+
+#### Use case: Undo previous action
 
 **MSS**
 
@@ -381,7 +479,12 @@ Use case ends.
 1a. There is no previous action
 
 > Use case ends
+<!-- @@author A0141052Y -->
 
+1b. The previous action does not support undo
+> Use case ends
+
+<!-- @@author -->
 #### Use case: Find task
 
 **MSS**
@@ -401,7 +504,27 @@ Use case ends.
 
 >MESS shows an no-match message <br>
    Use case ends.
+<!-- @@author A0141052Y -->
+#### Use case: Find task by tag
 
+**MSS**
+
+1. User enters command and tags to be searched. <br/>
+2. MESS shows the tasks containing the tags <br>
+Use case ends.
+
+**Extensions**
+
+1a. The find by tag command format is wrong
+
+>MESS shows an error message. <br/>
+  Use case ends.
+
+1b. There is no matched task
+
+>MESS shows no tasks in the task list <br/>
+  Use case ends.
+<!-- @@author -->
 #### Use case: List all tasks
 
 **MSS**
@@ -416,14 +539,14 @@ Use case ends.
 
 > Nothing will be returned. <br>
 Use case ends.
-
+<!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Change storage location
 
 **MSS**
 
 1. User requests to change storage file location
-2. MESS changes storage file location and saves in that location
+2. MESS changes storage file location and saves in that location/loads from that location if file already contains data
 
 **Extensions**
 2a. The file path may not be valid
@@ -437,26 +560,31 @@ Use case ends.
 Use case ends.
 
 <!-- @@author -->
+<!-- @@author A0153467Y -->
 ## Appendix C : Non Functional Requirements
- 
+
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
-2. Should be able to process user’s request and show result in 2 seconds.
-3. Should be user-friendly for both beginners and advanced users.
-4. Should be able to hold up to 1000 tasks.
+2. Should be able to process user’s request and show result in 3 seconds
+3. Should be user-friendly for both beginners and advanced users
+4. Should be able to hold up to 1000 tasks
 5. Should be able to work offline
-6. Should only input by keyboard
+6. Should only input by keyboard for command line
 7. Should be able to change the storage location of data file
-8. Should come with automated unit tests and open source code.
+8. Should come with automated unit tests and open source code
 
 ## Appendix D : Glossary
- 
+
 ##### Mainstream OS
- 
+
 > Windows, Linux, Unix, OS-X
+
+##### Floating Tasks
+
+> A task that does not have open time and close time
 
 <!-- @@author-->
 ## Appendix E : Product Survey
- 
+
 ### Google Calendar
 #### Strengths
 1. Simple 'what you see is what you get' interface
@@ -466,7 +594,7 @@ Use case ends.
 5. Global Search; data searched through other google products as well; Gmail, Drive, etc.
 6. Automatic generation of start and end times enforcing structure in all entries
 7. Recurring events
- 
+
 #### Weaknesses
 1. No tagging mechanism for more complex organization
 2. No analysis, summary nor statistics of data the user has entered
@@ -486,16 +614,16 @@ Use case ends.
 8. Priority can be set for each task
 9. Can be extended to add-ons
 10. Can be connected to Dropbox
- 
+
 #### Weakness:
 1. UI does not look good
 2. All the output will only be shown in CLI format (no colour, no font change)
 3. Need to update whether the task has finished or not by the user
 4. No notification for task near deadline
 5. Require users to remember too many commands
- 
+
 ### Wunderlist (Free version)
- 
+
 #### Strength
 1. Easy to use
 2. Cross-platform application
@@ -504,12 +632,12 @@ Use case ends.
 5. Use hashtag to categorize tasks
 6. Plug-in for Microsoft Outlook and Google Calendar
 7. Can take notes (not only task)
- 
+
 #### Weakness
 1. Cannot create task using one line command
 2. Have limited number subtasks (only premium version has unlimited)
 3. Cannot customize the interface (only premium version can do)
- 
+
 ### Todoist (Free version)
 #### Strength
 1. Simple to use
@@ -518,7 +646,7 @@ Use case ends.
 4. Have both online and offline access
 5. Have different priority level for tasks
 6. Can track your productivity and visualize your achievement trends over time.
- 
+
 #### Weakness
 1. tasks for free version
 2. Cannot use label to categorize tasks for free version
@@ -526,4 +654,5 @@ Use case ends.
 
 #### Summary
 
-In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
+In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, having priority for tasks and tags for tasks are some important features.
+<!-- @@author -->

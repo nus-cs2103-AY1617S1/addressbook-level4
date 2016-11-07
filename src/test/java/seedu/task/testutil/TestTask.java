@@ -18,6 +18,8 @@ public class TestTask implements ReadOnlyTask {
 
     public TestTask() {
         tags = new UniqueTagList();
+        openTime = new DateTime();
+        closeTime = new DateTime();     
     }
     
     //@@author A0141052Y
@@ -95,18 +97,21 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
-        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        if (!this.getOpenTime().isEmpty()) {
+            sb.append("starts " + this.getOpenTime().toISOString() + " ");
+        }
+        if (!this.getCloseTime().isEmpty()) {
+            sb.append("ends " + this.getCloseTime().toISOString() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
-        System.out.println("COMMAND" +sb.toString());
         return sb.toString();
     }
     
     public String getArgs() {
         StringBuilder sb = new StringBuilder();
         sb.append(" "+this.getName().taskName + " ");
-        sb.append("starts " + this.getOpenTime().toPrettyString() + " ");
-        sb.append("ends " + this.getCloseTime().toPrettyString() + " ");
+        sb.append("starts " + this.getOpenTime().toISOString() + " ");
+        sb.append("ends " + this.getCloseTime().toISOString() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("tag " + s.tagName + " "));
         return sb.toString();
     }

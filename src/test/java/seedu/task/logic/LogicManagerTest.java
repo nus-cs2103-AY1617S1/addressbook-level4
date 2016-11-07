@@ -2,6 +2,7 @@ package seedu.task.logic;
 
 import com.google.common.eventbus.Subscribe;
 
+
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
@@ -17,7 +18,6 @@ import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
-import seedu.task.storage.StorageManager;
 
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -77,9 +78,7 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile)); 
+        logic = new LogicManager(model); 
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
@@ -242,7 +241,7 @@ public class LogicManagerTest {
         
         Task pinned1 = helper.generateTaskWithName("Pinned");
         pinned1.setIsImportant(true);
-        Task pinned2 = helper.generateTaskWithName("Pinned Too");
+        Task pinned2 = helper.generateTaskAfterWithName("Pinned Too", pinned1);
         pinned2.setIsImportant(true);
         List<Task> pinnedTasks = helper.generateTaskList(pinned1, pinned2);
         
@@ -262,7 +261,7 @@ public class LogicManagerTest {
         
         Task complete1 = helper.generateTaskWithName("Completed");
         complete1.setIsCompleted(true);
-        Task complete2 = helper.generateTaskWithName("Completed Also");
+        Task complete2 = helper.generateTaskAfterWithName("Completed Also", complete1);
         complete2.setIsCompleted(true);
         List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
         
@@ -279,7 +278,7 @@ public class LogicManagerTest {
         
         Task complete1 = helper.generateTaskWithName("Completed");
         complete1.setIsCompleted(true);
-        Task complete2 = helper.generateTaskWithName("Completed Also");
+        Task complete2 = helper.generateTaskAfterWithName("Completed Also", complete1);
         complete2.setIsCompleted(true);
         List<Task> completedTasks = helper.generateTaskList(complete1, complete2);
         
@@ -299,12 +298,12 @@ public class LogicManagerTest {
     private void assertCommandFilteredList(String command, String message, List<Task> taskList, boolean isInverse) throws Exception {
         // prepare initial state
         TestDataHelper helper = new TestDataHelper();
-        helper.addToModel(model, 10);
+        helper.addToModel(model, 9);
         helper.addToModel(model, taskList);
 
         // prepare expected
         ReadOnlyTaskManager expectedTaskManager = model.getTaskManager();
-        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(10) : taskList;
+        List<Task> expectedTaskList = (isInverse) ? helper.generateTaskList(9) : taskList;
         
         assertCommandBehavior(command, message, expectedTaskManager, expectedTaskList);
     }
@@ -457,10 +456,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesPartialWordInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generateTaskAfterWithName("bla bla KEY bla", p1);
+        Task p2 = helper.generateTaskAfterWithName("KEYKEYKEY sduauo", pTarget1);
+        Task pTarget2 = helper.generateTaskAfterWithName("bla KEY bla bceofeia", p2);
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
@@ -477,11 +476,11 @@ public class LogicManagerTest {
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        Task p2 = helper.generateTaskAfterWithName("bla KEY bla bceofeia", p1);
+        Task p3 = helper.generateTaskAfterWithName("key key", p2);
+        Task p4 = helper.generateTaskAfterWithName("KEy sduauo", p3);
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
@@ -524,7 +523,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        public Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -542,7 +541,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the Task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        public Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
                     DateTime.fromUserInput("" + Math.abs(seed)+" days from now"),
@@ -574,7 +573,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskManager with auto-generated Tasks.
          */
-        TaskManager generateTaskManager(int numGenerated) throws Exception{
+        public TaskManager generateTaskManager(int numGenerated) throws Exception{
             TaskManager taskManager = new TaskManager();
             addToTaskManager(taskManager, numGenerated);
             return taskManager;
@@ -583,7 +582,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskManager based on the list of Tasks given.
          */
-        TaskManager generateTaskManager(List<Task> Tasks) throws Exception{
+        public TaskManager generateTaskManager(List<Task> Tasks) throws Exception{
             TaskManager taskManager = new TaskManager();
             addToTaskManager(taskManager, Tasks);
             return taskManager;
@@ -593,14 +592,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given TaskManager
          * @param taskManager The TaskManager to which the Tasks will be added
          */
-        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+        public void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
             addToTaskManager(taskManager, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskManager
          */
-        void addToTaskManager(TaskManager taskManager, List<Task> TasksToAdd) throws Exception{
+        public void addToTaskManager(TaskManager taskManager, List<Task> TasksToAdd) throws Exception{
             for(Task p: TasksToAdd){
                 taskManager.addTask(p);
             }
@@ -610,14 +609,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        public void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> TasksToAdd) throws Exception{
+        public void addToModel(Model model, List<Task> TasksToAdd) throws Exception{
             for(Task p: TasksToAdd){
                 model.addTask(p);
             }
@@ -626,7 +625,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        public List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> Tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
                 Tasks.add(generateTask(i));
@@ -634,14 +633,14 @@ public class LogicManagerTest {
             return Tasks;
         }
 
-        List<Task> generateTaskList(Task... Tasks) {
+        public List<Task> generateTaskList(Task... Tasks) {
             return Arrays.asList(Tasks);
         }
 
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        public Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
                     DateTime.fromUserInput("tomorrow"),
@@ -651,5 +650,22 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        //@@author A0141052Y
+        /**
+         * Generates a Task object with given name and ensures that the Task appears
+         * after the specified Task. No guarantee that other Task will appear before it.
+         */
+        Task generateTaskAfterWithName(String name, Task preceedingTask) throws Exception {
+            return new Task(
+                    new Name(name),
+                    DateTime.fromUserInput("tomorrow"),
+                    DateTime.fromDateTimeOffset(preceedingTask.getCloseTime(), 5, ChronoUnit.MINUTES),
+                    false,
+                    false,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        //@@author
     }
 }

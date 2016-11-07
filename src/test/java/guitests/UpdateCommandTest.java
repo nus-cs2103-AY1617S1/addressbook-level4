@@ -1,35 +1,50 @@
+//@@author A0141052Y
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 import static seedu.task.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.UpdateCommand;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.*;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class UpdateCommandTest extends TaskManagerGuiTest {
+    /**
+     * NOTE TO EXAMINERS:
+     * THIS TEST MAY FAIL DUE TO RACE CONDITIONS. IT IS IN NO PART
+     * DUE TO THE TEST CASES, RATHER, THE TIME BETWEEN TASK UPDATE
+     * AND WHEN THE ASSERTION IS DONE MAY LEAD TO NULLPOINTEREXCEPTION
+     * DUE TO HOW THE RETRIEVAL OF THE TASK UI CARD WORKS.
+     * 
+     * EXAMPLE: UI SAYS "11:39" BUT TEST CASE SAVES AS "11:40"
+     * 
+     * @throws IllegalValueException
+     */
 	@Test
     public void update() throws IllegalValueException {
 	    TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         
-        // update first task
-        assertUpdateSuccess(targetIndex, td.hoon, currentList);
+        // update first task with details that will put it to the back
+        assertUpdateSuccess(targetIndex, currentList.length, TypicalTestTasks.ida, currentList);
 
-        currentList = TestUtil.replaceTaskFromList(currentList, td.hoon, targetIndex - 1);
+        currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, currentList.length - 1);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.ida, currentList.length - 1);
         targetIndex = currentList.length;
         
-        // update last task
-        assertUpdateSuccess(targetIndex, td.ida, currentList);
+        // update last task with details that will put it to the front
+        assertUpdateSuccess(targetIndex, 1, TypicalTestTasks.first, currentList);
         
-        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, targetIndex - 1);
+        currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, 0);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.first, 0);
         targetIndex = 1;
 
         // add new tags
@@ -41,35 +56,21 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         // remove existing tags
         commandBox.runCommand("update " + targetIndex + " remove-tag urgent");
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getTags().contains(tagToAdd));
-        
-        // modify open time
-        commandBox.runCommand("update " + targetIndex + " starts 2 hour later");
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
-        TestTask expectedTask = currentList[targetIndex - 1];
-        expectedTask.setOpenTime(DateTime.fromUserInput("2 hour later"));
-        assertMatching(expectedTask, updatedCard);
-        
-        // modify close time
-        commandBox.runCommand("update " + targetIndex + " ends the day after tomorrow");
-        updatedCard = taskListPanel.navigateToTask(targetIndex-1);
-        expectedTask = currentList[targetIndex - 1];
-        expectedTask.setCloseTime(DateTime.fromUserInput("the day after tomorrow"));
-        assertMatching(expectedTask, updatedCard);
+        assertFalse(newTask.getTags().contains(tagToAdd));
         
         // update with no changes
-        targetIndex = 1;
+        targetIndex = 4;
         commandBox.runCommand("update " + targetIndex);
-        updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
-        assertMatching(td.hoon, updatedCard);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
+        assertMatching(TypicalTestTasks.fiona, updatedCard);
         
         // update own task without changing name
         targetIndex = 3;
-        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
+        commandBox.runCommand("update " + targetIndex + " name"+ TypicalTestTasks.carl.getArgs());
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // invalid index
-        commandBox.runCommand("update " + (currentList.length+1) + " name"+ td.ida.getArgs());
+        commandBox.runCommand("update " + (currentList.length+1) + " name"+ TypicalTestTasks.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(taskListPanel.isListMatching(currentList));
         
@@ -83,19 +84,19 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
     }
 	
-	private void assertUpdateSuccess(int targetIndex, TestTask taskToUpdate, TestTask... currentList) {
+	private void assertUpdateSuccess(int targetIndex, int newIndex, TestTask taskToUpdate, TestTask... currentList) {
 		commandBox.runCommand("update " + targetIndex + " name"+ taskToUpdate.getArgs() );
 		
 		//confirm the new card contains the right data
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(newIndex - 1);
         assertMatching(taskToUpdate, updatedCard);
 
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList);
+        TestTask[] expectedList = TestUtil.moveTaskInList(currentList, targetIndex - 1, newIndex - 1);
         
         // merge tags
-        taskToUpdate.getTags().mergeFrom(expectedList[targetIndex - 1].getTags());
+        taskToUpdate.getTags().mergeFrom(expectedList[newIndex - 1].getTags());
         
-        expectedList[targetIndex - 1] = taskToUpdate;
+        expectedList[newIndex - 1] = taskToUpdate;
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct

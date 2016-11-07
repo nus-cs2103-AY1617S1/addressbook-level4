@@ -5,8 +5,6 @@ public class UndoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Previous action has been undone!";
     public static final String MESSAGE_NO_ACTION_TO_UNDO = "No action was executed that can be undone!";
 
-    public UndoCommand() {}
-
     @Override
     public CommandResult execute() {
         assert model != null;

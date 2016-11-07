@@ -14,7 +14,7 @@ import seedu.task.commons.logic.CommandKeys.Commands;
  *
  */
 public class ParserMapping {
-    HashMap<Commands, Class<? extends BaseParser>> mappingTable = new HashMap<>();
+    private HashMap<Commands, Class<? extends BaseParser>> mappingTable = new HashMap<>();
     private final Logger logger = LogsCenter.getLogger(ParserMapping.class);
     private final HashMap<String, Commands> aliasMappings;
     
@@ -35,6 +35,7 @@ public class ParserMapping {
         mappingTable.put(Commands.DELETE, DeleteParser.class);
         mappingTable.put(Commands.EXIT, ExitParser.class);
         mappingTable.put(Commands.FIND, FindParser.class);
+        mappingTable.put(Commands.FIND_TAG, FindTagParser.class);
         mappingTable.put(Commands.HELP, HelpParser.class);
         mappingTable.put(Commands.LIST, ListParser.class);
         mappingTable.put(Commands.PIN, PinParser.class);
