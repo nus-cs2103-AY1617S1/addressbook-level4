@@ -4,7 +4,6 @@ import seedu.lifekeeper.commons.core.Messages;
 import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
-import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
 //@@author A0125097A
 /**

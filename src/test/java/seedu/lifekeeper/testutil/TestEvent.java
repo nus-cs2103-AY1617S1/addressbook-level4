@@ -3,16 +3,9 @@ package seedu.lifekeeper.testutil;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
-
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.commons.util.DateUtil;
-import seedu.lifekeeper.model.activity.Name;
-import seedu.lifekeeper.model.activity.ReadOnlyActivity;
-import seedu.lifekeeper.model.activity.Reminder;
 import seedu.lifekeeper.model.activity.event.EndTime;
-import seedu.lifekeeper.model.activity.event.Event;
 import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
 import seedu.lifekeeper.model.activity.event.StartTime;
 import seedu.lifekeeper.model.tag.UniqueTagList;

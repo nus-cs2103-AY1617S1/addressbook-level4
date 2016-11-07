@@ -1,7 +1,5 @@
 package seedu.lifekeeper.model.activity;
 
-import seedu.lifekeeper.model.activity.task.DueDate;
-import seedu.lifekeeper.model.activity.task.Priority;
 import seedu.lifekeeper.model.tag.UniqueTagList;
 
 /**

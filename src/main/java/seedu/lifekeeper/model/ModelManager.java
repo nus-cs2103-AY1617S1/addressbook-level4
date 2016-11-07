@@ -12,10 +12,7 @@ import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.UniqueActivityList;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
-import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.Tag;
-import seedu.lifekeeper.model.tag.UniqueTagList;
-
 import java.util.Set;
 import java.util.logging.Logger;
 

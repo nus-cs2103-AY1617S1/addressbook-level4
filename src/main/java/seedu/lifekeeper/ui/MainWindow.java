@@ -21,7 +21,6 @@ import seedu.lifekeeper.commons.events.model.SaveEvent;
 import seedu.lifekeeper.commons.events.ui.ExitAppRequestEvent;
 import seedu.lifekeeper.logic.Logic;
 import seedu.lifekeeper.model.UserPrefs;
-import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.storage.XmlAddressBookStorage;
 
 /**

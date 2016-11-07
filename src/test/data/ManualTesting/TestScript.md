@@ -224,10 +224,12 @@ Method 2
 
 > Invalid command for edit, the edit has to include both start and end time.
 
-#### Testing Command: `add CS2103 Lecture s/every fri 1400 e/1500`
+#### Testing Command: `add CS2103 Lab s/every fri 1400 e/1500`, <kbd>Enter</kbd>, `edit 1 s/every thu 1400 e/1500`
+
+> The command edits the current start and end time of the entry `CS2103 Lab` and changes it to `Every Thursday, 2:00 PM tp 3:00 PM
 
 > The Result Bar shows `Event must contain a start time`, and event cannot be edited without a valid start time input.
-> A new recurring event is added to the top of the list with the name `CS2103 Lecture`, and Time `Every Friday, 2:00PM to 3:00PM
+> A new recurring event is added to the top of the list with the name `CS2103 Lecture`, and Time `Every Friday, 2:00 PM to 3:00 PM
 
 #### Testing Command: `add CS2010 quiz revision p/1`, <kbd>Enter</kbd>, `edit 1 p/3`
 
@@ -240,6 +242,16 @@ Method 2
 #### Testing Command: `edit 2 r/tomorrow 1800`
 
 > The command adds a reminder to the second entry `CS2103 Lecture`.
+
+#### Testing Command: `add submit homework d/11-01-2017 1200`, <kbd>Enter</kbd> ,`edit 1 d/12-01-2017 2200`
+
+> The command will change the duedate for the newly added entry to `Thu, Jan 12, 2017 10:00 PM`
+
+
+
+
+
+###Test Findtag Command
 
 
 

@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.Name;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;

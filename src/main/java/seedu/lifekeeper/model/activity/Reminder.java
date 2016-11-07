@@ -1,11 +1,7 @@
 package seedu.lifekeeper.model.activity;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.commons.util.DateUtil;
 

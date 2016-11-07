@@ -1,10 +1,6 @@
 package seedu.lifekeeper.logic.commands;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
 import seedu.lifekeeper.commons.core.EventsCenter;
 import seedu.lifekeeper.commons.events.ui.SaveFileChooserEvent;
 import seedu.lifekeeper.commons.util.FileUtil;

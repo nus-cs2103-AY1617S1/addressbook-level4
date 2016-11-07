@@ -2,21 +2,11 @@ package seedu.lifekeeper.testutil;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
-
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
-import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.commons.util.DateUtil;
-import seedu.lifekeeper.model.activity.Activity;
-import seedu.lifekeeper.model.activity.Name;
-import seedu.lifekeeper.model.activity.ReadOnlyActivity;
-import seedu.lifekeeper.model.activity.Reminder;
-import seedu.lifekeeper.model.activity.event.EndTime;
-import seedu.lifekeeper.model.activity.event.StartTime;
 import seedu.lifekeeper.model.activity.task.DueDate;
 import seedu.lifekeeper.model.activity.task.Priority;
 import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
-import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.UniqueTagList;
 
 /**

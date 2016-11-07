@@ -13,7 +13,6 @@ import seedu.lifekeeper.commons.exceptions.DataConversionException;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
 import seedu.lifekeeper.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;

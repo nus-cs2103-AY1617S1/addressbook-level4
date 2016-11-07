@@ -3,8 +3,6 @@ package seedu.lifekeeper.model.activity;
 import seedu.lifekeeper.commons.util.CollectionUtil;
 import seedu.lifekeeper.model.activity.event.Event;
 import seedu.lifekeeper.model.activity.event.ReadOnlyEvent;
-import seedu.lifekeeper.model.activity.task.DueDate;
-import seedu.lifekeeper.model.activity.task.Priority;
 import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
 import seedu.lifekeeper.model.activity.task.Task;
 import seedu.lifekeeper.model.tag.UniqueTagList;

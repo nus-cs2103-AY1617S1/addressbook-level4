@@ -1,13 +1,9 @@
 package seedu.lifekeeper.storage;
 
-import seedu.lifekeeper.commons.core.Config;
 import seedu.lifekeeper.commons.core.LogsCenter;
 import seedu.lifekeeper.commons.exceptions.DataConversionException;
-import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.commons.util.FileUtil;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
-import seedu.lifekeeper.model.UserPrefs;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

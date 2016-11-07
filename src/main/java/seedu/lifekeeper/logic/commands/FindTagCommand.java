@@ -1,7 +1,5 @@
 package seedu.lifekeeper.logic.commands;
 
-import java.util.Set;
-
 public class FindTagCommand extends Command {
     public static final String COMMAND_WORD = "findtag";
 
