@@ -28,19 +28,19 @@ This app will not work with earlier versions of Java 8.
 
 ## Features
 
-**Command Format**
+### Command Format
 * Words in `UPPER_CASE` are the parameters.
 * Items in `SQUARE_BRACKETS` are optional.
 * Items with `...` after them can have multiple instances.
 * The order of parameters is fixed.
-<br>
+<br><br>
 ### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`<br><br>
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br><br><br>
 <!-- @@author A0130677A -->
 
-### Adding a person: `add`
+## Adding a person: `add`
 **Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
 * Adds a task to the task list in a flexible format (in any order).
 * All parameters except name are optional.
@@ -61,7 +61,7 @@ Format: `help`
 * Prefixes: day after, the day before, the monday after, the monday before, 2 fridays before, 4 tuesdays after 
 * Time: 0600h, 06:00 hours, 6pm, 5:30 a.m., 5, 12:59, 23:59, 8p, noon, afternoon, midnight 
 * Relative times: 10 seconds ago, in 5 minutes, 4 minutes from now.
-<br>
+<br><br><br>
 
 #### Listing all tasks : `list`
 Format: `list [done]`
