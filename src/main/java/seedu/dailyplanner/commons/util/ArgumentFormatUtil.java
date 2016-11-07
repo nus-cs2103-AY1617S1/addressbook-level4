@@ -1,5 +1,7 @@
 package seedu.dailyplanner.commons.util;
 
+import org.apache.commons.lang.StringUtils;
+
 public class ArgumentFormatUtil {
 
 	public static boolean isValidAddArgumentFormat(String trimmedArgs) {
@@ -23,37 +25,43 @@ public class ArgumentFormatUtil {
 	}
 
 	public static boolean isValidEditArgumentFormat(String args) {
-		String trimmedArgs = args.trim();
-
-		if (!(trimmedArgs.contains(" "))) { //check for empty edits with index
-			return false;
-		}
-		String[] checkFormat = trimmedArgs.split(" ");
-		// String onlyIndex = trimmedArgs.substring(0,trimmedArgs.indexOf(' '));
-		if(!checkFormat[0].matches("\\d+")){ //check if it is an index
-			return false;
-		}
-		for (int k = 0; k < trimmedArgs.length(); k++) {
-			if ((checkFormat[k].length() != 2) && (checkFormat[k].substring(0, 2).equals("s/"))) {
-				if ((checkFormat[k].charAt(2) == 'e') || !(checkFormat[k].charAt(2) == 'c')) {
-					return false;
-				}
-			}
-			if (checkFormat[k].substring(0, 2).equals("e/")) {
-				if ((checkFormat[k].length() != 2) && (checkFormat[k].charAt(2) == 'e')
-						|| !(checkFormat[k].charAt(2) == 'c')) {
-					return false;
-				}
-			}
-			if (checkFormat[k].substring(0, 2).equals("c/")) {
-				if ((checkFormat[k].length() != 2) && (checkFormat[k].charAt(2) == 's')
-						|| !(checkFormat[k].charAt(2) == 'e')) {
-					return false;
-				}
-			}
-
-		}
-
-		return true;
+		args = args.trim();
+	    System.out.println(args.indexOf("s/"));
+	    System.out.println(args);
+	    //If no index, return invalid
+	    if(!Character.isDigit(args.charAt(0))) {
+	        return false;
+	    }
+	    
+	    //Return false if string is only a number
+	    if (StringUtils.isNumeric(args)) {
+	        return false;
+	    }
+	    
+	    //Return false if no space before s/
+	    if(args.contains("s/")) {
+	        int indexOfStart = args.indexOf("s/");
+	        if (args.charAt(indexOfStart-1) != ' ') {
+	            return false;
+	        }
+	    }
+	    
+	  //Return false if no space before e/
+	    if(args.contains("e/")) {
+            int indexOfStart = args.indexOf("e/");
+            if (args.charAt(indexOfStart-1) != ' ') {
+                return false;
+            }
+        }
+	  //Return false if no space before c/
+	    if(args.contains("c/")) {
+            int indexOfStart = args.indexOf("c/");
+            if (args.charAt(indexOfStart-1) != ' ') {
+                return false;
+            }
+        }
+	    
+	    return true;
+	    
 	}
 }
