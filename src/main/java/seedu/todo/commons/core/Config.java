@@ -52,10 +52,6 @@ public class Config {
         this.todoListFilePath = todoListFIlePath;
     }
 
-    public String getTodoListName() {
-        return todoListName;
-    }
-
     public void setTodoListName(String todoListName) {
         this.todoListName = todoListName;
     }
