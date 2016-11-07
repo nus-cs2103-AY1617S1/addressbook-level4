@@ -33,25 +33,25 @@ This app will not work with earlier versions of Java 8.
 * Items in `SQUARE_BRACKETS` are optional.
 * Items with `...` after them can have multiple instances.
 * The order of parameters is fixed.
-
-#### Viewing help : `help`
+<br>
+### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`<br>
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br><br>
 <!-- @@author A0130677A -->
 
-#### Adding a person: `add`
+### Adding a person: `add`
 **Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
 * Adds a task to the task list in a flexible format (in any order).
 * All parameters except name are optional.
 * This command supports 3 types of tasks: floating tasks, event tasks and deadline tasks. 
 * Persons can have any number of tags (including 0)
-
+<br>
 **Examples:**
 * Floating task: `add Visit Dentist`
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
-
+<br>
 **Field Type Constraints**<br>
 
 **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
@@ -61,7 +61,7 @@ Format: `help`
 * Prefixes: day after, the day before, the monday after, the monday before, 2 fridays before, 4 tuesdays after 
 * Time: 0600h, 06:00 hours, 6pm, 5:30 a.m., 5, 12:59, 23:59, 8p, noon, afternoon, midnight 
 * Relative times: 10 seconds ago, in 5 minutes, 4 minutes from now.
-
+<br>
 
 #### Listing all tasks : `list`
 Format: `list [done]`
