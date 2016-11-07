@@ -58,7 +58,8 @@ The events and tasks will be both synchronised to your calendar. You are not abl
 > The red line shows the current time.
 
 * Toggle Calendar view
-> With the `show` calendar, you can jump to any valid time frame such as "today, tomorrow 9pm". You can also toggle the view between week view(5 days by default) and day view. 
+> With the `show` calendar, you can jump to any valid time frame such as "today, tomorrow 9pm". You can also toggle the view between week view(5 days by default) and day view.
+> See more on [show command] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#toggle-calendar-view)
 
 <img src="images/Calendar_Day.png" width="400"> <img src="images/Calendar_Week.png" width="400">
 
