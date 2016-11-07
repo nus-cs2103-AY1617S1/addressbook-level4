@@ -20,7 +20,7 @@ public class ListCommand extends Command {
             + "Event Example: " + COMMAND_WORD
             + " someday pending\n";  
     
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "Listed all tasks.\n";
 
     //@@author A0139339W
     private Optional<String> taskType = Optional.empty();
