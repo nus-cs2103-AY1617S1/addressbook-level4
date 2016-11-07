@@ -151,6 +151,7 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
     //@@author A0139052L
     @Override
     public int compareTo(TaskPeriod periodToCompare) {
+        assert periodToCompare != null;
         // if task has are of the same format, sort by their date and times (if any)
         if (this.getNumArgs() == periodToCompare.getNumArgs()) {           
             return compareByDateAndTime(periodToCompare); 
