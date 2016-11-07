@@ -278,7 +278,7 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
     public String getCountdown() throws ParseException {
         //Get count down timer
         Countdown count = Countdown.getInstance();
-        String result = count.convertDateToMilli(this.endDate.toString(), this.endTime.toString());
+        String result = count.convertDateToMilli(this.startDate.toString(), this.startTime.toString());
         return result;
     }
     
