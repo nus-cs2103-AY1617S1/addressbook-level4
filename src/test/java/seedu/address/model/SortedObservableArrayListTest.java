@@ -10,8 +10,8 @@ import seedu.address.commons.core.SortedObservableArrayList;
 import java.util.*;
 
 import static org.junit.Assert.assertSame;
-import static seedu.address.testutil.TestUtil.assertThrows;
 
+//@@author A0135812L
 public class SortedObservableArrayListTest<E extends Comparable<? super E>> {
 
     @Rule
@@ -104,3 +104,4 @@ public class SortedObservableArrayListTest<E extends Comparable<? super E>> {
         }
     }
 }
+//@@author
