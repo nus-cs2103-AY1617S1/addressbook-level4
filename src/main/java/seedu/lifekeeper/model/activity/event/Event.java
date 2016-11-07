@@ -2,6 +2,7 @@ package seedu.lifekeeper.model.activity.event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.lifekeeper.model.activity.Activity;
@@ -12,7 +13,8 @@ import seedu.lifekeeper.model.tag.UniqueTagList;
 //@@author A0131813R
 public class Event extends Activity implements ReadOnlyEvent{
 
-    private StartTime startTime;
+    private static final int DAYS_WARNING = -3;
+	private StartTime startTime;
     private EndTime endTime;
     
     public Event(Name name, StartTime start, EndTime end, Reminder reminder, UniqueTagList tags) {
@@ -171,6 +173,43 @@ public class Event extends Activity implements ReadOnlyEvent{
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * Checks if the start time is approaching and returns true if so.
+     * @return true if the current time is a certain number of days before the due date (default 3).
+     */
+    public boolean isStartTimeApproaching() {
+        if(startTime.getCalendarValue() == null) {
+            return false;           
+        } else {
+            Calendar cal = Calendar.getInstance();
+            Date now = cal.getTime();
+            cal.setTime(startTime.getCalendarValue().getTime());
+            cal.add(Calendar.DAY_OF_MONTH, DAYS_WARNING);
+            Date warningDate = cal.getTime();
+            return warningDate.before(now)
+                    && startTime.getCalendarValue().getTime().after(now);       
+        }
+    }
+    /**
+     * Checks whether Event fulfills the criteria for being an upcoming event to be displayed on Upcoming Dashboard.
+     * @return true if Event is not Ongoing, not Over, and will start within (default 3) days of from today.
+     */
+    public boolean isUpcoming() {
+    	if (this.isOngoing()) {
+    		return false;
+    	}
+    	
+    	if (this.isOver()) {
+    		return false;
+    	}
+    	
+    	if (this.isStartTimeApproaching()) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
     
 }

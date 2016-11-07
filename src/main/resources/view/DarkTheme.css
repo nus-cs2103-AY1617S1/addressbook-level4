@@ -272,7 +272,7 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#cardPane, #displayCardPanel {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
     -fx-border-width: 1 1 1 1;
@@ -283,6 +283,6 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #activityListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

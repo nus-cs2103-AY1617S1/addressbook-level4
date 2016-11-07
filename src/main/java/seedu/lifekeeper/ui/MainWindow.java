@@ -38,7 +38,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private ActivityListPanel activityListPanel;
-    private OverdueListPanel overdueListPanel;
+    private OverdueTaskListPanel overdueListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -68,12 +68,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
-//    @FXML
-//    private AnchorPane upcomingListPanelPlaceholder;
-    
-//    @FXML
-//    private AnchorPane overdueListPanelPlaceholder;
+        
+    @FXML
+    private AnchorPane overdueListDisplayPlaceHolder;
 
     public MainWindow() {
         super();
@@ -123,9 +120,9 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
     	//fill main activities display panel
         activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
-        //fill dash board
-//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredActivityList());
-        
+
+        //fill dash board with UI panel.
+        overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
@@ -147,15 +144,11 @@ public class MainWindow extends UiPart {
     public AnchorPane getActivityListPlaceholder() {
         return activityListPanelPlaceholder;
     }
-/*    
-    public AnchorPane getOverdueListPlaceholder() {
-    	return overdueListPanelPlaceholder;
-    }
     
-    public AnchorPane getUpcomingListPlaceholder() {
-    	return upcomingListPanelPlaceholder;
+    public AnchorPane getOverdueListPlaceholder() {
+    	return overdueListDisplayPlaceHolder;
     }
-*/
+
     public void hide() {
         primaryStage.hide();
     }
@@ -274,7 +267,7 @@ public class MainWindow extends UiPart {
     public ActivityListPanel getActivityListPanel() {
         return this.activityListPanel;
     }
-
+    
     public void refresh() {
         activityListPanel.refresh();
         
