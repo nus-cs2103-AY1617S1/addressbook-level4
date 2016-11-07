@@ -7,13 +7,11 @@
 * [FAQ](#faq)
 
 ## About the Task Manager
-//@@author <br>
 From Google Calendar to Todoist, Easynote and S Planner, there are many task managers out there that help users like yourself manage their lives more effectively. However, you may have noticed that such task managers often require you to go through a multitude of menu options and clicks before you can even input your activity into the manager. This results in you losing time throughout the day as work piles up with no end in sight and task managers that force you to jump through hoops just to keep track of everything.<br>
 
 So, with that in mind our team designed this task manager to give users like yourself a more hassle-free and efficient experience. We have named this application “The Practical Task Manager” or “TPTM” for short.<br>
 
 We believe that TPTM will greatly benefit any user who favours a command line interface and are thus releasing this program to the public to use free of charge. So, if you need a simple application to manage your busy life TPTM is the program for you!<br>
-//@@author<br>
 
 <center>
 <img src="images/Ui.png" width="500"><br>
@@ -41,7 +39,6 @@ Figure 1: Graphical User Interface (GUI) <br>
 Refer to the [Basic Command Summary](#basic-command-summary) section below for the complete list of commands as well as their basic format and a simple example. If you need any further information the [Features](#features) section will provide you with all you need to know about each command.<br>
 
 ## Basic Command Summary
-//@@author A0139516B<br>
 
 Command | Format | Usage Example
 -------- | :------- | :--------
