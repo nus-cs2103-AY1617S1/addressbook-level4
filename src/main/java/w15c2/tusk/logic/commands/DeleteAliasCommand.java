@@ -15,11 +15,11 @@ public class DeleteAliasCommand extends Command {
 	public static final String COMMAND_WORD = "unalias";
     public static final String ALTERNATE_COMMAND_WORD = null;
     
-    public static final String COMMAND_FORMAT = COMMAND_WORD + "<alias>";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <ALIAS>";
     public static final String COMMAND_DESCRIPTION = "Delete an Alias"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the shortcut of the alias.\n"
+            + ": Deletes the alias identified by its shortcut.\n"
             + "Parameters: SHORTCUT\n"
             + "Example: " + COMMAND_WORD + " am";
 
