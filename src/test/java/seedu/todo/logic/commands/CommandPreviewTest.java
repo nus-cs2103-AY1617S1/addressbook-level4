@@ -27,14 +27,8 @@ public class CommandPreviewTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();
     
-    @Before
-    public void setUpPreview() throws Exception {
-        Set<String> mockCommands = Sets.newHashSet("add", "delete");
-    }
-    
     @Test
     public void testFilterAdd() throws Exception {
-        // TODO: find way to mock static methods
         List<CommandSummary> expected = CommandMap.getCommand("add").getCommandSummary();
         List<CommandSummary> actual = new CommandPreview("add").getPreview();
         assertTrue(isShallowCompareCommandSummaries(expected, actual));
@@ -51,6 +45,7 @@ public class CommandPreviewTest {
         if (list.size() != otherList.size()) {
             return false;
         }
+        
         for (int i = 0; i < list.size(); i++) {
             CommandSummary summary = list.get(i);
             CommandSummary otherSummary = list.get(i);

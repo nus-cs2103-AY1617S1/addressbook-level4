@@ -171,7 +171,6 @@ public class ValidationTaskTest {
         task.setTags(tags);
 
         assertEquals(2, task.getTags().size());
-        // TODO: This should do more when we finalize how tags can be edited
     }
 
     @Test

@@ -44,9 +44,12 @@ public class XmlSerializableTodoList implements ImmutableTodoList {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // This likely means that the task format changed between versions of 
+                // the app. Unfortunately there's no good way to migrate data yet, 
+                // so unfortunately we will lose some data here
                 return null;
             }
-        }).collect(Collectors.toCollection(ArrayList::new));
+        }).filter(task -> task != null)
+            .collect(Collectors.toCollection(ArrayList::new));
     }
 }

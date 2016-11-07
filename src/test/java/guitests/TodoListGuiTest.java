@@ -50,7 +50,6 @@ public abstract class TodoListGuiTest {
      * Handles to GUI elements present at the start up are created in advance
      * for easy access from child classes.
      */
-    //TODO: Attach new Handles here!
     protected MainGuiHandle mainGui;
     protected TodoListViewHandle todoListView;
     protected CommandInputViewHandle commandInputView;
