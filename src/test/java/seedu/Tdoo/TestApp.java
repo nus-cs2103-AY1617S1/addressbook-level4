@@ -16,6 +16,7 @@ import java.util.function.Supplier;
  * This class is meant to override some properties of MainApp so that it will be
  * suited for testing
  */
+//@@author A0132157M reused 
 public class TestApp extends MainApp {
 
 	public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
