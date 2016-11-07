@@ -278,7 +278,7 @@ Format | Example
 -------- | :-------- 
 Time | 230pm 
 
-For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp <br><br>
+For more date and time formats, visit Natty's website for more information: http://natty.joestelmach.com/doc.jsp <br>
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>7.4 Input formats for Tags</b><br>
 
