@@ -34,7 +34,7 @@
 #### Viewing help : `help`
 Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
-
+  [//]: # "@@author A0152958R"
 #### Adding a task: `add`
 Adds a task to the TaskManager.<br>
 Format: `add TASKNAME[, at START_TIME]] [#TAG...]` `add TASKNAME[, from START_TIME to END_TIME]] [#TAG...]` 
@@ -48,7 +48,7 @@ Examples:
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
 * `add cs2103 assignment, by 11.59pm #CS2103`
 * `add do homework, at today 3pm`
-
+  [//]: # "@@author A0152958R"
 #### Editing a task: `edit` `e`
 Edit task information in the TaskManager<br>
 Format: `edit INDEX TASK_PROPERTY, NEW_VALUE`
@@ -62,7 +62,7 @@ Examples:
 * `edit 2 start, 08.00am` 
 * `edit 4 tag, school`
 * `e 5 n, meet Jack for lunch`
-
+ [//]: # "@@author "
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
 Format: `delete INDEX`
