@@ -147,12 +147,12 @@ public class TaskListPanel extends UiPart {
                 if (item == null) {
                     setStyle(EMPTY_STRING);
                 } else if (item.getStatus().getDoneStatus()) {
-                    setStyle("-fx-background-color: #ADDBAC; -fx-border-color: #006400");
+                    setStyle("-fx-background-color: #E2F0B6; -fx-border-color: #E2F0B6");
 
                 }
 
                 else if (item.getStatus().getOverdueStatus()) {
-                    setStyle("-fx-background-color: #FFCCCB;  -fx-border-color: #FF0000;");
+                    setStyle("-fx-background-color: #FFE4E4;  -fx-border-color: #FFE4E4;");
                 }
 
                 else {

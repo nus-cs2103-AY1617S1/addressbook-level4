@@ -63,7 +63,7 @@
 .table-view .column-header, .table-view .filler {
    /** -fx-size: 35;
     -fx-border-width: 0 0 1 0;*/ 
-    -fx-background-color: #FB6A9B;
+    -fx-background-color: #723939;
     -fx-alignment: center;
     -fx-border-color:
         transparent
@@ -79,10 +79,11 @@
     -fx-font-family: "Segoe UI Light";
     -fx-alignment: center;
     -fx-opacity: 1;
+    -fx-text-fill: #ffffff;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: #FB6A9B;
+    -fx-background-color: #ffffff;
     -fx-font-size: 10pt;
     -fx-font-weight: bolder;
     -fx-font-family: "Segoe UI Light";
@@ -126,8 +127,8 @@
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#E4E2E2, 20%);
-     -fx-border-color: derive(#E4E2E2, 20%);
+     -fx-background-color: derive(#dfdddd, 20%);
+     -fx-border-color: derive(#dfdddd, 20%);
      -fx-border-top-width: 0px;
      -fx-text-fill: red;
     -fx-font-size: 10pt;
@@ -139,8 +140,8 @@
 
 
 .status-bar {
-    -fx-background-color: derive(#FDDBE7, 20%);
-    -fx-border-color: derive(#FDDBE7, 20%);
+    -fx-background-color: derive(#aba9a9, 20%);
+    -fx-border-color: derive(#aba9a9, 20%);
     -fx-text-fill: black;
 }
 
@@ -156,17 +157,17 @@
 }
 
 .status-bar .label {
-    -fx-text-fill: #FB6A9B;
+    -fx-text-fill: #1D1D1D;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#FDDBE7);
-    -fx-border-color: derive(#FDDBE7);
+    -fx-background-color: derive(#aba9a9, 20%);
+    -fx-border-color: derive(#aba9a9, 20%);
     -fx-border-width: 0px;
 }
 
 .status-bar-with-border .label {
-    -fx-text-fill: #FB6A9B;
+    -fx-text-fill: #1D1D1D;
 }
 
 .grid-pane {
@@ -188,13 +189,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#FDDBE7, 20%);
+    -fx-background-color: derive(#aba9a9, 20%);
 }
 
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #FB6A9B;
+    -fx-text-fill: #1d1d1d;
     -fx-opacity: 0.9;
 }
 
@@ -277,7 +278,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#FB6A9B, 50%);
+    -fx-background-color: derive(#FFFFFF, 50%);
     -fx-background-insets: 3;
 }
 
