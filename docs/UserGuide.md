@@ -75,7 +75,7 @@ show [DATE]/[COMPLETION](optional)
 
 Examples:<br>
 `show`<br>
->Shows schedule for today<br>
+>Shows all tasks<br>
 
 `show today`<br>
 >Shows schedule for today <br>
