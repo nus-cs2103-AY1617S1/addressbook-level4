@@ -24,6 +24,7 @@ import seedu.savvytasker.commons.core.GuiSettings;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.ExitAppRequestEvent;
+import seedu.savvytasker.commons.events.ui.WeekSelectionChangedEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -180,6 +181,7 @@ public class MainWindow extends UiPart {
 	}
 
 	private void loadDailyPanel() {
+		firstDayOfSelectedWeek = commandBox.getDate();
         for (int i = 0; i < DAYS_OF_WEEK; i++) {
             Date onDate = new Date();
             onDate.setTime(firstDayOfSelectedWeek.getTime());
@@ -372,6 +374,11 @@ public class MainWindow extends UiPart {
 
     @Subscribe
     public void handleSavvyTaskerChangedEvent(SavvyTaskerChangedEvent stce) {
+        loadDailyPanel();
+    }
+    
+    @Subscribe
+    public void handleWeekSelectionChangedEvent(WeekSelectionChangedEvent stce) {
         loadDailyPanel();
     }
 		

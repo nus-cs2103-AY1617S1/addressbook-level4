@@ -103,5 +103,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all upcoming tasks after the selected week*/
     void updateFilteredListToShowUpcoming();
+	
     //@@author
 }

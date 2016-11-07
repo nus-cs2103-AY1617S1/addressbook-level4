@@ -294,23 +294,11 @@
 #taskListView {
 	-fx-background-color: transparent;
 }
-/*------------------------------------------ OverduePanel Styling ------------------------------------------*/
 
-.overdue-scrollpane, .overdue-panel {
-	-fx-background-color:#DCFFFD;
-}
-
-.overdue-scrollpane > .scroll-bar:horizontal .thumb,
-.overdue-scrollpane > .scroll-bar:vertical .thumb {
-	-fx-background-color:#99534D;
-}
-
-.overdue-panel .title, .overdue-panel .taskname {
-	-fx-text-fill:#000000;
-}
-
-.overdue-panel .subtitle, .overdue-panel .timestamp {
-	-fx-text-fill:#B26059;
+#header {
+	fx-font-size: 11px;
+    -fx-text-fill: #000000;
+    -fx-font-family:'Helvetica Condensed'; 
 }
 
 /*------------------------------------------ FloatingPanel Styling ------------------------------------------*/
@@ -394,82 +382,4 @@
 
 .archived-panel .taskname, .archived-panel .timestamp {
 	-fx-text-fill:#FFFFFF;
-}
-
-/*------------------------------------------ SearchPanel Styling ------------------------------------------*/
-
-.search-view-title {
-	-fx-font-family:'Helvetica Condensed';
-	-fx-font-size:24;
-	-fx-font-weight:normal;
-}
-
-.search-panel .title {
-	-fx-font-family:'Helvetica Condensed';
-	-fx-font-size:20;
-	-fx-font-weight:normal;
-}
-
-.search-panel .check-box {
-	-fx-font-family:'Helvetica';
-	-fx-text-fill:#FFFFFF;
-	-fx-font-size:10;
-	-fx-font-weight:bold;
-}
-
-.search-panel .taskname, .search-panel .timestamp {
-	-fx-text-fill:#FFFFFF;
-}
-
-/*------------------------------------------ HelpPanel Styling ------------------------------------------*/
-
-.help-panel .title {
-	-fx-font-family:'Helvetica Bold';
-	-fx-font-size:48;
-	-fx-font-weight:normal;
-}
-
-.help-panel .subtitle {
-	-fx-font-family:'Helvetica';
-	-fx-font-size:13;
-	-fx-font-weight:bold;
-}
-
-.overlay-scrollpane, .overlay-scrollpane > .viewport {
-	-fx-background-color:transparent;
-}
-
-.scroll-pane > .scroll-bar:horizontal,
-.scroll-pane > .scroll-bar:vertical {
-	-fx-background-color:transparent;
-    -fx-background-radius:2em;
-    -fx-border-radius:2em;
-}
-
-.scorll-pane > .scroll-bar:horizontal .track,
-.scroll-pane > .scroll-bar:vertical .track {
-	-fx-background-color:transparent;
-    -fx-background-radius:0em;
-    -fx-border-color:transparent;
-    -fx-border-radius:2em;
-}
-
-.scroll-pane > .scroll-bar:horizontal .thumb,
-.scroll-pane > .scroll-bar:vertical .thumb {
-	-fx-background-insets:4, 5, 6;
-    -fx-background-radius:2em;
-    -fx-border-radius:2em;
-}
-
-.scroll-pane > .scroll-bar > .increment-button, 
-.scroll-pane > .scroll-bar > .decrement-button {
-    -fx-background-color:transparent; 
-    -fx-background-radius:0em;
-    -fx-padding:0 0 10 0;
-}
-
-.scroll-pane > .scroll-bar > .increment-button > .increment-arrow,
-.scroll-pane > .scroll-bar > .decrement-button > .decrement-arrow {
-	-fx-shape:" ";
-	-fx-padding:0;
 }

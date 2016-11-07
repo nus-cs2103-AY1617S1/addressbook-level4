@@ -2,6 +2,8 @@
 package seedu.savvytasker.ui;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Stack;
 import java.util.logging.Logger;
 
@@ -19,11 +21,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.savvytasker.commons.events.ui.WeekSelectionChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.CommandResult;
-import seedu.savvytasker.model.SavvyTasker;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -33,7 +36,9 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
-    
+	private Date date = new Date();
+	private static int DAYS_OF_WEEK = 7;	
+
     private final String UNDO_COMMAND = "undo";
     private final String REDO_COMMAND = "redo";
     private final String HELP_COMMAND = "help";
@@ -64,6 +69,7 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
+
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
             ResultDisplay resultDisplay, Logic logic) {
@@ -174,13 +180,21 @@ public class CommandBox extends UiPart {
 				//close help dialog 
 				//processEsc();
 				
-			}else if (keyCode == KeyCode.UP) {
+			} else if (keyCode == KeyCode.UP) {
 
 				processUp(userInput);
 				
 			} else if (keyCode == KeyCode.DOWN) {
 				
 				processDown(userInput);
+				
+			} else if (keyCode == KeyCode.LEFT) {
+
+				processDate(-1);
+				
+			} else if (keyCode == KeyCode.RIGHT) {
+				
+				processDate(1);
 				
 			} else if (undoKey.match(keyEvent)) {
 					
@@ -318,6 +332,21 @@ public class CommandBox extends UiPart {
 	}
 	
 	/**
+	 * Process the event that occurs after the user presses the left or right button.
+	 * 
+	 * @param numbers of week to be added to the current selected week to be displayed in the daily task list view
+	 */
+	public void processDate(int numberOfWeek) {
+		
+		date  = addWeek(numberOfWeek, date);
+		indicateWeekSelectionChanged();
+	}
+	
+	/** Raises an event to indicate the week to be displayed has changed */
+	private void indicateWeekSelectionChanged() {
+		raise(new WeekSelectionChangedEvent());
+	}
+	/**
 	 * Execute commands
 	 * 
 	 * @param command to be executed
@@ -327,5 +356,23 @@ public class CommandBox extends UiPart {
 		resultDisplay.postMessage(commandResult.feedbackToUser);
 		logger.info("Result: " + commandResult.feedbackToUser);
 	}
+	
+	private Date addWeek(int numberOfWeek, Date date) {
+		
+        //convert date object to calendar object and add 1 days
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        calendarExpectedDate.setTime(date);
+        
+        calendarExpectedDate.add(Calendar.DATE, (numberOfWeek*DAYS_OF_WEEK));
+			
+        //convert calendar object back to date object
+        date = calendarExpectedDate.getTime();
+			
+        return date;
+    }
+	
+	public Date getDate() {
+		return date;
+	} 
 }
 

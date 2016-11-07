@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -12,7 +12,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label fx:id="dayHeader" alignment="CENTER" prefWidth="256.0" text="Today, 27th Oct 2016" textAlignment="CENTER" />
-        <ListView fx:id="taskListView" styleClass="vbox" stylesheets="@DarkTheme.css" />
+      <TextField fx:id="header" alignment="CENTER" maxHeight="16.0" prefWidth="257.0" styleClass="daily-panel" />
+        <ListView fx:id="taskListView" styleClass="daily-panel" stylesheets="@DarkTheme.css" />
     </children>
 </VBox>
