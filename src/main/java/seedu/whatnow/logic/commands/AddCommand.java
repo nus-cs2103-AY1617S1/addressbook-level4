@@ -101,7 +101,6 @@ public class AddCommand extends Command {
 	public CommandResult execute() {
 		assert model != null;
 		try {
-		    System.out.println("entered add command");
 			model.addTask(toAdd);
 			model.getUndoStack().push(COMMAND_WORD);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
