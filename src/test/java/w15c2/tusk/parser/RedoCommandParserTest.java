@@ -5,8 +5,8 @@ import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.RedoCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
-import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.logic.parser.RedoCommandParser;
 
 //@@author A0143107U
@@ -22,7 +22,7 @@ public class RedoCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
-		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoTaskCommand.MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE);
 		
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("previous");
 		String feedback = command.feedbackToUser;
@@ -38,9 +38,9 @@ public class RedoCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_validRedoFormat() {
-		String expected = RedoTaskCommand.MESSAGE_REDO_TASK_SUCCESS;
+		String expected = RedoCommand.MESSAGE_REDO_TASK_SUCCESS;
 		
-		RedoTaskCommand command = (RedoTaskCommand) parser.prepareCommand("");
+		RedoCommand command = (RedoCommand) parser.prepareCommand("");
 		String feedback = command.toString();
 		assertEquals(feedback, expected);			
 	}	

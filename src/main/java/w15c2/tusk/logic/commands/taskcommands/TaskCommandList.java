@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import w15c2.tusk.commons.core.LogsCenter;
+import w15c2.tusk.logic.commands.RedoCommand;
+import w15c2.tusk.logic.commands.UndoCommand;
 import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
@@ -28,10 +30,10 @@ public class TaskCommandList {
                 HelpTaskCommand.class,
                 ListTaskCommand.class,
                 PinTaskCommand.class,
-                RedoTaskCommand.class,
+                RedoCommand.class,
                 SetStorageCommand.class, 
                 UncompleteTaskCommand.class,
-                UndoTaskCommand.class,
+                UndoCommand.class,
                 UnpinTaskCommand.class,
                 UpdateTaskCommand.class};
     }

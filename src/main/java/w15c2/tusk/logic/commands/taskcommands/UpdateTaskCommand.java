@@ -20,7 +20,7 @@ import w15c2.tusk.model.task.Task;
 
 //@@author A0139817U
 /**
- * Updates a task identified using it's last displayed index from TaskManager.
+ * Updates a task identified using it's last displayed index from Task Manager.
  */
 public class UpdateTaskCommand extends TaskCommand {
 
@@ -64,6 +64,10 @@ public class UpdateTaskCommand extends TaskCommand {
      * 
      * Example: update 1 task Homework by 31 Oct 2016
      * (Replaces whatever task at index 1 to be a DeadlineTask with description as "Homework" and deadline by 31 Oct 2016)
+     * 
+     * @param targetIndex	Target index of the task to be updated.
+     * @param newTask		New task to replace the old task.
+     * @return 				UpdateTaskCommand object that updates the whole task when executed.
      */
     public UpdateTaskCommand(int targetIndex, Task newTask) {
         this.targetIndex = targetIndex;
@@ -75,6 +79,10 @@ public class UpdateTaskCommand extends TaskCommand {
      * 
      * Example: update 1 description Meeting
      * (Changes the description of the task at index 1 to be "Meeting")
+     * 
+     * @param targetIndex	Target index of the task to be updated.
+     * @param description	New description to replace the description of the old task.
+     * @return 				UpdateTaskCommand object that updates the description when executed.
      */
     public UpdateTaskCommand(int targetIndex, Description newDescription) {
         this.targetIndex = targetIndex;
@@ -86,6 +94,10 @@ public class UpdateTaskCommand extends TaskCommand {
      * 
      * Example: update 1 date 31 Oct
      * (Changes the task at index 1 to have a deadline of 31 Oct 2016 (Whether or not it is a deadline task))
+     * 
+     * @param targetIndex	Target index of the task to be updated.
+     * @param newDeadline	New deadline for the old task.
+     * @return 				UpdateTaskCommand object that updates the deadline when executed.
      */
     public UpdateTaskCommand(int targetIndex, Date newDeadline) {
         this.targetIndex = targetIndex;
@@ -97,6 +109,11 @@ public class UpdateTaskCommand extends TaskCommand {
      * 
      * Example: update 1 date 31 Oct to 1 Nov
      * (Changes the task at index 1 to have a start date of 31 Oct and end date of 1 Nov (Whether or not it is an event task))
+     * 
+     * @param targetIndex	Target index of the task to be updated.
+     * @param newStartDate	New start date for the old task.
+     * @param newEndDate	New end date for the old task.
+     * @return 				UpdateTaskCommand object that updates the start date and end date when executed.
      */
     public UpdateTaskCommand(int targetIndex, Date newStartDate, Date newEndDate) {
         this.targetIndex = targetIndex;
@@ -106,7 +123,10 @@ public class UpdateTaskCommand extends TaskCommand {
     
     /**
      * Given the task that is to be updated, create a new updatedTask to replace it
-     * by retrieving the values to be updated
+     * by retrieving the values to be updated.
+     * 
+     * @param taskToUpdate				Task that is supposed to be updated.
+     * @throws IllegalValueException 	If the parameters to update are illegal.
      */
     public void prepareUpdatedTask(Task taskToUpdate) throws IllegalValueException {
     	if (newTask != null) {
@@ -140,7 +160,11 @@ public class UpdateTaskCommand extends TaskCommand {
     }
     
     /**
-     * Create a new task with a different description to replace taskToUpdate
+     * Create a new task with a different description to replace taskToUpdate.
+     * 
+     * @param taskToUpdate				Task that is supposed to be updated.
+     * @return							New task to replace the old task.
+     * @throws IllegalValueException	If the parameters to update are illegal.
      */
     public Task prepareUpdatedDescriptionForTask(Task taskToUpdate) throws IllegalValueException {
     	// Return a new Task based on the type of the task to be updated
@@ -162,6 +186,10 @@ public class UpdateTaskCommand extends TaskCommand {
     
     /**
      * Create a new task with a different deadline to replace taskToUpdate
+     * 
+     * @param taskToUpdate				Task that is supposed to be updated.
+     * @return							New task to replace the old task.
+     * @throws IllegalValueException	If the parameters to update are illegal.
      */
     public Task prepareUpdatedDeadlineForTask(Task taskToUpdate) throws IllegalValueException {
     	// Create a deadline task to replace the original task
@@ -171,6 +199,10 @@ public class UpdateTaskCommand extends TaskCommand {
     
     /**
      * Create a new task with a different start and end date to replace taskToUpdate
+     * 
+     * @param taskToUpdate				Task that is supposed to be updated.
+     * @return							New task to replace the old task.
+     * @throws IllegalValueException	If the parameters to update are illegal.
      */
     public Task prepareUpdatedStartEndDateForTask(Task taskToUpdate) throws IllegalValueException {
     	// Create an event task to replace the original task
@@ -206,6 +238,11 @@ public class UpdateTaskCommand extends TaskCommand {
     }
 
 
+    /**
+     * Updates the targeted task in the Model.
+     * 
+     * @return CommandResult Result of the execution of the update command.
+     */
     @Override
     public CommandResult execute() {
 

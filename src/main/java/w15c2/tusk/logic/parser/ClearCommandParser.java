@@ -7,7 +7,7 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
 //@@author A0139817U
-/*
+/**
  * Parses Clear commands
  */
 public class ClearCommandParser extends CommandParser{

@@ -30,6 +30,8 @@ public class ModelHistory {
 	
 	/**
 	 * Stores the list of old tasks so that undo can be called later.
+	 * 
+	 * @param oldCopy	Old copy of tasks that can be restored upon calling 'undo'.
 	 */
 	public void storeOldTasks(UniqueItemCollection<Task> oldCopy) {
 		oldTasks = oldCopy;
@@ -41,7 +43,9 @@ public class ModelHistory {
 	}
 	
 	/**
-	 * If oldTasks exist, it means that there are tasks to be undone
+	 * If oldTasks exist, it means that there are tasks to be undone.
+	 * 
+	 * @return	Whether there are tasks to be undone.
 	 */
 	public boolean canUndoTasks() {
 		return oldTasks != null;
@@ -49,6 +53,8 @@ public class ModelHistory {
 	
 	/**
 	 * Stores the list of old aliases so that undo can be called later.
+	 * 
+	 * @param oldCopy	Old copy of aliases that can be restored upon calling 'undo'.
 	 */
 	public void storeOldAliases(UniqueItemCollection<Alias> oldCopy) {
 		oldAliases = oldCopy;
@@ -60,14 +66,16 @@ public class ModelHistory {
 	}
 	
 	/**
-	 * If oldAliases exist, it means that there are aliases to be undone
+	 * If oldAliases exist, it means that there are aliases to be undone.
+	 * 
+	 * @return	Whether there are aliases to be undone.
 	 */
 	public boolean canUndoAliases() {
 		return oldAliases != null;
 	}
 	
 	/**
-	 * Clear old copies of aliases and tasks after undo
+	 * Clear old copies of aliases and tasks after undo.
 	 */
 	public void clearOldCopies() {
 		// Can only undo once. Hence, oldTasks & oldAliases are set to null after one undo
@@ -77,7 +85,10 @@ public class ModelHistory {
 	
 	/**
 	 * Returns oldTasks which is the old state of the task list,
-	 * Stores current value in undoneTasks in case user wants to reverse the undo (redo)
+	 * Stores current value in undoneTasks in case user wants to reverse the undo (redo).
+	 * 
+	 * @param currentTasks	List of current tasks to be stored so that it can be restored if needed.
+	 * @return 				List of tasks that will take over the list of current tasks.
 	 */
 	public UniqueItemCollection<Task> undoTasks(UniqueItemCollection<Task> currentTasks) {
 		// Before undoing task, undoneTasks is assigned the current list of tasks to allow user to redo
@@ -91,7 +102,10 @@ public class ModelHistory {
 	
 	/**
 	 * Returns oldAliases which is the old state of the alias list,
-	 * Stores current value in undoneAliases in case user wants to reverse the undo (redo)
+	 * Stores current value in undoneAliases in case user wants to reverse the undo (redo).
+	 * 
+	 * @param currentAliases	List of current aliases to be stored so that it can be restored if needed.
+	 * @return 					List of aliases that will take over the list of current aliases.
 	 */
 	public UniqueItemCollection<Alias> undoAliases(UniqueItemCollection<Alias> currentAliases) {
 		// Before undoing task, undoneAliases is assigned the current list of tasks to allow user to redo
@@ -107,6 +121,8 @@ public class ModelHistory {
 	
 	/**
 	 * Stores the list of tasks that have been undone (so that redo can be called later).
+	 * 
+	 * @param currentCopy	Current copy of tasks that can be restored upon calling 'redo'.
 	 */
 	public void storeUndoneTasks(UniqueItemCollection<Task> currentCopy) {
 		undoneTasks = currentCopy;
@@ -118,7 +134,9 @@ public class ModelHistory {
 	}
 	
 	/**
-	 * If undoneTasks exist, it means that there are tasks to be redone
+	 * If undoneTasks exist, it means that there are tasks to be redone.
+	 * 
+	 * @return 	Whether there are tasks to be redone.
 	 */
 	public boolean canRedoTasks() {
 		return undoneTasks != null;
@@ -126,6 +144,8 @@ public class ModelHistory {
 	
 	/**
 	 * Stores the list of aliases that have been undone (so that redo can be called later).
+	 * 
+	 * @param currentCopy	Current copy of aliases that can be restored upon calling 'redo'.
 	 */
 	public void storeUndoneAliases(UniqueItemCollection<Alias> currentCopy) {
 		undoneAliases = currentCopy; 
@@ -137,14 +157,16 @@ public class ModelHistory {
 	}
 	
 	/**
-	 * If undoneAliases exist, it means that there are aliases to be redone
+	 * If undoneAliases exist, it means that there are aliases to be redone.
+	 * 
+	 * @return 	Whether there are aliases to be redone.
 	 */
 	public boolean canRedoAliases() {
 		return undoneAliases != null;
 	}
 	
 	/**
-	 * Clear copies of undone aliases and tasks after redo
+	 * Clear copies of undone aliases and tasks after redo.
 	 */
 	public void clearUndoneCopies() {
 		// Can only redo once. Hence, undoneTasks & undoneAliases are set to null after one redo
@@ -154,7 +176,10 @@ public class ModelHistory {
 	
 	/**
 	 * Returns undoneTasks which is the state of the task list before 'undo' has been called,
-	 * Stores current value in oldTasks in case user wants to reverse the redo (undo)
+	 * Stores current value in oldTasks in case user wants to reverse the redo (undo).
+	 * 
+	 * @param currentTasks	List of current tasks to be stored so that it can be restored if needed.
+	 * @return 				List of tasks that will take over the list of current tasks.
 	 */
 	public UniqueItemCollection<Task> redoTasks(UniqueItemCollection<Task> currentTasks) {
 		// Before redoing task, oldTasks is assigned the current list of tasks to allow user to undo
@@ -168,7 +193,10 @@ public class ModelHistory {
 	
 	/**
 	 * Returns oldAliases which is the old state of the alias list,
-	 * Stores current value in undoneAliases in case user wants to reverse the undo (redo)
+	 * Stores current value in undoneAliases in case user wants to reverse the undo (redo).
+	 * 
+	 * @param currentAliases	List of current aliases to be stored so that it can be restored if needed.
+	 * @return 					List of aliases that will take over the list of current aliases.
 	 */
 	public UniqueItemCollection<Alias> redoAliases(UniqueItemCollection<Alias> currentAliases) {
 		// Before undoing task, undoneAliases is assigned the current list of tasks to allow user to redo

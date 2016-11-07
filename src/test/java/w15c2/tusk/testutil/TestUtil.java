@@ -48,7 +48,6 @@ import w15c2.tusk.storage.task.XmlSerializableTaskManager;
 /**
  * A utility class for test cases.
  */
-//@@author A0139817U
 public class TestUtil {
     
     /**
@@ -109,8 +108,13 @@ public class TestUtil {
         return newTaskList;
     }
 	
+    //@@author A0139817U
 	/**
 	 * Setting up Floating tasks in the TaskList in order to find them in the tests
+	 * 
+	 * @param n 	Number of floating tasks to setup in the model.
+	 * @return		Model that contains the floating tasks.
+	 * @throws IllegalValueException 	If Floating task constructor failed.
 	 */
 	public static Model setupFloatingTasks(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
@@ -121,7 +125,14 @@ public class TestUtil {
 		return newTaskList;
 	}
 	
-	// Setting up tasks with more varied names
+	//@@author A0139817U
+	/**
+	 * Setting up tasks with more varied names
+	 * 
+	 * @param n 	Number of floating tasks with varied names to setup in the model.
+	 * @return		Model that contains the floating tasks with varied names.
+	 * @throws IllegalValueException 	If Floating task constructor failed.
+	 */
 	public static Model setupTasksWithVariedNames(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
 		// Add n tasks into the task manager
@@ -168,12 +179,18 @@ public class TestUtil {
 		}
 		return newTaskList;
 	}
+	
+	//@@author A0139817U
 	/**
 	 * Setting up interleaved Floating, Deadline and Event tasks.
 	 * Dates for Deadline tasks are set to 1 January 2016.
 	 * Date range for Event tasks are set from 1 January 2016 to 2 January 2016.
 	 * 
 	 * NOTE: Do not change the descriptions and dates because other tests depend on it.
+	 * 
+	 * @param n 	Number of mixed tasks to setup in the model.
+	 * @return		Model that contains the mixed tasks.
+	 * @throws IllegalValueException 	If task constructor failed.
 	 */
 	public static Model setupMixedTasks(int n) throws IllegalValueException {
 		Model newTaskList = new ModelManager();
@@ -249,41 +266,9 @@ public class TestUtil {
         return new Point2D(x, y);
     }
     
-  public static void main(String... s) {
-  createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
-}
-
-
-
-
-//    /**
-//     * Folder used for temp files created during testing. Ignored by Git.
-//     */
-//    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-//
-//    public static final Person[] samplePersonData = getSamplePersonData();
-//
-//    private static Person[] getSamplePersonData() {
-//        try {
-//            return new Person[]{
-//                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-//                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-//                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-//                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-//                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-//                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-//                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-//                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-//                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
-//            };
-//        } catch (IllegalValueException e) {
-//            assert false;
-//            //not possible
-//            return null;
-//        }
-//    }
-
-
+    public static void main(String... s) {
+    	createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
+    }
 
     /**
      * Appends the file name to the sandbox folder path.
@@ -432,79 +417,4 @@ public class TestUtil {
     public static Object getLastElement(List<?> list) {
         return list.get(list.size() - 1);
     }
-
-//    /**
-//     * Removes a subset from the list of persons.
-//     * @param persons The list of persons
-//     * @param personsToRemove The subset of persons.
-//     * @return The modified persons after removal of the subset from persons.
-//     */
-//    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-//        List<TestPerson> listOfPersons = asList(persons);
-//        listOfPersons.removeAll(asList(personsToRemove));
-//        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
-//    }
-//
-//
-//    /**
-//     * Returns a copy of the list with the person at specified index removed.
-//     * @param list original list to copy from
-//     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
-//     */
-//    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-//        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
-//    }
-//
-//    /**
-//     * Replaces persons[i] with a person.
-//     * @param persons The array of persons.
-//     * @param person The replacement person
-//     * @param index The index of the person to be replaced.
-//     * @return
-//     */
-//    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-//        persons[index] = person;
-//        return persons;
-//    }
-//
-//    /**
-//     * Appends persons to the array of persons.
-//     * @param persons A array of persons.
-//     * @param personsToAdd The persons that are to be appended behind the original array.
-//     * @return The modified array of persons.
-//     */
-//    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-//        List<TestPerson> listOfPersons = asList(persons);
-//        listOfPersons.addAll(asList(personsToAdd));
-//        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
-//    }
-//
-//    private static <T> List<T> asList(T[] objs) {
-//        List<T> list = new ArrayList<>();
-//        for(T obj : objs) {
-//            list.add(obj);
-//        }
-//        return list;
-//    }
-//
-//    public static Tag[] getTagList(String tags) {
-//
-//        if (tags.equals("")) {
-//            return new Tag[]{};
-//        }
-//
-//        final String[] split = tags.split(", ");
-//
-//        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-//            try {
-//                return new Tag(e.replaceFirst("Tag: ", ""));
-//            } catch (IllegalValueException e1) {
-//                //not possible
-//                assert false;
-//                return null;
-//            }
-//        }).collect(Collectors.toList());
-//
-//        return collect.toArray(new Tag[split.length]);
-//    }
 }

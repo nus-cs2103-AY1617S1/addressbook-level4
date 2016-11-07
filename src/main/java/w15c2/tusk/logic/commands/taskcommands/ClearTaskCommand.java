@@ -4,8 +4,9 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
+//@@author A0139817U
 /**
- * Deletes all the tasks that are currently listed
+ * Deletes all the tasks in the Model that are currently listed.
  */
 public class ClearTaskCommand extends TaskCommand {
 
@@ -23,6 +24,11 @@ public class ClearTaskCommand extends TaskCommand {
 
         public ClearTaskCommand() {}
 
+        /**
+         * Clears the tasks in the model that are listed.
+         * 
+         * @return CommandResult Result of the execution of the clear command.
+         */
         @Override
         public CommandResult execute() {
             int deleted = model.clearTasks();

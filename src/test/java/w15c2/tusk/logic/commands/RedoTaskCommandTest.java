@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.logic.commands.CommandResult;
-import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.FloatingTask;
@@ -29,11 +28,11 @@ public class RedoTaskCommandTest {
 		/* CommandResult should return a string that denotes invalid state
 		 * if there is no previous undo command
 		 */
-		RedoTaskCommand command = new RedoTaskCommand();
+		RedoCommand command = new RedoCommand();
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(RedoTaskCommand.MESSAGE_REDO_INVALID_STATE));
+		assertTrue(feedback.equals(RedoCommand.MESSAGE_REDO_INVALID_STATE));
 	}
 	
 	@Test
@@ -41,12 +40,12 @@ public class RedoTaskCommandTest {
 		/* CommandResult should return a string that denotes success in execution if
 		 * there is a previous undo command
 		 */
-		RedoTaskCommand command = new RedoTaskCommand();
+		RedoCommand command = new RedoCommand();
 		model.addTask(new FloatingTask("Meeting"));
 		model.undo();
 		command.setData(model);
 		CommandResult result = command.execute();
 		String feedback = result.feedbackToUser;
-		assertTrue(feedback.equals(RedoTaskCommand.MESSAGE_REDO_TASK_SUCCESS));
+		assertTrue(feedback.equals(RedoCommand.MESSAGE_REDO_TASK_SUCCESS));
 	}
 }

@@ -1,14 +1,14 @@
-package w15c2.tusk.logic.commands.taskcommands;
+package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
-import w15c2.tusk.logic.commands.CommandResult;
+import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 
-/**
- * Lists all tasks in the TaskManager to the user.
- */
 //@@author A0139817U
-public class RedoTaskCommand extends TaskCommand {
+/**
+ * Redoes the latest undo to tasks or aliases of the Model.
+ */
+public class RedoCommand extends TaskCommand {
     
     public static final String COMMAND_WORD = "redo";
     public static final String ALTERNATE_COMMAND_WORD = null;
@@ -16,13 +16,16 @@ public class RedoTaskCommand extends TaskCommand {
     public static final String COMMAND_DESCRIPTION = "Redo an Undo"; 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": \t redoes previous command.";
-
-
     public static final String MESSAGE_REDO_TASK_SUCCESS = "Redo successful";
     public static final String MESSAGE_REDO_INVALID_STATE = "Redo is not successful because the previous successful command is not undo";
     
-    public RedoTaskCommand() {}
+    public RedoCommand() {}
 
+    /**
+     * Redo the latest undo on the Model.
+     * 
+     * @return CommandResult Result of the execution of the redo command.
+     */
     @Override
     public CommandResult execute() {
     	try {

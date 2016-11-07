@@ -32,7 +32,11 @@ public class DeleteTaskCommand extends TaskCommand {
         this.targetIndex = targetIndex;
     }
 
-
+    /**
+     * Delete the task at the targeted index in the Model.
+     * 
+     * @return CommandResult Result of the execution of the delete command.
+     */
     @Override
     public CommandResult execute() {
 
