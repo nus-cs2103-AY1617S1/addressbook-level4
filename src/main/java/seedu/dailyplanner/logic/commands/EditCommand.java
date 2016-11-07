@@ -48,7 +48,7 @@ public class EditCommand extends Command {
 	this.end = Optional.ofNullable(end);
 	this.tags = Optional.ofNullable(tags);
 	this.tagSet = Optional.empty();
-	if (this.tags.isPresent()) {
+	if (tags.size()!=0) {
 	    final Set<Tag> tagSet = new HashSet<>();
 	    for (String tagName : tags) {
 		tagSet.add(new Tag(tagName));

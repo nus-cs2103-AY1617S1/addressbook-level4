@@ -26,8 +26,6 @@ public class ArgumentFormatUtil {
 
 	public static boolean isValidEditArgumentFormat(String args) {
 		args = args.trim();
-	    System.out.println(args.indexOf("s/"));
-	    System.out.println(args);
 	    //If no index, return invalid
 	    if(!Character.isDigit(args.charAt(0))) {
 	        return false;
