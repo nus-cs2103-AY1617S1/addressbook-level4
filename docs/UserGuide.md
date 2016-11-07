@@ -122,7 +122,7 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATETIME]` <br>
  
 > Words in `UPPER_CASE` are the parameters, parameters will follow behind their corresponding keyword. 
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
-> `DEADLINE_DATE_TIME` can be entered in any natural language format.
+> `DEADLINE_DATETIME` can be entered in any natural language format.
 > For date, entering words like today, tomorrow and day after are recognised.
 > Dates entered in numeric form must be in the format of MM-DD-YYYY.
 > Only valid dates are recognised correctly.
