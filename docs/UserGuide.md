@@ -239,7 +239,9 @@ There is no need to save manually.
 <!-- @@author A0144939R -->
 
 #### Change storage location : `change-to`
-Shows a list of tasks and events in the todo list.<br>
+Changes to a new storage location and saves task manager data there<br>
+Note: If new file already has data, then the taskmanager will load that data.
+
 Format: `change-to NEWFILEPATH`
 Example: 
 * `change-to data/taskmanager.xml`
