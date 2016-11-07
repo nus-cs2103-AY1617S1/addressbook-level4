@@ -17,11 +17,12 @@ public class ToDoList implements ReadOnlyToDoList {
 
     private final UniqueTaskList tasks;
 
-    {
-        tasks = new UniqueTaskList();
+    /**
+     * Create a new empty uniqueTaskList for this to-do list
+     */
+    public ToDoList() {
+    	tasks = new UniqueTaskList();
     }
-
-    public ToDoList() {}
 
     /**
      * Tasks are copied into this to-do list
@@ -33,8 +34,9 @@ public class ToDoList implements ReadOnlyToDoList {
     /**
      * Tasks are copied into this to-do list
      */
-    public ToDoList(UniqueTaskList tasks) {
-        resetData(tasks.getInternalList());
+    public ToDoList(UniqueTaskList tasksToBeCopied) {
+    	tasks = new UniqueTaskList();
+        resetData(tasksToBeCopied.getInternalList());
     }
 
     public static ReadOnlyToDoList getEmptyToDoList() {

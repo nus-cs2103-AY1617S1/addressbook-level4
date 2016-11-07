@@ -41,10 +41,6 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
-
-    }
-
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
         card.task = task;

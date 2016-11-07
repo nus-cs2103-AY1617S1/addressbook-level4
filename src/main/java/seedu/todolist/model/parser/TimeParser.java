@@ -107,9 +107,8 @@ public class TimeParser {
     private static LocalTime parseTimeWithContinentalFormat(String time) throws DateTimeException {
         String[] timeComponents = time.split(":");
 
-        int hour, minute;
-        hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
-        minute = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_MINUTE]); 
+        int hour = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_HOUR]);
+        int minute = Integer.parseInt(timeComponents[TIME_COMPONENT_INDEX_MINUTE]); 
         
         return LocalTime.of(hour, minute);
     }

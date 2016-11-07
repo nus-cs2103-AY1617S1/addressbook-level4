@@ -37,6 +37,13 @@ import java.util.stream.Collectors;
  */
 public class TestUtil {
 
+	/**
+     * Folder used for temp files created during testing. Ignored by Git.
+     */
+    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+
+    public static final Task[] sampleTaskData = getSampleTaskData();
+	
     public static String LS = System.lineSeparator();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
@@ -53,13 +60,6 @@ public class TestUtil {
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
-
-    /**
-     * Folder used for temp files created during testing. Ignored by Git.
-     */
-    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {
         try {
