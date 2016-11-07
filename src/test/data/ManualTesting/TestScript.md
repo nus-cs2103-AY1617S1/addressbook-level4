@@ -5,6 +5,7 @@ This test script is to assist testers in testing `Dowat` by providing them with 
 ## Loading sample data
 
 * Before running `Dowat.jar`, copy the `SampleData.xml` into same file location as the jar file
+* Rename the `SampleData.xml` file to `Dowat.xml`
 * Run `Dowat.jar`
 
 ## Manual Tests
