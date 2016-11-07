@@ -50,7 +50,7 @@ public class XmlTaskManagerStorage implements TaskStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(UniqueItemCollection<Task>)}
+     * Saves the task manager to the filepath provided
      * @param filePath location of the data. Cannot be null
      */
     public void saveTaskManager(UniqueItemCollection<Task> taskManager, String filePath) throws IOException {

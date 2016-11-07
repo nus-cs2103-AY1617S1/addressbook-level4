@@ -47,7 +47,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous persons except the deleted person
+        //confirm the list now contains all previous tasks except the deleted taks
         assertTrue(taskListPanel.isListMatching(currentTaskList));
 
         //confirm the result message is correct

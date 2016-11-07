@@ -46,7 +46,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String addressBookName;
+    private String taskManagerName;
     
     private final KeyCombination controlPlusUp = new KeyCodeCombination(KeyCode.UP, KeyCombination.CONTROL_DOWN);
     private final KeyCombination controlPlusDown = new KeyCodeCombination(KeyCode.DOWN, KeyCombination.CONTROL_DOWN);
@@ -94,12 +94,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, TaskConfig config, UserPrefs prefs,
+    private void configure(String appTitle, String taskManagerName, TaskConfig config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 

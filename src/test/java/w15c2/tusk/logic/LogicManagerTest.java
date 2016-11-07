@@ -85,7 +85,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the list of tasks and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -95,7 +95,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedTaskManager} <br>
+     *      - the internal task data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
