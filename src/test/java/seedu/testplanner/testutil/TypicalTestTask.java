@@ -9,52 +9,64 @@ import seedu.dailyplanner.model.task.*;
  */
 public class TypicalTestTask {
 
-    public static TestTask CS2103_Project, CS2103_Lecture, MA1101R_Homework, soccerWithFriends, buyGroceries, goSkydiving, watchMovie,
-    				learnPython, learnSpanish;
+	public static TestTask CS2103_Project, CS2103_Lecture, MA1101R_Homework, SoccerWithFriends, BuyGroceries,
+			GoSkydiving, WatchMovie, learnPython, learnSpanish;
 
-    public TypicalTestTask() {
-        try {
-            CS2103_Project =  new TaskBuilder().withName("CS2103 Project").withEndDateAndTime("6pm")
-                    .withEmail("3pm").withStart("today").build();
-            CS2103_Lecture = new TaskBuilder().withName("CS2103 Lecture").withEndDateAndTime("4pm")
-                    .withEmail("2pm").withStart("next friday").build();
-            MA1101R_Homework = new TaskBuilder().withName("MA1101R Homework").withStart("today").withEmail("3pm").withEndDateAndTime("5pm").build();
-            soccerWithFriends = new TaskBuilder().withName("Soccer with friends").withStart("tomorrow").withEmail("1pm").withEndDateAndTime("5pm").build();
-            buyGroceries = new TaskBuilder().withName("Buy groceries").withStart("Sunday").withEmail("10am").withEndDateAndTime("12pm").build();
-            goSkydiving = new TaskBuilder().withName("Go skydiving").withStart("next month").withEmail("2am").withEndDateAndTime("10am").build();
-            watchMovie = new TaskBuilder().withName("Watch movie").withStart("tomorrow").withEmail("10pm").withEndDateAndTime("12am").build();
+	public TypicalTestTask() {
+		try {
+			CS2103_Project = new TaskBuilder().withName("CS2103 Project").withStartDateAndTime("today 6pm")
+					.withEndDateAndTime("today 10pm").withCompletion(false).withPin(false).withCategories("Homework")
+					.build();
+			CS2103_Lecture = new TaskBuilder().withName("CS2103 Lecture").withStartDateAndTime("friday 2pm")
+					.withEndDateAndTime("friday 4pm").withCompletion(true).withPin(false).withCategories("School")
+					.build();
+			MA1101R_Homework = new TaskBuilder().withName("MA1101R Homework").withStartDate("tomorrow")
+					.withEndDateAndTime("tomorrow 11pm").withCompletion(false).withPin(false).build();
+			SoccerWithFriends = new TaskBuilder().withName("Soccer with friends").withStartDateAndTime("tomorrow 6pm")
+					.withEndDateAndTime("today 7pm").withCompletion(false).withPin(false).withCategories("Sports")
+					.build();
+			BuyGroceries = new TaskBuilder().withName("Buy groceries").withStartDateAndTime("next saturday 6am")
+					.withEndDateAndTime("next saturday 7am").withCompletion(false).withPin(false)
+					.withCategories("Chores").build();
+			GoSkydiving = new TaskBuilder().withName("Go skydiving").withoutStart().withoutEnd().withCompletion(false)
+					.withPin(false).withCategories("Bucketlist").build();
+			WatchMovie = new TaskBuilder().withName("Watch movie").withStartDateAndTime("next friday 6pm")
+					.withEndDateAndTime("next friday 8pm").withCompletion(false).withPin(false).build();
 
-            //Manually added
-            learnPython = new TaskBuilder().withName("Hoon Meier").withStart("today").withEmail("2pm").withEndDateAndTime("5pm").build();
-            learnSpanish = new TaskBuilder().withName("Ida Mueller").withStart("tomorrow").withEmail("1am").withEndDateAndTime("2am").build();
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
-        }
-    }
+			// Manually added
+			learnPython = new TaskBuilder().withName("Learn python").withStartDate("next month")
+					.withoutEnd().withCompletion(false).withPin(false).withCategories("Selfimprovement").build();
+			learnSpanish = new TaskBuilder().withName("Learn Spanish").withStartDateAndTime("next year")
+					.withoutEnd().withCompletion(false).withPin(false).build();
+		} catch (IllegalValueException e) {
+			e.printStackTrace();
+			assert false : "not possible";
+		}
+	}
 
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+	public static void loadAddressBookWithSampleData(AddressBook dp) {
 
-        try {
-            ab.addPerson(new Task(CS2103_Project));
-            ab.addPerson(new Task(CS2103_Lecture));
-            ab.addPerson(new Task(MA1101R_Homework));
-            ab.addPerson(new Task(soccerWithFriends));
-            ab.addPerson(new Task(buyGroceries));
-            ab.addPerson(new Task(goSkydiving));
-            ab.addPerson(new Task(watchMovie));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
-            assert false : "not possible";
-        }
-    }
+		try {
+			dp.addPerson(new Task(CS2103_Project));
+			dp.addPerson(new Task(CS2103_Lecture));
+			dp.addPerson(new Task(MA1101R_Homework));
+			dp.addPerson(new Task(SoccerWithFriends));
+			dp.addPerson(new Task(BuyGroceries));
+			dp.addPerson(new Task(GoSkydiving));
+			dp.addPerson(new Task(WatchMovie));
+		} catch (UniqueTaskList.DuplicatePersonException e) {
+			assert false : "not possible";
+		}
+	}
 
-    public TestTask[] getTypicalPersons() {
-        return new TestTask[]{CS2103_Project, CS2103_Lecture, MA1101R_Homework, soccerWithFriends, buyGroceries, goSkydiving, watchMovie};
-    }
+	public TestTask[] getTypicalPersons() {
+		return new TestTask[] { CS2103_Project, CS2103_Lecture, MA1101R_Homework, SoccerWithFriends, BuyGroceries,
+				GoSkydiving, WatchMovie };
+	}
 
-    public AddressBook getTypicalAddressBook(){
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
-        return ab;
-    }
+	public AddressBook getTypicalAddressBook() {
+		AddressBook ab = new AddressBook();
+		loadAddressBookWithSampleData(ab);
+		return ab;
+	}
 }

@@ -61,26 +61,20 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Task[] sampleTaskData = getSampleTaskData();
 
-    private static Task[] getSamplePersonData() {
-        try {
-            return new Task[]{
-                    new Task(new Name("Ali Muster"), new Date1("9482424"), new StartTime("hans@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Boris Mueller"), new Date1("87249245"), new StartTime("ruth@google.com"), new EndTime("81th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Carl Kurz"), new Date1("95352563"), new StartTime("heinz@yahoo.com"), new EndTime("wall street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Daniel Meier"), new Date1("87652533"), new StartTime("cornelia@google.com"), new EndTime("10th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Elle Meyer"), new Date1("9482224"), new StartTime("werner@gmail.com"), new EndTime("michegan ave"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Fiona Kunz"), new Date1("9482427"), new StartTime("lydia@gmail.com"), new EndTime("little tokyo"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("George Best"), new Date1("9482442"), new StartTime("anna@google.com"), new EndTime("4th street"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Hoon Meier"), new Date1("8482424"), new StartTime("stefan@mail.com"), new EndTime("little india"), new UniqueTagList(),"NOT COMPLETE"),
-                    new Task(new Name("Ida Mueller"), new Date1("8482131"), new StartTime("hans@google.com"), new EndTime("chicago ave"), new UniqueTagList(),"NOT COMPLETE")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
+    private static Task[] getSampleTaskData() {
+        return new Task[]{
+		        new Task("Arobics class", new DateTime(new Date("01/12/2016"), new Time("07.00PM")),  new DateTime(new Date("01/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
+		        new Task("Basketball with friends", new DateTime(new Date("04/12/2016"), new Time("05.00PM")),  new DateTime(new Date("01/12/2016"), new Time("")), false, false, new UniqueTagList()),
+		        new Task("CS2103 Project", new DateTime(new Date("01/11/2016"), new Time("")),  new DateTime(new Date("07/11/2016"), new Time("11.59PM")), false, false, new UniqueTagList()),
+		        new Task("Dance session", new DateTime(new Date("02/12/2016"), new Time("10.00AM")),  new DateTime(new Date("02/12/2016"), new Time("12.00PM")), false, false, new UniqueTagList()),
+		        new Task("Embroidery class", new DateTime(new Date("03/12/2016"), new Time("08.00PM")),  new DateTime(new Date("03/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
+		        new Task("Finance homework", new DateTime(new Date("06/12/2016"), new Time("07.00PM")),  new DateTime(new Date("06/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
+		        new Task("Geography homework", new DateTime(new Date("07/12/2016"), new Time("07.00AM")),  new DateTime(new Date("07/12/2016"), new Time("11.00AM")), false, false, new UniqueTagList()),
+		        new Task("HIIT workout", new DateTime(new Date("07/12/2016"), new Time("10.00PM")),  new DateTime(new Date("07/12/2016"), new Time("1q.00PM")), false, false, new UniqueTagList()),
+		        new Task("India trip", new DateTime(new Date("01/01/2017"), new Time("")),  new DateTime(new Date("15/01/2017"), new Time("")), false, false, new UniqueTagList()),
+		};
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();
@@ -88,8 +82,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("school"),
+                    new Tag("sports")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -99,7 +93,7 @@ public class TestUtil {
     }
 
     public static List<Task> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
+        return Arrays.asList(sampleTaskData);
     }
 
     /**
