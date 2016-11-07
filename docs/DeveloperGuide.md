@@ -435,6 +435,7 @@ The SD for delete event is similiar to delete task.
 
 <img src="images/SDSelect.png" width="700"><br>
 <img src="images/SDSelect1.png" width="700"><br>
+
 <br>
 <!-- @@author A0144702N -->
 #### Use case 9: Simple find for tasks  
