@@ -294,17 +294,17 @@ Command | Format
 Key Codes | Function | Command Box Input 
 -------- | :--------  | :-------- 
 <kbd>Esc</kbd> | Toggle to show/hide a list of keyboard shortcuts | -
-<kbd>Ctrl</kbd> + <kbd>D</kbd>[Ctrl-D](#clearing-all-entries--clear) | Clear all entries | `clear`
-[Ctrl-Q](#exiting-the-program--exit) | Exit | `exit`
-[Ctrl-L](#listing-all-tasks-list) | List all unmarked task by date, earliest task first | `list`
-[Ctrl-A](#listing-all-tasks-list) | List archived tasks | `list archived`
-[Ctrl-P](#listing-all-tasks-list) | List all unmarked task by priority level, high priority first | `list priorityLevel`
-[Ctrl-I](#listing-all-tasks-list) | List all alias keys | `list alias`
-[Ctrl-H](#viewing-help--help) | `help`
-[Ctrl-S](#change-storage-location--storage) | popup a directory chooser dialog box to choose new filepath | `storage NEW_FILEPATH`
-[Ctrl-Z](#undo-the-most-recent-operation--undo) | `undo`
-[Ctrl-Y](#redo-the-most-recent-undo-operation--redo) | `redo`
-[UP](#command-stack-history) | Return last user input command in command box | -
-[DOWN](#command-stack-history) | Return (if any) next user input command in command box | -
-[Ctrl-LEFT](#week-selection) | Display previous week’s daily task list | -
-[Ctrl-RIGHT](#week-selection) | Display next week’s daily task list | -
+<kbd>Ctrl</kbd> + <kbd>D</kbd> | [Clear](#clearing-all-entries--clear) all entries | `clear`
+<kbd>Ctrl</kbd> + <kbd>Q</kbd> | [Exit](#exiting-the-program--exit) | `exit`
+<kbd>Ctrl</kbd> + <kbd>L</kbd> | [List](#listing-all-tasks-list) all unmarked task by date, earliest task first | `list`
+<kbd>Ctrl</kbd> + <kbd>A</kbd> | [List](#listing-all-tasks-list) archived tasks | `list archived`
+<kbd>Ctrl</kbd> + <kbd>P</kbd> | [List](#listing-all-tasks-list) all unmarked task by priority level, high priority first | `list priorityLevel`
+<kbd>Ctrl</kbd> + <kbd>I</kbd> | [List](#listing-all-tasks-list) all alias keys | `list alias`
+<kbd>Ctrl</kbd> + <kbd>H</kbd> | [Help](#viewing-help--help) | `help`
+<kbd>Ctrl</kbd> + <kbd>S</kbd> | Popups a directory chooser dialog box to choose a new filepath | `storage NEW_FILEPATH`
+<kbd>Ctrl</kbd> + <kbd>Z</kbd> | [Undo](#undo-the-most-recent-operation--undo) | `undo`
+<kbd>Ctrl</kbd> + <kbd>Y</kbd> | [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
+<kbd>Ctrl</kbd> + <kbd>UP</kbd> | Return [last user input](#command-stack-history) command in command box | -
+<kbd>Ctrl</kbd> + <kbd>DOWN</kbd> | Return (if any) [next user input](#command-stack-history) command in command box | -
+<kbd>Ctrl</kbd> + <kbd>LEFT</kbd> | Displays [previous week’s](#week-selection) daily task list | -
+<kbd>Ctrl</kbd> + <kbd>RIGHT</kbd> | Display [next week’s](#week-selection) daily task list | -
