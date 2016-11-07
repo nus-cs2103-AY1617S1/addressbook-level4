@@ -37,7 +37,8 @@ public class EditCommand extends Command {
     public static final String SHORT_COMMAND_WORD = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-                                               + ": Edits the item identified by the index number used in the last item listing."
+                                               + ": Edits the item identified by the index number" 
+                                               + " used in the last item listing."
                                                + "\n" + "Parameters: INDEX (positive integer)" 
                                                + " n/[NAME]"
                                                + " sdt/[START_DATE_TIME]"
@@ -46,7 +47,8 @@ public class EditCommand extends Command {
                                                + "\n" + "                     " + "edt/[END_DATE_TIME]"
                                                + " ed/[END_DATE]"
                                                + " et/[END_TIME]"
-                                               + "\n" + "At least one parameter must be specifed (sdt/edt favoured over sd/st/ed/et)"
+                                               + "\n" + "At least one parameter must be specifed"
+                                               + " (sdt/edt favoured over sd/st/ed/et)"
                                                + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
     
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
@@ -62,8 +64,9 @@ public class EditCommand extends Command {
     private UniqueTagList tagsToRemove;
 
     /*
-     * Edits deadline, task, or event by index.
-     *      
+     * Edits deadline, task, or event by index. 
+     * Assumes at least one Optional parameter has contains values (user input)
+     * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
     public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, 
@@ -72,7 +75,7 @@ public class EditCommand extends Command {
             throws IllegalValueException {
         
         assert containsInputForAtLeastOneParameter(name, startDate, startTime, endDate, 
-                                                    endTime, tagsToAdd, tagsToRemove);
+                                                   endTime, tagsToAdd, tagsToRemove);
         
         this.targetIndex = targetIndex;
         if (name.isPresent()) {
@@ -148,11 +151,13 @@ public class EditCommand extends Command {
         if (isEventEndDateTimeBeforeStartDateTime(itemToReplace)) {
             logger.fine("detected event end datetime before start datetime");
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                                   MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
         }
         
         try {
-            model.replaceItem(itemToEdit, itemToReplace, String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
+            model.replaceItem(itemToEdit, itemToReplace, 
+                              String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         } catch (UniqueItemList.DuplicateItemException e) {
@@ -174,6 +179,7 @@ public class EditCommand extends Command {
 
     /**
      * Creates a UniqueTagList from a List of Strings
+     * Assumes tags is to be edited
      */
     private UniqueTagList createUniqueTagList(List<String> tags) throws IllegalValueException {
         assert isToBeEdited(tags);
@@ -193,15 +199,15 @@ public class EditCommand extends Command {
      */
     private boolean isEventEndDateTimeBeforeStartDateTime(Item itemToReplace) {
         return itemToReplace.getItemType().isEvent() 
-               && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
+               && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(),
                                                    itemToReplace.getEndDate(), itemToReplace.getEndTime());
     }
 
     /**
      * Removes tags from item being edited if possible 
-     * @return tag not found command result if an attempt to remove a non existent tag is made
      */
-    private void removeTagsIfApplicable(ReadOnlyItem itemToEdit, Item itemToReplace) throws TagNotFoundException{
+    private void removeTagsIfApplicable(ReadOnlyItem itemToEdit, Item itemToReplace) 
+                     throws TagNotFoundException{
         if (isToBeEdited(this.tagsToRemove)) {
             UniqueTagList tagListToEdit = getTagListToEditForTagRemoval(itemToEdit, itemToReplace);
             tagListToEdit.remove(tagsToRemove);
@@ -210,7 +216,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Gets appropriate tag list to remove tags from (dependent on whether user is adding tags in same command)
+     * Gets appropriate tag list to remove tags from 
+     * (dependent on whether user is adding tags in same command)
      */
     private UniqueTagList getTagListToEditForTagRemoval(ReadOnlyItem itemToEdit, Item itemToReplace) {
         if (isToBeEdited(this.tagsToAdd)) {
@@ -223,7 +230,7 @@ public class EditCommand extends Command {
     /**
      * Adds tags to item being edited if possible 
      */
-    private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {//throws DuplicateTagException {
+    private void addTagsIfAvailable(ReadOnlyItem itemToEdit, Item itemToReplace) {
         if (isToBeEdited(this.tagsToAdd)) {
             UniqueTagList tagListToEdit = itemToEdit.getTags();
             tagListToEdit.mergeFrom(this.tagsToAdd);
@@ -264,7 +271,8 @@ public class EditCommand extends Command {
     /**
      * Checks if end datetime comes before start datetime
      */
-    private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, ItemDate endItemDate, ItemTime endItemTime) {
+    private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, 
+                                                     ItemDate endItemDate, ItemTime endItemTime) {
         if (isEndDateEqualsStartDate(startItemDate, endItemDate)) {
             return isEndTimeBeforeStartTime(startItemTime, endItemTime);
         } else {
@@ -288,7 +296,8 @@ public class EditCommand extends Command {
     
     /**
      * Compares start date to end date
-     * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
+     * @return -1 if endItemDate comes before startItemDate, 
+     *         0 if endItemDate equals startItemDate, 1 otherwise
      */
     private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
         int result = 1;
@@ -330,6 +339,7 @@ public class EditCommand extends Command {
 
     /**
      * Detects if parameters input by user is not valid for the item being edited
+     * Assumes ItemType consists only of Task, Deadline and Event 
      */
     private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
         ItemType itemType = itemToReplace.getItemType();

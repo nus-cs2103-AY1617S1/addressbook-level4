@@ -536,6 +536,7 @@ public class Parser {
     //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
+     *Assumes args is not null
      *
      * @param args full command args string
      * @return the prepared EditCommand
@@ -673,6 +674,7 @@ public class Parser {
 
     /**
      * Extracts tag from string containing tag and tag removal prefix
+     * Assumes tag string contains tag removal prefix
      */
     private String extractTagToBeRemoved(String tag) {
         assert isATagToBeRemoved(tag);
@@ -688,15 +690,17 @@ public class Parser {
     }
 
     /**
-     * Parses date and time from argument acquired through NLP input 
+     * Parses date and time from argument acquired through NLP input
+     *  Assumes datetime contains user input and time and date formats are not null
+     *  
      * @param datetime datetime to be parsed
      * @param dateFormat the format the date should be returned in
      * @param timeFormat the format the time should be returned in
      * @return parsed argument as string or null if argument not parsed 
      */
     private String[] parseDateTime(String datetime, String dateFormat, String timeFormat) throws IllegalValueException {
-        assert containsInput(dateFormat) && !dateFormat.isEmpty();
-        assert containsInput(timeFormat) && !timeFormat.isEmpty();
+        assert dateFormat != null && !dateFormat.isEmpty();
+        assert timeFormat != null && !timeFormat.isEmpty();
         assert containsInput(datetime);
         
         String[] parsedDateTime = new String[2];
