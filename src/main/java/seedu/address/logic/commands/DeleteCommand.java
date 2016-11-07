@@ -31,7 +31,6 @@ public class DeleteCommand extends UndoableCommand {
     public static final String MESSAGE_DELETE_TASKS_SUCCESS = "Deleted Tasks: %1$s";
     public static final String MESSAGE_FAILURE = "Failed to delete Task.";
 
-    //@@author A0093960X
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
@@ -184,6 +183,7 @@ public class DeleteCommand extends UndoableCommand {
      * Undo the deletion of undone tasks by adding them back into the undone list.
      */
     private void undoDeletedUndoneTasks() {
+        logger.info("Undoing the deletion of the undone tasks by adding them back into the undone list");
         model.addTasks(targetTasks);
     }
 
@@ -192,6 +192,7 @@ public class DeleteCommand extends UndoableCommand {
      * Undo the deletion of done tasks by adding them back into the done list.
      */
     private void undoDeletedDoneTasks() {
+        logger.info("Undoing the deletion of the done tasks by adding them back into the undone list");
         model.addDoneTasks(targetTasks);
     }
 

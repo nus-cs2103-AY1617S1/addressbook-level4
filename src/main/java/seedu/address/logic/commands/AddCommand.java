@@ -30,12 +30,12 @@ public class AddCommand extends UndoableCommand {
 
             + "Example: " + COMMAND_WORD + " feed cat by today 11:30am repeat every day -high";
 
-    // @@author A0093960X
+    //@author
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
     private static final String MESSAGE_UNDO_FAILURE = "Failed to undo last add command: add %1$s";
-
-    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] "
+            + "[repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
     // @@author
     private Task toAdd;
@@ -73,10 +73,12 @@ public class AddCommand extends UndoableCommand {
         assert model != null && toAdd != null;
 
         if (attemptToExecuteAddOnDoneList()) {
+            logger.info("Attempting to execute the add command on the done list. Aborting this action.");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_DONE_LIST_RESTRICTION);
         }
 
+        logger.info("Adding task in execute() of AddCommand");
         model.addTask(toAdd);
         updateHistory();
 
@@ -99,12 +101,13 @@ public class AddCommand extends UndoableCommand {
 
         String formattedResult;
         try {
+            logger.info("Attempting to undo the add by deleting the added task from the undone list.");
             model.deleteUndoneTask(toAdd);
             formattedResult = String.format(MESSAGE_UNDO_SUCCESS, toAdd);
             return new CommandResult(formattedResult);
 
         } catch (TaskNotFoundException e) {
-
+            logger.info("Unable to undo the add as the task was not found in the undone list.");
             formattedResult = String.format(MESSAGE_UNDO_FAILURE, toAdd);
             return new CommandResult(formattedResult);
         }

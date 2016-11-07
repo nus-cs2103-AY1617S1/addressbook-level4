@@ -63,7 +63,7 @@ public class LogicManagerTest {
     public void setup() {
         model = new ModelManager();
         history = UndoableCommandHistoryManager.getInstance();
-        logic = new LogicManager(model, new StorageStub(), history);
+        logic = new LogicManager(model, new StorageStub());
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.

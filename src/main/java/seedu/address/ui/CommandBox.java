@@ -40,14 +40,14 @@ public class CommandBox extends UiPart {
     private static final String STRING_EMPTY = "";
     private static final String STRING_ONE_SPACE = " ";
 
-
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay,
-            Logic logic, InputHistory history) {
-        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
+            ResultDisplay resultDisplay, Logic logic, InputHistory history) {
+        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder,
+                new CommandBox());
         commandBox.configure(resultDisplay, logic, history);
         commandBox.addToPlaceholder();
         return commandBox;
@@ -60,7 +60,7 @@ public class CommandBox extends UiPart {
         registerAsAnEventHandler(this);
     }
 
-    //@@author A0093960X
+    // @@author A0093960X
     private void addToPlaceholder() {
         setupCommandBoxPosition();
         setupKeyPressHandler();
@@ -71,19 +71,23 @@ public class CommandBox extends UiPart {
      */
     private void setupKeyPressHandler() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
             @Override
             public void handle(KeyEvent keyEvent) {
-                switch (keyEvent.getCode()) {
+                KeyCode keyCode = keyEvent.getCode();
+
+                switch (keyCode) {
                 case UP :
                     // Fallthrough
                 case DOWN :
                     keyEvent.consume();
-                    handleUpDownArrow(keyEvent);
+                    handleUpDownArrow(keyCode);
                     break;
-                default:
+                default :
                     break;
                 }
             }
+
         });
     }
 
@@ -97,7 +101,7 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
-    //@@author
+    // @@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
@@ -113,7 +117,7 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    //@@author A0093960X
+    // @@author A0093960X
     /**
      * Handles the event where the user enters an input in the command box.
      */
@@ -144,14 +148,16 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Handles the up or down arrow key event.
-     * @param event
+     * Handles the up or down arrow key event.<br>
+     * Asserts that the specified KeyCode is either an UP or DOWN KeyCode.
+     * 
+     * @param keyCode The KeyCode associated with this event
      */
-    private void handleUpDownArrow(KeyEvent event) {
-        KeyCode key = event.getCode();
+    private void handleUpDownArrow(KeyCode keyCode) {
+        assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
 
         setStyleToIndicateCorrectCommand();
-        handleInputHistoryNavigation(key);
+        handleInputHistoryNavigation(keyCode);
         String userInput = commandTextField.getText();
         updateTooltipForUser(userInput);
     }
@@ -165,27 +171,48 @@ public class CommandBox extends UiPart {
      * @return the full user input taking into account the key pressed
      */
     private String getUserInputAfterKeyPressed(String keyAsString) {
-        String userSelectedText = commandTextField.getSelectedText();
-
-        if (!userSelectedText.isEmpty()) {
-            commandTextField.replaceSelection(STRING_EMPTY);
-        }
+        handleKeyPressWithTextSelectionIfPresent();
 
         String userInput = commandTextField.getText();
         int caretPosition = commandTextField.getCaretPosition();
 
+        return getNewUserInputIfNecessary(keyAsString, userInput, caretPosition);
+
+    }
+
+    /**
+     * Returns the new user input String by adding the keyAsString at the
+     * caretPosition, if necessary.
+     * 
+     * @param keyAsString The String to add to the userInput
+     * @param userInput The user input String to add the keyAsString
+     * @param stringPosition The position to add the keyAsString to
+     * @return
+     */
+    private String getNewUserInputIfNecessary(String keyAsString, String userInput, int stringPosition) {
         switch (keyAsString) {
         case BACKSPACE_UNICODE :
             // backspace action occurs before event triggers, just return the
             // user input
             return userInput;
         case SPACE_UNICODE :
-            return StringUtil.applyStringAtPosition(userInput, STRING_ONE_SPACE, caretPosition);
+            return StringUtil.applyStringAtPosition(userInput, STRING_ONE_SPACE, stringPosition);
         default :
             // is a normal letter/digit
-            return StringUtil.applyStringAtPosition(userInput, keyAsString, caretPosition);
+            return StringUtil.applyStringAtPosition(userInput, keyAsString, stringPosition);
         }
+    }
 
+    /**
+     * Handles the case where the user selects the text in the command field
+     * then enters some text, replacing the old selected text.<br>
+     * This method will replace that selection by emptying it.
+     */
+    private void handleKeyPressWithTextSelectionIfPresent() {
+        String userSelectedText = commandTextField.getSelectedText();
+        if (!userSelectedText.isEmpty()) {
+            commandTextField.replaceSelection(STRING_EMPTY);
+        }
     }
 
     /**
@@ -197,7 +224,8 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Handles the event where the user is trying to navigate the input history.<br>
+     * Handles the event where the user is trying to navigate the input
+     * history.<br>
      * Asserts that the KeyCode specified is either the UP or DOWN KeyCode.
      * 
      * @param keyCode The KeyCode associated with this event
@@ -343,7 +371,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-    //@@author
+    // @@author
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandTest));
@@ -351,7 +379,7 @@ public class CommandBox extends UiPart {
         restoreCommandText();
     }
 
-    //@@author
+    // @@author
     /**
      * Restores the command box text to the previously entered command
      */

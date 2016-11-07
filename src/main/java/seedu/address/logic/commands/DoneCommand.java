@@ -29,7 +29,6 @@ public class DoneCommand extends UndoableCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     
-    //@@author A0093960X
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_TASKS_SUCCESS = "Archived Tasks: %1$s";
@@ -38,8 +37,10 @@ public class DoneCommand extends UndoableCommand {
     //@@author
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
-    public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
-    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "All done tasks have been undone, except the following tasks: %1$s";
+    public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks!" 
+            + " Tasks restored to undone list!";
+    public static final String MESSAGE_DONE_UNDO_SOME_FAILURE = "All done tasks have been undone," 
+            + " except the following tasks: %1$s";
     
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
@@ -233,6 +234,14 @@ public class DoneCommand extends UndoableCommand {
         
         readdAllDoneTasksToUndoneList();
         
+        return generateAppropriateCommandResult();
+    }
+
+    /**
+     * Generates the appropriate command result based on whether the undo was successful in undoing all the done tasks.
+     * @return The appropriate CommandResult depending on whether the undo was successful
+     */
+    private CommandResult generateAppropriateCommandResult() {
         if (isSuccessfulInUndoingAllDoneTasks()) {
             return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
         }

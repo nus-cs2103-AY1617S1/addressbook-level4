@@ -113,9 +113,7 @@ public class TaskCard extends UiPart {
 
         Priority taskPriority = task.getPriorityValue();
 
-        Paint taskPriorityColour = PAINT_YELLOW;
-
-        taskPriorityColour = getPaintForPriority(taskPriority);
+        Paint taskPriorityColour = getPaintForPriority(taskPriority);
 
         priority.setFill(taskPriorityColour);
     }
@@ -147,14 +145,21 @@ public class TaskCard extends UiPart {
     private void setTaskCardStartDate() {
         assert task != null;
 
-        String startDateText = STRING_EMPTY;
-        boolean hasStartDate = task.getStartDate().isPresent();
-
-        if (hasStartDate) {
-            startDateText = prepareStartDateToDisplay();
-        }
+        String startDateText = getStartDateTextIfPresent();
 
         startDate.setText(startDateText);
+    }
+
+    /**
+     * Get the appropriate start date text if the start date of the task is present.
+     * @return The appropriate start date text
+     */
+    private String getStartDateTextIfPresent() {
+        boolean hasStartDate = task.getStartDate().isPresent();
+        if (hasStartDate) {
+            return prepareStartDateToDisplay();
+        }
+        return STRING_EMPTY;
     }
 
     /**
@@ -163,13 +168,21 @@ public class TaskCard extends UiPart {
     private void setTaskCardEndDate() {
         assert task != null;
 
-        String endDateText = STRING_EMPTY;
+        String endDateText = getEndDateTextIfPresent();
+        endDate.setText(endDateText);
+    }
+
+    /**
+     * Get the appropriate end date text if the end date of the task is present.
+     * @return The appropriate end date text
+     */
+    private String getEndDateTextIfPresent() {
         boolean hasEndDate = task.getEndDate().isPresent();
 
         if (hasEndDate) {
-            endDateText = prepareEndDateToDisplay();
+            return prepareEndDateToDisplay();
         }
-        endDate.setText(endDateText);
+        return STRING_EMPTY;
     }
 
     /**
@@ -179,14 +192,23 @@ public class TaskCard extends UiPart {
     private void setTaskCardRecurrence() {
         assert task != null;
 
+        String recurrenceRateText = getRecurrenceTextIfPresent();
+
+        recurrenceRate.setText(recurrenceRateText);
+    }
+
+    /**
+     * Get the appropriate recurrence rate text if the recurrence rate of the task is present.
+     * @return The appropriate recurrence rate text
+     */
+    private String getRecurrenceTextIfPresent() {
         String recurrenceRateText = STRING_EMPTY;
         boolean taskIsRecurring = task.getRecurrenceRate().isPresent();
 
         if (taskIsRecurring) {
             recurrenceRateText = prepareRecurrenceRateToDisplay();
         }
-
-        recurrenceRate.setText(recurrenceRateText);
+        return recurrenceRateText;
     }
 
     /**

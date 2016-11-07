@@ -134,9 +134,8 @@ The `UI` component uses JavaFx UI framework. The layouts of these UI parts are d
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
-* Executes user commands using the `Logic` component.
+* Executes user commands and updates the user input history (to navigate the previous and next inputs using <kbd>Up</kbd> and <kbd>Down</kbd> arrow keys) using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Binds itself to some data in the `InputHistory` so that it can fetch the user input history, to  allow the user to navigate his previous or next inputs using the <kbd>Up</kbd> and <kbd>Down</kbd> Arrow keys, updating the `UI` in doing so.
 * Responds to events raised from various parts of the App and updates the `UI` accordingly.
 <!-- @@author -->
 <!-- @@author A0139655U -->

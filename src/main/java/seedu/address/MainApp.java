@@ -41,8 +41,6 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected UndoableCommandHistoryManager undoableCommandHistory;
-    protected InputHistoryManager inputHistory;
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
@@ -62,14 +60,10 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
-        undoableCommandHistory = UndoableCommandHistoryManager.getInstance();
-        
-        inputHistory = InputHistoryManager.getInstance();
                 
-        logic = new LogicManager(model, storage, undoableCommandHistory);
+        logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic, config, userPrefs, inputHistory);
+        ui = new UiManager(logic, config, userPrefs);
         
         initEventsCenter();
     }
