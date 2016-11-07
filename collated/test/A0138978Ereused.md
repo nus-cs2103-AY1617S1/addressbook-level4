@@ -1,4 +1,138 @@
 # A0138978Ereused
+###### /java/guitests/guihandles/GuiHandle.java
+``` java
+/**
+ * Base class for all GUI Handles used in testing.
+ */
+public class GuiHandle {
+    protected final GuiRobot guiRobot;
+    protected final Stage primaryStage;
+    protected final String stageTitle;
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
+    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
+        this.guiRobot = guiRobot;
+        this.primaryStage = primaryStage;
+        this.stageTitle = stageTitle;
+        focusOnSelf();
+    }
+
+    public void focusOnWindow(String stageTitle) {
+        logger.info("Focusing " + stageTitle);
+        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+
+        if (!window.isPresent()) {
+            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
+            return;
+        }
+
+        guiRobot.targetWindow(window.get());
+        guiRobot.interact(() -> window.get().requestFocus());
+        logger.info("Finishing focus " + stageTitle);
+    }
+
+    protected Node getNode(String query) {
+        return guiRobot.lookup(query).tryQuery().get();
+    }
+
+    protected String getTextFieldText(String filedName) {
+        return ((TextField) getNode(filedName)).getText();
+    }
+
+    protected void setTextField(String textFieldId, String newText) {
+        guiRobot.clickOn(textFieldId);
+        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER).sleep(500);
+    }
+
+    protected String getTextFromLabel(String fieldId, Node parentNode) {
+        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+    }
+
+    public void focusOnSelf() {
+        if (stageTitle != null) {
+            focusOnWindow(stageTitle);
+        }
+    }
+
+    public void focusOnMainApp() {
+        this.focusOnWindow(TestApp.APP_TITLE);
+    }
+
+    public void closeWindow() {
+        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+
+        if (!window.isPresent()) {
+            return;
+        }
+
+        guiRobot.targetWindow(window.get());
+        guiRobot.interact(() -> ((Stage)window.get()).close());
+        focusOnMainApp();
+    }
+}
+```
+###### /java/guitests/guihandles/MainGuiHandle.java
+``` java
+/**
+ * Provides a handle for the main GUI.
+ */
+public class MainGuiHandle extends GuiHandle {
+
+    public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
+        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+
+    public TaskListPanelHandle getPersonListPanel() {
+        return new TaskListPanelHandle(guiRobot, primaryStage);
+    }
+
+    public ResultDisplayHandle getResultDisplay() {
+        return new ResultDisplayHandle(guiRobot, primaryStage);
+    }
+
+    public CommandBoxHandle getCommandBox() {
+        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
+    public AliasWindowHandle getAliasWindow() {
+        return new AliasWindowHandle(guiRobot, primaryStage);
+    }
+
+
+}
+```
+###### /java/guitests/guihandles/ResultDisplayHandle.java
+``` java
+/**
+ * A handler for the ResultDisplay of the UI
+ */
+public class ResultDisplayHandle extends GuiHandle {
+
+    public static final String RESULT_DISPLAY_ID = "#resultDisplay";
+
+    public ResultDisplayHandle(GuiRobot guiRobot, Stage primaryStage) {
+        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+
+    public String getText() {
+        return getResultDisplay().getText();
+    }
+
+    private TextArea getResultDisplay() {
+        return (TextArea) getNode(RESULT_DISPLAY_ID);
+    }
+}
+```
 ###### /java/guitests/guihandles/TaskListPanelHandle.java
 ``` java
 /**
@@ -136,140 +270,6 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getNumberOfTasks() {
         return getListView().getItems().size();
     }
-}
-```
-###### /java/guitests/guihandles/GuiHandle.java
-``` java
-/**
- * Base class for all GUI Handles used in testing.
- */
-public class GuiHandle {
-    protected final GuiRobot guiRobot;
-    protected final Stage primaryStage;
-    protected final String stageTitle;
-
-    private final Logger logger = LogsCenter.getLogger(this.getClass());
-
-    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        this.guiRobot = guiRobot;
-        this.primaryStage = primaryStage;
-        this.stageTitle = stageTitle;
-        focusOnSelf();
-    }
-
-    public void focusOnWindow(String stageTitle) {
-        logger.info("Focusing " + stageTitle);
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
-
-        if (!window.isPresent()) {
-            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
-            return;
-        }
-
-        guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> window.get().requestFocus());
-        logger.info("Finishing focus " + stageTitle);
-    }
-
-    protected Node getNode(String query) {
-        return guiRobot.lookup(query).tryQuery().get();
-    }
-
-    protected String getTextFieldText(String filedName) {
-        return ((TextField) getNode(filedName)).getText();
-    }
-
-    protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
-        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
-    }
-
-    protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
-    }
-
-    public void focusOnSelf() {
-        if (stageTitle != null) {
-            focusOnWindow(stageTitle);
-        }
-    }
-
-    public void focusOnMainApp() {
-        this.focusOnWindow(TestApp.APP_TITLE);
-    }
-
-    public void closeWindow() {
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
-
-        if (!window.isPresent()) {
-            return;
-        }
-
-        guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> ((Stage)window.get()).close());
-        focusOnMainApp();
-    }
-}
-```
-###### /java/guitests/guihandles/ResultDisplayHandle.java
-``` java
-/**
- * A handler for the ResultDisplay of the UI
- */
-public class ResultDisplayHandle extends GuiHandle {
-
-    public static final String RESULT_DISPLAY_ID = "#resultDisplay";
-
-    public ResultDisplayHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
-    }
-
-    public String getText() {
-        return getResultDisplay().getText();
-    }
-
-    private TextArea getResultDisplay() {
-        return (TextArea) getNode(RESULT_DISPLAY_ID);
-    }
-}
-```
-###### /java/guitests/guihandles/MainGuiHandle.java
-``` java
-/**
- * Provides a handle for the main GUI.
- */
-public class MainGuiHandle extends GuiHandle {
-
-    public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
-    }
-
-    public TaskListPanelHandle getPersonListPanel() {
-        return new TaskListPanelHandle(guiRobot, primaryStage);
-    }
-
-    public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
-    }
-
-    public CommandBoxHandle getCommandBox() {
-        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
-    }
-    
-    public AliasWindowHandle getAliasWindow() {
-        return new AliasWindowHandle(guiRobot, primaryStage);
-    }
-
-
 }
 ```
 ###### /java/guitests/TaskManagerGuiTest.java

@@ -1,27 +1,4 @@
 # A0139708Wreused
-###### /java/w15c2/tusk/ui/AliasListPanel.java
-``` java
-    class AliasListViewCell extends ListCell<Alias> {
-
-        public AliasListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(Alias alias, boolean empty) {
-            super.updateItem(alias, empty);
-
-            if (empty || alias == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(AliasCard.load(alias, getIndex() + 1).getLayout());
-            }
-        }
-    }
-
-
-}
-```
 ###### /java/w15c2/tusk/model/ModelManager.java
 ``` java
 	interface Expression {
@@ -121,6 +98,49 @@
     }
 }
 ```
+###### /java/w15c2/tusk/ui/AliasListPanel.java
+``` java
+    /**
+     * Cell for AliasList to load AliasCard as graphic.
+     */
+    class AliasListViewCell extends ListCell<Alias> {
+
+        public AliasListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(Alias alias, boolean empty) {
+            super.updateItem(alias, empty);
+
+            if (empty || alias == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(AliasCard.load(alias, getIndex() + 1).getLayout());
+            }
+        }
+    }
+
+
+}
+```
+###### /resources/view/AliasListPanel.fxml
+``` fxml
+<?import java.net.URL?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="w15c2.tusk.ui.AliasListPanel">
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+    <children>
+        <ListView fx:id="aliasListView" styleClass="anchor-pane" style="-fx-border-color: #633914;" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>
+```
 ###### /resources/view/AliasWindow.fxml
 ``` fxml
 <?import java.net.URL?>
@@ -147,22 +167,5 @@
          </stylesheets>
       </VBox>
    </children>
-</VBox>
-```
-###### /resources/view/AliasListPanel.fxml
-``` fxml
-<?import java.net.URL?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="w15c2.tusk.ui.AliasListPanel">
-    <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-    </stylesheets>
-    <children>
-        <ListView fx:id="aliasListView" styleClass="anchor-pane" style="-fx-border-color: #633914;" VBox.vgrow="ALWAYS" />
-    </children>
 </VBox>
 ```

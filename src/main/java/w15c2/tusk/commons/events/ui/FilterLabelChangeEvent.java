@@ -4,11 +4,12 @@ import w15c2.tusk.commons.events.BaseEvent;
 
 //@@author A0139708W
 /**
- * An event requesting to change the filter labels
+ * An event requesting to change the filter labels.
  */
 public class FilterLabelChangeEvent extends BaseEvent {
     
     private COMMANDTYPE commandType;
+    
     /**
      * Enum of various command types
      * that raise event.
@@ -40,7 +41,7 @@ public class FilterLabelChangeEvent extends BaseEvent {
      * Returns String of event name for 
      * logging purposes.
      * 
-     * @return  String of event name
+     * @return  String of event name.
      */
     @Override
     public String toString() {

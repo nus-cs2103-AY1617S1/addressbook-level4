@@ -11,7 +11,7 @@ public class ShowAliasListEvent extends BaseEvent {
      * Returns String of event name for 
      * logging purposes.
      * 
-     * @return  String of event name
+     * @return  String of event name.
      */
     @Override
     public String toString() {

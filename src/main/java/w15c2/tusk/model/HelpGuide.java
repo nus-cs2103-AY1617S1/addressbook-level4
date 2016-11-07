@@ -3,8 +3,8 @@ package w15c2.tusk.model;
 import javafx.beans.property.SimpleStringProperty;
 
 //@@author:A0139708W
-/*
- * Class for help panel information
+/**
+ * Class for help panel information.
 */
 public class HelpGuide {
       
@@ -25,10 +25,22 @@ public class HelpGuide {
           this.format = new SimpleStringProperty(format);
       }
       
+      /**
+       * Returns String of name of 
+       * comamnd.
+       * 
+       * @return    name of comamnd.
+       */
       public String getName() {
           return commandName.get();
       }
       
+      /**
+       * Returns String of format
+       * of command.
+       * 
+       * @return    format of command.
+       */
       public String getFormat() {
           return format.get();
       }

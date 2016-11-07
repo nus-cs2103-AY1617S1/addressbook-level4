@@ -23,7 +23,7 @@ import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
 /**
- * Tests for XMLUtil class
+ * Tests for XMLUtil class.
  *
  */
 public class XmlUtilTest {
