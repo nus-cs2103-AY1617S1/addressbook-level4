@@ -16,6 +16,9 @@ import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 
 //@@author A0139817U
+/**
+ * Tests AddTask Command 
+ */
 public class AddTaskCommandTest {
 
 	// Initialized to support the tests

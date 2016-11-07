@@ -8,11 +8,10 @@ import org.junit.Test;
 import w15c2.tusk.logic.commands.taskcommands.HelpTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.parser.HelpCommandParser;
-
+//@@author A0143107U
 /**
  * Tests Help Command Parser
  */
-//@@author A0143107U
 public class HelpCommandParserTest {
 	// Initialized to support the tests
 	HelpCommandParser parser = new HelpCommandParser();

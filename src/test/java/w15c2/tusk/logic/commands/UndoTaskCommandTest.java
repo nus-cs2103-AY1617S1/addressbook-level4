@@ -14,11 +14,10 @@ import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.FloatingTask;
 import w15c2.tusk.testutil.TestUtil;
-
+//@@author A0143107U
 /**
  * Tests Undo Task Command 
  */
-//@@author A0143107U
 public class UndoTaskCommandTest {
 
 	// Initialized to support the tests

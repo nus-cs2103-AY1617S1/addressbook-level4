@@ -9,10 +9,10 @@ import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.logic.parser.RedoCommandParser;
 
+//@@author A0143107U
 /**
  * Tests Redo Command Parser
  */
-//@@author A0143107U
 public class RedoCommandParserTest {
 	// Initialized to support the tests
 	RedoCommandParser parser = new RedoCommandParser();

@@ -10,11 +10,10 @@ import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.logic.commands.taskcommands.DeleteAliasCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
-
+//@@author A0143107U
 /**
  * Tests DeleteAlias Command 
  */
-//@@author A0143107U
 public class DeleteAliasCommandTest {
 
 	// Initialized to support the tests

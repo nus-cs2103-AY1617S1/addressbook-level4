@@ -9,11 +9,10 @@ import org.junit.Test;
 import w15c2.tusk.logic.commands.taskcommands.IncorrectTaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UnpinTaskCommand;
 import w15c2.tusk.logic.parser.UnpinCommandParser;
-
+//@@author A0143107U
 /**
  * Tests Unpin Command Parser
  */
-//@@author A0143107U
 public class UnpinCommandParserTest {
 	// Initialized to support the tests
 	UnpinCommandParser parser = new UnpinCommandParser();

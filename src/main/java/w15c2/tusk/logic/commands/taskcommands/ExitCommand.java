@@ -4,10 +4,10 @@ import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.ui.ExitAppRequestEvent;
 import w15c2.tusk.logic.commands.CommandResult;
 
+//@@author A0143107U
 /**
  * Terminates the program.
  */
-//@@author A0143107U
 public class ExitCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "exit";

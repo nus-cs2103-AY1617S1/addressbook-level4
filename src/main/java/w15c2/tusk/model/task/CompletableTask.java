@@ -1,7 +1,7 @@
 package w15c2.tusk.model.task;
 
 //@@author A0143107U
-/*
+/**
  * Tasks that implement this interface can be completed
  */
 public interface CompletableTask {
