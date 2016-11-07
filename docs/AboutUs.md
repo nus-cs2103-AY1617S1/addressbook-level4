@@ -20,6 +20,9 @@ Responsibilities:
 * Aspects/tools in charge of: Documentation
 * Features implemented:
   * [Set data storage location](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#311-set-data-storage-location-set-storage)
+  * [Add alias command](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#312-set-an-alias-for-an-existing-command-add-alias)
+  * [List alias command](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#313-list-aliases-list-alias)
+  * [Delete alias command](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#314-delete-aliases-delete-alias--remove-alias)
 * Code written: [[functional code]()][[test code]()][[docs](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/docs/A0143756Y.md)]
 * Other major contributions:
   * Copy-editing UserGuide.md and DeveloperGuide.md
@@ -36,6 +39,7 @@ Responsibilities:
   * [Find tasks containing particular keyword(s) in task name](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#34-find-tasks-containing-particular-keywords-in-task-name-find)
   * [Undo last operation](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#38-undo-last-operation-undo)
   * [Redo](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/docs/UserGuide.md#39-redo-redo)
+  * [Command History]
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/main/A0141019U.md)][[test code](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/test/A0141019U.md)][[docs](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/docs/A0141019U.md)]
 * Other major contributions:
   * Implemented [DateParser](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/src/main/java/seedu/address/logic/parser/DateParser.java) with standard format and natural language input support
@@ -64,5 +68,6 @@ Responsibilities:
 * Features implemented:
  * Display for someday, deadline and event tasks
  * Tab display for different categories of tasks
+ * Display alias list
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/main/A0142184L.md)][[test code](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/test/A0142184L.md)][[docs](https://github.com/CS2103AUG2016-T10-C2/main/blob/master/collated/docs/A0142184L.md)] 
 
