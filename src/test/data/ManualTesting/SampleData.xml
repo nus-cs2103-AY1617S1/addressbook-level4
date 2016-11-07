@@ -8,10 +8,6 @@
         <priority>low</priority>
         <completion>false</completion>
         <recurrence>NONE</recurrence>
-        <tagged>
-            <tagName>friends</tagName>
-            <taskCount>6</taskCount>
-        </tagged>
     </tasks>
     <tasks>
         <name>print color version of project manual</name>
@@ -62,7 +58,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -88,7 +84,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
         <tagged>
             <tagName>CS2103</tagName>
@@ -109,15 +105,15 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>project</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -130,15 +126,15 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>project</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -151,11 +147,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>welfare</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -164,11 +160,11 @@
         <onDate>08 Nov 2016 12:00 AM</onDate>
         <byDate> </byDate>
         <priority>mid</priority>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>medicine</tagName>
@@ -211,7 +207,7 @@
         <recurrence>DAY</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -224,7 +220,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>fun</tagName>
@@ -245,7 +241,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -258,7 +254,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>shopping</tagName>
@@ -275,11 +271,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>shopping</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -292,7 +288,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -305,11 +301,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>project</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -322,7 +318,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>personal</tagName>
-            <taskCount>10</taskCount>
+            <taskCount>37</taskCount>
         </tagged>
         <tagged>
             <tagName>urgent</tagName>
@@ -343,7 +339,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>friends</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>5</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -356,7 +352,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>friends</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -369,7 +365,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>friends</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -386,7 +382,7 @@
         </tagged>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -399,15 +395,15 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>project</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -420,15 +416,15 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>project</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -441,11 +437,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>fun</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
         <tagged>
             <tagName>friends</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
         <tagged>
             <tagName>travel</tagName>
@@ -462,15 +458,15 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>fun</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
         <tagged>
             <tagName>friends</tagName>
-            <taskCount>6</taskCount>
+            <taskCount>33</taskCount>
         </tagged>
         <tagged>
             <tagName>travel</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>30</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -487,7 +483,7 @@
         </tagged>
         <tagged>
             <tagName>food</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -500,7 +496,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>travel</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>30</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -509,7 +505,7 @@
         <onDate> </onDate>
         <byDate> </byDate>
         <priority>low</priority>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>book</tagName>
@@ -530,11 +526,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>book</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
         <tagged>
             <tagName>readings</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -547,7 +543,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -560,7 +556,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -573,11 +569,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>ST2132</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -607,7 +603,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>readings</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -620,7 +616,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>readings</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -629,15 +625,15 @@
         <onDate> </onDate>
         <byDate> </byDate>
         <priority>low</priority>
-        <completion>false</completion>
+        <completion>true</completion>
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>video</tagName>
-            <taskCount>5</taskCount>
+            <taskCount>32</taskCount>
         </tagged>
         <tagged>
             <tagName>fun</tagName>
-            <taskCount>4</taskCount>
+            <taskCount>31</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -663,11 +659,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>video</tagName>
-            <taskCount>5</taskCount>
+            <taskCount>32</taskCount>
         </tagged>
         <tagged>
             <tagName>show</tagName>
-            <taskCount>2</taskCount>
+            <taskCount>29</taskCount>
         </tagged>
         <tagged>
             <tagName>drama</tagName>
@@ -677,18 +673,18 @@
     <tasks>
         <name>watch Game of Thrones</name>
         <detail></detail>
-        <onDate>13 Nov 2016 12:00 AM</onDate>
+        <onDate>20 Nov 2016 12:00 AM</onDate>
         <byDate> </byDate>
         <priority>low</priority>
         <completion>false</completion>
         <recurrence>WEEK</recurrence>
         <tagged>
             <tagName>video</tagName>
-            <taskCount>5</taskCount>
+            <taskCount>32</taskCount>
         </tagged>
         <tagged>
             <tagName>drama</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>30</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -714,11 +710,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
         <tagged>
             <tagName>finals</tagName>
@@ -735,11 +731,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>video</tagName>
-            <taskCount>5</taskCount>
+            <taskCount>32</taskCount>
         </tagged>
         <tagged>
             <tagName>drama</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>30</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -752,7 +748,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>school</tagName>
-            <taskCount>13</taskCount>
+            <taskCount>40</taskCount>
         </tagged>
         <tagged>
             <tagName>assignment</tagName>
@@ -769,7 +765,7 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -782,11 +778,11 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2103</tagName>
-            <taskCount>9</taskCount>
+            <taskCount>36</taskCount>
         </tagged>
         <tagged>
             <tagName>CS2101</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>17</taskCount>
         </tagged>
     </tasks>
     <tasks>
@@ -799,13 +795,9 @@
         <recurrence>NONE</recurrence>
         <tagged>
             <tagName>CS2101</tagName>
-            <taskCount>3</taskCount>
+            <taskCount>30</taskCount>
         </tagged>
     </tasks>
-    <tags>
-        <tagName>friends</tagName>
-        <taskCount>6</taskCount>
-    </tags>
     <tags>
         <tagName>CS2101</tagName>
         <taskCount>3</taskCount>
@@ -861,6 +853,10 @@
     <tags>
         <tagName>food</tagName>
         <taskCount>2</taskCount>
+    </tags>
+    <tags>
+        <tagName>friends</tagName>
+        <taskCount>5</taskCount>
     </tags>
     <tags>
         <tagName>ST2132</tagName>

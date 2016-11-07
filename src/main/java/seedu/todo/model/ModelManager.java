@@ -176,8 +176,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0093896H
     @Override
     public void updateFilteredListToShowAll() {
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //force change
-        filteredTasks.setPredicate(null);
+        updateFilteredTaskList(new PredicateExpression(new AllQualifier()));
     }
     
     @Override
@@ -250,7 +249,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void refreshCurrentFilteredTaskList() {
         PredicateExpression current = pe;
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); // force change
+        updateFilteredTaskList(new PredicateExpression(new AllQualifier()));
         updateFilteredTaskList(current);
     }
     
