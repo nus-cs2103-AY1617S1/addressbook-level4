@@ -94,9 +94,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/tars/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `TaskCard`,
-`StatusBarFooter`, `TabPane` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, 
+`TaskCard`, `StatusBarFooter`, `TabPane` etc. All these, including the `MainWindow` inherits from the abstract 
+`UiPart` class and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -498,7 +498,7 @@ Use case ends.
 > Tasks without specific dateTimes.
 
 ##### Index
-Positive number corresponding to the order at which the item is listed.
+> Positive number corresponding to the order at which the item is listed.
 
 ##### Mainstream OS
 > Windows, Linux, Unix, OS-X.
