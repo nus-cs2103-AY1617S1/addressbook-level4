@@ -60,7 +60,7 @@ Expected Output: `Unknown command`
 
 #### Show all
 Command: `show all` <br>
-Expected Output: `57 task(s) listed!`
+Expected Output: `59 task(s) listed!`
 
 #### Show overdue
 Command: `show overdue` or `overdue` <br>
