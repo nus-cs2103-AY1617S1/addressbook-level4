@@ -61,7 +61,7 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void unpinTask_emtpyList() {
+    public void unpinTaskEmptyList() {
         // unpin at an empty list
         commandBox.runCommand("clear");
         commandBox.runCommand("unpin " + (currentList.length + 1));

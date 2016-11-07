@@ -18,7 +18,7 @@ public abstract class UiPart {
     /**
      * The primary stage for the UI Part.
      */
-    Stage primaryStage;
+    public Stage primaryStage;
 
     public UiPart(){
 

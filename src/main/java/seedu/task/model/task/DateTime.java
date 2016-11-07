@@ -102,11 +102,7 @@ public class DateTime implements Comparable<DateTime> {
      */
     public static boolean isValidDateTime(String dateTime) {
         List<Date> possibleDates = new PrettyTimeParser().parse(dateTime);
-        if(!possibleDates.isEmpty() && (possibleDates.size() == 1)) {
-            return true;
-        } else {
-            return false;
-        }
+        return !possibleDates.isEmpty() && (possibleDates.size() == 1);
     }
 
     @Override

@@ -20,11 +20,10 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
+        if (!isValidName(name.trim())) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.taskName = name;
+        this.taskName = name.trim();
     }
 
     /**

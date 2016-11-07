@@ -1,7 +1,8 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 import static seedu.task.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         // remove existing tags
         commandBox.runCommand("update " + targetIndex + " remove-tag urgent");
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getTags().contains(tagToAdd));
+        assertFalse(newTask.getTags().contains(tagToAdd));
         
         // modify open time
         commandBox.runCommand("update " + targetIndex + " starts 2 hour later");

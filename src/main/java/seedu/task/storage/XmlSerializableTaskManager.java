@@ -26,7 +26,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @XmlElement
     private List<Tag> tags;
 
-    {
+   {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
