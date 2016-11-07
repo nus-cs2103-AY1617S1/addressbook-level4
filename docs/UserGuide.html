@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- @@author A0135817B -->
 <html>
 <head>
   <meta charset="utf-8">
@@ -22,8 +23,8 @@
 <li><a href="#command-reference">Command Reference</a><span>4</span><ul>
 <li><a href="#notes-regarding-command-format">Notes regarding command format</a></li>
 <li><a href="#entering-in-dates">Entering in dates</a></li>
-<li><a href="#viewing-help-help">Viewing help : help</a></li>
-<li><a href="#adding-a-task-or-event-add">Adding a task or event: add</a><ul>
+<li><a href="#viewing-help-help">Viewing help : help</a><ul>
+<li><a href="#adding-a-task-or-event-add">Adding a task or event: add</a></li>
 <li><a href="#adding-a-task">Adding a task</a></li>
 <li><a href="#adding-an-event">Adding an event</a></li>
 <li><a href="#adding-a-deadline">Adding a deadline</a></li>
@@ -35,10 +36,11 @@
 </li>
 <li><a href="#deleting-a-task-delete">Deleting a task: delete</a></li>
 <li><a href="#marking-a-task-complete-complete">Marking a task complete: complete</a></li>
+<li><a href="#clearing-tasks-clear">Clearing tasks: clear</a></li>
 <li><a href="#pinning-a-task-pin">Pinning a task: pin</a></li>
 <li><a href="#editing-a-task-edit">Editing a task: edit</a></li>
-<li><a href="#manage-tags-tag">Manage tags: tag</a><ul>
-<li><a href="#retagging-a-task">Retagging a task</a></li>
+<li><a href="#managing-tags-tag">Managing tags: tag</a><ul>
+<li><a href="#viewing-all-tags-used-so-far">Viewing all tags used so far</a></li>
 <li><a href="#adding-tags-to-a-task">Adding tags to a task</a></li>
 <li><a href="#editing-tags">Editing tags</a></li>
 <li><a href="#deleting-tags">Deleting tags</a></li>
@@ -54,16 +56,24 @@
 <li><a href="#changing-the-save-location-save">Changing the save location: save</a></li>
 </ul>
 </li>
-<li><a href="#faq">FAQ</a><span>11</span></li>
-<li><a href="#command-summary">Command Summary</a><span>12</span></li>
+<li><a href="#other-features">Other Features</a><span>11</span><ul>
+<li><a href="#visual-feedback">Visual Feedback</a></li>
+<li><a href="#intelligent-commandtm">Intelligent Command™</a></li>
+<li><a href="#command-previewtm">Command Preview™</a></li>
+</ul>
+</li>
+<li><a href="#faq">FAQ</a><span>12</span></li>
+<li><a href="#command-summary">Command Summary</a></li>
 </ul>
 </div>
+<!-- @@author A0135805H -->
 <div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>In today's hectic society, our lives feel like a never-ending procession of tasks, deadlines, events and anniversaries to keep up with. Tracking these daily activities on a to-do list can be daunting. Many task management applications today have too many buttons that you have to click through just to add a task, and user interfaces that are so cumbersome it is hard for you to make it a habit to use.</p></div>
 
 <p>Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.</p>
 <p>Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days when you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type the command and hit enter!</p>
 <p>Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. Uncle Jim is also capable of managing both tasks <em>and</em> event so you don't have to use two different applications to be productive. Our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.</p>
 <p>Sounds exciting? Then let's get started!</p>
+<!-- @@author A0135817B-reused -->
 <div class="no-page-break"><h2 id="quick-start"><span>2 </span>Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">#</a></h2><ol>
 <li>
 <p>Ensure you have <a class="print-url" href="https://www.java.com/en/download/"><strong>Java version 8 update 60</strong></a> or later installed on your computer.</p>
@@ -72,12 +82,12 @@
 </div>
 </li>
 <li>
-<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a class="print-url" href="https://github.com/CS2103AUG2016-W10-C4/main/releases">releases</a> page.</p>
+<p>Download the latest copy of <code>Uncle_Jim.jar</code> from our <a class="print-url" href="https://github.com/CS2103AUG2016-W10-C4/main/releases">releases</a> page.</p>
 </li>
 <li>Save the file to the folder you want to use for this application.</li>
 <li>
 <p>Double-click the file to start the application. You should see something like this</p>
-<p><figure><img alt="Example of UI once launched" src="images/app_screenshot.png" width="700"/><figcaption><strong>Figure 1. </strong>Initial launch screen of Uncle Jim</figcaption></figure> </p>
+<p><figure><img alt="Example of UI once launched" src="images/app_empty.png" width="700"/><figcaption><strong>Figure 1. </strong>Initial launch screen of Uncle Jim</figcaption></figure> </p>
 </li>
 <li>
 <p>Type in the command box and press <kbd>Enter</kbd> to execute it. </p>
@@ -92,7 +102,7 @@
 </ul>
 </li>
 <li>
-<p>Refer to the <a href="#commands-reference">commands reference</a> section below for details of each command.</p>
+<p>Refer to the <a href="#command-reference">commands reference</a> section below for details of each command.</p>
 </li>
 </ol></div>
 
@@ -101,13 +111,14 @@
 <div class="no-page-break"><h3 id="notes-regarding-command-format"><span>3.1 </span>Notes regarding command format<a class="headerlink" href="#notes-regarding-command-format" title="Permanent link">#</a></h3><ul>
 <li>Words in <code>UPPERCASE</code> are the parameters.</li>
 <li>Items in <code>[SQUARE BRACKETS]</code> are optional.</li>
-<li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. <code>/f</code>) for short flags and double dash for long flags (eg. <code>--all</code>)</li>
+<li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Windows DOS command format - single dash (eg. <code>/f</code>) for short flags.</li>
 <li>Items with <code>...</code> within each parameter means you can add more items within the same parameters than specified.</li>
 <li>Most commands that refer to a particular task or event in the list require an <code>INDEX</code>. This is a number indicated on the left of a task or event as shown in the screenshot below:</li>
 </ul></div>
 
-<figure><img alt="Index Number Location" src="images/app_screenshot_index.png" width="700"/><figcaption><strong>Figure 2. </strong>Use the number on the side to choose the task for your command</figcaption></figure>
+<figure><img alt="Index Number Location" src="images/app_index.png" width="560"/><figcaption><strong>Figure 2. </strong>Use the number on the side to choose the task for your command</figcaption></figure>
 
+<!-- @@author A0092382A -->
 <div class="no-page-break"><h3 id="entering-in-dates"><span>3.2 </span>Entering in dates<a class="headerlink" href="#entering-in-dates" title="Permanent link">#</a></h3><p>Uncle Jim supports flexible date formats so you can enter dates in the formats specified below:</p></div>
 
 <ul>
@@ -148,50 +159,59 @@ in two days</p>
 <div class="no-page-break"><h3 id="viewing-help-help"><span>3.3 </span>Viewing help : <strong><code>help</code></strong><a class="headerlink" href="#viewing-help-help" title="Permanent link">#</a></h3><p>Format: <strong><code>help</code></strong></p></div>
 
 <p>Help allows you to have a quick reference of the commands in case you forgot the format to follow.  </p>
-<div class="no-page-break"><h3 id="adding-a-task-or-event-add"><span>3.4 </span>Adding a task or event: <strong><code>add</code></strong><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h3><p>Format:<br/>
+<figure><img alt="Help view" src="images/app_help.png" width="700"/><figcaption><strong>Figure 3. </strong>The help view for Uncle Jim</figcaption></figure>
+
+<!-- @@author A0135817B -->
+<div class="no-page-break"><h4 id="adding-a-task-or-event-add"><span>3.3.1 </span>Adding a task or event: <strong><code>add</code></strong><a class="headerlink" href="#adding-a-task-or-event-add" title="Permanent link">#</a></h4><p>Format:<br/>
 <strong><code>add</code></strong><code>TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]</code><br/>
 <strong><code>add</code></strong><code>EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]</code></p></div>
 
 <p>You can add new tasks or events to the To-do List using the <code>add</code> command.  </p>
-<p>Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag. </p>
+<p>Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag.</p>
 <p>Here are some common scenarios where you would use the various parameters:</p>
-<div class="no-page-break"><h4 id="adding-a-task"><span>3.4.1 </span>Adding a task<a class="headerlink" href="#adding-a-task" title="Permanent link">#</a></h4><p>You can add a task by simply giving a name.</p></div>
+<div class="no-page-break"><h4 id="adding-a-task"><span>3.3.2 </span>Adding a task<a class="headerlink" href="#adding-a-task" title="Permanent link">#</a></h4><p>You can add a task by simply giving a name.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Finish up developer guide for CS2101</code> </p>
+<p><strong><code>add</code></strong><code>Finish up developer guide for CS2101</code></p>
 </div>
-<div class="no-page-break"><h4 id="adding-an-event"><span>3.4.2 </span>Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4><p>You can add events by specifying a start time and end time with the <code>/d</code> flag. Event locations can be specified by adding them with the <code>/l</code> flag.  </p></div>
+<figure><img alt="Example of adding a task" src="images/app_add_task.png" width="700"/><figcaption><strong>Figure 4. </strong>How the newly added task is displayed on Uncle Jim</figcaption></figure>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Try to keep titles short. If you need more details, do put them in the <a href="#adding-descriptions-to-a-task">description</a>. </p>
+</div>
+<div class="no-page-break"><h4 id="adding-an-event"><span>3.3.3 </span>Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4><p>You can add events by specifying a start time and end time with the <code>/d</code> flag. Event locations can be specified by adding them with the <code>/l</code> flag.  </p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p</code></p>
 </div>
-<div class="no-page-break"><h4 id="adding-a-deadline"><span>3.4.3 </span>Adding a deadline<a class="headerlink" href="#adding-a-deadline" title="Permanent link">#</a></h4><p>If you need something done by a specific time, add a deadline to your task by specifying a single date and time with the <code>/d</code> flag.</p></div>
+<div class="no-page-break"><h4 id="adding-a-deadline"><span>3.3.4 </span>Adding a deadline<a class="headerlink" href="#adding-a-deadline" title="Permanent link">#</a></h4><p>If you need something done by a specific time, add a deadline to your task by specifying a single date and time with the <code>/d</code> flag.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<p><strong><code>add</code></strong><code>Submit V.0.0 /d 5 Oct 2359</code></p>
+<p><strong><code>add</code></strong><code>Submit Project Proposal V0.0 /d 5 Oct 2359</code></p>
 </div>
-<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.4.4 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>If you need to add more details to a task, you can add them under the <code>/m</code> flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to <a href="#showing-details-of-a-task-show">the <code>show</code> command</a>.</p></div>
+<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.3.5 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>If you need to add more details to a task, you can add them under the <code>/m</code> flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to <a href="#showing-details-of-a-task-show">the <code>show</code> command</a>.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
 </div>
-<div class="no-page-break"><h4 id="pinning-a-task"><span>3.4.5 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> for more details.</p></div>
+<div class="no-page-break"><h4 id="pinning-a-task"><span>3.3.6 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> for more details.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p</code></p>
 </div>
-<div class="no-page-break"><h4 id="organizing-tasks-using-tags"><span>3.4.6 </span>Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4><p>If you have a lot of tasks you can use tags to organize them. See <a href="#manage-tags-tag">the <code>tag</code> command</a> for more detail.</p></div>
+<div class="no-page-break"><h4 id="organizing-tasks-using-tags"><span>3.3.7 </span>Organizing tasks using tags<a class="headerlink" href="#organizing-tasks-using-tags" title="Permanent link">#</a></h4><p>If you have a lot of tasks you can use tags to organize them. See <a href="#manage-tags-tag">the <code>tag</code> command</a> for more detail.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Finish tutorial 6 /d 10 Oct /t CS2106, School</code></p>
 </div>
-<div class="no-page-break"><h4 id="parameter-reference"><span>3.4.7 </span>Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4><table>
+<div class="no-page-break"><h4 id="parameter-reference"><span>3.3.8 </span>Parameter reference<a class="headerlink" href="#parameter-reference" title="Permanent link">#</a></h4><table>
 <thead>
 <tr>
 <th>Flag</th>
@@ -233,7 +253,7 @@ in two days</p>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.5 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Format: <strong><code>delete</code></strong><code>INDEX</code></p></div>
+<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.4 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Format: <strong><code>delete</code></strong><code>INDEX</code></p></div>
 
 <p>This allows you to delete the task specified by the <code>INDEX</code> parameter. The index refers to the index number shown in the current view.</p>
 <div class="admonition note">
@@ -250,19 +270,24 @@ in two days</p>
 <dd>Deletes the 1st task in the results of the <strong><code>find</code></strong><code>Y2S1</code> command.</dd>
 </dl>
 </div>
-<div class="no-page-break"><h3 id="marking-a-task-complete-complete"><span>3.6 </span>Marking a task complete: <strong><code>complete</code></strong><a class="headerlink" href="#marking-a-task-complete-complete" title="Permanent link">#</a></h3><p>Format:<br/>
+<!-- @@author A0139021U -->
+<div class="no-page-break"><h3 id="marking-a-task-complete-complete"><span>3.5 </span>Marking a task complete: <strong><code>complete</code></strong><a class="headerlink" href="#marking-a-task-complete-complete" title="Permanent link">#</a></h3><p>Format:<br/>
 <strong><code>complete</code></strong><code>INDEX</code><br/>
-<strong><code>complete</code></strong><code>--all</code></p></div>
+<strong><code>complete</code></strong><code>/all</code></p></div>
 
 <p>After finishing a task, you can mark it complete by specifying the index of the task you wish to mark complete in the <code>INDEX</code> parameter. Completed tasks have their title struckthrough. </p>
-<p>If you wish to mark a batch of task in the current view as complete, you can use the <code>--all</code> flag to mark them all as complete. </p>
-<p>Note that this is a toggle command, so if <code>INDEX</code> specified is an </p>
-<figure><img alt="Example of a Completed Task" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 3. </strong>Enjoy the satisfaction of marking completed tasks</figcaption></figure>
+<p>If you wish to mark a batch of task in the current view as complete, you can use the <code>/all</code> flag to mark them all as complete. </p>
+<figure><img alt="Example of a Completed Task" src="images/app_completed.png" width="700"/><figcaption><strong>Figure 5. </strong>The satisfying view of a completed task</figcaption></figure>
 
+<p>Note that this is a toggle command, so if the specified task is already completed, running this will mark the task as incomplete again. </p>
+<div class="no-page-break"><h3 id="clearing-tasks-clear"><span>3.6 </span>Clearing tasks: <strong><code>clear</code></strong><a class="headerlink" href="#clearing-tasks-clear" title="Permanent link">#</a></h3><p>Format:<br/>
+<strong><code>clear</code></strong></p></div>
+
+<p>If you start to have a lot of completed tasks building up, you can clear the clutter by deleting all of them with  <code>clear</code>. Note that this only clears completed tasks in the current view. </p>
 <div class="no-page-break"><h3 id="pinning-a-task-pin"><span>3.7 </span>Pinning a task: <strong><code>pin</code></strong><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3><p>Format: <strong><code>pin</code></strong><code>INDEX</code></p></div>
 
 <p>If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. </p>
-<figure><img alt="Pinned Task" src="images/app_screenshot_pinning.png" width="700"/><figcaption><strong>Figure 4. </strong>Prioritize important tasks with pinned tasks.</figcaption></figure>
+<figure><img alt="Pinned Task" src="images/app_pin.png" width="540"/><figcaption><strong>Figure 6. </strong>Prioritize important tasks with pinned tasks.</figcaption></figure>
 
 <div class="no-page-break"><h3 id="editing-a-task-edit"><span>3.8 </span>Editing a task: <strong><code>edit</code></strong><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3><p>Format:<br/>
 <strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]</code><br/>
@@ -270,40 +295,41 @@ in two days</p>
 
 <p>You can edit tasks or events using the <code>edit</code> command. This command accepts the same parameters as the <code>add</code> command with the addition of <code>INDEX</code>, which specifies which task or event you want to edit. </p>
 <p>Note that edits are automatically saved, and any errors can be undone using <code>undo</code>. </p>
-<div class="no-page-break"><h3 id="manage-tags-tag"><span>3.9 </span>Manage tags: <strong><code>tag</code></strong><a class="headerlink" href="#manage-tags-tag" title="Permanent link">#</a></h3><p>Add, edit and delete tags.<br/>
-Format: <br/>
-<strong><code>tag</code></strong><code>INDEX TAG 1, TAG 2, ...</code><br/>
-<strong><code>tag</code></strong><code>INDEX /a NEW TAG, ...</code><br/>
-<strong><code>tag</code></strong><code>/e OLD NEW</code><br/>
+<!-- @@author A0135805H -->
+<div class="no-page-break"><h3 id="managing-tags-tag"><span>3.9 </span>Managing tags: <strong><code>tag</code></strong><a class="headerlink" href="#managing-tags-tag" title="Permanent link">#</a></h3><p>Format: <br/>
+<strong><code>tag</code></strong><br/>
+<strong><code>tag</code></strong><code>INDEX TAG1, TAG2, ...</code><br/>
+<strong><code>tag</code></strong><code>[INDEX] /r OLD NEW</code><br/>
 <strong><code>tag</code></strong><code>[INDEX] /d TAG</code> </p></div>
 
-<p>You can use tags to organize your tasks easily. Tags are case insensitive, and each task can have up to five of them. Use the <code>tag</code> command to add, edit or delete tags from one or all of the tasks. Here are the scenarios you would use each format of the <code>tag</code> command: </p>
-<div class="no-page-break"><h4 id="retagging-a-task"><span>3.9.1 </span>Retagging a task<a class="headerlink" href="#retagging-a-task" title="Permanent link">#</a></h4><p>You can replace the tags on a task with new ones using the <code>INDEX</code> with the list of new tags:</p></div>
+<p>You can use tags to organize your tasks easily. Each task may have up to 5 tags. Tags are alpha-numeric and case-insensitive, and you can use hyphens "-" and underscores "_" in your tags too. You can use the <code>tag</code> command to add, edit or delete tags from one or all of the tasks. Here are some of the examples of what you can do with the <code>tag</code> command:</p>
+<div class="no-page-break"><h4 id="viewing-all-tags-used-so-far"><span>3.9.1 </span>Viewing all tags used so far<a class="headerlink" href="#viewing-all-tags-used-so-far" title="Permanent link">#</a></h4><p>Sometimes you might not want to reuse tags you have used for other tasks previously. To check what tags are already used, simply type <code>tag</code> with no flags, and Uncle Jim will show you all tags that are used in the app. </p></div>
+
+<figure><img alt="Global Tag List" src="images/app_tag.png" width="700"/><figcaption><strong>Figure 7. </strong>All your tags in one place</figcaption></figure>
+
+<div class="no-page-break"><h4 id="adding-tags-to-a-task"><span>3.9.2 </span>Adding tags to a task<a class="headerlink" href="#adding-tags-to-a-task" title="Permanent link">#</a></h4><p>If you wish to add tags to a task, simply type <code>tag</code> with the <code>INDEX</code> and the tag names you wish to add to a task. This does not overwite any existing tags on a task:</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
-<dt><strong><code>tag</code></strong><code>1 nus, cs2101, cs2103t</code></dt>
-<dd>Replace the tags on the first task with <code>nus</code>, <code>cs2101</code> and <code>cs2103t</code></dd>
-</dl>
-</div>
-<div class="no-page-break"><h4 id="adding-tags-to-a-task"><span>3.9.2 </span>Adding tags to a task<a class="headerlink" href="#adding-tags-to-a-task" title="Permanent link">#</a></h4><p>If you wish to add more tags to a task, use <code>/a</code>:</p></div>
-
-<div class="admonition example">
-<p class="admonition-title">Example</p>
-<dl>
-<dt><strong><code>tag</code></strong><code>1 /a cs2103T</code></dt>
+<dt><strong><code>tag</code></strong><code>1 cs2103T</code></dt>
 <dd>Adds the <code>cs2103T</code> tag to the first task on the list</dd>
 </dl>
 </div>
-<div class="no-page-break"><h4 id="editing-tags"><span>3.9.3 </span>Editing tags<a class="headerlink" href="#editing-tags" title="Permanent link">#</a></h4><p>You can also rename tags using <code>/e</code>:</p></div>
+<div class="no-page-break"><h4 id="editing-tags"><span>3.9.3 </span>Editing tags<a class="headerlink" href="#editing-tags" title="Permanent link">#</a></h4><p>You can rename tags for either a single task, or all tasks using <code>/r</code>:</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
-<dt><strong><code>tag</code></strong><code>/e Business Pleasure</code></dt>
+<dt><strong><code>tag</code></strong><code>/r Business Pleasure</code></dt>
 <dd>Renames the <code>Business</code> tag to <code>Pleasure</code> </dd>
+<dt><strong><code>tag</code></strong><code>1 /r Business Pleasure</code></dt>
+<dd>Renames the <code>Business</code> tag to <code>Pleasure</code> only in task 1. </dd>
 </dl>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that without the <em>INDEX</em> parameter, this will affect all tasks tagged with the specified tag, such as <em>Business</em> in the example above.</p>
 </div>
 <div class="no-page-break"><h4 id="deleting-tags"><span>3.9.4 </span>Deleting tags<a class="headerlink" href="#deleting-tags" title="Permanent link">#</a></h4><p>You can also remove a tag from either a single task, or all tasks at once with <code>/d</code>: </p></div>
 
@@ -318,11 +344,13 @@ Format: <br/>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Keep it simple!</p>
-<p>Tags are only really necessary if you have a <em>lot</em> of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks.</p>
+<p>Tags are only really necessary if you have a <em>lot</em> of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks. In this manner, we have imposed a maximum of <strong>five</strong> tags per task.</p>
 </div>
 <div class="no-page-break"><h3 id="showing-details-of-a-task-show"><span>3.10 </span>Showing details of a task: <strong><code>show</code></strong><a class="headerlink" href="#showing-details-of-a-task-show" title="Permanent link">#</a></h3><p>Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
 
-<p>Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form.</p>
+<p>Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form, as shown below:</p>
+<figure><img alt="Expanding a task for more details" src="images/app_collapse.png" width="700"/><figcaption><strong>Figure 8. </strong>Get details of any task you need easily</figcaption></figure>
+
 <div class="no-page-break"><h3 id="switching-views-view"><span>3.11 </span>Switching views: <strong><code>view</code></strong><a class="headerlink" href="#switching-views-view" title="Permanent link">#</a></h3><p>Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 
 <p>You can drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, using the <code>view</code> command:</p>
@@ -333,7 +361,7 @@ Format: <br/>
 <dd>Show completed tasks only </dd>
 </dl>
 </div>
-<figure><img alt="View of completed tasks" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 5. </strong>Find important and soon overdue tasks</figcaption></figure>
+<figure><img alt="View of completed tasks" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 9. </strong>Find important and soon overdue tasks</figcaption></figure>
 
 <p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
 <div class="admonition example">
@@ -343,9 +371,9 @@ Format: <br/>
 <dd>Show incomplete tasks only, since <code>i</code> is the underlined character as shown in the image above. </dd>
 </dl>
 </div>
-<div class="no-page-break"><h3 id="finding-tasks-find"><span>3.12 </span>Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3><p>Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS]</code></p></div>
+<div class="no-page-break"><h3 id="finding-tasks-find"><span>3.12 </span>Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3><p>Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS] [/t TAGS]</code></p></div>
 
-<p>You can search for tasks using the <code>find</code> command. The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and any tasks matching at least one keyword will be returned.</p>
+<p>You can search for tasks using the <code>find</code> command. The search is case insensitive and the order of the keywords does not matter. Add the <code>/t</code> flag allows you to specifically search for those tags. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Keywords are separated by spaces, not comma</p>
@@ -353,19 +381,21 @@ Format: <br/>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
-<dt><strong><code>find</code></strong><code>John</code></dt>
-<dd>Returns <strong>Meet John for lunch</strong></dd>
-<dt><strong><code>find</code></strong><code>Jo</code></dt>
-<dd>Returns any task with <strong>Jo</strong> in the title, such as <strong>Meet John for lunch</strong>, 
- <strong>Jogging at the park</strong>, or <strong>Jousting fights at the gym</strong></dd>
-<dt><strong><code>find</code></strong><code>Jo Ja</code></dt>
-<dd>Returns any task with either <strong>Jo</strong> or <strong>Ja</strong> in the title, such as 
- <strong>Meet John for lunch</strong>, <strong>Meet Jane for lunch</strong>, or <strong>Jack and Jane's wedding</strong></dd>
+<dt><strong><code>find</code></strong><code>Github</code></dt>
+<dd>Returns tasks with <strong> Fix Github Issue #119 </strong></dd>
+<dt><strong><code>find</code></strong><code>/t code</code></dt>
+<dd>Returns any task tagged with <strong>code</strong> in the tags</dd>
+<dt><strong><code>find</code></strong><code>git development code</code></dt>
+<dd>Returns any task with either <strong>git</strong>, <strong>development</strong>, or <strong>code</strong> in the title, such as 
+ <strong>Fix the app bug in Github #119</strong>, <strong>Watch Tutorial on iOS development</strong>, <strong>Improve code quality with SLAP</strong> and so on and so forth.</dd>
 </dl>
 </div>
+<figure><img alt="Find results view" src="images/app_find.png" width="700"/><figcaption><strong>Figure 10. </strong>How the above search result using `find` would look like.</figcaption></figure>
+
 <div class="no-page-break"><h3 id="exiting-the-app-exit"><span>3.13 </span>Exiting the app: <strong><code>exit</code></strong><a class="headerlink" href="#exiting-the-app-exit" title="Permanent link">#</a></h3><p>Format: <strong><code>exit</code></strong> </p></div>
 
 <p>If you wish to exit the program, simply type <code>exit</code>.</p>
+<!-- @@author A0135817B -->
 <div class="no-page-break"><h3 id="undoing-an-action-undo"><span>3.14 </span>Undoing an action: <strong><code>undo</code></strong><a class="headerlink" href="#undoing-an-action-undo" title="Permanent link">#</a></h3><p>Format: <strong><code>undo</code></strong></p></div>
 
 <p>If you make any mistake, simply typing <code>undo</code> to undo your last action. </p>
@@ -391,8 +421,32 @@ Format: <br/>
 <p class="admonition-title">Autosave</p>
 <p>Your to-do list is saved automatically every time it is updated. There is no need to save manually after each edit. </p>
 </div>
-<div class="no-page-break"><h2 id="faq"><span>4 </span>FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2><p><strong>Q</strong>: Is my data secure?<br/>
-<strong>A</strong>: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. </p></div>
+<!-- @@author A0092382A -->
+<div class="no-page-break"><h2 id="other-features"><span>4 </span>Other Features<a class="headerlink" href="#other-features" title="Permanent link">#</a></h2><h3 id="visual-feedback"><span>4.1 </span>Visual Feedback<a class="headerlink" href="#visual-feedback" title="Permanent link">#</a></h3></div>
+
+<p>Our user interface is very interactive and features a lot of visual feedback to the user. For example, for commands such as add, edit and show, you can see upon which task your action acts upon by viewing which task is highlighted.</p>
+<p>Also, Uncle Jim distinguishes between tasks and events, not only by different tag colors but by also handling them differently. For example, if you have a task that is overdue, Uncle Jim will instantly highlight it <strong class="text-red">red</strong>. </p>
+<p>For events which are ongoing, they will be highlighted <strong class="text-green">green</strong>.</p>
+<p>For events which have passed, they will be <strong class="text-faded">faded</strong>, but we leave it to you to mark the events complete.</p>
+<div class="no-page-break"><h3 id="intelligent-commandtm"><span>4.2 </span>Intelligent Command™<a class="headerlink" href="#intelligent-commandtm" title="Permanent link">#</a></h3><p>As you get more advanced with Uncle Jim, you might find typing the full command slightly slow. But you can actually type less than required, because our Intelligent Command™ system can recognise commands even if you do not type them out fully.</p></div>
+
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<dl>
+<dt><strong><code>com</code></strong><code>1</code></dt>
+<dd>Marks the first task on the current lsit as complete. Our system recognises it as the complete command</dd>
+</dl>
+</div>
+<p>If the commands are ambiguous, our system will ask you for clarification of which command you wish to execute.</p>
+<p>For example, typing just <code>e</code> could refer to <code>edit</code> or <code>exit</code> so a message as shown below will be displayed to you.</p>
+<figure><img alt="Feedback when an ambiguous command is entered" src="images/app_ambiguous.png" width="700"/><figcaption><strong>Figure 11. </strong>The app will prompt you if it cannot figure out the command you are entering</figcaption></figure>
+
+<div class="no-page-break"><h3 id="command-previewtm"><span>4.3 </span>Command Preview™<a class="headerlink" href="#command-previewtm" title="Permanent link">#</a></h3><p>We also understand that it takes time for new users to remember all the commands. As such, we have a CommandPreview™ which tells you the parameters of the command you have to enter. For example, if you type <code>ad</code> the system will process your keypresses and display to you what commands it thinks you are going to execute and displays them as shown below:</p></div>
+
+<figure><img alt="CommandPreview™" src="images/app_command_preview.png" width="700"/><figcaption><strong>Figure 12. </strong>No need for remembering commands when Uncle Jim does the remembering for you.</figcaption></figure>
+
+<div class="no-page-break"><h2 id="faq"><span>5 </span>FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2><p><strong>Q</strong>: Is my data secure?<br/>
+<strong>A</strong>: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your To-do list. </p></div>
 
 <p><strong>Q</strong>: How do I back up my data?<br/>
 <strong>A</strong>: As your data is saved to the file that you specified, you can simply copy this file to a back up storage of your choice.</p>
@@ -400,7 +454,7 @@ Format: <br/>
 <strong>A</strong>: Simply load the file to a cloud sync service like Dropbox or Google Drive, and all updates will be reflected automatically to all devices using the file.</p>
 <p><strong>Q</strong>: How do I pay for this project?<br/>
 <strong>A</strong>: Donations can be made via PayPal or Kashmi. Cash donations are fine too. Basically if you wish to donate we will find a way for us to receive your money.</p>
-<div class="no-page-break"><h2 id="command-summary"><span>5 </span>Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">#</a></h2><table>
+<div class="no-page-break"><h2 id="command-summary"><span>6 </span>Command Summary<a class="headerlink" href="#command-summary" title="Permanent link">#</a></h2><table>
 <thead>
 <tr>
 <th>Command</th>
@@ -415,6 +469,10 @@ Format: <br/>
 <tr>
 <td>Add</td>
 <td align="left"><strong><code>add</code></strong><code>NAME [/d DEADLINE or START END] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]</code></td>
+</tr>
+<tr>
+<td>Clear</td>
+<td align="left"><strong><code>clear</code></strong></td>
 </tr>
 <tr>
 <td>Delete</td>
@@ -434,15 +492,15 @@ Format: <br/>
 </tr>
 <tr>
 <td>Edit</td>
-<td align="left"><strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/r TIME] [/p] [/t TAG 1, TAG 2...]</code></td>
+<td align="left"><strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE or START END] [/m DESCRIPTION] [/p]</code></td>
 </tr>
 <tr>
 <td>Tag</td>
-<td align="left"><strong><code>tag</code></strong><code>INDEX TAG 1, [TAG 2...]</code> or <code>INDEX a/ NEW TAG</code> or <code>/e OLD NEW</code> or <code>[INDEX] /d TAG</code></td>
+<td align="left"><strong><code>tag</code></strong><code>INDEX TAG 1, [TAG 2...]</code> or <code>[INDEX] /r OLD NEW</code> or <code>[INDEX] /d TAG</code></td>
 </tr>
 <tr>
 <td>Find</td>
-<td align="left"><strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS...]</code></td>
+<td align="left"><strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS...] or /t TAG [MORE TAGS ...] or both</code></td>
 </tr>
 <tr>
 <td>Undo</td>
