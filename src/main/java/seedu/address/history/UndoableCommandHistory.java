@@ -7,7 +7,6 @@ import seedu.address.logic.commands.UndoableCommand;
  * Interface API for the UndoableCommandHistory.
  */
 public interface UndoableCommandHistory {
-    // Applying facade for the InputHistoryManager class.
 
     /**
      * Updates the UndoableCommand history with the given UndoableCommand

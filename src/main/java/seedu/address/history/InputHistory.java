@@ -5,7 +5,6 @@ package seedu.address.history;
  * Interface API for the InputHistory.
  */
 public interface InputHistory {
-    // Applying facade for the InputHistoryManager class.
 
     /**
      * Updates the input history with the given input and resets the input
@@ -19,8 +18,8 @@ public interface InputHistory {
      * Returns whether we are already at the earliest input state (no more
      * previous input in memory to backtrack to)
      * 
-     * @return A boolean representing whether we are already at the
-     *         earliest input of the input history
+     * @return A boolean representing whether we are already at the earliest
+     *         input of the input history
      */
     public boolean isEarliestInput();
 
@@ -28,8 +27,8 @@ public interface InputHistory {
      * Returns whether we are already at the latest input state (no more later
      * input in memory to move forward to)
      * 
-     * @return A boolean representing whether we are already at the
-     *         latest input of the input history
+     * @return A boolean representing whether we are already at the latest input
+     *         of the input history
      */
     public boolean isLatestInput();
 

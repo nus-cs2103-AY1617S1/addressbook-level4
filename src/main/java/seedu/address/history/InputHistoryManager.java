@@ -15,7 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 public class InputHistoryManager implements InputHistory {
 
     private static final Logger logger = LogsCenter.getLogger(InputHistory.class);
-    
+
     private static InputHistoryManager theInputHistoryManager;
 
     // command inputs
@@ -41,8 +41,8 @@ public class InputHistoryManager implements InputHistory {
     @Override
     public void updateInputHistory(String userInput) {
         assert prevInputs != null && nextInputs != null && currentStoredInputShown != null;
-        
-        logger.info("Updating the input history with the given user input.");
+
+        logger.info("Updating the input history.");
         if (!isLatestInput()) {
             pushToPrevInput(currentStoredInputShown);
         }
@@ -76,7 +76,7 @@ public class InputHistoryManager implements InputHistory {
     @Override
     public String nextStep() {
         logger.info("Executing the nextStep method to get the previous input from input history.");
-        
+
         pushToPrevInput(currentStoredInputShown);
         return popFromNextInput();
     }
@@ -92,10 +92,10 @@ public class InputHistoryManager implements InputHistory {
      */
     private String decideInputToStore(String currentInput) {
         if (isLatestInput()) {
-            logger.info("Storing the given currentInput String to input history.");
+            logger.info("Decide to store the given currentInput String to input history.");
             return currentInput;
         } else {
-            logger.info("Storing the currentStoredInputShown String to input history.");
+            logger.info("Decide to store the currentStoredInputShown String to input history.");
             return currentStoredInputShown;
         }
     }
@@ -113,7 +113,7 @@ public class InputHistoryManager implements InputHistory {
      * transferring all the valid next input into the previous input history.
      */
     private void resetInputHistoryToLatestState() {
-        logger.info("Resetting the input history to the latest state.");        
+        logger.info("Resetting the input history to the latest state.");
 
         boolean isEarliestNextInputValid = isLatestInput();
         String nextInputToTransfer;

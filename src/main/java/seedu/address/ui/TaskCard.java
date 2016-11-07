@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 import seedu.address.model.item.Priority;
 import seedu.address.model.item.ReadOnlyTask;
 
-//@@author A0093960X
 public class TaskCard extends UiPart {
 
     private static final Paint PAINT_RED = Paint.valueOf("red");
@@ -55,6 +54,7 @@ public class TaskCard extends UiPart {
         return UiPartLoader.loadUiPart(card);
     }
 
+    // @@author A0093960X
     @FXML
     public void initialize() {
         assert task != null && task.getName() != null && task.getPriorityValue() != null;
@@ -67,6 +67,7 @@ public class TaskCard extends UiPart {
         setTaskCardRecurrence();
     }
 
+    //@@author
     public HBox getLayout() {
         return cardPane;
     }
@@ -83,6 +84,7 @@ public class TaskCard extends UiPart {
 
     // private helper methods below
 
+    //@@author A0093960X
     /**
      * Sets the task card displayed index to its position in the list.
      */
@@ -151,7 +153,9 @@ public class TaskCard extends UiPart {
     }
 
     /**
-     * Get the appropriate start date text if the start date of the task is present.
+     * Get the appropriate start date text if the start date of the task is
+     * present.
+     * 
      * @return The appropriate start date text
      */
     private String getStartDateTextIfPresent() {
@@ -174,6 +178,7 @@ public class TaskCard extends UiPart {
 
     /**
      * Get the appropriate end date text if the end date of the task is present.
+     * 
      * @return The appropriate end date text
      */
     private String getEndDateTextIfPresent() {
@@ -198,7 +203,9 @@ public class TaskCard extends UiPart {
     }
 
     /**
-     * Get the appropriate recurrence rate text if the recurrence rate of the task is present.
+     * Get the appropriate recurrence rate text if the recurrence rate of the
+     * task is present.
+     * 
      * @return The appropriate recurrence rate text
      */
     private String getRecurrenceTextIfPresent() {

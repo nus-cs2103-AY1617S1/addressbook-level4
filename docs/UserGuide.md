@@ -4,6 +4,7 @@
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Help](#viewing-help-help)
+   * [Input History](#input-history)
    * [Add](#adding-a-task-add)
    * [Edit](#editing-a-task-edit)
    * [Delete](#deleting-a-task-delete)
@@ -76,6 +77,11 @@ Format: `help`<br>
 <p align="center">
 Figure 2: Help Command
 </p>
+
+### Input History
+Use the <kbd>Up</kbd> and <kbd>Down</kbd> arrow keys to navigate your input history.<br>
+This gives you quick access to your previous and next inputs.
+
 
 ### Adding a task: `add`
 Adds a task into DearJim.<br>

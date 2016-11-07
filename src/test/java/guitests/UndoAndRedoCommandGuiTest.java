@@ -31,31 +31,31 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         TypicalTestTasks.loadTaskManagerDoneListWithSampleDate(ab);
         return ab;
     }
-    
+
     @Test
     public void undoCommand_noPreviousUndoableCommand_nothingToUndo() {
         commandBox.runCommand("list");
         assertUndoSuccess(td.getTypicalUndoneTasks());
     }
-    
+
     @Test
     public void redoCommand_noUndoToRedo_nothingToRedo() {
         commandBox.runCommand("list");
         assertRedoSuccess(td.getTypicalUndoneTasks());
     }
-    
+
     @Test
     public void undoAndRedoCommand_addTask_deleteForUndoReaddForRedo() {
         TestTask taskToAdd = td.hoon;
         assertAddSuccess(taskToAdd, originalUndoneList);
-        
+
         // undo the add
         assertUndoSuccess(originalUndoneList);
-        
+
         // redo the add
         TestTask[] withHoon = TestUtil.addTasksToList(originalUndoneList, taskToAdd);
         assertRedoSuccess(withHoon);
-        
+
         // check if works on list done view
         commandBox.runCommand("list done");
         assertUndoSuccess(originalDoneList);
@@ -66,20 +66,20 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         commandBox.runCommand("list");
         assertTrue(personListPanel.isListMatching(withHoon));
     }
-    
+
     @Test
     public void undoAndRedoCommand_deleteUndoneTask_readdForUndoDeleteForRedo() {
-        
+
         TestTask[] undoneListWithoutCarl = TestUtil.removeTaskFromList(originalUndoneList, 3);
-        
+
         assertDeleteSuccess(3, originalUndoneList);
-                
+
         // undo the delete
         assertUndoSuccess(originalUndoneList);
-        
+
         // delete hoon again
         assertRedoSuccess(undoneListWithoutCarl);
-        
+
         // check if works on list done view
         commandBox.runCommand("list done");
         assertUndoSuccess(originalDoneList);
@@ -90,18 +90,18 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         commandBox.runCommand("list");
         assertTrue(personListPanel.isListMatching(undoneListWithoutCarl));
     }
-    
+
     @Test
     public void undoAndRedoCommand_deleteDoneTask_readdForUndoDeleteForRedo() {
-       
+
         TestTask[] doneListWithoutGeorge = TestUtil.removeTaskFromList(originalDoneList, 7);
-               
+
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(originalDoneList));
         assertDeleteSuccess(7, originalDoneList);
         assertUndoSuccess(originalDoneList);
         assertRedoSuccess(doneListWithoutGeorge);
-        
+
         // check if works on list undone view
         commandBox.runCommand("list");
         assertUndoSuccess(originalUndoneList);
@@ -112,14 +112,14 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(doneListWithoutGeorge));
     }
-    
+
     @Test
     public void undoAndRedoCommand_clearUndoneTasks_unclearForUndoReclearForRedo() {
 
         assertUndoneListClearCommandSuccess();
         assertUndoSuccess(originalUndoneList);
         assertRedoSuccess();
-        
+
         // check if targets undone tasks even on done view
         commandBox.runCommand("list done");
         assertUndoSuccess(originalDoneList);
@@ -131,10 +131,9 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching());
     }
 
-    
     @Test
     public void undoAndRedoCommand_clearDoneTasks_unclearForUndoReclearForRedo() {
-        
+
         commandBox.runCommand("list done");
         assertDoneListClearCommandSuccess();
         assertUndoSuccess(originalDoneList);
@@ -150,21 +149,21 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching());
     }
-    
+
     @Test
     public void undoAndRedoCommand_editTask_reverseEditForUndoReeditforRedo() {
         TestTask aliceEdit = new TestTask(td.alice);
-        
+
         editTaskHelper(aliceEdit);
-        
+
         TestTask[] newUndoneList = getNewUndoneListAfterEditFirstTask(aliceEdit);
-                
+
         commandBox.runCommand("edit 1 Meet Alice at jUnit mall from 2pm to 3pm repeat every 3 days -high");
         assertTrue(personListPanel.isListMatching(newUndoneList));
-        
+
         assertUndoSuccess(originalUndoneList);
         assertRedoSuccess(newUndoneList);
-        
+
         // check if this works on the list done view
         commandBox.runCommand("list done");
         assertUndoSuccess(originalDoneList);
@@ -174,26 +173,26 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertRedoSuccess(originalDoneList);
         commandBox.runCommand("list");
         assertTrue(personListPanel.isListMatching(newUndoneList));
-        
+
     }
-    
+
     @Test
     public void undoAndRedoCommand_doneTask_undoneForUndoDoneForRedo() {
-        //Setup for done
+        // Setup for done
         TestTask aliceEdit = new TestTask(td.alice);
         editTaskHelper(aliceEdit);
         TestTask aliceRecur = new TestTask(aliceEdit);
         editWithRecurHelper(aliceRecur);
-        
+
         TestTask[] undoneListBeforeDone = getNewUndoneListAfterEditFirstTask(aliceEdit);
         TestTask[] undoneListAfterDone = getNewUndoneListAfterEditFirstTask(aliceRecur);
 
-        
         commandBox.runCommand("list done");
         commandBox.runCommand("delete 1");
         commandBox.runCommand("list");
-        
-        commandBox.runCommand("edit 1 Meet Alice at jUnit mall from today 2pm to 3pm repeat every 3 days -high");
+
+        commandBox.runCommand(
+                "edit 1 Meet Alice at jUnit mall from today 2pm to 3pm repeat every 3 days -high");
         assertTrue(personListPanel.isListMatching(undoneListBeforeDone));
 
         // Real done test
@@ -201,11 +200,11 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         assertTrue(personListPanel.isListMatching(undoneListAfterDone));
         assertUndoSuccess(undoneListBeforeDone);
         assertRedoSuccess(undoneListAfterDone);
-        
+
         TestTask[] doneListBeforeDone = TestUtil.removeTaskFromList(originalDoneList, 1);
-        
+
         TestTask[] doneListAfterDone = getNewDoneListAfterDoneFirstTask(aliceEdit);
-        
+
         // check if it works on the done list too
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(doneListAfterDone));
@@ -219,21 +218,21 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
 
     }
 
-   
     @Test
     public void undoAndRedoCommand_undoableCommandAfterUndo_resetUndo() {
-        
+
         assertUndoneListClearCommandSuccess();
         assertUndoSuccess(originalUndoneList);
         assertAddSuccess(td.hoon, originalUndoneList);
-        
+
         TestTask[] withHoon = TestUtil.addTasksToList(originalUndoneList, td.hoon);
         assertRedoSuccess(withHoon);
-        
+
     }
-    
+
     /**
-     * Helper method to generate the new done list after edit (assuming the first task was edited)
+     * Helper method to generate the new done list after edit (assuming the
+     * first task was edited)
      * 
      * @param editedTask The task that was edited
      * @return The new done list
@@ -243,68 +242,70 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
         doneListAfterDone[0] = editedTask;
         return doneListAfterDone;
     }
- 
-    
+
     /**
-     * Helper method to generate the new undone list after edit (assuming first task was edited)
+     * Helper method to generate the new undone list after edit (assuming first
+     * task was edited)
+     * 
      * @param editedTask The task that was edited
      * @return The new undone list
      */
     private TestTask[] getNewUndoneListAfterEditFirstTask(TestTask editedTask) {
-        TestTask[] newUndoneList = Arrays.copyOf(originalUndoneList, originalUndoneList.length); 
+        TestTask[] newUndoneList = Arrays.copyOf(originalUndoneList, originalUndoneList.length);
         newUndoneList[0] = editedTask;
         return newUndoneList;
     }
-    
+
     /**
      * Helper method to edit a test task to the desired edit.
      * 
-     * @param aliceEdit The task to edit
+     * @param taskToEdit The task to edit
      */
-    private void editTaskHelper(TestTask aliceEdit) {
+    private void editTaskHelper(TestTask taskToEdit) {
         try {
-            aliceEdit.setName(new Name("Meet Alice at jUnit mall"));
-            aliceEdit.setStartDate(DateTime.convertStringToDate("2pm"));
-            aliceEdit.setEndDate(DateTime.convertStringToDate("3pm"));
-            aliceEdit.setRecurrence(new RecurrenceRate("3", "days"));
-            aliceEdit.setPriority(Priority.HIGH);
+            taskToEdit.setName(new Name("Meet Alice at jUnit mall"));
+            taskToEdit.setStartDate(DateTime.convertStringToDate("2pm"));
+            taskToEdit.setEndDate(DateTime.convertStringToDate("3pm"));
+            taskToEdit.setRecurrence(new RecurrenceRate("3", "days"));
+            taskToEdit.setPriority(Priority.HIGH);
         } catch (IllegalValueException e) {
             assert false : "The test data provided cannot be invalid";
         }
     }
-    
+
     /**
-     * Helper method to edit a test task to the desired edit, with a recurrence rate.
-     * @param aliceRecur The task to edit
-     */
-    private void editWithRecurHelper(TestTask aliceRecur) {
-        try {
-            aliceRecur.setStartDate(DateTime.convertStringToDate("2pm 3 days later"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-        
-        try {
-            aliceRecur.setEndDate(DateTime.convertStringToDate("3pm 3 days later"));
-        } catch (IllegalValueException e) {
-            assert false : "The test data provided cannot be invalid";
-        }
-    }
-    
-    /**
-     * Runs the undo command to undo the previous undoable command and confirms the result is correct.
+     * Helper method to edit a test task to the desired edit, updating its start
+     * and end date due to a recurrence rate.
      * 
-     * @param expectedList A copy of the expected list after the undo command executes successfully.
+     * @param taskToEdit The task to edit
+     */
+    private void editWithRecurHelper(TestTask taskToEdit) {
+        try {
+            taskToEdit.setStartDate(DateTime.convertStringToDate("2pm 3 days later"));
+            taskToEdit.setEndDate(DateTime.convertStringToDate("3pm 3 days later"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+    }
+
+    /**
+     * Runs the undo command to undo the previous undoable command and confirms
+     * the result is correct.
+     * 
+     * @param expectedList A copy of the expected list after the undo command
+     *            executes successfully.
      */
     private void assertUndoSuccess(TestTask... expectedList) {
         commandBox.runCommand("undo");
         assertTrue(personListPanel.isListMatching(expectedList));
     }
-    
+
     /**
-     * Runs the redo command to redo the previous undone command and confirms the result is correct.
+     * Runs the redo command to redo the previous undone command and confirms
+     * the result is correct.
      * 
-     * @param expectedList A copy of the expected list after the redo command executes successfully.
+     * @param expectedList A copy of the expected list after the redo command
+     *            executes successfully.
      */
     private void assertRedoSuccess(TestTask... expectedList) {
         commandBox.runCommand("redo");
@@ -351,7 +352,8 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     }
         
     /**
-     * Runs the clear command and confirms the result is correct (that undone list is cleared).
+     * Runs the clear command and asserts that the displayed list is empty, and
+     * the message is a successful undone list clear.
      */
     private void assertUndoneListClearCommandSuccess() {
         commandBox.runCommand("clear");
@@ -360,7 +362,8 @@ public class UndoAndRedoCommandGuiTest extends DearJimGuiTest {
     }
 
     /**
-     * Runs the clear command and confirms the result is correct (that done list is cleared).
+     * Runs the clear command and asserts that the displayed list is empty, and
+     * the message is a successful done list clear.
      */
     private void assertDoneListClearCommandSuccess() {
         commandBox.runCommand("clear");

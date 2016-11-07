@@ -58,7 +58,8 @@ public class XmlAdaptedTask {
      *
      * @throws IllegalValueException If there were any data constraints violated
      *             in the adapted task
-     * @throws ParseException If there was a parsing problem for the start and end dates of the stored Task
+     * @throws ParseException If there was a parsing problem for the start and
+     *             end dates of the stored Task
      */
     public Task toModelType() throws IllegalValueException, ParseException {
         Name nameForModel = getNameFromStoredTask();

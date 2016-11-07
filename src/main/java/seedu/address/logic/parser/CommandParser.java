@@ -667,16 +667,47 @@ public class CommandParser {
         assert userInput != null;
         
         userInput = userInput.trim();
-        String[] splitIndexFromOtherArgs = userInput.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
+        String[] splitIndexFromOtherArgs = splitEditIndexFromOtherArgs(userInput);
         String indexToEdit = splitIndexFromOtherArgs[ZERO];
         
         try {
             Integer.parseInt(indexToEdit);
         } catch (NumberFormatException e) {
-            return EditCommand.TOOL_TIP + "\n" + "Please enter a number for the index.\n";
+            return EditCommand.TOOL_TIP + "\nPlease enter a number for the index.\n";
         }
         
 
+        String argumentsWithoutIndex = getArgumentsWithoutIndex(splitIndexFromOtherArgs);
+        
+        String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
+        
+        String beforeResetSplitString = getInputBeforeResetStringIfPresent(resetSplit);
+        
+        String resetField = getTheResetFieldsIfPresent(resetSplit);
+        
+        HashMap<String, Boolean> resetMap = generateResetMapFromInput(resetField);
+
+        return generateEditDetailedTooltipFromMap(userInput, indexToEdit, beforeResetSplitString, resetMap);
+        
+    }
+
+    /**
+     * Returns a String array that splits the edit index from the other arguments in the input String.
+     * 
+     * @param userInput The input String to split
+     * @return The split String array
+     */
+    private String[] splitEditIndexFromOtherArgs(String userInput) {
+        return userInput.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE, 2);
+    }
+
+    /**
+     * Returns the part of the input without the specified edit index.
+     * 
+     * @param splitIndexFromOtherArgs The String array that splits the String by the index
+     * @return The part of the input without the specified edit index
+     */
+    private String getArgumentsWithoutIndex(String[] splitIndexFromOtherArgs) {
         String argumentsWithoutIndex;
         if (splitIndexFromOtherArgs.length == 1) {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ZERO];
@@ -684,70 +715,100 @@ public class CommandParser {
             argumentsWithoutIndex = splitIndexFromOtherArgs[ONE];
 
         }
-        
-        logger.info(argumentsWithoutIndex);
-        
-        String resetField = null;
-        String[] resetSplit = argumentsWithoutIndex.split(RESET_KEYWORD);
-        
-        logger.info(Arrays.asList(resetSplit).toString());
- 
-        
-        boolean isResettingStartDate = false;
-        boolean isResettingEndDate = false;
-        boolean isResettingRecurrence = false;
-        boolean isResettingPriority = false;
-                    
-        
-        String beforeResetSplit = "";
-        if (resetSplit.length != 0) {
-            beforeResetSplit = resetSplit[0];
-        }
-        
-        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(beforeResetSplit);
-        
-        Optional<String> name = fieldMap.get(MAP_NAME);
-        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
-        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
-        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
-        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
-        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+        return argumentsWithoutIndex;
+    }
 
-        if(resetSplit.length == TWO){
-            resetField = resetSplit[ONE];
+    /**
+     * Returns the part of the input before the reset keyword String, if present.
+     * 
+     * @param resetSplit The reset split String array
+     * @return The String containing the input before the reset keyword
+     */
+    private String getInputBeforeResetStringIfPresent(String[] resetSplit) {
+        String beforeResetSplitString = "";
+        if (resetSplit.length != 0) {
+            beforeResetSplitString = resetSplit[0];
         }
+        return beforeResetSplitString;
+    }
+
+    /**
+     * Returns the reset fields String, if present.
+     * 
+     * @param resetSplit The reset split String array
+     * @return The reset fields String
+     */
+    private String getTheResetFieldsIfPresent(String[] resetSplit) {
+        if (resetSplit.length == TWO){
+            return resetSplit[ONE];
+        }
+        return null;
+    }
+
+    /**
+     * Generates the reset map from the given resetField String
+     * 
+     * @param resetField The reset field portion of the input String
+     * @return The reset map
+     */
+    private HashMap<String, Boolean> generateResetMapFromInput(String resetField) {
+        HashMap<String, Boolean> resetMap = initializeResetMap();
         
         if (resetField != null) {
             String[] resetFieldNames = resetField.split(STRING_REGEX_ONE_OR_MORE_WHITESPACE);
             
             for (String resetFieldStr : resetFieldNames) {
                 if (resetFieldStr.equals(RESET_START_KEYWORD)) {
-                    isResettingStartDate = true;
+                    resetMap.put(MAP_START_DATE, true);
                 } else if (resetFieldStr.equals(RESET_END_KEYWORD)) {
-                    isResettingEndDate = true;
+                    resetMap.put(MAP_END_DATE, true);
                 } else if (resetFieldStr.equals(RESET_RECURRENCE_KEYWORD)) {
-                    isResettingRecurrence = true;
+                    resetMap.put(MAP_RECURRENCE_RATE, true);
                 } else if (resetFieldStr.equals(RESET_PRIORITY_KEYWORD)) {
-                    isResettingPriority = true;
+                    resetMap.put(MAP_PRIORITY, true);
                 }
             }
         }
+        return resetMap;
+    }
 
-                    
+    /**
+     * Initializes and returns a reset map.
+     * @return The initialized reset map
+     */
+    private HashMap<String, Boolean> initializeResetMap() {
+        HashMap<String, Boolean> resetMap = new HashMap<String, Boolean>();
+
+        resetMap.put(MAP_START_DATE, false);
+        resetMap.put(MAP_END_DATE, false);
+        resetMap.put(MAP_RECURRENCE_RATE, false);
+        resetMap.put(MAP_PRIORITY, false);
+        return resetMap;
+    }
+    
+    /**
+     * Generates the edit detailed tooltip from the specified field map and reset map.
+     * 
+     * @param userInput The full user input
+     * @param indexToEdit The edit index
+     * @param beforeResetSplitString The arguments of the edit command before the reset keyword
+     * @param resetMap The map that contains the mapping if a field is being reset
+     * @return The detailed edit tooltip
+     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
+     */
+    private String generateEditDetailedTooltipFromMap(String userInput, String indexToEdit,
+            String beforeResetSplitString, HashMap<String, Boolean> resetMap) throws IllegalValueException {
+        HashMap<String, Optional<String>> fieldMap = retrieveEditFieldsFromArgs(beforeResetSplitString);
+
         StringBuilder sb = generateEditDetailedTooltipHeader(indexToEdit);
 
-        genearteEditDetailedTooltipName(userInput, name, sb);
-        
-        generateEditDetailedTooltipStartDate(isResettingStartDate, startDate, sb);
-        
-        generateEditDetailedTooltipEndDate(isResettingEndDate, endDate, sb);
-        
-        generateEditDetailedTooltipRecurrence(isResettingRecurrence, rate, timePeriod, sb);
-        
-        generateEditDetailedTooltipPriority(isResettingPriority, priority, sb);
-        
+        generateEditDetailedTooltipName(userInput, fieldMap, sb);
+        generateEditDetailedTooltipStartDate(resetMap, fieldMap, sb);
+        generateEditDetailedTooltipEndDate(resetMap, fieldMap, sb);
+        generateEditDetailedTooltipRecurrence(resetMap, fieldMap, sb);
+        generateEditDetailedTooltipPriority(resetMap, fieldMap, sb);
+
         return sb.toString();
-        
     }
 
     /**
@@ -757,8 +818,11 @@ public class CommandParser {
      * @param priority The parsed priority String from the user input
      * @param sb The StringBuilder to build on
      */
-    private void generateEditDetailedTooltipPriority(boolean isResettingPriority, Optional<String> priority,
+    private void generateEditDetailedTooltipPriority(Map<String, Boolean> resetMap, Map<String, Optional<String>> fieldMap,
             StringBuilder sb) {
+        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+        boolean isResettingPriority = resetMap.get(MAP_PRIORITY);
+
         if (isResettingPriority) {
             sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + DETAILED_TOOLTIP_RESET);
         } else if (!priority.get().equals("null")) {
@@ -771,19 +835,26 @@ public class CommandParser {
     /**
      * Generate the recurrence field in the edit detailed tooltip.
      * 
-     * @param isResettingRecurrence A boolean representing if the current edit input wants to reset the recurrence field
+     * @param isResettingRecurrence A boolean representing if the current edit
+     *            input wants to reset the recurrence field
      * @param rate The parsed rate String from the user input
      * @param timePeriod The parsed timePeriod String from the user input
      * @param sb The StringBuilder to build on
      */
-    private void generateEditDetailedTooltipRecurrence(boolean isResettingRecurrence, Optional<String> rate,
-            Optional<String> timePeriod, StringBuilder sb) {
+    private void generateEditDetailedTooltipRecurrence(Map<String, Boolean> resetMap,
+            Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
+        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
+        boolean isResettingRecurrence = resetMap.get(MAP_RECURRENCE_RATE);
+
+        
         if (isResettingRecurrence) {
             sb.append(DETAILED_TOOLTIP_RECURRENCE_SPECIAL_PREFIX + DETAILED_TOOLTIP_RESET);
         } else if (timePeriod.isPresent()) {
             if (rate.isPresent()) {
                 String recurRate = rate.get();
-                sb.append(DETAILED_TOOLTIP_RECURRENCE_PREFIX + recurRate + STRING_ONE_SPACE + timePeriod.get());
+                sb.append(
+                        DETAILED_TOOLTIP_RECURRENCE_PREFIX + recurRate + STRING_ONE_SPACE + timePeriod.get());
             } else {
                 sb.append(DETAILED_TOOLTIP_RECURRENCE_PREFIX + timePeriod.get());
             }
@@ -799,8 +870,11 @@ public class CommandParser {
      * @param endDate The parsed end date String from the user input
      * @param sb The StringBuilder to build on
      */
-    private void generateEditDetailedTooltipEndDate(boolean isResettingEndDate, Optional<String> endDate,
+    private void generateEditDetailedTooltipEndDate(Map<String, Boolean> resetMap, Map<String, Optional<String>> fieldMap,
             StringBuilder sb) {
+        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
+        boolean isResettingEndDate = resetMap.get(MAP_END_DATE);
+        
         if (isResettingEndDate) {
             sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
         } else if (endDate.isPresent()) {
@@ -813,12 +887,16 @@ public class CommandParser {
     /**
      * Generate the start date field in the edit detailed tooltip.
      * 
-     * @param isResettingStartDate A boolean representing if the current edit input wants to reset the start date field
+     * @param isResettingStartDate A boolean representing if the current edit
+     *            input wants to reset the start date field
      * @param startDate The parsed start date String from the user input
      * @param sb The StringBuilder to build on
      */
-    private void generateEditDetailedTooltipStartDate(boolean isResettingStartDate, Optional<String> startDate,
-            StringBuilder sb) {
+    private void generateEditDetailedTooltipStartDate(Map<String, Boolean> resetMap,
+            Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
+        boolean isResettingStartDate = resetMap.get(MAP_START_DATE);
+        
         if (isResettingStartDate) {
             sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + DETAILED_TOOLTIP_RESET);
         } else if (startDate.isPresent()) {
@@ -835,12 +913,27 @@ public class CommandParser {
      * @param name The parsed name String from the user input
      * @param sb The StringBuilder to build on
      */
-    private void genearteEditDetailedTooltipName(String trimmedArgs, Optional<String> name, StringBuilder sb) {
-        if (name.isPresent() && trimmedArgs.length()>1 && !name.get().isEmpty()) {
+    private void generateEditDetailedTooltipName(String trimmedArgs, Map<String, Optional<String>> fieldMap,
+            StringBuilder sb) {
+        Optional<String> name = fieldMap.get(MAP_NAME);
+
+        if (isEditingName(trimmedArgs, name)) {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
         } else {
-            sb.append(DETAILED_TOOLTIP_NAME_PREFIX +  DETAILED_TOOLTIP_NO_CHANGE);
+            sb.append(DETAILED_TOOLTIP_NAME_PREFIX + DETAILED_TOOLTIP_NO_CHANGE);
         }
+    }
+
+    /**
+     * Returns whether the user is editing the name from the specified arguments and Optional String name.
+     * @param trimmedArgs The trimmed user input arguments
+     * @param name The parsed name String from the user input
+     * @return A boolean representing the above.
+     */
+    private boolean isEditingName(String trimmedArgs, Optional<String> name) {
+        return name.isPresent() 
+                && (trimmedArgs.length() > 1) 
+                && (!name.get().isEmpty());
     }
 
     /**
@@ -868,14 +961,19 @@ public class CommandParser {
         return new CommandParserHelper().prepareEdit(EMPTY_SPACE_FOR_NAME_NO_CHANGE + beforeResetSplit);
     }
 
+    /**
+     * Get the add detailed tooltip for this arguments String.
+     * 
+     * @param arguments The arguments of the add command String
+     * @return The add tooltip appropriate for the given arguments
+     */
     private String prepareAddDetailedTooltip(final String arguments) {
         try {
             if (arguments.isEmpty()) {
                 return AddCommand.TOOL_TIP;
             }
             
-            String trimmedArgs = arguments.trim();
-            return generateAddDetailedTooltip(trimmedArgs);
+            return generateAddDetailedTooltip(arguments);
         } catch (IllegalValueException e) {
             logger.info("Illegal add arguments passed for detailed tooltip, showing regular add tooltip with warning instead");
             return String.join(NEWLINE_STRING, AddCommand.TOOL_TIP, "Instant parser is unable to determine your current input as it does not match a valid command input.");
@@ -883,6 +981,12 @@ public class CommandParser {
 
     }
     
+    /**
+     * Get the edit detailed tooltip for this arguments String.
+     * 
+     * @param arguments The arguments of the edit command String
+     * @return The edit tooltip appropriate for the given arguments
+     */
     private String prepareEditDetailedTooltip(final String arguments) {
         try {
             
@@ -899,34 +1003,41 @@ public class CommandParser {
     }
 
     /**
-     * @param trimmedArgs
-     * @return
-     * @throws IllegalValueException
+     * Generates the add detailed tooltip from the given input String.
+     * 
+     * @param inputToGenerateTooltip The input to generate the tooltip with
+     * @return The add detailed tooltip generated from the input String
+     * @throws IllegalValueException If the input String cannot generate a valid
+     *             detailed tooltip
      */
-    private String generateAddDetailedTooltip(String trimmedArgs) throws IllegalValueException {
-        HashMap<String, Optional<String>> fieldMap = retrieveAddFieldsFromArgs(trimmedArgs);
-        
-        Optional<String> name = fieldMap.get(MAP_NAME);
-        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
-        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
-        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
-        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
-        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
-        
+    private String generateAddDetailedTooltip(String inputToGenerateTooltip) throws IllegalValueException {
+
+        HashMap<String, Optional<String>> fieldMap = retrieveAddFieldsFromArgs(inputToGenerateTooltip);
+        return generateAddDetailedTooltipFromMap(fieldMap);
+    }
+
+    /**
+     * Generates the add detailed tooltip from the specified field map.
+     * 
+     * @param fieldMap The map containing the mapping from the fields to the user input
+     * @return The add detailed tooltip
+     */
+    private String generateAddDetailedTooltipFromMap(HashMap<String, Optional<String>> fieldMap) {
         StringBuilder sb = generateAddDetailedTooltipHeader();
-        generateAddDetailedTooltipName(name, sb);
-        generateAddDetailedTooltipStartDate(startDate, sb);
-        generateAddDetailedTooltipEndDate(endDate, sb);
-        generateAddDetailedTooltipRecurrence(rate, timePeriod, sb);
-        generateAddDetailedTooltipPriority(priority, sb);
+        generateAddDetailedTooltipName(fieldMap, sb);
+        generateAddDetailedTooltipStartDate(fieldMap, sb);
+        generateAddDetailedTooltipEndDate(fieldMap, sb);
+        generateAddDetailedTooltipRecurrence(fieldMap, sb);
+        generateAddDetailedTooltipPriority(fieldMap, sb);
         return sb.toString();
     }
 
-
     /**
-     * Generate the add detailed tooltip header and return it as a StringBuilder.
+     * Generate the add detailed tooltip header and return it as a
+     * StringBuilder.
      * 
-     * @return the StringBuilder object containing the add detailed tooltip header
+     * @return The StringBuilder object containing the add detailed tooltip
+     *         header
      */
     private StringBuilder generateAddDetailedTooltipHeader() {
         StringBuilder sb = new StringBuilder();
@@ -936,42 +1047,58 @@ public class CommandParser {
     }
 
     /**
-     * @param name
-     * @param sb
+     * Generates the add detailed tooltip name field from the given Optional
+     * name String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipName(Optional<String> name, StringBuilder sb) {
+    private void generateAddDetailedTooltipName(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> name = fieldMap.get(MAP_NAME);
         if (name.isPresent()) {
             sb.append(DETAILED_TOOLTIP_NAME_PREFIX + name.get());
         }
     }
 
     /**
-     * @param startDate
-     * @param sb
+     * Generates the add detailed tooltip start date field from the given
+     * Optional start date String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipStartDate(Optional<String> startDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipStartDate(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> startDate = fieldMap.get(MAP_START_DATE);
         if (startDate.isPresent()) {
             sb.append(DETAILED_TOOLTIP_START_DATE_PREFIX + startDate.get());
         }
     }
 
     /**
-     * @param endDate
-     * @param sb
+     * Generates the add detailed tooltip end date field from the given Optional
+     * end date String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipEndDate(Optional<String> endDate, StringBuilder sb) {
+    private void generateAddDetailedTooltipEndDate(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+        Optional<String> endDate = fieldMap.get(MAP_END_DATE);
         if (endDate.isPresent()) {
             sb.append(DETAILED_TOOLTIP_END_DATE_PREFIX + endDate.get());
         }
     }
 
     /**
-     * @param rate
-     * @param timePeriod
-     * @param sb
+     * Generates the add detailed tooltip recurrence field from the given
+     * Optional recurrence Strings into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipRecurrence(Optional<String> rate, Optional<String> timePeriod,
-            StringBuilder sb) {
+    private void generateAddDetailedTooltipRecurrence(Map<String, Optional<String>> fieldMap, StringBuilder sb) {
+
+        Optional<String> rate = fieldMap.get(MAP_RECURRENCE_RATE);
+        Optional<String> timePeriod = fieldMap.get(MAP_RECURRENCE_TIME_PERIOD);
 
         if (!timePeriod.isPresent()) {
             return;
@@ -987,29 +1114,39 @@ public class CommandParser {
     }
 
     /**
-     * @param priority
-     * @param sb
+     * Generates the add detailed tooltip priority field from the given Optional
+     * priority String into the specified StringBuilder.
+     * 
+     * @param fieldMap the Map containing the mapping of the fields to the user input
+     * @param sb The StringBuilder to build upon
      */
-    private void generateAddDetailedTooltipPriority(Optional<String> priority, StringBuilder sb) {
+    private void generateAddDetailedTooltipPriority(Map<String, Optional<String>> fieldMap,
+            StringBuilder sb) {
+        Optional<String> priority = fieldMap.get(MAP_PRIORITY);
+        
         if (priority.isPresent()) {
             sb.append(DETAILED_TOOLTIP_PRIORITY_PREFIX + priority.get());
         }
     }
 
     /**
-     * Retrieve the add command input fields from the given trimmed arguments string
+     * Retrieve the add command input fields from the given arguments string
      * 
-     * @param trimmedArgs The trimmed arguments String
-     * @return The HashMap that maps the add command fields to the String that matches that input field
-     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
+     * @param argsToGenerateTooltip The arguments String to generate the tooltip
+     *            with
+     * @return The HashMap that maps the add command fields to the String that
+     *         matches that input field
+     * @throws IllegalValueException If the specified userInput cannot generate
+     *             a valid detailed edit tooltip
      */
-    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs)
+    private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String argsToGenerateTooltip)
             throws IllegalValueException {
+        argsToGenerateTooltip = argsToGenerateTooltip.trim();
         CommandParserHelper cmdParserHelper = new CommandParserHelper();
-        return cmdParserHelper.prepareAdd(trimmedArgs);
+        return cmdParserHelper.prepareAdd(argsToGenerateTooltip);
     }
-    
-    //@@author
+
+    // @@author
     public static String getNewLineString() {
         return NEWLINE_STRING;
     }

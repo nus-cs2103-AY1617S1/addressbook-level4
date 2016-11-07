@@ -44,7 +44,7 @@ public class XmlAdaptedRecurrenceRate {
      * model's RecurrenceRate object.
      *
      * @throws IllegalValueException If there were any data constraints violated
-     *             in the adapted recurrence rate
+     *                               in the adapted recurrence rate
      */
     public RecurrenceRate toModelType() throws IllegalValueException {
         return new RecurrenceRate(this.rate, this.timePeriod);

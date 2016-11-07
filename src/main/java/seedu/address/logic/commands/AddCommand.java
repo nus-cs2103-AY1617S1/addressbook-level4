@@ -86,15 +86,6 @@ public class AddCommand extends UndoableCommand {
         return new CommandResult(formattedResult);
     }
 
-    /**
-     * Returns true if the add command is being executed on the done list.
-     * 
-     * @return A boolean representing if the add is executed on the done list.
-     */
-    private boolean attemptToExecuteAddOnDoneList() {
-        return model.isCurrentListDoneList() && (!isRedoAction);
-    }
-
     @Override
     public CommandResult undo() {
         assert model != null && toAdd != null;
@@ -112,6 +103,15 @@ public class AddCommand extends UndoableCommand {
             return new CommandResult(formattedResult);
         }
 
+    }
+
+    /**
+     * Returns true if the add command is being executed on the done list.
+     * 
+     * @return A boolean representing if the add is executed on the done list.
+     */
+    private boolean attemptToExecuteAddOnDoneList() {
+        return model.isCurrentListDoneList() && (!isRedoAction);
     }
 
     // @@author A0139655U
