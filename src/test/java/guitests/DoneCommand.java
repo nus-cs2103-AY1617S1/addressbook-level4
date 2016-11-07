@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.whatnow.logic.commands.MarkDoneCommand.MESSAGE_MARK_TASK_SUCCESS;
 
 import java.util.Arrays;
-
+//@@author A0141021H
 public class DoneCommand extends WhatNowGuiTest {
     
     private static int MINUS1 = -1;
@@ -30,7 +30,7 @@ public class DoneCommand extends WhatNowGuiTest {
         targetIndex = currentList.length;
         assertDoneSuccess(targetIndex, currentList);
 
-        //delete from the middle of the list
+        //done from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertDoneSuccess(targetIndex, currentList);
