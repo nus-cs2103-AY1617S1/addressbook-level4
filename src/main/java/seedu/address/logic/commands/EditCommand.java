@@ -67,9 +67,7 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute() {
     	
-    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
-
-        model.saveState();
+    	doExecuteSetUp();
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 		
     	try {
@@ -83,16 +81,13 @@ public class EditCommand extends Command {
 			this.setTaskToEditTags();
 			
 			this.checkNotDuplicateTask(lastShownList);
-		} catch (IllegalValueException e) {
-			model.undoSaveState();
-			return new CommandResult(e.getMessage());
-		}
-        	
-        try {
 			model.editTask(internalListIndex, taskToEdit);
-		} catch (TaskNotFoundException e) {
+		} catch (IllegalValueException ive) {
 			model.undoSaveState();
-			return new CommandResult(e.getMessage());
+			return new CommandResult(ive.getMessage());
+		} catch (TaskNotFoundException tnfe) {
+			model.undoSaveState();
+			return new CommandResult(tnfe.getMessage());
 		}
             
         raiseJumpToTaskEvent(taskToEdit);
@@ -102,6 +97,13 @@ public class EditCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
     
+    /**
+     * Set up for the execute
+     */
+    private void doExecuteSetUp() {
+    	EventsCenter.getInstance().post(new DisplayTaskListEvent(model.getFilteredTaskList()));
+        model.saveState();
+    }
     /**
      * Checks that the taskToEdit is not a duplicate task after updating all the edits
      * @throws IllegalValueException if it is a duplicate
