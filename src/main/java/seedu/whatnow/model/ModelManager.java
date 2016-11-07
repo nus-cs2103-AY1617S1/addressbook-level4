@@ -541,7 +541,7 @@ public class ModelManager extends ComponentManager implements Model {
                 }
             }
         } catch (ParseException e) {
-            e.printStackTrace();
+            logger.warning("ModelManager.java, blockDatesInBetween\n" + e.getMessage());
         }
     }
 

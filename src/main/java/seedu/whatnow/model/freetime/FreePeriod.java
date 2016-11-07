@@ -60,7 +60,8 @@ public class FreePeriod {
                     freePeriod.remove(i);
                 } else {
                     logger.warning("FreePeriod.java: block method, entered else statement!\n" 
-                + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n");
+                + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n"
+                + "curr block: " + freePeriod.get(i) + "\n");
                 }
             }
         } catch (ParseException e) {
@@ -70,16 +71,11 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task is within the time period of a free
-     *         block
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task is within the time period of a free block
      */
     private boolean isWithinThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
@@ -88,16 +84,11 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task coincides with the start of the free
-     *         time block
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task coincides with the start of the free time block
      */
     private boolean isHeadOfThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
@@ -106,16 +97,11 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task coincides with the end of the free
-     *         time block
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task coincides with the end of the free time block
      */
     private boolean isTailOfThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
@@ -124,35 +110,25 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task overlaps with the free time block and
-     *         earlier
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task overlaps with the free time block and earlier
      */
     private boolean isPartlyBeforeThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
-        return reqStartTime.compareTo(freeSlotStartTime) < 0 && reqEndTime.compareTo(freeSlotStartTime) > 0
+        return reqStartTime.compareTo(freeSlotStartTime) < 0 && reqEndTime.compareTo(freeSlotStartTime) >= 0
                 && reqEndTime.compareTo(freeSlotEndTime) < 0;
     }
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task overlaps with the free tiem block and
-     *         later
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task overlaps with the free tiem block and later
      */
     private boolean isPartlyAfterThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
@@ -162,16 +138,11 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task is within the time period of a free
-     *         block
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task is within the time period of a free block
      */
     private boolean isBiggerThanThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {
@@ -181,16 +152,11 @@ public class FreePeriod {
 
     /**
      * 
-     * @param reqStartTime:
-     *            The start time of the task
-     * @param reqEndTime:
-     *            The end time of the task
-     * @param freeSlotStartTime:
-     *            The start time of a free time block
-     * @param freeSlotEndTime:
-     *            The end time of a free time block
-     * @return true if time period of task is exactly the time period of a free
-     *         block
+     * @param reqStartTime: The start time of the task
+     * @param reqEndTime: The end time of the task
+     * @param freeSlotStartTime: The start time of a free time block
+     * @param freeSlotEndTime: The end time of a free time block
+     * @return true if time period of task is exactly the time period of a free block
      */
     private boolean isExactlyThisPeriod(Date reqStartTime, Date reqEndTime, Date freeSlotStartTime,
             Date freeSlotEndTime) {

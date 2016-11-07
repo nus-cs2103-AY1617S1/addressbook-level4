@@ -596,6 +596,11 @@ public class LogicManagerTest {
     public void executeFreetime_noDatePresent_incorrectCommandFeedback() throws Exception {
         assertCommandBehavior("freetime", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeTimeCommand.MESSAGE_USAGE));
     }
+    
+    @Test
+    public void executeFreeTime_farfarIntoTheFutureDate_freeSlotFound() throws Exception {
+        assertCommandBehavior("freetime 12/12/2222", FreeTimeCommand.MESSAGE_SUCCESS + "12/12/2222\n" + "[[12:00am, 11:59pm]]");
+    }
 
     /**
      * A utility class to generate test data.
