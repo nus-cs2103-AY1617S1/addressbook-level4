@@ -26,6 +26,7 @@ You can add 3 types of tasks:
 - deadlines, which have a due by date, and
 - events, which have a start and end time
 <br>
+
 #### Adding somedays
 **Successful executions**
 <br> 1. `add 'This is a someday task'` - adds a task
