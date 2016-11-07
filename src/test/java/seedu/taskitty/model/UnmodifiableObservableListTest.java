@@ -77,6 +77,10 @@ public class UnmodifiableObservableListTest {
 
         final ListIterator<Integer> liter = list.listIterator();
         liter.next();
+        assertTrue(liter.hasPrevious());
+        assertEquals(new Integer(10), liter.previous());
+        assertEquals(0, liter.nextIndex());
+        assertEquals(-1, liter.previousIndex());
         assertThrows(ex, liter::remove);
         assertThrows(ex, () -> liter.add(5));
         assertThrows(ex, () -> liter.set(3));
@@ -110,5 +114,25 @@ public class UnmodifiableObservableListTest {
     @Test
     public void lastIndexOfObject_returnsTrue() {
         assertEquals(list.lastIndexOf(10), 0);
+    }
+    
+    @Test
+    public void toArray_returnsTrue() {
+        assertEquals(Object[].class, list.toArray().getClass());
+    }
+    
+    @Test
+    public void toIntegerArray_returnsTrue() {
+        assertEquals(Integer[].class, list.toArray(new Integer[list.size()]).getClass());
+    }
+    
+    @Test
+    public void equalsUnmodifiableObservableList_returnsTrue() {
+        assertTrue(list.equals(list));
+    }
+    
+    @Test
+    public void equalsBackingList_returnsTrue() {
+        assertTrue(list.equals(backing));
     }
 }
