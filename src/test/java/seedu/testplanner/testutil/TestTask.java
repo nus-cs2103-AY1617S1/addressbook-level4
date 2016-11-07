@@ -115,7 +115,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public Task asTask() {
-        System.out.println("TestTask: " + name + start + end +isComplete + isPinned);
         return new Task(name, start, end, isComplete, isPinned, tags);
     }
 

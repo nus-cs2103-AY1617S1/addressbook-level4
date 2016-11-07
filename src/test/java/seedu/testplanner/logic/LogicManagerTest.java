@@ -328,44 +328,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generatePersonWithName("KE Y");
-        Task p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
-
-        List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generatePersonWithName("key key");
-        Task p4 = helper.generatePersonWithName("KEy sduauo");
-
-        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
-
-        assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
-    @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
@@ -393,21 +355,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             TaskBuilder meetAdamTaskBuilder = new TaskBuilder();
-            meetAdamTaskBuilder.withName("Meet adam").withStartDate("7 november").withEndDate("tomorrow").withCompletion(false)
+            meetAdamTaskBuilder.withName("Meet adam").withStartDate("07/11/2016").withEndDate("08/11/2016").withCompletion(false)
             .withCategories("meeting")
             .withPin(false);
-            
-            System.out.println("tags in TestTask: ");
-            for (Tag t: meetAdamTaskBuilder.build().getTags()) {
-                System.out.println(t.tagName);
-                }
-            
-            System.out.println("tags in Task: ");
-            for (Tag t: meetAdamTaskBuilder.buildAsTask().getTags()) {
-            System.out.println(t.tagName);
-            }
-            
+                        
             Task meetAdamTask = meetAdamTaskBuilder.buildAsTask();
+            
+            System.out.println("Task generated: " + meetAdamTask.toString());
             
             return meetAdamTask;
         }

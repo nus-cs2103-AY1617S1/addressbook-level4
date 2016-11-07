@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.joestelmach.natty.*;
 
+import seedu.dailyplanner.commons.util.DateUtil;
+
 public class nattyParser {
 
 	private com.joestelmach.natty.Parser nattyParserPackage;
@@ -28,6 +30,27 @@ public class nattyParser {
 	}
 
 	public String parseDate(String date) {
+	   
+	    if (DateUtil.isValidDayMonthAnd4DigitYearFormat(date)) {
+            if (date.charAt(2) != '/') {
+                return "0"+date;
+            } else {
+                return date;
+            }
+       }
+	    
+	    if (DateUtil.isValidDayMonthAnd2DigitYearFormat(date)) {
+	        String dateWithAddedZero;
+            if (date.charAt(2) != '/') {
+                dateWithAddedZero =  "0"+date;
+            } else {
+                dateWithAddedZero = date;
+            }
+            dateWithAddedZero = DateUtil.convertTo4DigitYearFormat(dateWithAddedZero);
+            
+            return dateWithAddedZero;
+       }
+	    
 		List<DateGroup> groups = nattyParserPackage.parse(date);
 		Date parsedDate = new Date();
 		for (DateGroup group : groups) {

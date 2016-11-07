@@ -82,7 +82,6 @@ public class TaskBuilder {
 	}
 	
 	public Task buildAsTask() {
-	    
 	    Task toReturn = this.task.asTask();
 	    
 	    return toReturn;

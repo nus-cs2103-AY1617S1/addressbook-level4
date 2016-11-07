@@ -345,5 +345,13 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
+    
+    /** Utility for changing mm/dd/yyy format to dd/mm/yyyy, need for generating commands in test cases */
+    public static String flipDayAndMonthOfDate(String date) {
+        String day = date.substring(0,2);
+        String month = date.substring(3,5);
+        
+        return day+"/"+month+"/"+date.substring(6);
+    }
 
 }
