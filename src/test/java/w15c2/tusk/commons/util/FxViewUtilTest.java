@@ -13,8 +13,8 @@ import w15c2.tusk.testutil.TestUtil;
  * Tests FxViewUtil's applying of boundaries
  */
 public class FxViewUtilTest {
-    private double EPSILON = 0.000001;
     
+    private double EPSILON = 0.000001;
     
     @Test
     public void applyAnchorBoundaryParameters_validParams() {
@@ -34,9 +34,4 @@ public class FxViewUtilTest {
         assertEquals(AnchorPane.getLeftAnchor(anchor),null);
         assertEquals(AnchorPane.getRightAnchor(anchor),null);
     }
-    
-
-    
-    
-
 }

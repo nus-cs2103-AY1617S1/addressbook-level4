@@ -298,10 +298,11 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author A0139708W
     @Override
     public ObservableList<HelpGuide> getHelpList() {
-        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList (TaskCommandList.getHelpList());
+        ObservableList<HelpGuide> helpItems = FXCollections.observableArrayList(TaskCommandList.getHelpList());
         return helpItems;
     }
-	
+    
+	//@@author
     /** Keeps the internal ObservableList sorted.
      * Raises an event to indicate the model has changed.
      */
@@ -355,7 +356,6 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredTasks.setPredicate(p -> p.isCompleted());
 	}
 
-	//@@author A0139708W
 	@Override
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
@@ -367,7 +367,7 @@ public class ModelManager extends ComponentManager implements Model {
 	}
     
    
-    //@@author A0139708W
+  //@@author A0139708W-reused
 	interface Expression {
         boolean satisfies(Task task);
         String toString();

@@ -7,11 +7,18 @@ import java.util.logging.Logger;
 import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
-//@@author A0139708W
+//@@author A0139708W<<<<<<< HEAD
+/**
+ * Container for Task Command classes to create information for help
+ */
+
+/**
+ * Container for Task Commands to create help information
+ */
 public class TaskCommandList {
     private static final Logger logger = LogsCenter.getLogger(TaskCommandList.class);
     
-    public static Class<?>[] getList(){
+    private static Class<?>[] getList(){
         
         return new Class[]{
                 AddAliasCommand.class, 
@@ -32,10 +39,12 @@ public class TaskCommandList {
                 UnpinTaskCommand.class,
                 UpdateTaskCommand.class};
     }
+    
     /**
+     * Returns help information for all task
+     * commands in Class list from getList()
      * 
-     * 
-     * @return ArrayList<HelpGuide> list of help information for every command
+     * @return  List of help information.
      */
     public static ArrayList<HelpGuide> getHelpList() {
         ArrayList<HelpGuide> helpGuideList = new ArrayList<HelpGuide>();

@@ -41,15 +41,23 @@ public class ListTaskCommand extends TaskCommand {
     		throw new IllegalValueException(MESSAGE_USAGE);
         }
     }
-
+    
+    /**
+     * Shows appropriate list based on argument
+     * alias -> show alias window
+     * complete -> show completed tasks
+     * else display incomplete tasks
+     */
     @Override
     public CommandResult execute() {
+        // Call event to display alias window
         if(argument.equals("alias")) {
             EventsCenter.getInstance().post(new ShowAliasListEvent());
             closeHelpWindow();
             return new CommandResult(MESSAGE_ALIAS_SUCCESS);
 
         }
+        // Display completed tasks
         if(argument.equals("complete") || argument.equals("completed")){
         	model.filterCompletedTasks();
         	if(model.getCurrentFilteredTasks().size() == 0) {
@@ -58,6 +66,7 @@ public class ListTaskCommand extends TaskCommand {
         	closeHelpWindow();
         	return new CommandResult(MESSAGE_COMPLETED_SUCCESS);
         }
+        //Display incomplete tasks
         else{
             model.clearTasksFilter();
             if(model.getCurrentFilteredTasks().size() == 0) {

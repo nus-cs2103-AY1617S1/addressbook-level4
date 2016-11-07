@@ -1,6 +1,5 @@
 package w15c2.tusk.ui;
 
-import java.util.Date;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -23,10 +22,12 @@ import javafx.stage.Stage;
 import w15c2.tusk.commons.collections.UniqueItemCollection;
 import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.commons.events.model.AliasChangedEvent;
-import w15c2.tusk.commons.events.model.TaskManagerChangedEvent;
 import w15c2.tusk.model.Alias;
 
 //@@author A0139708W
+/*
+ * Panel for displaying aliases
+*/
 public class AliasListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(AliasListPanel.class);
     private static final String FXML = "AliasListPanel.fxml";
@@ -54,7 +55,15 @@ public class AliasListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
+    
+    /**
+     * Loads Alias List Panel with information from an alias list.
+     * 
+     * @param primaryStage          Stage containing panel.
+     * @param aliasListPlaceholder  Placeholder which alias list will use to display.
+     * @param aliasList             List of aliases which have been added.
+     * @return                      Filled alias list panel.
+     */
     public static AliasListPanel load(Stage primaryStage, AnchorPane aliasListPlaceholder,
                                        ObservableList<Alias> aliasList) {
         AliasListPanel aliasListPanel =
@@ -103,12 +112,13 @@ public class AliasListPanel extends UiPart {
     }
     
     @Subscribe
-    public void handleAliasChangedEvent(AliasChangedEvent abce) {
-        UniqueItemCollection<Alias> newAliases = abce.data;
+    public void handleAliasChangedEvent(AliasChangedEvent event) {
+        UniqueItemCollection<Alias> newAliases = event.data;
         setConnections(newAliases.getInternalList());
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed alias list"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Refreshed alias list"));
     }
 
+    //@@author A0139708W-reused
     class AliasListViewCell extends ListCell<Alias> {
 
         public AliasListViewCell() {

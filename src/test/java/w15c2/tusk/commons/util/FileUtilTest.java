@@ -14,6 +14,10 @@ import w15c2.tusk.testutil.SerializableTestClass;
 import w15c2.tusk.testutil.TestUtil;
 
 //@@author A0139708W
+/**
+ * Test for file util class
+ *
+ */
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
     private static final File TEST_FILE = new File(TestUtil.getFilePathInSandboxFolder("test.json"));
@@ -23,22 +27,24 @@ public class FileUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getPath(){
-
-        // valid case
+    public void getPath_validFolder() {
         assertEquals("folder" + File.separator + "sub-folder", FileUtil.getPath("folder/sub-folder"));
-
-        // null parameter -> assertion failure
+    }
+    
+    @Test
+    public void getPath_nullParameter_assertionError() {
         thrown.expect(AssertionError.class);
         FileUtil.getPath(null);
-
+    }
+    
+    public void getPath_noForwardSlash_assertionError() {
         // no forwards slash -> assertion failure
         thrown.expect(AssertionError.class);
         FileUtil.getPath("folder");
     }
 
     @Test
-    public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
+    public void serializeObjectToJsonFile_validObject_noExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
@@ -48,7 +54,7 @@ public class FileUtilTest {
     }
 
     @Test
-    public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
+    public void deserializeObjectFromJsonFile_validObject_noExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
         SerializableTestClass serializableTestClass = FileUtil
@@ -60,33 +66,33 @@ public class FileUtilTest {
     }
     
     @Test
-    public void createIfMissing_missingFile() throws IOException {
+    public void createIfMissing_missingFile_returnTrue() throws IOException {
         TEST_FILE.delete();
         FileUtil.createIfMissing(TEST_FILE);
         assertTrue(TEST_FILE.exists());
     }
       
     @Test
-    public void createIfMissing_exisitingFile() throws IOException {
+    public void createIfMissing_existingFile_returnTrue() throws IOException {
         FileUtil.createIfMissing(TEST_FILE);
         assertTrue(TEST_FILE.exists());
     }
     
     @Test
-    public void createFile_existingFile() throws IOException {
+    public void createFile_existingFile_returnFalse() throws IOException {
         FileUtil.createFile(TEST_FILE);
         assertFalse(FileUtil.createFile(TEST_FILE));
     }
     
     @Test
-    public void createFile_missingFile() throws IOException {
+    public void createFile_missingFile_returnFalse() throws IOException {
         TEST_FILE.delete();
         FileUtil.createFile(TEST_FILE);
         assertTrue(TEST_FILE.exists());
     }
     
     @Test
-    public void createDirs_emptyFile() throws IOException {
+    public void createDirs_emptyFile_exceptionThrown() throws IOException {
         thrown.expect(IOException.class);
         FileUtil.createDirs(new File(""));
     }
