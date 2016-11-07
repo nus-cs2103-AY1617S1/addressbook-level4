@@ -214,51 +214,8 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredActivityList(Expression expression) {
         filteredActivities.setPredicate(expression::satisfies);
     }
-    /**
-     * Method to remove any Tasks and Events that are irrelevant for Upcoming Dashboard.
-     * @param filteredList
-     * @return filteredList
-     */
-    //@@ author A0125284H
-    private FilteredList<Activity> createUpcomingList(FilteredList<Activity> filteredList) {
-    	return filteredList;
-    	/*
-    	FilteredList<Activity> listOfEvents = new FilteredList<Activity> (filteredList);
-    	
-    	listOfEvents.setPredicate(p->
-		p.getClass().getSimpleName().equalsIgnoreCase("Event"));
-    	
-    	(FilteredList<Events>) listOfEvents.setPredicate(p.);
-    	
-  		FilteredList<Task> filteredOverdueTaskList = (FilteredList<Task>) new FilteredList<>( ervableList<? extends ReadOnlyTask>) filteredList);
-
-    	
-		for (int i=0; i<filteredList.size(); i++) {
-			
-			switch (filteredList.get(i).getClass().getSimpleName()) {
-			case "Event": {
-				Event listItem = (Event) filteredList.get(i);
-				if (!listItem.isUpcoming()) {
-					filteredList.remove(i);
-					i--;
-				}
-				break;
-			}
-			case "Task": {
-				Task listItem = (Task) filteredList.get(i);
-				if (listItem.isDueDateApproaching() && !(listItem.hasPassedDueDate())) {
-					filteredList.remove(i);
-					i--;
-				}
-				break;
-			}
-
-			default: break;
-			}
-		}
-		return filteredList;
-		*/
-    }
+   
+    
         
   //@@author
     //========== Inner classes/interfaces used for filtering ==================================================

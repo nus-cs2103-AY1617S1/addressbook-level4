@@ -5,7 +5,7 @@ import seedu.lifekeeper.ui.DashboardCard;
 import seedu.lifekeeper.ui.ActivityListViewCell;
 
 /**
- * Class that represents a cell containing either Overdue Tasks, Upcoming Tasks, or Upcoming Events.
+ * Class that represents a cell containing Overdue Tasks.
  * 
  * Extension of ListCell<ReadOnlyActivity>
  */
