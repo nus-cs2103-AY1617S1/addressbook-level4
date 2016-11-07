@@ -1,14 +1,22 @@
 [TOC]
 
+<!-- @@author A0092382A-->
+
 ## Introduction
 
 Welcome to the Uncle Jim's Discount To-do App!
 
 This guide will teach you how to set up your development environment, explain the basic architecture of the application, teach you how to perform some common development tasks, as well as provide contact information for the times when you require additional help.
 
+It also provides you with the tools for you to contribute further to this project in te spirit of open source software. 
+
+We hope you enjoy working with our product!
+
+<!-- @@author A0139021U -->
+
 ### Tooling
 
-This project uses 
+This project uses:
 
 - **Git** - Version control 
 - **[Eclipse][eclipse]** - IDE 
@@ -29,6 +37,8 @@ This project uses
     Perform steps 2 onwards as listed in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious){: .print-url } to install the plugin.
 5. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
     You can find Eclipse Marketplace from Eclipse's `Help` toolbar.
+
+<!-- @@author A0135817B-reused -->
 
 #### Importing the project into Eclipse
 
@@ -61,6 +71,8 @@ We use the [feature branch git workflow][workflow]. Thus when you are working on
 We use the Java coding standard found at <https://oss-generic.github.io/process/codingstandards/coding-standards-java.html>.
  
 
+<!-- @@author A0139021U -->
+
 ## Design
 
 ### Architecture
@@ -78,14 +90,17 @@ The architecture diagram above explains the high-level design of the application
     * Bootstrapping the application at app launch by initializing the components in the correct sequence and injecting the dependencies needed for each component.
     * Shutting down the components and invoke cleanup method where necessary during shut down.
 
-* [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components.
-* [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer. 
+* [**`Commons`**](#common-modules) represents a collection of modules used by multiple other components 
+* [**`UI`**](#ui-component): The user facing elements of tha App, representing the view layer 
 * [**`Logic`**](#logic-component): The parser and command executer, representing the controller 
 * [**`Model`**](#model-component): Data manipulation and storage, representing the model and data layer 
 
-The UI, Logic and Model components each define their API in an `interface` with the same name and is bootstrapped at launch by `MainApp`.
 
-For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and exposes its functionality using the `TodoLogic.java` class.
+<!-- @@author A0135817B -->
+
+The UI, Logic and Model components each define their API in an `interface` of the same name and is bootstrapped at launch by `MainApp`.
+
+For example, the `Logic` component (see the class diagram given below) defines its API in the `Logic.java` interface and is implemented by `TodoLogic.java` class.
 
 <img src="diagrams/Logic Component.png" />
 
@@ -95,8 +110,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 <figcaption>The interaction of major components in the application through a sequence diagram</figcaption>
 
-
-The sequence diagram above shows how the components interact with each other when the user issues a generic command.
+You can see how the components interact with each other when the user issues a command by looking at the above diagram.
 
 The diagram below shows how the `EventsCenter` reacts to a `help` command event, where the UI does not know or contain any business side logic.
 
@@ -111,14 +125,18 @@ The diagram below shows how the `EventsCenter` reacts to a `help` command event,
     coupling between components.
 
 The sections below will provide you with more details for each component.
+
 <!-- @@author A0135805H -->
+
 ### UI component
 
-<img src="diagrams/Ui Component.png" />
+<img alt="UI Component UML diagram" src="diagrams/Ui Component.png" />
 
 <figcaption>The relation between the UI subcomponents</figcaption>
 
-The UI component handles the interaction between the user and application. In particular, the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and displaying the outcome of the execution to the user via the GUI.
+The UI component handles the interaction between the user and application. If you refer to the architecture diagram in the above sections, you will realise that the UI is responsible for passing the textual command input from the user to the `Logic` for execution, and displaying the outcome of the execution to the user via the GUI.
+
+Some of the GUI view classes are shown in the UI components diagram above. You may also find the implementation for the GUI in the package `seedu.todo.ui`.
 
 <img src="diagrams/Ui Image.png" />
 
@@ -126,12 +144,14 @@ The UI component handles the interaction between the user and application. In pa
 
 **API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The UI mainly consists of a `MainWindow`, as shown in the diagram above. This is where most of the interactions between the user and the application happen here. The `MainWindow` contains several major view elements that are discussed in greater detail below:
+Referring to the diagram above, you may notice that the UI mainly consists of a `MainWindow`. This is where most of the interactions between the user and the application happen here. The `MainWindow` contains several major view elements that are discussed in greater detail below:
 
 #### Command Line Interface
+
 The UI aims to imitate the Command Line Interface (CLI) closely by accepting textual commands from users, and displaying textual feedback back to the users. The CLI consists of:
 
 - `CommandInputView` - a text box for users to key in their commands
+- `CommandPreviewView` - a list of suggested commands from user inputs
 - `CommandFeedbackView` - a single line text that provides a response to their commands
 - `CommandErrorView` - a detailed breakdown of any erroneous commands presented with a table
 
@@ -144,54 +164,71 @@ The `CommandController` class is introduced to link the three classes together, 
 3. Receives a `CommandResult` from `Logic` after the execution
 4. Displays the execution outcome via the `CommandResult` to the `CommandFeedbackView` and `CommandErrorView`
 
+In the meantime, the `CommandPreviewView` listens to any user input through an event bus `ShowPreviewEvent` located in the `UiManager` and displays the suggested commands as required.
+
 #### To-do List Display
+
 A to-do list provides a richer representation of the tasks than the CLI to the users. The To-do List Display consists of: 
 
-- `TodoListView` - a [`ListView`](http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html) that displays a list of `TaskCard`.
-- `TaskCard` - an item in the `TodoListView` that displays details of a specific task.
+- `TodoListView` - a [`ListView`](http://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ListView.html) that displays a list of `TaskCard`
+- `TaskCardView` - an item in the `TodoListView` that displays details of a specific task
+- `EmptyListView` - a view overlapping the `TodoListView` which indicates that no task is displayed
 
 Specifically, the `TodoListView` attaches an `ObservableList` of `ImmutableTask` from the `Model` and listens to any changes that are made to the `ObservableList`. If there are any modifications made, the `TaskCard` and `TodoListView` are updated automatically.
 
+Also, the `EmptyListView` listens to the `ObservableList` of `ImmutableTask` if the list is empty. If the list is empty, the `EmptyListView` listens to the `ObservableProperty` of `TaskViewFilter` for the appropriate message to be displayed. You may try switching the views to see the messages yourself.
+
 #### Additional Information
-All these view classes, including the `MainWindow`, inherit from the abstract `UiPart` class. They can be loaded using the utility class `UiPartLoader`.
+
+The remaining view classes that are not mentioned are as follows:
+
+- `FilterBarView` - shows a list of available views users can switch to, and indicates the view that the user is currently at
+- `GlobalTagView` - shows a global list of tags
+- `HelpView` - shows a list of commands that users can use
+- `SearchStatusView` - shows the information regarding a search that user has performed
+
+All these view classes, including the `MainWindow`, inherit from the abstract `UiPart` class. You may load these view classes using the utility class `UiPartLoader`.
 
 The UI component uses [JavaFX](http://docs.oracle.com/javase/8/javafx/get-started-tutorial/jfx-overview.htm#JFXST784) UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`CommandInputView`](../src/main/java/seedu/todo/ui/view/CommandInputView.java) is specified in [`CommandInputView.fxml`](../src/main/resources/view/CommandInputView.fxml)
 
 Other than through `CommandResult` and `ObservableList`, you may also invoke changes to the GUI outside the scope of UI components by raising an event. `UiManager` will then call specific view elements to update the GUI accordingly. For example, you may show the `HelpView` by raising a `ShowHelpPanel` via the `EventsCentre`.
 
-<!-- @@author  -->
+<!-- @@author A0135817B -->
+
 ### Logic component
 
 <img src="diagrams/Logic Component.png" />
 
 <figcaption>The relation between the Logic subcomponents</figcaption>
+
 <img src="diagrams/Logic Component 1.png" />
 
 <figcaption>Continuation of the relation between the Logic subcomponents</figcaption>
 
 **API** : [`Logic.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
-The logic component is the glue sitting between the UI and the data model. It consists of three separate subcomponents, each of which also defines their own API using interfaces or abstract classes - 
+You can think of the logic component as the glue sitting between the UI and the data model, or as the controller in the traditional MVC pattern. All subcomponents in logic are stateless, which reduces complexity and makes it easier to reason about. Our application uses the thin controller/fat model design pattern, and therefore we delegate as much of the data manipulation and state handling to the model. Logic consists of three separate subcomponents, each of which also defines their API using interfaces or abstract classes: 
 
 - `Parser` - turns user input into command and arguments 
 - `Dispatcher` - maps parser results to commands 
 - `Command` - validates arguments and execute command
 
-When the logic component is instantiated each of these subcomponents is injected via dependency injection. This allows them to be tested more easily. 
+When the Logic component is instantiated, each of these subcomponents is injected via dependency injection. This allows them to be tested more easily as the dependencies can be replaced with stub implementations.
 
-The flow of a command being executed is -
+The flow of a command being executed is:
 
-1. `Logic` parse the user input into a `ParseResult` object
-2. The `ParseResult` is sent to the dispatcher which instantates a new `Command` object representing
-the command the user called
+1. `Logic` parses the user input into a `ParseResult` object
+2. The `ParseResult` is sent to the dispatcher which instantiates a new `Command` object representing the command the user called
 3. `Logic` binds the model and arguments to the `Command` object and executes it 
 4. The command execution can affect the `Model` (e.g. adding a person), and/or raise events.
  
 <img src="diagrams/Logic Sequence Diagram.png" />
 
-<figcaption>The process of deleting a person within the Logic component</figcaption>
+<figcaption>The process of deleting a task within the Logic component</figcaption>
 
 Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call. See [the implementation section](#logic) below for the implementation details of the logic component.  
+
+<!-- @@author A0139021U -->
 
 ### Model component
 
@@ -201,14 +238,14 @@ Given above is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
-The model component represents the application's state and data layer. It is implemented by `TodoModel`, which is a composite of of the individual data models for the application, as well as higher level information about the state of the application itself, such as the current view and the undo/redo stack. 
+The model component represents the application's state and data layer. It is implemented by `TodoModel`, which is a composite of of the individual data models for the application, as well as higher level information about the state of the application itself, such as the current view and the undo/redo stack. Model has two subcomponents:
 
-- `TodoModel` - represents the todolist tasks
+- `TodoList` - represents the todolist tasks
 - `UserPrefs` - represents saved user preferences 
 
-Each individual data model handles their own CRUD operations, with the `Model` acting as a facade to present a simplified and uniform interface for external components to work with. Each of the data model holds a `Storage` object that is initalized by the `Model` and injected into them. The storage interfaces exposes a simple interface for reading and writing to the appropriate storage mechanism (read more below).
+Each individual data model handles their own CRUD operations, with the `Model` acting as a simplified and uniform interface for external components to work with. Each of the data model holds an injectable `Storage` object that exposes a simple interface for reading and writing to the appropriate storage mechanism. 
 
-To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the  the model through the `getObservableList` function which returns an `UnmodifiableObseravbleList` object that the UI can bind to.
+To avoid tight coupling with the command classes, the model exposes only a small set of generic functions. The UI component binds to the model through a set of getters, such as `getObservableList`, which expose JavaFX [`Property`][property] objects that the UI can listen to for changes. 
 
 The model ensure safety by exposing as much of its internal state as possible as immutable objects using interfaces such as `ImmutableTask`.
 
@@ -216,13 +253,11 @@ The model ensure safety by exposing as much of its internal state as possible as
 
 <figcaption>The relation between the Storage subcomponents</figcaption>
 
-**API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
-
 The storage component represents the persistence layer of the data. It is implemented by `TodoListStorage` which holds and contains `ImmutableTodoList`. Similarly, `JsonUserPrefsStorage` stores the user preferences. 
 
 Both classes implement `FixedStorage`, which exposes methods to read and save data from storage. Users can choose to move their storage file, hence `MovableStorage` is exposed to allow them to do so. User preferences cannot be exported.
 
-The file extension currently chosen is XML. Hence, classes have been written to serialize and parse the data to and fro XML.
+<!-- @@author A0092382A -->
 
 ### Common modules
 
@@ -232,22 +267,25 @@ Modules used by multiple components are in the `seedu.todo.commons` package.
 
 The core module contains many important classes used throughout the application.
 
-* `UnmodifiableObservableList` :  Used by the UI component to be listen to changes to the data through the Observer pattern.
-* `Events` : Used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `UnmodifiableObservableList`:  Used by the UI component to listen to changes to the data through the Observer pattern.
+* `Events`: Used by components to marshal information around and inform other components that things have happened. (i.e. a form of _Event Driven_ design)
+* `LogsCenter`: Used by many classes to write log messages to the App's log file.
 
 #### Util
 
 The util module contains many different helper methods and classes used throughout the application. The things that can, and should be reused can be found in here.
 
-* `TimeUtil` : Used by Ui to display time that is readable and user friendly.
+* `TimeUtil`: Used by Ui to display time that is readable and user friendly.
 * `XmlUtil`: Used by storage to save and read .xml files.
 
 #### Exceptions
 
 The exceptions module contains all common exceptions that will be used and thrown throughout the application.
 
-* `ValidationException` : Used by many classes to signal that the command or model parsed is not valid and something should be done.
+* `IllegalValueException`: Used by Logic and Model internally to signal that a single value is invalid
+* `ValidationException` : Used by Logic and Model classes to signal that the command or model parsed is invalid. 
+
+<!-- @@author A0135817B -->
 
 ## Implementation
 
@@ -257,7 +295,7 @@ See the [Logic component architecture](#logic-component) section for the high le
 
 #### Parser 
 
-The `TodoParser` subcomponent implements the `Parser` interface, which defines a single `parse` function that takes in the user input as a string and returns an object implementing the `ParseResult` interface. The implementing class for `TodoParser` can be found as an inner class inside `TodoParser`.
+The `TodoParser` sub-component implements the `Parser` interface, which defines a single `parse` function that takes in the user input as a string and returns an object implementing the `ParseResult` interface. The implementing class for `TodoParser` can be found as an inner class inside `TodoParser`.
 
 The parser tokenizes the user input by whitespace characters then splits it into three parts: 
 
@@ -279,110 +317,73 @@ This is then passed on to the dispatcher.
   
 #### Dispatcher 
 
-The `TodoDispatcher` subcomponent implements the `Dispatcher` interface, which defines a single `dispatch` function. The dispatch function simply tries to find the command that has matching name to the user input, instantiates and returns a new instance of the command.
+The `TodoDispatcher` sub-component implements the `Dispatcher` interface, which defines a single `dispatch` function. The dispatch function simply tries to find the command that has a matching name to the user input, instantiates and returns a new instance of the command.
 
 #### Command
 
-All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. To implement a new command, you can use the following template 
-
-```java
-package seedu.todo.logic.commands;
-
-import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.logic.arguments.Argument;
-import seedu.todo.logic.arguments.IntArgument;
-import seedu.todo.logic.arguments.Parameter;
-import seedu.todo.model.task.ImmutableTask;
-
-public class YourCommand extends BaseCommand {
-    // TODO: Define additional parameters here
-    private Argument<Integer> index = new IntArgument("index").required();
-
-    @Override
-    protected Parameter[] getArguments() {
-        // TODO: List all command argument objects inside this array
-        return new Parameter[]{ index };
-    }
-    
-    @Override
-    public String getCommandName() {
-        return ""; // TODO: Enter command name here
-    }
-    
-    @Override
-    public List<CommandSummary> getCommandSummary() {
-        // TODO: Return a list of CommandSummary objects for help to display to the user
-        return null;
-    }
-
-    @Override
-    public void execute() throws IllegalValueException {
-        // TOOD: Complete this command stub
-    }
-}
-```
+All commands implement the `BaseCommand` abstract class, which provides argument binding and validation. If any error were found at the 
 
 If you need to do additional argument validation, you can also override the `validateArgument` command, which is run after all arguments have been set.
 
 #### Arguments 
 
-Command arguments are defined using argument objects. Representing arguments as objects have several benefit - it makes them declarative, it allows argument parsing and validation code to be reused across multiple commands, and the fluent setter allows each individual property to be set indepently of each other. The argument object's main job is to convert the user input from string into the type which the command object can use, as well as contain information about the argument that the program can show to the user.
+Command arguments are defined using argument objects. Representing arguments as objects have several benefits - it makes them declarative, it allows argument parsing and validation code to be reused across multiple commands, and the fluent setter allows each individual property to be set independently of each other. The argument object's main job is to convert the user input from string into the type which the command object can use, as well as contain information about the argument that the program can show to the user.
 
 The generic type `T` represents the return type of the command argument. To implement a new argument type, extend the abstract base class `Argument`, then implement the `setValue` function. Remember to call the super class's `setValue` function so that the `required` argument check works. 
 
-```java
-package seedu.todo.logic.arguments;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
-
-public class MyArgument extends Argument<T> {
-    // TODO: Replace the generic type T here and below with a concrete type  
-
-    public FlagArgument(String name) {
-        super(name);
-        this.value = false;
-    }
-
-    public FlagArgument(String name, T defaultValue) {
-        super(name, defaultValue);
-    }
-
-    @Override
-    public void setValue(String input) throws IllegalValueException {
-        // TODO: Implement the argument parsing logic. Do not remove the super call below
-        super.setValue(input);
-    }
-}
-```
+<!-- @@author A0139021U -->
 
 ### Model
+
 See the [Model component architecture](#model-component) section for the high level overview of the Model and Storage components.
 
-##### Task
-A `Task` is a representation of a task or event in the todolist. This object implements `MutableTask` which allows us to edit the fields.
+#### BaseTask
 
-##### ImmutableTask
+The `BaseTask` is a simple abstract class to identify each task uniquely via Java's `UUID` class. Do note that this implementation means that two tasks with exact same content (fields) can be considered as two different tasks.
+
+#### ImmutableTask
+
 This interface is used frequently to expose fields of a `Task` to external components. It prevents external components from having access to the setters.
 
-##### TodoList
+#### Task
+
+A `Task` is a representation of a task or event in the todolist. `Task` inherits from `BaseTask` for a way to declare each task as unique. This object implements `MutableTask` which allows us to edit the fields.
+
+#### ValidationTask
+
+A `ValidationTask` is a representation of a task or event in the todolist. This class allows us to verify the fields of the task, and check that they are valid, as the name implies. This class is used mainly for adding and updating a task, as `Task` is supposed to be immutable.
+
+
+#### TodoList
+
 This class represents the todolist inside the memory and implements the `TodoListModel`. This interface is internal to Model and represents only CRUD operations to the todolist.
 
-##### TodoModel
-This class represents the data layer of the application and implements the `Model` interface. The `TodoModel` handles any interaction with the application state that are not persisted, such as the view (sort and filtering), undo and redo commands.
+#### TodoModel
 
-##### ErrorBag
-The `ErrorBag` is a wrapper around all the errors produced while processing a model. This class exposes the errors to the Ui to show the user understand what went wrong.
+This class represents the data layer of the application and implements the `Model` interface. The `TodoModel` handles any interaction with the application state that is not persisted, such as the view (sort and filtering), undo and redo commands.
 
-#### Storage
+#### ErrorBag
 
-##### FixedStorage
-This interface simply exposes the read and save methods for external usage in order to store and read data from the persistence layer.
+The `ErrorBag` is a wrapper around errors produced while handling a command. To use the `ErrorBag`, simply create a new instance of it and `put` errors into it. At the end of the validation routine, call `validate` to let the bag throw a `ValidationException` if there are any. 
 
-##### TodoListStorage
-The main class that is exposed to the Model. In addition from reading and saving, methods are exposed to enable user to switch where the storage file is saved and read.
+#### FixedStorage
 
-##### Xml Classes
-Classes prefixed with `Xml` are classes used to enable serialization of the Model. As the prefix suggests, the critical data is stored in the `.xml` file format and uses `JAXB` to read and save to the persistence layer.
+This interface represents the persistence mechanism for a file whose location is cannot be set by the user. You can use this interface for storing preferences and other files which the user does not need to change the location for. 
+
+#### MovableStorage 
+
+This interface enables us to declare a storage mechanism as movable. This means that the file path of the object can be changed when desired. The only class that implements this interface is `TodoListStorage`, as the configuration and user preference files have minimal impact and thus unimportant for the user.
+
+#### TodoListStorage
+
+The main class that is exposed to the Model. In addition to reading and saving, methods are exposed to enable user to switch where the storage file is saved and read.
+
+#### Xml Classes
+
+Classes prefixed with `Xml` are classes used to enable serialization of the Model. As the prefix suggests, the critical data is stored in the `.xml` file format and uses `JAXB` to read and save to the persistence layer. `JAXB` marshals Java primitives readily, however, if you wish to marshal any other classes, be it self-implemented or from a library, you would need to declare a `XmlAdapter`. See `LocalDateTimeAdapter` for reference.
+
+<!-- @@author A0135817B-reused -->
 
 ### Logging
 
@@ -391,7 +392,9 @@ We are using the [`java.util.logging`][jul] package for logging. The `LogsCenter
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration))
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: Console and to a log file.
-* The logs rolls over at 5MB such that every log file is smaller than 5MB. Five log files are kept, after which the oldest will be deleted. 
+* The logs roll over at 5MB such that every log file is smaller than 5MB. Five log files are kept, after which the oldest will be deleted. 
+
+<!-- @@author A0135817B -->
 
 To use the logger in your code, simply include 
 
@@ -409,6 +412,8 @@ Level      | Used for
  `WARNING` | Can continue, but with caution
  `INFO`    | Information showing the noteworthy actions by the App
  `FINE`    | Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+ 
+<!-- @@author A0135817B-reused -->
 
 ### Configuration
 
@@ -443,15 +448,59 @@ We have two types of tests:
       e.g. `seedu.todo.commons.UrlUtilTest`
     2. **Integration tests** - that are checking the integration of multiple code units (those code units are assumed to be working).  
       e.g. `seedu.todo.model.TodoModelTest`
-    3. **Hybrids of unit and integration tests.** These test are checking multiple code units as well as how the are connected together.    
+    3. **Hybrids of unit and integration tests.** These tests are checking multiple code units as well as how the are connected together.    
       e.g. `seedu.todo.logic.BaseCommandTest`
 
-### Headless GUI Testing 
+<!-- @@author A0135817B -->
 
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+### Command Tests 
+
+To write tests for commands, 
+ 
+### Task Builder 
+
+To create tasks quickly, you can use the `TaskBuilder` class to quickly create `ImmutableTask` objects. An additional benefit of the using the `TaskBuilder` is that the creation time of consecutively constructed task objects will be set one second apart - if you try to use the `Task` constructor you may get tasks created on the same millisecond, which will cause problems with sorting. 
+ 
+### Task Factory
+
+To generate a lot of tasks all at once, you can use the `TaskFactory` class to get a large number of randomly generated tasks. Use this class instead of `TaskBuilder` if fine control over the content of each task is not needed, for instance when testing out storage or conducting GUI testing. 
+
+<!-- @@author A0135805H-->
+
+### GUI Testing
+
+As briefly described above, our GUI tests are _System Tests_. We crafted our GUI tests such that we are able to test every component of the application and the interactions between each component. This is done through the simulation of the user actions on the GUI itself. You may run these GUI tests in the package `guitests` to see the simulation in real life.
+
+#### Structure
+
+If you look inside the `guitests` package, you may realise that we have grouped our test script files into two major locations:
+
+- `guitests` - the actual test script that contains sequences of user actions
+- `guitests.guihandles` - view handles that provide direct access to the contents of the displayed view elements
+
+#### Creating GUI Handles
+
+When you create a new view for your GUI, you may want to create a handle for your newly created view. Simply extend your view handle from `GuiHandle` class, and you may start working on your view handle. 
+
+The `GuiHandle` class allows you to search for your view elements by their `id`, and you may retrieve the contents of the view element just like how you do so for any JavaFX view nodes. 
+
+You may view sample codes from handles such as `TaskCardViewHandle` and `CommandErrorViewHandle` in the `guitests.guihandles` package.
+
+#### Creating GUI Tests
+
+When you want to write an automated test script for simulating user actions, you may do so with a JUnit test files. You may refer to examples such as `AddCommandTest` and `DeleteCommandTest` located in the `guitests` package. 
+
+All our GUI JUnit tests are inherited from `TodoListGuiTest`. The `TodoListGuiTest` class provides useful methods based on the [TestFX](https://github.com/TestFX/TestFX) library that makes automation easier. You may refer to the [TestFX](https://github.com/TestFX/TestFX) documentation for more details.
+
+<!-- @@author A0135805H-reused -->
+
+#### Headless GUI Testing 
+
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
  
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
+<!-- @@author A0135817B-reused -->
 
 ## Dev Ops
 
@@ -465,28 +514,30 @@ See the appendix [Using Gradle](#appendix-f-using-gradle) for all of the details
 
 We use [Travis CI][travis] to perform Continuous Integration on our projects. See [UsingTravis.md](UsingTravis.md) for more details.
 
+<!-- @@author A0135817B -->
+
 ### Making a Release
 
 Here are the steps to create a new release.
 
  1. Update the `Version` number in `MainApp.java`
- 2. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Generate a JAR file [using Gradle](#creating-the-jar-file)
  3. Tag the repo with the version number. e.g. `v0.1`
- 4. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file your created.
- 5. Update `README` to show the new release 
+ 4. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file you created
+ 5. Update `README` to link to the new release 
 
 ### Managing Dependencies
 
-Our project depends on third-party libraries. We use Gradle to automate our dependency management. 
+Our project depends on a number of third-party libraries. We use Gradle to automate our dependency management. 
 
-To add a new dependency, look for instructions on the project's documentation for Gradle configuration required. For most projects it will look something like this
+To add a new dependency, look for instructions on the project's documentation for Gradle configuration required. For most projects it will look something like this:
  
 ``` gradle
 // https://mvnrepository.com/artifact/org.mockito/mockito-all
 compile group: 'org.mockito', name: 'mockito-all', version: '2.0.2-beta'
 ```
 
-This should be copied into the `dependencies` section of the `build.gradle` file. If you wish to you can split the version string out so that the shorter `compile` property can be used instead, but this is not strictly necessary 
+This should be copied into the `dependencies` section of the `build.gradle` file. If you wish to, you can split the version string out so that the shorter `compile` property can be used instead, but this is not strictly necessary. 
 
 ```gradle
 project.ext {
@@ -509,9 +560,9 @@ After that rerun the Gradle `build` command and make sure the file has been edit
 
 Our documentation and user guides are written in [GitHub Flavor Markdown][gfm] with a number of extensions including tables, definition lists and warning blocks that help enable richer styling options for our documentation. These extensions are documented on the [Extensions page of the Python Markdown package][py-markdown], the package we use to help transform the Markdown into HTML. We use HTML because it allows greater flexibility in styling and is generally more user friendly than raw Markdown. To set up the script:
 
-1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check
+1. Make sure you have Python 3.5+ installed. Run `python3 --version` to check that it is installed correctly.
 2. Install the dependencies - `pip3 install markdown pygments beautifulsoup4` 
-3. Run the script - `python3 docs/build/converter.py`
+3. Run the script from the project root - `python3 docs/build/converter.py`
 
 ### Syntax Highlighting 
 
@@ -553,18 +604,18 @@ is produced by
 To draw reader's attention to specific things of interest, use the admonition extension 
 
 !!! warning
-    This is an example of a admonition block 
+    This is an example of an admonition block 
 
 The syntax for this the block above is 
 
     !!! warning
-        This is an example of a admonition block 
+        This is an example of an admonition block 
 
 `warning` is the style of the box, and also used by default as the title. To add a custom title, add the title after the style in quotation marks. 
 
 
     !!! warning "This is a block with a custom title"
-        This is an example of a admonition block 
+        This is an example of an admonition block 
 
 The following styles are available 
 
@@ -604,33 +655,31 @@ The document processor will automatically wrap the `<figcaption>` and the preced
 
 Note that Markdown is not processed inside HTML, so you must use HTML to write any additional inline markup you need inside the caption. 
 
-
-[figcaption]: https://developer.mozilla.org/en/docs/Web/HTML/Element/figcaption
-
+<!-- @@author A0135817B-reused -->
 
 ## Appendix A : User Stories
 
-Priorities: High (must have) - ★★★ , Medium (nice to have) - ★★ ,  Low (unlikely to have) - ★
+Priorities: High (must have) - *** , Medium (nice to have) - ** ,  Low (unlikely to have) - *
 
 
 Priority | As a ...  | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-★★★      | new user  | see usage instructions | refer to instructions when I forget how to use the app
-★★★      | user      | add a new task |
-★★★      | user      | mark a task as complete | so I know which are the tasks are not complete.
-★★★      | user      | delete a task | remove entries that I no longer need
-★★★      | user      | edit a task | change or update details for the task
-★★★      | user      | set a deadline for a task | track down deadlines of my tasks
-★★★      | user      | set events with start and end dates | keep track of events that will happen
-★★★      | user      | view tasks | see all the tasks I have
-★★★      | user      | view incomplete tasks only | to know what are the tasks I have left to do.
-★★★      | user with multiple computers | save the todo list file to a specific location | move the list to other computers
-★★       | user with a lot tasks | add tags to my tasks | organize my tasks 
-★★       | user      | set recurring tasks | do not need to repeatedly add tasks
-★★       | user      | sort tasks by various parameters| organize my tasks and locate a task easily
-★★       | user      | set reminders for a task | do not need to mentally track deadlines
-★        | user      | know the number of tasks I have left | gauge how many tasks I have left to do.
-★        | user      | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
+***      | new user  | see usage instructions | refer to instructions when I forget how to use the app
+***      | user      | add a new task |
+***      | user      | mark a task as complete | so I know which are the tasks are not complete.
+***      | user      | delete a task | remove entries that I no longer need
+***      | user      | edit a task | change or update details for the task
+***      | user      | set a deadline for a task | track down deadlines of my tasks
+***      | user      | set events with start and end dates | keep track of events that will happen
+***      | user      | view tasks | see all the tasks I have
+***      | user      | view incomplete tasks only | to know what are the tasks I have left to do.
+***      | user with multiple computers | save the todo list file to a specific location | move the list to other computers
+**       | user with a lot tasks | add tags to my tasks | organize my tasks 
+**       | user      | set recurring tasks | do not need to repeatedly add tasks
+**       | user      | sort tasks by various parameters| organize my tasks and locate a task easily
+**       | user      | set reminders for a task | do not need to mentally track deadlines
+*        | user      | know the number of tasks I have left | gauge how many tasks I have left to do.
+*        | user      | be notified about upcoming deadlines without opening the app | so that I can receive timely reminders  
 
 
 ## Appendix B : Use Cases
@@ -859,7 +908,7 @@ The project should -
 1. work on any mainstream OS as long as it has Java 8 or higher installed.
 2. use a command line interface as the primary input mode
 3. have a customizable colour scheme.
-4. be able to hold up to 1000 todos, events and deadlines. 
+4. be able to hold up to 100 todos, events and deadlines. 
 5. come with automated unit tests.
 6. have competitive performance with commands being executed within 5 seconds of typing into the CLI
 7. be open source. 
@@ -868,7 +917,7 @@ The project should -
 
 Mainstream OS
 
-:   Windows, Linux, OS X
+:   Windows, OS X
 
 Task 
 
@@ -885,7 +934,13 @@ Mutating Command
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+**Basic Todo Lists** e.g. Sticky Notes, Notepad
+
+Very flexible and easy to use, but hard to organise tasks on them. Also, data can only be saved locally. 
+
+**Online/Cloud Based Todo lists**
+
+Apps such as Google Calendar, Asana and Trello offer a wide range of effective features that help manage your To-do lists. However, most of them require heavy mouse usage and the constant context switching might break user concentration. Our target audience are users who prefer not use the mouse at all, and that makes some of these applications almost unusable. Also, it is hard to sync without a constant internet connection.
 
 ## Appendix F: Using Gradle 
 
@@ -979,6 +1034,8 @@ See `build.gradle` > `allprojects` > `dependencies` > `testCompile` for the list
 [tdd]: https://en.wikipedia.org/wiki/Test-driven_development
 
 [jul]: https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html
+[property]: https://docs.oracle.com/javase/8/javafx/api/javafx/beans/property/Property.html
 
 [gfm]: https://guides.github.com/features/mastering-markdown/
 [py-markdown]: https://pythonhosted.org/Markdown/extensions/index.html
+[figcaption]: https://developer.mozilla.org/en/docs/Web/HTML/Element/figcaption
