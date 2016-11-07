@@ -108,8 +108,8 @@ public class XmlTaskManagerStorageTest {
         saveTaskManager(null, "SomeFile.xml");
     }
 
-    private void saveTaskManager(UniqueItemCollection<Task> addressBook, String filePath) throws IOException {
-        new XmlTaskManagerStorage(filePath).saveTaskManager(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskManager(UniqueItemCollection<Task> tasks, String filePath) throws IOException {
+        new XmlTaskManagerStorage(filePath).saveTaskManager(tasks, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

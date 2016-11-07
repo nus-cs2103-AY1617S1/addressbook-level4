@@ -2,7 +2,7 @@
 ###### /java/guitests/guihandles/TaskListPanelHandle.java
 ``` java
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for the panel containing the task list.
  */
 public class TaskListPanelHandle extends GuiHandle {
 
@@ -15,9 +15,9 @@ public class TaskListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<Task> getSelectedPersons() {
-        ListView<Task> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public List<Task> getSelectedTasks() {
+        ListView<Task> taskList = getListView();
+        return taskList.getSelectionModel().getSelectedItems();
     }
 
     public ListView<Task> getListView() {
@@ -25,8 +25,8 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param persons A list of person in the correct order.
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param tasks A list of tasks in the correct order.
      */
     public boolean isListMatching(List<Task> tasks) {
         return this.isListMatching(0, tasks);
@@ -62,14 +62,14 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param tasks A list of person in the correct order.
+     * @param tasks A list of tasks in the correct order.
      */
     public boolean isListMatching(int startPosition, List<Task> tasks) throws IllegalArgumentException {
         if (tasks.size() + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.size(); i++) {
@@ -101,7 +101,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
     
     /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
+     * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
     public int getTaskIndex(Task targetTask) {
         List<Task> tasksInList = getListView().getItems();
@@ -253,7 +253,7 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public TaskListPanelHandle getPersonListPanel() {
+    public TaskListPanelHandle getTaskListPanel() {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
 
@@ -311,7 +311,7 @@ public abstract class TaskManagerGuiTest {
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
-            taskListPanel = mainGui.getPersonListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -346,14 +346,14 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Aserts the person shown in the card is same as the given person
+     * Aserts the task shown in the card is same as the given task
      */
     public void assertMatching(Task task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
         int numberOfTasks = taskListPanel.getNumberOfTasks();
