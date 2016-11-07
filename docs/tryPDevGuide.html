@@ -1,0 +1,664 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="ug.css" type="text/css" />
+</head>
+<body>
+<h1 id="developer-guide">Developer Guide</h1>
+<!-- @@author A0139655U -->
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#setting-up">Setting Up</a></li>
+<li><a href="#design">Design</a>
+<ul>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#ui-component">UI</a></li>
+<li><a href="#logic-component">Logic</a></li>
+<li><a href="#model-component">Model</a></li>
+<li><a href="#storage-component">Storage</a></li>
+<li><a href="#common-classes">Common</a></li>
+</ul></li>
+<li><a href="#implementation">Implementation</a>
+<ul>
+<li><a href="#logging">Logging</a></li>
+<li><a href="#configuration">Configuration</a></li>
+</ul></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#dev-ops">Dev Ops</a>
+<ul>
+<li><a href="#build-automation">Build Automation</a></li>
+<li><a href="#continuous-integration">Continuous Integration</a></li>
+<li><a href="#making-a-release">Making a Release</a></li>
+</ul></li>
+<li><a href="#appendix-a--user-stories">Appendix A: User Stories</a></li>
+<li><a href="#appendix-b--use-cases">Appendix B: Use Cases</a></li>
+<li><a href="#appendix-c--non-functional-requirements">Appendix C: Non Functional Requirements</a></li>
+<li><a href="#appendix-d--glossary">Appendix D: Glossary</a></li>
+<li><a href="#appendix-e-product-survey">Appendix E : Product Survey</a><br />
+<!-- @@author --></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p><em>DearJim</em> is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. <em>DearJim</em> is a Java desktop application that has a GUI, and the main mode of input in <em>DearJim</em> is through keyboard commands.</p>
+<p>This guide describes the design and implementation of <em>DearJim</em>. It will help you understand how <em>DearJim</em> works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.</p>
+<h2 id="setting-up">Setting up</h2>
+<h4 id="prerequisites">Prerequisites</h4>
+<ol>
+<li><p><strong>JDK <code>1.8.0_60</code></strong> or later<br></p>
+<blockquote>
+<p>Having any Java 8 version is not enough. <br><br />
+This app will not work with earlier versions of Java 8.</p>
+</blockquote></li>
+<li><strong>Eclipse</strong> IDE</li>
+<li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in<br />
+<a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
+<li><p><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace</p></li>
+</ol>
+<h4 id="importing-the-project-into-eclipse">Importing the project into Eclipse</h4>
+<ol>
+<li>Fork this repo, and clone the fork to your computer</li>
+<li>Open Eclipse (Note: Ensure you have installed the <strong>e(fx)clipse</strong> and <strong>buildship</strong> plugins as given<br />
+in the prerequisites above)</li>
+<li>Click <code>File</code> &gt; <code>Import</code></li>
+<li>Click <code>Gradle</code> &gt; <code>Gradle Project</code> &gt; <code>Next</code> &gt; <code>Next</code></li>
+<li>Click <code>Browse</code>, then locate the project's directory</li>
+<li>Click <code>Finish</code></li>
+</ol>
+<blockquote>
+<ul>
+<li>If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.</li>
+<li>Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish<br />
+(This is because Gradle downloads library files from servers during the project set up process)</li>
+<li>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</li>
+</ul>
+</blockquote>
+<!-- @@author A0093960X -->
+<h2 id="design">Design</h2>
+<h3 id="architecture">Architecture</h3>
+<p><img src="images/ArchitectureDiagram.png" width="600"><br></p>
+<blockquote>
+<p><em>The Architecture Diagram of DearJim</em></p>
+</blockquote>
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App.<br />
+Given below is a quick overview of each component.</p>
+<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<ul>
+<li>At app launch: Initializes the components in the correct sequence, and connect them up with each other.</li>
+<li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
+</ul>
+<p><a href="#common-classes"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.<br />
+Two of those classes play important roles at the architecture level.</p>
+<ul>
+<li><code>EventsCentre</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google's Event Bus library</a>)<br />
+is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</li>
+<li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
+</ul>
+<p>The rest of the App consists four components.</p>
+<ul>
+<li><a href="#ui-component"><strong><code>UI</code></strong></a> : The UI of the App.</li>
+<li><a href="#logic-component"><strong><code>Logic</code></strong></a> : The command executor.</li>
+<li><a href="#model-component"><strong><code>Model</code></strong></a> : Holds the data of the App in-memory.</li>
+<li><a href="#storage-component"><strong><code>Storage</code></strong></a> : Reads data from, and writes data to, the hard disk.</li>
+</ul>
+<p>Each of the four components</p>
+<ul>
+<li>Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.</li>
+<li>Exposes its functionality using a <code>{Component Name}Manager</code> class.</li>
+</ul>
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines its API in the <code>Logic.java</code><br />
+interface and exposes its functionality using the <code>LogicManager.java</code> class.<br></p>
+<p><img src="images/NewLogicDiagram.png" width="800"><br></p>
+<blockquote>
+<p><em>The class diagram for the Logic Component of DearJim</em></p>
+</blockquote>
+<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the<br />
+command <code>delete 1</code>.</p>
+<p><img src="images\SDForDeleteTaskFinal.png" width="800"></p>
+<blockquote>
+<p><em>The sequence diagram for the scenario <code>delete 1</code></em></p>
+</blockquote>
+<blockquote>
+<p>Note how the <code>Model</code> simply raises a <code>TaskManagerChangedEvent</code> when the Task Manager data are changed,<br />
+instead of asking the <code>Storage</code> to save the updates to the hard disk.</p>
+</blockquote>
+<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates<br />
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br></p>
+<p><img src="images\SDForDeleteTaskEventHandlingFinal.png" width="800"></p>
+<blockquote>
+<p><em>The sequence diagram showing the <code>TaskManagerChangedEvent</code> and effects on <code>Storage</code> and <code>UI</code></em></p>
+</blockquote>
+<blockquote>
+<p>Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having<br />
+to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct<br />
+coupling between components.</p>
+</blockquote>
+<p>The sections below give more details of each component.<br />
+<!-- @@author A0093960X --></p>
+<h3 id="ui-component">UI component</h3>
+<p><img src="images/UiClassDiagramFinal.png" width="800"><br></p>
+<blockquote>
+<p><em>The class diagram for the UI component of DearJim</em></p>
+</blockquote>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>TaskListPanel</code>, <code>TaskCard</code>, <code>SwitchViewButtons</code>, <code>StatusBarFooter</code>, etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class<br />
+and they can be loaded using the <code>UiPartLoader</code>.</p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layouts of these UI parts are defined in matching <code>.fxml</code> files<br />
+that are in the <code>src/main/resources/view</code> folder.<br><br />
+For example, the layout of the <a href="../src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in<br />
+<a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>The <code>UI</code> component,</p>
+<ul>
+<li>Executes user commands and updates the user input history (to navigate the previous and next inputs using <kbd>Up</kbd> and <kbd>Down</kbd> arrow keys) using the <code>Logic</code> component.</li>
+<li>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</li>
+<li>Responds to events raised from various parts of the App and updates the <code>UI</code> accordingly.<br />
+<!-- @@author --></li>
+</ul>
+<!-- @@author A0139655U -->
+<h3 id="logic-component">Logic component</h3>
+<p><img src="images/NewLogicDiagram.png" width="800"><br></p>
+<blockquote>
+<p><em>The class diagram for the Logic component of DearJim</em></p>
+</blockquote>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<ol>
+<li><code>Logic</code> uses the <code>CommandParser</code> class to parse the user command.</li>
+<li>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</li>
+<li>The command execution can affect the <code>Model</code> (e.g. adding a task) and/or raise events.</li>
+<li>The command execution can update the <code>History</code> if command executed is an <code>UndoableCommand</code>.</li>
+<li>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>UI</code>.</li>
+</ol>
+<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute(&quot;delete 1&quot;)</code><br />
+API call.<br></p>
+<p><img src="images/DeleteTaskSdForLogic.png" width="800"><br></p>
+<blockquote>
+<p><em>The sequence diagram for the interactions within the <code>Logic</code> component for <code>execute(&quot;delete 1&quot;)</code></em></p>
+</blockquote>
+<!-- @@author A0139498J -->
+<h3 id="model-component">Model component</h3>
+<p><img src="images/ModelClassDiagram.PNG" width="800"><br></p>
+<blockquote>
+<p><em>The class diagram for the Model component of DearJim</em></p>
+</blockquote>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p>The <code>Model</code>,</p>
+<ul>
+<li>stores the Task Manager data.</li>
+<li>exposes a <code>UnmodifiableObservableList&lt;ReadOnlyTask&gt;</code> that can be 'observed' e.g. the UI can be bound to this list<br />
+so that the UI automatically updates when the data in the list change.</li>
+<li>does not depend on any of the other three components.</li>
+</ul>
+<!-- @@author A0139552B -->
+<h3 id="storage-component">Storage component</h3>
+<p><img src="images/StorageClassDiagram.png" width="800"><br></p>
+<blockquote>
+<p><em>The class diagram for the Storage component of DearJim</em></p>
+</blockquote>
+<p><strong>API</strong> : <a href="../src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p>The <code>Storage</code> component,</p>
+<ul>
+<li>can save <code>UserPref</code> objects in json format and read it back.</li>
+<li>can save the Task Manager data in xml format and read it back.<br />
+<!-- @@author --></li>
+</ul>
+<!-- @@author A0093960X -->
+<h3 id="common-classes">Common classes</h3>
+<p>Classes used by multiple components are in the <code>seedu.taskmanager.commons</code> package.<br><br />
+Examples of these classes include the <code>StringUtil</code> class, which has the <code>containsIgnoreCase(String, String)</code> method, and <code>CollectionUtil</code> class, which has the <code>isAnyNull(Object...)</code> method.</p>
+<!--@@author -->
+<h2 id="implementation">Implementation</h2>
+<h3 id="logging">Logging</h3>
+<p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels<br />
+and logging destinations.</p>
+<ul>
+<li>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file<br />
+(See <a href="#configuration">Configuration</a>)</li>
+<li>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to<br />
+the specified logging level</li>
+<li>Currently log messages are output through: <code>Console</code> and to a <code>.log</code> file.</li>
+</ul>
+<p><strong>Logging Levels</strong></p>
+<ul>
+<li><code>SEVERE</code> : Critical problem detected which may possibly cause the termination of the application</li>
+<li><code>WARNING</code> : Application can continue running, but minor errors may occur</li>
+<li><code>INFO</code> : Information showing the noteworthy actions by the App</li>
+<li><code>FINE</code> : Details that is not usually noteworthy but may be useful in debugging<br />
+e.g. print the actual list instead of just its size</li>
+</ul>
+<h3 id="configuration">Configuration</h3>
+<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file<br />
+(default: <code>config.json</code>):</p>
+<h2 id="testing">Testing</h2>
+<p>Tests can be found in the <code>./src/test/java</code> folder.</p>
+<p><strong>In Eclipse</strong>:</p>
+<blockquote>
+<p>If you are not using a recent Eclipse version (i.e. <em>Neon</em> or later), enable assertions in JUnit tests<br />
+as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">here</a>.</p>
+</blockquote>
+<ul>
+<li>To run all tests, right-click on the <code>src/test/java</code> folder and choose<br />
+<code>Run as</code> &gt; <code>JUnit Test</code></li>
+<li>To run a subset of tests, you can right-click on a test package, test class, or a test and choose<br />
+to run as a JUnit test.</li>
+</ul>
+<p><strong>Using Gradle</strong>:</p>
+<ul>
+<li>See <a href="UsingGradle.md" class="uri">UsingGradle.md</a> for how to run tests using Gradle.</li>
+</ul>
+<p>We have two types of tests:</p>
+<ol>
+<li><p><strong>GUI Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the GUI.<br />
+These are in the <code>guitests</code> package.</p></li>
+<li><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</li>
+<li><em>Unit tests</em> targeting the lowest level methods/classes. <br><br />
+e.g. <code>seedu.taskmanager.commons.UrlUtilTest</code></li>
+<li><em>Integration tests</em> that are checking the integration of multiple code units<br />
+(those code units are assumed to be working).<br><br />
+e.g. <code>seedu.taskmanager.storage.StorageManagerTest</code></li>
+<li><p>Hybrids of unit and integration tests. These tests are checking multiple code units as well as<br />
+how the are connected together.<br><br />
+e.g. <code>seedu.taskmanager.logic.LogicManagerTest</code></p></li>
+</ol>
+<p><strong>Headless GUI Testing</strong> :<br />
+Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use,<br />
+our GUI tests can be run in the <em>headless</em> mode.<br />
+In the headless mode, GUI tests do not show up on the screen.<br />
+That means the developer can do other things on the Computer while the tests are running.<br><br />
+See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
+<h2 id="dev-ops">Dev Ops</h2>
+<h3 id="build-automation">Build Automation</h3>
+<p>See <a href="UsingGradle.md" class="uri">UsingGradle.md</a> to learn how to use Gradle for build automation.</p>
+<h3 id="continuous-integration">Continuous Integration</h3>
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> to perform <em>Continuous Integration</em> on our projects.<br />
+See <a href="UsingTravis.md" class="uri">UsingTravis.md</a> for more details.</p>
+<h3 id="making-a-release">Making a Release</h3>
+<p>Here are the steps to create a new release.</p>
+<ol>
+<li>Generate a JAR file <a href="UsingGradle.md#creating-the-jar-file">using Gradle</a>.</li>
+<li>Tag the repo with the version number. e.g. <code>v0.1</code></li>
+<li><a href="https://help.github.com/articles/creating-releases/">Crete a new release using GitHub</a><br />
+and upload the JAR file your created.</li>
+</ol>
+<h3 id="managing-dependencies">Managing Dependencies</h3>
+<p>A project often depends on third-party libraries. For example, DearJim depends on the<br />
+<a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em><br />
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which<br />
+is better than these alternatives.<br></p>
+<p>a. Include those libraries in the repo (this bloats the repo size)<br></p>
+<p>b. Require developers to download those libraries manually (this creates extra work for developers)<br></p>
+<!-- @@author A0139655U -->
+<h2 id="appendix-a-user-stories">Appendix A : User Stories</h2>
+<p>Priorities: High - <code>* * *</code> Medium - <code>* *</code> Low - <code>*</code></p>
+<table style="width:60%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+<col width="15%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Priority</th>
+<th align="left">As a ...</th>
+<th align="left">I want to ...</th>
+<th align="left">So that I can...</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">new user</td>
+<td align="left">see instructions on how to use the app</td>
+<td align="left">refer to instructions when I forget how to use the App</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">add tasks to the todo list</td>
+<td align="left">be reminded of what to do</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">add tasks with deadline</td>
+<td align="left">remember by what time I have to complete a task</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">add tasks with timeframe</td>
+<td align="left">know what I have to attend an event</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">view upcoming tasks in chronological order</td>
+<td align="left">check what I need to do / have to do soon</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">search for details on a task or event</td>
+<td align="left">view what needs to be done</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">delete a task that has been completed</td>
+<td align="left">completely remove it from my task manager</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">mark a task as completed upon completion</td>
+<td align="left">keep an archive of tasks that I have completed</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">view tasks that I have completed</td>
+<td align="left">recall what I have completed</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">undo my actions</td>
+<td align="left">reverse any mistake that I have made</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">redo my undo</td>
+<td align="left">correct any accidental undo</td>
+</tr>
+<tr class="even">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">edit tasks</td>
+<td align="left">keep them up to date</td>
+</tr>
+<tr class="odd">
+<td><code>* * *</code></td>
+<td align="left">user</td>
+<td align="left">store my tasks in different locations</td>
+<td align="left">share the tasks with multiple devices</td>
+</tr>
+<tr class="even">
+<td><code>* *</code></td>
+<td align="left">user</td>
+<td align="left">sync my task with other computers</td>
+<td align="left">keep track of what to do anywhere</td>
+</tr>
+<tr class="odd">
+<td><code>* *</code></td>
+<td align="left">user</td>
+<td align="left">enter synonyms for the commands</td>
+<td align="left">use natural language to accomplish what I want</td>
+</tr>
+<tr class="even">
+<td><code>*</code></td>
+<td align="left">user</td>
+<td align="left">tag tasks</td>
+<td align="left">classify them and search for them according to these tags</td>
+</tr>
+<tr class="odd">
+<td><code>*</code></td>
+<td align="left">user</td>
+<td align="left">call up the todo list with a simple keystroke</td>
+<td align="left">start the application anytime during my workflow</td>
+</tr>
+</tbody>
+</table>
+<h2 id="appendix-b-use-cases">Appendix B : Use Cases</h2>
+<p>(For all use cases below, the <strong>System</strong> is the <code>Task Manager</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<!-- @@author A0139655U -->
+<h4 id="use-case-uc01---add-a-task">Use case: UC01 - Add a task</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters an <code>add</code> command, specifying details of the task to be added</li>
+<li>TaskManager parses the <code>add</code> command, and adds the task to the current task list</li>
+<li>TaskManager saves the current task list to storage and updates the GUI to display the updated list with the newly added task<br></li>
+</ol>
+<p>Use case ends</p>
+<p><strong>Extensions</strong></p>
+<p>1a. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse correctly.</p>
+<blockquote>
+<p>1a1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field<br />
+1a2. User uses the double inverted commas to escape the task name <br><br />
+Use case resumes at step 2</p>
+</blockquote>
+<p>2a. User enters an input that does not follow the <code>add</code> command format</p>
+<blockquote>
+<p>2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the <code>add</code> command and an example <code>add</code> command <br><br />
+Use case resumes at step 1</p>
+</blockquote>
+<p>2b. User is currently at done list view</p>
+<blockquote>
+<p>2b1. TaskManger displays an error message on the GUI, informing the user that he / she is unable to perform the add command in done list view, and prompts the user to switch to undone list view instead to perform the add command <br><br />
+Use case resumes at step 1</p>
+</blockquote>
+<p>3a. User identifies a mistake in the details of the task added</p>
+<blockquote>
+<p>3a1. User edits the task details (UC03)<br></p>
+</blockquote>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<!-- @@author A0139498J -->
+<h4 id="use-case-uc02---list-all-undone-tasks">Use case: UC02 - List all undone tasks</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters the <code>list</code> command</li>
+<li>TaskManager parses the <code>list</code> command</li>
+<li>TaskManager removes any filters for the task list and updates the GUI to display the entire list of undone tasks<br></li>
+</ol>
+<p>Use case ends</p>
+<p><strong>Extensions</strong></p>
+<p>2a. User enters an input that does not follow the <code>list</code> command format</p>
+<blockquote>
+<p>2a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the <code>list</code> command and an example <code>list</code> command <br><br />
+Use case resumes at step 1</p>
+</blockquote>
+<p>2b. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<!-- @@author A0139552B -->
+<h4 id="use-case-uc03---edit-an-undone-task">Use case: UC03 - Edit an undone task</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list undone tasks (UC02)</li>
+<li>TaskManager shows the list of all undone tasks</li>
+<li>User enters the <code>edit</code> command, specifying the <code>INDEX</code> of the task in the list to be edited, the fields to be edited and their new values</li>
+<li>TaskManager parses the <code>edit</code> command and looks for the task in the list</li>
+<li>TaskManager edits the requested fields on the specified task according to the command entered</li>
+<li>TaskManager updates the GUI to display the new list of undone tasks and highlight the newly edited task <br></li>
+</ol>
+<p>Use case ends</p>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>3a. Index is not given</p>
+<blockquote>
+<p>3a1. TaskManager displays an error message on the GUI, informing the user of the correct format for the <code>edit</code> command and an example <code>edit</code> command <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<p>3b. User enters a task name that needs to be escaped as it contains values that CommandParser is unable to parse rightly.</p>
+<blockquote>
+<p>3b1. TaskManager's instant parsing feature reflects to the user that his / her input is being parsed into the wrong field<br />
+3b2. User uses the double inverted commas to escape the task name <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<p>4a. The given index is invalid</p>
+<blockquote>
+<p>4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot edit any task <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<p>4b. User enters an end date that occurs before the start date.</p>
+<blockquote>
+<p>4b1. TaskManager displays an error message on the GUI, informing the user that the end date must occur after the start date <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<p>4c. User enters an input that does not follow the <code>edit</code> command format</p>
+<blockquote>
+<p>4c1. TaskManager displays an error message on the GUI, informing the user of the correct format for the <code>edit</code> command and an example <code>edit</code> command <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<!-- @@author A0139498J -->
+<h4 id="use-case-uc04---delete-an-undone-task">Use case: UC04 - Delete an undone task</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User requests to list undone tasks (UC02)</li>
+<li>TaskManager shows the list of all undone tasks</li>
+<li>User enters the <code>delete</code> command, specifying the <code>INDEX</code> of the task in the list to be deleted</li>
+<li>TaskManager parses the <code>delete</code> command and looks for the task in the list</li>
+<li>TaskManager deletes the task from the list</li>
+<li>TaskManager updates the GUI to display the new list of undone tasks<br></li>
+</ol>
+<p>Use case ends</p>
+<p><strong>Extensions</strong></p>
+<p>2a. The list is empty</p>
+<blockquote>
+<p>Use case ends</p>
+</blockquote>
+<p>4a. The given index is invalid</p>
+<blockquote>
+<p>4a1. TaskManager displays an error message on the GUI, informing the user that the given index is invalid and thus cannot delete any task <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<p>4b. User enters an input that does not follow the <code>delete</code> command format</p>
+<blockquote>
+<p>4b1. TaskManager displays an error message on the GUI, informing the user of the correct format for the <code>delete</code> command and an example <code>delete</code> command <br><br />
+Use case resumes at step 3</p>
+</blockquote>
+<!-- @@author A0093960X-->
+<h4 id="use-case-uc05---undo-a-previous-command">Use case: UC05 - Undo a previous command</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters an <code>undo</code> command</li>
+<li>TaskManager parses the <code>undo</code> command</li>
+<li>TaskManager attempts to identify the latest stored undoable command, reversing the action of that command</li>
+<li>TaskManager saves the modified task list to storage and updates the GUI to inform the user of the changes <br><br />
+<em>Use case ends.</em></li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>1a. User enters an <code>undo</code> command, followed by some arguments</p>
+<blockquote>
+<p>1a1. TaskManager parses the <code>undo</code> command, ignoring the arguments that follow <br><br />
+<em>Use case resumes at step 3</em></p>
+</blockquote>
+<p>3a. There is no previous undoable command</p>
+<blockquote>
+<p>3a1. TaskManager indicates that there is nothing to undo.<br><br />
+<em>Use case ends.</em></p>
+</blockquote>
+<p>4a. User wants to reverse the <code>undo</code> command</p>
+<blockquote>
+<p>4a1. User enters the <code>redo</code> command (UC06) <br><br />
+<em>Use case ends.</em></p>
+</blockquote>
+<h4 id="use-case-uc06---redo-a-command-that-was-undone">Use case: UC06 - Redo a command that was undone</h4>
+<p><strong>MSS</strong></p>
+<ol>
+<li>User enters a <code>undo</code> command successfully (UC05)</li>
+<li>User enters a <code>redo</code> command</li>
+<li>TaskManager parses the <code>redo</code> command</li>
+<li>TaskManager attempts to identify the latest stored command that was undone by an <code>undo</code>, redoing the effects of that command</li>
+<li>TaskManager saves the modified task list to storage and updates the GUI to inform the user of the changes <br><br />
+<em>Use case ends.</em></li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p>1a. User enters a non-undoable command</p>
+<blockquote>
+<p>1a1. TaskManager handles the command<br><br />
+<em>Use case resumes at step 2</em></p>
+</blockquote>
+<p>1b. User enters an undoable command</p>
+<blockquote>
+<p>1b1. TaskManager handles the command and clears the history of commands to <code>redo</code><br><br />
+1b2. User enters a <code>redo</code> command<br><br />
+1b3. TaskManager parses the <code>redo</code> command and indicates that there is nothing to <code>redo</code><br><br />
+<em>Use case ends.</em></p>
+</blockquote>
+<p>2a. User enters a <code>redo</code> command, followed by some arguments</p>
+<blockquote>
+<p>1a1. TaskManager parses the <code>redo</code> command, ignoring the arguments that follow <br><br />
+<em>Use case resumes at step 3</em></p>
+</blockquote>
+<!-- @@author A0139498J -->
+<h2 id="appendix-c-non-functional-requirements">Appendix C : Non Functional Requirements</h2>
+<ol>
+<li>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>1.8.0_60</code> or higher installed.</li>
+<li>Should be able to hold up to 10000 tasks.</li>
+<li>Should come with automated unit tests and open source code.</li>
+<li>Should favor DOS style commands over Unix-style commands.</li>
+<li>Should have less than 2 seconds processing time for each command.</li>
+<li>Should be easy to learn and use.</li>
+<li>Should be available without Internet connection.</li>
+<li>Should be scalable and maintainable.</li>
+</ol>
+<!-- @@author -->
+<h2 id="appendix-d-glossary">Appendix D : Glossary</h2>
+<h5 id="mainstream-os">Mainstream OS</h5>
+<blockquote>
+<p>Windows, Linux, Unix, OS-X</p>
+</blockquote>
+<h5 id="scalable">Scalable</h5>
+<blockquote>
+<p>Able to work well as number of tasks grows</p>
+</blockquote>
+<h5 id="synonyms">Synonyms</h5>
+<blockquote>
+<p>Alternative names for a single command</p>
+</blockquote>
+<h5 id="maintainable">Maintainable</h5>
+<blockquote>
+<p>Code that is readable and easy to contribute towards</p>
+</blockquote>
+<!-- @@author A0139498J -->
+<h2 id="appendix-e-product-survey">Appendix E : Product Survey</h2>
+<table style="width:42%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Product</th>
+<th align="left">Strength</th>
+<th align="left">Weaknesses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Wunderlist</td>
+<td align="left"><ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol></td>
+<td align="left"><ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol></td>
+</tr>
+<tr class="even">
+<td>Todo.txt</td>
+<td align="left"><ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol></td>
+<td align="left"><ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol></td>
+</tr>
+<tr class="odd">
+<td>Google Calendar</td>
+<td align="left"><ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li> </ol></td>
+<td align="left"><ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol></td>
+</tr>
+<tr class="even">
+<td>Remember the milk</td>
+<td align="left"><ol> <li> Able to support email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li> </ol></td>
+<td align="left"><ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol></td>
+</tr>
+</tbody>
+</table>
+<!-- @@author A0139552B -->
+<p><strong>Summary:</strong> We observed that these products have very good features, but we realised that none of these products have the specific combination of features that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.</p>
+</body>
+</html>
