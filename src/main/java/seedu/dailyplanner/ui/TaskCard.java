@@ -7,9 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 
-public class PersonCard extends UiPart {
+public class TaskCard extends UiPart {
 
-	private static final String FXML = "PersonListCard.fxml";
+	private static final String FXML = "TaskListCard.fxml";
 	private static final String DUE_SOON_LABEL_STYLE = "-fx-background-color: rgba(247, 170, 69, 1);";
     private static final String OVERDUE_LABEL_STYLE = "-fx-background-color: rgba(183, 48, 36, 1);";
 
@@ -39,11 +39,11 @@ public class PersonCard extends UiPart {
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public PersonCard() {
+    public TaskCard() {
     }
 
-    public static PersonCard load(ReadOnlyTask task, int displayedIndex) {
-	PersonCard card = new PersonCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
+	TaskCard card = new TaskCard();
 	card.task = task;
 	card.displayedIndex = displayedIndex;
 	return UiPartLoader.loadUiPart(card);

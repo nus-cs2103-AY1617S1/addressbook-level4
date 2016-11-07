@@ -8,8 +8,8 @@ import java.util.Set;
 import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.DateTime;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
@@ -38,7 +38,7 @@ public class EditCommand extends Command {
     private final Optional<DateTime> start;
     private final Optional<DateTime> end;
     private final Optional<Set<String>> tags;
-    private Optional<UniqueTagList> tagSet;
+    private Optional<UniqueCategoryList> tagSet;
 
     public EditCommand(int targetIndex, String taskName, DateTime start, DateTime end, Set<String> tags)
 	    throws IllegalValueException {
@@ -48,12 +48,15 @@ public class EditCommand extends Command {
 	this.end = Optional.ofNullable(end);
 	this.tags = Optional.ofNullable(tags);
 	this.tagSet = Optional.empty();
+
 	if (tags.size()!=0) {
-	    final Set<Tag> tagSet = new HashSet<>();
+	    final Set<Category> tagSet = new HashSet<>();
+
+
 	    for (String tagName : tags) {
-		tagSet.add(new Tag(tagName));
+		tagSet.add(new Category(tagName));
 	    }
-	    this.tagSet = Optional.of(new UniqueTagList(tagSet));
+	    this.tagSet = Optional.of(new UniqueCategoryList(tagSet));
 	}
     }
 
@@ -81,7 +84,7 @@ public class EditCommand extends Command {
 	if (end.isPresent()) {
 	    toAddEnd = end.get();
 	}
-	UniqueTagList toAddTags = taskToEdit.getTags();
+	UniqueCategoryList toAddTags = taskToEdit.getTags();
 	if (tagSet.isPresent()) {
 	    toAddTags = tagSet.get();
 	}

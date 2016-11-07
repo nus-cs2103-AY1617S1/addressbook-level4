@@ -1,8 +1,8 @@
 package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
-import seedu.dailyplanner.model.AddressBook;
-import seedu.dailyplanner.model.tag.Tag;
+import seedu.dailyplanner.model.DailyPlanner;
+import seedu.dailyplanner.model.category.Category;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 
@@ -13,23 +13,23 @@ import seedu.dailyplanner.model.task.UniqueTaskList;
  */
 public class DailyPlannerBuilder {
 
-    private AddressBook addressBook;
+    private DailyPlanner dailyPlanner;
 
-    public DailyPlannerBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public DailyPlannerBuilder(DailyPlanner dailyPlanner){
+        this.dailyPlanner = dailyPlanner;
     }
 
     public DailyPlannerBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        dailyPlanner.addPerson(person);
         return this;
     }
 
     public DailyPlannerBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+        dailyPlanner.addTag(new Category(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public DailyPlanner build(){
+        return dailyPlanner;
     }
 }

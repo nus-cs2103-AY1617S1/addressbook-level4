@@ -1,7 +1,7 @@
 package seedu.testplanner.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -16,11 +16,11 @@ import org.testfx.api.FxToolkit;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.FileUtil;
 import seedu.dailyplanner.commons.util.XmlUtil;
-import seedu.dailyplanner.model.AddressBook;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.DailyPlanner;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.*;
-import seedu.dailyplanner.storage.XmlSerializableAddressBook;
+import seedu.dailyplanner.storage.XmlSerializableDailyPlanner;
 import seedu.testplanner.TestApp;
 
 import java.io.File;
@@ -65,25 +65,25 @@ public class TestUtil {
 
     private static Task[] getSampleTaskData() {
         return new Task[]{
-		        new Task("Arobics class", new DateTime(new Date("01/12/2016"), new Time("07.00PM")),  new DateTime(new Date("01/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
-		        new Task("Basketball with friends", new DateTime(new Date("04/12/2016"), new Time("05.00PM")),  new DateTime(new Date("01/12/2016"), new Time("")), false, false, new UniqueTagList()),
-		        new Task("CS2103 Project", new DateTime(new Date("01/11/2016"), new Time("")),  new DateTime(new Date("07/11/2016"), new Time("11.59PM")), false, false, new UniqueTagList()),
-		        new Task("Dance session", new DateTime(new Date("02/12/2016"), new Time("10.00AM")),  new DateTime(new Date("02/12/2016"), new Time("12.00PM")), false, false, new UniqueTagList()),
-		        new Task("Embroidery class", new DateTime(new Date("03/12/2016"), new Time("08.00PM")),  new DateTime(new Date("03/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
-		        new Task("Finance homework", new DateTime(new Date("06/12/2016"), new Time("07.00PM")),  new DateTime(new Date("06/12/2016"), new Time("10.00PM")), false, false, new UniqueTagList()),
-		        new Task("Geography homework", new DateTime(new Date("07/12/2016"), new Time("07.00AM")),  new DateTime(new Date("07/12/2016"), new Time("11.00AM")), false, false, new UniqueTagList()),
-		        new Task("HIIT workout", new DateTime(new Date("07/12/2016"), new Time("10.00PM")),  new DateTime(new Date("07/12/2016"), new Time("11.00PM")), false, false, new UniqueTagList()),
-		        new Task("India trip", new DateTime(new Date("01/01/2017"), new Time("")),  new DateTime(new Date("15/01/2017"), new Time("")), false, false, new UniqueTagList()),
+		        new Task("Arobics class", new DateTime(new Date("01/12/2016"), new Time("07.00PM")),  new DateTime(new Date("01/12/2016"), new Time("10.00PM")), false, false, new UniqueCategoryList()),
+		        new Task("Basketball with friends", new DateTime(new Date("04/12/2016"), new Time("05.00PM")),  new DateTime(new Date("01/12/2016"), new Time("")), false, false, new UniqueCategoryList()),
+		        new Task("CS2103 Project", new DateTime(new Date("01/11/2016"), new Time("")),  new DateTime(new Date("07/11/2016"), new Time("11.59PM")), false, false, new UniqueCategoryList()),
+		        new Task("Dance session", new DateTime(new Date("02/12/2016"), new Time("10.00AM")),  new DateTime(new Date("02/12/2016"), new Time("12.00PM")), false, false, new UniqueCategoryList()),
+		        new Task("Embroidery class", new DateTime(new Date("03/12/2016"), new Time("08.00PM")),  new DateTime(new Date("03/12/2016"), new Time("10.00PM")), false, false, new UniqueCategoryList()),
+		        new Task("Finance homework", new DateTime(new Date("06/12/2016"), new Time("07.00PM")),  new DateTime(new Date("06/12/2016"), new Time("10.00PM")), false, false, new UniqueCategoryList()),
+		        new Task("Geography homework", new DateTime(new Date("07/12/2016"), new Time("07.00AM")),  new DateTime(new Date("07/12/2016"), new Time("11.00AM")), false, false, new UniqueCategoryList()),
+		        new Task("HIIT workout", new DateTime(new Date("07/12/2016"), new Time("10.00PM")),  new DateTime(new Date("07/12/2016"), new Time("11.00PM")), false, false, new UniqueCategoryList()),
+		        new Task("India trip", new DateTime(new Date("01/01/2017"), new Time("")),  new DateTime(new Date("15/01/2017"), new Time("")), false, false, new UniqueCategoryList()),
 		};
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
+    public static final Category[] sampleTagData = getSampleTagData();
 
-    private static Tag[] getSampleTagData() {
+    private static Category[] getSampleTagData() {
         try {
-            return new Tag[]{
-                    new Tag("school"),
-                    new Tag("sports")
+            return new Category[]{
+                    new Category("school"),
+                    new Category("sports")
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -129,12 +129,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static DailyPlanner generateEmptyAddressBook() {
+        return new DailyPlanner(new UniqueTaskList(), new UniqueCategoryList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableDailyPlanner generateSampleStorageAddressBook() {
+        return new XmlSerializableDailyPlanner(generateEmptyAddressBook());
     }
 
     /**
@@ -321,21 +321,21 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
         return card.isSamePerson(person);
     }
 
-    public static Tag[] getTagList(String tags) {
+    public static Category[] getTagList(String tags) {
 
         if (tags.equals("")) {
-            return new Tag[]{};
+            return new Category[]{};
         }
 
         final String[] split = tags.split(", ");
 
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
+        final List<Category> collect = Arrays.asList(split).stream().map(e -> {
             try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
+                return new Category(e.replaceFirst("Tag: ", ""));
             } catch (IllegalValueException e1) {
                 //not possible
                 assert false;
@@ -343,7 +343,7 @@ public class TestUtil {
             }
         }).collect(Collectors.toList());
 
-        return collect.toArray(new Tag[split.length]);
+        return collect.toArray(new Category[split.length]);
     }
     
     /** Utility for changing mm/dd/yyy format to dd/mm/yyyy, need for generating commands in test cases */

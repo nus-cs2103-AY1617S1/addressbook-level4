@@ -12,7 +12,7 @@ import seedu.dailyplanner.commons.core.Config;
 import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.events.storage.DataSavingExceptionEvent;
 import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
-import seedu.dailyplanner.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.dailyplanner.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.dailyplanner.commons.events.ui.ShowHelpRequestEvent;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.logic.Logic;
@@ -117,7 +117,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 

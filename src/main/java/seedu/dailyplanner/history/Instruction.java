@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.text.html.HTML.Tag;
-import seedu.dailyplanner.model.tag.*;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+
+import seedu.dailyplanner.model.category.*;
 import seedu.dailyplanner.model.task.*;
 
 public class Instruction {

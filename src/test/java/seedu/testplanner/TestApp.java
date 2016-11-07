@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 import seedu.dailyplanner.MainApp;
 import seedu.dailyplanner.commons.core.Config;
 import seedu.dailyplanner.commons.core.GuiSettings;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
 import seedu.dailyplanner.model.UserPrefs;
-import seedu.dailyplanner.storage.XmlSerializableAddressBook;
+import seedu.dailyplanner.storage.XmlSerializableDailyPlanner;
 import seedu.testplanner.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -22,13 +22,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyDailyPlanner> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyDailyPlanner> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -36,7 +36,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableDailyPlanner(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

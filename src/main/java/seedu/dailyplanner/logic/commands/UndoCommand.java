@@ -5,8 +5,8 @@ import java.util.Set;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.history.Instruction;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList.DuplicatePersonException;

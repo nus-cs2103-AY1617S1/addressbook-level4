@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String PERSON_LIST_VIEW_ID = "#personListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public PersonListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -37,7 +37,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
 
     /**
@@ -102,7 +102,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
 
-    public PersonCardHandle navigateToPerson(String name) {
+    public TaskCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> person = getListView().getItems().stream().filter(p -> p.getName().equals(name)).findAny();
         if (!person.isPresent()) {
@@ -115,7 +115,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyTask person) {
+    public TaskCardHandle navigateToPerson(ReadOnlyTask person) {
         int index = getPersonIndex(person);
 
         guiRobot.interact(() -> {
@@ -148,17 +148,17 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public TaskCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(new Task(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(ReadOnlyTask person) {
+    public TaskCardHandle getPersonCardHandle(ReadOnlyTask person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, personCardNode.get());
         } else {
             return null;
         }

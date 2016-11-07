@@ -8,7 +8,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
-import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
+import seedu.dailyplanner.commons.events.model.DailyPlannerChangedEvent;
 import seedu.dailyplanner.commons.util.DateUtil;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.history.HistoryManager;
@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
 	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-	private final AddressBook addressBook;
+	private final DailyPlanner dailyPlanner;
 	private final FilteredList<Task> filteredPersons;
 	private final FilteredList<Task> pinnedTasks;
 	private final HistoryManager history;
@@ -38,78 +38,78 @@ public class ModelManager extends ComponentManager implements Model {
 	 * Initializes a ModelManager with the given AddressBook AddressBook and its
 	 * variables should not be null
 	 */
-	public ModelManager(AddressBook src, UserPrefs userPrefs) {
+	public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
 		super();
 		assert src != null;
 		assert userPrefs != null;
 
 		logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-		addressBook = new AddressBook(src);
-		filteredPersons = new FilteredList<>(addressBook.getPersons());
-		pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
+		dailyPlanner = new DailyPlanner(src);
+		filteredPersons = new FilteredList<>(dailyPlanner.getPersons());
+		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
 		history = new HistoryManager();
 		lastTaskAddedIndex = new SimpleIntegerProperty(0);
 		lastShowDate = new SimpleStringProperty();
 	}
 
 	public ModelManager() {
-		this(new AddressBook(), new UserPrefs());
+		this(new DailyPlanner(), new UserPrefs());
 	}
 
-	public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-		addressBook = new AddressBook(initialData);
-		filteredPersons = new FilteredList<>(addressBook.getPersons());
-		pinnedTasks = new FilteredList<>(addressBook.getPinnedTasks());
+	public ModelManager(ReadOnlyDailyPlanner initialData, UserPrefs userPrefs) {
+		dailyPlanner = new DailyPlanner(initialData);
+		filteredPersons = new FilteredList<>(dailyPlanner.getPersons());
+		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
 		history = new HistoryManager();
 		lastTaskAddedIndex = new SimpleIntegerProperty(0);
 		lastShowDate = new SimpleStringProperty();
 	}
 
 	@Override
-	public void resetData(ReadOnlyAddressBook newData) {
-		addressBook.resetData(newData);
+	public void resetData(ReadOnlyDailyPlanner newData) {
+		dailyPlanner.resetData(newData);
 		indicateAddressBookChanged();
 	}
 
 	@Override
 	public void resetPinBoard() {
-		addressBook.resetPinBoard();
+		dailyPlanner.resetPinBoard();
 	}
 
 	@Override
-	public ReadOnlyAddressBook getAddressBook() {
-		return addressBook;
+	public ReadOnlyDailyPlanner getAddressBook() {
+		return dailyPlanner;
 	}
 
 	/** Raises an event to indicate the model has changed */
 	private void indicateAddressBookChanged() {
-		raise(new AddressBookChangedEvent(addressBook));
+		raise(new DailyPlannerChangedEvent(dailyPlanner));
 	}
 
 	@Override
 	public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-		addressBook.removePerson(target);
+		dailyPlanner.removePerson(target);
 		indicateAddressBookChanged();
 	}
 
 	@Override
 	public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-		addressBook.addPerson(person);
-		setLastTaskAddedIndex(addressBook.indexOf(person));
+		dailyPlanner.addPerson(person);
+		setLastTaskAddedIndex(dailyPlanner.indexOf(person));
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
 		setLastShowDate(StringUtil.EMPTY_STRING);
 	}
 
 	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
-		addressBook.markTaskAsComplete(taskToComplete);
-		setLastTaskAddedIndex(addressBook.indexOf((Task) taskToComplete));
+		dailyPlanner.markTaskAsComplete(taskToComplete);
+		setLastTaskAddedIndex(dailyPlanner.indexOf((Task) taskToComplete));
 		indicateAddressBookChanged();
 	}
 	
 	public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws PersonNotFoundException {
-        int targetIndex = addressBook.indexOf((Task) taskToIncomplete);
+        int targetIndex = dailyPlanner.indexOf((Task) taskToIncomplete);
 	    uncompleteTask(targetIndex);
         setLastTaskAddedIndex(targetIndex);
         indicateAddressBookChanged();
@@ -117,24 +117,24 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
-		addressBook.pinTask(taskToPin);
+		dailyPlanner.pinTask(taskToPin);
 		indicateAddressBookChanged();
 	}
 
 	@Override
 	public void unpinTask(int targetIndex) throws PersonNotFoundException {
-		addressBook.unpinTask(targetIndex);
+		dailyPlanner.unpinTask(targetIndex);
 		indicateAddressBookChanged();
 	}
 	
     @Override
     public void uncompleteTask(int targetIndex) {
-        addressBook.uncompleteTask(targetIndex);
+        dailyPlanner.uncompleteTask(targetIndex);
         indicateAddressBookChanged();
     }
 	@Override
 	public void updatePinBoard() {
-		addressBook.updatePinBoard();
+		dailyPlanner.updatePinBoard();
 	}
 
 

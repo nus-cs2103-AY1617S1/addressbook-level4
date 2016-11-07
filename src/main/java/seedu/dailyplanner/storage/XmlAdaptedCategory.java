@@ -4,12 +4,12 @@ import javax.xml.bind.annotation.XmlValue;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.CollectionUtil;
-import seedu.dailyplanner.model.tag.Tag;
+import seedu.dailyplanner.model.category.Category;
 
 /**
  * JAXB-friendly adapted version of the Tag.
  */
-public class XmlAdaptedTag {
+public class XmlAdaptedCategory {
 
     @XmlValue
     public String tagName;
@@ -17,14 +17,14 @@ public class XmlAdaptedTag {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTag() {}
+    public XmlAdaptedCategory() {}
 
     /**
      * Converts a given Tag into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
      */
-    public XmlAdaptedTag(Tag source) {
+    public XmlAdaptedCategory(Category source) {
         tagName = source.tagName;
     }
 
@@ -33,8 +33,8 @@ public class XmlAdaptedTag {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
-    public Tag toModelType() throws IllegalValueException {
-        return new Tag(tagName);
+    public Category toModelType() throws IllegalValueException {
+        return new Category(tagName);
     }
 
 }

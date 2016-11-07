@@ -2,7 +2,7 @@ package seedu.dailyplanner.model.task;
 
 import java.util.Date;
 
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -33,7 +33,7 @@ public interface ReadOnlyTask {
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
      */
-    UniqueTagList getTags();
+    UniqueCategoryList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

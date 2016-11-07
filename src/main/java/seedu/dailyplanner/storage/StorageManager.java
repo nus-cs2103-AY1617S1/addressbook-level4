@@ -4,10 +4,10 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.dailyplanner.commons.core.ComponentManager;
 import seedu.dailyplanner.commons.core.LogsCenter;
-import seedu.dailyplanner.commons.events.model.AddressBookChangedEvent;
+import seedu.dailyplanner.commons.events.model.DailyPlannerChangedEvent;
 import seedu.dailyplanner.commons.events.storage.DataSavingExceptionEvent;
 import seedu.dailyplanner.commons.exceptions.DataConversionException;
-import seedu.dailyplanner.model.ReadOnlyAddressBook;
+import seedu.dailyplanner.model.ReadOnlyDailyPlanner;
 import seedu.dailyplanner.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -21,18 +21,18 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
+    private DailyPlannerStorage dailyPlannerStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(DailyPlannerStorage dailyPlannerStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
+        this.dailyPlannerStorage = dailyPlannerStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlAddressBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+        this(new XmlDailyPlannerStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -52,35 +52,35 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+        return dailyPlannerStorage.getAddressBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyDailyPlanner> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(dailyPlannerStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyDailyPlanner> readAddressBook(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+        return dailyPlannerStorage.readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveAddressBook(ReadOnlyDailyPlanner addressBook) throws IOException {
+        saveAddressBook(addressBook, dailyPlannerStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyDailyPlanner addressBook, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        dailyPlannerStorage.saveAddressBook(addressBook, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleAddressBookChangedEvent(DailyPlannerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);

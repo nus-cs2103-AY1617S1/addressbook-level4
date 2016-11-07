@@ -3,8 +3,8 @@ package seedu.dailyplanner.storage;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
-import seedu.dailyplanner.model.tag.Tag;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.Category;
+import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.*;
 
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Person.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
 	@XmlElement(required = true)
 	private String name;
@@ -31,12 +31,12 @@ public class XmlAdaptedPerson {
 	private boolean isPinned;
 
 	@XmlElement
-	private List<XmlAdaptedTag> tagged = new ArrayList<>();
+	private List<XmlAdaptedCategory> tagged = new ArrayList<>();
 
 	/**
 	 * No-arg constructor for JAXB use.
 	 */
-	public XmlAdaptedPerson() {
+	public XmlAdaptedTask() {
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class XmlAdaptedPerson {
 	 *            future changes to this will not affect the created
 	 *            XmlAdaptedPerson
 	 */
-	public XmlAdaptedPerson(ReadOnlyTask source) {
+	public XmlAdaptedTask(ReadOnlyTask source) {
 		name = source.getName();
 		startDate = source.getStart().getDate().toString();
 		startTime = source.getStart().getTime().toString();
@@ -55,8 +55,8 @@ public class XmlAdaptedPerson {
 		isComplete = source.isComplete();
 		isPinned = source.isPinned();
 		tagged = new ArrayList<>();
-		for (Tag tag : source.getTags()) {
-			tagged.add(new XmlAdaptedTag(tag));
+		for (Category category : source.getTags()) {
+			tagged.add(new XmlAdaptedCategory(category));
 		}
 	}
 
@@ -77,11 +77,11 @@ public class XmlAdaptedPerson {
 		final Date dateEnd = new Date(endDate);
 		final Time timeEnd = new Time(endTime);
 		final DateTime end = new DateTime(dateEnd, timeEnd);
-		final List<Tag> personTags = new ArrayList<>();
-		for (XmlAdaptedTag tag : tagged) {
+		final List<Category> personTags = new ArrayList<>();
+		for (XmlAdaptedCategory tag : tagged) {
 			personTags.add(tag.toModelType());
 		}
-		final UniqueTagList tags = new UniqueTagList(personTags);
+		final UniqueCategoryList tags = new UniqueCategoryList(personTags);
 
 		Task newTask = new Task(taskName, start, end, isComplete, isPinned, tags);
 		return newTask;

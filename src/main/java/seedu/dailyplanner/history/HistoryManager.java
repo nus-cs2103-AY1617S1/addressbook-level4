@@ -7,8 +7,7 @@ import java.util.Stack;
 import java.util.Vector;
 
 import seedu.dailyplanner.model.*;
-import seedu.dailyplanner.model.tag.*;
-import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.category.*;
 import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
