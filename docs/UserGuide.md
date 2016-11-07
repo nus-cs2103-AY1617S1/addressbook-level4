@@ -34,8 +34,6 @@
 
 ### Viewing help : `help`
 Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
  
 <!-- @@author A0148083A -->
 
