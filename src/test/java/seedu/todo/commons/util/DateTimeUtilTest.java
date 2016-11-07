@@ -14,7 +14,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtilTest {
 
@@ -78,7 +81,57 @@ public class DateTimeUtilTest {
         assertEquals(ldt, DateTimeUtil.parseDateTimeString("1/1/1996 20:34", TaskDate.TASK_DATE_ON));
         assertEquals(ldtNoTime, DateTimeUtil.parseDateTimeString("1/1/1996", TaskDate.TASK_DATE_ON));
         assertEquals(ldtNoDate, DateTimeUtil.parseDateTimeString("20:34", TaskDate.TASK_DATE_ON));
-        
-        
     }
+    
+    //@@author A0142421X
+    @Test
+    public void testPrettyPrintDate_equals() {
+    	LocalDateTime ldt = LocalDateTime.now();
+    	LocalDate date = ldt.toLocalDate();
+    	String expectedPrettyDate = date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+    	assertEquals(DateTimeUtil.prettyPrintDate(date), expectedPrettyDate);
+    }
+    
+    @Test
+    public void testPrettyPrintTime_equals() {
+    	LocalDateTime ldt = LocalDateTime.now();
+    	LocalTime time = ldt.toLocalTime();
+    	String expectedPrettyPrintTime = time.format(DateTimeFormatter.ofPattern("hh:mm a"));
+    	assertEquals(DateTimeUtil.prettyPrintTime(time), expectedPrettyPrintTime);
+    }
+    
+    @Test
+    public void testCombineLocalDateAndTime_time_not_null_equals() {
+    	LocalDateTime ldt = LocalDateTime.now();
+    	LocalDate date = ldt.toLocalDate();
+    	LocalTime time = ldt.toLocalTime();
+    	LocalDateTime expectedCombineLocalDateAndTime = LocalDateTime.of(date, time);
+    	assertEquals(DateTimeUtil.combineLocalDateAndTime(date, time), expectedCombineLocalDateAndTime);
+    }
+    
+    @Test
+    public void testCombineLocalDateAndTime_time_null_equals() {
+    	LocalDateTime ldt = LocalDateTime.now();
+    	LocalDate date = ldt.toLocalDate();
+    	LocalDateTime expectedCombineLocalDateAndTime = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 23, 59);
+    	assertEquals(DateTimeUtil.combineLocalDateAndTime(date, null), expectedCombineLocalDateAndTime);
+    }
+    
+    @Test
+    public void testBeforeOther_onDate_null_true() throws IllegalValueException {
+    	TaskDate byDate = new TaskDate("8-12-2000", "by");
+    	assertTrue(DateTimeUtil.beforeOther(null, byDate));
+    }
+
+    @Test
+    public void testBeforeOther_byDate_null_true() throws IllegalValueException {
+    	TaskDate onDate = new TaskDate("8-12-2000", "on");
+    	assertTrue(DateTimeUtil.beforeOther(onDate, null));
+    }
+
+    @Test
+    public void testBeforeOther_onDate_null_byDate_null_true() throws IllegalValueException {
+    	assertTrue(DateTimeUtil.beforeOther(null, null));
+    }
+    //@@author
 }
