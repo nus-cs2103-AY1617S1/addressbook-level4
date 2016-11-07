@@ -16,8 +16,8 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-            String message = model.getPreviousState();
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, message));
+            model.getPreviousState();
+            return new CommandResult(MESSAGE_UNDO_SUCCESS);
         } catch (StateLimitException e) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_UNDO_FAILED);
