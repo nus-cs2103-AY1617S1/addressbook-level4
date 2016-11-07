@@ -11,11 +11,10 @@ import w15c2.tusk.logic.commands.taskcommands.RedoTaskCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
 import w15c2.tusk.model.task.FloatingTask;
-
+//@@author A0143107U
 /**
  * Tests RedoTask Command 
  */
-//@@author A0143107U
 public class RedoTaskCommandTest {
 
 	// Initialized to support the tests

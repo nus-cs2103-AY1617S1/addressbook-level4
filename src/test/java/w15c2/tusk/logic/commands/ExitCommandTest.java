@@ -5,11 +5,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import w15c2.tusk.logic.commands.taskcommands.ExitCommand;
-
+//@@author A0143107U
 /**
  * Tests Exit Command 
  */
-//@@author A0143107U
 public class ExitCommandTest {
 	@Test
 	public void execute_exit(){

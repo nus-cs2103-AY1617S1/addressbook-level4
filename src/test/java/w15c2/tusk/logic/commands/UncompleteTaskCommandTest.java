@@ -10,11 +10,10 @@ import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.testutil.TestUtil;
-
+//@@author A0143107U
 /**
  * Tests Uncomplete Task Command 
  */
-//@@author A0143107U
 public class UncompleteTaskCommandTest {
 
 	@Test

@@ -8,10 +8,10 @@ import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.logic.parser.ParserSelector;
 import w15c2.tusk.model.Alias;
 
+//@@author A0143107U
 /**
  * Adds a task to TaskManager.
  */
-//@@author A0143107U
 public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";

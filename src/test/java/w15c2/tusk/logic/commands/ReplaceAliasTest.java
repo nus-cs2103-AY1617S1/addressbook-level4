@@ -9,11 +9,10 @@ import w15c2.tusk.logic.ReplaceAlias;
 import w15c2.tusk.logic.commands.taskcommands.AddAliasCommand;
 import w15c2.tusk.model.Model;
 import w15c2.tusk.model.ModelManager;
-
+//@@author A0143107U
 /**
  * Tests Replace Alias
  */
-//@@author A0143107U
 public class ReplaceAliasTest {
 	
 	// Initialized to support the tests

@@ -37,6 +37,7 @@ public class ResultDisplay extends UiPart {
     public void configure() {
         resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
+        resultDisplayArea.setWrapText(true);
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);

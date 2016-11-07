@@ -2,11 +2,10 @@ package w15c2.tusk.testutil;
 
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.model.task.Description;
-
+//@@author A0143107U
 /**
  * Builds a task for testing
  */
-//@@author A0143107U
 public class TaskBuilder {
 
     private TestTask task;

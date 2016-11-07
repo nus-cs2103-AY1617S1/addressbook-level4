@@ -12,7 +12,7 @@ import w15c2.tusk.logic.commands.taskcommands.TaskCommand;
 import w15c2.tusk.logic.commands.taskcommands.UncompleteTaskCommand;
 
 //@@author A0143107U
-/*
+/**
  * Parses Uncomplete commands
  */
 public class UncompleteCommandParser extends CommandParser{
