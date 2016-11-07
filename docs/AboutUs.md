@@ -35,8 +35,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [UI](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
 * Features implemented:
-   * [Edit](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
-   * [Done](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete--done) 
+   * [`edit` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [`done` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete--done) 
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0144727B.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0144727B.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0144727B.md)] 
 * Other major contributions:
   * Aided in the initial refactoring from AddressBook test cases to GGist test cases
@@ -52,8 +52,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Storage](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
 * Features implemented:
-   * [Undo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#undo-undo)
-   * [Redo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#redo-redo) 
+   * [`undo` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#undo-undo)
+   * [`redo` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#redo-redo) 
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138420N.md)][[test code]][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0138420N.md)] 
 * Other major contributions:
   * Aided in the initial refactoring from AddressBook test cases to GGist test cases
@@ -73,8 +73,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Testing] (https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
 * Aspects/tools in charge of: Program Testing, Command Developer
 * Features implemented:
-   * [ContinueCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-completed-task-as-undone--continue)
-   * [EditCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
+   * [`continue` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-completed-task-as-undone--continue)
+   * [`edit` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
    * [TypicalTaskTesting](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#troubleshooting-tests)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0147994J.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0147994J.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0147994J.md)] 
 * Other major contributions:
