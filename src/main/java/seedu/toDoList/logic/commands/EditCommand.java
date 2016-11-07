@@ -130,6 +130,7 @@ public class EditCommand extends Command {
     private CommandResult prepareEditTaskWithName() {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(name.trim());
         if (!matcher.matches()) {
+        	indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
@@ -140,6 +141,7 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
         } else {
+        	indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_EDIT_SAME_NAME);
         }
     }
@@ -154,9 +156,14 @@ public class EditCommand extends Command {
         try {
         	if(type.equals(EDIT_TYPE_START_DATE) || type.equals(EDIT_TYPE_END_DATE)) {
         		if(toEdit.isEvent())
+        		{
         			model.editTask(toEdit, type, details);
+        		}
         		else
+        		{
+        			indicateAttemptToExecuteIncorrectCommand();
         			return new CommandResult(MESSAGE_IS_NOT_A_EVENT);
+        		}
         	}
         	else
         		model.editTask(toEdit, type, details);
@@ -164,6 +171,7 @@ public class EditCommand extends Command {
 	        model.saveState(message);
 	        return new CommandResult(message);
 		} catch (IllegalValueException e) {
+			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(MESSAGE_TASK_NOT_IN_LIST);
 		}
     }
