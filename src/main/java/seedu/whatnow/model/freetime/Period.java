@@ -65,16 +65,18 @@ public class Period implements Comparator {
                 Date p1start = df.parse(period1.getStart());
                 Date p1end = df.parse(period1.getEnd());
                 Date p2start = df.parse(period2.getStart());
+                Date p2end = df.parse(period2.getEnd());
 
-                if (p1start.compareTo(p2start) < 0 && p1end.compareTo(p2start) < 0) {
+                if (p1start.compareTo(p2start) < 0 && p1end.compareTo(p2start) <= 0) {
                     return SMALLER;
-                } else if (p1start.compareTo(p2start) == 0 && p1end.compareTo(p2start) == 0) {
+                } else if (p1start.compareTo(p2start) == 0 && p1end.compareTo(p2end) == 0) {
                     return EQUAL;
                 } else {
                     return BIGGER;
                 }
             } catch (ParseException e) {
                 logger.warning("ParseException at Period: \n" + e.getMessage());
+                return EQUAL;
             }
 
         }
