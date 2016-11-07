@@ -1408,63 +1408,6 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
-    public boolean unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.unmark(target)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
-    }
-    
-    
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
-    //// util methods
-
-    @Override
-    public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
-    }
-
-    @Override
-    public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UniqueTaskList getUniqueTaskList() {
-        return this.tasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof WhatNow // instanceof handles nulls
-                        && this.tasks.equals(((WhatNow) other).tasks) && this.tags.equals(((WhatNow) other).tags));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing
-        // your own
-        return Objects.hash(tasks, tags);
-    }
-}
 ```
 ###### \java\seedu\whatnow\storage\XmlAdaptedTag.java
 ``` java
