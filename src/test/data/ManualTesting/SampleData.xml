@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- //@@author A0125534L -->
+<taskbook>
+    <tasks>
+        <name>Jetstor email</name>
+        <description>Reply enquirers on system error</description>
+        <status>false</status>
+        <deadline>28 Nov, 2016 5:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>Cotton-on email</name>
+        <description>Reply enquirers on stock taking</description>
+        <status>false</status>
+        <deadline>29 Nov, 2016 5:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>CoolServe Manufacturer email</name>
+        <description>multiple email regarding available stock</description>
+        <status>false</status>
+        <deadline>5 Dec, 2016 5:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>StyleXStyle Manufacturer email</name>
+        <description>multiple email regarding available stock</description>
+        <status>false</status>
+        <deadline>5 Dec, 2016 2:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>KONAMI Manufacturer email</name>
+        <description>Reply email regarding available stock</description>
+        <status>false</status>
+        <deadline>6 Dec, 2016 1:00 PM</deadline>
+    </tasks>
+     <tasks>
+        <name>Complete system failure report</name>
+        <description>system failed last Saturday</description>
+        <status>false</status>
+        <deadline>12 Nov, 2016 11:59 PM</deadline>
+    </tasks>
+     <tasks>
+        <name>October Audit</name>
+        <description></description>
+        <status>true</status>
+        <deadline>31 Oct, 2016 11:59 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>November Audit</name>
+        <description></description>
+        <status>false</status>
+        <deadline>31 Nov, 2016 11:59 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>December Audit</name>
+        <description></description>
+        <status>false</status>
+        <deadline>31 Dec, 2016 11:59 PM</deadline>
+    </tasks>
+	<tasks>
+        <name>Wash the laundry</name>
+        <description></description>
+        <status>false</status>
+        <deadline>13 Nov, 2016 11:59 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>Wash the Car</name>
+        <description></description>
+        <status>false</status>
+        <deadline>13 Nov, 2016 5:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>System Update</name>
+        <description></description>
+        <status>false</status>
+        <deadline>11 Nov, 2016 5:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>contact Ricky for visa application form</name>
+        <description></description>
+        <status>false</status>
+        <deadline>12 Nov, 2016 8:00 PM</deadline>
+    </tasks>
+    <tasks>
+        <name>Reply Cisco email</name>
+        <description>CC to HR department</description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Reply Starhub email</name>
+        <description>CC to Maintenance department</description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Reply Starhub email</name>
+        <description>CC to Customer Service department</description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Enquiry on new server parts</name>
+        <description>approach Alax from IT department</description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Errands to Microsoft</name>
+        <description>Parcel to Jasmine from the PR department</description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Going to the gym</name>
+        <description></description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Fix a dental appointment</name>
+        <description></description>
+        <status>true</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Fix the faulty light bulb</name>
+        <description></description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Print Resume</name>
+        <description></description>
+        <status>true</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Get Samsung Note 7</name>
+        <description></description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>Get a hair cut</name>
+        <description></description>
+        <status>true</status>
+        <deadline></deadline>
+    </tasks>
+    <tasks>
+        <name>shop for Christmas gift</name>
+        <description></description>
+        <status>false</status>
+        <deadline></deadline>
+    </tasks>
+    <events>
+        <name>SAACP workshop</name>
+        <description>at Star Vista Level 2</description>
+        <startDuration>16 Nov, 2016 12:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+     <events>
+        <name>CCNA workshop</name>
+        <description>at Cisco HQ</description>
+        <startDuration>15 Nov, 2016 10:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>SAP workshop</name>
+        <description>at MOE HQ</description>
+        <startDuration>15 Nov, 2016 9:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Finance consultation</name>
+        <description>at Pomo</description>
+        <startDuration>18 Nov, 2016 7:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Project meeting</name>
+        <description>discuss on next year KPI</description>
+        <startDuration>17 Nov, 2016 12:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Company dinner</name>
+        <description>Venue tbc</description>
+        <startDuration>18 Nov, 2016 7:00 PM</startDuration>
+        <endDuration>18 Nov, 2016 10:00 PM</endDuration>
+    </events>
+    <events>
+        <name>Sausage party movie</name>
+        <description>At Vivo city</description>
+        <startDuration>19 Nov, 2016 7:00 PM</startDuration>
+        <endDuration>19 Nov, 2016 9:00 PM</endDuration>
+    </events>
+    <events>
+        <name>Hackaton Event</name>
+        <description>Charity Hackaton at NUS</description>
+        <startDuration>29 Oct, 2016 10:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>	
+    <events>
+        <name>meeting with Ricky and Keith</name>
+        <description></description>
+        <startDuration>next week, 4:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+     <events>
+        <name>meeting with Temasak Holding Representation</name>
+        <description></description>
+        <startDuration>14 Nov, 2016 1:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>lunch with Xuchen</name>
+        <description></description>
+        <startDuration>12 Nov, 2016 12:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>lunch with Kian ming</name>
+        <description></description>
+        <startDuration>13 Nov, 2016 1:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Dinner with Tian kai</name>
+        <description></description>
+        <startDuration>13 Nov, 2016 7:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>dinner with Keith</name>
+        <description></description>
+        <startDuration>10 Nov, 2016 7:00 PM</startDuration>
+        <endDuration>10 Nov, 2016 10:00 PM</endDuration>
+    </events>
+    <events>
+        <name>supper with team members</name>
+        <description></description>
+        <startDuration>11 Nov, 2016 10:00 PM</startDuration>
+        <endDuration>11 Nov, 2016 12:00 AM</endDuration>
+    </events>
+     <events>
+        <name>Online meeting with management</name>
+        <description>To discuss on new software release</description>
+        <startDuration>19 Nov, 2016 10:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Basketball competition</name>
+        <description></description>
+        <startDuration>25 Nov, 2016 7:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Family Dinner</name>
+        <description></description>
+        <startDuration>26 Nov, 2016 7:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>	
+    <events>
+        <name>Robot Wars Finals</name>
+        <description></description>
+        <startDuration>2 Dec, 2016 9:00 PM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>One day Baby Expo</name>
+        <description></description>
+        <startDuration>3 Dec, 2016 9:00 AM</startDuration>
+        <endDuration>3 Dec, 2016 9:00 PM</endDuration>
+    </events>
+    <events>
+        <name>Family trip</name>
+        <description></description>
+        <startDuration>24 Dec, 2016 11:00 AM</startDuration>
+        <endDuration>26 Dec, 2016 9:00 PM</endDuration>
+    </events>
+    <events>
+        <name>Business trip</name>
+        <description></description>
+        <startDuration>28 Dec, 2016 4:00 AM</startDuration>
+        <endDuration>29 Dec, 2016 7:00 PM</endDuration>
+    </events>
+    <events>
+        <name>Server maintanance</name>
+        <description></description>
+        <startDuration>12 Nov, 2016 12:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Home broadband server maintanance</name>
+        <description></description>
+        <startDuration>11 Nov, 2016 12:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Apartment circuit board power test</name>
+        <description></description>
+        <startDuration>10 Nov, 2016 12:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+    <events>
+        <name>Standard chartered full marathon /from 4 dec</name>
+        <description></description>
+        <startDuration>4 Dec, 2016 3:00 AM</startDuration>
+        <endDuration></endDuration>
+    </events>
+</taskbook>
