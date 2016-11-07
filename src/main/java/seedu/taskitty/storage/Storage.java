@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+import javafx.scene.control.ButtonType;
+
 /**
  * API of the Storage component
  */
@@ -31,9 +33,11 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
     
     //@@author A0135793W
+    void setFilePath(String taskManagerFilePath, boolean isLoad) throws DataConversionException, IOException;
+    
     void setFilePath(String taskManagerFilePath) throws DataConversionException, IOException;
     
-    boolean isOverwrite(File file) throws DataConversionException, IOException;
+    ButtonType getButton(File file) throws DataConversionException, IOException; 
     //@@author
     
     /**
