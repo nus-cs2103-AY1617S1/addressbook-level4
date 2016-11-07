@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import javafx.application.Platform;
@@ -80,6 +81,11 @@ public class DailyPanel extends UiPart {
 	private void configure(ObservableList<ReadOnlyTask> taskList, int dayOfTheWeek, Date date) {
 
 		String dateHeader = generateHeader(dayOfTheWeek, date);
+		Date today = new Date();
+		if(date == today) {
+			placeHolderPane.setStyle("-fx-background-color:#FF0000");
+			header.setStyle("-fx-text-fill:#FF0000");
+		}
 		setConnections(taskList, dateHeader);
 		addToPlaceholder();
 		

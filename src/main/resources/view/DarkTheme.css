@@ -94,16 +94,18 @@
 
 .list-cell .label {
     -fx-text-fill: #010504;
+    -fx-font-family:'Helvetica Condensed'; 
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 12px;
     -fx-text-fill: #010504;
+    -fx-font-family:'Helvetica Condensed'; 
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 10px;
+    -fx-text-fill: #696969;
 }
 
 .anchor-pane {
@@ -277,7 +279,8 @@
 }
 
 .cardPane {
-    -fx-background-color: transparent;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 5px;
 }
 
 #commandTypeLabel {
@@ -303,6 +306,10 @@
 
 .floating-scrollpane, .floating-panel {
 	-fx-background-color:#ACEDFF;
+	-fx-border-radius: 15px;
+	-fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-family:'Helvetica Bold'; 
 }
 
 .floating-scrollpane {
@@ -326,6 +333,10 @@
 
 .daily-scrollpane, .daily-panel {
 	-fx-background-color:#99D3FF;
+	-fx-border-radius: 15px;
+	-fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-family:'Helvetica Bold'; 
 }
 
 .daily-scrollpane > .scroll-bar:horizontal .thumb,
@@ -344,6 +355,10 @@
 /*------------------------------------------ UpcomingPanel Styling ------------------------------------------*/
 .upcoming-scrollpane, .upcoming-panel {
 	-fx-background-color:#D1E0FF;
+	-fx-border-radius: 15px;
+	-fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-family:'Helvetica Bold'; 
 }
 
 .upcoming-scrollpane > .scroll-bar:horizontal .thumb,

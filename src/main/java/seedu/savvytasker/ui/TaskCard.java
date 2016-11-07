@@ -1,3 +1,5 @@
+//@@author A0138431L
+
 package seedu.savvytasker.ui;
 
 import java.util.Date;
@@ -6,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
@@ -13,7 +16,7 @@ public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
     
-    private static final String ICON = "/images/savvytasker-icon.png";
+    private static final String ICON = "/images/overdue.png";
 	private static final Image OVERDUE_IMAGE = new Image(MainWindow.class.getResourceAsStream(ICON));
 	
     public static final String LOW_PRIORITY_BACKGROUND = "-fx-background-color:#CEFFDC";
@@ -28,6 +31,8 @@ public class TaskCard extends UiPart{
     private Label id;
     @FXML
     private Label details;
+    @FXML
+	private ImageView overdueIcon;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -45,16 +50,34 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        taskName.setText(task.getTaskName());
+        
+    	taskName.setText(task.getTaskName());
         id.setText(displayedIndex + ". ");
         details.setText(task.getTextForUi());
         setCardBackground();
+		setOverdue();
+		
     }
 
     public HBox getLayout() {
         return cardPane;
     }
     
+    private void setOverdue() {
+    	
+    	Date today = new Date();
+    	
+		if (task.getEndDateTime() != null) {
+
+			Date endDateTime = task.getEndDateTime();
+
+			if (endDateTime.compareTo(today)<0 && task.isArchived() == false) {
+
+				overdueIcon.setImage(OVERDUE_IMAGE);
+			}
+		}
+    	
+    }
     private void setCardBackground() {
     	
         if (task.getPriority().toString().equals("High")) {

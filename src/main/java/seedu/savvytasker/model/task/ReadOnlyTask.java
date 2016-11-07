@@ -84,9 +84,6 @@ public interface ReadOnlyTask {
                     .append(getLocation())
                     .append("\n");
         }
-        builder.append(" Priority: ")
-                .append(getPriority())
-                .append("\n");
         if (getCategory() != null && !getCategory().isEmpty()) {
             builder.append(" Category: ")
                     .append(getCategory())
@@ -97,8 +94,6 @@ public interface ReadOnlyTask {
                     .append(getDescription())
                     .append("\n");
         }
-        builder.append(" Archived: ")
-                .append(isArchived());
         return builder.toString();
     }
     //@@author

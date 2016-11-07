@@ -3,12 +3,13 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" styleClass="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-          <VBox alignment="CENTER_LEFT" maxHeight="250.0" styleClass="cardPane">
+          <VBox alignment="CENTER_LEFT" maxHeight="250.0">
               <stylesheets>
                   <URL value="@DarkTheme.css" />
                   <URL value="@Extensions.css" />
@@ -32,5 +33,6 @@
                   <Label fx:id="details" styleClass="cell_small_label" text="\$phone" />
               </children>
           </VBox>
+      <ImageView fx:id="overdueIcon" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </HBox>
