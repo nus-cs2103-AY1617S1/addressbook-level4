@@ -20,12 +20,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Responsibilities: UI/UX Designer
 * Components in charge of: [UI](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Features implemented:
-  * Undo command
-  * Redo command
-  * Clear command
-  * Help command
+  * [Undo command](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#undoing-a-command-undo) <br>
+  * [Redo command](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#redoing-a-command-redo) <br>
+  * [Clear command](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#clearing-all-tasks-clear) <br>
+  * [Help command](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#viewing-help-help) <br>
   * Input history navigation with Arrow Keys
-* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)][[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)][docs]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)][[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)][[docs](../collated/docs/A0093960X.md)] <br>
 
 -----
 
