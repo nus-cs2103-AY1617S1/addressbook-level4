@@ -31,6 +31,10 @@ The following tests are specified as such:
 
 > Should show the help window
 
+- `adsf`
+
+> Tasks remain unchanged since it is an invalid command
+
 - `add meeting`
 
 > Should add a task with description "meeting"
@@ -39,7 +43,11 @@ The following tests are specified as such:
 
 > Task should show a deadline of `29th Dec 2016, 12.00 AM`
 
-- `add homework by 29 dec 2.34am`
+- `add homework on 30 dec`
+
+> Task should show a date of `30th Dec 2016, 12.00 AM`
+
+- `add some task by 29 dec 2.34am`
 
 > Task should show a deadline of `29th Dec 2016, 2.34 AM`
 
@@ -55,6 +63,10 @@ The following tests are specified as such:
 
 > Task should have the description "event from 29 dec 12.34 am to 30 dec 2.66pm" as Tusk assumes you meant this as a description since the time is not valid
 
+- `add "prepare for the conference on 23 dec"`
+
+> Task should have the description "prepare for the conference on 23 dec" as the double quotation indicates that the date is part of the description
+
 - `edit 1 desc clean desk table`
 
 > The description of task at index 1 should change from "clean desk" to "clean desk table"
@@ -67,7 +79,7 @@ The following tests are specified as such:
 
 > The task at index 1 changes from a floating task to a deadline task with date `07 Dec 2016, 10.00PM`
 
-- `edit 2 task buy groceries and bread by 6 dec 8pm`
+- `edit 1 task buy groceries and bread by 6 dec 8pm`
 
 > The task at index 1 changes from a floating task to a deadline task with description "buy groceries and bread" and date `06 Dec 2016, 8.00PM`
 
@@ -101,7 +113,7 @@ The following tests are specified as such:
 
 - `unpin 1`
 
-> The task that was just pinned should go back to its original position
+> The task that was just unpinned would no longer be at the top of the list
 
 - `alias am add meeting`
 
@@ -145,15 +157,11 @@ The following tests are specified as such:
 
 - `clear`
 
-> The list of tasks with "mee" as a substring in their descriptions are all deleted and disappear. The incomplete task list should be shown
+> The list of tasks with "mee" as a substring in their descriptions are all deleted and disappear. The incomplete task list should now be shown
 
 - `undo`
 
 > All tasks with "mee" as a substring in their descriptions that were just deleted should be restored
-
-- `adsf`
-
-> Tasks remain unchanged since it is an invalid command
 
 - <kbd>Up</kbd> arrow key
 
@@ -161,7 +169,7 @@ The following tests are specified as such:
 
 - <kbd>Up</kbd> arrow key
  
-> The 'redo' command should be displayed in the command box
+> The 'clear' command should be displayed in the command box
 
 - <kbd>Down</kbd> arrow key
 

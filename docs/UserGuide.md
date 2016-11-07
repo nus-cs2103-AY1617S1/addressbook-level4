@@ -66,7 +66,7 @@ Format: `help`
 Adds a task to <i>Tusk</i>. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
 > **Date-Time Format**
-> * Note that dates and timings follow [strict formats](#date-time-format) <br>
+> * Note that dates and timings follow [these formats](#date-time-format) <br>
 > * Any deviations from the format may not be interpreted correctly.
 
 
@@ -79,7 +79,7 @@ Example:
 * `add "Exam on 1 Oct"`
 
 ##### Deadline Tasks
-These tasks have a description and a deadline (due date) <br>
+These tasks have a description and a deadline (due date). <br>
 Format: `add TASK by/on/at DATE` <br>
 
 Examples:
