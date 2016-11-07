@@ -26,7 +26,6 @@
 
 ## Description
 
-
 0. Each card in the bottom left panel is a task added to the LifeKeeper.
 1. The LifeKeeper supports three types of entries:		
    * `Activity`
@@ -37,12 +36,21 @@
 4. Event is a task which must have a valid `NAME` and `[STARTTIME]` and optional `[ENDTIME]`. `[REMINDER]` can also be entered together with the rest.<br>
 5. All task types can have optional `[TAG]`, each task accepts multiple tags. `Tags` are shown with `[]`. <br>
 6. Colours of the background of the cards indicate the status of the task. 
-* `Green: Task or Activity that is completed or Event that has passed. A text 'Completed' is shown to notify user of the completion of the task`
-* `Yellow: Task with duedate that is due within three days. A text `Task Deadline Approaching` is also shown to notify user of the approaching deadline.`
-* `Red: Task with a duedate that has passed and yet not marked as done. A text `Task Overdue` is also shown to reminder user of overdued task.`
+* `Green: Task or Activity that has been marked as done, or an Event that has passed. A text 'Completed' or 'Event Over' is shown to notify user of the status of the task/event`
+* `Yellow: Task with a deadline within three days. A text `Task Deadline Approaching` is also shown to notify user of the approaching deadline.`
+* `Red: Task with a duedate that has passed and yet not marked as done. A text `Task Overdue` is also shown to reminder user of the overdue task.`
+* `Blue`: Events that are ongoing. This is defined as an event with a start time before the current time, and an end time after the current time. A text `Event Ongoing` is shown to notify the user of the event status.
 * `White: The default colour indicating all other types of tasks.`
 7. <img src="priority3.png" width="15"> shown on the right side of the card indicates the important or priority of the task. There are four levels of priority 0, 1, 2, 3 which are indicated by the number of exclamation marks shown. Priority is only applicable to task but not activity or event. 
 
+## Loading saved data
+* Method 1
+1. Go to File > Open.
+2. Navigate to the folder src > test > data > ManualTesting.
+3. Choose the file SampleData.xml and click 'Open'.
+
+* Method 2
+1. Type open src/test/data/ManualTesting/SampleData.xml to load the sample data.
 
 ## Testing Commands
 
