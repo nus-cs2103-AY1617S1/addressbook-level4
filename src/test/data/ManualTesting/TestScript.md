@@ -10,7 +10,7 @@ Following testing command will test each of those data type and the result will 
   * DeadlineList.xml
   * EventList.xml
   * TodoList.xml
-4. Now you may run Tdoo_v0.5.jar app.
+4. Now you may run Tdoo_v0.5.jar app and follow the following steps for manual testing.
 
 ## Viewing help : `help`
 Show features and respective commands of the app.<br>
@@ -59,11 +59,11 @@ Deadlines will be rearranged in the Deadline-List based on their ending time.<br
 Delete a task with given type and index number.<br>
 
 #### Deleting a Todo:
-> Command: `delete todo 1`<br>
-> Expected Outcome: A Todo task *(buy Natural Heritage of Singapore book)* is deleted from the 1st entry of the Todo List. <br>
+> Command: `delete todo 6`<br>
+> Expected Outcome: A Todo task *(Prepare CS2103 v0.5 rc demo)* is deleted from the 6th entry of the Todo List. <br>
 
 > Undo Command: `undo`<br>
-> Expected Outcome: A Todo task *(buy Natural Heritage of Singapore book)* is added back to the 1st entry of the Todo List.
+> Expected Outcome: A Todo task *(Prepare CS2103 v0.5 rc demo)* is added back to the 6th entry of the Todo List.
 
 #### Deleting an Event:
 > Command: `delete event 1`<br>
@@ -88,7 +88,7 @@ You can change the data type of a task by editing it with a different command fo
 
 #### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Command: `edit todo 1 name/Prepare CS2103 v0.4 demo p/2`<br>
+> Command: `edit todo 6 name/Prepare CS2103 v0.5rc demo p/2`<br>
 > Expected Outcome: A Todo task *(Prepare CS2103 v0.4 demo)* at the 6th entry of the Todo List is edited by the given parameters. The list will be scrolled to the location of the Todo task edited. <br>
 
 > Undo Command: `undo`<br>
@@ -141,10 +141,10 @@ Mark a Todo-task with given index number as undone.<br>
 
 #### Marking a Todo 'Not Completed':
 > Command: `undone todo 3`<br>
-> Expected Outcome: A Todo task *(Operationalize RPi images)* at the 3rd entry of the Todo List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Todo task marked.
+> Expected Outcome: A Todo task *(Implement edit and share)* at the 3rd entry of the Todo List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Todo task marked.
 
 > Undo Command: `undo`<br>
-> Expected Outcome: A Todo task *(Operationalize RPi images)* is Marked back as 'Completed'.
+> Expected Outcome: A Todo task *(Implement edit and share)* is Marked back as 'Completed'.
 
 #### Marking an Event 'Not Completed':
 > Command: `undone event 3`<br>
@@ -229,38 +229,38 @@ Clears all completed tasks from the given task type list.<br>
 Finds tasks whose names contain any of the given keywords. The task list will be filtered and only tasks with given keywords are displayed.<br>
 
 #### Find from all three task lists:
-> Command: `find all (Give keywords here)`<br>
-> Expected Result: All tasks that contain given keywords are displayed. <br>
+> Command: `find all 2103`<br>
+> Expected Result: All tasks that contain given keywords *(2103)* are displayed. <br>
 
 #### Find from Todo list:
-> Command: `find todo (Give keywords here)`<br>
-> Expected Result: All Todo tasks that contain given keywords are displayed. <br>
+> Command: `find todo 2103`<br>
+> Expected Result: All Todo tasks that contain given keywords *(2103)* are displayed. <br>
 
 #### Find from Event list:
-> Command: `find event (Give keywords here)`<br>
-> Expected Result: All Event tasks that contain given keywords are displayed. <br>
+> Command: `find event 2103`<br>
+> Expected Result: All Event tasks that contain given keywords *(2103)* are displayed. <br>
 
 #### Find from Deadline list:
-> Command: `find deadline (Give keywords here)`<br>
+> Command: `find deadline 2103`<br>
 > Expected Result: All Deadline tasks that contain given keywords are displayed. <br>
 
 
 ## Listing all tasks
 List command can be done after task lists are filtered by the find command. It will display all the tasks stored in the storage. <br>
 
-## list all three task types:
+## List all three task types:
 > Command: `list all`<br>
 > Expected Result: All task types are displayed. <br>
 
-## list all three task types:
+## List all three task types:
 > Command: `list todo`<br>
 > Expected Result: All Todo tasks are displayed. <br>
 
-## list all three task types:
+## List all three task types:
 > Command: `list event`<br>
 > Expected Result: All Event tasks are displayed. <br>
 
-## list all three task types:
+## List all three task types:
 > Command: `list deadline`<br>
 > Expected Result: All Deadline tasks are displayed. <br>
 

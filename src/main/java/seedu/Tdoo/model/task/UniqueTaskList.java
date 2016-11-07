@@ -136,6 +136,7 @@ public class UniqueTaskList implements Iterable<Task> {
 		for (int i = 0; i < internalList.size(); i++) {
 			if (internalList.get(i).getDone().equals("true")) {
 				internalList.remove(i);
+				i--;
 			}
 		}
 	}
