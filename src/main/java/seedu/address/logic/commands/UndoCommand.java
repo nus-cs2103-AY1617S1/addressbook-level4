@@ -2,9 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.FinishStateException;
 
+//@@author A0139516B
 /**
  * Undoes a command given by the user in the task manager.
- * @@author A0139516B
  */
 public class UndoCommand extends Command {
 	

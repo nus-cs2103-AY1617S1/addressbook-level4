@@ -19,6 +19,7 @@ public class ClearCommand extends Command {
     public ClearCommand() {}
 
 
+  //@@author A0139097U
     @Override
     public CommandResult execute() {
         assert model != null;

@@ -3,9 +3,9 @@ package seedu.address.commons.core;
 import java.util.Objects;
 import java.util.logging.Level;
 
+//@@author A0144202Y
 /**
  * Config values used by the app
- * @@author A0144202Y
  */
 public class Config {
 
