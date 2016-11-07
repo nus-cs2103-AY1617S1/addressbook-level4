@@ -1,5 +1,7 @@
 package seedu.jimi.model.tag;
 
+import java.util.Arrays;
+
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
 /**
@@ -12,14 +14,15 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
  **/
 
 public class Priority extends Tag {
-    
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Priority (case-insensitive) names should only be: high, med, low or none. ";
-    
     public final static String PRIO_LOW = "low";
     public final static String PRIO_MED = "med";
     public final static String PRIO_HIGH = "high";
     public final static String PRIO_NONE = "none";
+    
+
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = 
+            "Invalid priority! Valid priority (case-insensitive) names include: \n"
+            + "> " + String.join(", ", Arrays.asList(PRIO_NONE, PRIO_LOW, PRIO_MED, PRIO_HIGH));
     
     /**
      * Instantiate with no priority tag.
