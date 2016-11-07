@@ -82,7 +82,7 @@ The rest of the App consists four components.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
-
+5
 Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -140,6 +140,7 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 <!-- @@author A0147619W -->
+
 ### Logic component
 
 <img src="images/LogicDiagram.png" width="800"><br>
@@ -462,10 +463,6 @@ Priority | As a ... | I want to ... | So that I can...
 	
 > 1c1. ForgetMeNot shows error message of the wrong details.
 	
-	2a. User changed his/her mind.
-	
-> 2a1. Command is removed.
-
 <!-- @@author -->
 
 #### Use case: Mark task as done
@@ -650,8 +647,8 @@ Day:
 5. Steep learning curve.<br>
 6. Does not support categories.<br>
 
-
 <!-- @@author A0139671X-->
+
 ### Any.do
 ##### Strengths
 
@@ -684,6 +681,7 @@ Day:
 <!-- @@author -->
 
 <!-- @@author A0147619W -->
+
 ### Wunderlist
 ##### Strengths
 
