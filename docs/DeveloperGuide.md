@@ -126,7 +126,7 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
-<!-- @@author-->
+<!-- @@author A0146123R-->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -150,6 +150,7 @@ The `Model`,
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Task Manager data in xml format and read it back.
+<!--  @@author A0146123R-->
 
 ### Common classes
 
@@ -483,8 +484,8 @@ Use case ends.
 
 3a. The list of tasks contains so many items that the user still cannot find the item easily
 
-> 3a1. The user add one more keyword and connect the two keywords by  `AND` parameter. <br>
-  Use case resumes at step 2a.
+> 3a1. The user adds one more keyword, connects the two keywords by  `AND` parameter, and adds the `exact!` parameter. <br>
+  Use case resumes at step 2.
 
 #### Use case 9: Clear toDoList
 
