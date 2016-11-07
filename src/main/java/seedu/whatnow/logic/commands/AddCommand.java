@@ -29,43 +29,44 @@ public class AddCommand extends Command {
 			+ COMMAND_WORD + " \"Submit homework\" by tomorrow 12pm t/lowPriority\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow.";
+    public static final String MESSAGE_RECURRING_NO_END_DATE = "Please specify an end date for the recurring task.";
     private static final String STATUS_INCOMPLETE = "incomplete";
     
 	private Task toAdd;
 	
 	//@@author A0126240W
-	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, String period, String endPeriod, Set<String> tags) throws IllegalValueException, ParseException {
-	    TaskTime validateTime = null;
-	    TaskDate validateDate = null;
-	    String validatedTime = time;
-	    String validatedDate = date;
-	    
-	    if (time != null || startTime != null || endTime != null) {
-	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
-	        if (date == null && startDate == null && endDate == null)
-	            validatedDate = validateTime.getDate();
-	    }
-	    
-	    if (date != null || startDate != null || endDate != null) {
-	        validateDate = new TaskDate(date, startDate, endDate);
-	        if (date != null) {
-	            validatedDate = validateDate.getDate();
-	        } else if (startDate != null) {
-	            startDate = validateDate.getStartDate();
-	            endDate = validateDate.getEndDate();
-	        }
-	    }
-	    
-	    final Set<Tag> tagSet = new HashSet<>();
+	public AddCommand(Task taskToAdd, Set<String> tags) throws IllegalValueException, ParseException {
+        TaskTime validateTime = null;
+        TaskDate validateDate = null;
+        String validatedTime = taskToAdd.getTaskTime();
+        String validatedDate = taskToAdd.getTaskDate();
+        
+        if (taskToAdd.getTaskTime() != null || taskToAdd.getStartTime() != null || taskToAdd.getEndTime() != null) {
+            validateTime = new TaskTime(taskToAdd.getTaskTime(), taskToAdd.getStartTime(), taskToAdd.getEndTime(), taskToAdd.getTaskDate(), taskToAdd.getStartDate(), taskToAdd.getEndDate());
+            if (taskToAdd.getTaskDate() == null && taskToAdd.getStartDate() == null && taskToAdd.getEndDate() == null)
+                validatedDate = validateTime.getDate();
+        }
+        
+        if (taskToAdd.getTaskDate() != null || taskToAdd.getStartDate() != null || taskToAdd.getEndDate() != null) {
+            validateDate = new TaskDate(taskToAdd.getTaskDate(), taskToAdd.getStartDate(), taskToAdd.getEndDate());
+            if (taskToAdd.getTaskDate() != null) {
+                validatedDate = validateDate.getDate();
+            } else if (taskToAdd.getStartDate() != null) {
+                taskToAdd.setStartDate(validateDate.getStartDate());
+                taskToAdd.setEndDate(validateDate.getEndDate());
+            }
+        }
+        
+        final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
-        }    
+        }
         
-        this.toAdd = new Task(new Name(name), validatedDate, startDate, endDate, 
-                validatedTime, startTime, endTime, period, endPeriod, 
+        this.toAdd = new Task(taskToAdd.getName(), validatedDate, taskToAdd.getStartDate(), taskToAdd.getEndDate(), 
+                validatedTime, taskToAdd.getStartTime(), taskToAdd.getEndTime(), taskToAdd.getPeriod(), taskToAdd.getEndPeriod(), 
                 new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
-	}
+    }
 	
 	public void addRecurring(Recurrence recurring) throws DuplicateTaskException {
 	    String currentDate;
