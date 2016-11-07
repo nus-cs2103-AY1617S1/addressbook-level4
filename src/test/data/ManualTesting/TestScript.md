@@ -86,7 +86,7 @@ Command: `show floating` or `floating` <br>
 Expected Output: `9 task(s) listed!`
 
 #### Show for any random date
-Command: `show 25/12/2016` or `show xmas` <br>
+Command: `show 12/25/2016` or `show xmas` <br>
 Expected Output: `5 task(s) listed!`
 
 #### Show high priority tasks
@@ -202,8 +202,8 @@ Expected Output: `No such task was found.`
 ## Tests for Setstorage command
 
 #### Set storage file path to random file location
-Command: `setstorage /Desktop` <br>
-Expected Output: `Changed file path to: /Desktop`
+Command: `setstorage data` <br>
+Expected Output: `Changed file path to: data`
 
 #### Set storage file path to default file location
 Command: `setstorage default` <br>
@@ -311,10 +311,10 @@ Expected Output in Command Bar: `show`
 Command: press `UP` arrow key
 Expected Output in Command Bar: `undo`
 
-#### Find next entered command
-Command: press `DOWN` arrow key
-Expected Output in Command Bar: `show`
-
 #### Find second previous entered command
 Command: press `UP` arrow key twice
 Expected Output in Command Bar: `clear`
+
+#### Find third previous entered command
+Command: press `UP` arrow key thrice
+Expected Output in Command Bar: `help`
