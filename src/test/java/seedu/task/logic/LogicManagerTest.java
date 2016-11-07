@@ -291,7 +291,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find either KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(0, 0, expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -310,7 +310,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find either KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(0, 0, expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -329,7 +329,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find either key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(0, 0, expectedList.size()),
                 expectedAB,
                 expectedList);
     }
