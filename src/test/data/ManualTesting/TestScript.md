@@ -1,5 +1,63 @@
 *UNDONE* To load the sample data...
 
+Edit a task's name
+Command: edit 1 buy Akshay two farewell gifts
+Result: Task at index 1 name changed to "buy Akshay two farewell gifts"
+
+Edit a task's priority
+Command: edit 2 -high
+Result: Task at index 2 priority bar shade turns from yellow to red.
+
+Undo previous edit command
+Command: undo
+Result: Previously changed task priority is changed back to yellow.
+
+Redo previous edit command
+Command: redo
+Result: Previously changed task priority is changed back to red.
+
+Edit a task's name with escaped input
+Command: edit 1 "increase word count from 1000 to 1500"
+Result: Task at index 1 name changed to "increase word count from 1000 to 1500".
+
+Edit a task's start time
+Command: edit 21 from 10 nov 5pm
+Result: Task at index 22 start date changed to "Thur, 10 Nov 2016, 5pm" and get sorted to index 8.
+
+Edit a task's end time
+Command: edit 9 by 10 nov 6pm
+Result: Task at index 9 end date changed to "Thur, 10 Nov 2016, 6pm".
+
+Edit a task's start and end time
+Command: edit 6 from 11 nov 4pm to 6pm
+Result: Task at index 6 start date changed to "Fri, 11 Nov 2016, 4pm", end date changed to "Fri, 11 Nov 2016, 6pm", and get sorted to index 12.
+
+Edit a task's recurrence rate
+Command: edit 7 repeat every day
+Result: Task at index 7 recurrence rate of "every day" added
+
+Edit a task with invalid end date that occurs before start date
+Command: edit 7 by 4 nov 8pm
+Result: Error message : "End date should be later than start date."
+
+Edit a floating task to include recurrence rate
+Command: edit 22 repeat every fri
+Result: Error message : "For recurring tasks to be valid, at least one DATE_TIME must be provided."
+
+Edit a task's name,start date, end date, recurrence and priority
+Command: edit 2 Visit com room from 9 nov 11am to 12pm repeat every week -low
+Result: Task at index 2 changed to name "Visit com room", start date "Wed 9 Nov 2016, 11am",
+end date "Wed 9 Nov 2016, 12pm", recurrence rate of "every week", priority bar shade turns from yellow to green
+
+Edit a task's start date, recurrence and priority
+Command: edit 21 from 24 dec 12pm repeat every year -high
+Result: Task at index 21 changed start date "Sat 24 Dec 2016, 12pm", recurrence rate of "every year",
+priority bar shade turns from yellow to red
+
+Edit reset a task start date, end date and  recurrence
+Command: edit 2 -reset start end repeat
+Result: Task at index 2 get sorted to index 21 with no start date, end date and recurrence
+
 Add a floating task
 Command: Read Harry Potter
 Result: Task with name "Read Harry Potter", priority bar shaded yellow
