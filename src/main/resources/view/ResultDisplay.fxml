@@ -6,6 +6,5 @@
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.ResultDisplay">
 	<stylesheets>
 		<URL value="@TarsTheme.css" />
-		<URL value="@Extensions.css" />
 	</stylesheets>
 </AnchorPane>

@@ -9,7 +9,6 @@
 	AnchorPane.topAnchor="0.0">
 	<stylesheets>
 		<URL value="@TarsTheme.css" />
-		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
 		<ListView fx:id="rsvTaskListView" VBox.vgrow="ALWAYS" />

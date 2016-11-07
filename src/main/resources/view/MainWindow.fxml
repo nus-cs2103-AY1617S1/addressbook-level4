@@ -101,6 +101,5 @@
    </children>
    <stylesheets>
    	  <URL value="@TarsTheme.css" />
-      <URL value="@Extensions.css" />
    </stylesheets>
 </VBox>

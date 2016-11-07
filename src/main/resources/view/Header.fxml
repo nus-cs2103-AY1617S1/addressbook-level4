@@ -12,7 +12,6 @@
 	xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.Header">
 	<stylesheets>
 		<URL value="@TarsTheme.css" />
-		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
 		<HBox fx:id="header">

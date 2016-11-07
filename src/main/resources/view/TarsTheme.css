@@ -46,6 +46,10 @@
 	-fx-font-family: "Roboto Black";
 }
 
+.error {
+    -fx-background-color: #F44336;
+}
+
 /*
  * ====================================================================
  * ========================SplitPane===================================
@@ -131,7 +135,7 @@
  */
  
 .text-field {
-    -fx-font-size: 14px;
+    -fx-font-size: 15px;
     -fx-border-color: transparent;
     -fx-font-family: "Roboto";
     -fx-background-insets: 0;       
