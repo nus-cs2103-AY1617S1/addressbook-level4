@@ -22,9 +22,9 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all activities
-   * **`add`**` CS2103 T7A1 d/tomorrow 1500 p/2 r/today 1800 t/teamC2` : 
+   * **`add`**` CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2` : 
      adds an activity named `CS2103 T7A1` to the Lifekeeper.
-   * **`delete`**` 1` : deletes the 1st activity shown in the current list
+   * **`delete`**` 3` : deletes the 3rd activity shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -55,42 +55,30 @@ Format: `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}{[s/START_TIME] [e/EN
 * `tomorrow [TIME]`
 * `today [TIME]`
 
-
-When `TIME` is omitted the default `TIME` will be set to 2359 on the input date given in `DUEDATE`.
-
-
-`PRIORITY_LEVEL` has to be an integer between `1` to `3`, with `3` being the highest priority, and `1` being the lowest priority.
-
+`PRIORITY_LEVEL` has to be an integer equal or larger than 1, with `1` being the top priority.
 
 `START_TIME` accepts `Date Time` format input and variable inputs namely:
-* `tomorrow TIME`
-* `today TIME`
-* `every DAY_OF_WEEK TIME`
+* `tomorrow [TIME]`
+* `today [TIME]`
 
 `END_TIME` accepts `Date Time` format input and variable inputs namely:
-* `tomorrow TIME`
-* `today TIME`
-* `every DAY_OF_WEEK TIME`
-* `TIME`
-
-When `END_TIME` is omitted and `START_TIME` input is given the default `END_TIME` will be set to 1 hour after `START_TIME`
+* `tomorrow [TIME]`
+* `today [TIME]`
 
 
 `REMINDER` accepts `Date Time` format input and variable inputs namely:
-* `tomorrow TIME`
-* `today TIME`
-
-At the stipulated `Date Time` of `REMINDER`, a pop-up notification will appear as a form of reminder.
-
+* `tomorrow`
+* `today`
+* `[TIME] before` sets reminder at the specified time before the `DUEDATE`. e.g. `0015 before` for a reminder 15 minutes before the `DUEDATE`.
 
 Examples: 
 * `add Grocery Shopping`
-* `add Assignment 1 d/tomorrow p/1 r/today 2000`
-* `add Project Report d/tomorrow 1700 t/school`
-* `add CS2103 T7A1 d/6-12-2016 p/2 r/5-12-2016 1800 t/teamC2`
-* `add Lunch s/today 1200`
+* `add Assignment 1 d/Tomorrow p/1 r/Today 2000`
+* `add Project Report d/Tomorrow 1700 t/school`
+* `add CS2103 T7A1 d/6 Oct 2016 p/2 r/5 Oct 2016 1800 t/teamC2`
+* `add Lunch s/1200 e/1300`
 * `add Executive Meeting s/tomorrow 0900 e/tomorrow 1200`
-* `add Concert s/tomorrow 1800 e/tomorrow 2000 r/today 1800 t/Leisure`
+* `add Concert s/tomorrow 1800 e/tomorrow 2000 t/Leisure`
 
 <!-- @@author A0131813R -->
 #### Listing activities : `list`
@@ -101,40 +89,49 @@ Format: `list [TYPE]`
 > If TYPE is not given, all the activites in Lifekeeper will be listed
 > If TYPE is given only activities of that type will be listed
 
-`TYPE` accepts the following `done`, `activities`, `events` or `tasks`
+`TYPE` accepts the following `activities`, `events`, `tasks`, `done` or `all`.
 
 Examples:
 * `list event`
 
 > shows all events in the list.
 
+
+#### Find by tag: `findtag `
+Shows a list of all entries with the tags in LifeKeeper.<br>
+Format: `findtag KEYWORD`
+
+> All the entries with tags in Lifekeeper will be listed
+
 <!-- @@author A0125097A -->
 
-#### Finding activities by name: `find`
+#### Finding activities by name or tag(s): `find`
 Finding all activities containing the queried keyword in their name
 * Finds activities whose names contain any of the given keywords.<br>
 * Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is not case sensitive. e.g `study` will match `Study`
-> * Tasks matching at least one keyword will be returned.
-    e.g. KEYWORD `Shopping` will match the NAME entry `Clothes Shopping`
+> * The order of the keywords matters. e.g. `Assignment Due` will not match `Due Assignment`
+> * Words containing the keywords will be matched e.g. `Exam` will match `Exams`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Shopping` will match `Clothes Shopping`
 
 Examples: 
-* `find Homework Assignment`<br>
+* `find activities Homework Assignment`<br>
   Returns Any activities with words containing `Homework`, `homework`, `Assignment`, or `assignment` in their names.
 
 <!-- @@author A0125680H -->
 Finding all activities containing a certain tag    
 * Finds activities which has tags of given keywords attached to it.<br>    
-* Format: `findtag KEYWORD`   
+* Format: `find tags KEYWORD [MORE_KEYWORDS]`   
     
-> * The search is case sensitive.     
+> * The search is not case sensitive.     
 > * Only full words will be matched.    
-> * Only tags matching the EXACT keyword will be returned.
+> * Only tags matching the EXACT keyword will be returned.    
     
 Examples:   
 * `find CS2103`    
-  Returns Any activities containing the tag `CS2103` but not`cs2103`, `CS2103T` or `CS2103Project`.    
+  Returns Any activities containing the tag `CS2103` or `cs2103` but not `CS2103T` or `CS2103 Project`.    
 
 #### Deleting an activity: `delete`
 Deletes the selected activity from Lifekeeper. Irreversible.<br>
@@ -152,14 +149,13 @@ Examples:
   `delete 2`<br>
   Deletes the 2nd activity listed in the results of the `find` command.
 
-
-<!-- @@author A0125097A -->
-#### Marking an activity as completed: `done`
-Marks the activity as completed. Only applicable to activities without start and end time. <br>
+#### Marking an activity as done: `done`
+Marks the activity as completed.<br>
 Format: `done INDEX`
 
 > Marks the activity with `INDEX` as completed.
   The index refers to the index number shown in the most recent listing.<br>
+  
 
 Examples: 
 * `list`<br>
@@ -167,7 +163,7 @@ Examples:
   Marks the 1st activity in the Lifekeeper activity list as completed.
 * `find Admin`<br>
   `done 2`<br>
-  Marks the 2nd activity in the results of the `find` command as completed.
+  Selects the 2nd activity in the results of the `find` command and then marks it as completed.
 
 <!-- @@author A0125680H -->
 #### Editing an activity: `edit`
@@ -198,39 +194,9 @@ Format: `clear`
 Exits the program.<br>
 Format: `exit`  
 
-<!-- @@author A0125680H -->
-#### Opening a data file : `open`
-Loads data from an existing data file into the program. 
-
-* If no filepath or an invalid filepath is specified, or the specified file does not exist, the file chooser will be brought up instead.<br>
-* '/' or '\' can be used to separate components of a file path.
-* The `.xml` file suffix may or may not be specified. 
-* Format: `open [FILE_PATH]`
-
-> File name cannot consist of any of the following characters: '<', '>', ':', '"', '|', '?', '*'
-
-Examples: 
-* `open data/toopen.xml`<br>
-  Loads data from the file `toopen.xml`, in the folder `data` that is in the same directory as the executable JAR file.
-
-<!-- @@author A0125680H -->
-#### Saving into a new file : `save`
-Saves the Lifekeeper data into a file specified by the user. 
-
-* If no filepath or an invalid filepath is specified, the file chooser will be brought up instead.<br>
-* '/' or '\' can be used to separate components of a file path.
-* The `.xml` file suffix may or may not be specified. 
-* Format: `save [FILE_PATH]`
-
-> File name cannot consist of any of the following characters: '<', '>', ':', '"', '|', '?', '*'
-
-Examples: 
-* `save data/tosave.xml`<br>
-  Creates a new folder named `data` in the same directory as the executable JAR file, and saves the Lifekeeper data in the file `tosave.xml` in that folder.
-
-#### Autosaving of data
-Lifekeeper data are saved in the hard disk automatically after any command that changes the data (add, edit, delete).<br>
-There is no need to save manually. 
+#### Saving the data 
+Lifekeeper data are saved in the hard disk automatically after any command that changes the data.<br>
+There is no need to save manually.
 
 ## FAQ
 
@@ -238,24 +204,18 @@ There is no need to save manually.
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Lifekeeper folder.
        
-
-
-<!-- @@author A0125097A -->
-
 ## Command Summary
 
-Command | Format | Sample Input  
--------- | :-------- | :-------- 
-Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | add Dinner with friends s/tomorrow 1800 e/1930 r/today 1800 t/dinner
-Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` | edit 2 n/assignment d/tuesday 1800 r/monday 1800 t/
+Command | Format  
+-------- | :-------- 
+Add | `add ACTIVITY_NAME {[d/DUEDATE] [p/PRIORITY_LEVEL]}  {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
+Edit | `edit INDEX [n/ACTIVITY_NAME] {[d/DUEDATE] [p/PRIORITY_LEVEL]} {[s/START_TIME] [e/END_TIME]} [r/REMINDER] [t/TAG]...` 
 Clear | `clear`
-Delete | `delete INDEX` | delete 2
-Find | `find KEYWORD [MORE_KEYWORDS]` | find assignment
+Delete | `delete INDEX`
+Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
-Find Tags | `findtag` | findtag dinner
-Done | `done INDEX` | done 2
+Find Tags | `findtag`
+Done | `done INDEX`
 Undo | `undo`
 Help | `help`
-Open | `open [FILE_PATH]` | open data/savefile.xml
-Save | `save [FILE_PATH]` | save work/schedule.xml
 Exit | `exit`
