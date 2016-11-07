@@ -330,6 +330,14 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
+        clearCommandBoxAndDisplayResult();
+    }
+
+    /**
+     * Clears the command box text field and displays the most recent result on
+     * the result display area.
+     */
+    private void clearCommandBoxAndDisplayResult() {
         commandTextField.setText(STRING_EMPTY);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);

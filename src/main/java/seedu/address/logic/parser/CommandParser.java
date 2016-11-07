@@ -348,7 +348,6 @@ public class CommandParser {
         return new FindCommand(keywordSet);
     }
     
-    // @@author A0093960X
     /**
      * Parses a user input to determine the appropriate tooltip to display to
      * the user.<br>
@@ -998,9 +997,11 @@ public class CommandParser {
     }
 
     /**
-     * @param trimmedArgs
-     * @return
-     * @throws IllegalValueException
+     * Retrieve the add command input fields from the given trimmed arguments string
+     * 
+     * @param trimmedArgs The trimmed arguments String
+     * @return The HashMap that maps the add command fields to the String that matches that input field
+     * @throws IllegalValueException If the specified userInput cannot generate a valid detailed edit tooltip
      */
     private HashMap<String, Optional<String>> retrieveAddFieldsFromArgs(String trimmedArgs)
             throws IllegalValueException {
