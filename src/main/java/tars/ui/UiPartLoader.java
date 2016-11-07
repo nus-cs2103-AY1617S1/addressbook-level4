@@ -10,6 +10,7 @@ import tars.MainApp;
  * A utility class to load UiParts from FXML files.
  */
 public class UiPartLoader {
+    
     private final static String FXML_FILE_FOLDER = "/view/";
     private final static String MESSAGE_FXML_LOAD_ERROR = "FXML Load Error for %s";
 

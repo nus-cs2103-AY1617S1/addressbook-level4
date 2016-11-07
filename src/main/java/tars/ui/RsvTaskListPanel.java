@@ -24,14 +24,16 @@ import tars.model.task.rsv.RsvTask;
  * UI Controller for panel containing the list of reserved tasks.
  */
 public class RsvTaskListPanel extends UiPart {
+    
     private static String LOG_MESSAGE_LAYOUT_UPDATING =
             "Updating layout for %s";
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "RsvTaskListPanel.fxml";
+    private static final int START_INDEX = 1;
+    
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static final int START_INDEX = 1;
-
+    
     @FXML
     private ListView<RsvTask> rsvTaskListView;
 

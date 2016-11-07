@@ -29,14 +29,25 @@ public class TaskListPanel extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
-    private AnchorPane placeHolderPane;
     private static final int START_INDEX = 1;
-
+    
     @FXML
     private ListView<ReadOnlyTask> taskListView;
     @FXML
     private VBox panel;
+    
+    private AnchorPane placeHolderPane;
+    
+    public static TaskListPanel load(Stage primaryStage,
+            AnchorPane taskListPlaceholder,
+            ObservableList<ReadOnlyTask> taskList) {
+        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage,
+                taskListPlaceholder, new TaskListPanel());
+        taskListPanel.configure(taskList);
+        return taskListPanel;
+    }
 
+    
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -51,16 +62,7 @@ public class TaskListPanel extends UiPart {
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
-    public static TaskListPanel load(Stage primaryStage,
-            AnchorPane taskListPlaceholder,
-            ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage,
-                taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
-    }
-
+    
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();

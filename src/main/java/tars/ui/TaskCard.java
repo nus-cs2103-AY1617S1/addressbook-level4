@@ -20,14 +20,11 @@ import tars.ui.formatter.DateFormatter;
 public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
-
     private static final String STATUS_UNDONE = "Undone";
     private static final String STATUS_DONE = "Done";
-
     private static final String PRIORITY_HIGH = "h";
     private static final String PRIORITY_MEDIUM = "m";
     private static final String PRIORITY_LOW = "l";
-
     private static final String LABEL_HIGH = "H";
     private static final String LABEL_MEDIUM = "M";
     private static final String LABEL_LOW = "L";

@@ -74,16 +74,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane helpTabAnchorPane;
 
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
     public static MainWindow load(Stage primaryStage, Config config,
             UserPrefs prefs, Logic logic) {
 
@@ -115,7 +105,17 @@ public class MainWindow extends UiPart {
         primaryStage.setScene(scene);
 
     }
-
+    
+    @Override
+    public void setNode(Node node) {
+        rootLayout = (VBox) node;
+    }
+    
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
+    
     protected void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage,
                 getTaskListPlaceholder(), logic.getFilteredTaskList());
