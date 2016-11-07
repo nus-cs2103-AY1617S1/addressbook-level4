@@ -1,13 +1,17 @@
-//@@author A0139817U
+<!-- @@author A0139817U -->
 # Tusk: User Guide
 
 * [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
-* [Commands Autocomplete](#commands-autocomplete)
-* [Google Integration](#google-integration)
+* [Command Autocomplete](#command-autocomplete)
+* [Command History](#command-history)
+* [Scrolling](#scrolling)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
+* [Date Format](#date-format)
+* [Time Format](#time-format)
+* [Date-Time Format](#date-time-format)
 
 <br>
 ## Introduction
@@ -26,18 +30,18 @@ Get started with <i>Tusk</i> now!
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
 
-1. Download the latest `taskmanager.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for Tusk.
+1. Download the latest `tusk.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for <i>Tusk</i>.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
 
- > <img src="images/UiMockup.png" width="600"><br>
+ > <img src="images/UIDemo.png" width="600"><br>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Some example commands you can try:
    * **`help`** : lists all commands
-   * **`add`**` Meeting, July 10, 5pm-6pm` :
-     adds a `Meeting` task on `July 10, 5pm-6pm` to Tusk
+   * **`add`**` Meeting on July 10 5pm` :
+     adds a `Meeting` task on `July 10 5pm` to <i>Tusk</i>
    * **`alias`**` am add Meeting` : binds `am` as a shortcut for `add Meeting`
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -59,32 +63,29 @@ Format: `help`
 
 <br>
 #### Adding a task: `add`
-Adds a task to Tusk. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
+Adds a task to <i>Tusk</i>. <i>Tusk</i> supports three kinds of task: <i>Floating, Deadline</i> and <i>Event</i>, and a flexible date format. <br>
 
-> **Date Format**
-> * Note that `DATE` and all other dates follow the following format: <br>
->   1) `DAY MONTH` or `MONTH DAY`
->   2) `DAY MONTH YEAR` or `MONTH DAY YEAR`
-> * `MONTH` should be in alphabets instead of numbers.
-> * `MONTH` can either be in the long-form ('October') or the short-form ('Oct'), and it is case-insensitive.
-> * Any deviations from the above format may not be interpreted correctly.
+> **Date-Time Format**
+> * Note that dates and timings follow [strict formats](#date-time-format) <br>
+> * Any deviations from the format may not be interpreted correctly.
 
 
 ##### Floating Tasks
 These tasks only have a description. <br>
-Format: `add TASK` <br>
+Format: `add TASK` or `add "TASK"` (double-inverted commas ("") forces the task to be a Floating task) <br>
 
 Example:
 * `add Project meeting`
+* `add "Exam on 1 Oct"`
 
 ##### Deadline Tasks
 These tasks have a description and a deadline (due date) <br>
-Format: `add TASK by DATE` <br>
+Format: `add TASK by/on/at DATE` <br>
 
 Examples:
 * `add Project meeting by Oct 10`
-* `add Project meeting by 10 October 2016`
-* `add Project meeting by OcToBeR 10 2017`
+* `add Project meeting on 10 October 2016`
+* `add Project meeting at OcToBeR 10 2017`
 
 ##### Event Tasks
 These tasks have a description, start date and an end date.<br>
@@ -94,7 +95,7 @@ Examples:
 * `add Project meeting from Oct1-Oct2`
 * `add Project meeting from Oct 1 to Oct 2`
 * `add Overseas work from 1 Aug 2016 to 31 Aug 2017`
-* `add Overseas work from 1 August 2016 - 31 August 2017`
+* `add Overseas work from 1 August 2016 - 31 August 2017` <br>
   For event tasks, make sure that `START_DATE` is earlier than `END_DATE` or it will be rejected.
 
 
@@ -120,24 +121,35 @@ Examples:
 <br>
 #### Updating a task: `update`
 Updates the <i>entire task</i>, only the <i>description</i> of the task or the <i>date</i> of the task.<br>
-Format (task): `update INDEX task UPDATED_VALUE` <br>
-Format (description): `update INDEX description UPDATED_VALUE` <br>
-Format (date): `update INDEX date UPDATED_VALUE`
 
+##### Update Task
+Format (task): `update INDEX task UPDATED_VALUE` <br>
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > `task`: Updates the entire task as if `add UPDATED_VALUE` has been executed <br>
-> `description`: Updates the description of the task with `UPDATED_VALUE` <br>
-> `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
 
 Examples:
 * `list`
 * `update 1 task overseas from oct 31 to nov 1` <br>
   Updates the entire task as though so that the description is `overseas`, the start date is `oct 31` and the end date is `nov 1`
-<br> <br>
+  <br>
+
+##### Update Description
+Format (description): `update INDEX desc UPDATED_VALUE` <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `description`: Updates the description of the task with `UPDATED_VALUE` <br>
+
+Examples:
 * `list`
-* `update 2 description project discussion` <br>
+* `update 2 desc project discussion` <br>
   Updates the description of the 2nd task on the list with `project discussion`
-  <br><br>
+  <br>
+
+##### Update Date
+Format (date): `update INDEX date UPDATED_VALUE` <br>
+> `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+> `date`: Updates the date of the task with `UPDATED_VALUE` if it is already has a date
+
+Examples:
 * `list`
 * `update 1 date 31 October 2016` <br>
   Updates the date of the 1st task on the list to `31 October 2016`
@@ -163,6 +175,38 @@ Examples:
   Deletes the 1st task in the results of the `find` command
 
 <br>
+#### Clearing all entries : `clear`
+Clears all entries from the currently displayed list in <i>Tusk</i>.<br>
+Format: `clear`
+
+<br>
+#### Undoing an action: `undo`
+Undoes the previous command.<br>
+Format: `undo`
+
+> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
+
+Examples:
+* `list`
+* `delete 1`
+* `undo` <br>
+  Undoes your latest `delete` command
+
+<br>
+#### Redoing an undo: `redo`
+Redoes the previous undo command.<br>
+Format: `redo`
+
+> Only 1 consecutive `redo` command after an `undo` command is allowed.
+
+Examples:
+* `list`
+* `delete 1`
+* `undo` 
+* `redo` <br>
+  Redoes your latest `undo` command
+
+<br>
 #### Marking a task as completed: `complete`
 Marks the specified task as completed.<br>
 Format: `complete INDEX`
@@ -170,12 +214,33 @@ Format: `complete INDEX`
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
 > Completed tasks can be accessed with `list complete[d]`.
 
+Examples:
+* `list`
+* `complete 2` <br>
+  Mark the 2nd task on the list as completed
+
 <br>
 #### Marking a task as incomplete: `uncomplete`
-Marks the specified task as incomplete<br>
+Marks the specified task as incompleted.<br>
 Format: `uncomplete INDEX`
 
 > `INDEX` refers to the index shown in the most recent listing. The index must be a positive integer 1, 2, 3… <br>
+
+Examples:
+* `list`
+* `uncomplete 2` <br>
+  Marks the 2nd task on the list as incomplete
+
+<br>
+#### Listing Completed Tasks: `list complete[d]`
+Lists all the tasks that you have completed. <br>
+Format: `list complete[d]`
+
+> You can type either `complete` or its past tense form, `completed`.
+
+Examples:
+* `list complete`
+* `list completed` <br>
 
 <br>
 #### Pinning a task: `pin`
@@ -207,17 +272,6 @@ Examples:
   Unpins the 2nd task in the task list.
 
 <br>
-#### Listing Completed Tasks: `list complete[d]`
-Lists all the tasks that you have completed. <br>
-Format: `list complete[d]`
-
-> You can type either `complete` or its past tense form, `completed`
-
-Examples:
-* `list complete`
-* `list completed` <br>
-
-<br>
 #### Setting an alias: `alias`
 Sets a one-word alias for any sentence to be used as a command.<br>
 Format: `alias SHORTCUT [ANY_SENTENCE]`
@@ -228,7 +282,7 @@ Format: `alias SHORTCUT [ANY_SENTENCE]`
 Examples:
 * `alias am add Meeting`
 * `am` <br>
-  Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
+  Typing `am on July 10 5pm` is the same as `add Meeting on July 10 5pm`
 <br><br>
 * `alias s find Dinner`
 * `s` <br>
@@ -244,11 +298,11 @@ Format: `unalias SHORTCUT`
 
 Examples:
 * `alias am add Meeting` <br>
-  Typing `am, July 10, 5-6` is the same as `add Meeting, July 10, 5-6`
-  <br><br>
+  Typing `am on July 10 5pm` is the same as `add Meeting on July 10 5pm`
 * `unalias am` <br>
   Typing `am` no longer translates into `add Meeting`
 
+<br>
 #### Listing aliases: `list alias[es]`
 Lists all the aliases that you have created. <br>
 Format: `list alias[es]`
@@ -260,29 +314,6 @@ Examples:
 * `list aliases` <br>
 
 <br>
-#### Undoing an action: `undo`
-Undoes the previous command.<br>
-Format: `undo`
-
-Examples:
-* `list`
-* `delete 1`
-* `undo` <br>
-  Undoes your latest `delete` command
-
-> Only 1 consecutive `undo` command is allowed. Therefore, typing `undo` twice will only undo the previous command and not the one before.
-
-<br>
-#### Clearing all entries : `clear`
-Clears all entries from the currently displayed list in Tusk.<br>
-Format: `clear`
-
-<br>
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`
-
-<br>
 #### Changing the storage location : `setstorage`
 Changes the storage location for alias.xml and tasks.xml to wherever you prefer. <br>
 Format: `setstorage PATH` <br>
@@ -290,6 +321,11 @@ Format: `setstorage PATH` <br>
 Examples:
 * `setstorage C:/Users/Bob/Documents`
 * `setstorage relativefolder`
+
+<br>
+#### Exiting the program : `exit`
+Exits the program.<br>
+Format: `exit`
 
 <br>
 #### Saving the data
@@ -300,7 +336,7 @@ There is no need to save manually.
 ## Command Autocomplete
 Pressing <kbd>TAB</kbd> will autocomplete the first word by looking up all possible commands. <br>
 If there is only one possible command, the command will be autocompleted. <br>
-However, if there are multiple commands, they will be displayed. <br>
+However, if there are multiple commands, subsequent <kbd>TAB</kbd>s will cycle through all possible commands one at a time. <br>
 
 Examples:
 * `al`<kbd>TAB</kbd><br>
@@ -309,22 +345,22 @@ Examples:
   `clear` completed for you.
 * `un`<kbd>TAB</kbd><br>
   `unpin`, `unalias` and `undo` displayed on the screen as possible commands.
-* `unf`<kbd>TAB</kbd><br>
+* `unp`<kbd>TAB</kbd><br>
   `unpin` completed for you.
 
 <br>
 ## Command History
-Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all the commands that you have entered since Tusk was started. This also allows you to fix any incorrectly entered commands, make minor adjustments to commands previously entered, or simply enter the same command many times consecutively.
+Pressing the <kbd>UP</kbd> or <kbd>DOWN</kbd> arrow keys will cycle through all the commands that you have entered since <i>Tusk</i> was started. This also allows you to fix any incorrectly entered commands, make minor adjustments to commands previously entered, or simply enter the same command many times consecutively.
 
 <br>
 ## Scrolling
-Pressing <kbd>Control</kbd>+<kbd>UP</kbd> or<kbd>Control</kbd>+<kbd>DOWN</kbd> scrolls through the list of tasks.
+Pressing <kbd>Ctrl</kbd> + <kbd>UP</kbd> or <kbd>Ctrl</kbd> + <kbd>DOWN</kbd> scrolls through the list of tasks.
 
 <br>
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the data folder it creates with the data folder from your original Tusk installation.
+**A**: Install the app in the other computer and overwrite the data folder it creates with the data folder from your original <i>Tusk</i> installation.
 
 <br>
 ## Command Summary
@@ -332,25 +368,56 @@ Pressing <kbd>Control</kbd>+<kbd>UP</kbd> or<kbd>Control</kbd>+<kbd>DOWN</kbd> s
 Command | Format
 -------- | :--------
 Help | `help`
-Add floating tasks | `add TASK`
-Add deadline tasks | `add TASK by DATE`
-Add event tasks | `add TASK from START_DATE to/- END_DATE`
+Add Floating tasks | `add TASK` or `add "TASK"`
+Add Deadline tasks | `add TASK by/on/at DATE`
+Add Event tasks | `add TASK from START_DATE to/- END_DATE`
 List | `list`
 Find | `find KEYWORD [MORE_KEYWORDS]`
-Update task | `update INDEX task UPDATED_VALUE`
-Update description | `update INDEX description UPDATED_VALUE`
-Update date | `update INDEX date UPDATED_VALUE`
+Update/Edit task | `update/edit INDEX task UPDATED_VALUE`
+Update/Edit description | `update/edit INDEX desc UPDATED_VALUE`
+Update/Edit date | `update/edit INDEX date UPDATED_VALUE`
 Delete | `delete INDEX`
+Clear | `clear`
+Undo | `undo`
+Redo | `redo`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
+List completed| `list complete[d]`
 Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List completed | `list complete[d]`
 List aliases | `list alias[es]`
-Undo | `undo`
-Clear | `clear`
 Set storage location | `setstorage PATH`
 Exit | `exit`
 
+<br>
+## Date Format
+
+Supported Date Format | Example
+-------- | :--------
+DD MM YYYY | 1 October 2017 <br> 01 October 2017 <br> 1 Oct 2017 <br> 01 Oct 2017
+MM DD YYYY | October 1 2017 <br> October 01 2017 <br> Oct 1 2017 <br> Oct 01 2017
+DD MM | 1 October <br> 1 Oct
+MM DD | October 1 <br> Oct 1
+Day | Today <br> Tomorrow <br> Tmr <br> Day after tmr <br> Thursday <br> Thu <br> Next Thursday <br> 
+
+
+<br>
+## Time Format
+
+Supported Time Format | Example
+-------- | :--------
+HH:MM | 1:30 <br> 16:25
+HH.MM | 1.30 <br> 16.25
+HH:MM am/pm | 1:30am <br> 4:25pm
+HH.MM am/pm | 1.30am <br> 4.25pm
+
+
+<br>
+## Date-Time Format
+
+Supported Date-Time Format | Example
+-------- | :--------
+DATE TIME | 1 October 2017 1.30am <br> 1 Oct 1.30am <br> Today 10pm <br> Next Tues 16:25
+TIME DATE | 1.30am 1 October 2017 <br> 1.30am 1 Oct <br> 10pm Today <br> 16:25 Next Tues

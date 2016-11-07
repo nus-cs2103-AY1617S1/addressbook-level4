@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.events.storage.StorageChangedEvent;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 
 //@@author A0138978E
 /**
@@ -29,11 +28,11 @@ public class SetStorageCommand extends Command {
 
 	public static final String MESSAGE_SET_STORAGE_SUCCESS = "Storage location succesfully set to %1$s.";
 	public static final String MESSAGE_SET_STORAGE_FAILURE_PATH_INVALID = "Cannot set storage location to \"%1$s\", path is invalid!";
-	public static final String MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY = "Cannot set storage location to \"%1$s\", this is not a directory!";
-	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!";	
-	public static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE = "Cannot set storage location to \"%1$s\", cannot write to here!";
+	private static final String MESSAGE_SET_STORAGE_FAILURE_NOT_DIRECTORY = "Cannot set storage location to \"%1$s\", this is not a directory!";
+	private static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_READ = "Cannot set storage location to \"%1$s\", cannot read from here!";	
+	private static final String MESSAGE_SET_STORAGE_FAILURE_CANNOT_WRITE = "Cannot set storage location to \"%1$s\", cannot write to here!";
 	
-	String storageLocation;
+	private String storageLocation;
 
 	public SetStorageCommand(String storageLocation) {
 		this.storageLocation = storageLocation;

@@ -39,14 +39,14 @@ import w15c2.tusk.ui.UiManager;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+    private static final Version VERSION = new Version(1, 0, 0, true);
 
     protected Ui ui;
-    protected Logic logic;
-    protected Storage storage;
-    protected Model model;
-    protected TaskConfig config;
-    protected UserPrefs userPrefs;
+    private Logic logic;
+    private Storage storage;
+    private Model model;
+    private TaskConfig config;
+    private UserPrefs userPrefs;
 
     public MainApp() {}
 

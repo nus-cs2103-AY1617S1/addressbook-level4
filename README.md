@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W15-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W15-C2/main?branch=master)
 # Tusk
 
-<img src="docs/images/UiMockup.png" width="600"><br>
+<img src="docs/images/UIDemo.png" width="600"><br>
 
 * _Tusk_  a desktop Task Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 

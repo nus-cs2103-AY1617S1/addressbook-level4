@@ -1,10 +1,12 @@
 package w15c2.tusk.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static w15c2.tusk.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
+import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.HelpCommand;
 import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.parser.HelpCommandParser;
@@ -42,11 +44,7 @@ public class HelpCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_validHelpFormat() {
-		String expected = HelpCommand.SHOWING_HELP_MESSAGE;
-		
-		HelpCommand command = (HelpCommand) parser.prepareCommand("");
-		String feedback = command.toString();
-		assertEquals(feedback, expected);
-		
+		Command command = parser.prepareCommand("");
+		assertTrue(command instanceof HelpCommand);
 	}
 }

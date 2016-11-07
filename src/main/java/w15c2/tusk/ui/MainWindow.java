@@ -29,8 +29,8 @@ public class MainWindow extends UiPart {
     private static final String ACTIVE_CSS = "-fx-background-color: #9999; -fx-border-radius: 10 10 10 10; -fx-background-radius: 10 10 10 10;";
     private static final String ICON = "/images/TuskLogo.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 700;
-    public static final int MIN_WIDTH = 1000;
+    private static final int MIN_HEIGHT = 700;
+    private static final int MIN_WIDTH = 1000;
 
     private Logic logic;
 
@@ -170,7 +170,7 @@ public class MainWindow extends UiPart {
     /**
      * Sets the default size based on user preferences.
      */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
+    private void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {

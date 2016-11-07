@@ -5,7 +5,9 @@ import w15c2.tusk.commons.events.BaseEvent;
 import w15c2.tusk.model.Alias;
 
 //@@author A0143107U
-/** Indicates to the Task Manager that the model has changed*/
+/** 
+ * Indicates to the Task Manager that the model has changed
+ */
 public class AliasChangedEvent extends BaseEvent {
 
     public final UniqueItemCollection<Alias> data;

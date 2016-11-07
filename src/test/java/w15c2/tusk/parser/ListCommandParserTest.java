@@ -32,7 +32,7 @@ public class ListCommandParserTest {
 		assertEquals(feedback, expected);
 	}
 	/**
-	 * Testing correct list alias type
+	 * Testing correct format of list alias type
 	 */
 	@Test
 	public void prepareCommand_listAlias() {
@@ -45,7 +45,7 @@ public class ListCommandParserTest {
 	}
 		
 	/**
-	 * Testing correct list completed type
+	 * Testing correct format of list completed type
 	 */
 	@Test
 	public void prepareCommand_listCompleted() {
@@ -64,7 +64,7 @@ public class ListCommandParserTest {
 	}
 	
 	/**
-	 * Testing correct list all type
+	 * Testing correct format of list all type
 	 */
 	@Test
 	public void prepareCommand_listAll() {

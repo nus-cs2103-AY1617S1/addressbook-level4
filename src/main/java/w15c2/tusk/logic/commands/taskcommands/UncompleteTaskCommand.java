@@ -1,16 +1,14 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
-import w15c2.tusk.commons.core.EventsCenter;
 import w15c2.tusk.commons.core.Messages;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 import w15c2.tusk.model.task.Task;
 
 //@@author A0143107U
 /**
- * Unpins a task identified using it's last displayed index from TaskManager.
+ * Uncompletes a task identified using it's last displayed index from TaskManager.
  */
 public class UncompleteTaskCommand extends Command {
 
@@ -25,17 +23,23 @@ public class UncompleteTaskCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
-    public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
+    private static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
 
     public final int targetIndex;
 
+    /**
+     * This UncompleteTaskCommand constructor takes in a targetIndex and uncompletes the task.
+     *
+     * @param targetIndex 	Index of the task to be uncompleted.
+     */
     public UncompleteTaskCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
-    /*
-     * Uncompletes the task using its index and 
-     * returns CommandResult to indicate whether it is successful
+    /**
+     * Uncompletes the task in Model
+     * 
+     * @return CommandResult Result of the execution of the uncomplete command.
      */
     @Override
     public CommandResult execute() {

@@ -92,7 +92,7 @@ being saved to the hard disk. <br>
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
-The sections below give more details of each component.
+The sections more thoroughly explain each component.
 
 <br>
 

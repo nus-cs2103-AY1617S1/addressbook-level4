@@ -22,12 +22,14 @@ public class CompleteCommandParser extends CommandParser{
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**
-     * Parses arguments in the context of the Complete task command.
+     * Parses arguments in the context of the complete task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
+    @Override
 	public Command prepareCommand(String arguments) {
+
 		 Optional<Integer> index = parseIndex(arguments);
 	        if(!index.isPresent()){
 	            return new IncorrectCommand(

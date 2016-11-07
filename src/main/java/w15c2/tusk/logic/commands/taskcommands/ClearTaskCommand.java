@@ -1,7 +1,5 @@
 package w15c2.tusk.logic.commands.taskcommands;
 
-import w15c2.tusk.commons.core.EventsCenter;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.logic.commands.Command;
 import w15c2.tusk.logic.commands.CommandResult;
 

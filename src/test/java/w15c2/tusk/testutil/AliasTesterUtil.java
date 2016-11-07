@@ -1,9 +1,6 @@
 package w15c2.tusk.testutil;
 
 import w15c2.tusk.model.Alias;
-import w15c2.tusk.model.task.DeadlineTask;
-import w15c2.tusk.model.task.EventTask;
-import w15c2.tusk.model.task.Task;
 
 //@@author A0138978E
 /*

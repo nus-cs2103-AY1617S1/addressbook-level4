@@ -4,7 +4,6 @@ import java.util.Date;
 
 import w15c2.tusk.commons.collections.UniqueItemCollection.DuplicateItemException;
 import w15c2.tusk.commons.core.EventsCenter;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.events.ui.JumpToListRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.commands.Command;
@@ -24,7 +23,7 @@ public class AddTaskCommand extends Command {
     public static final String ALTERNATE_COMMAND_WORD = null;
     public static final String COMMAND_DESCRIPTION = "Add a Task\nAdd a Deadline\nAdd an Event";
     public static final String COMMAND_FORMAT = "add <description> \n" +
-            "add <description> by <date> \n" +
+            "add <description> by / on / at <date> \n" +
             "add <description> from <startDate> to <endDate>";
     
     
@@ -40,9 +39,9 @@ public class AddTaskCommand extends Command {
             + " Software Demo from Oct 31 to Nov 1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";
+    private static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";
     public static final String MESSAGE_EMPTY_TASK = "There is no description.\n";
-    public static final String MESSAGE_EMPTY_DATE = "There is no date.\n";
+    private static final String MESSAGE_EMPTY_DATE = "There is no date.\n";
 
     private Task toAdd;
 
