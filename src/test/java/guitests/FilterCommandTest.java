@@ -1,13 +1,14 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.model.task.Deadline;
-import seedu.address.testutil.TestTask;
+
+import seedu.toDoList.commons.core.Messages;
+import seedu.toDoList.logic.commands.FilterCommand;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.toDoList.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 //@@author A0146123R
 /**

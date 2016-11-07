@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxWidth="370.0" prefWidth="370.0" style="-fx-background-color: #bdbdbd; -fx-border-color: #d6d6d6; -fx-border-width: 2;" stylesheets="@Filter.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FilterPanel">
+<GridPane maxWidth="370.0" prefWidth="370.0" style="-fx-background-color: #bdbdbd; -fx-border-color: #d6d6d6; -fx-border-width: 2;" stylesheets="@Filter.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.toDoList.ui.FilterPanel">
    <rowConstraints>
       <RowConstraints maxHeight="60.0" minHeight="25.0" prefHeight="60.0" />
       <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="40.0" />
