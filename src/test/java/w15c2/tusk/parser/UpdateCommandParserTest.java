@@ -195,7 +195,7 @@ public class UpdateCommandParserTest {
 	 * Testing correct updating of dates of tasks 
 	 */
 	@Test
-	public void prepareCommand_updateDate_deadline() {
+	public void prepareCommand_updateDeadline() {
 		/*
 		 * Updating deadlines
 		 */
@@ -227,7 +227,7 @@ public class UpdateCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_updateDate_startEndDate() {
+	public void prepareCommand_updateStartEndDate() {
 		/*
 		 * Updating start dates and end dates
 		 */

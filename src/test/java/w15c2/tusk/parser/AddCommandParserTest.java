@@ -105,7 +105,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_deadlineTask_multipleKeywords() {
+	public void prepareCommand_deadlineTaskMultipleKeywords() {
 		/*
 		 * Multiple "from", "by" and "at" keywords should not affect the task command
 		 */
@@ -116,7 +116,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_deadlineTask_looksLikeEventTask() {
+	public void prepareCommand_deadlineTaskLooksLikeEventTask() {
 		/*
 		 * DeadlineTask that looks like EventTask due to the presence of "from" and "to" keywords.
 		 * If "by"/"on"/"at" comes after the "from" key word, it is a DeadlineTask.
@@ -207,7 +207,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_eventTask_multipleKeywords() {
+	public void prepareCommand_eventTaskMultipleKeywords() {
 		/*
 		 * Multiple "from", "by", "on" and "at" keywords should not affect the task command
 		 */
@@ -218,7 +218,7 @@ public class AddCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_eventTask_looksLikeDeadlineTask() {
+	public void prepareCommand_eventTaskLooksLikeDeadlineTask() {
 		/*
 		 * EventTask that looks like DeadlineTask due to the presence of "by" keyword.
 		 * If "from" comes after the "by"/"on"/"at" key word, it is an EventTask.
