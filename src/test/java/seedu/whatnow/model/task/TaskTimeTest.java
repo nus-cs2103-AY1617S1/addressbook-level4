@@ -48,7 +48,7 @@ public class TaskTimeTest {
   @Test
   public void TaskTimeConstruction_invalidDateRange_instantiationFailed() {
       try {
-          new TaskTime(null, null, null, "today", "12/12/2222", "10/12/2222");
+          new TaskTime(null, null, null, null, "12/12/2222", "10/12/2222");
       } catch (IllegalValueException e) {
           assertEquals(e.getMessage(), TaskTime.INVALID_DATE_RANGE_MESSAGE);
       }
@@ -149,11 +149,11 @@ public class TaskTimeTest {
   
   @Test
   public void TaskTimeConstructor_twoDatetwoTime_corretlyInitialised() throws IllegalValueException {
-      TaskTime test = new TaskTime("11:57pm", "11:58pm", "11:59pm", "10/12/2222", "12/12/2222", "14/12/2222");
+      TaskTime test = new TaskTime(null, "11:58pm", "11:59pm", null, "12/12/2222", "14/12/2222");
       assertEquals("11:58pm", test.getStartTime());
       assertEquals("11:59pm", test.getEndTime());
       assertEquals("12/12/2222", test.getStartDate());
       assertEquals("14/12/2222", test.getEndDate());
-      assertEquals("null 12/12/2222 14/12/2222 11:57pm 11:58pm 11:59pm", test.getFullString());
+      assertEquals("null 12/12/2222 14/12/2222 null 11:58pm 11:59pm", test.getFullString());
   }
 }

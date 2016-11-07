@@ -43,7 +43,6 @@ public class FreePeriod {
                 freeSlotStartTime = df.parse(curr.getStart());
                 freeSlotEndTime = df.parse(curr.getEnd());
                 if (isWithinThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
-                    System.out.println("test1");
                     freePeriod.remove(i);
                     freePeriod.add(new Period(curr.getStart(), start));
                     freePeriod.add(new Period(end, curr.getEnd()));
@@ -60,7 +59,6 @@ public class FreePeriod {
                 } else if (isBiggerThanThisPeriod(reqStartTime, reqEndTime, freeSlotStartTime, freeSlotEndTime)) {
                     freePeriod.remove(i);
                 } else {
-                    System.out.println("test8");
                     logger.warning("FreePeriod.java: block method, entered else statement!\n" 
                 + "Input Arg(start): " + start + "\n" + "Input Arg(end): " + end + "\n"
                 + "curr block: " + freePeriod.get(i) + "\n");
