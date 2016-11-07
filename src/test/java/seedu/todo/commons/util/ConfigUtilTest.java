@@ -25,7 +25,7 @@ public class ConfigUtilTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
-/*
+
     @Test
     public void read_null_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
@@ -46,11 +46,10 @@ public class ConfigUtilTest {
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
          */
-    /*}
+    }
 
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
-
         Config expected = getTypicalConfig();
 
         Config actual = read("TypicalConfig.json").get();
@@ -69,15 +68,15 @@ public class ConfigUtilTest {
         Config actual = read("ExtraValuesConfig.json").get();
 
         assertEquals(expected, actual);
-    }*/
+    }
 
     private Config getTypicalConfig() {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setToDoListFilePath("addressbook.xml");
-        config.setToDoListName("TypicalAddressBookName");
+        config.setToDoListFilePath("data/dodobird.xml");
+        config.setToDoListName("dodobird");
         return config;
     }
 
@@ -85,7 +84,7 @@ public class ConfigUtilTest {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return new ConfigUtil().readConfig(configFilePath);
     }
-/*
+
     @Test
     public void save_nullConfig_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
@@ -96,8 +95,8 @@ public class ConfigUtilTest {
     public void save_nullFile_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         save(new Config(), null);
-    }*/
-
+    }
+    
     @Test
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
         Config original = getTypicalConfig();
