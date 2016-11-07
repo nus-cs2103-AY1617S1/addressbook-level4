@@ -5,11 +5,11 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
-* [Appendix A : User Stories](#appendix-a-user-stories)
-* [Appendix B : Use Cases](#appendix-b-use-cases)
-* [Appendix C : Non Functional Requirements](#appendix-c-non-function-requirements)
-* [Appendix D : Glossary](#appendix-d-glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix A User Stories](#appendix-a-user-stories)
+* [Appendix B Use Cases](#appendix-b-use-cases)
+* [Appendix C Non Functional Requirements](#appendix-c-non-function-requirements)
+* [Appendix D Glossary](#appendix-d-glossary)
+* [Appendix E Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../tree/src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -254,7 +254,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-## Appendix A : User Stories
+## Appendix A User Stories
 
 <!-- @@author A0131813R -->
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -279,7 +279,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 
 
-## Appendix B : Use Cases
+## Appendix B Use Cases
 
 (For all use cases below, the **System** is the `Lifekeeper` and the **Actor** is the `user`, unless specified otherwise)
 #### Use case: Delete task
@@ -377,7 +377,7 @@ Use case ends.
 Repeat steps 2a1-2a3 until Lifekeeper judges that the input parameters are all valid
 Use case resumes from step 3.
 
-## Appendix C : Non Functional Requirements
+## Appendix C Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 tasks.
@@ -387,7 +387,7 @@ Use case resumes from step 3.
 6. Should be user-friendly with neat layout
 7. Output should be exportable to another computer (example through XML files)
 
-## Appendix D : Glossary
+## Appendix D Glossary
 
 
 ##### Mainstream OS
