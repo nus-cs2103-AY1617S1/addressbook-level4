@@ -45,8 +45,6 @@ public class ModelManager extends ComponentManager implements Model {
 	private final SortedList<Task> sortedAndFilteredTasks;
 	private final FilteredList<Task> filteredFloatingTasks;
 	private final SortedList<Task> sortedAndFilteredFloatingTasks;
-	private final FilteredList<Task> filteredOverdueTasks;
-	private final SortedList<Task> sortedAndFilteredOverdueTasks;
 	private final FilteredList<Task> filteredDay1Tasks;
 	private final SortedList<Task> sortedAndFilteredDay1Tasks;
 	private final FilteredList<Task> filteredDay2Tasks;
@@ -81,9 +79,6 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredFloatingTasks = new FilteredList<>(savvyTasker.getTasks());
 		sortedAndFilteredFloatingTasks = new SortedList<>(filteredFloatingTasks, new TaskSortedByDefault());
 
-		filteredOverdueTasks = new FilteredList<>(savvyTasker.getTasks());
-		sortedAndFilteredOverdueTasks = new SortedList<>(filteredOverdueTasks, new TaskSortedByDefault());
-
 		filteredDay1Tasks = new FilteredList<>(savvyTasker.getTasks());
 		sortedAndFilteredDay1Tasks = new SortedList<>(filteredDay1Tasks, new TaskSortedByDefault());
 		filteredDay2Tasks = new FilteredList<>(savvyTasker.getTasks());
@@ -116,9 +111,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 		filteredFloatingTasks = new FilteredList<>(savvyTasker.getTasks());
 		sortedAndFilteredFloatingTasks = new SortedList<>(filteredFloatingTasks, new TaskSortedByDefault());
-
-		filteredOverdueTasks = new FilteredList<>(savvyTasker.getTasks());
-		sortedAndFilteredOverdueTasks = new SortedList<>(filteredOverdueTasks, new TaskSortedByDefault());
 
 		filteredDay1Tasks = new FilteredList<>(savvyTasker.getTasks());
 		sortedAndFilteredDay1Tasks = new SortedList<>(filteredDay1Tasks, new TaskSortedByDefault());
@@ -293,11 +285,6 @@ public class ModelManager extends ComponentManager implements Model {
 
 	//@author A0138431L
 	//Get filtered task list according to date category
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTasks() {
-		updateFilteredListToShowOverdue();
-		return new UnmodifiableObservableList<ReadOnlyTask>(filteredOverdueTasks);
-	}
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTasks() {
@@ -336,20 +323,6 @@ public class ModelManager extends ComponentManager implements Model {
 		return new UnmodifiableObservableList<ReadOnlyTask>(filteredUpcomingTasks);
 	}
 
-	//Binding isOverdue quantifier predicate to filtered list
-	@Override
-	public void updateFilteredListToShowOverdue() {
-		updateFilteredOverdueTaskList(new PredicateExpression(new TaskIsOverdueQualifier()));
-	}
-
-	private void updateFilteredOverdueTaskList(Expression expression) {
-		updateFilteredOverdueTaskList(expression, new TaskSortedByDefault());
-	}
-
-	private void updateFilteredOverdueTaskList(Expression expression, Comparator<Task> comparator) {
-		filteredOverdueTasks.setPredicate(expression::satisfies);
-		sortedAndFilteredOverdueTasks.setComparator(comparator);
-	}
 
 	//Binding isFloating quantifier predicate to filtered list
 	@Override
