@@ -15,10 +15,10 @@ public class TypicalTestTasks {
                     .withDone(false).withRecurrence("year x1").build();
             bananas = new TaskBuilder().withName("buy bananas").withStartTime("11am tmr").withEndTime("1pm tmr")
                     .withDone(false).withRecurrence("week x1").build();
-            call = new TaskBuilder().withName("call dad").withDone(false).withEndTime("10am tmr")
-                    .withStartTime("11am tmr").withRecurrence("day x1").build();
-            deed = new TaskBuilder().withName("give bananas away").withDone(false).withEndTime("5pm two days later")
-                    .withStartTime("6pm two days later").withRecurrence("month x1").build();
+            call = new TaskBuilder().withName("call dad").withDone(false).withStartTime("10am tmr")
+                    .withEndTime("11am tmr").withRecurrence("day x1").build();
+            deed = new TaskBuilder().withName("give bananas away").withDone(false).withStartTime("5pm two days later")
+                    .withEndTime("6pm two days later").withRecurrence("month x1").build();
             
             egypt = new TaskBuilder().withName("plan trip to egypt").withDone(false).withStartTime("10am one month later")
                     .withEndTime("11am one month later").withRecurrence("").build();
