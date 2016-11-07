@@ -199,8 +199,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public boolean setTaskOverdue(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
-            datedTasks.overdue(target);
-            return true;
+            return datedTasks.overdue(target);
         }
         else {
             throw new UniqueTaskList.TaskNotFoundException();	
@@ -215,8 +214,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public boolean postponeTask(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
-            datedTasks.postponed(target);
-            return true;
+            return datedTasks.postponed(target);
         }
         else {
             throw new UniqueTaskList.TaskNotFoundException();   
@@ -231,8 +229,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public boolean setExpire(Task target) throws UniqueTaskList.TaskNotFoundException {
         if (datedTasks.contains(target)) {
-            datedTasks.expire(target);
-            return true;
+            return datedTasks.expire(target);
         }
         else {
             throw new UniqueTaskList.TaskNotFoundException(); 
@@ -247,8 +244,8 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public boolean resetFloatingTaskStatus(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
         if (undatedTasks.contains(undatedTarget)) {
-            undatedTasks.postponed(undatedTarget);
-            return true;
+            return undatedTasks.postponed(undatedTarget);
+
         }
         else {
             throw new UniqueTaskList.TaskNotFoundException();
