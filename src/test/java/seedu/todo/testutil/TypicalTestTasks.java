@@ -39,7 +39,6 @@ public class TypicalTestTasks {
                     .withOnDate("12/11/2016").withDetail("Red").withCompletion(true)
                     .withRecurrence(Frequency.NONE).withTags("urgent").withPriority("mid").build();
             
-            
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
