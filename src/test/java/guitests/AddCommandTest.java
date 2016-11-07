@@ -53,6 +53,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 		// person
 		TestTask[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
 		assertTrue(personListPanel.isListMatching(expectedList));
+		assertEquals("COMPETE", "COMPLETE");
 	}
 
 }

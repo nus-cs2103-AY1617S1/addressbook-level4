@@ -9,58 +9,71 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+	private static final String NAME_FIELD_ID = "#name";
+	private static final String START_DATE_FIELD_ID = "#startDate";
+	private static final String START_TIME_FIELD_ID = "#startTime";
+	private static final String END_DATE_FIELD_ID = "#endDate";
+	private static final String END_TIME_FIELD_ID = "#endTime";
+	private static final String COMPLETED_FIELD_ID = "#isComplete";
 
-    private Node node;
+	private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
-        super(guiRobot, primaryStage, null);
-        this.node = node;
-    }
+	public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
+		super(guiRobot, primaryStage, null);
+		this.node = node;
+	}
 
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
-    }
+	protected String getTextFromLabel(String fieldId) {
+		return getTextFromLabel(fieldId, node);
+	}
 
-    public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
-    }
+	public String getTaskName() {
+		return getTextFromLabel(NAME_FIELD_ID);
+	}
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
-    }
+	public String getStartDate() {
+		return getTextFromLabel(START_DATE_FIELD_ID);
+	}
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
-    }
+	public String getStartTime() {
+		return getTextFromLabel(START_TIME_FIELD_ID);
+	}
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
-    }
+	public String getEndDate() {
+		return getTextFromLabel(END_DATE_FIELD_ID);
+	}
 
-    public boolean isSamePerson(ReadOnlyTask person){
-        
-        
-        return getFullName().equals(person.getName());
-                //&& (natty.parseDate(getPhone()).equals(natty.parseDate(person.getPhone().value)) || natty.parseDate(getPhone()).equals(natty.parseDate("today")))
-                //&& natty.parseTime(getEmail()).equals(natty.parseTime(person.getEmail().value)) && natty.parseTime(getAddress()).equals(natty.parseTime(person.getAddress().value));
-    }
+	public String getEndTime() {
+		return getTextFromLabel(END_TIME_FIELD_ID);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
-        }
-        return super.equals(obj);
-    }
+	public String getCompletion() {
+		return getTextFromLabel(COMPLETED_FIELD_ID);
+	}
 
-    @Override
-    public String toString() {
-        return getFullName() + " " + getAddress();
-    }
+	public boolean isSamePerson(ReadOnlyTask person) {
+
+		return getTaskName().equals(person.getName()) && getStartDate().equals(person.getStart().getDate().toString())
+				&& getStartTime().equals(person.getStart().getTime().toString())
+				&& getEndDate().equals(person.getEnd().getDate().toString())
+				&& getEndTime().equals(person.getEnd().getTime().toString());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof PersonCardHandle) {
+			PersonCardHandle handle = (PersonCardHandle) obj;
+			return getTaskName().equals(handle.getTaskName()) && getStartDate().equals(handle.getStartDate()); // TODO:
+																												// compare
+																												// the
+																												// rest
+		}
+		return super.equals(obj);
+	}
+
+	@Override
+	public String toString() {
+		return getTaskName() + " start: " + getStartDate() + " " + getStartTime() + " end: " + getEndDate() + " "
+				+ getEndTime();
+	}
 }
