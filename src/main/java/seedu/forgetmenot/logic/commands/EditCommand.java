@@ -1,5 +1,8 @@
 package seedu.forgetmenot.logic.commands;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.core.Messages;
 import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
@@ -15,6 +18,8 @@ import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
  * manager.
  */
 public class EditCommand extends Command {
+
+    private static final Logger LOGGER = Logger.getLogger( EditCommand.class.getName() );
 
     public static final String COMMAND_WORD = "edit";
 
@@ -63,6 +68,8 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
+            LOGGER.log(Level.WARNING, "Illegal edit : name[" + newName + "]" 
+        + " start[" + newStart + "]" + " end[" + newEnd + "]");
             return new CommandResult(MESSAGE_EDIT_TASK_NOT_SUCCESSFUL);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
