@@ -113,6 +113,7 @@ Command | Expected behavior
 Since we cleared all the calendar items earlier, we need to re-create some test fixtures.
 
 * `add task Buy clothes by tmr 5pm`
+* `add event Meeting from tmr 2pm to tmr 4pm`
 * `add task Submit CS1231 assignment by today 3pm`
 * `add task Submit CS2103 project by yesterday 4pm`
 * `add task "Take a break from life"`
@@ -133,3 +134,22 @@ Command | Expected behavior
 `destroy 2` | Task at index 2 ("Submit CS2103 project") should be destroyed
 `destroy 10` | Disambiguate: Invalid index provided
 `destroy alamak` | Disambiguate: Index has to be a number
+
+### Tag / Untag
+
+The following should be displayed on the screen:
+1. Take a break from life
+2. Submit CS2103 project, 16:00
+2. Submit CS1231 assignment, 15:00
+3. Meeting, 14:00 - 16:00
+3. Buy clothes, 17:00
+
+If the numbering differs from this order, please use the correct numbering in the commands.
+
+Command | Expected behavior
+------- | -----------------
+`tag 1 sigh` | Tag "sigh" is added to "Take a break from life"
+`tag 2 sigh` | Tag "sigh" is added to "Submit CS2103 project"
+`tag 2 fail already` | Tag "fail already" is added to "Submit CS2103 project"
+`list tag sigh` | Only the two items with "sigh" tags is be shown on screen
+`list tag fail already` | Only "Submit CS2103 project" is shown on screen
