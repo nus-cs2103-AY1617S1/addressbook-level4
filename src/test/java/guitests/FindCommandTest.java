@@ -9,8 +9,8 @@ import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends TaskManagerGuiTest {
 
-    @Test
     //@@author A0124797R
+    @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
         assertFindResult("find assignment", td.task2, td.task4); //multiple results
@@ -25,19 +25,23 @@ public class FindCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    //@@author A0124797R
     public void find_emptyList(){
         commandBox.runCommand("clear");
         assertFindResult("find Marking"); //no results
     }
 
     @Test
-    //@@author A0124797R
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findassignment");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND+": findassignment");
     }
 
+    
+    /**
+     * Checks if find command list the correct number of tasks as the expectedHits
+     * @param command
+     * @param expectedHits
+     */
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
