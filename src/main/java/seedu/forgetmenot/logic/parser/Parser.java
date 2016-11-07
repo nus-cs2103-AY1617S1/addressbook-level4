@@ -227,7 +227,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-        String name = matcher.group("name").replace('\\', '\0');
+        String name = matcher.group("name");
         String done = "false";
     	String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
