@@ -23,7 +23,7 @@
 <!-- @@author A0153467Y -->
 ## Introduction
 
-Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forget your schedule? MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid of forgetting your tasks anymore! You can easily use MESS by typing in one line of command. MESS can be used offline and even in your office computer. It helps you manage and organise your tasks and so as your time. 
+Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forget your schedule? MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid of forgetting your tasks anymore! You can easily use MESS by typing only one line of command. MESS can be used offline and even in your office computer. It helps you to manage and organise your tasks and so as your time. 
 
 Want to use MESS immediately? Let's get started!
 <!-- @@author -->
