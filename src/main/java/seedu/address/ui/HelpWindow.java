@@ -25,7 +25,7 @@ public class HelpWindow extends UiPart<Stage> {
             + "Delete                    | del INDEX\n"
             + "Edit Floating Tasks       | edit INDEX [n-NEW_NAME] [p-PRIORITY]\n"
             + "Edit Deadline             | edit INDEX [dd-DUE_DATE] [dt-DUE_TIME] [n-NEW_NAME]\n"
-            + "Edit Events               | `edit INDEX [n-NEW_NAME] [st-START_TIME] [sd-START_DATE] [et-END_TIME] [ed-END_DATE]\n"
+            + "Edit Events               | edit INDEX [n-NEW_NAME] [st-START_TIME] [sd-START_DATE] [et-END_TIME] [ed-END_DATE]\n"
             + "Mark task as finished     | fin INDEX\n"
             + "Mark a task as unfinished | unfin INDEX\n"
             + "Search for keywords       | search KEYWORD\n"
