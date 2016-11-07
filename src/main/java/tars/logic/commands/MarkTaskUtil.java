@@ -79,6 +79,10 @@ public class MarkTaskUtil {
         return result;
     }
 
+    /**
+     * Main results formatter that will perform the formatting for all 4 cases
+     * i.e. Mark Done, Mark Undone, Already Done and Already Undone
+     */
     private String formatResults(String markDoneTasksString,
             String markUndoneTasksString, String alreadyDoneTasksString,
             String alreadyUndoneTasksString) {

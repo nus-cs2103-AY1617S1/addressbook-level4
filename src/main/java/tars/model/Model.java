@@ -89,6 +89,7 @@ public interface Model {
      */
     void mark(ArrayList<ReadOnlyTask> toMarkList, Status status)
             throws DuplicateTaskException;
+ // @@author
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

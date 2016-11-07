@@ -66,7 +66,6 @@ public class DeleteCommand extends UndoableCommand {
 
     /**
      * Gets Tasks to delete from indexes
-     * 
      */
     private ArrayList<ReadOnlyTask> getTasksFromIndexes(String[] indexes)
             throws InvalidTaskDisplayedException {
