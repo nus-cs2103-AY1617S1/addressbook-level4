@@ -22,16 +22,19 @@ public class TaskCard extends UiPart {
     private static final String FXML = "TaskCard.fxml";
     private static final String OVERDUE_PREFIX = "Overdue\n";
     private static final String COMPLETED_PREFIX = "Completed on ";
-    private static final String NAME_COLOR_DARK = "#3a3d42";
-    private static final String TIME_COLOR_DARK = "#4172c1";
-    private static final String NAME_COLOR_LIGHT = "#ffffff";
-    private static final String TIME_COLOR_LIGHT = "#fff59d";
     private static final String TASK_TIME_PATTERN = "HH:mm EEE, dd MMM";
     private static final String COMPLETED_TIME_PATTERN = "EEE, dd MMM";
     private static final String START_TIME_PREFIX = "from ";
     private static final String END_TIME_PREFIX = " to ";
     private static final String DEADLINE_PREFIX = "by ";
     private static final String EMPTY_PREFIX = "";
+    private static final String OVERDUE_STYLE = "-fx-background-color: rgba(244, 67, 54, 0.8)";
+    private static final String UPCOMING_STYLE = "-fx-background-color: rgba(255, 235, 59, 0.8)";
+    private static final String OTHER_STYLE = "-fx-background-color: rgba(255,255,255,0.6)";
+    private static final Color NAME_COLOR_DARK = Color.web("#3a3d42");
+    private static final Color TIME_COLOR_DARK = Color.web("#4172c1");
+    private static final Color NAME_COLOR_LIGHT = Color.web("#ffffff");
+    private static final Color TIME_COLOR_LIGHT = Color.web("#fff59d");
 
     @FXML
     private HBox cardPane;
@@ -62,18 +65,18 @@ public class TaskCard extends UiPart {
         time.setId("time");
 
         if (task.isOverdue()) {
-            cardPane.setStyle("-fx-background-color: rgba(244, 67, 54, 0.8)");
-            name.setTextFill(Color.web(NAME_COLOR_LIGHT));
-            time.setTextFill(Color.web(TIME_COLOR_LIGHT));
-            id.setTextFill(Color.web(NAME_COLOR_LIGHT));
+            cardPane.setStyle(OVERDUE_STYLE);
+            name.setTextFill(NAME_COLOR_LIGHT);
+            time.setTextFill(TIME_COLOR_LIGHT);
+            id.setTextFill(NAME_COLOR_LIGHT);
         } else if (task.isUpcoming()) {
-            cardPane.setStyle("-fx-background-color: rgba(255, 235, 59, 0.8)");
-            name.setTextFill(Color.web(NAME_COLOR_DARK));
-            time.setTextFill(Color.web(TIME_COLOR_DARK));
+            cardPane.setStyle(UPCOMING_STYLE);
+            name.setTextFill(NAME_COLOR_DARK);
+            time.setTextFill(TIME_COLOR_DARK);
         } else {
-            cardPane.setStyle("-fx-background-color: rgba(255,255,255,0.6)");
-            name.setTextFill(Color.web(NAME_COLOR_DARK));
-            time.setTextFill(Color.web(TIME_COLOR_DARK));
+            cardPane.setStyle(OTHER_STYLE);
+            name.setTextFill(NAME_COLOR_DARK);
+            time.setTextFill(TIME_COLOR_DARK);
         }
 
         StringBuilder timeDescription = new StringBuilder();
@@ -97,7 +100,7 @@ public class TaskCard extends UiPart {
         }
     }
 
-    public String formatTime(String dateTimePattern, String prefix, Optional<LocalDateTime> dateTime) {
+    private String formatTime(String dateTimePattern, String prefix, Optional<LocalDateTime> dateTime) {
 
         StringBuilder sb = new StringBuilder();
         DateTimeFormatter format = DateTimeFormatter.ofPattern(dateTimePattern);
@@ -106,7 +109,7 @@ public class TaskCard extends UiPart {
         return sb.toString();
     }
 
-    public String formatTaskTime(ReadOnlyTask task) {
+    private String formatTaskTime(ReadOnlyTask task) {
         
         StringBuilder timeStringBuilder = new StringBuilder();
 
@@ -127,7 +130,7 @@ public class TaskCard extends UiPart {
         return timeStringBuilder.toString();
     }
 
-    public String formatUpdatedTime(ReadOnlyTask task) {
+    private String formatUpdatedTime(ReadOnlyTask task) {
         StringBuilder timeStringBuilder = new StringBuilder();
         if (task.hasTime()) {
             timeStringBuilder.append("\n");

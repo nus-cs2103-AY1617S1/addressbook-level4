@@ -34,8 +34,6 @@ public class StatusBarFooter extends UiPart {
     private static final String NOT_UPDATED_STATUS = "Not updated yet in this session";
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
-    private Label timeStatus;
-    
 
     private GridPane mainPane;
 
@@ -58,7 +56,7 @@ public class StatusBarFooter extends UiPart {
         return statusBarFooter;
     }
 
-    public void configure(String saveLocation) {
+    private void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
         setSyncStatus(NOT_UPDATED_STATUS);
@@ -95,7 +93,7 @@ public class StatusBarFooter extends UiPart {
     
     //@@author A0148031R
     private void addTimeStatus() {
-        this.timeStatus = new DigitalClock();
+        Label timeStatus = new DigitalClock();
         FxViewUtil.applyAnchorBoundaryParameters(timeStatus, 0.0, 0.0, 0.0, 0.0);
         timeStatus.setAlignment(Pos.CENTER);
         timeStatusBarPane.getChildren().add(timeStatus);

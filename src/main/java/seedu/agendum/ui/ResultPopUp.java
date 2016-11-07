@@ -27,7 +27,8 @@ public class ResultPopUp extends UiPart {
     private static Stage root;
     private AnchorPane mainPane;
     private Stage dialogStage;
-    private PauseTransition delay = new PauseTransition(Duration.seconds(5));
+
+    private final PauseTransition delay = new PauseTransition(Duration.seconds(5));
 
     @FXML
     private Label resultDisplay;
@@ -89,7 +90,7 @@ public class ResultPopUp extends UiPart {
         show();
     }
     
-    public void show() {
+    private void show() {
         dialogStage.setOpacity(1.0);
         dialogStage.sizeToScene();
         dialogStage.show();

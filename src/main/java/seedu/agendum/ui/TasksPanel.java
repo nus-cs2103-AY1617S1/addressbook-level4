@@ -10,7 +10,7 @@ import seedu.agendum.model.task.Task;
 
 //@@author A0148031R
 /**
- * Panel contains the list of tasks
+ * Panel that contains the list of tasks
  */
 public abstract class TasksPanel extends UiPart{
     private AnchorPane panel;

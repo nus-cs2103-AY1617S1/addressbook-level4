@@ -15,14 +15,14 @@ public class CommandBoxHistory {
     private static final String NEXT_QUERY = "next";
     private static final String EMPTY_QUERY = "";
     private static final String EMPTY_COMMAND = "";
-    private LinkedList<String> pastCommands;
+    private final LinkedList<String> pastCommands;
     private ListIterator<String> iterator;
     private String lastCommand = "";
     private String lastQuery = EMPTY_QUERY;
     
     private static CommandBoxHistory instance = null;
     
-    protected CommandBoxHistory() {
+    private CommandBoxHistory() {
         pastCommands = new LinkedList<>();
         iterator = pastCommands.listIterator();   
     }

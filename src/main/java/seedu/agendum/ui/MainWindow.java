@@ -98,11 +98,11 @@ public class MainWindow extends UiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getToDoListName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String toDoListName, Config config, UserPrefs prefs, Logic logic) {
+    private void configure(String appTitle, Config config, UserPrefs prefs, Logic logic) {
 
         this.logic = logic;
         this.config = config;
@@ -143,16 +143,13 @@ public class MainWindow extends UiPart {
      * command or showing help page
      */
     private void configureEscape() {
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent evt) {
-                if (evt.getCode().equals(KeyCode.ESCAPE) && messagePlaceHolder.getChildren().contains(helpWindow)) {
-                    closeHelpWindow();
-                } else if(evt.getCode().equals(KeyCode.ESCAPE) && messagePlaceHolder.getChildren().size() > 0) {
-                    messagePlaceHolder.getChildren().clear();
-                    messagePlaceHolder.setMaxHeight(0);
-                    logic.execute(LIST_COMMAND);
-                }
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, evt -> {
+            if (evt.getCode().equals(KeyCode.ESCAPE) && messagePlaceHolder.getChildren().contains(helpWindow)) {
+                closeHelpWindow();
+            } else if(evt.getCode().equals(KeyCode.ESCAPE) && messagePlaceHolder.getChildren().size() > 0) {
+                messagePlaceHolder.getChildren().clear();
+                messagePlaceHolder.setMaxHeight(0);
+                logic.execute(LIST_COMMAND);
             }
         });
     }

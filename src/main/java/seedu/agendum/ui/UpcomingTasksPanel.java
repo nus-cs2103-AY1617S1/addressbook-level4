@@ -4,7 +4,7 @@ package seedu.agendum.ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListCell;
@@ -44,14 +44,13 @@ public class UpcomingTasksPanel extends TasksPanel {
     private void configure() {
         selectionModel = upcomingTasksListView.getSelectionModel();
         upcomingTasksListView.setSelectionModel(null);
-        upcomingTasksListView.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                event.consume();
-            }
-        });
+        upcomingTasksListView.addEventFilter(MouseEvent.MOUSE_PRESSED, Event::consume);
     }
 
+    /**
+     * Scrolls to the newly updated task and highlight for several seconds. If
+     * there are multiple tasks updated, previous highlight will not be cleared.
+     */
     public void scrollTo(Task task, boolean hasMultipleTasks) {
         Platform.runLater(() -> {
             

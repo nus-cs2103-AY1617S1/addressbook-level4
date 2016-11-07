@@ -29,6 +29,10 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 //@@author A0148031R
+/**
+ * Controller for the command box field
+ *
+ */
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -36,6 +40,7 @@ public class CommandBox extends UiPart {
     private static final String HELP_COMMAND = "help";
     private static final String RESULT_FEEDBACK = "Result: ";
     private static final String ERROR = "error";
+    private static final Color MESSAGE_COLOR = Color.web("#ffffff");
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -117,12 +122,15 @@ public class CommandBox extends UiPart {
         logger.info(RESULT_FEEDBACK + mostRecentResult.feedbackToUser);
     }
     
+    /**
+     * Post meesage in the message place holder under the command box
+     */
     private void postMessage(String message) {
         this.messagePlaceHolder.getChildren().clear();
         raise(new CloseHelpWindowRequestEvent());
 
         Label label = new Label(message);
-        label.setTextFill(Color.web("#ffffff"));
+        label.setTextFill(MESSAGE_COLOR);
         label.setContentDisplay(ContentDisplay.CENTER);
         label.setPadding(new Insets(0, 10, 0, 10));
         this.messagePlaceHolder.setAlignment(Pos.CENTER_LEFT);

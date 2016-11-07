@@ -33,7 +33,7 @@ public class HelpWindow extends UiPart {
     private static final double COMMAND_COLUMN_WIDTH = 0.2;
     private static final double DESCRIPTION_COLUMN_WIDTH = 0.4;
     private static final double FORMAT_COLUMN_WIDTH = 0.4;
-    private ObservableList<Map<CommandColumns, String>> commandList = FXCollections.observableArrayList();
+    private final ObservableList<Map<CommandColumns, String>> commandList = FXCollections.observableArrayList();
 
     private enum CommandColumns {
         COMMAND, DESCRIPTION, FORMAT
