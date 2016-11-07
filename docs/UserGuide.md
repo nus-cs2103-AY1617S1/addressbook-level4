@@ -114,13 +114,12 @@ Examples:
 * **`list`**` today`
 * **`list`**` 12 Oct 2016`
 
-<!-- @@author A0146682X -->
+<!-- @@author A0153736B -->
 ### Finding all tasks containing keyword in the name: `find`
 Finds tasks whose names contain the given keywords.<br>
-Format: **`find`**` [findtype] [keywords]`
+Format: **`find`**` [findtype] [keyword 1 keyword 2 ...]`
 
 > The search is case insensitive. <br>
-> the order of the keywords does not matter. <br>
 > Only the task name is searched. <br>
 
 > [findtype] available: <br>
@@ -244,7 +243,7 @@ Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
 Edit | **`edit`**` [index] [optional parameter 1] [optional parameter 2]...`
 Exit | **`exit`**
-Find | **`find`**` [keywords]`
+Find | **`find`**` [findtype] [keyword 1 keyword 2 ...]`
 List | **`list`**` [filter]`
 Help | **`help`**
 Set storage | **`setstorage`**` [filepath]`
