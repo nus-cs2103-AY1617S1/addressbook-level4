@@ -69,10 +69,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
-    @FXML
-    private AnchorPane upcomingListPanelPlaceholder;
-    
+        
     @FXML
     private AnchorPane overdueListDisplayPlaceHolder;
 
@@ -123,17 +120,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
     	//fill main activities display panel
-<<<<<<< V0.5_additional_tests:src/main/java/seedu/lifekeeper/ui/MainWindow.java
         activityListPanel = ActivityListPanel.load(primaryStage, getActivityListPlaceholder(), logic.getFilteredActivityList());
-        //fill dash board
-//        overdueListPanel = OverdueListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredActivityList());
-        
-=======
-        activityListPanel = ActivityListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
 
         //fill dash board
         overdueListPanel = OverdueTaskListPanel.load(primaryStage, getOverdueListPlaceholder(), logic.getFilteredOverdueTaskList());    
->>>>>>> origin/Branch_for_Merging:src/main/java/seedu/address/ui/MainWindow.java
         		
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), userPrefs.getDataFilePath());
@@ -158,10 +148,6 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getOverdueListPlaceholder() {
     	return overdueListDisplayPlaceHolder;
-    }
-    
-    public AnchorPane getUpcomingListPlaceholder() {
-    	return upcomingListPanelPlaceholder;
     }
 
     public void hide() {
@@ -278,7 +264,7 @@ public class MainWindow extends UiPart {
     public ActivityListPanel getActivityListPanel() {
         return this.activityListPanel;
     }
-
+    
     public void refresh() {
         activityListPanel.refresh();
         

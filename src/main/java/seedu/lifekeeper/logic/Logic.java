@@ -25,5 +25,8 @@ public interface Logic {
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyActivity> getFilteredActivityList();
+    
+    /** Returns the filtered list of overdue tasks */
+    ObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
 
 }

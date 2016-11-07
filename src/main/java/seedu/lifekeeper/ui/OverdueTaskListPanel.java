@@ -16,7 +16,7 @@ import seedu.lifekeeper.model.activity.ReadOnlyActivity;
  * 
  * @@author A0125284H
  */
-public class OverdueListPanel extends ListPanel {
+public class OverdueTaskListPanel extends ListPanel {
 	/**
 	 * Panel containing the list of persons.
 	 */
@@ -28,13 +28,32 @@ public class OverdueListPanel extends ListPanel {
 	@FXML
 	private ListView<ReadOnlyActivity> personListView;
 
-	public OverdueListPanel() {
+	public OverdueTaskListPanel() {
 	        super();
 	    }
 
 	// Function specific to OverdueListPanel
+	
+	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+			ObservableList<ReadOnlyActivity> activityList) {
+		OverdueTaskListPanel overdueListPanel = UiPartLoader.loadUiPart(primaryStage, personListPlaceholder,
+				new ActivityListPanel());
+		overdueListPanel.configure(activityList);
+		return overdueListPanel;
+	}
+	
 	@Override
 	public String getFxmlPath() {
 		return FXML;
 	}
+	
+	
+	@Override
+	public void setPlaceholder(AnchorPane pane) {
+		this.placeHolderPane = pane;
+	}
+
+
+	
+	
 }
