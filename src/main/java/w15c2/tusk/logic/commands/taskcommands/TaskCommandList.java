@@ -7,11 +7,7 @@ import java.util.logging.Logger;
 import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
-//@@author A0139708W<<<<<<< HEAD
-/**
- * Container for Task Command classes to create information for help
- */
-
+//@@author A0139708W
 /**
  * Container for Task Commands to create help information
  */
