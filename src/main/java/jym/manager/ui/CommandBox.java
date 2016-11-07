@@ -8,6 +8,15 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+<<<<<<< HEAD:src/main/java/jym/manager/ui/CommandBox.java
+=======
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.commons.util.FxViewUtil;
+import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/CommandBox.java
 
 import java.util.logging.Logger;
 
@@ -23,25 +32,21 @@ public class CommandBox extends UiPart {
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
-    private ResultDisplay resultDisplay;
-    String previousCommandTest;
+    private String previousCommandText;
 
     private Logic logic;
 
     @FXML
     private TextField commandTextField;
-    private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-            ResultDisplay resultDisplay, Logic logic) {
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Logic logic) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, logic);
+        commandBox.configure(logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, Logic logic) {
-        this.resultDisplay = resultDisplay;
+    public void configure(Logic logic) {
         this.logic = logic;
         registerAsAnEventHandler(this);
     }
@@ -72,15 +77,15 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
-        previousCommandTest = commandTextField.getText();
+        previousCommandText = commandTextField.getText();
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-        mostRecentResult = logic.execute(previousCommandTest);
-        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        CommandResult mostRecentResult = logic.execute(previousCommandText);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+        raise(new NewResultAvailableEvent(mostRecentResult.feedbackToUser));
     }
 
 
@@ -94,7 +99,7 @@ public class CommandBox extends UiPart {
 
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
@@ -103,7 +108,7 @@ public class CommandBox extends UiPart {
      * Restores the command box text to the previously entered command
      */
     private void restoreCommandText() {
-        commandTextField.setText(previousCommandTest);
+        commandTextField.setText(previousCommandText);
     }
 
     /**

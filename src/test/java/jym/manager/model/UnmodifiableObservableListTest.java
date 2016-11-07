@@ -18,11 +18,11 @@ public class UnmodifiableObservableListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    List<Integer> backing;
-    UnmodifiableObservableList<Integer> list;
+    private List<Integer> backing;
+    private UnmodifiableObservableList<Integer> list;
 
     @Before
-    public void setup() {
+    public void setUp() {
         backing = new ArrayList<>();
         backing.add(10);
         list = new UnmodifiableObservableList<>(FXCollections.observableList(backing));

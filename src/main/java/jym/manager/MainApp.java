@@ -5,8 +5,25 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+<<<<<<< HEAD:src/main/java/jym/manager/MainApp.java
+=======
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Version;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
+import seedu.address.model.*;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.ui.Ui;
+import seedu.address.ui.UiManager;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/MainApp.java
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -43,7 +60,6 @@ public class MainApp extends Application {
     protected Config config;
     protected UserPrefs userPrefs;
 
-    public MainApp() {}
 
     @Override
     public void init() throws Exception {
@@ -75,17 +91,28 @@ public class MainApp extends Application {
         Optional<ReadOnlyTaskManager> taskManagerOptional;
         ReadOnlyTaskManager initialData;
         try {
+<<<<<<< HEAD:src/main/java/jym/manager/MainApp.java
             taskManagerOptional = storage.readTaskManager();
             if(!taskManagerOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TaskManager");
+=======
+            addressBookOptional = storage.readAddressBook();
+            if (!addressBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty AddressBook");
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/MainApp.java
             }
             initialData = taskManagerOptional.orElse(new TaskManager());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskManager");
             initialData = new TaskManager();
         } catch (IOException e) {
+<<<<<<< HEAD:src/main/java/jym/manager/MainApp.java
             logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
             initialData = new TaskManager();
+=======
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/MainApp.java
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -101,7 +128,7 @@ public class MainApp extends Application {
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if(configFilePath != null) {
+        if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
             configFilePathUsed = configFilePath;
         }
@@ -141,7 +168,11 @@ public class MainApp extends Application {
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
+<<<<<<< HEAD:src/main/java/jym/manager/MainApp.java
             logger.warning("Problem while reading from the file. . Will be starting with an empty TaskManager");
+=======
+            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/MainApp.java
             initializedPrefs = new UserPrefs();
         }
 

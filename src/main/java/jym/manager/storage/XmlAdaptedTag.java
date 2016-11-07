@@ -1,4 +1,11 @@
+<<<<<<< HEAD:src/main/java/jym/manager/storage/XmlAdaptedTag.java
 package jym.manager.storage;
+=======
+package seedu.address.storage;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.tag.Tag;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/storage/XmlAdaptedTag.java
 
 import javax.xml.bind.annotation.XmlValue;
 

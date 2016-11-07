@@ -32,7 +32,7 @@ public class StorageManagerTest {
 
 
     @Before
-    public void setup() {
+    public void setUp() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
@@ -42,14 +42,13 @@ public class StorageManagerTest {
     }
 
 
-    /*
-     * Note: This is an integration test that verifies the StorageManager is properly wired to the
-     * {@link JsonUserPrefsStorage} class.
-     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
-     */
-
     @Test
     public void prefsReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link JsonUserPrefsStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
+         */
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
         storageManager.saveUserPrefs(original);
@@ -57,6 +56,21 @@ public class StorageManagerTest {
         assertEquals(original, retrieved);
     }
 
+<<<<<<< HEAD:src/test/java/jym/manager/storage/StorageManagerTest.java
+=======
+    @Test
+    public void addressBookReadSave() throws Exception {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link XmlAddressBookStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
+         */
+        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        storageManager.saveAddressBook(original);
+        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        assertEquals(original, new AddressBook(retrieved));
+    }
+>>>>>>> nus-cs2103-AY1617S1/master:src/test/java/seedu/address/storage/StorageManagerTest.java
 
     @Test
     public void getAddressBookFilePath(){
@@ -65,8 +79,9 @@ public class StorageManagerTest {
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
+        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"),
+                                             new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleTaskManagerChangedEvent(new TaskManagerChangedEvent(new TaskManager()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);

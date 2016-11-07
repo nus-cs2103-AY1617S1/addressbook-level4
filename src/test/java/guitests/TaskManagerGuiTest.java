@@ -1,6 +1,7 @@
 package guitests;
 
 import guitests.guihandles.*;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import org.junit.After;
@@ -9,6 +10,16 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
+<<<<<<< HEAD:src/test/java/guitests/TaskManagerGuiTest.java
+=======
+import seedu.address.TestApp;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.BaseEvent;
+import seedu.address.model.AddressBook;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestPersons;
+>>>>>>> nus-cs2103-AY1617S1/master:src/test/java/guitests/AddressBookGuiTest.java
 
 import java.util.concurrent.TimeoutException;
 
@@ -86,7 +97,6 @@ public abstract class TaskManagerGuiTest {
 
     /**
      * Override this in child classes to set the data file location.
-     * @return
      */
     protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
@@ -114,11 +124,11 @@ public abstract class TaskManagerGuiTest {
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
-     * @param expected
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+<<<<<<< HEAD:src/test/java/guitests/TaskManagerGuiTest.java
     
     /**
      * Asserts the size of the complete task list is equal to the given number.
@@ -126,5 +136,11 @@ public abstract class TaskManagerGuiTest {
     protected void assertCompleteListSize(int size) {
         int numberOfTask = completeTaskListPanel.getNumberOfTask();
         assertEquals(size, numberOfTask);
+=======
+
+    public void raise(BaseEvent e) {
+        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
+        Platform.runLater(() -> EventsCenter.getInstance().post(e));
+>>>>>>> nus-cs2103-AY1617S1/master:src/test/java/guitests/AddressBookGuiTest.java
     }
 }

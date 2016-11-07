@@ -34,7 +34,7 @@ Refer to the [Features](#features) section below for details of each command.<br
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+> * Parameters can be in any order.
 
 #### Viewing help : `help`
 Format: `help`
@@ -47,6 +47,7 @@ Format: `add [TASK/EVENT] DESCRIPTION [due/at/by DATE START_TIME END_TIME] [PRIO
 > If only one time is specified, it will be interpreted as a deadline. Otherwise, the event will use the input as start and end time.
 > If no command keyword is specified, the app assumes the given command is to add, and will interpret the input as a task or event depending on whether a start and end time is given or not. <br>
 
+<<<<<<< HEAD
 Examples:
 * `do laundry at home JULY 24 5 PM`
     Adds a task with the description `do laundry` and the deadline `5PM 07/24`
@@ -54,6 +55,11 @@ Examples:
     Adds a task with the description `write sql queries` and the deadline `9PM [tomorrow]`, with tomorrow being whatever date the next day is.
 * `dinner with jack tomorrow at 5 pm to 6pm`
     Adds an event with the description `dinner with jack` with the time 5 to 6 pm tomorrow.
+=======
+Examples: 
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
+* `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
+>>>>>>> nus-cs2103-AY1617S1/master
 
 #### Listing all tasks and events: `list`
 Shows a list of all the tasks and/or events in the program. <br>
@@ -172,6 +178,7 @@ There is no need to save manually.
 
 ## Command Summary
 
+<<<<<<< HEAD
 Command | Format  
 -------- | :--------
 Add | `DESCRIPTION [at LOCATION] [at/by DATE TIME]` OR `DESCRIPTION [by/at DATE START_TIME to END_TIME]`
@@ -184,3 +191,26 @@ List | `list`
 Help | `help`
 Saveto | `saveto PATH`
 Delete | `delete INDEX`
+=======
+* **Add**  `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` <br>
+  e.g. `add James Ho p/22224444 e/jamesho@gmail.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+* **Clear** : `clear`
+  
+* **Delete** : `delete INDEX` <br> 
+   e.g. `delete 3`
+  
+* **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
+  e.g. `find James Jake`
+  
+* **List** : `list` <br>
+  e.g.
+  
+* **Help** : `help` <br>
+  e.g.
+  
+* **Select** : `select INDEX` <br>
+  e.g.`select 2`
+  
+
+>>>>>>> nus-cs2103-AY1617S1/master

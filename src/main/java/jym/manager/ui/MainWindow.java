@@ -23,11 +23,16 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+<<<<<<< HEAD:src/main/java/jym/manager/ui/MainWindow.java
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
     
     public static final String TAB_TASK_COMPLETE = "Completed";
     public static final String TAB_TASK_INCOMPLETE = "Incomplete";
+=======
+    private static final int MIN_HEIGHT = 600;
+    private static final int MIN_WIDTH = 450;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/MainWindow.java
 
     private Logic logic;
 
@@ -43,7 +48,6 @@ public class MainWindow extends UiPart {
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
-    private Scene scene;
 
     private String taskManagerName;
 
@@ -67,10 +71,13 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+<<<<<<< HEAD:src/main/java/jym/manager/ui/MainWindow.java
     
     public MainWindow() {
         super();
     }
+=======
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/MainWindow.java
 
     @Override
     public void setNode(Node node) {
@@ -83,7 +90,6 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
@@ -92,18 +98,18 @@ public class MainWindow extends UiPart {
     private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
         this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
+        Scene scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
         setAccelerators();
@@ -117,9 +123,15 @@ public class MainWindow extends UiPart {
     //    browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredIncompleteTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+<<<<<<< HEAD:src/main/java/jym/manager/ui/MainWindow.java
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         completeTaskListPanel = CompleteTaskListPanel.load(primaryStage,  getCompleteTaskListPlaceholder(), logic.getFilteredCompleteTaskList());
+=======
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
+                                               config.getAddressBookFilePath());
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), logic);
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/MainWindow.java
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -134,15 +146,20 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
+<<<<<<< HEAD:src/main/java/jym/manager/ui/MainWindow.java
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
     
     public AnchorPane getCompleteTaskListPlaceholder() {
         return completeTaskListPanelPlaceholder;
+=======
+    private AnchorPane getPersonListPlaceholder() {
+        return personListPanelPlaceholder;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/MainWindow.java
     }
 
-    public void hide() {
+    void hide() {
         primaryStage.hide();
     }
 
@@ -153,7 +170,7 @@ public class MainWindow extends UiPart {
     /**
      * Sets the default size based on user preferences.
      */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
+    private void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
@@ -170,7 +187,7 @@ public class MainWindow extends UiPart {
     /**
      * Returns the current size and the position of the main Window.
      */
-    public GuiSettings getCurrentGuiSetting() {
+    GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
@@ -181,7 +198,7 @@ public class MainWindow extends UiPart {
         helpWindow.show();
     }
 
-    public void show() {
+    void show() {
         primaryStage.show();
     }
 
@@ -201,11 +218,21 @@ public class MainWindow extends UiPart {
         return this.completeTaskListPanel;
     }
 
+<<<<<<< HEAD:src/main/java/jym/manager/ui/MainWindow.java
     public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 
     public void releaseResources() {
       //  browserPanel.freeResources();
+=======
+    void loadPersonPage(ReadOnlyPerson person) {
+        browserPanel.loadPersonPage(person);
     }
+
+    void releaseResources() {
+        browserPanel.freeResources();
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/ui/MainWindow.java
+    }
+
 }

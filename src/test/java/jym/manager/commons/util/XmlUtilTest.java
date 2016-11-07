@@ -82,6 +82,7 @@ public class XmlUtilTest {
         TEMP_FILE.createNewFile();
         XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager(new TaskManager());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+<<<<<<< HEAD:src/test/java/jym/manager/commons/util/XmlUtilTest.java
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
@@ -92,5 +93,18 @@ public class XmlUtilTest {
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
+=======
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
+        //TODO: use equality instead of string comparisons
+
+        AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
+        dataToWrite = new XmlSerializableAddressBook(
+                builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+
+        XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
+>>>>>>> nus-cs2103-AY1617S1/master:src/test/java/seedu/address/commons/util/XmlUtilTest.java
     }
 }

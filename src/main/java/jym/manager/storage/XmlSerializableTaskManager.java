@@ -4,7 +4,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,35 +23,55 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @XmlElement
     private List<XmlAdaptedTask> tasks;
     @XmlElement
+<<<<<<< HEAD:src/main/java/jym/manager/storage/XmlSerializableTaskManager.java
     private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
+=======
+    private List<XmlAdaptedTag> tags;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/storage/XmlSerializableAddressBook.java
 
     /**
      * Empty constructor required for marshalling
      */
+<<<<<<< HEAD:src/main/java/jym/manager/storage/XmlSerializableTaskManager.java
     public XmlSerializableTaskManager() {}
+=======
+    public XmlSerializableAddressBook() {
+        persons = new ArrayList<>();
+        tags = new ArrayList<>();
+    }
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/storage/XmlSerializableAddressBook.java
 
     /**
      * Conversion
      */
+<<<<<<< HEAD:src/main/java/jym/manager/storage/XmlSerializableTaskManager.java
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
+=======
+    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+        this();
+        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/storage/XmlSerializableAddressBook.java
     }
 
     @Override
     public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
+        UniqueTagList lists = new UniqueTagList();
+        for (XmlAdaptedTag t : tags) {
+            try {
+                lists.add(t.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
         }
+        return lists;
     }
 
     @Override
@@ -83,7 +102,15 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+        return tags.stream().map(t -> {
+            try {
+                return t.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

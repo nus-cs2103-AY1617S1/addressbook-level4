@@ -12,10 +12,7 @@ public class Tag {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
-
-    public Tag() {
-    }
+    public final String tagName;
 
     /**
      * Validates given tag name.
@@ -24,11 +21,11 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
-        if (!isValidTagName(name)) {
+        String trimmedName = name.trim();
+        if (!isValidTagName(trimmedName)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = name;
+        this.tagName = trimmedName;
     }
 
     /**

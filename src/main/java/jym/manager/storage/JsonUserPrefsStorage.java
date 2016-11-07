@@ -1,9 +1,15 @@
+<<<<<<< HEAD:src/main/java/jym/manager/storage/JsonUserPrefsStorage.java
 package jym.manager.storage;
+=======
+package seedu.address.storage;
 
-import java.io.File;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.UserPrefs;
+>>>>>>> nus-cs2103-AY1617S1/master:src/main/java/seedu/address/storage/JsonUserPrefsStorage.java
+
 import java.io.IOException;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import jym.manager.commons.core.LogsCenter;
 import jym.manager.commons.exceptions.DataConversionException;
@@ -13,9 +19,7 @@ import jym.manager.model.UserPrefs;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonUserPrefsStorage implements UserPrefsStorage{
-
-    private static final Logger logger = LogsCenter.getLogger(JsonUserPrefsStorage.class);
+public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private String filePath;
 
@@ -28,46 +32,18 @@ public class JsonUserPrefsStorage implements UserPrefsStorage{
         return readUserPrefs(filePath);
     }
 
-    @Override
-    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        saveUserPrefs(userPrefs, filePath);
-    }
-
     /**
      * Similar to {@link #readUserPrefs()}
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<UserPrefs> readUserPrefs(String prefsFilePath) throws DataConversionException {
-        assert prefsFilePath != null;
-
-        File prefsFile = new File(prefsFilePath);
-
-        if (!prefsFile.exists()) {
-            logger.info("Prefs file "  + prefsFile + " not found");
-            return Optional.empty();
-        }
-
-        UserPrefs prefs;
-
-        try {
-            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
-        } catch (IOException e) {
-            logger.warning("Error reading from prefs file " + prefsFile + ": " + e);
-            throw new DataConversionException(e);
-        }
-
-        return Optional.of(prefs);
+        return JsonUtil.readJsonFile(prefsFilePath, UserPrefs.class);
     }
 
-    /**
-     * Similar to {@link #saveUserPrefs(UserPrefs)}
-     * @param prefsFilePath location of the data. Cannot be null.
-     */
-    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
-        assert userPrefs != null;
-        assert prefsFilePath != null;
-
-        FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        JsonUtil.saveJsonFile(userPrefs, filePath);
     }
+
 }
