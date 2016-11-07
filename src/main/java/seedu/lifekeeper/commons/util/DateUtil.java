@@ -217,7 +217,10 @@ public class DateUtil {
             dayindex = Calendar.SATURDAY;
         else if (date.contains("sun"))
             dayindex = Calendar.SUNDAY;
-        return diff = (today > dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
+        diff = (today >= dayindex) ? (7 - (today - dayindex)) : (dayindex - today);
+        if(diff == 7)
+            diff = 0;
+        return diff;
     }
 
     public static Date convertDueDate(String date) throws IllegalValueException {

@@ -46,6 +46,8 @@ public class Reminder extends DateTime {
                 throw new IllegalValueException(MESSAGE_REMINDER_CONSTRAINTS);
             }
                 this.value = DateUtil.setDate(date);
+                if(recurring && this.value.before(Calendar.getInstance()))
+                    this.value.add(Calendar.DAY_OF_MONTH, 7);
         }
     }
 
