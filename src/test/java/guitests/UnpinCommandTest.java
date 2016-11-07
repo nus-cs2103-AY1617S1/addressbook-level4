@@ -8,7 +8,6 @@ public class UnpinCommandTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }

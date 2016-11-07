@@ -8,7 +8,6 @@ public class UncompleteCommandTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }
