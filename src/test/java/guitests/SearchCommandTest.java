@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class SearchCommandTest extends TaskManagerGuiTest {
     @Test
@@ -16,10 +17,10 @@ public class SearchCommandTest extends TaskManagerGuiTest {
         assertSearchResult("", currentList);
 
         // test search full name
-        assertSearchResult(td.daniel.getName().taskName, td.daniel);
+        assertSearchResult(TypicalTestTasks.daniel.getName().taskName, TypicalTestTasks.daniel);
         
         // test search partial name
-        assertSearchResult("Have lunch", td.daniel);
+        assertSearchResult("Have lunch", TypicalTestTasks.daniel);
         
         // test search no results
         assertSearchResult("this does not exist");

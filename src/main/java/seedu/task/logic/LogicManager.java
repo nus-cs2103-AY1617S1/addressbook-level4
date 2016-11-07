@@ -10,7 +10,6 @@ import seedu.task.logic.commands.UndoableCommand;
 import seedu.task.logic.parser.ParseSwitcher;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.storage.Storage;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,7 +25,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final ParseSwitcher parser;
     private UndoableCommand previousCommand;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model) {
         this.model = model;
         this.parser = new ParseSwitcher(model.getAliasMap());
         this.previousCommand = null;

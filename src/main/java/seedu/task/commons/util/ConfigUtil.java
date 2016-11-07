@@ -25,9 +25,7 @@ public class ConfigUtil {
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
 
         assert configFilePath != null;
-
         File configFile = new File(configFilePath);
-
         if (!configFile.exists()) {
             logger.info("Config file "  + configFile + " not found");
             return Optional.empty();

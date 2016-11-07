@@ -6,16 +6,13 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
-import seedu.task.commons.core.LogsCenter;
 import seedu.task.model.tag.Tag;
 
-import java.util.logging.Logger;
 
 /**
  * Panel for the tag list.
  */
 public class TagListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
     private static final String FXML = "TagListPanel.fxml";
     private FlowPane panel;
     private AnchorPane placeHolderPane;
