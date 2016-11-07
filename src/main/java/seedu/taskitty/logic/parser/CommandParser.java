@@ -456,13 +456,12 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        String dataArgs = args.trim();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);                
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        String messageParameter = Command.getDeleteCommandMessageParameter();
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(args);
         
-        if (listOfIndexes.contains(null)) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
+     // if any of the index is null, there was an error in the indexes provided
+        if (listOfIndexes.contains(null)) { 
+            return createNewIncorrectCommand(messageParameter);
         }
 
         return new DeleteCommand(listOfIndexes, args);
@@ -475,11 +474,9 @@ public class CommandParser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDone(String args) {        
-        String dataArgs = args.trim();            
+    private Command prepareDone(String args) {         
         String messageParameter = Command.getDoneCommandMessageParameter();
-        String[] indexes = dataArgs.split(WHITE_SPACE_REGEX_STRING);        
-        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(indexes);
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(args);
         
         // if any of the index is null, there was an error in the indexes provided
         if (listOfIndexes.contains(null)) { 
@@ -491,13 +488,13 @@ public class CommandParser {
     
     //@@author A0139052L
     /**
-     * 
      * Parses each index string in the array and adds them to a list if valid
      * 
-     * @param indexes the string array of indexes separated
-     * @return a list of all valid indexes parsed or null if an invalid index was given
+     * @param arg full command args string
+     * @return a list of all indexes parsed, where a null value indicates an invalid index
      */
-    private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String[] indexes) {        
+    private ArrayList<Pair<Integer, Integer>> getListOfIndexes(String args) {                   
+        String[] indexes = args.trim().split(WHITE_SPACE_REGEX_STRING); 
         ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
         for (String index: indexes) {
@@ -643,8 +640,7 @@ public class CommandParser {
     /**
      * Parses the string and returns the categoryIndex and the index if a valid
      * one was given
-     * 
-     * @return an int array with categoryIndex and index in 0 and 1 index respectively
+     * @return an Integer Pair with the categoryIndex as the key and number index as the value
      */
     private Pair<Integer, Integer> getCategoryAndIndex(String args) {
 
