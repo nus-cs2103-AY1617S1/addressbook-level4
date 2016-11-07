@@ -30,7 +30,9 @@ public class Sort {
     }
     
     //@@author A0143378Y
-    //Reform list by adding Event, Deadline, Task items in sorted order
+    /*
+     * Reform list by adding Event, Deadline, Task items in sorted order
+     */
     private static void joinList(ArrayList<GenericMemory> list) {
         list.removeAll(list);
         assert list.size() == 0;
@@ -48,7 +50,9 @@ public class Sort {
     }
     
     //@@author A0143378Y
-    //Sorts the 3 lists 
+    /*
+     * Sorts the 3 lists 
+     */
     private static void sortAllList() { 
         Collections.sort(task);
         Collections.sort(deadline);
@@ -56,7 +60,9 @@ public class Sort {
     }
     
     //@@author A0143378Y
-    //Split all items into their own list for sorting
+    /*
+     * Split all items into their own list for sorting
+     */
     public static void splitMemory(ArrayList<GenericMemory> list) { 
         for (int i = 0; i < list.size(); i++) { 
             switch (list.get(i).getType()) { 

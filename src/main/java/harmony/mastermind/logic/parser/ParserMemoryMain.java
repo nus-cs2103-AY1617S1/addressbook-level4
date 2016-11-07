@@ -52,7 +52,9 @@ public class ParserMemoryMain {
     private static final String INVALID_COMMAND = "Invalid command, please try again";
     
     //@@author A0143378Y
-    //General getters and setters
+    /*
+     * General getters and setters
+     */
     public static String getCommand() { 
         return command;
     }
@@ -137,7 +139,7 @@ public class ParserMemoryMain {
         String timeReduced = reduceToInt(time);
         newTime = convertToInt(timeReduced);
         
-      //Checks that time string has exactly 4 digit.
+        //Checks that time string has exactly 4 digit.
         if(timeReduced.length() == 4 && newTime != INVALID_INT){
             minute = newTime%100;
             hour = newTime/100;
