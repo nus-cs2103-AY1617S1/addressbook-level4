@@ -192,7 +192,7 @@ Examples: <br>
 ## Command Summary
 
 Command | Format | IsReversible
--------- | :-------- 
+-------- | :-------- | :-------
 Add | `add TASK d/DESCRIPTION [dd/DUE_DATE] [i/INTERVAL] [ti/TIME_INTERVAL] [c/COLOR] [ts/TAG]...` | YES
 Edit | `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAG]...` | YES
 Clear | `clear` | YES
