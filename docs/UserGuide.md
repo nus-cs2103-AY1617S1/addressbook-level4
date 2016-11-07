@@ -303,11 +303,9 @@ Examples:
   Typing `am` no longer translates into `add Meeting`
 
 <br>
-#### Listing aliases: `list alias[es]`
+#### Listing aliases: `list alias`
 Lists all the aliases that you have created. <br>
-Format: `list alias[es]`
-
-> You can type either `alias` or its plural form, `aliases`
+Format: `list alias`
 
 Examples:
 * `list alias`
@@ -387,7 +385,7 @@ Pin | `pin INDEX`
 Unpin | `unpin INDEX`
 Alias | `alias SHORTCUT ANY_SENTENCE`
 Unalias | `unalias SHORTCUT`
-List aliases | `list alias[es]`
+List aliases | `list alias`
 Set storage location | `setstorage PATH`
 Exit | `exit`
 
