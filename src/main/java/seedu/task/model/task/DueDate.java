@@ -11,16 +11,26 @@ public class DueDate {
   
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task's due date should be entered as DD-MM-YYYY hh:mm\n"
             + "EXAMPLE: add Homework d/Math homework dd/02-01-2011 23:59";
+    
+    //@@author
+    
+   
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy HH:mm");
     
+    //@@author A0139932X
     public static final SimpleDateFormat DATE_FORMAT_WITHOUT_TIME = new SimpleDateFormat("dd-MM-yyyy");
-  
+    //@@author
     public final Date dueDate;
 
+    
+    //@@author A0148083A
     public DueDate(String dateToValidate) throws IllegalValueException, ParseException {
         if (dateToValidate.equals("Not Set")) {
             this.dueDate = null;
         }
+        //@@author
+        
+        //@@author A0139932X
         else if (!isValidDateTime(dateToValidate) && !isValidDate(dateToValidate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
@@ -47,7 +57,9 @@ public class DueDate {
 		}
 		return true;
 	}
+	//@@author
 	
+	//@@author A0148083A
 	public static boolean isValidDate(String inDate){
 	    DATE_FORMAT_WITHOUT_TIME.setLenient(false);
 	    try{
@@ -81,4 +93,4 @@ public class DueDate {
 	}
 
 }
-//@@author A0148083A
+//@@author
