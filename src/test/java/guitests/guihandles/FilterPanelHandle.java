@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
+import seedu.toDoList.TestApp;
 
 //@@author A0146123R
 /**
@@ -25,9 +25,10 @@ public class FilterPanelHandle extends GuiHandle{
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
-    /**
-     * Get the given inputs in the Filter Panel
+    /*
+     * Get the given inputs in the Filter Panel.
      */
+    
     public boolean getEventInput() {
         return getToggleButtonInput(EVENT_INPUT_FIELD_ID);
     }
@@ -68,9 +69,10 @@ public class FilterPanelHandle extends GuiHandle{
         return getPriorityInput(PRIORITY_INPUT_FIELD_ID);
     }
     
-    /**
-     * Enter the given commands in the Filter Panel
+    /*
+     * Enter the given commands in the Filter Panel.
      */
+    
     public void runCommandForEvent() {
         enterCommandForEvents();
         guiRobot.sleep(200); //Give time for the command to take effect
@@ -126,9 +128,10 @@ public class FilterPanelHandle extends GuiHandle{
         guiRobot.sleep(200); 
     }
     
-    /**
-     * Check the given fields in the Filter Panel are focused
+    /*
+     * Check the given fields in the Filter Panel are focused.
      */
+    
     public boolean deadlineIsFocused() {
         return isFocused(DEADLINE_INPUT_FIELD_ID);
     }
@@ -153,9 +156,10 @@ public class FilterPanelHandle extends GuiHandle{
         return choiceBoxIsFocused(PRIORITY_INPUT_FIELD_ID);
     }
     
-    /**
+    /*
      * For toggle buttons, enter command by click button
      */
+    
     private void enterCommandForEvents() {
         clickToggleButton(EVENT_INPUT_FIELD_ID);
     }
@@ -172,9 +176,10 @@ public class FilterPanelHandle extends GuiHandle{
         clickToggleButton(UNDONE_INPUT_FIELD_ID);
     }
 
-    /**
+    /*
      * For text fields, enter command by set text field
      */
+    
     private void enterCommandForDeadline(String command) {
         setTextField(DEADLINE_INPUT_FIELD_ID, command);
     }

@@ -2,9 +2,9 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.RedoChangeCommand;
-import seedu.address.logic.commands.UndoChangeCommand;
-import seedu.address.testutil.TestUtil;
+import seedu.toDoList.logic.commands.RedoChangeCommand;
+import seedu.toDoList.logic.commands.UndoChangeCommand;
+import seedu.toDoList.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 

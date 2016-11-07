@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.model.task.Deadline;
-import seedu.address.model.task.EventDate;
-import seedu.address.model.task.Recurring;
-import seedu.address.testutil.TestTask;
-import seedu.address.ui.FilterPanel;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.model.task.EventDate;
+import seedu.toDoList.model.task.Recurring;
+import seedu.toDoList.testutil.TestTask;
+import seedu.toDoList.ui.FilterPanel;
 
 //@@author A0146123R
 /**
@@ -40,7 +40,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void update_listCommand_buttonUpdates() {
+    public void update_listCommand_buttonUpdate() {
         commandBox.runCommand("list tasks");
         assertTrue(filterPanel.getTaskInput());
         commandBox.runCommand("list events");
@@ -56,7 +56,7 @@ public class FilterPanelTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void updatee_filterCommand_textFieldUpdates() {
+    public void updatee_filterCommand_textFieldUpdate() {
         commandBox.runCommand("filter d/06.11.2016 t/tag");
         assertEquals("06.11.2016", filterPanel.getDeadlineInput());
         assertEquals("tag", filterPanel.getTagInput());

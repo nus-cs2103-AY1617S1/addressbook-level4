@@ -1,12 +1,14 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.FilterCommand;
-import seedu.address.testutil.TestTask;
+
+import seedu.toDoList.commons.core.Messages;
+import seedu.toDoList.logic.commands.FilterCommand;
+import seedu.toDoList.model.task.Deadline;
+import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.toDoList.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 //@@author A0146123R
 /**
@@ -27,7 +29,6 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         TestTask taskToAdd = td.lecture;
         commandBox.runCommand(taskToAdd.getAddCommand());
         assertFilterResult("filter r/weekly", taskToAdd);
-
     }
 
     @Test
@@ -42,6 +43,8 @@ public class FilterCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         commandBox.runCommand("filter");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
+        commandBox.runCommand("filter d/ddd");
+        assertResultMessage(Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
     }
 
     /**
@@ -51,7 +54,7 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     private void assertFilterResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " tasks listed!");
+        assertResultMessage(expectedHits.length + " events and tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 

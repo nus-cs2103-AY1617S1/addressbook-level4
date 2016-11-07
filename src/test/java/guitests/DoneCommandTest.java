@@ -2,15 +2,15 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.DoneCommand;
-import seedu.address.testutil.TestTask;
+import seedu.toDoList.commons.core.Messages;
+import seedu.toDoList.logic.commands.DoneCommand;
+import seedu.toDoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 
-//@@author A0146123R
+//@@author A0142325R
 
 /**
  * test for done command execution on gui
@@ -20,7 +20,6 @@ import org.junit.Before;
  *                2) mark a task as done by name
  *
  */
-
 public class DoneCommandTest extends TaskManagerGuiTest {
     
     TestTask[] currentList;
@@ -35,7 +34,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     //test for scenario1: mark done by index
     
     @Test
-    public void markDoneByIndex_successful() {
+    public void markDone_byIndex_success() {
         
         currentList[0].markAsDone();
         assertDoneSuccess("done 1", currentList);
@@ -45,7 +44,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     //test for scenario 2: mark done by name
     
     @Test
-    public void markDoneByName_successful(){
+    public void markDone_byName_success(){
         
         // Mark task as done by name
         currentList[4].markAsDone();
@@ -67,16 +66,16 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     //test for invalid index
     
     @Test
-    public void markDoneByInvalidIndex_fail(){
+    public void markDone_byInvalidIndex_fail(){
         commandBox.runCommand("done 12");
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         
     }
     
-    //test for nonexistant name
+    //test for nonexistent name
     
     @Test
-    public void markDoneByNonExistantName_fail(){
+    public void markDone_byNonExistantName_fail(){
         
         commandBox.runCommand("done dinner");
         assertResultMessage(DoneCommand.TASK_NOT_FOUND);
