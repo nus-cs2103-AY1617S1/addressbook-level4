@@ -762,8 +762,25 @@ Use case ends.
 
 <!--@@author -->
 
+<!-- @@author A0093907W -->
 #### Use case : UC18 - Config
-*To be filled*
+
+**MSS**
+
+1. User requests to set a config variable.
+2. Application sets the config variable.
+Use case ends.
+
+**Extensions**
+
+1a. The config variable key does not exist.
+> 1a1. Application shows an error message.
+Use case ends.
+
+1b. The config variable value is invalid.
+> 1b1. Application shows an error message.
+Use case ends.
+<!-- @@author -->
 
 #### Use case : UC19 - Alias
 
@@ -834,5 +851,3 @@ Use case ends.
 
 > However, one flaw with Todoist is that it does not possess any capabilities of having subproject hierarchy. Hence, it would make complex projects' task to be split among the team in an orderly fashion.
 <!-- @@author -->
-
-**{TODO: Add a summary of competing products}**
