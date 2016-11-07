@@ -45,16 +45,18 @@ Figure 1: TasKitty Overview
 ## Quick Start
 
 1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   <p align= "center">
+   
    <img src="images/QuickStartCallout.png" width="900"><br>
-   Figure 2: TasKitty Welcome Screen
+   
    
 <!-- @@author A0130853L -->
 
 2. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for your TasKitty.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+   <p align= "center">
    <img src="images/Ui.png" width="900">
+   Figure 2: TasKitty Welcome Screen
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.<br> 
@@ -81,7 +83,7 @@ Shortcut key: `F1`
 
 A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 <p align= "center">
-<img src="images/UIhelp.png" width="900">
+<img src="images/UIhelp.png" width="900"><br>
 Figure 3: Help Window
 
 
@@ -163,7 +165,7 @@ Example (Todo):<br>
   <p align= "center">
   <img src="images/UItodo.png" width="900">
   Figure 8: Add Todo Command
-<br>
+
 Example (Deadline):<br>
 * `add submit proposal 17 Nov 2pm #work`<br>
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
