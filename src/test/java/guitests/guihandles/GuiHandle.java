@@ -62,7 +62,15 @@ public class GuiHandle {
     }
 
     public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
+        guiRobot.type(KeyCode.ENTER).sleep(200);
+    }
+    
+    public void pressUp() {
+        guiRobot.type(KeyCode.UP).sleep(50);
+    }
+    
+    public void pressDown() {
+        guiRobot.type(KeyCode.DOWN).sleep(50);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {

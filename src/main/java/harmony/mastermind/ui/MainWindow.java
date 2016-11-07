@@ -3,6 +3,8 @@ package harmony.mastermind.ui;
 import java.util.Comparator;
 import java.util.logging.Logger;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.RestoreAction;
+
 import org.ocpsoft.prettytime.PrettyTime;
 
 import com.google.common.eventbus.Subscribe;
@@ -12,10 +14,12 @@ import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
+import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.commons.events.ui.NewResultAvailableEvent;
 import harmony.mastermind.commons.events.ui.TabChangedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
+import harmony.mastermind.logic.commands.IncorrectCommand;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;

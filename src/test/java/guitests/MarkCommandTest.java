@@ -3,18 +3,20 @@ package guitests;
 import static harmony.mastermind.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_SUCCESS;
 import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_FAILURE;
+import static harmony.mastermind.logic.commands.MarkCommand.MESSAGE_MARK_DUE_SUCCESS;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import harmony.mastermind.testutil.TestTask;
 import harmony.mastermind.testutil.TestUtil;
+import harmony.mastermind.testutil.TypicalTestTasks;
 
 //@@author A0124797R
 public class MarkCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void mark() {
+    public void mark_nonRecurringTask_success() {
         
         //marks first task
         TestTask[] currentList = td.getTypicalTasks();
@@ -36,11 +38,11 @@ public class MarkCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void mark_recurring() {
+    public void mark_recurringTask_addNextRecurTask() {
         //add a recurring task and mark 
         TestTask[] currentList = td.getTypicalTasks();
-        commandBox.runCommand(td.task9.getAddCommand());
-        currentList = TestUtil.addTasksToList(currentList, td.task9); 
+        commandBox.runCommand(TypicalTestTasks.task9.getAddCommand());
+        currentList = TestUtil.addTasksToList(currentList, TypicalTestTasks.task9); 
         assertTrue(taskListPanel.isListMatching(currentList));
         
         int targetIndex = 5;
@@ -49,12 +51,21 @@ public class MarkCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void executeMark_TaskAlreadyMarked() {
-        TestTask taskToMark = td.task7;
+    public void mark_TaskAlreadyMarked_markFailure() {
         commandBox.runCommand("list archives");
         commandBox.runCommand("mark 1");
 
         assertResultMessage(MESSAGE_MARK_FAILURE);
+        
+    }
+    
+    @Test
+    public void markDue_dueTasks_markAllDueTask() {
+        TestTask[] expectedList = {TypicalTestTasks.task3, TypicalTestTasks.task4};
+        
+        commandBox.runCommand("mark due");
+        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertResultMessage(MESSAGE_MARK_DUE_SUCCESS);
         
     }
 
@@ -85,4 +96,5 @@ public class MarkCommandTest extends TaskManagerGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_MARK_SUCCESS, taskToMark));
     }
+    
 }

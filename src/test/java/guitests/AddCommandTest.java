@@ -1,38 +1,33 @@
 package guitests;
 
-import harmony.mastermind.commons.core.Messages;
-import harmony.mastermind.logic.commands.AddCommand;
-import harmony.mastermind.testutil.TestTask;
-import harmony.mastermind.testutil.TestUtil;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import harmony.mastermind.commons.core.Messages;
+import harmony.mastermind.testutil.TestTask;
+import harmony.mastermind.testutil.TestUtil;
+import harmony.mastermind.testutil.TypicalTestTasks;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     //@@author A0124797R
     public void add() {
-        //add one task
+        //add one floating task with tags
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.task5;
+        TestTask taskToAdd = TypicalTestTasks.task5;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another task
-        taskToAdd = td.task6;
+        //add another floating task without tags
+        taskToAdd = TypicalTestTasks.task6;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task
-//        commandBox.runCommand(td.task5.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.task3);
+        assertAddSuccess(TypicalTestTasks.task3);
 
         //invalid command
         commandBox.runCommand("adds Laundry");

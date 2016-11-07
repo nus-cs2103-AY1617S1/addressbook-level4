@@ -22,6 +22,14 @@ public class CommandBoxHandle extends GuiHandle {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
 
+    public void getPreviousCommand() {
+        pressUp();
+    }
+    
+    public void getNextCommand() {
+        pressDown();
+    }
+    
     /**
      * Enters the given command in the Command Box and presses enter.
      */
@@ -30,5 +38,6 @@ public class CommandBoxHandle extends GuiHandle {
         pressEnter();
         guiRobot.sleep(200); // Give time for the command to take effect
     }
+    
 
 }
