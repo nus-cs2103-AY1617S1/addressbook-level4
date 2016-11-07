@@ -24,7 +24,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	 * Every field must be present and not null.
 	 */
 	public Task(String name, DateTime start, DateTime end, boolean isComplete, boolean isPinned, UniqueTagList tags) {
-		assert !CollectionUtil.isAnyNull(name, start, end, isComplete, isPinned, tags);
+	    assert !CollectionUtil.isAnyNull(name, start, end, isComplete, isPinned, tags);
 		this.taskName = name;
 		this.start = start;
 		this.end = end;

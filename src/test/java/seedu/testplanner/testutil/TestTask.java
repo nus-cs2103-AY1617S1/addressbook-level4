@@ -1,6 +1,8 @@
 package seedu.testplanner.testutil;
 
+import seedu.dailyplanner.model.tag.Tag;
 import seedu.dailyplanner.model.tag.UniqueTagList;
+import seedu.dailyplanner.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.dailyplanner.model.task.*;
 
 /**

@@ -18,6 +18,7 @@ public class ClearCommand extends Command {
         assert model != null;
         model.resetData(AddressBook.getEmptyAddressBook());
         model.resetPinBoard();
+        model.setLastTaskAddedIndex(0);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
