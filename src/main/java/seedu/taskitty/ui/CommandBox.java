@@ -123,7 +123,7 @@ public class CommandBox extends UiPart {
     private void handleShowToolTip(ShowToolTipEvent event) {
         resultDisplay.postMessage(event.getToolTipMessage(), event.getToolTipDescription());
         
-        isInputValid = event.isUserInputValid();
+        isInputValid = event.isUserInputValid() && isInputValid;
         if (isInputValid) {
             setStyleToIndicateCorrectCommand();
         } else {
