@@ -498,7 +498,6 @@ Use case ends
 > 1b1. Task Manager shows an error message stating provided index is invalid <br>
   Use case ends
 
-[//]: # "@@author A0147335E"
 ### Use case: Mark task as not favorite
 
 **MSS**
@@ -507,7 +506,7 @@ Use case ends
 2. Task Manager successfully updates task, showing affected task in the message panel and yellow highlight in task list panel disappears <br>
 Use case ends
 
-[//]: # "@@author"
+[//]: # "@@author A0147944U"
 **Extensions**
 
 1a. Task is already marked as not favorite
