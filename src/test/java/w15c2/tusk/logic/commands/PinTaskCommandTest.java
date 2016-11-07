@@ -16,7 +16,7 @@ public class PinTaskCommandTest {
 
 
 	@Test
-	public void pinTask_noTasksAdded() throws IllegalValueException {
+	public void pinTaskCommand_noTasksAdded() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * there are no tasks that have been added).
@@ -31,7 +31,7 @@ public class PinTaskCommandTest {
 	}
 	
 	@Test
-	public void pinTask_indexTooLarge() throws IllegalValueException {
+	public void pinTaskCommand_indexTooLarge() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since
 		 * index is too large).
@@ -46,7 +46,7 @@ public class PinTaskCommandTest {
 	}
 	
 	@Test
-	public void pinTask_indexTooSmall() throws IllegalValueException {
+	public void pinTaskCommand_indexTooSmall() throws IllegalValueException {
 		/*
 		 * CommandResult should return a string that denotes that execution failed (since 
 		 * index is too small).
@@ -61,7 +61,7 @@ public class PinTaskCommandTest {
 	}
 	
 	@Test
-	public void pinTask_duplicatePin() throws IllegalValueException {
+	public void pinTaskCommand_duplicatePin() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that denotes success in execution if index given 
 		 * to pinTaskCommand constructor is within the range of added tasks.
@@ -77,7 +77,7 @@ public class PinTaskCommandTest {
 	
 	//@@author
 	@Test
-	public void pinTask_validIndex() throws IllegalValueException {
+	public void pinTaskCommand_validIndex() throws IllegalValueException {
 		/* 
 		 * CommandResult should return a string that the task 
 		 * has already been pinned

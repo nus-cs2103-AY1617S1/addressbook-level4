@@ -16,7 +16,7 @@ public class AutocompleteEngineTest {
 	private AutocompleteEngine autocompleteEngine;
 	
 	@Test
-	public void autocompleteEngine_noWordsToMatch() {
+	public void getQueryResult_noWordsToMatch() {
 		autocompleteEngine = new AutocompleteEngine();
 		AutocompleteResult result = autocompleteEngine.getQueryResult("ad");
 		assertEquals(result.getNextMatch(), "ad");
@@ -24,7 +24,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_noWordsCorrectlyMatch() {
+	public void getQueryResult_noWordsCorrectlyMatch() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("delete");
 		
@@ -35,7 +35,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_oneWordMatches() {
+	public void getQueryResult_oneWordMatches() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("add");
 		
@@ -46,7 +46,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_twoWordsMatch() {
+	public void getQueryResult_twoWordsMatch() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("add");
 		wordsToMatch.add("alias");
@@ -59,7 +59,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_twoWordsMatchOneWordDoesNot() {
+	public void getQueryResult_twoWordsMatchOneWordDoesNot() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("delete");
 		wordsToMatch.add("add");
@@ -73,7 +73,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_oneWordMatchesTwoWordsDoNot() {
+	public void getQueryResult_oneWordMatchesTwoWordsDoNot() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("delete");
 		wordsToMatch.add("add");
@@ -86,7 +86,7 @@ public class AutocompleteEngineTest {
 	}
 	
 	@Test
-	public void autocompleteEngine_twoDifferentQueries() {
+	public void getQueryResult_twoDifferentQueries() {
 		List<String> wordsToMatch = new ArrayList<String>();
 		wordsToMatch.add("delete");
 		wordsToMatch.add("add");
