@@ -4,6 +4,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.ReloadFromNewFileEvent;
@@ -11,6 +12,7 @@ import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.task.commons.events.storage.FilePathChangedEvent;
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.logic.CommandKeys.Commands;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
@@ -161,6 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(filteredTasks.size() - 1));
     }
     
     //@@author A0141052Y

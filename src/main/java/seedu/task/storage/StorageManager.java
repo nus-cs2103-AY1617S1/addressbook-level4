@@ -131,7 +131,7 @@ public class StorageManager extends ComponentManager implements Storage {
             }
             
             config.setTaskManagerFilePath(event.newFilePath);
-            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            ConfigUtil.saveConfig(config, config.getFilePath());
             raise(new ConfigFilePathChangedEvent(event.newFilePath));
             
         } catch (IOException e)  {

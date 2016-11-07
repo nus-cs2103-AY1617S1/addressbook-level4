@@ -2,8 +2,6 @@ package seedu.task.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Helper functions for handling strings.

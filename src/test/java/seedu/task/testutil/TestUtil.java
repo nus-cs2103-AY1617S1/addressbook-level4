@@ -39,7 +39,8 @@ import java.util.stream.Collectors;
  */
 public class TestUtil {
 
-    public static String LS = System.lineSeparator();
+    public static final String LS = System.lineSeparator();
+    public static final Tag[] sampleTagData = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -83,7 +84,6 @@ public class TestUtil {
         }
     }
     //@@author
-    public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
@@ -362,7 +362,7 @@ public class TestUtil {
 
     public static Tag[] getTagList(String tags) {
 
-        if (tags.equals("")) {
+        if ("".equals(tags)) {
             return new Tag[]{};
         }
 
