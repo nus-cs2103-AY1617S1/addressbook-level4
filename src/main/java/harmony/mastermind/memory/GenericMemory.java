@@ -402,7 +402,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Compare's start date followed by end dates
-    private int eventCompare(GenericMemory o) {
+    int eventCompare(GenericMemory o) {
         if (this.start.compareTo(o.start) != 0) {
             return this.start.compareTo(o.start);
         } else {

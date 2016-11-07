@@ -76,6 +76,7 @@ public class TestGenericMemory {
         testNewState(testMethod);
         testToString();
         testDays();
+        testCompare();
     }
     
     private void testSetType(GenericMemory testMethod) { 
@@ -212,5 +213,30 @@ public class TestGenericMemory {
         Calendar Saturday = new GregorianCalendar();
         Saturday.set(2014, 03, 26, 03, 14, 20);
         assertEquals("Saturday", GenericMemory.dayOfTheWeek(Saturday), "Sat");  
+    }
+    
+    private void testCompare() { 
+        testCompareTask();
+        testCompareDeadline();
+        testCompareEvent();
+    }
+    
+    private void testCompareTask() { 
+        GenericMemory testTask1 = new GenericMemory("task", "name2", "description2");
+        GenericMemory testTask2 = new GenericMemory("task", "name3", "description3");
+        assertEquals("Tasks", testTask1.compareTo(testTask2), -1);
+    }
+    
+    private void testCompareDeadline() { 
+        GenericMemory testDeadline1 = new GenericMemory("deadline", "name1", "description1", end);
+        GenericMemory testDeadline2 = new GenericMemory("deadline2", "name2", "description2", end);
+        assertEquals("Deadlines", testDeadline1.compareTo(testDeadline2), 0);
+    }
+    
+    private void testCompareEvent() { 
+        GenericMemory testEvent1 = new GenericMemory("event", "name", "description", start, end, 0);
+        GenericMemory testEvent2 = new GenericMemory("event2", "name2", "description2", start, end, 0);
+        assertEquals("Events", testEvent1.compareTo(testEvent2), 0);
+        assertEquals("Event Comparison", testEvent1.eventCompare(testEvent2), 0);
     }
 }
