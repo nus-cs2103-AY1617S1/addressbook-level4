@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.toDoList.ui;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.toDoList.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
