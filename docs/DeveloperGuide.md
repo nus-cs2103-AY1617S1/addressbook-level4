@@ -4,9 +4,10 @@
 <br>
 ## Introduction
 
-Amethyst is a command-line task manager targeted at power users who would like to store, access and edit information about their tasks efficiently.
+Amethyst is a desktop task manager program that uses a command-line interface to help users increase their productivity.
 
-This guide describes the design and implementation of Amethyst, to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/resources have also been included in this guide to help you along as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
+This guide describes the design and implementation of Amethyst in order to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/resources have also been included in this guide to help you as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
+ 
 
 <br>
 ## Table of Contents
@@ -79,71 +80,66 @@ This guide describes the design and implementation of Amethyst, to help you unde
 
 <img src="images/ArchitectureClassDiagram.PNG" width="800"><br>
 
-> Diagram 1: Architecture Class Diagram
+> Figure 1: Architecture Class Diagram
 
-The _Architecture Class Diagram_ given above explains to you the high-level design of the App.
-You can refer to the sections below to get a quick overview of each component.
+Figure 1 explains the high-level design of the application (App). 
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+You may refer to the sections below to get a quick overview of each component.
+
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). You may access the `MainApp` Java class file by navigating to main/src/main/java/seedu/address/MainApp.java in Eclipse. 
+`MainApp`:
+* Initialises the components in the correct sequence, and connects them with one another at App launch.
+* Shuts down the components and invokes clean-up method where necessary upon user’s exit from the App.
+
 
 [**`Commons`**](#commons-component) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
-* `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `EventsCenter` : Is used by components to communicate with other components using events i.e. a form of Event-Driven Architecture (EDA). (The`EventsCenter` class was written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+* `LogsCenter` : Is used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`UI`**](#ui-component) : Operates the Graphical User Interface (GUI) of the App.
+* [**`Logic`**](#logic-component) : Executes the commands.
+* [**`Model`**](#model-component) : Holds the in-memory data of the App.
+* [**`Storage`**](#storage-component) : Reads data from and writes data to the hard disk.
 
 Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its Application Programming Interface (API) in an interface with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (class diagram given below) defines it's API in the `Logic.java`
+For example in Figure 2, the `Logic` component (class diagram given below) defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicComponentClassDiagram.PNG" width="800"><br>
 
-> Diagram 2: Logic Component Class Diagram
+> Figure 2: Logic Component Class Diagram
 
-The _Delete Task Sequence Diagram_ below shows you how the components interact for the scenario where the user issues the
-command `delete 3`.
+<img src="images\DeleteTaskSequenceDiagram.png" width="800">
 
-<img src="images\DeleteTaskSequenceDiagram.PNG" width="800">
+> Figure 3: Delete Task Sequence Diagram
 
-> Diagram 3: Delete Task Sequence Diagram
+With reference to Figure 3, you can see how the components interact when the user enters the command `del 1`.
 
-> This diagram shows you how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+> You may also notice that the `Model` simply raises a `TaskManagerChangedEvent` whenever the Task Manager data is changed,
+ instead of requesting the `Storage` to save the updates to the hard disk.
 
-The diagram below illustrates to you how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\DeleteTaskEventHandlingSequenceDiagram.PNG" width="800">
 
-> Diagram 4: Delete Task Event Handing Sequence Diagram
+> Figure 4: Delete Task Event Handing Sequence Diagram
 
-> This diagram shows you how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps to reduce direct 
-  coupling between components.
+With reference to Figure 4, the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how the EDA approach helps to reduce direct coupling between components.<br>
 
-You can refer to the sections below for more details of each component.
+You may refer to the sections below for more details of each component.
 
 <br>
 ## UI Component
 
-<img src="images/UiComponentClassDiagram.PNG" width="800"><br>
+<img src="images/UiComponentClassDiagram.png" width="800"><br>
 
-> Diagram 5: UI Component Class Diagram
+> Figure 5: UI Component Class Diagram
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-As you can see in the diagram, the UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` etc. All these different parts, including the `MainWindow`, inherit from the abstract `UiPart` class
-and can be loaded using the `UiPartLoader`.
+As shown in Figure 5, the `UI` consists of the `MainWindow` that is made up of different parts, for example, `CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter` etc. All these different parts, including the `MainWindow`, inherit functionalities from the `UiPart` abstract class and can be loaded using the `UiPartLoader`.
 
 The `UI` component uses the JavaFx UI framework. The layout of each UI part is defined in the corresponding `.fxml` file in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
@@ -151,52 +147,52 @@ The `UI` component uses the JavaFx UI framework. The layout of each UI part is d
 
 The `UI` component:
 * Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
+* Responds to events raised from various parts of the App and gets updated accordingly
 
 <br>
 ## Logic Component
 
 <img src="images/LogicComponentClassDiagram.PNG" width="800"><br>
 
-> Diagram 6: Logic Component Class Diagram
+> Figure 6: Logic Component Class Diagram
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. The `Parser` class returns a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+As shown in Figure 6, when a user inputs a command:
+* `Logic` uses the `Parser` class to parse the user command.
+* The `Parser` class returns a `Command` object which is executed by the `LogicManager`.
+* The `LogicManager` relates the command execution to the `Model` and/or raises events.
+* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
- API call.<br>  
+
+Figure 7 further illustrates the interactions within the `Logic` component when the user inputs the command `del 1` and the following `execute(“delete 1”)` method is called.<br>  
  
 <img src="images/DeleteTaskSequenceDiagramForLogic.PNG" width="800"><br>
 
-> Diagram 7: Delete Task Sequence Diagram within Logic Component
+> Figure 7: Delete Task Sequence Diagram within Logic Component
 
 <br>
 ## Model Component
 
-<img src="images/ModelComponentClassDiagram.PNG" width="800"><br>
+<img src="images/ModelComponentClassDiagram.png" width="800"><br>
 
-> Diagram 8: Model Component Class Diagram
+> Figure 8: Model Component Class Diagram
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`:
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Task Manager data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the `TaskManager` object that represents Task Manager data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed'. The UI is bound to this list so that the UI gets updated automatically when the data in the list changes.
+* Does not depend on any of the other three components.
 
 <br>
 ## Storage Component
 
-<img src="images/StorageComponentClassDiagram.PNG" width="800"><br>
+<img src="images/StorageComponentClassDiagram.png" width="800"><br>
 
-> Diagram 9: Storage Component Class Diagram
+> Figure 9: Storage Component Class Diagram
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
@@ -214,8 +210,9 @@ You can find all classes used by multiple components in the `seedu.address.commo
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+We are using `java.util.logging` package for logging.<br>
+
+As mentioned earlier in Architecture, the `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
@@ -228,18 +225,16 @@ and logging destinations.
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+* `FINE` : Details about less significant actions by the App are displayed for your perusal. Although `FINE` messages may not be as noteworthy as the ones above, these messages are useful in debugging. For example, task data information may reveal more problems as opposed to task list size.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+Certain properties of the application can be controlled through the configuration file, for example, the App name and logging levels. Unless specified, the default configuration file used in the initiation of the App is `config.json`.
 
 <br>
 ## Testing
 
-You can find the tests in the `./src/test/java` folder.
+You may find the tests for the App in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
@@ -251,14 +246,14 @@ You can find the tests in the `./src/test/java` folder.
   to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* If you are new to Gradle, refer to the [UsingGradle.md](UsingGradle.md) for more information on how to run tests using Gradle.
 
-We have two types of tests:
+There are two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+2. **Non-GUI Tests** - These are tests do not involve the GUI. They include:
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
@@ -268,23 +263,24 @@ We have two types of tests:
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
   
-**Headless GUI Testing** :
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- you can run our GUI tests in the _headless_ mode. 
+**Using TextFX(Headless GUI Testing)** :
+Using [TestFX](https://github.com/TestFX/TestFX) would enable you to run our GUI tests in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running. 
- You can look at [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+ This would allow you to carry out other operations on the computer while the tests are running. 
+ You may refer to [UsingGradle.md](UsingGradle.md#running-tests) for more information on GUI test deployment in headless mode.
   
 <br>
 ## Dev Ops
 
+You may refer to the following sections to learn more about developer tools/practices for this project. 
+
 ### Build Automation
 
-Refer to [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+Refer to [UsingGradle.md](UsingGradle.md) for more information on how to use Gradle for build automation.
 
 ### Continuous Integration
 
-Refer to [UsingTravis.md](UsingTravis.md) to learn how to use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on your project.
+Refer to [UsingTravis.md](UsingTravis.md) for more information on how to use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on your project.
 
 ### Making a Release
 
@@ -325,10 +321,6 @@ the command was entered. Invalid commands will show more intelligent feedback ba
 Allowing users to press a key to auto-complete a command makes it much easier to enter commands and 
 reduces the margin of error.
 
-#### History of commands
-Users can traverse this history to re-execute previously typed commands. This becomes especially useful if a 
-user wants to collate the source files in the same folder periodically.
-
 <!-- @@author A0141019U -->
 <br>
 ## Appendix A: User Stories
@@ -338,7 +330,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
 `* * *`  | user | add a new task | keep a record of what I have to do without the need to remember them
 `* * *`  | user | list tasks that fulfil specific parameters | filter tasks according to specific parameters 
-`* * *`  | user | delete a task | remove entries that are no longer relevant
+`* * *`  | user | 
+
+
+a task | remove entries that are no longer relevant
 `* * *`  | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | undo an action | easily revert the wrong actions I have done
 `* * *` | user  | update a task | change the details whenever the situation changes without the need to re-add the task

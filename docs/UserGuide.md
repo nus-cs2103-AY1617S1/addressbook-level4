@@ -341,25 +341,25 @@ Format: `exit`
 ## 4. Command Summary
 
 <br>
-For easy reference, the table below lists all commands and their corresponding default command formats.
+For easy reference, the table below lists all commands and their corresponding command formats.
 <br>
 
 |Command|Format            |
 |:------|:-----------------|
-|help|`help`|
-|add task to be done someday|`add (someday | sd) 'NAME'`|
-|add deadline|`add (deadline | dl) 'NAME' by HH:MM DD-MM-YY`|
-|add event|`add (event | ev) 'NAME' from HH:MM DD-MM-YY to HH:MM DD-MM-YY`|
-|list|`list [DD-MM-YY] [TASK_TYPE] [done|not-done] [HH:MM]`|
-|find|`find KEYPHRASE_WORD_ONE KEYPHRASE_WORD_TWO [KEYPHRASE_MORE_WORDS] ..., [MORE_KEYPHRASES] ...]`|
-|delete|`del INDEX [MORE_INDICES] ...`|
-|mark done|`done INDEX [MORE_INDICES...]`|
-|edit|`edit INDEX ['NEW_NAME'] [from HH:MM to HH:MM | by HH:MM] [DD-MM-YY] [done|not-done]` |
-|undo|`undo` |
-|clear|`clear`|
-|redo|`redo` |
-|set storage location|`set-storage FOLDER_FILE_PATH save-as FILE_NAME`|
-|add command alias|`add-alias 'COMMAND_ALIAS'='COMMAND_PHRASE'`|
-|list command aliases|`list-alias`|
-|delete command alias|`(delete-alias | remove-alias) INDEX [MORE_INDICES] ...`|
-|exit|`exit`|
+|View help|`help`|
+|Add a someday|`add 'TASK_NAME'`|
+|Add a deadline|`add 'TASK_NAME' by TIME DATE`|
+|Add an event|`add 'TASK_NAME' from TIME DATE to TIME DATE`|
+|List tasks|`list [TASK_TYPE] [done|pending] [DATE]`|
+|Find tasks containing certain keyword(s) in task name|`find KEYWORD, [MORE_KEYWORDS], ...`|
+|Edit a task|`edit INDEX ['NEW_TASK_NAME'] [from TIME DATE] [to | by TIME DATE]`|
+|Change status of a task|`(done|pending) INDEX [MORE_INDICES] ...`|
+|Delete task(s)|`del INDEX [MORE_INDICES...]`|
+|Clear all tasks|`clear` |
+|Undo previous command operation|`undo`|
+|Redo|`redo`|
+|Add alias for existing command|`add-alias ALIAS = ORIGINAL_COMMAND_PHRASE` |
+|List aliases|`list-alias`|
+|Delete alias(es)|`del-alias INDEX [MORE_INDICES] ...'`|
+|Set data storage location|`set-storage FOLDER_FILE_PATH save-as FILE_NAME`|
+|Exit Amethyst|`exit`|
