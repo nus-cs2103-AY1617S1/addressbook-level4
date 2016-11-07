@@ -7,6 +7,7 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.model.task.Location;
+import seedu.todolist.model.task.Name;
 import seedu.todolist.model.task.Remarks;
 
 //@@author A0138601M
@@ -30,6 +31,10 @@ public class AddCommandTest extends ToDoListGuiTest {
         currentList.clear();
         taskToAdd = td.eventWithLocation;
         assertAddSuccess(taskToAdd, currentList);
+        
+        //add task without name
+        commandBox.runCommand("add");
+        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS_EMPTY);
 
         //add task with invalid location
         commandBox.runCommand("add invalid location at !@#$");
