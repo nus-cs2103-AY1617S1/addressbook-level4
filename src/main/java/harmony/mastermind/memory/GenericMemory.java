@@ -50,8 +50,10 @@ public class GenericMemory implements Comparable<GenericMemory> {
     public static final int INT_INCOMPLETE = 0;
     public static final int INT_UPCOMING = 0;
 
-    //@@author A0143378Y
-    // Setting up tasks
+    //@@author A0143378
+    /*
+     * Setting up tasks
+     */
     public GenericMemory(String type, String name, String description) {
         this.type = type;
         this.name = name;
@@ -60,7 +62,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Setting up deadlines 
+    /*
+     * Setting up deadlines 
+     */
     public GenericMemory(String type, String name, String description, Calendar end) {
         this.type = type;
         this.name = name;
@@ -70,7 +74,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Events and constructor used to load from storage
+    /*
+     * Events and constructor used to load from storage
+     */
     public GenericMemory(String type, String name, String description, Calendar startDate, Calendar end, int state) {
         this.type = type;
         this.name = name;
@@ -81,80 +87,106 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Returns type of the to do item
+    /*
+     * Returns type of the to do item
+     */
     public String getType() {
         return type;
     }
 
     //@@author A0143378Y
-    // Returns name of the to do item
+    /*
+     * Returns name of the to do item
+     */
     public String getName() {
         return name;
     }
 
     //@@author A0143378Y
-    // Returns description of the to do item
+    /*
+     * Returns description of the to do item
+     */
     public String getDescription() {
         return description;
     }
 
     //@@author A0143378Y
-    // Returns Calendar start of the to do item
+    /*
+     * Returns Calendar start of the to do item
+     */
     public Calendar getStart() {
         return start;
     }
 
     //@@author A0143378Y
-    // Returns Calendar end of the to do item
+    /*
+     * Returns Calendar end of the to do item
+     */
     public Calendar getEnd() {
         return end;
     }
 
     //@@author A0143378Y
-    // Returns the state of the to do item
+    /*
+     * Returns the state of the to do item
+     */ 
     public int getState() {
         return state;
     }
 
     //@@author A0143378Y
-    // Initializes start calendar - having a real calendar instead of hard coding everything
+    /*
+     * Initializes start calendar - having a real calendar instead of hard coding everything
+     */
     public void initStart(){
         start = new GregorianCalendar();
     }
 
     //@@author A0143378Y
-    // Initializes end calendar
+    /*
+     * Initializes end calendar
+     */
     public void initEnd(){
         end = new GregorianCalendar();
     }
 
     //@@author A0143378Y
-    // Set type of to do item
+    /*
+     * Set type of to do item
+     */
     public void setType(String type) {
         this.type = type;
     }
 
     //@@author A0143378Y
-    // Set name of to do item
+    /*
+     * Set name of to do item
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     //@@author A0143378Y
-    // Set description of to do item
+    /*
+     * Set description of to do item
+     */
     public void setDescription(String description) {
         this.description  = description;
     }
 
     //@@author A0143378Y
-    // Set start time of to do item using hours and minutes
+    /*
+     * Set start time of to do item using hours and minutes
+     */
     public void setStartTime(int hourOfDay, int minute) {
         start.set(Calendar.HOUR_OF_DAY, hourOfDay);
         start.set(Calendar.MINUTE, minute);
     }
 
     //@@author A0143378Y
-    // Set start time of to do item using hours, minutes and seconds
+    /*
+     * Set start time of to do item using hours, minutes and seconds
+     */
     public void setStartTime(int hourOfDay, int minute, int second) {
         start.set(Calendar.HOUR_OF_DAY, hourOfDay);
         start.set(Calendar.MINUTE, minute);
@@ -162,14 +194,18 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Set end time of to do item using hours and minutes
+    /*
+     * Set end time of to do item using hours and minutes
+     */
     public void setEndTime(int hourOfDay, int minute) {
         end.set(Calendar.HOUR_OF_DAY, hourOfDay);
         end.set(Calendar.MINUTE, minute);
     }
 
     //@@author A0143378Y
-    // Set end time of to do item using hours, minutes and seconds
+    /*
+     * Set end time of to do item using hours, minutes and seconds
+     */
     public void setEndTime(int hourOfDay, int minute, int second) {
         end.set(Calendar.HOUR_OF_DAY, hourOfDay);
         end.set(Calendar.MINUTE, minute);
@@ -177,7 +213,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Set start date of to do item
+    /*
+     * Set start date of to do item
+     */
     public void setStartDate(int year, int month, int date) {
         start.set(Calendar.YEAR, year);
         start.set(Calendar.MONTH, month);
@@ -185,7 +223,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Set end date of to do item
+    /*
+     * Set end date of to do item
+     */
     public void setEndDate(int year, int month, int date) {
         end.set(Calendar.YEAR, year);
         end.set(Calendar.MONTH, month);
@@ -193,7 +233,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Set state of to do item
+    /*
+     * Set state of to do item
+     */
     public void setState(int newstate) {
         this.state = newstate;
     }
@@ -235,7 +277,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
     
     //@@author A0143378Y
-    // Converts description into string representation
+    /*
+     * Converts description into string representation
+     */
     public String descriptionToString(String output) {
         if (description != null) { // If description exists
             output +=   DESCRIPTION_STRING + getDescription();
@@ -244,7 +288,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Converts due date into string representation
+    /*
+     * Converts due date into string representation
+     */
     public String deadlineDateToString(String output) {
         if (end != null) {
             output += DUE_BY + getDate(end) + " " + getTime(end);
@@ -253,7 +299,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Converts event start and end dates into string representation
+    /*
+     * Converts event start and end dates into string representation
+     */
     public String eventDatesToString(String output) {
         if (start != null) {
             output += START_STRING + getDate(start) + " " + getTime(start);
@@ -265,7 +313,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Converts event state into string representation
+    /*
+     * Converts event state into string representation
+     */ 
     public String eventStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_UPCOMING;
@@ -278,7 +328,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Converts task or deadline state into string representation
+    /*
+     * Converts task or deadline state into string representation
+     */
     public String taskDeadlineStateToString(String output) {
         if (getState() == 0) { // Printing of state into string
             output+= STATUS_INCOMPLETE;
@@ -291,7 +343,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Returns string representation of date as DD/MM/YY
+    /*
+     * Returns string representation of date as DD/MM/YY
+     */
     public static String getDate(Calendar item){
         if(item != null){
             return item.get(Calendar.DATE) + "/"
@@ -304,7 +358,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Returns string representation of time as HH:MM AM/PM
+    /*
+     * Returns string representation of time as HH:MM AM/PM
+     */
     public static String getTime(Calendar item){
         if(item != null){
             return hour(item) + ":"
@@ -316,7 +372,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Return string representation of day of the week of calendar object
+    /*
+     * Return string representation of day of the week of calendar object
+     */
     public static String dayOfTheWeek(Calendar item){
         int dayOfTheWeek = item.get(Calendar.DAY_OF_WEEK);
 
@@ -346,7 +404,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Check item for AM/PM and return the correct time period
+    /*
+     * Check item for AM/PM and return the correct time period
+     */
     public static String AM_PM(Calendar item){
         if(item.get(Calendar.AM_PM) == Calendar.AM){
             return AM;
@@ -356,7 +416,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Return the hour of time to form of HH
+    /*
+     * Return the hour of time to form of HH
+     */
     public static String hour(Calendar item){
         if(item.get(Calendar.HOUR_OF_DAY)==12){
             return "12";
@@ -368,7 +430,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Return minute of time to form of MM
+    /*
+     * Return minute of time to form of MM
+     */
     public static String min(Calendar item){
         if( item.get(Calendar.MINUTE)<10){
             return "0" + item.get(Calendar.MINUTE);
@@ -401,7 +465,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Compare's start date followed by end dates
+    /*
+     * Compare's start date followed by end dates
+     */
     int eventCompare(GenericMemory o) {
         if (this.start.compareTo(o.start) != 0) {
             return this.start.compareTo(o.start);
@@ -411,7 +477,9 @@ public class GenericMemory implements Comparable<GenericMemory> {
     }
 
     //@@author A0143378Y
-    // Return state of the item in the form of a string
+    /*
+     * Return state of the item in the form of a string
+     */
     public String getStateType(){
 
         if(type.equals(DEADLINE)|| type.equals(TASK)){

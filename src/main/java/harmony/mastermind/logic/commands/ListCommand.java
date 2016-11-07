@@ -77,13 +77,17 @@ public class ListCommand extends Command {
     }
 
     //@author A0143378Y
-    // Clears all main window text
+    /*
+     * Clears all main window text
+     */
     public static void displayClear() {
         detailedView = null;
     }
 
     //@author A0143378Y
-    // Displays an individual GenericMemory item with all non-null details
+    /*
+     * Displays an individual GenericMemory item with all non-null details
+     */
     public static String displayDetailed(GenericMemory item) {
         displayClear();
         detailedView = item;
@@ -94,14 +98,18 @@ public class ListCommand extends Command {
     }
 
     //@author A0143378Y
-    // Formats the item display
+    /*
+     * Formats the item display
+     */
     private static String formatItem(GenericMemory item) {
         String result = ITEM_VIEW + "\n" + LINE + "\n" + item + "\n" + LINE2;
         return result;
     }
 
     //@author A0143378Y
-    // Takes an ArrayList of GenericMemoryitems, and display them in a list form, with name as the heading
+    /*
+     * Takes an ArrayList of GenericMemoryitems, and display them in a list form, with name as the heading
+     */
     public static String displayList(ArrayList<GenericMemory> list, String name) {
         displayClear();
         detailedView = null;
@@ -113,7 +121,9 @@ public class ListCommand extends Command {
     }
 
     //@author A0143378Y
-    // Formats the list display
+    /*
+     * Formats the list display
+     */ 
     private static String formatList(ArrayList<GenericMemory> list) {
         String result = listName + "\n" + LINE;
         for (int i=0; i < list.size(); i++) {
@@ -128,7 +138,9 @@ public class ListCommand extends Command {
     }
 
     //@author A0143378Y
-    // Displays list of item with the corresponding type
+    /*
+     * Displays list of item with the corresponding type
+     */
     public static void displayType(ArrayList<GenericMemory> list, String type) {
         assert type.length() != 0;
 

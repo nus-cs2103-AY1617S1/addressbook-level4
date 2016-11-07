@@ -59,7 +59,9 @@ public class TestMemoryFind {
     }
     
     //@@author A0143378Y
-    //Completely outside of any range
+    /*
+     * Completely outside of any range
+     */
     private void testFindDate_NoneExistent(Memory testMem, Calendar date){
         
         date.set(1999, 10, 9);

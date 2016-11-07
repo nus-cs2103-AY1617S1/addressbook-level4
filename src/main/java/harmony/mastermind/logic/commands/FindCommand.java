@@ -43,7 +43,8 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredList(keywords);
-        String[] list = keywords.toArray(new String[keywords.size()]);
+        /* unused code due to better flow with updateFilteredList
+         * String[] list = keywords.toArray(new String[keywords.size()]);
         ArrayList<GenericMemory> results = searchTerms(list, memory);
         
         StringBuilder sb = new StringBuilder();
@@ -52,14 +53,18 @@ public class FindCommand extends Command {
             sb.append(s.getName());
             sb.append("\n");
         }
+         */
+        
         
 //        return new CommandResult(COMMAND_WORD, String.format(FIND_SUCCESS, sb));
         return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getCurrentListSize()));
     }
     
-    //@@author A0143378Y
-    // Checks if memory item contains the keyword.
-    // If contains, add to exactResult
+    //@@author A0143378Y 
+    /*
+     * Checks if memory item contains the keyword.
+     * If contains, add to exactResult
+     */
     private static void containsKeyword(String keyword, Memory memory, ArrayList<GenericMemory> exactResult, int i) {
         if (memory.get(i).getName().equals(keyword)) { // found exact matching name item
             exactResult.add(memory.get(i));
@@ -67,8 +72,10 @@ public class FindCommand extends Command {
     }
 
     //@@author A0143378Y
-    // Only for delete and update direct commands to search for exact matching names
-    // Should only return list of 1 item ideally
+    /*
+     * Only for delete and update direct commands to search for exact matching names
+     * Should only return list of 1 item ideally
+     */
     public static ArrayList<GenericMemory> searchExact(String keyword, Memory memory) {
         assert keyword.length() != 0;
         ArrayList<GenericMemory> exactResult = new ArrayList<GenericMemory>();
@@ -79,8 +86,9 @@ public class FindCommand extends Command {
     }
     
     //@@author A0143378Y
-    // Driver for recursive searching of array of keywords
-    // Returns ArrayList of GenericEvents found containing keywords in their name or description
+    /*
+     * Returns ArrayList of GenericEvents found containing keywords in their name or description
+     */
     public static ArrayList<GenericMemory> searchTerms(String[] keywords, Memory memory) {
         ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(memory.getList());
         findResult = recursiveSearchTerms(keywords, 0, result); // calls recursive search to narrow down results
@@ -94,7 +102,9 @@ public class FindCommand extends Command {
     }
 
     //@@author A0143378Y
-    // Formats search title with keywords used to perform the search
+    /*
+     * Formats search title with keywords used to perform the search
+     */
     private static String formatSearchTitle(String[] keywords) {
         String title = "Search Keywords Result: " + keywords[0];
         for (int i=1; i<keywords.length; i++) {
@@ -140,7 +150,9 @@ public class FindCommand extends Command {
     }
 
     //@@author A0143378Y
-    // Returns true if two dates are the same
+    /*
+     * Returns true if two dates are the same
+     */
     private static boolean testTwoCalendar(Calendar a, Calendar b) {
         if (b == null) {
             return false;

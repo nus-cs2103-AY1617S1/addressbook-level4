@@ -125,7 +125,9 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     }
     
     //@@author A0143378Y
-    // Perform a delete by name operation
+    /*
+     * Perform a delete by name operation
+     */
     public static void deleteDirectly(String name, Memory memory) {
         ArrayList<GenericMemory> searchResult = FindCommand.searchExact(name, memory);
         if (searchResult.size() == 1){
@@ -135,7 +137,9 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
     }
     
     //@@author A0143378Y
-    // Delete given GenericMemory item from memory
+    /*
+     * Delete given GenericMemory item from memory
+     */
     private static void deleteItem(GenericMemory item, Memory memory) {
         assert item != null;
         memory.remove(item);
