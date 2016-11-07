@@ -1,7 +1,10 @@
 package seedu.todolist.logic.commands;
 
+import seedu.todolist.commons.core.EventsCenter;
+import seedu.todolist.commons.events.ui.JumpToListRequestEvent;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.model.task.*;
+import seedu.todolist.ui.MainWindow;
 
 /**
  * Adds a task to the to-do list.
@@ -20,6 +23,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Task!t";
+    
+    private static final int NOT_FOUND = -1;
 
     private final Task toAdd;
 
@@ -39,16 +44,30 @@ public class AddCommand extends Command {
         );
     }
     
+    //@@author A0138601M
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
+            
+            indicateJumpToListRequestedEvent();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
+    }
+    
+    private void indicateJumpToListRequestedEvent() {
+        int indexToJump;
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_INCOMPLETE)) {
+            indexToJump = model.getIndexFromIncompleteList(toAdd);
+        } else if (model.getCurrentTab().equals(MainWindow.TAB_TASK_OVERDUE)) {
+            indexToJump = model.getIndexFromOverdueList(toAdd);
+        } else {
+            indexToJump = NOT_FOUND;
+        }
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(indexToJump));
     }
 
 }

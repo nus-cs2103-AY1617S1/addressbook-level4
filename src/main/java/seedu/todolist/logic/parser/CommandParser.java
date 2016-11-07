@@ -3,6 +3,7 @@ package seedu.todolist.logic.parser;
 import com.google.common.base.Strings;
 import com.joestelmach.natty.*;
 
+import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
@@ -16,7 +17,9 @@ import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYE
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,6 +28,7 @@ import java.util.regex.Pattern;
  */
 public class CommandParser {
 
+    private static final Logger logger = LogsCenter.getLogger(CommandParser.class);
     /**
      * Used for initial separation of command word and args.
      */
@@ -44,29 +48,43 @@ public class CommandParser {
                     + "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?))?"
                     + "((\\bat\\b)(?<location>(.)+?))?" 
                     + "((\\bremarks\\b)(?<remarks>(.)+?))?");
+    
+    private static final Parser nattyParser = new Parser();
 
     public static final int INTERVAL_COMPONENT_COUNT = 2;
-    public static final int INDEX_FROM = 0;
-    public static final int INDEX_TO = 1;
+    public static final int INTERVAL_INDEX_FROM = 0;
+    public static final int INTERVAL_INDEX_TO = 1;
     
     public static final int DATETIME_COMPONENT_COUNT = 2; 
-    public static final int INDEX_DATE = 0;
-    public static final int INDEX_TIME = 1;
+    public static final int DATETIME_INDEX_DATE = 0;
+    public static final int DATETIME_INDEX_TIME = 1;
 
     public static final int DETAILED_INTERVAL_COMPONENT_COUNT = 4;
-    public static final int INDEX_STARTDATE = 0;
-    public static final int INDEX_STARTTIME = 1;
-    public static final int INDEX_ENDDATE = 2;
-    public static final int INDEX_ENDTIME = 3;
+    public static final int DETAILED_INTERVAL_INDEX_STARTDATE = 0;
+    public static final int DETAILED_INTERVAL_INDEX_STARTTIME = 1;
+    public static final int DETAILED_INTERVAL_INDEX_ENDDATE = 2;
+    public static final int DETAILED_INTERVAL_INDEX_ENDTIME = 3;
 
     public static final String INTERVAL_SEPARATOR = " to ";
+    public static final String DATE_DELIMITER = "/";
+    public static final String INDEX_DELIMITER = ",";
     
     public static final int NATTY_INDEX_FIRST = 0;
+   
+    public static final int DEFAULT_INDICES_SIZE = 1;
+    public static final int DEFAULT_FIRST_INDEX = 0;
     
-    public static final String INDEX_DELIMITER = ",";
-    public static final int DEFAULT_INDEX_SIZE = 1;
-    public static final int DEFAULT_INDEX_FIRST = 0;
+    public static final int INDEX_DAY = 0;
+    public static final int INDEX_MONTH = 1;
+    public static final int INDEX_REMAINDER = 2;
+    
+    public static final int MAX_MONTH = 12;
 
+    public CommandParser() {
+        //Warm up natty for faster processing
+        logger.info("Warming up Natty Parser...");
+        nattyParser.parse(LocalDate.now().toString());
+    }
     /**
      * Parses user input into command for execution.
      *
@@ -151,10 +169,10 @@ public class CommandParser {
     private AddCommand parseAddCommand(String name, String[] interval, String location, String remarks) throws IllegalValueException {
         return new AddCommand(
                 name, 
-                interval[INDEX_STARTDATE], 
-                interval[INDEX_STARTTIME], 
-                interval[INDEX_ENDDATE], 
-                interval[INDEX_ENDTIME],
+                interval[DETAILED_INTERVAL_INDEX_STARTDATE], 
+                interval[DETAILED_INTERVAL_INDEX_STARTTIME], 
+                interval[DETAILED_INTERVAL_INDEX_ENDDATE], 
+                interval[DETAILED_INTERVAL_INDEX_ENDTIME],
                 location,
                 remarks);
     }
@@ -191,10 +209,10 @@ public class CommandParser {
     private String[] parseEventInterval(String interval) {
         String[] intervalComponents = parseDatetime(interval);
         return new String[] {
-                intervalComponents[INDEX_STARTDATE], 
-                intervalComponents[INDEX_STARTTIME], 
-                intervalComponents[INDEX_ENDDATE], 
-                intervalComponents[INDEX_ENDTIME]};
+                intervalComponents[DETAILED_INTERVAL_INDEX_STARTDATE], 
+                intervalComponents[DETAILED_INTERVAL_INDEX_STARTTIME], 
+                intervalComponents[DETAILED_INTERVAL_INDEX_ENDDATE], 
+                intervalComponents[DETAILED_INTERVAL_INDEX_ENDTIME]};
     }
     
     /**
@@ -206,8 +224,8 @@ public class CommandParser {
         return new String[] {
                 null, 
                 null, 
-                endDateTime[INDEX_DATE], 
-                endDateTime[INDEX_TIME]};
+                endDateTime[DATETIME_INDEX_DATE], 
+                endDateTime[DATETIME_INDEX_TIME]};
     }
 
     /**
@@ -215,18 +233,46 @@ public class CommandParser {
      * @return a string array that contains date and time
      */
     private String[] parseDatetime(String datetime) {
+        System.out.println("FIRST: " + datetime);
+        if (isSlashFormat(datetime)) {
+            datetime = reverseDayAndMonth(datetime);
+            System.out.println(datetime);
+        }
+        
         ArrayList<String> intervalComponents = new ArrayList<String>();
-    
         Parser nattyParser = new Parser();
         DateGroup group = nattyParser.parse(datetime).get(NATTY_INDEX_FIRST);
         Calendar currentDateTime = Calendar.getInstance(); //Get current datetime to compare with natty datetime
-        
         for (Date date : group.getDates()) {
             intervalComponents.add(parseDate(date));
             intervalComponents.add(parseTime(date, currentDateTime));
             
         }       
         return intervalComponents.toArray(new String[intervalComponents.size()]);
+    }
+    
+    /**
+     * Returns true if a date is in slash format (i.e. 10/12/2016)
+     */
+    private boolean isSlashFormat(String datetime) {
+        Matcher matcher = Pattern.compile(TaskDate.DATE_VALIDATION_SLASH_REGEX).matcher(datetime.trim());
+        return matcher.matches();
+    }
+    
+    /**
+     * Reverse day and month for natty parsing
+     */
+    private String reverseDayAndMonth(String datetime) {
+        String[] dateAndTime = datetime.trim().split(DATE_DELIMITER);
+        
+        StringBuilder builder = new StringBuilder();
+        builder.append(dateAndTime[INDEX_MONTH]);
+        builder.append(DATE_DELIMITER);
+        builder.append(dateAndTime[INDEX_DAY]);
+        builder.append(DATE_DELIMITER);
+        builder.append(dateAndTime[INDEX_REMAINDER]);
+
+        return builder.toString();
     }
     
     /**
@@ -335,7 +381,7 @@ public class CommandParser {
      */
     private int[] parseIndex(String command) throws IllegalValueException {
         assert command != null;
-        int[] indexes = new int[DEFAULT_INDEX_SIZE];
+        int[] indexes = new int[DEFAULT_INDICES_SIZE];
         
         if (command.trim().contains(INDEX_DELIMITER)) {
             indexes =  parseIndexSeparatedByComma(command);
@@ -343,7 +389,7 @@ public class CommandParser {
             if (!StringUtil.isUnsignedInteger(command.trim())) {
                 throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            indexes[DEFAULT_INDEX_FIRST] = Integer.parseInt(command.trim());
+            indexes[DEFAULT_FIRST_INDEX] = Integer.parseInt(command.trim());
         }
         Arrays.sort(indexes);
         return indexes;

@@ -113,6 +113,15 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ToDoListChangedEvent(ToDoList));
     }
     
+    @Override
+    public int getIndexFromIncompleteList(Task task) {
+        return filteredIncompleteTasks.indexOf(task);
+    }
+    
+    @Override
+    public int getIndexFromOverdueList(Task task) {
+        return filteredOverdueTasks.indexOf(task);
+    }
     
     @Override
     public void setCurrentTab(String tab) {

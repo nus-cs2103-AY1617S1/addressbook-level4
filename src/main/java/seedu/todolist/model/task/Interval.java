@@ -355,10 +355,10 @@ public class Interval implements Comparable<Interval> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Interval // instanceof handles nulls
-                && this.startDate.equals(((Interval) other).getStartDate())
-                && this.startTime.equals(((Interval) other).getStartTime())
-                && this.endDate.equals(((Interval) other).getEndDate())
-                && this.endTime.equals(((Interval) other).getEndTime())); // state check
+                && TaskDate.isEquals(this.startDate, ((Interval) other).startDate)
+                && TaskTime.isEquals(this.startTime, ((Interval) other).startTime)
+                && TaskDate.isEquals(this.endDate, ((Interval) other).endDate)
+                && TaskTime.isEquals(this.endTime, ((Interval) other).endTime));
     }
 
 }

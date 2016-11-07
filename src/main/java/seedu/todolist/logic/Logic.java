@@ -27,6 +27,10 @@ public interface Logic {
     /** Returns the filtered overdue list of tasks */
     ObservableList<ReadOnlyTask> getFilteredOverdueTaskList();
     
+    /** Sets the current tab */
     void setCurrentTab(String tab);
+    
+    /** Gets the current tab */
+    String getCurrentTab();
 
 }

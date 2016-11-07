@@ -19,10 +19,10 @@ public class TaskDate implements Comparable<TaskDate> {
     public static final String MESSAGE_DATE_INVALID = "Task date provided is invalid!";
     
     //format: 'dd/mm/yyyy'
-    public static final String DATE_VALIDATION_REGEX_1 = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){4})?)";
+    public static final String DATE_VALIDATION_SLASH_REGEX = "((\\p{Digit}){1,2}/(\\p{Digit}){1,2}(/(\\p{Digit}){4})?)";
     //format: 'dd monthname yyyy'
-    public static final String DATE_VALIDATION_REGEX_2 = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
-    public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_REGEX_1 + "|" + DATE_VALIDATION_REGEX_2;
+    public static final String DATE_VALIDATION_NAME_REGEX = "((\\p{Digit}){1,2}\\s?(\\p{Alpha}){3,9}\\s?((\\p{Digit}){4})?)";
+    public static final String DATE_VALIDATION_REGEX_FORMAT = DATE_VALIDATION_SLASH_REGEX + "|" + DATE_VALIDATION_NAME_REGEX;
     
     public static final String DATE_DISPLAY_FORMAT = "d MMM yyyy";
     
@@ -91,6 +91,25 @@ public class TaskDate implements Comparable<TaskDate> {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
                 && this.date.equals(((TaskDate) other).date)); // state check
+    }
+    
+    /**
+     * Returns true if both TaskDates are equal.
+     * Use this method when both TaskDates could be null
+     */
+    public static boolean isEquals(TaskDate date, TaskDate other) {
+        if (date == null && other == null) {
+            //both are null, they are equal
+            return true;
+        }
+        
+        if (date != null) {
+            return date.equals(other);
+        } else {
+            // if date is null, other cannot be null.
+            // thus, they are not equal
+            return false;
+        }
     }
     
     @Override
