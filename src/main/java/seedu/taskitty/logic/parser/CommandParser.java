@@ -450,7 +450,7 @@ public class CommandParser {
 
     // @@author A0139052L
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -459,7 +459,7 @@ public class CommandParser {
         String messageParameter = Command.getDeleteCommandMessageParameter();
         ArrayList<Pair<Integer, Integer>> listOfIndexes = getListOfIndexes(args);
         
-     // if any of the index is null, there was an error in the indexes provided
+        // if any of the index is null, there was an error in the indexes provided
         if (listOfIndexes.contains(null)) { 
             return createNewIncorrectCommand(messageParameter);
         }
@@ -488,7 +488,7 @@ public class CommandParser {
     
     //@@author A0139052L
     /**
-     * Parses each index string in the array and adds them to a list if valid
+     * Parses each index string in the array and adds them to a list
      * 
      * @param arg full command args string
      * @return a list of all indexes parsed, where a null value indicates an invalid index
@@ -663,6 +663,7 @@ public class CommandParser {
             categoryIndex = TaskUtil.getCategoryIndex(args.charAt(0));
         }
 
+        // if invalid number index given, return null to indicate invalid index
         if (!index.isPresent()) {
             return null;
         }
