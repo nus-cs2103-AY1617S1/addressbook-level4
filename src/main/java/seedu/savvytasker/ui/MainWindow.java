@@ -33,11 +33,10 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  * a sorting and filtered list that display the result of the user command 
  * on the left and a week's view of the task
  * 
- * The week's view contains 4 lists, namely the floating list, overdue list, 
+ * The week's view contains 4 lists, namely the floating list, 
  * days of the week list and upcoming list
  *  
  * Floating list contains task without start and end dateTime
- * Overdue list contains task with end date before current date
  * Days of the week list contains task that falls on the respective day of the selected week
  * Upcoming list contains task with start date after the last day of selected week
  * 
@@ -67,8 +66,6 @@ public class MainWindow extends UiPart {
 	private UserPrefs userPrefs;
 	@FXML
 	private FloatingPanel floatingPanel;
-	@FXML
-	private OverduePanel overduePanel;
 	@FXML
 	private DailyPanel dailyPanel;
 	@FXML
@@ -119,6 +116,8 @@ public class MainWindow extends UiPart {
 	private AnchorPane day5PanelPlaceholder;
 	@FXML 
 	private AnchorPane day6PanelPlaceholder;
+	@FXML 
+	private AnchorPane day7PanelPlaceholder;
 
 
 	@FXML 
@@ -166,7 +165,7 @@ public class MainWindow extends UiPart {
 	}
 
 	void fillInnerParts() {
-
+		imageIcon.setImage(image);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
         setDefaultView();
@@ -267,9 +266,13 @@ public class MainWindow extends UiPart {
 			return day5PanelPlaceholder;
 
 		case 5: 
-		default:
 
 			return day6PanelPlaceholder;
+		
+		case 6: 
+		default:
+
+			return day7PanelPlaceholder;
 
 		}
 
