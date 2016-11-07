@@ -47,7 +47,7 @@ import javafx.stage.Stage;
  * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/to_do_list_32.png";
     private static final String FXML = "MainWindow.fxml";
 
     private static final short INDEX_HOME = 0;

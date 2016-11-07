@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/to_do_list_32.png";
     private final HelpPopup helpPopup;
 
     private Logic logic;
