@@ -21,7 +21,7 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-2. Download the latest `jimi.jar` from the [releases](../../../releases) tab.
+2. Download the latest `Jimi.<version>.jar` from the [releases](../../../releases) tab.
 3. Copy the file to the folder you want to use as the home folder for Jimi.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. 
 > <img src="images/WelcomeScreenUi.png" width="800">
