@@ -44,7 +44,7 @@ public class Parser {
             Pattern.compile("\\#(?<tag>.*)"); // #<tag>
     
     private static final Pattern EDIT_TAG_COMMAND_ARGS_FORMAT = 
-            Pattern.compile("\\#(?<tag>[^\\s]+)" // tag name
+            Pattern.compile("\\#(?<tag>[^\\s]*)" // tag name
                     + " (?<args>.+)"); // the other arguments
   //@@author
     

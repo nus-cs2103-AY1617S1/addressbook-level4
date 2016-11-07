@@ -133,7 +133,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 newDeadline = new TaskTime(entry.getValue());
                 break;
             case TAG:
-                newTag = Tag.getTag(entry.getValue());
+                newTag = entry.getValue().isEmpty() ? 
+                            Tag.getDefault() :
+                            Tag.getTag(entry.getValue());
                 break;
             case IS_DONE:
                 newCompleted = Boolean.parseBoolean(entry.getValue());

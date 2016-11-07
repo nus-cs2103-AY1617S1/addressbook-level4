@@ -45,20 +45,19 @@ Other major contributions:
 - Revamped parser
 
 ### [Ka-Shing](https://github.com/ongks)
-<img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" /><br>
-Components in charge of: Storage<br>
-Aspects/tools in charge of: Testing, Git<br>
-Features implemented:
-- [List](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.1-list-all-tasks)
-- [List done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.5-list-done)
-- [Done task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md)
-- [Undone task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md)
-- [[Save saveLocation](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide)]
-
-Code written: [[functional code](../collated/main/A0121657H.md)][[test code](../collated/test/A0121657H.md)][[docs](../collated/docs/A0121657H.md)]<br>
-Other major contributions:
-- Did the initial refactoring from AddressBook to ToDoList 
-- Copy-editing the bulk of the Developer's Guide 
+<img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" />
+* Components in charge of: Storage
+* Aspects/tools in charge of: Testing, Git
+* Features implemented:
+   * List
+   * List done
+   * Done task
+   * Undone task
+   * Save saveLocation
+* Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
+* Other major contributions:
+  * Initial refactoring from AddressBook to ToDoList
+  * Compiled SampleData and TestScript for manual testing
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)
