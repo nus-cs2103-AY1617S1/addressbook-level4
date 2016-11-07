@@ -269,14 +269,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | have some flexibility in the command format | do operations in an intuitively way
 `* * ` | user | add tags to a task | categorize my tasks better
 `* * ` | user with many tasks | filter tasks by attributes such as start time, deadline, tag, and priority | locate some tasks easily
-`*` | user with many tasks in the task manager | sort tasks by date or priority level  | know my most important upcoming tasks or know what needs to be done soon. 
 `* ` | user | mark a task as done | monitor my task progression
 `* ` | user | add a recurring task | save my troubles to retype my tasks
 `* ` | user | add priority level to a task| focus on more important tasks
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `Task Manager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `toDoList` and the **Actor** is the `user`, unless specified otherwise)
 
 <!-- @@author A0142325R-->
 #### Use case 1: Add task
@@ -330,9 +329,9 @@ The Activity Diagram for add task or event can be used to elaborate the above tw
 **MSS**
 
 1. User requests to list tasks or events
-2. Task Manager shows a list of tasks or events
+2. toDoList shows a list of tasks or events
 3. User requests to delete a specific task or event with the index in the list
-4. Task Manager deletes the task or event <br>
+4. toDoList deletes the task or event <br>
 Use case ends.
 
 **Extensions**
@@ -357,7 +356,7 @@ Use case resumes at step 4
 
 3a. The given index is invalid
 
-> 3a1. Task Manager shows an error message <br>
+> 3a1. toDoList shows an error message <br>
   Use case resumes at step 2
 
 #### Use case 4: List tasks or events
@@ -436,10 +435,10 @@ Use case ends
 #### Use case 7: Edit task
 
 **MSS**
-1. Task Manager list all tasks
+1. toDoList list all tasks
 2. User requests to edit a task
-3. Task Manager edit the task for the specify field
-4. Task Manager updates the list of task 
+3. toDoList edit the task for the specify field
+4. toDoList updates the list of task 
 
 Use case ends.
 
@@ -451,35 +450,59 @@ Use case ends.
 
 3b. Duplicate task name
 
-> 3b1. Task Manager shows an error message and prompt user to edit by specifying an index <br>
+> 3b1. toDoList shows an error message and prompt user to edit by specifying an index <br>
   Use case resumes at step 1
 
 3c. The given index is invalid
 
-> 3c1. Task Manager shows an error message <br>
+> 3c1. toDoList shows an error message <br>
   Use case resumes at step 1
   
 3d. The given name is not found in the list
 
-> 3d1. Task Manager shows an error message <br>
+> 3d1. toDoList shows an error message <br>
   Use case resumes at step 1  
   
 3e. The given details type is invalid
 
-> 3e1. Task Manager shows an error message <br>
+> 3e1. toDoList shows an error message <br>
   Use case resumes at step 1
 
 <!-- @@author A0146123R-->
-#### Use case 8: Find task
+#### Use case 8: Find item
 
 **MSS**
 
-1. User requests to find tasks by keyword
-2. Task Manager shows a list of tasks
+1. User requests to find items by keyword
+2. toDoList shows a list of items
+3. The users find the item that he/she is looking for
+
+Use case ends.
+
+**Extensions**
+
+3a. The list of tasks contains so many items that the user still cannot find the item easily
+
+> 3a1. The user add one more keyword and connect the two keywords by  `AND` parameter. <br>
+  Use case resumes at step 2a.
+
+#### Use case 9: Clear toDoList
+
+**MSS**
+
+1. User requests to clear the toDoList
+2. toDoList is cleared
+
+User case ends.
+
+**Extensions**
+
+2a. User requests to undo the action
+
+> 2a1. The action is undone and the toDoList is back to the previous state<br>
 Use case ends.
 
 <!-- @@author -->
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
