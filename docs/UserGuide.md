@@ -195,11 +195,11 @@ Format: `list (all/pinned/pending/completed/overdue)`
 
 > * Choose one of the words in the round bracket
 
-`list all`: List out all the task in the list
-`list pinned`: List only pinned task
-`list pending`: List tasks which are still pending
-`list completed`: List tasks which are marked as completed
-`list overdue`: List tasks which are already due
+`list all`: List out all the task in the list<br>
+`list pinned`: List only pinned task<br>
+`list pending`: List tasks which are still pending<br>
+`list completed`: List tasks which are marked as completed<br>
+`list overdue`: List tasks which are already due<br>
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords including substring.<br>
