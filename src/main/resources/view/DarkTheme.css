@@ -1,11 +1,11 @@
 /*@@author A0133369B */
 
 .background {
-    -fx-background-image: url("pink2.jpg");
+    
 }
 
 .label-logo {
-    -fx-background-image: url("/images/label.png");
+    -fx-background-image: url("/images/logo.png");
 }
 
 .label {
@@ -13,7 +13,7 @@
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
-    -fx-background-image: url("/images/label.png");
+    
 }
 
 .label-bright {
@@ -84,6 +84,7 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: #FB6A9B;
+    -fx-alignment: center;
 }
 
 .split-pane:horizontal .split-pane-divider {

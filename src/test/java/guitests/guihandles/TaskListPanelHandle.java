@@ -4,11 +4,13 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import seedu.task.TestApp;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
+import seedu.task.model.task.Status;
 import seedu.task.testutil.TestUtil;
 
 import java.util.List;
@@ -39,6 +41,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public TableView<ReadOnlyTask> getListView() {
         return (TableView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
     }
+    
 
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
@@ -82,6 +85,7 @@ public class TaskListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
+    // @@author A0133369B
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
     	List<ReadOnlyTask> tasksInList = getListView().getItems();
     	if (tasks.length + startPosition != getListView().getItems().size()) {
@@ -94,14 +98,16 @@ public class TaskListPanelHandle extends GuiHandle {
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(100);
             ReadOnlyTask checkingTask = tasks[i];
-            if(!(checkingTask.getName().equals(tasksInList.get(scrollTo).getName()) && checkingTask.getStartTime().equals(tasksInList.get(scrollTo).getStartTime())
-            		&& checkingTask.getEndTime().equals(tasksInList.get(scrollTo).getEndTime()) && checkingTask.getDeadline().equals(tasksInList.get(scrollTo).getDeadline()))) {
+            if(!(checkingTask.getName().equals(tasksInList.get(scrollTo).getName()) 
+            		&& checkingTask.getStartTime().equals(tasksInList.get(scrollTo).getStartTime())
+            		&& checkingTask.getEndTime().equals(tasksInList.get(scrollTo).getEndTime())
+            		&& checkingTask.getDeadline().equals(tasksInList.get(scrollTo).getDeadline()))) {
                 return false;
             }
         }
         return true;
     }
-    
+    // @@author
     
     
     public TaskCardHandle navigateToTask(String name) {
