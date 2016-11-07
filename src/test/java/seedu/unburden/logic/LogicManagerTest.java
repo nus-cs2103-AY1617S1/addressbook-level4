@@ -283,29 +283,100 @@ public class LogicManagerTest {
 		assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
 	}
 
-	// @Test
+	@Test
 	public void execute_clear() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
 
-		/*
-		 * ListOfTask expected = new ListOfTask();
-		 * expected.addTask(helper.generateTask(2));
-		 * expected.addTask(helper.generateTask(3)); for(ReadOnlyTask task :
-		 * expected.getTaskList()){ expected.removeTask(task); }
-		 * assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS,
-		 * expected, expected.getTaskList());
-		 */
+		Task p1 = helper.generateEventTaskWithoutTaskDescriptionWithoutTag("bla bla KEY bla", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateDeadlineTaskWithEndTimeWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1800");
+		Task p3 = helper.generateDeadlineTaskWithoutTaskDescriptionWithoutTag("keyKEY sduauo", "14-10-2016");
+		Task p4 = helper.generateFloatingTaskWithoutTaskDescriptionWithoutTag("KEY sduauo");
+		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
+		ListOfTask expectedList = helper.generateListOfTask(fourTasks);
+		
+		helper.addToModel(model, fourTasks);
 
-		List<Task> list = helper.generateTaskList(3);
-		ListOfTask expected = helper.generateListOfTask(list);
-		expected.removeTask(list.get(1));
-		expected.removeTask(list.get(1));
-		expected.removeTask(list.get(1));
-		helper.addToModel(model, list);
-
-		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), expected, expected.getTaskList());
+		expectedList.resetData(new ListOfTask());
+		
+		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), expectedList, expectedList.getTaskList());
 	}
+	
+	
+	@Test
+	public void execute_clear_done() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		
+		Task p1 = helper.generateEventTaskWithoutTaskDescriptionWithoutTag("bla bla KEY bla", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateDeadlineTaskWithEndTimeWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1800");
+		Task p3 = helper.generateDeadlineTaskWithoutTaskDescriptionWithoutTag("keyKEY sduauo", "14-10-2016");
+		Task p4 = helper.generateFloatingTaskWithoutTaskDescriptionWithoutTag("KEY sduauo");
+		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
+		List<Task> threeTasks = helper.generateTaskList(p1, p2, p3);
+		ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
+		List<Task> expectedList = helper.generateTaskList(0);
+		
+		helper.addToModel(model, fourTasks);
 
+		expectedAB.doneTask(p4, true);
+		expectedAB.removeTask(p4);
+		
+		assertThreePartCommandBehavior("done 4", "list done", "clear",
+				String.format(ClearCommand.MESSAGE_SUCCESS),
+				expectedAB,
+				expectedList);
+		
+	}
+	
+	@Test
+	public void execute_clear_undone() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		
+		Task p1 = helper.generateEventTaskWithoutTaskDescriptionWithoutTag("bla bla KEY bla", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateDeadlineTaskWithEndTimeWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1800");
+		Task p3 = helper.generateDeadlineTaskWithoutTaskDescriptionWithoutTag("keyKEY sduauo", "14-10-2016");
+		Task p4 = helper.generateFloatingTaskWithoutTaskDescriptionWithoutTag("KEY sduauo");
+		List<Task> fourTasks = helper.generateTaskList(p1, p2, p3, p4);
+		ListOfTask expectedAB = helper.generateListOfTask(fourTasks);
+		
+		
+		helper.addToModel(model, fourTasks);
+
+		Task updatedTask = (Task) expectedAB.getTaskList().get(3);
+		List<Task> expectedList = helper.generateTaskList(0);
+		expectedAB.removeTask(p1);
+		expectedAB.removeTask(p2);
+		expectedAB.removeTask(p3);
+	
+		assertTwoPartCommandBehavior("done 4", "clear", 
+				String.format(ClearCommand.MESSAGE_SUCCESS),
+				expectedAB,
+				expectedList);
+	}
+	
+	// @@author A0139714B
+	@Test
+	public void execute_clear_certainDate() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		Task p1 = helper.generateEventTaskWithAllWithoutTag("bla bla KEY bla", "blah blah blah", "11-10-2016", "1500", "1800");
+		Task p2 = helper.generateEventTaskWithAllWithoutTag("bla KEY bla bceofeia", "hello world", "12-10-2016", "1500", "1800");
+		Task p3 = helper.generateEventTaskWithAllWithoutTag("KE Y", "say goodbye", "12-10-2016", "1500", "1800");
+		Task p4 = helper.generateEventTaskWithAllWithoutTag("keyKEY sduauo", "move", "12-10-2016", "1500", "1800");
+		Task p5 = helper.generateEventTaskWithAllWithoutTag("K EY sduauo", "high kneel", "15-10-2016", "1500", "1800");
+
+		List<Task> fiveTasks = helper.generateTaskList(p1, p2, p3, p4, p5);
+		List<Task> twoTasks = helper.generateTaskList(p1, p5);
+		ListOfTask expectedAB = helper.generateListOfTask(twoTasks);
+		List<Task> expectedList = helper.generateTaskList(0);
+	
+		model.resetData(new ListOfTask());
+		for (Task t : fiveTasks) {
+			model.addTask(t);
+		}
+		
+		assertTwoPartCommandBehavior("find 12-10-2016", "clear",
+				String.format(ClearCommand.MESSAGE_SUCCESS), expectedAB, expectedList);
+	}		
+	
 	@Test
 	public void execute_add_invalidArgsFormat() throws Exception {
 		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
