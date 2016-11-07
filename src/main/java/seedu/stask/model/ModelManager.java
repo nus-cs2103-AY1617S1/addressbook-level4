@@ -132,7 +132,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (dateTime.isBefore(currentTime) && target.getStatus().status != Status.State.DONE) {
             try {
                 taskBook.setExpire(target);
-            }catch (TaskNotFoundException e) {
+            } catch (TaskNotFoundException e) {
                 throw new AssertionError("Impossible!");
             }                
         }
@@ -140,7 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
                 || target.getStatus().status == Status.State.OVERDUE)) {
             try {
                 taskBook.postponeTask(target);
-            }catch (TaskNotFoundException e) {
+            } catch (TaskNotFoundException e) {
                 throw new AssertionError("Impossible!");
             }
         }
@@ -455,7 +455,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         StatusQualifier (ArrayList<String> stateKeyWords) {
             this.statusList = new ArrayList<Status>();
-            for (String word : stateKeyWords){
+            for (String word : stateKeyWords) {
                 statusList.add(new Status(word));
             }
         }
@@ -495,11 +495,11 @@ public class ModelManager extends ComponentManager implements Model {
             Date startDate = taskDate.getStart();
             Date endDate = taskDate.getEnd();
 
-            if (sameDate(startDate)){ // check start date
+            if (sameDate(startDate)) { // check start date
                 return true;
-            } else if (endDate != null && sameDate(endDate)){  // check end date only
+            } else if (endDate != null && sameDate(endDate)) {  // check end date only
                 return true;
-            } else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)){ // check between start and end date only
+            } else if (endDate != null && inputDate.after(startDate) && inputDate.before(endDate)) { // check between start and end date only
                 return true;
             } else {
                 return false;
@@ -555,5 +555,4 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
     //@@author
-
 }
