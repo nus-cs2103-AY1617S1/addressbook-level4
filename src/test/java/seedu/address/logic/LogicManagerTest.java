@@ -194,6 +194,49 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    //@@author A0142290N
+    
+    @Test
+    public void execute_completedTask_success() throws Exception {
+    	
+    	//Set Expectations
+    	TestDataHelper helper = new TestDataHelper();
+    	List<Task> taskList = helper.generateTaskList(3);
+    	Emeraldo expectedAB = helper.generateEmeraldo(taskList);
+    	expectedAB.completedTask(taskList.get(1));	
+    	
+    	//Set up Model
+    	List<Task> taskListModel = helper.generateTaskList(3);
+    	helper.addToModel(model, taskListModel);
+		
+		//execute command and verify result
+    	assertCommandBehavior("Completed 2", 
+        		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, taskList.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_alreadyCompletedTask() throws Exception {
+    	//Set Expectations
+    	TestDataHelper helper = new TestDataHelper();
+    	List<Task> taskList = helper.generateTaskList(3);
+    	Emeraldo expectedAB = helper.generateEmeraldo(taskList);
+    	expectedAB.completedTask(taskList.get(1));	
+    	
+    	//Set up Model
+    	List<Task> taskListModel = helper.generateTaskList(3);
+    	helper.addToModel(model, taskListModel);
+    	model.completedTask(taskListModel.get(1));
+        
+        assertCommandBehavior("Completed 2", 
+        		String.format(CompleteCommand.MESSAGE_ALREADY_COMPLETED, taskList.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+    			
+    }
 
     //@@author A0139749L
     @Test
@@ -478,7 +521,7 @@ public class LogicManagerTest {
                 model.addTask(p);
             }
         }
-
+        
         /**
          * Generates a list of tasks based on the flags.
          */
@@ -503,6 +546,16 @@ public class LogicManagerTest {
                     new DateTime("by 02/01/2013, 12:01"),
                     new UniqueTagList(new Tag("tag"))
             );
+        }
+        
+        //@@author A0142290N
+        /** Generates the correct add command based on the task given */
+        String completeATask(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("completed 1");
+
+            return cmd.toString();
         }
     }
 }

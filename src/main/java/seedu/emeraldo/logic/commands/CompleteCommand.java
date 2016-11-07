@@ -17,7 +17,7 @@ public class CompleteCommand extends Command {
 			+ "Parameters: INDEX (must be a positive integer)"
 			+ "Example: " + COMMAND_WORD + "1";
 	
-	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Completed task: %1$s"; 
+	public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed task: %1$s"; 
 	public static final String MESSAGE_ALREADY_COMPLETED = "This task is already completed";
 	
 	public final int targetIndex;
@@ -44,6 +44,6 @@ public class CompleteCommand extends Command {
         	return new CommandResult(MESSAGE_ALREADY_COMPLETED);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToMarkComplete));
+        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_SUCCESS, taskToMarkComplete));
 	}
 }
