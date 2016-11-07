@@ -303,15 +303,8 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-    1. _Unit tests_ targeting the lowest level methods/classes.
-       e.g. `seedu.address.commons.UrlUtilTest`
-    2. _Integration tests_ that are checking the integration of multiple code units 
-        (those code units are assumed to be working).
-        e.g. `seedu.address.storage.StorageManagerTest`
-    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-        how the are connected together.
-        e.g. `seedu.address.logic.LogicManagerTest`
+2. **Non-GUI Tests** - These are tests not involving the GUI. They are _unit tests_ targeting the lowest level methods/classes.
+   * e.g. `seedu.todo.commons.DateUtilTest` and `seedu.todo.models.CalendarItemTests`
 
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
