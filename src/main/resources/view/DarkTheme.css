@@ -77,13 +77,15 @@
     -fx-font-size: 14pt;
     -fx-font-weight: bolder;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: #ffffff ;
     -fx-alignment: center;
     -fx-opacity: 1;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: #FB6A9B;
+    -fx-font-size: 14pt;
+    -fx-font-weight: bolder;
+    -fx-font-family: "Segoe UI Light";
     -fx-alignment: center;
 }
 
