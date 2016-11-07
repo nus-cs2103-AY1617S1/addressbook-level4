@@ -12,11 +12,12 @@
 
 
 ## Step-by-step Guide
-1. In the same directory as the `[W09-C1][OneLine].jar` file, create a folder (if not already present) titled 'data'. Transfer the SampleData.xml file into the 'data' folder
 
-2. Launch `[W09-C1][OneLine].jar`.
+1\. In the same directory as the `[W09-C1][OneLine].jar` file, create a folder (if not already present) titled 'data'. Transfer the SampleData.xml file into the 'data' folder
 
-3. Enter `help`. Ensure that you can see a help menu that displays all possible commands. Close the help window.
+2\. Launch `[W09-C1][OneLine].jar`.
+
+3\. Enter `help`. Ensure that you can see a help menu that displays all possible commands. Close the help window.
 
 4a. The first set of features to be covered are the add features. Enter `add Get Groceries`, an example of a floating task. Check that a task with the given title 'Get Groceries' appears on the task pane as Task 14.
 
@@ -50,27 +51,26 @@
 
 6f. `list #Software` displays all tasks tagged with the specified category "Software".
 
-6g. Key in `list` to return to the original view of all uncompleted tasks.
-    
-7. `done 7` to mark the check email task as done. Key in `list done` and verify that the check email task now appears as task 2.
+6g. Key in `list` to return to the original view of all uncompleted tasks.  
 
-8. Still in the list of tasks that are done, key in `undone 2` to mark the check email task as not done. Key in `list` again and verify that it is listed at index 7.
-    
-9. `find Birthday` displays all tasks with the word 'Birthday' in the task name.  
+7\. Enter `done 7` to mark the check email task as done. Key in `list done` and verify that the check email task now appears as task 2.
+
+8\. Still in the list of tasks that are done, key in `undone 2` to mark the check email task as not done. Key in `list` again and verify that it is listed at index 7.
+9\. `find Birthday` displays all tasks with the word 'Birthday' in the task name.  
     
 10a. Key in `list` again to return to the original view. Now enter `del 1` to delete the task spcified by its index in the task pane. Check that the Birthday celebration at index 1 is now deleted.
     
 10b. Key in `del #Software` to delete the category. Only the tag will be deleted, the tasks tagged under Software will now be uncategorised. Check that tasks 45 and 46 are now uncategorised.
 
-11. Key in `undo` twice to undo the previous two delete acts. Check that the category Software is now back, and so is the Birthday celebration.
+11\. Key in `undo` twice to undo the previous two delete acts. Check that the category Software is now back, and so is the Birthday celebration.
 
-12. Key in `redo` to delete the Birthday celebration again.
+12\. Key in `redo` to delete the Birthday celebration again.
 
 13a. Key in `loc` to show the current storage location. It should be `(directory of the jar file)\data\taskbook.xml` by default.
 
-13b. Create a new folder called newData in the same directory as [W09-C1][OneLine].jar. Enter `loc (directory of the jar file)\newData` to change storage file to the newData folder.
+13b. Create a new folder called newData in the same directory as [W09-C1][OneLine].jar. Enter `loc (directory of the jar file)\newData` to change storage file to the newData folder. Navigate to the folder and open taskbook.xml to confirm that data has been correctly written to the new file path.
 
-14. Key in `exit` to close the application.
+14\. Key in `exit` to close the application.
 
 ## Command Summary
 | Command | Format |
