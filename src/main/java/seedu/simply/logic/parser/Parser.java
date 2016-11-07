@@ -109,43 +109,43 @@ public class Parser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD: 
+        case AddCommand.COMMAND_WORD : 
             return prepareAdd(userInput, arguments);
 
-        case SelectCommand.COMMAND_WORD:
+        case SelectCommand.COMMAND_WORD :
             return prepareSelect(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
+        case DeleteCommand.COMMAND_WORD :
             return prepareDelete(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditCommand.COMMAND_WORD :
             return prepareEdit(arguments);
 
-        case DoneCommand.COMMAND_WORD:
+        case DoneCommand.COMMAND_WORD :
             return prepareComplete(arguments);
 
-        case SpecifyStorageCommand.COMMAND_WORD:
+        case SpecifyStorageCommand.COMMAND_WORD :
             return prepareSpecifyStorage(arguments);
 
-        case UndoCommand.COMMAND_WORD:
+        case UndoCommand.COMMAND_WORD :
             return prepareUndo(arguments);
 
-        case RedoCommand.COMMAND_WORD:
+        case RedoCommand.COMMAND_WORD :
             return prepareRedo(arguments);
 
-        case ClearCommand.COMMAND_WORD:
+        case ClearCommand.COMMAND_WORD :
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FindCommand.COMMAND_WORD :
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD :
             return new ListCommand(arguments);
 
-        case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD :
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD :
             return new HelpCommand();
 
         default:

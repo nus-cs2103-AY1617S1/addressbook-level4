@@ -24,7 +24,7 @@ import seedu.simply.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.simply.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * @@author A0138993L
+ * 
  * Wraps all data at the task-book level
  * Duplicates are not allowed (by .equals comparison)
  */
@@ -76,10 +76,6 @@ public class TaskBook implements ReadOnlyTaskBook {
         return todo.getInternalList();
     }
 
-    //public ObservableList<Task> getCompleted() {
-    //    return completed.getInternalList();
-    //}
-
     public void setEvents(List<Task> events) {
         this.events.getInternalList().setAll(events);
     }
@@ -91,10 +87,6 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void setTodo(List<Task> todo) {
         this.todo.getInternalList().setAll(todo);
     }
-
-    //public void setCompleted(List<Task> completed) {
-    //    this.completed.getInternalList().setAll(completed);
-    //}
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -115,6 +107,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     //// task-level operations
 
     /**
+     * @@author A0138993L
      * Adds a task to the task book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
@@ -123,12 +116,13 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
-        if (t.getTaskCategory() == 1)
+        if (t.getTaskCategory() == 1) {
             events.add(t);
-        else if (t.getTaskCategory() == 2)
+        } else if (t.getTaskCategory() == 2) {
             deadlines.add(t);
-        else
+        } else {
             todo.add(t);
+        }
     }
 
     /**
@@ -164,6 +158,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             todo.remove(key);
         }
     }
+    //@@author A0138993L
     public boolean checkTask(ReadOnlyTask toCheck) {
         int taskCategory = toCheck.getTaskCategory();
         if(taskCategory == 1){
@@ -176,7 +171,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         return false;
     }
     
-    //@@author A0135722L Zhiyuan
+    //@@author A0135722L
     public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         int category = target.getTaskCategory();
         if(category == 1){
@@ -202,6 +197,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
 
+    //@@author A0138993L
     public void overdueTask() {
         for (Task task: events) {
             events.markOverdue(task);
@@ -244,43 +240,69 @@ public class TaskBook implements ReadOnlyTaskBook {
     //@@author A0139430L
     public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
         for (Task task: events) {
-            if(task.getTaskCategory()!=1){
+            if (task.getTaskCategory()!=1) {
                 events.remove(task);
-                if(task.getTaskCategory()==2){
-                    deadlines.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
-                }
-                else if(task.getTaskCategory()==3){
-                    todo.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
-                }    
+                changeFromEventToDeadlinesOrTodo(task);    
             }           
         }
         for (Task task: deadlines) {
-            if(task.getTaskCategory()!=2){
+            if (task.getTaskCategory()!=2) {
                 deadlines.remove(task);
-                if(task.getTaskCategory()==1){
-                    events.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
-                }
-                else if(task.getTaskCategory()==3){
-                    todo.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
-                }    
+                changeFromDeadlineToEventOrTodo(task);    
             }   
         }
         for (Task task: todo) {
-            if(task.getTaskCategory()!=3){
+            if (task.getTaskCategory()!=3) {
                 todo.remove(task);
-                if(task.getTaskCategory()==1){
-                    events.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
-                }
-                else if(task.getTaskCategory()==2){
-                    deadlines.add(task);
-                    EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
-                }    
+                changeFromTodoToEventOrDeadline(task);    
             }    
+        }
+    }
+
+    /**
+     * @@author A0139430L
+     * @param task the selected task
+     * @throws DuplicateTaskException
+     */
+    private void changeFromTodoToEventOrDeadline(Task task) throws DuplicateTaskException {
+        if (task.getTaskCategory()==1) {
+            events.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
+        } else if (task.getTaskCategory()==2) {
+            deadlines.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
+        }
+    }
+
+
+    /**
+     * @@author A0139430L
+     * @param task the selected task
+     * @throws DuplicateTaskException
+     */
+    private void changeFromDeadlineToEventOrTodo(Task task) throws DuplicateTaskException {
+        if (task.getTaskCategory()==1) {
+            events.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(events.getTaskIndex(task), 'E'));
+        } else if (task.getTaskCategory()==3) {
+            todo.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
+        }
+    }
+
+
+    /**
+     * @@author A0139430L
+     * @param task the selected task
+     * @throws DuplicateTaskException
+     */
+    private void changeFromEventToDeadlinesOrTodo(Task task) throws DuplicateTaskException {
+        if (task.getTaskCategory()==2) {
+            deadlines.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(deadlines.getTaskIndex(task), 'D'));
+        } else if (task.getTaskCategory()==3) {
+            todo.add(task);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(todo.getTaskIndex(task), 'T'));
         }
     }
 
@@ -295,17 +317,14 @@ public class TaskBook implements ReadOnlyTaskBook {
     @Override
     public String toString() {
         return events.getInternalList().size() + " events, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     public String toStringDeadlines() {
         return deadlines.getInternalList().size() + " deadlines, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     public String toStringTodo() {
         return todo.getInternalList().size() + " todo, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
     }
 
     @Override
