@@ -503,7 +503,27 @@ Use case ends.
 
 >MESS shows an no-match message <br>
    Use case ends.
+<!-- @@author A0141052Y -->
+#### Use case: Find task by tag
 
+**MSS**
+
+1. User enters command and tags to be searched. <br/>
+2. MESS shows the tasks containing the tags <br>
+Use case ends.
+
+**Extensions**
+
+1a. The find by tag command format is wrong
+
+>MESS shows an error message. <br/>
+  Use case ends.
+
+1b. There is no matched task
+
+>MESS shows no tasks in the task list <br/>
+  Use case ends.
+<!-- @@author -->
 #### Use case: List all tasks
 
 **MSS**
