@@ -1,0 +1,671 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="ug.css" type="text/css" />
+</head>
+<body>
+<h1 id="user-guide">User Guide</h1>
+<!-- @@author A0139655U -->
+<ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#viewing-help-help">Help</a></li>
+<li><a href="#input-history">Input History</a></li>
+<li><a href="#adding-a-task-add">Add</a></li>
+<li><a href="#editing-a-task-edit">Edit</a></li>
+<li><a href="#deleting-a-task-delete">Delete</a></li>
+<li><a href="#clearing-all-tasks-clear">Clear</a></li>
+<li><a href="#archiving-a-task-done">Done</a></li>
+<li><a href="#undoing-a-command-undo">Undo</a></li>
+<li><a href="#redoing-a-command-redo">Redo</a></li>
+<li><a href="#listing-tasks-list">List</a></li>
+<li><a href="#finding-a-task-find">Find</a></li>
+<li><a href="#changing-storage-location-store">Store</a></li>
+<li><a href="#exiting-the-application-exit">Exit</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#command-summary">Command Summary</a><br />
+<br><br />
+<!-- @@author --></li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<ol>
+<li><p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your computer.<br></p>
+<blockquote>
+<p>Having any Java 8 version is not enough. <br><br />
+This app will not work with earlier versions of Java 8.</p>
+</blockquote></li>
+<li>Download the latest <code>DearJim.jar</code> from the <a href="../../../releases">releases</a> tab.</li>
+<li>Copy the file to the folder you want to use as the home folder for DearJim.</li>
+<li><p>Double-click the file to start the app. The GUI should appear in a few seconds. <br><br />
+<p align="center"><br />
+<img src="images/dearJimGUI.PNG" width="550"><br />
+</p></p></li>
+</ol>
+<p align="center">
+Figure 1: GUI of DearJim
+</p>
+<ol>
+<li>Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br><br />
+e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</li>
+<li>Some example commands you can try:</li>
+</ol>
+<ul>
+<li><strong><code>list</code></strong> : lists all tasks. This is the default view.</li>
+<li><strong><code>add</code></strong><code>Learn how to use DearJim</code> :<br />
+adds a task to DearJim.</li>
+<li><strong><code>delete</code></strong><code>1</code> : deletes the first task shown in the current list.</li>
+<li><strong><code>exit</code></strong> : exits the app.</li>
+</ul>
+<ol>
+<li>Refer to the <a href="#features">Features</a> section below for details of each command.<br></li>
+</ol>
+<p><br></p>
+<h2 id="features">Features</h2>
+<blockquote>
+<p><strong>Command Format</strong></p>
+<ul>
+<li>Format: <code>&lt;command word&gt; &lt;parameters&gt;</code></li>
+<li>Words in <code>UPPER_CASE</code> are the parameters.</li>
+<li>Fields in <code>[]</code> are optional.</li>
+<li>The order of parameters is fixed.</li>
+</ul>
+</blockquote>
+<p><br></p>
+<!-- @@author A0093960X -->
+<h3 id="viewing-help-help">Viewing help: <code>help</code></h3>
+<p>Opens a help window that contains a cheat sheet of all the commands of DearJim.<br><br />
+You can leave the help window open while using DearJim if you need to refer to the cheat sheet.</p>
+<p>Format: <code>help</code><br></p>
+<blockquote>
+<p>While the help window is selected, you may close it by simply pressing any key on your keyboard!</p>
+</blockquote>
+<p align="center">
+ <img src="images/helpCmd.PNG" width="600">
+</p>
+<p align="center">
+Figure 2: Help Command
+</p>
+<h3 id="input-history">Input History</h3>
+<p>Use the <kbd>Up</kbd> and <kbd>Down</kbd> arrow keys to navigate your input history.<br><br />
+This gives you quick access to your previous and next inputs.</p>
+<h3 id="adding-a-task-add">Adding a task: <code>add</code></h3>
+<p>Adds a task into DearJim.<br><br />
+Format: <code>[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]</code></p>
+<blockquote>
+<p>You may also substitute <code>start</code> with <code>from</code>/<code>at</code>, <code>end</code> with <code>to</code>/<code>by</code>.</p>
+</blockquote>
+<p>By default, if no valid command is specified, the input will be treated as an <code>add</code> command. This means typing in <code>add</code> is optional. <br><br />
+If you would like to add a task with a name that begins with other command words, just include the <code>add</code> to override the other command words. <br></p>
+<p>Example:</p>
+<table style="width:22%;">
+<colgroup>
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Interpreted Command</th>
+<th>Result</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>help my mum to buy cooking ingredients</code></td>
+<td><code>help</code></td>
+<td>Execute <code>help</code> command</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><code>add help my mum to buy cooking ingredients</code></td>
+<td><code>add</code></td>
+<td><code>add</code> a task with name <code>help my mum to buy cooking ingredients</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!-- @@author A0139498J -->
+<p><strong><em>Adding a task</em></strong></p>
+<p>Format: <code>NAME</code></p>
+<blockquote>
+<p>The simplest form of a task. Type away!</p>
+</blockquote>
+<p>Example:</p>
+<ul>
+<li><code>help my mum to buy cooking ingredients</code></li>
+</ul>
+<p><br/></p>
+<!-- @@author A0139552B -->
+<p><strong><em>Specifying task priority</em></strong></p>
+<p>You can assign a <code>PRIORITY</code> of <code>low</code>, <code>medium</code> or <code>high</code> to your task. <br><br />
+Tasks have <code>medium</code> <code>PRIORITY</code> by default.<br><br />
+Keyword: <code>-PRIORITY</code></p>
+<p>To specify the priority for a task, input a <code>-</code> followed by the <code>PRIORITY</code>.<br><br />
+<code>PRIORITY</code> also accepts variations of <code>low</code>, <code>medium</code> and <code>high</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th><code>PRIORITY</code></th>
+<th align="center">Variations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>low</code></td>
+<td align="center"><code>l</code>, <code>low</code></td>
+</tr>
+<tr class="even">
+<td><code>medium</code></td>
+<td align="center"><code>m</code>, <code>med</code>, <code>medium</code></td>
+</tr>
+<tr class="odd">
+<td><code>high</code></td>
+<td align="center"><code>h</code>, <code>high</code></td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<ul>
+<li><code>Watch drama -l</code></li>
+<li><code>Buy coffee powder -med</code></li>
+<li><code>Buy washing powder -high</code></li>
+</ul>
+<p><br/><br />
+<!-- @@author --></p>
+<p><strong><em>Adding a task with deadline</em></strong></p>
+<p>Nobody likes deadlines. What's worse is missing them. <br><br />
+Add deadlines to your task so you will know when you need to complete them!<br><br />
+Format: <code>NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]</code></p>
+<blockquote>
+<p><code>end</code> denotes a deadline. <br><br />
+<code>end</code> can also be substituted with <code>by</code> or <code>to</code>.</p>
+</blockquote>
+<p><code>DATE_TIME</code> is flexible!<br></p>
+<ul>
+<li>If no <code>DATE</code> is specified, <code>DATE</code> will be assumed to be today.<br></li>
+<li>If no <code>TIME</code> is specified, <code>TIME</code> will be assumed to be 11:59pm.</li>
+</ul>
+<p><br></p>
+<p><strong><em>Valid Dates &amp; Times</em></strong></p>
+<table style="width:32%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Date</th>
+<th align="left">Format</th>
+<th>Interpreted Date</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>MM/DD/YYYY</td>
+<td align="left"><code>12/12/2016</code></td>
+<td>12 December 2016</td>
+</tr>
+<tr class="even">
+<td>MM/DD/YY</td>
+<td align="left"><code>12/12/16</code></td>
+<td>12 December 2016</td>
+</tr>
+<tr class="odd">
+<td>MM/DD</td>
+<td align="left"><code>12/12</code></td>
+<td>12 December, Current Year</td>
+</tr>
+<tr class="even">
+<td>Calendar</td>
+<td align="left"><code>12 December 2016</code>, <code>12th December 2016</code><br> <code>12 December 16</code></td>
+<td>12 December 2016</td>
+</tr>
+<tr class="odd">
+<td>Calendar (Date and Month)</td>
+<td align="left"><code>12 December</code></td>
+<td>12 December, Current Year</td>
+</tr>
+<tr class="even">
+<td>Calendar (Month)</td>
+<td align="left"><code>may</code>, <code>May</code><br> <code>dec</code>, <code>Dec</code>, <code>December</code></td>
+<td>1 May, Current Year<br> 1 December, Current Year</td>
+</tr>
+<tr class="odd">
+<td>Day</td>
+<td align="left"><code>monday</code>, <code>Mon</code></td>
+<td>Nearest upcoming Monday</td>
+</tr>
+<tr class="even">
+<td>Relative Date</td>
+<td align="left"><code>today</code>, <code>tonight</code><br> <code>tmr</code>, <code>tommorow</code><br> <code>next Tues</code><br> <code>5 days later</code></td>
+<td>Today<br> Tomorrow<br> Next Tuesday<br> 5 days later</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<table>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th align="left">Format</th>
+<th>Interpreted Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>24Hr</td>
+<td align="left"><code>20.50</code>, <code>20:50</code></td>
+<td>8.50pm</td>
+</tr>
+<tr class="even">
+<td>AM/PM</td>
+<td align="left"><code>8.50pm</code>, <code>8:50pm</code>, <code>0850pm</code></td>
+<td>8.50pm</td>
+</tr>
+<tr class="odd">
+<td>Preset</td>
+<td align="left"><code>midnight</code><br> <code>noon</code></td>
+<td>12am<br>12pm</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>DearJim does not support the following 24hr format: <code>2050</code>, as this input can be misinterpreted as the value of year.</p>
+</blockquote>
+<p><br></p>
+<p>Examples:</p>
+<ul>
+<li><code>Do project proposal by 5pm tmr</code></li>
+<li><code>eat lunch by 1pm today -high</code></li>
+<li><code>Buy coffee for boss by 7:00</code></li>
+<li><code>finish CS2101 assignment by 13th Sep</code><br />
+<br></li>
+</ul>
+<p><code>NAME</code> with numbers from 0000 to 2359 may be wrongly interpreted as time. If you need to add a <code>NAME</code> with these numbers, you can enclose the <code>NAME</code> with double inverted commas to denote the <code>NAME</code> explicitly.<br></p>
+<p>Example:</p>
+<table style="width:28%;">
+<colgroup>
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Input</th>
+<th>Interpreted Command</th>
+<th>Interpreted Task Name</th>
+<th>Interpreted Deadline</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Lower word count by 1500</code></td>
+<td><code>add</code></td>
+<td><code>Lower word count</code></td>
+<td><code>by 1500</code></td>
+<td><code>add</code> a task with name <code>Lower word count</code> and deadline <code>1500</code></td>
+</tr>
+<tr class="even">
+<td><code>&quot;Lower word count by 1500&quot;</code></td>
+<td><code>add</code></td>
+<td><code>Lower word count by 1500</code></td>
+<td>NONE</td>
+<td><code>add</code> a task with name <code>Lower word count by 1500</code></td>
+</tr>
+</tbody>
+</table>
+<p><br/></p>
+<p><strong><em>Adding a task with time interval</em></strong></p>
+<p>Having a company meeting? Planning to have lunch with a friend next week? <br><br />
+Add a task with a time interval so you will know what time your task starts and ends!<br><br />
+If you are unsure about the end time for the task, you can leave it blank.<br><br />
+Format:<br />
+<code>NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]</code></p>
+<blockquote>
+<p>Note: You may use <code>from</code> or <code>at</code> to indicate the start time, and <code>to</code> or <code>by</code> to indicate the end time.<br></p>
+</blockquote>
+<p>Example:</p>
+<ul>
+<li><code>Company meeting tonight at 7pm to 9pm</code></li>
+<li><code>Family dinner at noon</code></li>
+<li><code>Meet Akshay from 1pm -h</code></li>
+</ul>
+<p><br/></p>
+<p><strong><em>Specifying repeated tasks</em></strong></p>
+<p>Have one of those pesky tasks you need to do every now and then?<br><br />
+DearJim also allows you to specify tasks that need to be repeated at a specific <code>RECURRING_INTERVAL</code>. Never forget them again!<br><br />
+Keyword: <code>repeat every RECURRING_INTERVAL</code></p>
+<blockquote>
+<p>Note: You may only specify a <code>RECCURING_INTERVAL</code> for tasks that are timed.</p>
+</blockquote>
+<p><code>RECURRING_INTERVAL</code> can be specified in a few formats, with some examples listed below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Recurring Interval</th>
+<th align="left">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Hour</td>
+<td align="left"><code>hour</code>, <code>3 hours</code></td>
+</tr>
+<tr class="even">
+<td>Day</td>
+<td align="left"><code>day</code>, <code>3 days</code>, <code>monday</code>, <code>mon</code></td>
+</tr>
+<tr class="odd">
+<td>Week</td>
+<td align="left"><code>week</code>, <code>5 weeks</code></td>
+</tr>
+<tr class="even">
+<td>Month</td>
+<td align="left"><code>month</code>, <code>2 months</code></td>
+</tr>
+<tr class="odd">
+<td>Year</td>
+<td align="left"><code>year</code>, <code>6 years</code></td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<ul>
+<li><code>Run at track at 7am repeat every 3 days</code></li>
+<li><code>Visit mum repeat every sun</code></li>
+</ul>
+<p><br/></p>
+<!-- @@author A0139552B -->
+<h3 id="editing-a-task-edit">Editing a task: <code>edit</code></h3>
+<p>Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim. <br><br />
+Format: <code>edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]</code></p>
+<blockquote>
+<p><code>INDEX</code> refers to the task number in the current displayed list.<br><br />
+Note: <code>edit</code> has a very similar format to <code>add</code>.</p>
+</blockquote>
+<p>Examples:</p>
+<ul>
+<li><code>Company meeting tonight at 7pm to 9pm</code></li>
+<li><code>edit 2 Company meeting tomorrow morning at 7am to 9am -high</code></li>
+<li><code>Buy coffee for boss by 8am repeat every day</code></li>
+<li><code>edit 3 Buy coffee for boss by 7am repeat every 2 days</code></li>
+</ul>
+<p><br/></p>
+<p><strong><em>Editing out details in a task</em></strong></p>
+<p>You can also remove parameters that are no longer relevant. <br><br />
+Format: <code>edit INDEX [-reset parameter] [repeat] [start] [end]</code></p>
+<table>
+<thead>
+<tr class="header">
+<th><code>-reset parameter</code></th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>-reset repeat</code></td>
+<td>Removes recurring interval from task</td>
+</tr>
+<tr class="even">
+<td><code>-reset start</code></td>
+<td>Removes start time from task</td>
+</tr>
+<tr class="odd">
+<td><code>-reset end</code></td>
+<td>Removes end time from task</td>
+</tr>
+</tbody>
+</table>
+<p>Examples:</p>
+<ul>
+<li><code>Buy coffee for boss, by 8am repeat every day</code></li>
+<li><code>edit 1 -reset repeat start</code></li>
+<li><code>edit 2 -reset end</code></li>
+</ul>
+<blockquote>
+<p>Note: <code>-reset</code> will override any <code>edit</code> of the same field that comes before it in your input.</p>
+</blockquote>
+<p><br/><br />
+<!-- @@author A0139498J --></p>
+<h3 id="deleting-a-task-delete">Deleting a task: <code>delete</code></h3>
+<p>Deletes an existing task in DearJim. This will remove it from the storage. <br><br />
+Format: <code>delete INDEX</code></p>
+<blockquote>
+<p>You can <code>delete</code> multiple tasks using a single command by entering the indexes of the tasks you want to delete, separating each index with a space.</p>
+</blockquote>
+<p>Example:</p>
+<ul>
+<li><code>delete 2</code></li>
+<li><code>delete 3 5 9</code></li>
+</ul>
+<p><br/></p>
+<h3 id="clearing-all-tasks-clear">Clearing all tasks: <code>clear</code></h3>
+<p>Deletes all tasks in DearJim.<br><br />
+Format: <code>clear</code></p>
+<p><br/></p>
+<h3 id="archiving-a-task-done">Archiving a task: <code>done</code></h3>
+<p>Marks a task as done and archives it in DearJim.<br><br />
+Format: <code>done INDEX</code></p>
+<blockquote>
+<p>You can <code>done</code> multiple tasks using a single command by entering the indexes of the tasks you have completed, separating each index with a space.</p>
+</blockquote>
+<p>Example:</p>
+<ul>
+<li><code>done 3</code></li>
+<li><code>done 1 5</code></li>
+</ul>
+<p><br/></p>
+<!-- @@author A0093960X -->
+<h3 id="undoing-a-command-undo">Undoing a command: <code>undo</code></h3>
+<p>Reverses the effects of the previous undoable command. <br><br />
+Helps you to undo any accidental mistakes that you have made! <br><br />
+Format: <code>undo</code></p>
+<p>Commands that you can <code>undo</code> (Undoable commands):</p>
+<ul>
+<li><code>add</code></li>
+<li><code>edit</code></li>
+<li><code>delete</code></li>
+<li><code>clear</code></li>
+<li><code>done</code></li>
+</ul>
+<p><br/></p>
+<h3 id="redoing-a-command-redo">Redoing a command: <code>redo</code></h3>
+<p>Reverses a previous <code>undo</code> command. <br><br />
+Not satisfied with your last <code>undo</code>? <code>redo</code> will reverse the <code>undo</code> for you!</p>
+<p>Format: <code>redo</code></p>
+<blockquote>
+<p>Note: <code>redo</code> can only reverse your last <code>undo</code> if no undoable commands have been entered after that <code>undo</code>.</p>
+</blockquote>
+<p><br/></p>
+<!-- @@author A0139498J -->
+<h3 id="listing-tasks-list">Listing tasks: <code>list</code></h3>
+<p><strong><em>Listing all undone tasks</em></strong></p>
+<p>Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br><br />
+Format: <code>list</code></p>
+<p><br></p>
+<p><strong><em>Listing all undone tasks of a specific day</em></strong></p>
+<p>Switches the task list view to the undone list view, to show all tasks on the day specified.<br><br />
+Format: <code>list DAY</code></p>
+<p>Example:</p>
+<ul>
+<li><code>list today</code></li>
+<li><code>list tmr</code></li>
+<li><code>list monday</code></li>
+</ul>
+<p><br></p>
+<p><strong><em>Listing all done tasks</em></strong></p>
+<p>Switches the task list view to the done list view, to show all done tasks in DearJim.<br><br />
+Format: <code>list done</code></p>
+<blockquote>
+<p><code>add</code> and <code>edit</code> commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks.<br />
+<br/></p>
+</blockquote>
+<!-- @@author A0139552B -->
+<p><br></p>
+<h3 id="finding-a-task-find">Finding a task: <code>find</code></h3>
+<p>Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br><br />
+Format: <code>find NAME</code></p>
+<blockquote>
+<p><code>find</code> is case-insensitive - <code>find AKSHAY</code> will match <code>find akshay</code></p>
+<p>If no NAME is provided, all uncompleted tasks will be displayed</p>
+</blockquote>
+<p>Examples:</p>
+<ul>
+<li><code>find Akshay</code></li>
+<li><code>find company meeting</code></li>
+<li><code>find</code></li>
+</ul>
+<p><br/></p>
+<!-- @@author A0139498J -->
+<h3 id="changing-storage-location-store">Changing storage location: <code>store</code></h3>
+<p>Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br><br />
+In addition to changing the storage file location, <code>store</code> handles your existing data in two different ways, depending if the filepath you specify is an existing storage file.<br><br />
+If the storage file specified is not present, DearJim will create this new file and store your current data in it.<br><br />
+If the storage file specified is present, data will be loaded from this storage file into DearJim.<br><br />
+Format: <code>store FILEPATH</code></p>
+<blockquote>
+<p>DearJim data is stored in XML file format. There is no need to specify the file extension <code>.xml</code>, it will be appended to your target file name automatically. <code>store</code> supports both relative and absolute file paths.</p>
+</blockquote>
+<p>Examples:</p>
+<ul>
+<li><code>store data/onthemove</code></li>
+<li><code>store /Users/jim/Dropbox/filename</code></li>
+</ul>
+<p><br/></p>
+<h3 id="exiting-the-application-exit">Exiting the application: <code>exit</code></h3>
+<p>Closes the application.<br><br />
+Format: <code>exit</code></p>
+<p><br/></p>
+<!-- @@author A0093960X -->
+<h3 id="getting-hints-for-command-format">Getting hints for command format</h3>
+<p>If you have forgotten about the command formats, simply type any word and DearJim will provide you hints on the command format that you might want to use!</p>
+<p>Examples:</p>
+<ul>
+<li><p>Typing <code>add</code> in the command input generates the format for <code>add</code> in the result display<br />
+<p align="center"><br />
+<img src="images/addTooltip.PNG" width="550"><br />
+</p><br />
+<p align="center"><br />
+Figure 3: Hints for add command<br />
+</p><br />
+<br></p></li>
+<li><p>Typing <code>delete</code> in the command input generates the format for <code>delete</code> in the result display<br />
+<p align="center"><br />
+<img src="images/deleteTooltip.PNG" width="550"><br />
+</p></p></li>
+</ul>
+<p align="center">
+Figure 4: Hints for delete command
+</p>
+<p><br></p>
+<h3 id="instant-add-and-edit-task-preview">Instant <code>add</code> and <code>edit</code> task preview</h3>
+<p>DearJim features an instant <code>add</code> and <code>edit</code> command task preview, allowing you to preview the task details as your type your input!<br><br />
+Now you can be sure of how your input will be interpreted!</p>
+<p>Examples:</p>
+<ul>
+<li>Typing <code>add do my homework from 3pm to 4pm repeat every day -high</code> generates an instant <code>add</code> preview</li>
+</ul>
+<p align="center">
+<img src="images/addInstantParse.PNG" width="550">
+</p>
+<p align="center">
+Figure 5: Instant preview for add command
+</p>
+<p><br></p>
+<ul>
+<li>Typing <code>edit 1 by 10pm -low -reset repeat</code> generates an instant <code>edit</code> preview</li>
+</ul>
+<p align="center">
+<img src="images/editInstantParser.PNG" width="550">
+</p>
+<p align="center">
+Figure 6: Instant preview for edit command
+</p>
+<p><br></p>
+<h3 id="saving-the-data">Saving the data</h3>
+<p>Data in DearJim is automatically saved on the hard disk after any command that changes the data is executed.<br><br />
+There is no need to save manually.<br><br />
+You will never have to worry about forgetting to save your data while using DearJim! Hurray!</p>
+<!-- @@author A0139498J -->
+<h2 id="faq">FAQ</h2>
+<p><strong>Q</strong>: How do I transfer my data to another computer?<br><br />
+<strong>A</strong>: Install the app on the other computer. Upon starting DearJim, an empty data file is created. Overwrite the contents of the data file with the data file in your previous <em>DearJim</em> folder.</p>
+<p><strong>Q</strong>: How do I install the program?<br><br />
+<strong>A</strong>: Double-click the DearJim.jar file.</p>
+<h2 id="command-summary">Command Summary</h2>
+<table style="width:26%;">
+<colgroup>
+<col width="12%" />
+<col width="13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Command</th>
+<th align="left">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Help</td>
+<td align="left"><code>help</code></td>
+</tr>
+<tr class="even">
+<td>Add</td>
+<td align="left"><code>[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]</code></td>
+</tr>
+<tr class="odd">
+<td>Edit</td>
+<td align="left"><code>edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]</code></td>
+</tr>
+<tr class="even">
+<td>Delete</td>
+<td align="left"><code>delete INDEX</code></td>
+</tr>
+<tr class="odd">
+<td>Clear</td>
+<td align="left"><code>clear</code></td>
+</tr>
+<tr class="even">
+<td>Done</td>
+<td align="left"><code>done INDEX</code></td>
+</tr>
+<tr class="odd">
+<td>Undo</td>
+<td align="left"><code>undo</code></td>
+</tr>
+<tr class="even">
+<td>Redo</td>
+<td align="left"><code>redo</code></td>
+</tr>
+<tr class="odd">
+<td>List</td>
+<td align="left"><code>list [done]</code></td>
+</tr>
+<tr class="even">
+<td>Find</td>
+<td align="left"><code>find NAME</code></td>
+</tr>
+<tr class="odd">
+<td>Store</td>
+<td align="left"><code>store FILEPATH</code></td>
+</tr>
+<tr class="even">
+<td>Exit</td>
+<td align="left"><code>exit</code></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
