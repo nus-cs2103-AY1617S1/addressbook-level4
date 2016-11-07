@@ -28,7 +28,8 @@ def random_time_pair():
 def enter_command(command):
     if DEBUG:
         print(command)
-    else:            
+    else:
+        pyautogui.hotkey('ctrl', 'a')
         pyautogui.typewrite(command)
         pyautogui.press('enter')
 
