@@ -2,6 +2,7 @@ package seedu.todo.commons.exceptions;
 
 import seedu.todo.model.ErrorBag;
 
+//@@author A0135817B
 public class ValidationException extends Exception {
 
     private ErrorBag errors;

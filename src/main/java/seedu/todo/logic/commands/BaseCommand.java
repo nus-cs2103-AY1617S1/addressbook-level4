@@ -113,8 +113,6 @@ public abstract class BaseCommand {
                 return;
             }
         }
-        
-        // TODO: Do something for unrecognized argument?
     }
     
     private void checkRequiredArguments() {

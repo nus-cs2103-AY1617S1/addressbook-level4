@@ -8,11 +8,12 @@ import seedu.todo.commons.events.BaseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author A0135817B-reused
 /**
  * A class that collects events raised by other classes.
  */
 public class EventsCollector{
-    List<BaseEvent> events = new ArrayList<BaseEvent>();
+    private List<BaseEvent> events = new ArrayList<>();
 
     public EventsCollector(){
         EventsCenter.getInstance().registerHandler(this);

@@ -23,10 +23,6 @@ public class DateRangeArgument extends Argument<DateRange> {
         // Makes sure that there is a default value, so that callers won't get null when they getValue()
         super(name, new DateRange(null));
     }
-
-    public DateRangeArgument(String name, DateRange defaultValue) {
-        super(name, defaultValue);
-    }
     
     @Override
     public void setValue(String input) throws IllegalValueException {
@@ -46,7 +42,7 @@ public class DateRangeArgument extends Argument<DateRange> {
 
         if (dates.size() > 2) {
             tooManyDatesError(dates);
-        } else if (dates.size() == 0) {
+        } else if (dates.isEmpty()) {
             throw new IllegalValueException(String.format(DateRangeArgument.NO_DATE_FOUND_FORMAT, input));
         }
         

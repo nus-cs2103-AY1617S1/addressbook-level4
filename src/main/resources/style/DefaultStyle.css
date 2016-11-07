@@ -346,8 +346,8 @@
 /*Collapse*/
 .collapsed .collapsible {
     visibility: collapse;
-    -fx-pref-height: 0px;
-    -fx-min-height: 0px;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
 }
 
 /***TaskCardView Styles End***/

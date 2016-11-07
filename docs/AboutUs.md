@@ -10,28 +10,38 @@ We are a team based in the [School of Computing, National University of Singapor
 
 -----
 
-#### [Zhang Yi Jiang](https://github.com/ZhangYiJiang)
+#### [Zhang Yi Jiang](https://github.com/ZhangYiJiang) @ZhangYiJiang
 <img src="images/Yijiang.jpg" width="150"><br>
 **Role**: Lead Developer <br>
-**Responsibilities**: Parser, Logic and Integration
 
+* Components in charge of: Logic, Model 
+* Aspects/tools in charge of: Mockito, Faker, PrettytimeNLP 
+* Features implemented:
+    * Add, delete, exit and find commands 
+    * Undo and redo 
+* Code written: [functional code] [test code] [docs]
+* Other major contributions:
+    * Did the initial refactoring from AddressBook to Todo
+    * Refactored storage component 
+    * Designed Command and Argument subcomponents 
+    
 -----
 
-#### [Govind Venugopalan](https://github.com/cricketer94)
+#### [Govind Venugopalan](https://github.com/cricketer94) @cricketer94
 <img src="images/Govind.jpg" width="150"><br>
 **Role**: Backend Developer <br>
 **Responsibilities**: Logic and Documentation
 
 -----
 
-#### [Li Kai](https://github.com/li-kai) 
+#### [Li Kai](https://github.com/li-kai) @li-kai
 <img src="images/Likai.jpg" width="150"><br>
 **Role**: Backend Developer <br>
 **Responsibilities**: Database and Model Design
 
 -----
 
-#### [Wang Xien Dong](http://github.com/xdrawks)
+#### [Wang Xien Dong](http://github.com/xdrawks) @xdrawks
 <img src="images/Xiendong.jpg" width="150"><br>
 **Role**: Frontend Developer <br>
 **Responsibilities**: User Interface

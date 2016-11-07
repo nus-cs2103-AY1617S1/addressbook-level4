@@ -14,6 +14,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
+//@@author A0135817B
 public class TaskTest {
     private Task task;
 

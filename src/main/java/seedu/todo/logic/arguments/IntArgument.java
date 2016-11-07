@@ -9,10 +9,6 @@ public class IntArgument extends Argument<Integer> {
         super(name);
     }
     
-    public IntArgument(String name, int defaultValue) {
-        super(name, defaultValue);
-    }
-
     @Override
     public void setValue(String input) throws IllegalValueException {
         try {

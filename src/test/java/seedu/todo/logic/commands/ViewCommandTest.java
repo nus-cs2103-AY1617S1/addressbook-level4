@@ -70,7 +70,6 @@ public class ViewCommandTest extends CommandTest {
         dueSoon = new int[]{ 2, 1 };
         completed = new int[]{ 6, 4, 0 };
         incomplete = new int[]{ 3, 5, 2, 1 };
-        today = new int[]{5, 2, 4};
     }
     
     private void assertViewChange(TaskViewFilter filter) {
@@ -150,14 +149,6 @@ public class ViewCommandTest extends CommandTest {
         
         assertViewChange(TaskViewFilter.EVENTS);
         assertTasksVisible(events);
-    }
-    
-    @Test
-    public void testToday() throws Exception {
-        setParameter("today"); 
-        execute(true);
-        assertViewChange(TaskViewFilter.TODAY);
-        assertTasksVisible(today);
     }
 
     @Test

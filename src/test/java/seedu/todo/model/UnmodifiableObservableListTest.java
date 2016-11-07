@@ -13,13 +13,14 @@ import java.util.*;
 import static org.junit.Assert.assertSame;
 import static seedu.todo.testutil.TestUtil.assertThrows;
 
+//@@author A0135817B-reused
 public class UnmodifiableObservableListTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    List<Integer> backing;
-    UnmodifiableObservableList<Integer> list;
+    private List<Integer> backing;
+    private UnmodifiableObservableList<Integer> list;
 
     @Before
     public void setup() {
