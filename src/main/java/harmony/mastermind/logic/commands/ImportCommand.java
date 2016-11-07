@@ -52,7 +52,7 @@ public class ImportCommand extends Command {
     
     public static final String MESSAGE_READ_SUCCESS = "Read success on imported file";
     public static final String MESSAGE_READ_FAILURE = "Invalid file path: %1$s";
-    private static final String MESSAGE_CSV_READ_FAILURE = "Header in csv File is invalid\n" 
+    public static final String MESSAGE_CSV_READ_FAILURE = "Header in csv File is invalid\n" 
                                                             + "First row of your csv file should include headers "
                                                             + "like Subject, Start Date, Start Time, End Date, End Time";
     public static final String MESSAGE_IMPORT_TXT_SUCCESS = "Import success: %1$s tasks added";
@@ -135,7 +135,7 @@ public class ImportCommand extends Command {
                             errCount++;
                             errLines += Integer.toString(currLine) + ","; 
                         }
-                    } catch (IllegalValueException | InvalidEventDateException e) {
+                    } catch (IllegalValueException | InvalidEventDateException | IllegalArgumentException e) {
                         errCount++;
                         errLines += Integer.toString(currLine) + ","; 
                     }
@@ -193,12 +193,18 @@ public class ImportCommand extends Command {
 
         if (record.get(HEADER_START_DATE).equals(EMPTY_ARG)) {
             startDate = Optional.empty();
+        } else if (record.get(HEADER_START_TIME).equals(EMPTY_ARG)) {
+            return Optional.empty();
         } else {
+            System.out.println("start");
             startDate = Optional.ofNullable(record.get(HEADER_START_DATE) + " " + record.get(HEADER_START_TIME));
         }
         if (record.get(HEADER_END_DATE).equals(EMPTY_ARG)) {
             endDate = Optional.empty();
+        } else if (record.get(HEADER_END_TIME).equals(EMPTY_ARG)) {
+            return Optional.empty();            
         } else {
+            System.out.println("end");
             endDate = Optional.ofNullable(record.get(HEADER_END_DATE) + " " + record.get(HEADER_END_TIME));
         }
         if (startDate.isPresent() && !endDate.isPresent()) {

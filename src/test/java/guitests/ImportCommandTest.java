@@ -116,15 +116,26 @@ public class ImportCommandTest extends TaskManagerGuiTest{
         this.assertListSize(6);
     }
     
+    //@@author A0124797R
+    @Test
+    public void importcsv_readFailure_malformedHeader(){
+        // malformed headers
+        this.commandBox.runCommand("import from ./src/test/data/ImportCommandTest/malformHeader.csv");
+        this.assertResultMessage(ImportCommand.MESSAGE_CSV_READ_FAILURE);
+        // should not add any task in
+        this.assertListSize(0);
+        
+    }
+    
     //@@author A0138862W
     @Test
     public void importcsv_partialSuccess_malformedEntry(){
-        // malformed at 3rd entry
+        // malformed at 1st and 3rd entry
         this.commandBox.runCommand("import from ./src/test/data/ImportCommandTest/malform.csv");
         this.assertResultMessage("Import failure: 4 tasks added \nInvalid lines: 4");
         
         // ignore 3rd entry
-        // resulting task list in Mastermind should have 4 items
+        // resulting task list in Mastermind should have 3 items
         this.assertListSize(4);
     }
     
@@ -153,7 +164,9 @@ public class ImportCommandTest extends TaskManagerGuiTest{
         this.assertListSize(5);
     }
     
-    //@@author A0138862W
+    //@@author A0138862W-unused
+    //removed importing of txt file
+    /*
     @Test
     public void importtxt_successWithEmptyTaskList(){        
         // run the importics command
@@ -165,7 +178,8 @@ public class ImportCommandTest extends TaskManagerGuiTest{
         this.assertListSize(3);
     }
     
-  //@@author A0138862W
+    
+  //@@author A0138862W-unused
     @Test
     public void importtxt_partialSuccess_containOtherCommand(){        
         // run the importics command
@@ -177,18 +191,21 @@ public class ImportCommandTest extends TaskManagerGuiTest{
         this.assertListSize(1);
     }
     
-  //@@author A0138862W
+    //@@author A0138862W-unused
+    //removed importing of txt file
+    
     @Test
     public void importtxt_failure_importTwiceCauseDuplicateException(){
-        
+
         // expect first import successful
         this.commandBox.runCommand("import from ./src/test/data/ImportCommandTest/sample.txt");
         this.assertResultMessage("Import success: 3 tasks added");
         this.assertListSize(3);
-        
+
         // expect second import failure
         this.commandBox.runCommand("import from ./src/test/data/ImportCommandTest/sample.txt");
         this.assertResultMessage("Import failure: 0 tasks added \nInvalid lines: 1,2,3");
         this.assertListSize(3);
     }
+     */
 }
