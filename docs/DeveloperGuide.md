@@ -360,6 +360,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * ` | user | undo | undo the previous command
 `* * ` | user | redo | redo the previous undo
 `* * ` | user | clear the list | quickly clear all my items
+`* ` | user | change the app title | customize the application
+`* ` | user | change the database file path | store the database in a different directory such as Dropbox
 `* ` | advanced user | add alias | enter commands more quickly
 `* ` | advanced user | unalias | remove aliases associated with commands
 `* ` | advanced user | view aliases | view all aliases currently set
