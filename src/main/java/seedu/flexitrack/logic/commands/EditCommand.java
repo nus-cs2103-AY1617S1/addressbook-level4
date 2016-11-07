@@ -34,8 +34,8 @@ public class EditCommand extends Command {
             + "Parameters to edit a task: [index] (must be a positive integer) by/ [due date]\n" + "Example: "
             + COMMAND_WORD + " 1 " + "by/ 01062016";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited: %1$s";
-    private static final String MESSAGE_UNDO_SUCCESS = "Undid edit: %1$s into %2%s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited: %1$s into %2$s";
+    private static final String MESSAGE_UNDO_SUCCESS = "Undid edit: %1$s into %2$s";
     
     public static final HashMap<String, Integer> EDIT_PARAMETER_PASSING_MASK = new HashMap<String, Integer>();
     static {
@@ -96,7 +96,7 @@ public class EditCommand extends Command {
             duration = "";
         }
        
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1).getName())
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskStore.getName(), editedTask.getName())
                 + "\n" + duration);
     }
     
@@ -122,6 +122,6 @@ public class EditCommand extends Command {
   //@@author A0127855W
     @Override
     public String getUndoMessage(){
-        return String.format(MESSAGE_UNDO_SUCCESS, taskStore, editedTask);
+        return String.format(MESSAGE_UNDO_SUCCESS, taskStore.getName(), editedTask.getName());
     }
 }
