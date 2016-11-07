@@ -97,6 +97,7 @@ public class EditCommand extends Command {
             }
             logger.info("New edited task: " + toEdit.getAsText());
             model.editTask(taskToEdit, toEdit);
+            model.updateToDefaultList();
             model.storeCommandInfo(COMMAND_WORD, commandText, toEdit, taskToEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

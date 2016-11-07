@@ -142,6 +142,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
             commandBox.runCommand(taskToEdit.getEditCommand(index, category));
         }
 
+        commandBox.runViewAllCommand();
         //confirm the new card contains the right data
         TaskCardHandle editedCard = taskListPanel.navigateToTask(taskToEdit.getName().fullName, 
                 taskToEdit.getPeriod().getNumArgs());
