@@ -3,10 +3,11 @@
 The sample data `SampleData.xml` can be used for manual testing.
 
 ## Loading of sample data
-1. Download ggist.jar from our release.
-2. Run ggist.jar and exit
-3. Type `save SampleData.xml`
-3. Delete `./data/SampleData.xml` in the subdirectory folder
+1. Download `ggist.jar` from our release.
+2. Run `ggist.jar`
+3. Type `save SampleData.xml` in the command box
+4. Exit the program
+5. Delete `SampleData.xml` in the `./data` subdirectory folder located where you saved the `ggist.jar` file
 6. Download and copy `SampleData.xml` to the `./data/` subdirectory folder
 7. Run ggist.jar again
 8. Sample data is loaded
@@ -88,6 +89,13 @@ Command | Expected Results |
 `save ggist.xml` | The save file name will be changed. <br> The bottom of the window will also reflect `./data/ggist.xml`
 `save <FILE_LOCATION>` | All save data will be relocated to the specified file directory.<br> The default save file name is ggist.xml.<br> The bottom of the window will also reflect `/<FILE_LOCATION>/ggist.xml`
 `save data` | All save data will be relocated back to the default data subdirectory.<br> The default save file name is ggist.xml.<br> The bottom of the window will also reflect `./data/ggist.xml`
+
+
+## To view commands available: `help` command
+
+Command | Expected Results |
+------- | :--------------
+`help` | The help window will appear showing you a command cheatsheet
 
 ## To remove all tasks: `clear` command
 Command | Expected Results |
