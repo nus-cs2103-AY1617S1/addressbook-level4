@@ -341,7 +341,7 @@ Format: `exit`
 ## 4. Command Summary
 
 <br>
-For easy reference, the table below lists all commands and their corresponding default command formats.
+For easy reference, the table below lists all commands and their corresponding command formats.
 <br>
 
 |Command|Format            |
