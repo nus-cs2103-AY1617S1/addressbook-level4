@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
 import javafx.scene.control.ListCell;
-import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.ui.ActivityCard;
 
 public class ActivityListViewCell extends ListCell<ReadOnlyActivity>{
 

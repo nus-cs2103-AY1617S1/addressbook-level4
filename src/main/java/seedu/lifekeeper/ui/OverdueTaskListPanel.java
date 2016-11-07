@@ -21,7 +21,7 @@ public class OverdueTaskListPanel extends ListPanel {
 	 * Panel containing the list of persons.
 	 */
 	private final Logger logger = LogsCenter.getLogger(ActivityListPanel.class);
-	private static final String FXML = "ActivityListPanel.fxml";
+	private static final String FXML = "OverdueTaskListPanel.fxml";
 	private VBox panel;
 	private AnchorPane placeHolderPane;
 
@@ -37,7 +37,7 @@ public class OverdueTaskListPanel extends ListPanel {
 	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
 			ObservableList<ReadOnlyActivity> activityList) {
 		OverdueTaskListPanel overdueListPanel = UiPartLoader.loadUiPart(primaryStage, personListPlaceholder,
-				new ActivityListPanel());
+				new OverdueTaskListPanel());
 		overdueListPanel.configure(activityList);
 		return overdueListPanel;
 	}

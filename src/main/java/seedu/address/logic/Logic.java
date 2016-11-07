@@ -1,9 +1,8 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.logic.commands.CommandResult;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 
 /**
  * API of the Logic component
@@ -22,7 +21,4 @@ public interface Logic {
     /** Returns the filtered list of overdue tasks */
     ObservableList<ReadOnlyActivity> getFilteredOverdueTaskList();
     
-    /** Returns the filtered list of upcoming tasks and events */
-    ObservableList<ReadOnlyActivity> getFilteredUpcomingList();
-
 }

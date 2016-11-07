@@ -8,10 +8,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.commons.core.LogsCenter;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
+import seedu.lifekeeper.ui.ListPanel;
+import seedu.lifekeeper.ui.UiPartLoader;
 
 /**
  * Panel containing the list of tasks that are already Overdue.
@@ -33,15 +34,6 @@ public class OverdueTaskListPanel extends ListPanel {
 	    }
 
 	// Functions specific to OverdueListPanel ---------------------------------------------
-	
-    private void setEventHandlerForSelectionChangeEvent() {
-        this.activityListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
-            }
-        });
-    }
     
     /**
      * 

@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
-import seedu.address.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.model.activity.ReadOnlyActivity;
+import seedu.lifekeeper.ui.DashboardCard;
 import seedu.address.ui.ActivityListViewCell;
 
 /**
