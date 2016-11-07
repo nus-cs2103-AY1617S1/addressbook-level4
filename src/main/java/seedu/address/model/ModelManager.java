@@ -382,7 +382,7 @@ public class ModelManager extends ComponentManager implements Model {
             if (this.deadline == null)
                 return true;
 
-            if (task.getTaskReference().getTaskType().equals(TaskType.FLOATING))
+            if (!task.getEndDate().isPresent())
                 return false;
 
             Date deadline = new Date(task.getEndDate().getDateInLong());

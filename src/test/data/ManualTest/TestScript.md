@@ -80,7 +80,7 @@
 ## 2. Block Command
 ------
 ### 2.1 Block a time slot
-> **Command:** `block from tomorrow 4pm to 6pm t/meeting`<br>
+> **Command:** `block from tomorrow 4pm to 5pm t/meeting`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
     `Timeslot blocked: BLOCKED SLOT Tags: [meeting]
@@ -89,7 +89,7 @@
  - Note: brown background for a blocked slot.
  
 ### 2.2 Verifies blocked slot
-> **Command:** `add afternoon tea from tomorrow 5.30pm to 6.30pm`<br>
+> **Command:** `add afternoon tea from tomorrow 4.00pm to 5.30pm`<br>
 > **Result:**<br>
  - Result display panel posts warning message:<br>
     `This timeslot is already blocked or overlapped with existing tasks.`
@@ -235,7 +235,7 @@
  
 #### 6.2.2 Edit the time slot for a recurring task with recurring period specified
 > **Before:** `find civ`<br>
-> **Command:** `edit 7 from 9 nov 10pm to 10.30pm`<br>
+> **Command:** `edit 7 from 9 nov 11pm to 11.30pm`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
     `Edit Task: read civ encyclopedia Tags: 
