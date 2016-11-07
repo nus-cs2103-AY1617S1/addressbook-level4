@@ -102,7 +102,7 @@ public class ItemCard extends UiPart{
         String endFromNowText = "";
         Date endFromNowDate;
         PrettyTime p = new PrettyTime();
-        if (item.getItemType().value.equals(ItemType.EVENT_WORD)) {
+        if (item.getItemType().isEvent()) {
             endFromNowDate = item.getEndDateTime();
             endFromNowText = p.format(endFromNowDate);
             if (item.isInProgress()) {
@@ -111,8 +111,10 @@ public class ItemCard extends UiPart{
             } else if (item.isPastDeadline()) {
                 endFromNow.setText("Ended " + endFromNowText);
                 endFromNow.setStyle("-fx-text-fill: #898989");
+            } else {
+                endFromNow.setText("Ends " + endFromNowText);
             }
-        } else if (item.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
+        } else if (item.getItemType().isDeadline()) {
             endFromNowDate = item.getEndDateTime();
             endFromNowText = p.format(endFromNowDate);
             if (item.isPastDeadline()) { // Past Deadline
@@ -121,7 +123,9 @@ public class ItemCard extends UiPart{
             } else if (item.isNearDeadline()) { // 24 Hours Before End Date
                 endFromNow.setText("Ends " + endFromNowText);
                 endFromNow.setStyle("-fx-text-fill: #ff8300");
-            } 
+            } else { 
+                endFromNow.setText("Ends " + endFromNowText);
+            }
         } else { 
             endFromNow.setText(endFromNowText);
         }
