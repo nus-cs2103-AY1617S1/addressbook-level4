@@ -38,6 +38,8 @@ public class StartTime extends DateTime {
                 date = recur[1];
             }
             this.value= DateUtil.setDate(date);
+            if(recurring && this.value.before(Calendar.getInstance()))
+                this.value.add(Calendar.DAY_OF_MONTH, 7);
         }
 
     }

@@ -56,16 +56,24 @@ public class Event extends Activity implements ReadOnlyEvent{
      */
     @Override
     public boolean isOngoing() {
+        System.out.println("Start time: " + startTime.toString());
+        System.out.println("End time: " + endTime.toString());
         return startTime.isBeforeNow() && endTime.isAfterNow();
     }
 
     /**
-     * Checks if this event is over.
+     * Checks if this event is over. Returns false for recurring tasks.
      * @return true if the current time is after the end time.
      */
     @Override
     public boolean isOver() {
-        return endTime.isBeforeNow();
+        if (this.startTime.recurring) {
+            checkrecurring();
+            return false;
+        }
+        
+        this.isCompleted = endTime.isBeforeNow();
+        return this.isCompleted;
     }
     
     @Override
@@ -108,7 +116,7 @@ public class Event extends Activity implements ReadOnlyEvent{
     }
     
     private void checkrecurring() {
-        if(this.getStartTime().value.before(Calendar.getInstance())){
+        if(this.getEndTime().value.before(Calendar.getInstance())){
         if(this.getStartTime().RecurringMessage.contains("sun")||this.getStartTime().RecurringMessage.contains("mon")||this.getStartTime().RecurringMessage.contains("tue")||this.getStartTime().RecurringMessage.contains("wed")||this.getStartTime().RecurringMessage.contains("thu")||this.getStartTime().RecurringMessage.contains("fri")||this.getStartTime().RecurringMessage.contains("sat")){
             this.getStartTime().value.add(Calendar.DAY_OF_WEEK, 7);
             this.getEndTime().value.add(Calendar.DAY_OF_WEEK, 7);
