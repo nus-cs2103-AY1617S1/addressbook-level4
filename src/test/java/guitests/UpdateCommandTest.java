@@ -1,18 +1,19 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
-import static org.junit.Assert.assertTrue;
+
+import static org.junit.Assert.*;
 import static seedu.task.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 
 import org.junit.Test;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.UpdateCommand;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.*;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.TypicalTestTasks;
 
 public class UpdateCommandTest extends TaskManagerGuiTest {
 	@Test
@@ -21,17 +22,17 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         int targetIndex = 1;
         
         // update first task with details that will put it to the back
-        assertUpdateSuccess(targetIndex, currentList.length, td.ida, currentList);
+        assertUpdateSuccess(targetIndex, currentList.length, TypicalTestTasks.ida, currentList);
 
         currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, currentList.length - 1);
-        currentList = TestUtil.replaceTaskFromList(currentList, td.ida, currentList.length - 1);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.ida, currentList.length - 1);
         targetIndex = currentList.length;
         
         // update last task with details that will put it to the front
-        assertUpdateSuccess(targetIndex, 1, td.first, currentList);
+        assertUpdateSuccess(targetIndex, 1, TypicalTestTasks.first, currentList);
         
         currentList = TestUtil.moveTaskInList(currentList, targetIndex - 1, 0);
-        currentList = TestUtil.replaceTaskFromList(currentList, td.first, 0);
+        currentList = TestUtil.replaceTaskFromList(currentList, TypicalTestTasks.first, 0);
         targetIndex = 1;
 
         // add new tags
@@ -43,35 +44,21 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         // remove existing tags
         commandBox.runCommand("update " + targetIndex + " remove-tag urgent");
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getTags().contains(tagToAdd));
-        
-        // modify open time
-        commandBox.runCommand("update " + targetIndex + " starts 30 minutes later");
-        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex-1);
-        TestTask expectedTask = currentList[targetIndex - 1];
-        expectedTask.setOpenTime(DateTime.fromUserInput("30 minutes later"));
-        assertMatching(expectedTask, updatedCard);
-        
-        // modify close time
-        commandBox.runCommand("update " + targetIndex + " ends 8 hours from now");
-        updatedCard = taskListPanel.navigateToTask(targetIndex-1);
-        expectedTask = currentList[targetIndex - 1];
-        expectedTask.setCloseTime(DateTime.fromUserInput("8 hours from now"));
-        assertMatching(expectedTask, updatedCard);
+        assertFalse(newTask.getTags().contains(tagToAdd));
         
         // update with no changes
         targetIndex = 4;
         commandBox.runCommand("update " + targetIndex);
-        updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
-        assertMatching(td.fiona, updatedCard);
+        TaskCardHandle updatedCard = taskListPanel.navigateToTask(targetIndex - 1);
+        assertMatching(TypicalTestTasks.fiona, updatedCard);
         
         // update own task without changing name
         targetIndex = 3;
-        commandBox.runCommand("update " + targetIndex + " name"+ td.carl.getArgs());
+        commandBox.runCommand("update " + targetIndex + " name"+ TypicalTestTasks.carl.getArgs());
         assertTrue(taskListPanel.isListMatching(currentList));
         
         // invalid index
-        commandBox.runCommand("update " + (currentList.length+1) + " name"+ td.ida.getArgs());
+        commandBox.runCommand("update " + (currentList.length+1) + " name"+ TypicalTestTasks.ida.getArgs());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(taskListPanel.isListMatching(currentList));
         

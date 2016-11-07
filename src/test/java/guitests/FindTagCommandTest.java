@@ -1,3 +1,4 @@
+//@@author A0141052Y
 package guitests;
 
 import org.junit.Test;
@@ -8,31 +9,31 @@ import seedu.task.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskManagerGuiTest {
+public class FindTagCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", TypicalTestTasks.daniel, TypicalTestTasks.laundry); //multiple results
+    public void findTagNonEmptyList() {
+        assertFindTagResult("find-tag notimportant");
+        assertFindTagResult("find-tag friends", TypicalTestTasks.cs2103, TypicalTestTasks.carl);
 
-        //find after deleting one result
+        // Find a tag after deletion
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier", TypicalTestTasks.laundry);
+        assertFindTagResult("find-tag friends", TypicalTestTasks.carl);
     }
 
     @Test
-    public void find_emptyList(){
+    public void findTagEmptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindTagResult("find-tag friend");
     }
 
     @Test
-    public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+    public void findInvalidCommand() {
+        commandBox.runCommand("find-tagworld");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindTagResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

@@ -10,8 +10,9 @@
   * [Uncomplete](#unmarking-a-completed-task-as-not-completed-uncomplete)
   * [Pin](#pin-a-task-as-important-pin)
   * [Unpin](#unpin-a-pinned-task-unpin)
-  * [List](#listing-all-tasks--list)
+  * [List](#listing--list-allpinnedpendingcompletedoverdue)
   * [Find](#finding-all-tasks-and-events-containing-keyword-in-their-name--find)
+  * [Find By Tags](#finding-all-tasks-by-tag-name--find)
   * [Search Box](#activate-real-time-search-searchbox)
   * [Undo](#undo-action--undo)
   * [Help](#viewing-help--help)
@@ -23,7 +24,7 @@
 <!-- @@author A0153467Y -->
 ## Introduction
 
-Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forget your schedule? MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid of forgetting your tasks anymore! You can easily use MESS by typing in one line of command. MESS can be used offline and even in your office computer. It helps you manage and organise your tasks and so as your time. 
+Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forgotten your schedule? If so, MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to be afraid of forgetting your tasks anymore! You can easily use MESS through your keyboard by typing only simple and short commands. MESS can be used offline and even on your office computer. It helps you manage and organise both your tasks and your time.
 
 Want to use MESS immediately? Let's get started!
 <!-- @@author -->
@@ -32,7 +33,7 @@ Want to use MESS immediately? Let's get started!
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+
 1. Download the latest `MESS.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your to-do list.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -66,18 +67,19 @@ Want to use MESS immediately? Let's get started!
 * Words in `UPPER_CASE` are the parameters.
 * Words in `SQUARE_BRACKET` are optional.
 <!-- @@author A0144939R -->
- 
+
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs NUMBER_OF_WEEKLY_RECURRING_TASK]`
+Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
+
+> Use ISO date-time format if you wish to type exact date. e.g. 2016/9/1 represents 1st September 2016
 
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Multiple tags are available by typing `tag TAG tag TAG`.
-* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 Examples:
 * `add proposal ends tomorrow` <br> Adds a proposal task with a deadline 24 hours from now
@@ -85,7 +87,7 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
-* `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
+* `add test starts 9/1 2pm ends 9/1 3pm ` <br> Adds a task starts on 1 September 2pm and ends on 1 September 3pm
 
 
 #### Aliasing a command: `alias`
@@ -115,7 +117,7 @@ Format: `delete INDEX`
 Examples:
 * `delete 1`<br>
   Deletes the first task in the to-do list.
-  
+
 <!-- @@author A0144939R-->
 #### Update entries : `update`
 Update a specific task.<br>
@@ -125,7 +127,7 @@ Format: `update INDEX [name TASKNAME starts STARTDATETIME ends ENDDATETIME tag T
 > * The task name is optional, but needs to be preceded by name
 > * The TAG here will be added to the referred task and the original tag remains. If you want to delete a tag, use `remove-tag TO_REMOVE_TAG` to delete tag by name.
 > * TO_REMOVE_TAG refers to the tag (or tags) that you want to be removed by typing the tags' name that you want to delete.
-> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information. 
+> * You can choose what to update. It depends on you whether you want to update only one information or update multiple information.
 
 Examples:
 * `update 2 name shopping ends 9pm`<br>
@@ -136,10 +138,10 @@ Examples:
 
 * `update 3 ends three hours later` <br>
   update the task name of the third task on the list to a deadline three hours after you type this command
-  
+
 * `update 2 tag family remove-tag friends` <br>  
    add a tag family to the second task and remove the tag named friends
-   
+
 <!-- @@author -->
 
 <!-- @@author A0153467Y-->
@@ -154,7 +156,7 @@ Format: `complete INDEX`
 Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
-   
+
 #### Unmarking a completed task as not completed: `uncomplete`
 Unmarks a completed specific task as not completed by index from the to-do list.<br>
 Format: `uncomplete INDEX`
@@ -164,7 +166,7 @@ Format: `uncomplete INDEX`
 Example:
 * `uncomplete 2`<br>
    Unmarks the completed second task on the list as not completed.
-   
+
 #### Pin a task as important: `pin`
 Pin an important task.<br>
 Format: `pin INDEX`
@@ -185,12 +187,20 @@ Format: `unpin INDEX`
 
 Example:
 * `unpin 1`<br>
-unpin the pinned and first task on the list. 
+unpin the pinned and first task on the list.
 <!-- @@author -->
 
-#### Listing all tasks : `list`
+#### Listing : `list (all/pinned/pending/completed/overdue)`
 Shows a list of tasks and events in the todo list.<br>
-Format: `list`
+Format: `list (all/pinned/pending/completed/overdue)`
+
+> * Choose one of the words in the round bracket
+
+`list all`: List out all the task in the list<br>
+`list pinned`: List only pinned task<br>
+`list pending`: List tasks which are still pending<br>
+`list completed`: List tasks which are marked as completed<br>
+`list overdue`: List tasks which are already due<br>
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords including substring.<br>
@@ -205,11 +215,19 @@ Format: `find KEYWORD`
 
 Examples:
 * `find meeting`<br>
-  Returns tasks having name or substring `meeting` 
+  Returns tasks having name or substring `meeting`
 * `find cs2103`<br>
   Returns tasks having name or substring `cs2103`
 
 <!-- @@author A0141052Y -->
+#### Finding all tasks by tag name: `find-tag`
+Finds tasks that contains all given tags.
+Format: `find-tag TAG_NAME`
+
+> * The search is case sensitive e.g. `urgent` will not match `URGENT`
+> * Tasks must match all keywords (i.e. `AND` search).
+  e.g. `urgent task` will only match tasks with both `urgent` and `task` tags
+
 #### Activate real time search: `searchbox`
 Activates the real time search, which is located in the same input box used to input commands.<br/>
 Format: `searchbox`
@@ -240,32 +258,31 @@ There is no need to save manually.
 #### Change storage location : `change-to`
 Shows a list of tasks and events in the todo list.<br>
 Format: `change-to NEWFILEPATH`
-Example: 
+Example:
 * `change-to data/taskmanager.xml`
 
 <!-- @@author -->
 #### Exiting the program : `exit`
 Exits the program.<br>
-Format: `exit` 
+Format: `exit`
 
 <!-- @@author A0153467Y -->
 ## FAQ
 **Q**: Can I add event which have a start date and time to my to-do list ?<br>
 
 **A**: Yes, you can create an event by typing command with a start and end date. For example, you have a trip from 10/10/2016 8:00 to 13/10/2016 21:00. You can type command like this: `add trip starts 8am 10th October ends 9pm 13th October`.
-       
+
 **Q**: If I don't know the deadline of my task yet, can I still add my task?<br>
 
 **A**: Yes, you can still add your task. You can create a floating task by only type in command `add TASK_NAME` if you don't know the deadline of your task.
 
 <img src="images/MESS_004.png" width="600"><br>
 
-In this example, you can see shopping is a floating task without a start time and end time. 
+In this example, you can see shopping is a floating task without a start time and end time.
 
 **Q**: What can I do if I forget those commands?<br>
 
 **A**: You can use the help command or click help tab on the top which will give you a list of command summary. Even if you type the wrong command format, MESS will show you the correct command hints.
-
 <!-- @@author -->  	
 
 ## Command Summary
@@ -277,8 +294,9 @@ Alias | `alias add a`
 Delete |`delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
-List | `list`
+List | `list (all/pinned/pending/completed/overdue)`
 Find | `find KEYWORD`
+Find tag | `find-tag TAG [MORE_TAG]`
 Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
 Pin | `pin INDEX`
