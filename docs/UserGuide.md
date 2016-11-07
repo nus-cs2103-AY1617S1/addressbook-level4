@@ -64,8 +64,10 @@ Field Type Constraints:<br>
 
 
 #### Listing all tasks : `list`
-Shows a list of all tasks in the task list.<br>
-Format: `list`
+Shows a list of all tasks done or not done in the task list.<br>
+Format: `list [done]`
+* `list` shows all tasks not done
+* `list done` shows all tasks done
 
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose descriptions contain any of the given keywords.<br>
