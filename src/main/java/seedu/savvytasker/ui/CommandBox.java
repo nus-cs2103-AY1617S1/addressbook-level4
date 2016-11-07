@@ -63,6 +63,8 @@ public class CommandBox extends UiPart {
 	KeyCombination listPriorityKey = new KeyCodeCombination(KeyCode.P, KeyCombination.META_DOWN);
 	KeyCombination listAliasKey = new KeyCodeCombination(KeyCode.I, KeyCombination.META_DOWN);
 	KeyCombination clearKey = new KeyCodeCombination(KeyCode.D, KeyCombination.META_DOWN);
+	KeyCombination leftKey = new KeyCodeCombination(KeyCode.LEFT, KeyCombination.META_DOWN);
+	KeyCombination rightKey = new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.META_DOWN);
     
     // stack to store commands history
  	private static Stack<String> COMMAND_HISTORY_STACK = new Stack<String>();
@@ -190,11 +192,11 @@ public class CommandBox extends UiPart {
 				
 				processDown(userInput);
 				
-			} else if (keyCode == KeyCode.LEFT) {
+			} else if (leftKey.match(keyEvent)) {
 
 				processDate(-1);
 				
-			} else if (keyCode == KeyCode.RIGHT) {
+			} else if (rightKey.match(keyEvent)) {
 				
 				processDate(1);
 				

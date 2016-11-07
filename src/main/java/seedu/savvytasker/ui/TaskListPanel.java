@@ -62,7 +62,6 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
-        taskListView.setStyle("-fx-background-color: transparent");
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
