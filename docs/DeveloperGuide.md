@@ -92,7 +92,7 @@ being saved to the hard disk. <br>
   coupling between components.
 
 The sections below give more details of each component.
-
+<!-- @@author A0147890U -->
 ### UI component
 
 <img src="images/UIClassDiagram_f.png" width="800"><br>
@@ -112,7 +112,7 @@ The `UI` component:
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
-
+<!-- @@author A0138993L -->
 ### Logic component
 
 <img src="images/LogicClassDiagram_f.png" width="800"><br>
@@ -127,7 +127,7 @@ The `UI` component:
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete E1")`
  API call.<br>
 <img src="images/DeleteTaskSdForLogic_f.png" width="800"><br>
-
+<!-- @@author A0139430L -->
 ### Model component
 
 <img src="images/ModelClassDiagram_f.png" width="800"><br>
@@ -141,7 +141,7 @@ The `Model`:
   so that the UI automatically updates when the data in the list changes.
 
 > Note that `Model` does not depend on any of the other three components.
-
+<!-- @@author A0135722L -->
 ### Storage component
 
 <img src="images/StorageClassDiagram_f.png" width="800"><br>
