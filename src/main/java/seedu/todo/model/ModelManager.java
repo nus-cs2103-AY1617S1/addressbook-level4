@@ -39,6 +39,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> weekTasks; //for weekly summary list
     private final FilteredList<Tag> tagList;
     
+    private PredicateExpression pe;
+    
     //@@author A0138967J
     /**
      * Initializes a ModelManager with the given ToDoList
@@ -57,6 +59,8 @@ public class ModelManager extends ComponentManager implements Model {
         weekTasks = new FilteredList<>(dodobird.getTasks());
         tagList = new FilteredList<>(dodobird.getTags());
         
+        pe =  new PredicateExpression(new CompletedQualifier(false));
+                
         updateFilteredListToShowAllNotCompleted();
         updateTodayListToShowAll();
         updateWeekListToShowAll();
@@ -151,6 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(tagList);
     } 
     
+    //=========== Filtered Task List Update methods ==========================================================
+    
     //@@author A0138967J
     @Override
     public void updateTodayListToShowAll() {
@@ -228,11 +234,29 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListTodayDate(LocalDateTime datetime){
         updateFilteredTaskList(new PredicateExpression(new TodayDateQualifier(datetime)));
     }
+    
+    //@@author A0093896H
+    /**
+     * Use this method to refresh the current filtered tasks list.
+     * 
+     * This method is applicable to commands that updates the tasks in the filtered task list
+     * Because the filtered task list have the same task, the UI will not automatically update
+     * Therefore need to force the update using this method.
+     */
+    @Override
+    public void refreshCurrentFilteredTaskList() {
+        PredicateExpression current = pe;
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); // force change
+        updateFilteredTaskList(current);
+    }
+    
+    private void updateFilteredTaskList(PredicateExpression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
+        pe = expression;
+    }
     //@@author
     
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
+    //=========== Event handling for Filtered Task List ===================================================
     
     //@@author A0142421X
     @Subscribe
@@ -242,11 +266,11 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Subscribe
     private void handleSummaryPanelSelectionEvent(SummaryPanelSelectionEvent spse) {
-        filteredTasks.setPredicate((new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())))::satisfies);
+        updateFilteredTaskList(new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())));
     }
     
     @Subscribe
     private void handleWeekSummaryPanelSelectionEvent(WeekSummaryPanelSelectionEvent wspse) {
-        filteredTasks.setPredicate((new PredicateExpression(new WeekDateQualifier(LocalDateTime.now())))::satisfies);
+        updateFilteredTaskList(new PredicateExpression(new WeekDateQualifier(LocalDateTime.now())));
     }
 }
