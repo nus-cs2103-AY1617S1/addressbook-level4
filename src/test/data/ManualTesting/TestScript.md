@@ -8,7 +8,7 @@
 
 ## Script
 ### 1. Add Command
-* Add a floating task: `add buy coffee`
+* Add a floating task: `add buy coffee`<br>
 > adds floating task with name: buy coffee, priority set as default (1) and all other fields: nil.
 * Add an event task: `add nus hackathon s/saturday d/sunday`
 * Add a deadline task: `add CS2103 tutorial d/tomorrow`
@@ -16,7 +16,7 @@
 * Add a full task with a different order: `add write letter d/friday s/thursday t/tomorrow p/2`
 * Add a task with optional parameters: `add clean room a/home`
 
-### 2. 
+### 2. List Command
 
 
 
