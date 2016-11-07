@@ -18,5 +18,8 @@
 
 #### Acknowledgements
 
+The application is based off a sample project created by created by the SE-EDU initiative
+at <a href="https://github.com/se-edu/">https://github.com/se-edu/</a>.
+
 
 #### Licence : [MIT](LICENSE)
