@@ -100,7 +100,7 @@ The `UI` component has 3 main responsibilities:
 * Binding itself to data in the `Model` so that the UI can auto-update when the data changes.
 * Responding to events raised from various parts of OneLine and updating the UI accordingly.
 
-//@@author A1040156R
+//@@author A0140156R
 ### Logic component  
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
