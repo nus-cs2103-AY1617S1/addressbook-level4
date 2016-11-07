@@ -85,7 +85,7 @@ We are a team based in the [School of Computing, National University of Singapor
     * Documentation
 * Features implemented:
     * `tag` / `untag` controller
-* Code written: [[functional code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/main/A0139922Yunused.md)][[test code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/docs/A0139922Y.md)][[docs](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/test/A0139922Yunused.md)]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/main/A0139922Yunused.md)][[test code](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/test/A0139922Yunused.md)][[docs](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/collated/docs/A0139922Y.md)]
 * Other major contributions:
     * [Documentation for use cases](https://github.com/CS2103AUG2016-F11-C1/main/blob/master/docs/DeveloperGuide.md#appendix-b--use-cases)
 
