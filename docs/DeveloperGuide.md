@@ -194,7 +194,7 @@ The `UI` component
 
 > <img src="DeveloperGuideImages/Logic.png" width="600">
 
-According to Figure 5, the diagram shows the how each component of the `Logic` communicates with each other. Notice how each command class extends the extract class `Command`.
+According to Figure 5, the diagram shows how each component of the `Logic` component communicates with each other. Notice how each command class extends the extract class `Command`.
 
 The `Logic` component consists of the Parser class which is responsible to taking in the inputs from the `UI` component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. `LogicManager` will then execute the command.
 
