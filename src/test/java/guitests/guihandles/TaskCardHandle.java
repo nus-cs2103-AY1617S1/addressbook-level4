@@ -43,7 +43,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isRecurring() {
-        return getTextFromLabel(RECURRING_FIELD_ID).equals("recurring");
+        return getTextFromLabel(RECURRING_FIELD_ID).equals("Recurring: ");
     }
 
     public boolean isSameTask(ReadOnlyTask task) {
