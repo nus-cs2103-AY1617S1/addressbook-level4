@@ -89,7 +89,7 @@ public class EditTagCommandTest extends LogicTestManager {
         model.resetData(taskBookWithTag);
         expected = taskBookWithNewTagAndColor;
         assertCommandBehavior("edit #Tag #NewTag blue",
-                "Category updated: Tag renamed to NewTag, color updated to blue",
+                "Category updated: Tag color updated to blue, renamed to NewTag",
                 expected, expected.getTaskList());
         // Testing combination (1C) (2D) (3D)
         model.resetData(taskBookWithTag);
