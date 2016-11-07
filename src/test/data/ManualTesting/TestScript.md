@@ -266,9 +266,14 @@ Note: The examples of the delete command will be printed in as well. <br>
 	<li>In the result display box, directly below the command box, there will be a message pritned<br>
 	"There are not so many tasks available to redo"</li></ol>
 <ol><li>Type: List anything</li>
-	<li>Expected result: It is not accepted as the command format is wrong.</li>
-<ol><li>Type: undo 2000</li>
-	<li>Expected result: It is not accepted as there are not so many things to be undo.</li>
+	<li>Expected result: It is not accepted as the command format is not in the right format.</li>
 	<li>In the result display box, directly below the command box, there will be a message pritned<br>
 	"Invalid command format."</li></ol>
 Note: The correct command examples will be listed in the results display window.
+<ol><li>Type: storage myfile</li>
+	<li>Expected result: It is not accpeted as the command is not in the right format.</li>
+	<li>In the result display box, directly below the command box, there will be a message pritned<br>
+	"Please enter a valid file path"</li></ol>
+	
+--------------------------
+## End of manual testing
