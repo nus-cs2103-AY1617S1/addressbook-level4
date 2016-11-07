@@ -5,18 +5,21 @@ import java.util.Date;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
-    private static final String EMPTY_FIELD = " - ";
     
+    private static final String ICON = "/images/savvytasker-icon.png";
+	private static final Image OVERDUE_IMAGE = new Image(MainWindow.class.getResourceAsStream(ICON));
+	
     public static final String LOW_PRIORITY_BACKGROUND = "-fx-background-color:#CEFFDC";
     public static final String MEDIUM_PRIORITY_BACKGROUND = "-fx-background-color:#FFFED8";
     public static final String HIGH_PRIORITY_BACKGROUND = "-fx-background-color:#FF8180";
-
+        
     @FXML
     private HBox cardPane;
     @FXML
