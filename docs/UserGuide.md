@@ -96,6 +96,7 @@ Format: `block [Description] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `block for cs2103 project from/ 5pm to/ 7pm`<br>
+//@@author
 
 //@@author A0127855W
 #### Find free time slots: `gap`
@@ -156,6 +157,7 @@ Examples:
   Edits the start and end times of the specified event.
 //@@author
 
+//@@author A0138455Y
 #### Mark a task as complete : `mark`
 #### Shortcut : `m`
 Mark an existing task to complete and move it to the bottom of the list.<br>
@@ -168,7 +170,6 @@ Format: `mark [index]`
 Examples: 
 * `mark 5`<br>	
 
-//@@author A0138455Y
 #### Mark a task as complete : `unmark`
 #### Shortcut : `u`
 Mark an existing task to complete and move it to the bottom of the list.<br>
@@ -180,6 +181,7 @@ Format: `unmark [index]`
 
 Examples: 
 * `unmark 5`<br>
+//@@author
 
 //@@author A0127686R
 #### Finding a task or an event containing any keyword in their title: `find`
@@ -223,17 +225,7 @@ Format: `list <filter>`
 
 Examples: 
 * `list next month` <br>
-  Returns a list of next month's tasks and events
-  
-#### Select a particular task/event: `select`
-#### Shortcut : `s`
-Selects a particular task/event on the task/event list.<br>
-Format: `select [index]`
-
-> Select the taks/event at the specified `index`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-* `block for cs2103 project from/ 5pm to/ 7pm`<br>	
+  Returns a list of next month's tasks and events	
 
 #### Undo operations : `undo`
 #### Shortcut : `un`
@@ -261,7 +253,8 @@ Examples:
 
 Limitation: This feature Only allow user to change storage path within the FlexiTrack folder.
 
-> [path] can only contains alphanumeric, forward slash '/' and underscore '_'. 
+> [path] can only contains alphanumeric, forward slash '/' and underscore '_'.
+//@@author
 
 //@@author A0127855W
 #### Exiting the program : `exit`
