@@ -41,6 +41,7 @@ public enum TimePeriod {
         put("years", TimePeriod.YEAR);
         put("mon", TimePeriod.MONDAY);
         put("monday", TimePeriod.MONDAY);
+        put("tue", TimePeriod.TUESDAY);
         put("tues", TimePeriod.TUESDAY);
         put("tuesday", TimePeriod.TUESDAY);
         put("wed", TimePeriod.WEDNESDAY);
