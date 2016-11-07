@@ -14,27 +14,27 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/Yijiang.jpg" width="150"><br>
 **Role**: Lead Developer <br>
 
-* Components in charge of: Logic, Model 
-* Aspects/tools in charge of: Mockito, Faker, PrettytimeNLP 
+* Components in charge of: Logic, Model
+* Aspects/tools in charge of: Mockito, Faker, PrettytimeNLP
 * Features implemented:
-    * Add, delete, exit and find commands 
-    * Undo and redo 
+    * Add, delete, exit and find commands
+    * Undo and redo
 * Code written: [functional code] [test code] [docs]
 * Other major contributions:
     * Did the initial refactoring from AddressBook to Todo
-    * Refactored storage component 
-    * Designed Command and Argument subcomponents 
-    
+    * Refactored storage component
+    * Designed Command and Argument subcomponents
+
 -----
 
 #### [Govind Venugopalan](https://github.com/cricketer94) @cricketer94
 <img src="images/Govind.jpg" width="150"><br>
 **Role**: Backend Developer <br>
 
-* Components in charge of: Logic, Model 
-* Aspects/tools in charge of: Eclipse, ECl 
+* Components in charge of: Logic, Model
+* Aspects/tools in charge of: Eclipse, ECl
 * Features implemented:
-    * Edit, Clear, Complete, Pinning 
+    * Edit, Clear, Complete, Pinning
     * Views and Showing of TodoList tasks
 * Code written: [functional code] [test code] [docs]
 * Other major contributions:
@@ -47,7 +47,17 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Li Kai](https://github.com/li-kai) @li-kai
 <img src="images/Likai.jpg" width="150"><br>
 **Role**: Backend Developer <br>
-**Responsibilities**: Database and Model Design
+
+* Components in charge of: Model, Storage
+* Aspects/tools in charge of: JAXB, Travis set-up
+* Features implemented:
+    * Smart commands
+    * Command previews
+* Code written: [functional code] [test code] [docs]
+* Other major contributions:
+    * Drawn all diagrams for documentation
+    * Peer review for most of Pull Requests
+    * Refactor CommandMap and UserPrefs
 
 -----
 
