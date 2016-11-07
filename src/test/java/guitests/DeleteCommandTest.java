@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 //@@author A0141812R
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void delete() {
