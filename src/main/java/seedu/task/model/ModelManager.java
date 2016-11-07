@@ -3,22 +3,32 @@ package seedu.task.model;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.Config;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.model.ReloadFromNewFileEvent;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.task.commons.events.storage.FilePathChangedEvent;
+import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.logic.CommandKeys.Commands;
+import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.task.DateTime;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
+import seedu.task.storage.Storage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Represents the in-memory model of the task list data. All changes to any
@@ -348,5 +358,12 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return (task.getComplete() == this.isCompleted);
         }
+    }
+    
+    //@@author A0144939R
+    @Subscribe
+    public void handleReloadFromNewFileEvent(ReloadFromNewFileEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Load from new file path requested"));
+        resetData(event.taskManager);
     }
 }
