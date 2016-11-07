@@ -68,7 +68,7 @@ public class EndTime {
 			hour = "1:";
 			break;
 		default:
-			hour = etimeArr[0] + ":";
+			hour = etimeArr[0].substring(1, 2) + ":";
 		}
 		if (Integer.parseInt(etimeArr[0]) > 11) {
 			endTime = hour + etimeArr[1] + "pm";
