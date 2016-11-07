@@ -12,13 +12,15 @@ We are a team based in the [School of Computing, National University of Singapor
     - Features implemented:
       - [Clear tasks and events] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#clearing-of-tasks) 
       - [Delete task and event] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#deleting-a-taskevent)
-      - [Mark task as completed] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-completed)
+      - [Mark task] (https://github.com/CS2103AUG2016-F09-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-completed)
     - Code written: [functional code] (../collated/main/A0121608N.md) [test code] (../collated/test/A0121608N.md) [docs] (../collated/docs/A0121608N.md)
     - Other major contributions:
       - Refactored original AddressBookLevel4 to current TaskBook
 			- [Morphing Commons Package and MainApp] (https://github.com/CS2103AUG2016-F09-C4/main/commit/41e7508a43b1531e7ad2e1a9b0821121a4621881)
 			- [Integrate Event Class] (https://github.com/CS2103AUG2016-F09-C4/main/commit/7f0c091aae1ecd6dc4d9f7b7b3c78abec583d8c6)
       - Compile V0.5 Documentation for submission
+      - [UI Window Traversal] (https://github.com/CS2103AUG2016-F09-C4/main/commit/f71e9082d9a73d3a3776c4f2f51b65254eeaf6cf)
+      - [CommandBox UI Control] (https://github.com/CS2103AUG2016-F09-C4/main/commit/e288ee0f5a75c35122b3fee0fdf392ef1e99f06d)
 			
 2. Phua Kian Ming [@daredevil999] (https://github.com/daredevil999)  
   <img src="images/Kianming.jpg" width="150">  
