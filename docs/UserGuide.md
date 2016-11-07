@@ -54,6 +54,8 @@ Not sure how to start? Do not worry, follow the steps below and sTask will be up
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;glance through the list of commands and their formats by typing<br>
 >> `help` <br><br>
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You can press "Enter" to close the Help Window.
+
 <!--@@author A0143884W-->
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.2 Adding a Task </b><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After receiving an email from Starbucks that you have won a free drink,<br>
