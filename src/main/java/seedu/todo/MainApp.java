@@ -18,9 +18,11 @@ import seedu.todo.logic.TodoDispatcher;
 import seedu.todo.logic.TodoLogic;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.logic.parser.TodoParser;
-import seedu.todo.model.*;
-import seedu.todo.storage.Storage;
-import seedu.todo.storage.StorageManager;
+import seedu.todo.model.Model;
+import seedu.todo.model.TodoModel;
+import seedu.todo.model.UserPrefs;
+import seedu.todo.storage.FixedStorage;
+import seedu.todo.storage.UserPrefsStorage;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
@@ -39,7 +41,7 @@ public class MainApp extends Application {
 
     protected Ui ui;
     protected Logic logic;
-    protected Storage storage;
+    protected FixedStorage<UserPrefs> storage;
     protected Model model;
     protected Dispatcher dispatcher; 
     protected Parser parser;
@@ -54,7 +56,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getUserPrefsFilePath());
+        storage = new UserPrefsStorage(config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -120,7 +122,7 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
-            initializedPrefs = storage.readUserPrefs();
+            initializedPrefs = storage.read();
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
@@ -132,7 +134,7 @@ public class MainApp extends Application {
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
-            storage.saveUserPrefs(initializedPrefs);
+            storage.save(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -155,7 +157,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Uncle Jim's Discount To-do List ] =============================");
         ui.stop();
         try {
-            storage.saveUserPrefs(userPrefs);
+            storage.save(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
