@@ -59,7 +59,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Aspects/tools in charge of: JavaFX, Scene Builder, TestFX
 * Features implemented:
     * Major GUI components such as `TaskCardView`, `CommandXView` and `HelpView`
-    * Tagging system: adding, renaming, removing of tags
+    * Tagging system: adding, renaming, removing of tags from tasks
 * Code written: [functional code] [test code] [docs]
 * Other major contributions:
     * Did the app sketch for GUI
