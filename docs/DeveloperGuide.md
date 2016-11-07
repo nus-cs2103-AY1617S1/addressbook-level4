@@ -815,42 +815,42 @@ Use case ends.
 
 **MSS**
 
-1. User requests to clear all tasks and events
-2. Application clears all tasks and events
-Use case ends
+1. User requests to clear all tasks and events.
+2. Application clears all tasks and events.  
+Use case ends.
 
 #### Use case: UC22 - Clear by type
 
 **MSS**
 
-1. User requests to clear by task/event.
-2. Application clears all tasks/events.
+1. User requests to clear by task/event.  
+2. Application clears all tasks/events.  
 Use case ends.
 
 **Extensions**
 
-1a. User specifies an invalid type.
-> 1a1. Application shows an error message.
+1a. User specifies an invalid type.  
+> 1a1. Application shows an error message.  
 Use case ends.
 
 #### Use case: UC23 - Clear by date
 
 **MSS**
 
-1. User requests to clear by date range.
-2. Application clears all records in the date range.
+1. User requests to clear by date range.  
+2. Application clears all records in the date range.  
 Use case ends.
 
 **Extensions**
 
 1a. User enters unparseable invalid date.
-> 1a1. Application prompts for disambiguation.
-> 1a2. User enters parseable date.
-> 1a3. Application clears all records in the date range.
+> 1a1. Application prompts for disambiguation.  
+> 1a2. User enters parseable date.  
+> 1a3. Application clears all records in the date range.  
 Use case ends.
 
-1b. There are no records in the date range.
-> 1b1. Application shows error message.
+1b. There are no records in the date range.  
+> 1b1. Application shows error message.  
 Use case ends.
 
 #### Use case: UC24 - Clear by tags
@@ -858,13 +858,13 @@ Use case ends.
 **MSS**
 
 1. User requests to clear by tag.
-2. Application clears all records with the specified tag.
+2. Application clears all records with the specified tag.  
 Use case ends.
 
 **Extensions**
 
 2a. There are no records matching the tag.
-> 2a1. Application shows error message.
+> 2a1. Application shows error message.  
 Use case ends.
 
 <!-- @@author -->
