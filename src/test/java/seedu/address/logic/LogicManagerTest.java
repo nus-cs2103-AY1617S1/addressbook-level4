@@ -46,13 +46,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyTaskManager latestSavedAddressBook;
+    private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
-        latestSavedAddressBook = new TaskManager(abce.data);
+        latestSavedTaskManager = new TaskManager(abce.data);
     }
 
     @Subscribe
@@ -69,12 +69,12 @@ public class LogicManagerTest {
   //@@author A0141812R
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile), new Config());
+        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile), new Config());
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
+        latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -104,12 +104,12 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the internal address book data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyTaskManager expectedAddressBook,
+                                       ReadOnlyTaskManager expectedTaskManager,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -120,8 +120,8 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getTaskManager());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedTaskManager, model.getTaskManager());
+        assertEquals(expectedTaskManager, latestSavedTaskManager);
     }
 
 
@@ -220,7 +220,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateAddressBook(2);
+        TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
@@ -281,7 +281,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
-        TaskManager expectedAB = helper.generateAddressBook(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
@@ -309,7 +309,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
 
-        TaskManager expectedAB = helper.generateAddressBook(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
         expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
@@ -335,7 +335,7 @@ public class LogicManagerTest {
         Task p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateAddressBook(fourPersons);
+        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
@@ -354,7 +354,7 @@ public class LogicManagerTest {
         Task p4 = helper.generatePersonWithName("KEy sduauo");
 
         List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        TaskManager expectedAB = helper.generateAddressBook(fourPersons);
+        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
@@ -373,7 +373,7 @@ public class LogicManagerTest {
         Task p1 = helper.generatePersonWithName("sduauo");
 
         List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateAddressBook(fourPersons);
+        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
@@ -440,42 +440,43 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an TaskManager with auto-generated persons.
          */
-        TaskManager generateAddressBook(int numGenerated) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        TaskManager generateTaskManager(int numGenerated) throws Exception{
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, numGenerated);
+            return taskManager;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an TaskManager based on the list of Persons given.
          */
-        TaskManager generateAddressBook(List<Task> persons) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        TaskManager generateTaskManager(List<Task> tasks) throws Exception{
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, tasks);
+            return taskManager;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Person objects to the given TaskManager
+         * @param taskManager The TaskManager to which the Persons will be added
          */
-        void addToAddressBook(TaskManager addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+            addToTaskManager(taskManager, generatePersonList(numGenerated));
         }
 
+        
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Tasks to the given TaskManager
          */
-        void addToAddressBook(TaskManager addressBook, List<Task> personsToAdd) throws Exception{
-            for(Task p: personsToAdd){
-                addressBook.addTask(p);
+        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
+                taskManager.addTask(p);
             }
         }
 
         /**
-         * Adds auto-generated Person objects to the given model
+         * Adds auto-generated Task objects to the given model
          * @param model The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
@@ -483,7 +484,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Tasks to the given model
          */
         void addToModel(Model model, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
@@ -492,7 +493,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of Tasks based on the flags.
          */
         List<Task> generatePersonList(int numGenerated) throws Exception{
             List<Task> persons = new ArrayList<>();

@@ -119,7 +119,7 @@ public class TestUtil {
     }
 
     public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
+        createDataFileWithData(generateSampleStorageTaskManager(), filePath);
     }
 
     public static <T> void createDataFileWithData(T data, String filePath) {
@@ -136,12 +136,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TaskManager generateEmptyAddressBook() {
+    public static TaskManager generateEmptyTaskManager() {
         return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
-        return new XmlSerializableTaskManager(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
+        return new XmlSerializableTaskManager(generateEmptyTaskManager());
     }
 
     /**

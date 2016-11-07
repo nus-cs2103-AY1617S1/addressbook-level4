@@ -8,7 +8,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.storage.XmlSerializableTaskManager;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.TaskManagerBuilder;
 import seedu.address.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
@@ -22,8 +22,8 @@ public class XmlUtilTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validTaskManager.xml");
+    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempTaskManager.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new TaskManager());
+        TaskManagerBuilder builder = new TaskManagerBuilder(new TaskManager());
         dataToWrite = new XmlSerializableTaskManager(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
