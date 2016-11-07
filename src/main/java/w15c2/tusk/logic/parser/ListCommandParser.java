@@ -8,14 +8,21 @@ import w15c2.tusk.logic.commands.IncorrectCommand;
 import w15c2.tusk.logic.commands.taskcommands.ListTaskCommand;
 
 //@@author A0139708W
-/*
- * Parses the list command
+/**
+ * Parses the List Command.
  */
 public class ListCommandParser extends CommandParser{
     public static final String COMMAND_WORD = ListTaskCommand.COMMAND_WORD;
     public static final String ALTERNATE_COMMAND_WORD = ListTaskCommand.ALTERNATE_COMMAND_WORD;
 
-
+    /**
+     * Prepares ListTaskComamnd, catching 
+     * IllegalValueExceptions to create an Incorrect
+     * Command instance instead.
+     * 
+     * @param arguments     Arguments of list command.
+     * @return              Prepared ListTaskCommand.
+     */
     @Override
     public Command prepareCommand(String arguments) {
         try{

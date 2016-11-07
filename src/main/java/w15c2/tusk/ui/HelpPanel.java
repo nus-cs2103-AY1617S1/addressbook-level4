@@ -17,7 +17,7 @@ import w15c2.tusk.commons.core.LogsCenter;
 import w15c2.tusk.model.HelpGuide;
 
 //@@author A0139708W
-/*
+/**
  * Help Overlay Display
 */
 public class HelpPanel extends UiPart {
@@ -34,25 +34,51 @@ public class HelpPanel extends UiPart {
     @FXML
     private Label helpLabel;
 
+    /**
+     * Empty Constructor for HelpPanel,
+     * to be used during load() method
+     */
     public HelpPanel() {
         super();
     }
-
+    
+    /**
+     * Sets pane containing HelpPanel
+     * to appropriate node, used in 
+     * UiPart.
+     */
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
     }
-
+    
+    /**
+     * Return FXML file name for UiPart loading.
+     * 
+     * @return  String representation of FXML file name.
+     */
     @Override
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    /**
+     * Set placeHolderPane to correct pane, 
+     * used in UiPart.
+     */
     @Override
     public void setPlaceholder(AnchorPane pane) {
         this.placeHolderPane = pane;
     }
-
+    
+    /**
+     * Loads Help Panel with information from a help list.
+     * 
+     * @param primaryStage          Stage containing panel.
+     * @param helpListPlaceholder   Placeholder which help list will use to display.
+     * @param helpList              List of help information which have been added.
+     * @return                      Filled help panel.
+     */
     public static HelpPanel load(Stage primaryStage, AnchorPane helpListPlaceholder,
             ObservableList<HelpGuide> helpList) {
         HelpPanel helpListPanel =
@@ -65,7 +91,13 @@ public class HelpPanel extends UiPart {
         setConnections(helpList);
         addToPlaceholder();
     }
-
+    
+    /**
+     * Set items to help table with helpList and create command and
+     * format columns.
+     * 
+     * @param helpList  list of HelpGuide to be parsed into columns.
+     */
     private void setConnections(ObservableList<HelpGuide> helpList) {
         helpListView.setItems(helpList);
         TableColumn<HelpGuide,String> commandCol = createCommandCol();
@@ -78,7 +110,11 @@ public class HelpPanel extends UiPart {
         helpLabel.setText("Help");
     }
     
-    // Create Command Column without sorting
+    /**
+     * Creates the command column, disabling sorting.
+     * 
+     * @return  Command Column with relevant command names.
+     */
     private TableColumn<HelpGuide,String> createCommandCol() {
         TableColumn<HelpGuide,String> commandCol = new TableColumn<HelpGuide,String>(COMMAND_COL_TITLE);
         commandCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("name"));
@@ -86,13 +122,18 @@ public class HelpPanel extends UiPart {
         return commandCol;
     }
     
-    // Create Format column without sorting
+    /**
+     * Creates the format column, disabling sorting.
+     * 
+     * @return  Format Column with relevant command input format information.
+     */
     private TableColumn<HelpGuide,String> createFormatCol() {
         TableColumn<HelpGuide,String> formatCol = new TableColumn<HelpGuide,String>(FORMAT_COL_TITLE);
         formatCol.setCellValueFactory(new PropertyValueFactory<HelpGuide, String>("format"));
         formatCol.setSortable(false);
         return formatCol;
     }
+    
     private void addToPlaceholder() {
         placeHolderPane.getChildren().add(panel);
 

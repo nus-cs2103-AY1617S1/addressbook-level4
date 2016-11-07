@@ -179,28 +179,34 @@ public class MainWindow extends UiPart {
         }
     }
     
-  //@@author A0139708W
-    private void setWindowMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
-    }
-  
-    public void hideHelp() {
-        helpListPanelPlaceholder.getParent().toBack();
-        helpListPanelPlaceholder.getParent().setOpacity(0);
-    }
-    
-    public void showHelp() {
-        helpListPanelPlaceholder.getParent().toFront();
-        helpListPanelPlaceholder.getParent().setOpacity(100);
-    }
-
     /*
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
+    }
+    
+  //@@author A0139708W
+    private void setWindowMinSize() {
+        primaryStage.setMinHeight(MIN_HEIGHT);
+        primaryStage.setMinWidth(MIN_WIDTH);
+    }
+    
+    /**
+     * Hides help Panel.
+     */
+    public void hideHelp() {
+        helpListPanelPlaceholder.getParent().toBack();
+        helpListPanelPlaceholder.getParent().setOpacity(0);
+    }
+    
+    /**
+     * Shows Help Panel.
+     */
+    public void showHelp() {
+        helpListPanelPlaceholder.getParent().toFront();
+        helpListPanelPlaceholder.getParent().setOpacity(100);
     }
     
     /**
@@ -241,25 +247,23 @@ public class MainWindow extends UiPart {
         complete.setStyle(INACTIVE_CSS);
         
     }
-
-    @FXML
-    public void handleHelp() {
-        showHelp();
-    }
     
+    /**
+     * Load and display alias list.
+     */
     @FXML
     public void handleAliasList() {
         AliasWindow aliasWindow = AliasWindow.load(primaryStage, logic);
         aliasWindow.show();
     }
     
-    public void taskListPanelScroll(int targetIndex) {
-        taskListPanel.scrollTo(targetIndex);
-    }
-    
     //@@author
     public void show() {
         primaryStage.show();
+    }
+    
+    public void taskListPanelScroll(int targetIndex) {
+        taskListPanel.scrollTo(targetIndex);
     }
 
     /**

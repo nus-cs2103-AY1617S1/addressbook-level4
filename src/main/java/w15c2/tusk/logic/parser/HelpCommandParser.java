@@ -18,8 +18,8 @@ public class HelpCommandParser extends CommandParser {
     /**
     * Parses arguments in the context of the find task command.
     *
-    * @param args   Arguments of help command.
-    * @return       Prepared help command.
+    * @param arguments   Arguments of help command.
+    * @return            Prepared help command.
     */
     @Override
     public Command prepareCommand(String arguments) {

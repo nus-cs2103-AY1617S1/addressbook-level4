@@ -10,9 +10,9 @@ import javafx.scene.shape.Rectangle;
 import w15c2.tusk.model.Alias;
 
 //@@author A0139708W
-/*
+/**
  * Card for alias list panel
-*/
+ */
 public class AliasCard extends UiPart{
         private static final String FXML = "AliasListCard.fxml";
 
@@ -35,9 +35,14 @@ public class AliasCard extends UiPart{
         private static final String ID_CSS = "-fx-text-fill: rgba(244, 244, 244, 1.0);";
         private static final String COMMAND_CSS = ID_CSS;
         private static final String  COLORTAG_CSS = "-fx-background-color: rgb(186, 143, 106)";
-
+        
+        /**
+         * Empty constructor for AliasCard 
+         * to use during load method.
+         */
         public AliasCard(){
         }
+        
         /**
          * Loads alias information on to an alias card.
          *  
@@ -54,6 +59,10 @@ public class AliasCard extends UiPart{
             return UiPartLoader.loadUiPart(card);
         }
         
+        /**
+         * Assigning various Alias parameters
+         * to AliasCard.
+         */
         @FXML
         public void initialize() {
             cardAlias.setText(alias.getShortcut());
@@ -66,16 +75,32 @@ public class AliasCard extends UiPart{
         	id.setStyle(ID_CSS);
         	colorTag.setStyle(COLORTAG_CSS);
         }
-
+        
+        /**
+         * Returns pane containing AliasCard
+         * for AliasViewCell.
+         * 
+         * @return  Pane containing AliasCard.
+         */
         public HBox getLayout() {
             return cardPane;
         }
-
+        
+        /**
+         * Sets pane containing AliasCard
+         * to appropriate node, used in 
+         * UiPart.
+         */
         @Override
         public void setNode(Node node) {
             cardPane = (HBox)node;
         }
-
+        
+        /**
+         * Return FXML file name for UiPart loading.
+         * 
+         * @return  String representation of FXML file name.
+         */
         @Override
         public String getFxmlPath() {
             return FXML;
