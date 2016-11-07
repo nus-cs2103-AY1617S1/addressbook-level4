@@ -284,7 +284,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | undo my last action | amend my mistakes immediately or put lost information back completely
 `* *` | user | view the tasks | take a quick glance or have my tasks presented according to my needs and preference
 `* *` | busy user | sort my tasks | rank the importance and urgency(time and date) of my activities
-`*` | advanced user | pin my tasks on a new list | remind me of tasks which requires my constant attention
+`*` | advanced user | pin my tasks on a new list | remind myself which are the tasks that require my constant attention
 `*` | advanced user | use natural language| specify my dates and time without using a fixed format
 
 {More to be added}

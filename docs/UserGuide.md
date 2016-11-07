@@ -21,7 +21,7 @@
 	 	* **`delete`** : deletes a task
 	 	* **`complete`** : marks a task as completed
 	  	* **`pin`** : pin tasks
-	 	* **`unpin`** : unpin tasks from the pinned list
+	 	* **`unpin`** : removes tasks from the pinned list
 	 	* **`undo`** : marks a task as completed	 
 	 	* **`clear`** : deletes every task on the list
 
@@ -44,6 +44,7 @@ The `STARTDATE` and `ENDDATE` field, if specified, tells the Daily Planner which
 The `STARTDATE` and `ENDDATE` field can accept natural descriptions of dates. The following are all valid dates:
 ```
 
+11/11/2016
 The 31st of April in the year 2008
 Fri, 21 Nov 1997
 Jan 21, '97
@@ -71,21 +72,15 @@ three weeks ago
 3. For tasks with only a deadline, only the `ENDTIME` has to be entered after `e/` keyword:
     * `e/ENDTTIME`
     * Example: `e/6pm`
+4. Both fields require users to specify am or pm after the number.
 
-`STARTTIME` and `ENDTIME` fields can also accept various natural desciptions:
+`STARTTIME` and `ENDTIME` fields can also accept various natural descriptions:
 
 ```
-0600h
-06:00 hours
+
 6pm
-5:30 a.m.
-5
-12:59
-23:59
-8p
-noon
-afternoon
-midnight
+8am
+
 ```
 
 
@@ -117,7 +112,7 @@ Examples:<br>
 2. `add meeting s/tomorrow 2pm e/4pm` <br>
 > Fixed task is added from 2pm to 4pm the next day<br>
 
-3. `add math homework e/tomorrow 6pm` <br>
+3. `add math homework e/11/11/2016 6pm` <br>
 > Task with a deadline is added, no date is specified so today's date is assumed<br>
 
 
@@ -268,8 +263,8 @@ Description: Clears all tasks. <br>
 
 Format: `clear` 
 
-> Clears all task from the list
-  <br>  
+> Clears all task from the list<br>
+    
 
 Examples: <br>
 ```clear```

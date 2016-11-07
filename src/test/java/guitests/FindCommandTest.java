@@ -11,23 +11,23 @@ public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find Meier", td.CS2103_Lecture, td.SoccerWithFriends); //multiple results
+        assertFindResult("find bellydancing"); //no results
+        assertFindResult("find CS2103", td.CS2103_Project, td.CS2103_Lecture); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Meier",td.SoccerWithFriends);
+        assertFindResult("find soccer", td.SoccerWithFriends);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find homework"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("find123");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

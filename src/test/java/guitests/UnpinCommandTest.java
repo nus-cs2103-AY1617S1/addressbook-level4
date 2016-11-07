@@ -4,10 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ShowCommandTest {
+public class UnpinCommandTest {
 
-    @Test
-    public void test() {
-    }
+	@Test
+	public void test() {
+	}
 
 }
