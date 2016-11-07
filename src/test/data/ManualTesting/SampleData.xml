@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<TaskManager>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 2</description>
+        <startDate>21-08-2016 08:00</startDate>
+        <dueDate>24-08-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 4</description>
+        <startDate>04-09-2016 08:00</startDate>
+        <dueDate>07-09-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 6</description>
+        <startDate>18-09-2016 08:00</startDate>
+        <dueDate>21-09-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 3</description>
+        <startDate>28-08-2016 08:00</startDate>
+        <dueDate>31-08-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 5</description>
+        <startDate>11-09-2016 08:00</startDate>
+        <dueDate>14-09-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 7</description>
+        <startDate>25-09-2016 08:00</startDate>
+        <dueDate>28-09-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 8</description>
+        <startDate>02-10-2016 08:00</startDate>
+        <dueDate>05-10-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 assesment</title>
+        <description>CFG1010 online seminar 9</description>
+        <startDate>09-10-2016 08:00</startDate>
+        <dueDate>12-10-2016 23:59</dueDate>
+        <interval>8</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 Seminar 1</title>
+        <description>Face-to-Face Seminar</description>
+        <startDate>18-08-2016 09:00</startDate>
+        <dueDate>18-08-2016 12:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 Final Seminal</title>
+        <description>Face-to-Face Seminar</description>
+        <startDate>03-11-2016 10:00</startDate>
+        <dueDate>03-11-2016 12:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CFG1010 Essay</title>
+        <description>Commitment Challenge Essay</description>
+        <startDate>Not Set</startDate>
+        <dueDate>04-11-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+        <tagged>Essay</tagged>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>15-08-2016 08:00</startDate>
+        <dueDate>18-08-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>22-08-2016 08:00</startDate>
+        <dueDate>25-08-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>29-08-2016 08:00</startDate>
+        <dueDate>01-09-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>05-09-2016 08:00</startDate>
+        <dueDate>08-09-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>12-09-2016 08:00</startDate>
+        <dueDate>15-09-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>19-09-2016 08:00</startDate>
+        <dueDate>22-09-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>26-09-2016 08:00</startDate>
+        <dueDate>29-09-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>03-10-2016 08:00</startDate>
+        <dueDate>06-10-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>10-10-2016 08:00</startDate>
+        <dueDate>13-10-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>17-10-2016 08:00</startDate>
+        <dueDate>20-10-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103 assesment</title>
+        <description>Tutorial Activity</description>
+        <startDate>24-10-2016 08:00</startDate>
+        <dueDate>27-10-2016 15:00</dueDate>
+        <interval>11</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>CS2103</title>
+        <description>Examination</description>
+        <startDate>26-11-2016 13:00</startDate>
+        <dueDate>26-11-2016 15:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Examination</description>
+        <startDate>18-11-2016 09:00</startDate>
+        <dueDate>18-11-2016 11:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222</title>
+        <description>Examination</description>
+        <startDate>23-11-2016 09:00</startDate>
+        <dueDate>23-11-2016 11:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021</title>
+        <description>Examination</description>
+        <startDate>29-11-2016 09:00</startDate>
+        <dueDate>29-11-2016 11:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>MA1506</title>
+        <description>Examination</description>
+        <startDate>29-11-2016 17:00</startDate>
+        <dueDate>29-11-2016 19:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021 Tutorial 2</title>
+        <description>Homework 1, Qn 3 and 4</description>
+        <startDate>Not Set</startDate>
+        <dueDate>14-09-2016 12:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021 Tutorial 3</title>
+        <description>Homework 2, Qn 4</description>
+        <startDate>Not Set</startDate>
+        <dueDate>26-09-2016 09:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021 Tutorial 4</title>
+        <description>Homework 3, Qn 4</description>
+        <startDate>Not Set</startDate>
+        <dueDate>10-10-2016 09:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021 Tutorial 5</title>
+        <description>Homework 4, Qn 3 and 6</description>
+        <startDate>Not Set</startDate>
+        <dueDate>26-10-2016 12:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>EE2021 Mid Term</title>
+        <description>Mid Term Quiz</description>
+        <startDate>05-10-2016 12:00</startDate>
+        <dueDate>05-10-2016 14:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Reflective Writing</description>
+        <startDate>15-08-2016 08:00</startDate>
+        <dueDate>19-08-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Reader Response</description>
+        <startDate>29-08-2016 08:00</startDate>
+        <dueDate>16-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Essay Writing</description>
+        <startDate>12-09-2016 08:00</startDate>
+        <dueDate>28-10-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Critical Reflection</description>
+        <startDate>28-10-2016 10:00</startDate>
+        <dueDate>28-10-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>ES1102</title>
+        <description>Revision Class</description>
+        <startDate>11-11-2016 10:00</startDate>
+        <dueDate>11-11-2016 12:00</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>GEH1049 Assignment 1</title>
+        <description>Essay 1</description>
+        <startDate>Not Set</startDate>
+        <dueDate>11-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>GEH1049 Assignment 2</title>
+        <description>Essay 2</description>
+        <startDate>Not Set</startDate>
+        <dueDate>13-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>GEH1049 Assignment 2</title>
+        <description>Essay 3</description>
+        <startDate>Not Set</startDate>
+        <dueDate>13-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>MA1506</title>
+        <description>Mid Term</description>
+        <startDate>13-09-2016 08:00</startDate>
+        <dueDate>13-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Lab</title>
+        <description>Lab 1 Report</description>
+        <startDate>29-08-2016 08:00</startDate>
+        <dueDate>05-09-2016 23:59</dueDate>
+        <interval>4</interval>
+        <timeInterval>14</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Lab</title>
+        <description>Lab 2 Report</description>
+        <startDate>12-09-2016 08:00</startDate>
+        <dueDate>19-09-2016 23:59</dueDate>
+        <interval>4</interval>
+        <timeInterval>14</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Lab</title>
+        <description>Lab 3 Report</description>
+        <startDate>26-09-2016 08:00</startDate>
+        <dueDate>03-10-2016 23:59</dueDate>
+        <interval>4</interval>
+        <timeInterval>14</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Lab</title>
+        <description>Lab 4 Report</description>
+        <startDate>10-10-2016 08:00</startDate>
+        <dueDate>17-10-2016 23:59</dueDate>
+        <interval>4</interval>
+        <timeInterval>14</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 1</description>
+        <startDate>Not Set</startDate>
+        <dueDate>31-08-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 2</description>
+        <startDate>Not Set</startDate>
+        <dueDate>10-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 3</description>
+        <startDate>Not Set</startDate>
+        <dueDate>18-09-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 4</description>
+        <startDate>Not Set</startDate>
+        <dueDate>05-10-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 5</description>
+        <startDate>Not Set</startDate>
+        <dueDate>21-10-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 6</description>
+        <startDate>Not Set</startDate>
+        <dueDate>30-10-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>COMPLETED</status>
+        <color>none</color>
+    </tasks>
+    <tasks>
+        <title>PC1222 Online Assignment</title>
+        <description>Mastering Physics 7</description>
+        <startDate>Not Set</startDate>
+        <dueDate>09-11-2016 23:59</dueDate>
+        <interval>1</interval>
+        <timeInterval>7</timeInterval>
+        <status>ONGOING</status>
+        <color>none</color>
+    </tasks>
+    <tags>
+        <tagName>Essay</tagName>
+    </tags>
+</TaskManager>
