@@ -91,7 +91,7 @@ Example:
 |`help my mum to buy cooking ingredients`| `help`| Execute `help` command|
 |`add help my mum to buy cooking ingredients`| `add`| `add` a task with name `help my mum to buy cooking ingredients`|
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 **_Adding a task_**
 
@@ -263,7 +263,7 @@ Examples:
 > Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
 <br/>
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 
 ### Deleting a task: `delete`
@@ -322,7 +322,7 @@ Format: `redo`
 
 <br/>
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 ### Listing tasks: `list`
 **_Listing all undone tasks_**
@@ -354,6 +354,8 @@ Format: `list done`
 
 <!-- @@author A0139552B -->
 
+<br>
+
 ### Finding a task: `find`
 Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
 Format: `find NAME`
@@ -368,7 +370,7 @@ Examples:
 
 <br/>
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 ### Changing storage location: `store`
 Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
@@ -415,6 +417,8 @@ Figure 4: Hints for add command
 Figure 5: Hints for delete command
 </p>
 
+<br>
+
 ### Instant `add` and `edit` task preview
 DearJim features an instant `add` and `edit` command task preview, allowing you to preview the task details as your type your input!<br>
 Now you can be sure of how your input will be interpreted as a task to be added or edited!
@@ -447,7 +451,7 @@ Data in DearJim is automatically saved on the hard disk after any command that c
 There is no need to save manually.<br>
 You will never have to worry about forgetting to save your data while using DearJim! Hurray!
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
