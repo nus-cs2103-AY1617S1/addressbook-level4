@@ -118,7 +118,6 @@ public class ListCommand extends Command {
         String result = listName + "\n" + LINE;
         for (int i=0; i < list.size(); i++) {
             String line = i + 1 + BRACKET_OPEN;
-            line = markSymbol(list, i, line);
             line += BRACKET_CLOSE + list.get(i).getName();
 
             result = result + "\n" + line;
@@ -126,20 +125,6 @@ public class ListCommand extends Command {
         
         result = result + "\n" + LINE2;
         return result;
-    }
-
-    //@author A0143378Y
-    // Selects and prints the appropriate marking symbol
-    private static String markSymbol(ArrayList<GenericMemory> list, int i,
-            String line) {
-        if (list.get(i).getState() == 1) { // show marking for overdue/over items
-            line += MARK;
-        } else if (list.get(i).getState() == 2) { // show alert marking for overdue/ongoing items
-            line += ALERT;
-        } else { // show blank space for upcoming/incomplete items
-            line+= BLANK;
-        }
-        return line;
     }
 
     //@author A0143378Y
