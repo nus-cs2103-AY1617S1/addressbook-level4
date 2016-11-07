@@ -96,15 +96,15 @@ public class SortCommand extends Command {
         if (invalidKeyword) {
             return new CommandResult(String.format(MESSAGE_FAILURE, keyword));
         }
-        
+        if (!isUndo) {
+            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, null, null, keyword));
+        }
         model.sortFilteredTaskList(keyword);
         model.saveCurrentSortPreference(keyword);
         if ("Default".equals(keyword)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS_DEFAULT));
         }
-        if (!isUndo) {
-            history.getUndoList().add(new RollBackCommand(COMMAND_WORD, null, null, keyword));
-        }
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 
