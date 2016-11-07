@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlTodoListStorageTest implements TaskListStorage {
-	private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTodoListStorageTest/");
+	private static String TEST_DATA_FOLDER = FileUtil.getPath("/src/test/data/XmlTodoListStorageTest/");
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
