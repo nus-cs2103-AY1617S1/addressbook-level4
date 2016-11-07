@@ -90,7 +90,13 @@ public class ListPanel extends UiPart {
     private void hideAliasListView() {
         aliasListView.setMaxHeight(0.0);
 	}
-
+    
+    private void hideTaskListView() {
+    	taskListView.setMaxHeight(0.0);
+	}
+    
+    //@@author
+    //@@author A0142184L-reused
 	public static ListPanel loadAliasList(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyAlias> aliasList) {
     	ListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new ListPanel());
@@ -98,10 +104,6 @@ public class ListPanel extends UiPart {
         taskListPanel.hideTaskListView();
         return taskListPanel;
     }
-	
-    private void hideTaskListView() {
-    	taskListView.setMaxHeight(0.0);
-	}
     
     private void configureAlias(ObservableList<ReadOnlyAlias> aliasList) {
         setAliasConnections(aliasList);
@@ -144,7 +146,7 @@ public class ListPanel extends UiPart {
         }
     }
     
-    //@@author A0142184L
+    //@@author A0142184L-reused
     class AliasListViewCell extends ListCell<ReadOnlyAlias> {
 
         public AliasListViewCell() {
