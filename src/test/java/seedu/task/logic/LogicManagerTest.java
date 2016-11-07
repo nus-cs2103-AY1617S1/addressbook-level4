@@ -19,6 +19,7 @@ import seedu.todolist.model.Model;
 import seedu.todolist.model.ModelManager;
 import seedu.todolist.model.ReadOnlyToDoList;
 import seedu.todolist.model.task.*;
+import seedu.todolist.storage.Storage;
 import seedu.todolist.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private Storage storage;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyToDoList latestSavedToDoList;
@@ -66,7 +68,9 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile));
+        storage = new StorageManager(tempToDoListFile, tempPreferencesFile);
+        //logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile));
+        logic = new LogicManager(model, storage);
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
@@ -117,8 +121,27 @@ public class LogicManagerTest {
         assertEquals(expectedToDoList, model.getToDoList());
         assertEquals(expectedToDoList, latestSavedToDoList);
     }
+    
+  //@@author A0158963M 
+    private void assertsetStorageCommandBehavior(String inputCommand, String expectedMessage,
+            String expectfilePath) throws Exception {
 
-
+		//Execute the command
+		CommandResult result = logic.execute(inputCommand);
+		
+		//Confirm the ui display elements should contain the right data
+		assertEquals(expectedMessage, result.feedbackToUser);
+		assertEquals(expectfilePath, storage.getToDoListFilePath());
+	
+	}
+    
+    @Test
+    public void execute_setstorage() throws Exception {
+        String setstorageCommand = "setstorage NewData";
+        assertsetStorageCommandBehavior(setstorageCommand, SetstorageCommand.MESSAGE_SUCCESS, "NewData/todolist.xml");
+    }
+  //@@
+    
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
