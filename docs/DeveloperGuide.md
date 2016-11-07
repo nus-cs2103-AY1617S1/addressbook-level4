@@ -258,7 +258,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | be able undo the most recent modification | revert from unintended modifications
 `* *` | user | be able to have flexibility in order of fields in commands | have greater flexibility in keying in commands
 `* *` | user | be able to search any words related to a task | retrieve tasks more easily
-`* *` | user | see a snapshot of events in the calendar view | retrieve informaiton in a graphical way.
+`* *` | user | see a snapshot of events in the calendar view | retrieve information in a graphical way.
 
 
 ## Appendix B : Use Cases
