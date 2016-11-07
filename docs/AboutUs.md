@@ -1,6 +1,6 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team (Friday 09 [C3]) taking based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
 
