@@ -51,15 +51,16 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 
 -----
 
-#### Hong Bangwu [@ndt93](https://github.com/ndt93)
+#### Hong Bangwu [@bangwu93](https://github.com/bangwu93)
 <img src="images/Bangwu.jpg" width="150"><br> 
 * Components in charge of: [Test](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
-* Aspects/tools in charge of: Junit
+* Aspects/tools in charge of: Junit Testing
 * Features Implemented:
-  * Dashboard
+  * Dashboard List of Overdue Tasks
+  (https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Code Written: [[functional code] (A0125284H.md)][[test code] (A0125284H.md)][[docs] (A0125284H.md)]
 * Other major contributions:
-  * Created sub-classes for ListPanel
-  * Helped with AddCommandTest
+  * UI Dashboard List of Overdue Tasks 
+  * AddComamnd Testing
   
 -----
