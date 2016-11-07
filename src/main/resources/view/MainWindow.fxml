@@ -104,7 +104,7 @@
                         </VBox>
                      </children>
                   </GridPane>
-                  <VBox fx:id="floatingList" prefWidth="100.0" styleClass="floating-panel" >
+                  <VBox fx:id="floatingList" prefWidth="100.0" styleClass="floating-panel">
                      <children>
                         <AnchorPane fx:id="floatingPanelPlaceholder" prefWidth="257.0" />
                      </children>
@@ -120,6 +120,7 @@
                         <Insets top="-36.0" />
                      </GridPane.margin>
                   </VBox>
+                  <ImageView fx:id="cheatsheet" fitHeight="555.0" fitWidth="836.0" pickOnBounds="true" preserveRatio="true" visible="false" GridPane.rowSpan="3" />
                </children>
             </GridPane>
          </items>

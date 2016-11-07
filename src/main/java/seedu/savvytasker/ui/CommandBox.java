@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -23,6 +25,7 @@ import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.savvytasker.commons.events.ui.ShowCheatsheetEvent;
 import seedu.savvytasker.commons.events.ui.WeekSelectionChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.logic.Logic;
@@ -69,7 +72,6 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
-
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
             ResultDisplay resultDisplay, Logic logic) {
@@ -177,8 +179,7 @@ public class CommandBox extends UiPart {
 		        
 			}else if (keyCode == KeyCode.ESCAPE) {
 				
-				//close help dialog 
-				//processEsc();
+				showCheatsheet();
 				
 			} else if (keyCode == KeyCode.UP) {
 
@@ -269,19 +270,6 @@ public class CommandBox extends UiPart {
 	}
 	
 	/**
-	 * Process the event that occurs after the user presses the [ESC] button.
-	 * 
-	 * @param userInput the command keyed in by the user.
-	 
-	public void processEsc() {
-			
-		if (userInput.equals("") && isHelpViewVisible()) {
-			
-			hideHelpView();
-		
-	}
-	
-	/**
 	 * Process the event that occurs after the user presses the [UP] button.
 	 * 
 	 * @param userInput the command keyed in by the user.
@@ -346,6 +334,12 @@ public class CommandBox extends UiPart {
 	private void indicateWeekSelectionChanged() {
 		raise(new WeekSelectionChangedEvent());
 	}
+	
+	/** Raises an event to indicate the week to be displayed has changed */
+	private void showCheatsheet() {
+		raise(new ShowCheatsheetEvent());
+	}
+	
 	/**
 	 * Execute commands
 	 * 
