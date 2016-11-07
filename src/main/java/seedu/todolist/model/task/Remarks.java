@@ -40,16 +40,4 @@ public class Remarks {
     public String toString() {
         return remarks;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Remarks // instanceof handles nulls
-                && this.remarks.equals(((Remarks) other).remarks)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return remarks.hashCode();
-    }
 }

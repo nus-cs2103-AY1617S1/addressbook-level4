@@ -6,6 +6,8 @@ import org.junit.Test;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.todolist.commons.core.Messages;
+import seedu.todolist.model.task.Location;
+import seedu.todolist.model.task.Remarks;
 
 //@@author A0138601M
 public class AddCommandTest extends ToDoListGuiTest {
@@ -21,7 +23,7 @@ public class AddCommandTest extends ToDoListGuiTest {
 
         //add one overdue task
         taskToAdd = td.overdueDeadline;
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddSuccess(taskToAdd, currentList);       
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -29,6 +31,14 @@ public class AddCommandTest extends ToDoListGuiTest {
         taskToAdd = td.eventWithLocation;
         assertAddSuccess(taskToAdd, currentList);
 
+        //add task with invalid location
+        commandBox.runCommand("add invalid location at !@#$");
+        assertResultMessage(Location.MESSAGE_LOCATION_PARAMETER_CONSTRAINTS);
+        
+        //add task with invalid remarks
+        commandBox.runCommand("add invalidRemarks remarks !@#$");
+        assertResultMessage(Remarks.MESSAGE_REMARKS_PARAMETER_CONSTRAINTS);
+        
         //invalid command
         commandBox.runCommand("adds invalidcommand");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);

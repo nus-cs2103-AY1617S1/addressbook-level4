@@ -40,17 +40,4 @@ public class Location {
     public String toString() {
         return location;
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Location // instanceof handles nulls
-                && this.location.equals(((Location) other).location)); // state check
-    }
-
-    @Override
-    public int hashCode() {
-        return location.hashCode();
-    }
-
 }

@@ -14,7 +14,7 @@ public class TypicalTestTasks {
     public static TestTask  eventWithoutParameter, eventWithLocation, eventWithParameters,
                             deadlineWithLocation, deadlineWithoutTime,
                             floatWithoutParameter, floatWithParameters, 
-                            upcomingEvent, overdueDeadline, 
+                            upcomingEvent, overdueDeadline, invalidLocation,
                             taskOneToTestFind, taskTwoToTestFind, taskThreeToTestFind;
 
     //@@author A0138601M
