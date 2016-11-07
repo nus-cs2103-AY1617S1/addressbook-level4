@@ -175,7 +175,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         model.addTask(helper.generateDatedTask(1));
         model.addTask(helper.generateDatedTask(2));
-        model.addTask(helper.generateDatedTask(3));
+        model.addTask(helper.generateUndatedTask(1));
+        model.addTask(helper.generateUndatedTask(2));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), 
                 Collections.emptyList(), Collections.emptyList());
@@ -227,24 +228,30 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void execute_addDuplicate_success() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.floatTaskA();
+        Task floatTask = helper.floatTaskA();
+        Task deadlineTask = helper.deadlineA();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
-        expectedAB.addTask(toBeAdded);
+        expectedAB.addTask(floatTask);
+        model.addTask(floatTask); // task already in internal address book
+        expectedAB.addTask(deadlineTask);
+        model.addTask(deadlineTask); // task already in internal address book
 
-        // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
-
+        expectedAB.addTask(floatTask);
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK,
+                helper.generateAddCommand(floatTask),
+                String.format(AddCommand.MESSAGE_SUCCESS, floatTask) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
-
+        expectedAB.addTask(deadlineTask);
+        assertCommandBehavior(
+                helper.generateAddCommand(deadlineTask),
+                String.format(AddCommand.MESSAGE_SUCCESS, deadlineTask) + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK,
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
     }
     //@@author
 
@@ -359,7 +366,8 @@ public class LogicManagerTest {
     //@@author A0139145E
     @Test 
     public void execute_done_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
     //@@author
@@ -371,16 +379,19 @@ public class LogicManagerTest {
     }
     //@@author
 
-  //@@author A0139145E
+    //@@author A0139145E
     @Test
     public void execute_done_alreadyCompleted() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                            helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        
         TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
         helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
         helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
 
+        //Set 1 dated and undated task as completed
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
         expectedAB.completeTask(completeDated);
@@ -388,11 +399,16 @@ public class LogicManagerTest {
         model.completeTask(completeDated);
         model.completeTask(completeUndated);
 
+        //Complete tasks that are already completed
         assertCommandBehavior("list done",
                 String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
                 expectedAB, Arrays.asList(completeDated),
                 Arrays.asList(completeUndated));
         assertCommandBehavior("done A1",
+                DoneCommand.MESSAGE_TASK_ALREADY_DONE,
+                expectedAB, Arrays.asList(completeDated),
+                Arrays.asList(completeUndated));
+        assertCommandBehavior("done B1",
                 DoneCommand.MESSAGE_TASK_ALREADY_DONE,
                 expectedAB, Arrays.asList(completeDated),
                 Arrays.asList(completeUndated));
@@ -415,9 +431,10 @@ public class LogicManagerTest {
 
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
+
+        //Complete 1 dated and 1 undated task
         expectedAB.completeTask(completeDated);
         expectedDatedTasks = helper.generateTaskList(helper.deadlineA());
-
         assertCommandBehavior("done B2",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeDated),
                 expectedAB, expectedDatedTasks,
@@ -433,6 +450,15 @@ public class LogicManagerTest {
     //@@author
 
     //@@author A0139145E
+    private void generateStartStateForListCmdTest(List<Task> expectedDatedTasks,
+                                List<Task> expectedUndatedTasks, TestDataHelper helper) throws Exception {
+        expectedTB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
+        helper.addToModel(model, expectedUndatedTasks);
+        helper.addToModel(model, expectedDatedTasks);
+    }
+    //@@author
+    
+    //@@author A0139145E
     @Test
     public void execute_list_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_USAGE);
@@ -447,49 +473,69 @@ public class LogicManagerTest {
     @Test
     public void execute_listAll_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                      helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
-        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
-        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
+        generateStartStateForListCmdTest(expectedDatedTasks, expectedUndatedTasks, helper);
 
         assertCommandBehavior("list all",
                 String.format(ListCommand.MESSAGE_SUCCESS, "all"),
-                expectedAB, expectedAB.getDatedTaskList(),
-                expectedAB.getUndatedTaskList());
+                expectedTB, expectedTB.getDatedTaskList(),
+                expectedTB.getUndatedTaskList());
 
         Task completeUndated = expectedUndatedTasks.get(0);
-        expectedAB.completeTask(completeUndated);
+        expectedTB.completeTask(completeUndated);
         model.completeTask(completeUndated);
         assertCommandBehavior("list all", String.format(ListCommand.MESSAGE_SUCCESS, "all"), 
-                expectedAB, expectedDatedTasks, Collections.emptyList());
+                expectedTB, expectedDatedTasks, Collections.emptyList());
 
     }
     //@@author
 
+  //@@author A0139145E
+    @Test
+    public void execute_listAllInCorrectOrder_successful() throws Exception {
+        //Dated tasks should be in order of Start time, then end time (if any)
+        //Undated tasks should be in order of alphabetical (case-insensitive)
+
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                        helper.eventB(), helper.eventA());
+        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskB(),
+                                        helper.floatTaskA());
+        generateStartStateForListCmdTest(expectedDatedTasks, expectedUndatedTasks, helper);
+        
+        assertCommandBehavior("list all",
+                String.format(ListCommand.MESSAGE_SUCCESS, "all"),
+                expectedTB, expectedTB.getDatedTaskList(),
+                expectedTB.getUndatedTaskList());
+    }
+    //@@author
+    
     //@@author A0139145E
     @Test
     public void execute_listCompleted_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(),
+                                    helper.eventA());
         List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        TaskBook expectedAB = helper.generateTaskBook(expectedDatedTasks, expectedUndatedTasks);
-        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
-        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
+        generateStartStateForListCmdTest(expectedDatedTasks, expectedUndatedTasks, helper);
 
+        //Ensure noting is completed yet
         assertCommandBehavior("list done", String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
-                expectedAB, Collections.emptyList(), Collections.emptyList());
+                expectedTB, Collections.emptyList(), Collections.emptyList());
 
+        //Set 1 undated and dated task as completed
         Task completeDated = expectedDatedTasks.get(1);
         Task completeUndated = expectedUndatedTasks.get(0);
-        expectedAB.completeTask(completeDated);
-        expectedAB.completeTask(completeUndated);
+        expectedTB.completeTask(completeDated);
+        expectedTB.completeTask(completeUndated);
         model.completeTask(completeDated);
         model.completeTask(completeUndated);
 
         assertCommandBehavior("list done",
                 String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
-                expectedAB, Arrays.asList(completeDated),
+                expectedTB, Arrays.asList(completeDated),
                 Arrays.asList(completeUndated));
     }
     //@@author
@@ -498,25 +544,17 @@ public class LogicManagerTest {
     @Test
     public void execute_listOverdue_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
-        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
-        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
-        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
-        TaskBook expectedAB = new TaskBook();
-        Task overdueDeadline = helper.overdueA();
-        expectedAB.addTask(overdueDeadline);
-        helper.addToTaskBook(expectedAB, expectedDatedTasks);
-        helper.addToTaskBook(expectedAB, expectedUndatedTasks);
-        
-        model.addTask(overdueDeadline);
-        List<ReadOnlyTask> expectedOverdue = new ArrayList<>();
-        expectedOverdue.add(overdueDeadline);
+        expectedTB = new TaskBook();
+        expectedTB.addTask(helper.overdueA());
+        model.addTask(helper.overdueA());
+        expectedTB.addTask(helper.expireA());
+        model.addTask(helper.expireA());
 
+        //Execute command and list overdue and expire tasks
         assertCommandBehavior("list od",
                 String.format(ListCommand.MESSAGE_SUCCESS, "overdue and expired"),
-                expectedAB, expectedOverdue,
-                Collections.emptyList());
-
+                expectedTB, expectedTB.getDatedTaskList(),
+                expectedTB.getUndatedTaskList());
     }
     //@@author
     //@@author A0143884W
@@ -732,7 +770,7 @@ public class LogicManagerTest {
     /*
      * Generates initialData for undo and redo command testing
      */
-    private Task[] generateStartStateForUndo(int i) throws Exception{
+    private Task[] generateStartStateForUndo(int i) throws Exception {
         Task[] tasks = new Task[2];
         TestDataHelper helper = new TestDataHelper();
         expectedTB = helper.generateTaskBook(i);
@@ -793,7 +831,6 @@ public class LogicManagerTest {
         Task[] toUndo = generateStartStateForUndo(2);    
         model.addTask(toUndo[0]);
         
-        
         //Undo delete undated task
         expectedTB.addTask(toUndo[0]);
         expectedTB.removeTask(toUndo[0]);
@@ -830,8 +867,6 @@ public class LogicManagerTest {
     @Test
     public void execute_undoRedoDone_successful() throws Exception {
         Task[] toUndo = generateStartStateForUndo(2);
-        
-        //TODO add test for dated task
         
         //Undo complete undated task
         expectedTB.addTask(toUndo[0]);
@@ -940,8 +975,7 @@ public class LogicManagerTest {
         clashList.add(toUndo[1]); //since clashing, only shows these two events
         assertCommandBehavior("redo", (String.format(RedoCommand.MESSAGE_SUCCESS, "add")
                 + "\n" + AddCommand.MESSAGE_CLASHING_EVENTS), expectedTB, 
-                clashList, expectedTB.getUndatedTaskList());
-        
+                clashList, expectedTB.getUndatedTaskList());   
     }
     //@@author
     
@@ -963,8 +997,7 @@ public class LogicManagerTest {
         expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("undo", (String.format(UndoCommand.MESSAGE_SUCCESS, "delete")
                 + "\n" + AddCommand.MESSAGE_DUPLICATE_TASK), expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());   
     }
     //@@author
     
@@ -975,7 +1008,7 @@ public class LogicManagerTest {
         model.addTask(toUndo[0]);
         expectedTB.addTask(toUndo[0]);
         
-      //Delete and add undated task
+        //Delete and add undated task
         model.deleteTask(toUndo[0]);
         model.addUndo("delete", toUndo[0]);
         model.addTask(toUndo[0]);
@@ -1009,8 +1042,7 @@ public class LogicManagerTest {
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
         expectedTB.addTask(toUndo[0]);
         assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, "add"), expectedTB, 
-                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
+                expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());   
     }
     //@@author
 
@@ -1045,8 +1077,6 @@ public class LogicManagerTest {
         
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_NOT_POSSIBLE, expectedTB, 
                 expectedTB.getDatedTaskList(), expectedTB.getUndatedTaskList());
-        
-        
     }
     //@@author
 
@@ -1080,11 +1110,22 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Task floatTaskA() throws Exception {
-            Name name = new Name("Buy new water bottle");
+            Name name = new Name("buy new water bottle");
             Description description = new Description("NTUC");
             Datetime datetime = new Datetime(null);
             Tag tag1 = new Tag("NTUC");
             Tag tag2 = new Tag("waterbottle");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
+        
+        Task floatTaskB() throws Exception {
+            Name name = new Name("Clear rubbish at beach");
+            Description description = new Description("CIP");
+            Datetime datetime = new Datetime(null);
+            Tag tag1 = new Tag("environment");
+            Tag tag2 = new Tag("eco");
             Status status = new Status(Status.State.NONE);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, description, datetime, status, tags);
@@ -1111,6 +1152,17 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, description, datetime, status, tags);
         }
+        
+        Task eventB() throws Exception {
+            Name name = new Name("Jim after-party");
+            Description description = new Description("Sentosa house");
+            Datetime datetime = new Datetime("13-OCT-2017 6pm to 10pm");
+            Tag tag1 = new Tag("buddy");
+            Tag tag2 = new Tag("enjoy");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
 
         Task overdueA() throws Exception {
             Name name = new Name("File income tax");
@@ -1123,6 +1175,16 @@ public class LogicManagerTest {
             return new Task(name, description, datetime, status, tags);
         }
 
+        Task expireA() throws Exception {
+            Name name = new Name("Buy Valentines Day Present");
+            Description description = new Description("");
+            Datetime datetime = new Datetime("14-FEB-2011 3pm to 6pm");
+            Tag tag1 = new Tag("impt");
+            Tag tag2 = new Tag("love");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
 
         /**
          * Generates a valid dated task using the given seed.
@@ -1284,7 +1346,7 @@ public class LogicManagerTest {
         List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
-
+        
         /**
          * Generates a list of undated task based on the flags.
          */

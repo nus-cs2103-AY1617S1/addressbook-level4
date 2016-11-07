@@ -208,13 +208,11 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDone(String args) {
-
         Optional<String> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                            DoneCommand.MESSAGE_USAGE));
         }
-
         return new DoneCommand(index.get());
     }
     //@@author 
@@ -312,26 +310,23 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareList(String args) {
+    private Command prepareList (String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListCommand.MESSAGE_LIST_USAGE));
+                            ListCommand.MESSAGE_LIST_USAGE));
         }
-
         final String[] keywords = matcher.group("keywords").split("\\s+");
-
+        
         if (keywords.length > 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListCommand.MESSAGE_LIST_USAGE));
+                            ListCommand.MESSAGE_LIST_USAGE));
         }
-
         try {
             return new ListCommand(keywords[0]);
-
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ive.getMessage()));
+                            ive.getMessage()));
         }
     }
     //@@author 

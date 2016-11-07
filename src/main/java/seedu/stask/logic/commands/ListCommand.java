@@ -18,25 +18,24 @@ public class ListCommand extends Command {
     public static final String LIST_KEYWORD_ALL = "all";
     public static final String LIST_KEYWORD_OD = "od";
     public static final String LIST_KEYWORD_DONE = "done";
-    public static final String LIST_KEYWORDS = LIST_KEYWORD_ALL + "/" + LIST_KEYWORD_OD + "/" + LIST_KEYWORD_DONE;
-    public static Set<String> keywordsList = new HashSet<>(Arrays.asList(LIST_KEYWORDS.split("/")));
+    public static final String LIST_KEYWORDS = LIST_KEYWORD_ALL + "/" + LIST_KEYWORD_OD 
+                                            + "/" + LIST_KEYWORD_DONE;
     
-    
-    public static final String MESSAGE_LIST_USAGE = COMMAND_WORD + ": Lists the tasks in the address book.\n"
+    public static final String MESSAGE_LIST_USAGE = COMMAND_WORD 
+            + ": Lists the tasks in the address book.\n"
             + "Parameters: list " + LIST_KEYWORDS + "\n"
             + "Example: " + COMMAND_WORD
             + " done";
-
     public static final String MESSAGE_SUCCESS = "Listed %1$s tasks";
-
+    
+    public static Set<String> keywordsList = new HashSet<>(Arrays
+                            .asList(LIST_KEYWORDS.split("/")));
     private final String keyword;
 
-    public ListCommand(String key) throws IllegalValueException{
-        
+    public ListCommand(String key) throws IllegalValueException {
         if (keywordsList.contains(key)) {
             this.keyword = key;
-        }
-        else {
+        } else {
             throw new IllegalValueException(MESSAGE_LIST_USAGE);
         }
     }
@@ -44,30 +43,24 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         String taskStatus;
-
         switch (keyword) {
-        case LIST_KEYWORD_ALL:
+        case LIST_KEYWORD_ALL :
             taskStatus = "all";
             model.updateFilteredListToShowAll();
             break;
-
-        case LIST_KEYWORD_DONE:
+        case LIST_KEYWORD_DONE :
             taskStatus = "completed";
             model.updateFilteredTaskListByStatus("DONE");
             break;
-
-        case LIST_KEYWORD_OD:
+        case LIST_KEYWORD_OD :
             taskStatus = "overdue and expired";
             model.updateFilteredTaskListByStatus("OVERDUE", "EXPIRE");
             break;
-
-        default:
+        default :
             taskStatus = "";
             assert false : "Missing case in switch statement";
             break;
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskStatus));
     }
-
 }

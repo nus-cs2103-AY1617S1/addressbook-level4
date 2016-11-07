@@ -8,7 +8,7 @@ import seedu.stask.model.undo.UndoTask;
 /**
  * undo the previous command
  */
-public class RedoCommand extends Command implements Undoable{
+public class RedoCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "redo";
 
@@ -26,54 +26,47 @@ public class RedoCommand extends Command implements Undoable{
     @Override
     public CommandResult execute() {
         assert model != null;
-        toRedo = model.redoTask();
 
-        //No undoable action found.
-        if (toRedo == null) { 
+        toRedo = model.redoTask();
+        if (toRedo == null) {
+            //No undoable action to redo
             return new CommandResult(MESSAGE_REDO_NOT_POSSIBLE);
         }
 
         int duplicateOrClashTaskResult = 0;
-
         try {
-            switch (toRedo.getCommand()){
-
-            case AddCommand.COMMAND_WORD:
+            switch (toRedo.getCommand()) {
+            case AddCommand.COMMAND_WORD :
                 duplicateOrClashTaskResult = model.addTask(toRedo.getPostData());
                 break;
-
-            case DeleteCommand.COMMAND_WORD:
+            case DeleteCommand.COMMAND_WORD :
                 model.deleteTask(toRedo.getPostData());
                 break;
-
-            case EditCommand.COMMAND_WORD:
+            case EditCommand.COMMAND_WORD :
                 model.deleteTask(toRedo.getPreData());  
                 duplicateOrClashTaskResult = model.addTask(toRedo.getPostData());               
                 break;
-
-            case DoneCommand.COMMAND_WORD:
+            case DoneCommand.COMMAND_WORD :
                 model.completeTask(toRedo.getPostData());               
                 break;
-
+            default :
+                assert false : "Command not possible";
+                break;
             }
-
             populateUndo();
-            
-            //Determine if duplicate exist
-            
-            CommandResult temporary = new CommandResult(String.format(MESSAGE_SUCCESS, toRedo.getCommand()));
-            return CommandUtil.generateCommandResult(temporary,duplicateOrClashTaskResult);
-
+            CommandResult temporary = new CommandResult(String.format(MESSAGE_SUCCESS, 
+                                                toRedo.getCommand()));
+            return CommandUtil.generateCommandResult(temporary, 
+                                    duplicateOrClashTaskResult);
         }
-        catch (UniqueTaskList.TaskNotFoundException tnfe){
+        catch (UniqueTaskList.TaskNotFoundException tnfe) {
             assert false : "Task not found not possible";
         return new CommandResult(MESSAGE_REDO_NOT_POSSIBLE);
         }
-
     }
     
     @Override
-    public void populateUndo(){
+    public void populateUndo() {
         assert COMMAND_WORD != null;
         assert toRedo != null;
         model.addUndo(toRedo);
