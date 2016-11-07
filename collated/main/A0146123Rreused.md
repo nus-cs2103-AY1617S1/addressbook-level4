@@ -1,14 +1,14 @@
 # A0146123Rreused
-###### /java/seedu/address/commons/util/Stemmer.java
+###### /java/seedu/toDoList/commons/util/Stemmer.java
 ``` java
 /**
- * Stemmer, implementing the Porter Stemming Algorithm
+ * Stemmer, implementing the Porter Stemming Algorithm.
  *
  * The Stemmer class transforms a word into its root form.  The input
  * word can be provided a character at time (by calling add()), or at once
  * by calling one of the various stem(something) methods.
  * 
- * Copy from https://tartarus.org/martin/PorterStemmer/java.txt 
+ * The program is from https://tartarus.org/martin/PorterStemmer/java.txt 
  * except for method public String stem (String word)
  */
 public class Stemmer {
@@ -41,31 +41,10 @@ public class Stemmer {
     }
 
     /**
-     * Add a character to the word being stemmed.  When you are finished
-     * adding characters, you can call stem(void) to stem the word.
-     */
-    public void add(char ch) {
-        if (i == b.length) {
-            char[] new_b = new char[i + INC];
-            for (int c = 0; c < i; c++)
-                new_b[c] = b[c];
-            b = new_b;
-        }
-        b[i++] = ch;
-    }
-
-
-    /**
      * Adds wLen characters to the word being stemmed contained in a portion of
-     * a char[] array. This is like repeated calls of add(char ch), but faster.
+     * a char[] array. 
      */
     public void add(char[] w, int wLen) {
-        if (i + wLen >= b.length) {
-            char[] new_b = new char[i + wLen + INC];
-            for (int c = 0; c < i; c++)
-                new_b[c] = b[c];
-            b = new_b;
-        }
         for (int c = 0; c < wLen; c++)
             b[i++] = w[c];
     }
@@ -76,18 +55,6 @@ public class Stemmer {
      * and getResultLength (which is generally more efficient.)
      */
     public String toString() { return new String(b,0,i_end); }
-
-    /**
-     * Returns the length of the word resulting from the stemming process.
-     */
-    public int getResultLength() { return i_end; }
-
-    /**
-     * Returns a reference to a character buffer containing the results of
-     * the stemming process.  You also need to consult getResultLength()
-     * to determine the length of the result.
-     */
-    public char[] getResultBuffer() { return b; }
 
     /* cons(i) is true <=> b[i] is a consonant. */
     private final boolean cons(int i) {
