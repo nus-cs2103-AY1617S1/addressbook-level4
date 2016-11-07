@@ -129,7 +129,7 @@ public class UniqueActivityList implements Iterable<Activity> {
             throw new TaskNotFoundException();
         }
         
-        ActivityManager.marksTask(task, isComplete);
+        ActivityManager.markTask(task, isComplete);
         
         internalList.set(index, task);
     }

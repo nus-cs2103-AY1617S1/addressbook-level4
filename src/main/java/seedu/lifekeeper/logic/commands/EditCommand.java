@@ -36,7 +36,7 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 n/CS2103 T8A2 d/15-10-2016 p/3 r/12-01-2016 t/CS t/project";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task from: %1$s\nto: %2$s";
-    public static final String MESSAGE_TASK_EXISTS = "An existing task already contains the specified parameters.";
+    public static final String MESSAGE_ENTRY_EXISTS = "An existing entry already contains the specified parameters.";
     public static final String MESSAGE_ACTIVITY_MISMATCH = "Task cannot be changed to event and vice versa.";
 
     public final int targetIndex;
@@ -135,7 +135,7 @@ public class EditCommand extends Command {
             assert false : "The target task to be edited cannot be missing";
             return new CommandResult("");
         } catch (DuplicateTaskException dte) {
-            return new CommandResult(MESSAGE_TASK_EXISTS);
+            return new CommandResult(MESSAGE_ENTRY_EXISTS);
         }
     }
 
