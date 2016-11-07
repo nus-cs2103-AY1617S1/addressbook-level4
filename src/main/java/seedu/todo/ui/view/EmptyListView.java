@@ -50,9 +50,6 @@ public class EmptyListView extends UiPart {
     private static final String EMOJI_DUESOON = "/images/emoji-duesoon.png";
     private static final String EMOJI_TODAY = "/images/emoji-today.png";
 
-    /* Variables */
-    private final Logger logger = LogsCenter.getLogger(EmptyListView.class);
-
     /*Layouts*/
     private AnchorPane emptyListPlaceholder;
     @FXML private VBox emptyListView;
