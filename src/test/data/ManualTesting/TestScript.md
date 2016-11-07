@@ -98,6 +98,150 @@ Method 2
 #### Testing Command: `add MKT presentation s/tomorrow 1400 e/1100`
 
 > An invalid error will be shown, prompting the user that `Event end time is before start time`.
+> For all tasks with reminder, the reminder will automatically pop up at the scheduled time when the app is open.
+
+#### Testing Command: `add do IE 3101 Tutorial d/today p/3 t/IE3101`
+
+> A new task is added to the top of the list with name `do IE 3101 Tutorial`, duedate ` Due on (Today's Date) 11:59PM`, tag `[IE3101]` and <img src="src/main/resources/images/priority3.png" width="15">
+> A new task is added to the top of the list with name `do IE 3101 Tutorial`, duedate ` Due on (Today's Date) 11:59PM`, tag `[IE3101]` and <img src="priority3.png" width="15">. 
+> The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
+
+#### Testing Command: `add IE3100 Assignment 4 d/wed 1800 t/IE3100`. 
+
+> A new task is added to the top of the list with name `IE3100 Assignment 4`, duedate ` Due on (upcoming Wednesday's date) 6:00P` and `Reminder: -`
+> There is also a tag `[IE3100]` shown.
+
+#### Testing Command: `add IE3100 Assignment 4 p/2 t/IE3100`
+
+> A new task is added to the top of the list with name `IE3100 Assignment 4`, `Reminder: -` and  <img src="priority2.png" width="15">.
+> There is also a tag `[IE3100]` shown.
+
+#### Testing Command: `add homework 4 d/tomorrow t/IE3100`
+
+> A new task is added to the top of the list with name `homework 4` and `Due on (tomorrow's date) 11:59PM`.
+> The default deadline for a day if no time is given is 11:59PM.
+> The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
+> There is also a tag `[IE3100]` shown.
+
+#### Testing Command: `add Project d/tomorrow p/1`
+
+> A new task is added to the top of the list with name `homework 4`, `Due on (tomorrow's date) 11:59PM` and <img src="priority3.png" width="15">.
+> The default deadline for a day if no time is given is 11:59PM.
+> The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
+
+#### Testing Command: `add revise chapter 2 d/(today's date and one minute from now, e.g. 10-11-2016 2045`
+
+> A new task is added to the top of the list with name `review chapter 2`, `Due on (one minute from the current time of usage)` 
+> The colour of the background of the card will also turn yellow with the text `Task Deadline Approaching` shown on the right of the card.
+> Wait for 2 minutes until the deadline is over, and the colour of the background of the card will turn red with the text `Task Overdue!`
+> A new task is added to the top of the list with name `IE3100 Assignment 4`, duedate ` Due on (upcoming Wednesday's date) 6:00PM` and `Reminder: -`. 
+
+#### Testing Command: `add CS2103 Tutorial s/thu 1300`
+
+> A new event is added to the top of the list with name `CS2103 Tutorial` and `From (upcoming Thursday's date) 1:00PM to 2:00PM`.
+
+#### Testing Command: `add IE2140 Lab s/11-11-2016 1300 e/11-11-2016 1500 r/10-11-2016 2200`
+
+> A new event is added to the top of the list with name `IE2140 Lab`, `From Fri, Nov 11, 2016 1:00PM to 3:00PM` and `Remind: Thu, Nov 10, 2016 10:00PM`.
+
+#### Testing Command: `add go to Grandma House r/every sat 1300`
+
+> A new activity is added to the top of the list with name `go to Grandma House` and `Reminder: Every Saturday, 1:00PM`.
+
+#### Testing Command: `add CS2103 Lecture s/every fri 1400 e/1600`
+
+> A new recurring Event is added to the top of the list with name `CS2103 Lecture` and `Every Friday 2:00 PM to 4:00 PM`.
+
+#### Testing Command: `add MKT presentation s/11-11-2016 1245 e/1200`
+
+> Invalid command since the end time for the event is earlier than the start time. Result Bar shows that the error.
+
+#### Testing Command: `add CS Demo s/every (today's day of the week and one minute from now) e/(two minutes from now)`
+
+> If today is Monday and current time is 1400Hrs, the command should be `add CS Demo s/every mon 1401 e/1402`
+> Wait for one minute and the colour of the card will turn blue indicating the event is ongoing
+> Wait for another minute and the colour of the card returns to white indicating that the event is over and the lifeKeeper updates the events to next week
+
+#### Testing Command: `add tutorial 5 r/(today's date and one minute after the current time)`
+
+> If today is Monday and current time is 1400Hrs, the command should be `add tutorial 5 r/mon 1401`
+> A new activity is add with name `tutorial 5` and reminder one minute from the current time.
+> Wait for one minute and a pop up will show to remind the user, click on `OK` to continue. 
+
+#### Testing Command: `add tutorial 6 r/(today's date and one minute after the current time) t/IE3100`
+
+> If current time is 1400Hrs, the command should be `add tutorial 6 r/today 1401`
+> A new activity is add with name `tutorial 5` and reminder one minute from the current time.
+> Wait for one minute and a pop up will show to remind the user, click on `OK` to continue. 
+
+#### Testing Command: `add 345%^&`
+
+> An invalid error will be shown, prompting the user that `Task name should be space or alphanumeric characters`.
+
+#### Testing Command: `add MNO presentation s/tomorrow 1400 e/1100`
+
+> An invalid error will be shown, prompting the user that `Event end time is before start time`.
+
+#### Testing Command: `add assignment 2 return r/10-10-2016 1230`
+
+> Invalid command since the reminder time is before the current time. Result Bar shows the error that `reminder time has passed`.
+
+#### Testing Command: `add revision for IE3120 s/10-10-2016 1200
+
+> Invalid command since the start time for the adding event is before the current time.
+
+#### Testing Command: `add YellowCare Concert e/10-10-2017 1200
+
+> Invalid command since there is only end time without a start time for the event.
+
+
+
+
+
+### Test Edit Command:
+
+#### Testing Command: `add assignment 2`, <kbd>Enter</kbd> , `edit 1 n/assignment 3`
+
+>  The first entry `assignment 2` has its name changed to `assignment 3`
+
+#### Testing Command: `edit 1 d/12-01-2017 23:55`
+
+> The first entry `assignment 3` will be converted from activity type to task type with a valid duedate `Thu, Jan 12, 2017 11:55 PM`.
+> The input time can accept time with a `:`
+
+#### Testing Command: `add activity 2`, <kbd>Enter</kbd> , `edit 1 s/12-03-2017 1830`
+
+> The first entry `activity 2` will be converted from activity type to event type with a valid start and end time `From Sun, Mar 12, 2017 6:30 PM`
+
+#### Testing Command: `add submit homework d/11-01-2017 1200`, <kbd>Enter</kbd> ,`edit 1 s/12-01-2017 2200`
+
+> The Result Bar shows `Task cannot be changed to event and vice versa.`
+> An activity can be converted to either task with duedate or event with start and end time, but a task with duedate cannot be changed to event and vice versa.
+> A new event is added to the top of the list with the name `CS2103 Tutorial`, `From (upcoming Thursday's date) 1:00PM yo 2:00PM`. 
+> The default end time for an event is one hour after the start time.
+
+#### Testing Command: `add prepare IE3100 cheatsheet`, <kbd>Enter</kbd>, `edit 1 e/today 2359`
+
+> Invalid command for edit, the edit has to include both start and end time.
+
+#### Testing Command: `add CS2103 Lecture s/every fri 1400 e/1500`
+
+> The Result Bar shows `Event must contain a start time`, and event cannot be edited without a valid start time input.
+> A new recurring event is added to the top of the list with the name `CS2103 Lecture`, and Time `Every Friday, 2:00PM to 3:00PM
+
+#### Testing Command: `add CS2010 quiz revision p/1`, <kbd>Enter</kbd>, `edit 1 p/3`
+
+> The previously added entry `CS2010 quiz revision` has its priority level update to <img src="priority3.png" width="15">
+
+#### Testing Command: `edit 2 t/CS2103`
+
+> The command adds a tag into the second entry `CS2103 Lecture`.
+
+#### Testing Command: `edit 2 r/tomorrow 1800`
+
+> The command adds a reminder to the second entry `CS2103 Lecture`.
+
+
 
 
 
