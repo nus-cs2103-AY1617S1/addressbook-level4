@@ -7,6 +7,7 @@ import seedu.todolist.commons.core.LogsCenter;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.logic.commands.*;
+import seedu.todolist.model.parser.DateParser;
 import seedu.todolist.model.task.TaskDate;
 import seedu.todolist.model.task.TaskTime;
 
@@ -70,7 +71,6 @@ public class CommandParser {
     public static final int DETAILED_INTERVAL_INDEX_ENDTIME = 3;
 
     public static final String INTERVAL_SEPARATOR = " to ";
-    public static final String DATE_DELIMITER = "/";
     public static final String INDEX_DELIMITER = ",";
     
     public static final int NATTY_INDEX_FIRST = 0;
@@ -238,10 +238,8 @@ public class CommandParser {
      */
     private String[] parseDatetime(String datetime) {
     	String editedDatetime = datetime;
-        System.out.println("FIRST: " + datetime);
         if (isSlashFormat(datetime)) {
         	editedDatetime = reverseDayAndMonth(datetime);
-            System.out.println(editedDatetime);
         }
         
         ArrayList<String> intervalComponents = new ArrayList<String>();
@@ -268,13 +266,13 @@ public class CommandParser {
      * Reverse day and month for natty parsing
      */
     private String reverseDayAndMonth(String datetime) {
-        String[] dateAndTime = datetime.trim().split(DATE_DELIMITER);
+        String[] dateAndTime = datetime.trim().split(DateParser.DATE_DELIMITER_SLASH);
         
         StringBuilder builder = new StringBuilder();
         builder.append(dateAndTime[INDEX_MONTH]);
-        builder.append(DATE_DELIMITER);
+        builder.append(DateParser.DATE_DELIMITER_SLASH);
         builder.append(dateAndTime[INDEX_DAY]);
-        builder.append(DATE_DELIMITER);
+        builder.append(DateParser.DATE_DELIMITER_SLASH);
         builder.append(dateAndTime[INDEX_REMAINDER]);
 
         return builder.toString();

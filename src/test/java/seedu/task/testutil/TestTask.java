@@ -6,6 +6,16 @@ import seedu.todolist.model.task.*;
  * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
+    
+    private static final String KEYWORD_ADD = "add ";
+    private static final String KEYWORD_FROM = "from ";
+    private static final String KEYWORD_TO = " to ";
+    private static final String KEYWORD_BY = "by ";
+    private static final String KEYWORD_AT = "at ";
+    private static final String KEYWORD_REMARKS = "remarks ";
+    
+    private static final String WHITE_SPACE = " ";
+    
 
     private Name name;
     private Interval interval;
@@ -72,29 +82,27 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
+        sb.append(KEYWORD_ADD + this.getName().fullName + WHITE_SPACE);
         
         //append interval
         Interval interval = getInterval();
         if (interval.isDeadlineWithTime()) {
-            sb.append("by " + interval.getEndDate() + " " + interval.getEndTime() + " ");
-        }
-        else if (interval.isDeadlineWithoutTime()) {
-            sb.append("by " + interval.getEndDate() + " ");
-        }
-        else {
-            sb.append("from " + this.getInterval().getStartDate() + " " + this.getInterval().getStartTime() 
-                    + " to " + this.getInterval().getEndDate()+ " " + this.getInterval().getEndTime() + " ");
+            sb.append(KEYWORD_BY + interval.getEndDate() + WHITE_SPACE + interval.getEndTime() + WHITE_SPACE);
+        } else if (interval.isDeadlineWithoutTime()) {
+            sb.append(KEYWORD_BY + interval.getEndDate() + WHITE_SPACE);
+        } else {
+            sb.append(KEYWORD_FROM + this.getInterval().getStartDate() + WHITE_SPACE + this.getInterval().getStartTime() 
+                    + KEYWORD_TO + this.getInterval().getEndDate()+ WHITE_SPACE + this.getInterval().getEndTime() + WHITE_SPACE);
         }
         
         //append location
         if (this.getLocation() != null) {
-            sb.append("at " + this.getLocation() + " ");
+            sb.append(KEYWORD_AT + this.getLocation() + WHITE_SPACE);
         }
         
         //append remarks
         if (this.getRemarks() != null) {
-            sb.append("remarks " + this.getRemarks());
+            sb.append(KEYWORD_REMARKS + this.getRemarks() + WHITE_SPACE);
         }
         return sb.toString();
     }
@@ -104,6 +112,7 @@ public class TestTask implements ReadOnlyTask {
         return this.interval.compareTo(task.getInterval());
     }
     
+    //@@author
     public String getEditCommand(int index) {
         StringBuilder sb = new StringBuilder();
         sb.append("edit " + index + " " + this.getName().fullName + " ");

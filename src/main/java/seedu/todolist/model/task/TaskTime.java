@@ -79,10 +79,7 @@ public class TaskTime implements Comparable<TaskTime> {
     
     @Override
     public String toString() {
-        if (this.time != null) {
-            return time.format(DateTimeFormatter.ofPattern(TIME_DISPLAY_FORMAT));
-        }
-        return null;
+        return time.format(DateTimeFormatter.ofPattern(TIME_DISPLAY_FORMAT));
     }
 
     @Override
