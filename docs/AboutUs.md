@@ -30,31 +30,35 @@ We are a team of 3 Year 2 NUS students from SoC.
 * Components in charge of : `test` , `Command`, `Logic`<br>
 * Aspects/tools in charge of: Testing, Code quality<br>
 * Features implemented: <br>
-	*Show Tasks
+	* Show Tasks
 	* Find Task
 	* Pin Tasks
 	* Unpin Tasks
 	* Complete Tasks
 	* Uncomplete Tasks
-	* Sort Tasks <br>
+	* Sort Tasks 
+* Code written: [[main](../collated/main/A0146749N.md)][[test](../collated/test/A0146749N.md)][[docs](../collated/docs/A0146749N.md)]
 * Other major contributions:<br>
 	* Refactoring and refinement of code 
 	* Set up Travis and Coveralls
+	
 -----
 
 #### [Zhuang Yufeng](http://github.com/rainwindy) 
 <img src="images/Yufeng.jpg" width="150"><br>
-Role: Code quality, Scheduling and Tracking<br>
+**Role**: Code quality, Scheduling and Tracking<br>
 * Components in charge of : `Util` , `collated` , `docs` , `History`<br>
 * Aspects/tools in charge of: Documentation, Code quality, git, collate <br>
+* Code written: [[main](../collated/main/A0139102U.md)][[test](../collated/test/A0139102U.md)][[docs](../collated/docs/A0139102U.md)]
 * Features implemented:
 	* Undo add, delete, edit
 	* Edit Tasks
 	* Help Window 
 	* Check for clashing time slot<br>
-*Other major contributions:
+* Other major contributions:
 	* Diagrams
 	* Collate
+	
 -----
 
 #### [Muthu Kumar Chandrasekaran] (https://github.com/cmkumar87)
