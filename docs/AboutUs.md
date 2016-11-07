@@ -35,7 +35,7 @@ Role: Tutor <br>
 * Features implemented:
 	* Find Command
 	* Add Command(Recurring task and event)
-* Code written: [functional code]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0147092E.md))][[test code]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0147092E.md))][[docs]((https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0147092E.md))]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/main/A0147092E.md)][[test code](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/test/A0147092E.md)][[docs](https://github.com/CS2103AUG2016-F09-C3/main/blob/master/collated/docs/A0147092E.md)]
 * Other major contributions:
 	* Change the UI design (colors, sizing)
 	* Bug fixing
