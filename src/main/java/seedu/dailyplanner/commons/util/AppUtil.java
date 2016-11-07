@@ -12,5 +12,4 @@ public class AppUtil {
         assert imagePath != null;
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
-
 }
