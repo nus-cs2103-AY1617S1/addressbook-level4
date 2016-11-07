@@ -6,7 +6,6 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.Command;
 import seedu.taskitty.logic.commands.ViewCommand;
 import seedu.taskitty.testutil.TestTask;
-import seedu.taskitty.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
