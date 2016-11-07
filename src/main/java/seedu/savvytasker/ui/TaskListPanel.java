@@ -58,7 +58,7 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
-        taskListView.setStyle("-fx-background-color: transparent");
+        setBackground();
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
@@ -71,8 +71,17 @@ public class TaskListPanel extends UiPart {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
+    
+    private void setBackground() {
+        if (taskListView.getItems().size() > 0) {
+            taskListView.setStyle("-fx-background-color: transparent");
+        } else {
+            taskListView.setStyle("-fx-background-color: white");
+        }
+    }
 
     private void setEventHandlerForSelectionChangeEvent() {
+        setBackground();
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
