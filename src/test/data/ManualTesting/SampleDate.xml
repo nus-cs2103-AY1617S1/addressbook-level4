@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <tasks>
+        <name>Investigate Chicken Thefts</name>
+        <description>Prime suspect - Mr Fox</description>
+        <address>Farms of Boggies, Bunce and Bean</address>
+        <isUntimed>true</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Who Framed Roger Rabbit</name>
+        <time>29-Oct-2016</time>
+        <startTime>29-Oct-2016 4:28AM</startTime>
+        <description></description>
+        <address>Toon Town</address>
+        <isUntimed>true</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>Work</tagged>
+    </tasks>
+    <tasks>
+        <name>Submit Report on Roger Rabbit</name>
+        <time>01-Nov-2016 11:59PM</time>
+        <startTime>01-Nov-2016 11:59PM</startTime>
+        <description>Judge Doom</description>
+        <address></address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Find Nemo</name>
+        <time>04-Nov-2016 2:00AM</time>
+        <startTime>04-Nov-2016 2:00AM</startTime>
+        <endTime>Optional[2016-11-07T23:00]</endTime>
+        <description>Just Keep Swimming</description>
+        <address>42 Wallaby Street, Sydney</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Find Dory</name>
+        <time>14-Nov-2016 2:00AM</time>
+        <startTime>14-Nov-2016 2:00AM</startTime>
+        <endTime>Optional[2016-11-16T16:00]</endTime>
+        <description>Swimming, swimming, swimming, swimming</description>
+        <address>Marine Life Institute, California</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Pick Up Mr Poppers Pengiuns</name>
+        <time>18-Nov-2016 9:30AM</time>
+        <startTime>18-Nov-2016 9:30AM</startTime>
+        <description>Beware of Bitey</description>
+        <address>Tavern on the Green</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Interview Pi</name>
+        <time>25-Nov-2016 10:00AM</time>
+        <startTime>25-Nov-2016 10:00AM</startTime>
+        <description></description>
+        <address></address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>work</tagged>
+    </tasks>
+    <tasks>
+        <name>Cake Tasting</name>
+        <time>12-Dec-2016 10:00AM</time>
+        <startTime>12-Dec-2016 10:00AM</startTime>
+        <endTime>Optional[2016-12-12T18:00]</endTime>
+        <description>The cake is a lie</description>
+        <address>Stamford Catering</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>wedding</tagged>
+    </tasks>
+    <tasks>
+        <name>Wedding</name>
+        <time>01-Jan-2017 3:00PM</time>
+        <startTime>01-Jan-2017 3:00PM</startTime>
+        <endTime>Optional[2017-01-01T16:00]</endTime>
+        <description></description>
+        <address>Church of Saint Francis Xavier</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>Wedding</tagged>
+    </tasks>
+    <tasks>
+        <name>Wedding Dinner</name>
+        <time>01-Jan-2017 6:30PM</time>
+        <startTime>01-Jan-2017 6:30PM</startTime>
+        <endTime>Optional[2017-01-01T23:30]</endTime>
+        <description></description>
+        <address>Stamford Hotel</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+        <tagged>Wedding</tagged>
+    </tasks>
+    <tasks>
+        <name>Escape 2 Africa</name>
+        <time>04-Jan-2017 12:00PM</time>
+        <startTime>04-Jan-2017 12:00PM</startTime>
+        <endTime>Optional[2017-01-19T02:00]</endTime>
+        <description></description>
+        <address>Changi Airport</address>
+        <isUntimed>false</isUntimed>
+        <isCompleted>false</isCompleted>
+    </tasks>
+    <tags>
+        <tagName>work</tagName>
+    </tags>
+    <tags>
+        <tagName>wedding</tagName>
+    </tags>
+    <tags>
+        <tagName>Wedding</tagName>
+    </tags>
+    <tags>
+        <tagName>HDB</tagName>
+    </tags>
+    <tags>
+        <tagName>Work</tagName>
+    </tags>
+</addressbook>
