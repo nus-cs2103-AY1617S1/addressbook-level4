@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskbook>
+    <datedTasks>
+        <name>2103 demo 1</name>
+        <description></description>
+        <datetime>27-Oct-2016 11:00 to 27-Oct-2016 12:00</datetime>
+        <status>EXPIRE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>collect soc welfare pack</name>
+        <description></description>
+        <datetime>31-Oct-2016 14:00 to 03-Nov-2016 17:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>collect engin welfare pack</name>
+        <description></description>
+        <datetime>31-Oct-2016 23:59</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>complete homework 5</name>
+        <description>hand in on wednesday</description>
+        <datetime>02-Nov-2016 12:00</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>cook rice</name>
+        <description>dinner</description>
+        <datetime>02-Nov-2016 17:00</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>test debouncer for amp and freq change</name>
+        <description>DSA lab</description>
+        <datetime>02-Nov-2016 21:30</datetime>
+        <status>OVERDUE</status>
+        <tagged>EE2020</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>bring windows laptop</name>
+        <description></description>
+        <datetime>03-Nov-2016 00:00 to 03-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>breakfast with 2103 team</name>
+        <description></description>
+        <datetime>03-Nov-2016 09:00 to 03-Nov-2016 10:00</datetime>
+        <status>EXPIRE</status>
+        <tagged>BestTeam</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>store laptop in locker</name>
+        <description></description>
+        <datetime>03-Nov-2016 09:00</datetime>
+        <status>OVERDUE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>2103 demo 2</name>
+        <description></description>
+        <datetime>03-Nov-2016 11:00 to 03-Nov-2016 12:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>demo event expired</name>
+        <description></description>
+        <datetime>03-Nov-2016 11:05 to 03-Nov-2016 11:11</datetime>
+        <status>NONE</status>
+        <tagged>CS2103T</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>demo overdue</name>
+        <description></description>
+        <datetime>03-Nov-2016 11:10</datetime>
+        <status>NONE</status>
+        <tagged>cs2103t</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>prepare for cs2101 OP2</name>
+        <description></description>
+        <datetime>03-Nov-2016 13:00 to 03-Nov-2016 17:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>Midnight run with Yu Peng</name>
+        <description>Run to Ameens buy Fei Fei Wanton Mee</description>
+        <datetime>03-Nov-2016 23:00</datetime>
+        <status>NONE</status>
+        <tagged>healthyLifeStyle</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>add 7 segment</name>
+        <description></description>
+        <datetime>03-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+        <tagged>EE2020</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>retrieve laptop</name>
+        <description></description>
+        <datetime>03-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>hit 10k steps</name>
+        <description></description>
+        <datetime>03-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>bring windows laptop</name>
+        <description></description>
+        <datetime>04-Nov-2016 00:00 to 04-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>cs2101 OP2</name>
+        <description>the actual thing</description>
+        <datetime>04-Nov-2016 10:00 to 04-Nov-2016 11:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>write CFG essay</name>
+        <description></description>
+        <datetime>04-Nov-2016 18:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>hit 10k steps</name>
+        <description></description>
+        <datetime>04-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>cut fingernails</name>
+        <description>hello</description>
+        <datetime>05-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>write lab report</name>
+        <description></description>
+        <datetime>05-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+        <tagged>EE2020</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>write user manual</name>
+        <description></description>
+        <datetime>05-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+        <tagged>ee2020</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>hit 10k steps</name>
+        <description></description>
+        <datetime>06-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>send email to enquire about SEP</name>
+        <description>check</description>
+        <datetime>07-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+        <tagged>exchange</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>hit 10k steps</name>
+        <description></description>
+        <datetime>07-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>demo ee2020 signal generator</name>
+        <description></description>
+        <datetime>08-Nov-2016 14:00 to 08-Nov-2016 17:00</datetime>
+        <status>NONE</status>
+        <tagged>important</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>restring tennis racket</name>
+        <description></description>
+        <datetime>09-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>cut hair</name>
+        <description>at clementi</description>
+        <datetime>13-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+    </datedTasks>
+    <datedTasks>
+        <name>ee2020 midterm 2</name>
+        <description>finals</description>
+        <datetime>14-Nov-2016 00:00 to 14-Nov-2016 23:59</datetime>
+        <status>NONE</status>
+        <tagged>exam</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>ges1021 finals</name>
+        <description>mcq print all lecture notes</description>
+        <datetime>21-Nov-2016 13:00</datetime>
+        <status>NONE</status>
+        <tagged>exam</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>cs2103T finals</name>
+        <description></description>
+        <datetime>26-Nov-2016 13:00</datetime>
+        <status>NONE</status>
+        <tagged>exam</tagged>
+    </datedTasks>
+    <datedTasks>
+        <name>ee2021 finals</name>
+        <description></description>
+        <datetime>29-Nov-2016 09:00</datetime>
+        <status>NONE</status>
+        <tagged>exam</tagged>
+    </datedTasks>
+    <undatedTasks>
+        <name>ask friend for living with maths materials</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy grips for tennis racket</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy LR44 batteries</name>
+        <description>10 pieces</description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>battery</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy micro usb cable</name>
+        <description>spare</description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy new bag</name>
+        <description>hong yu</description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy seba cuffs</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>taobao</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>buy skate ceramic bearings</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>taobao</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>collect fuel money from parents</name>
+        <description>$100</description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>money</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>collect scrap paper</name>
+        <description>from COM1 printer areas</description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>green</tagged>
+        <tagged>treehugger</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>do laundry</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>wash</tagged>
+        <tagged>clothes</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>duplicate room key</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>Fetch niece from childcare centre</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>uncle</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>fix skates</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>fix spectacles</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>Go business canteen see chiobu</name>
+        <description></description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>girls</tagged>
+    </undatedTasks>
+    <undatedTasks>
+        <name>mop floor</name>
+        <description>first floor</description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>mop floor</name>
+        <description>second floor</description>
+        <datetime></datetime>
+        <status>NONE</status>
+    </undatedTasks>
+    <undatedTasks>
+        <name>stock up snacks in COM locker</name>
+        <description>rice cracker, biscuits, raisins, sweets</description>
+        <datetime></datetime>
+        <status>NONE</status>
+        <tagged>food</tagged>
+    </undatedTasks>
+    <tags>
+        <tagName>battery</tagName>
+    </tags>
+    <tags>
+        <tagName>CS2103T</tagName>
+    </tags>
+    <tags>
+        <tagName>BestTeam</tagName>
+    </tags>
+    <tags>
+        <tagName>green</tagName>
+    </tags>
+    <tags>
+        <tagName>treehugger</tagName>
+    </tags>
+    <tags>
+        <tagName>food</tagName>
+    </tags>
+    <tags>
+        <tagName>exchange</tagName>
+    </tags>
+    <tags>
+        <tagName>clip</tagName>
+    </tags>
+    <tags>
+        <tagName>EE2020</tagName>
+    </tags>
+    <tags>
+        <tagName>money</tagName>
+    </tags>
+    <tags>
+        <tagName>ee2020</tagName>
+    </tags>
+    <tags>
+        <tagName>exam</tagName>
+    </tags>
+    <tags>
+        <tagName>important</tagName>
+    </tags>
+    <tags>
+        <tagName>wash</tagName>
+    </tags>
+    <tags>
+        <tagName>clothes</tagName>
+    </tags>
+    <tags>
+        <tagName>girls</tagName>
+    </tags>
+    <tags>
+        <tagName>uncle</tagName>
+    </tags>
+    <tags>
+        <tagName>taobao</tagName>
+    </tags>
+    <tags>
+        <tagName>skate</tagName>
+    </tags>
+    <tags>
+        <tagName>healthyLifeStyle</tagName>
+    </tags>
+    <tags>
+        <tagName>cs2103t</tagName>
+    </tags>
+</taskbook>
