@@ -3,7 +3,7 @@ package seedu.testplanner.testutil;
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.logic.parser.nattyParser;
 import seedu.dailyplanner.model.category.Category;
-import seedu.dailyplanner.model.category.UniqueCategoryList.DuplicateTagException;
+import seedu.dailyplanner.model.category.UniqueCategoryList.DuplicateCategoryException;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -72,7 +72,7 @@ public class TaskBuilder {
 
 	public TaskBuilder withCategories(String... cats) throws IllegalValueException {
 		for (String cat : cats) {
-			task.getTags().add(new Category(cat));
+			task.getCats().add(new Category(cat));
 		}
 		return this;
 	}

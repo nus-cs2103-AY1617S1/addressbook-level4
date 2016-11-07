@@ -40,15 +40,15 @@ public class XmlSerializableDailyPlanner implements ReadOnlyDailyPlanner {
      * Conversion
      */
     public XmlSerializableDailyPlanner(ReadOnlyDailyPlanner src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        categories = src.getTagList();
+        persons.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        categories = src.getCategoryList();
     }
 
     @Override
-    public UniqueCategoryList getUniqueTagList() {
+    public UniqueCategoryList getUniqueCatList() {
         try {
             return new UniqueCategoryList(categories);
-        } catch (UniqueCategoryList.DuplicateTagException e) {
+        } catch (UniqueCategoryList.DuplicateCategoryException e) {
             //TODO: better error handling
             e.printStackTrace();
             return null;
@@ -56,7 +56,7 @@ public class XmlSerializableDailyPlanner implements ReadOnlyDailyPlanner {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : persons) {
             try {
@@ -69,7 +69,7 @@ public class XmlSerializableDailyPlanner implements ReadOnlyDailyPlanner {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return persons.stream().map(p -> {
             try {
                 return p.toModelType();
@@ -82,7 +82,7 @@ public class XmlSerializableDailyPlanner implements ReadOnlyDailyPlanner {
     }
 
     @Override
-    public List<Category> getTagList() {
+    public List<Category> getCategoryList() {
         return Collections.unmodifiableList(categories);
     }
 

@@ -20,7 +20,7 @@ public class ConfigTest {
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/dailyplanner.xml\n" +
-                "AddressBook name : MyDailyPlanner";
+                "DailyPlanner name : MyDailyPlanner";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

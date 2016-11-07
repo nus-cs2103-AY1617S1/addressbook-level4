@@ -2,7 +2,7 @@ package seedu.testplanner.testutil;
 
 import seedu.dailyplanner.model.category.Category;
 import seedu.dailyplanner.model.category.UniqueCategoryList;
-import seedu.dailyplanner.model.category.UniqueCategoryList.DuplicateTagException;
+import seedu.dailyplanner.model.category.UniqueCategoryList.DuplicateCategoryException;
 import seedu.dailyplanner.model.task.*;
 
 /**
@@ -92,7 +92,7 @@ public class TestTask implements ReadOnlyTask {
 	}
 
 	@Override
-	public UniqueCategoryList getTags() {
+	public UniqueCategoryList getCats() {
 		return tags;
 	}
 
@@ -109,8 +109,8 @@ public class TestTask implements ReadOnlyTask {
             sb.append(" s/" + this.getStart().toString());
         if (!this.getEnd().toString().equals(""))
             sb.append(" e/" + this.getEnd().toString());
-        if (!this.getTags().toSet().isEmpty())
-            this.getTags().getInternalList().stream().forEach(s -> sb.append(" c/" + s.tagName));
+        if (!this.getCats().toSet().isEmpty())
+            this.getCats().getInternalList().stream().forEach(s -> sb.append(" c/" + s.tagName));
         return sb.toString();
     }
 

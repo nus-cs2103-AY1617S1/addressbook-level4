@@ -5,10 +5,10 @@ import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Uncompletes a task identified using it's last displayed index from the daily planner.
  */
 public class UncompleteCommand extends Command {
 
@@ -30,7 +30,7 @@ public class UncompleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -43,7 +43,7 @@ public class UncompleteCommand extends Command {
             model.getHistory().stackCompleteInstruction(taskToUncomplete);
             model.markTaskAsIncomplete(taskToUncomplete);
             model.updatePinBoard();
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
         return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToUncomplete));

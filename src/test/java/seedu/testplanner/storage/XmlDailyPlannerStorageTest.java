@@ -73,14 +73,14 @@ public class XmlDailyPlannerStorageTest {
         assertEquals(original, new DailyPlanner(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(new Task(TypicalTestTask.learnSpanish));
-        original.removePerson(new Task(TypicalTestTask.WatchMovie));
+        original.addTask(new Task(TypicalTestTask.learnSpanish));
+        original.removeTask(new Task(TypicalTestTask.WatchMovie));
         xmlDailyPlannerStorage.saveAddressBook(original, filePath);
         readBack = xmlDailyPlannerStorage.readAddressBook(filePath).get();
         assertEquals(original, new DailyPlanner(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(new Task(TypicalTestTask.GoSkydiving));
+        original.addTask(new Task(TypicalTestTask.GoSkydiving));
         xmlDailyPlannerStorage.saveAddressBook(original); //file path not specified
         readBack = xmlDailyPlannerStorage.readDailyPlanner().get(); //file path not specified
         assertEquals(original, new DailyPlanner(readBack));

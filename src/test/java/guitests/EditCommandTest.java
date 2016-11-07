@@ -5,7 +5,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.dailyplanner.logic.commands.EditCommand.MESSAGE_EDIT_PERSON_SUCCESS;
+import static seedu.dailyplanner.logic.commands.EditCommand.MESSAGE_EDIT_TASK_SUCCESS;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.logic.parser.*;

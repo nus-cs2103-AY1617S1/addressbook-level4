@@ -46,14 +46,14 @@ public class TypicalTestTask {
 	public static void loadAddressBookWithSampleData(DailyPlanner dp) {
 
 		try {
-			dp.addPerson(new Task(CS2103_Project));
-			dp.addPerson(new Task(CS2103_Lecture));
-			dp.addPerson(new Task(MA1101R_Homework));
-			dp.addPerson(new Task(SoccerWithFriends));
-			dp.addPerson(new Task(BuyGroceries));
-			dp.addPerson(new Task(WatchMovie));
-			dp.addPerson(new Task(learnPython));
-		} catch (UniqueTaskList.DuplicatePersonException e) {
+			dp.addTask(new Task(CS2103_Project));
+			dp.addTask(new Task(CS2103_Lecture));
+			dp.addTask(new Task(MA1101R_Homework));
+			dp.addTask(new Task(SoccerWithFriends));
+			dp.addTask(new Task(BuyGroceries));
+			dp.addTask(new Task(WatchMovie));
+			dp.addTask(new Task(learnPython));
+		} catch (UniqueTaskList.DuplicateTaskException e) {
 			assert false : "not possible";
 		}
 	}

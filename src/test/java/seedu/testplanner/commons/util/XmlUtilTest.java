@@ -55,8 +55,8 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableDailyPlanner dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableDailyPlanner.class);
-        assertEquals(9, dataFromFile.getPersonList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        assertEquals(9, dataFromFile.getTaskList().size());
+        assertEquals(0, dataFromFile.getCategoryList().size());
     }
 
     @Test

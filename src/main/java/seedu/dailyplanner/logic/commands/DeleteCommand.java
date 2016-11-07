@@ -4,21 +4,21 @@ import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the daily planner.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last person listing.\n"
+            + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Format: [INDEX] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     public final int targetIndex;
 
@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -41,14 +41,14 @@ public class DeleteCommand extends Command {
    
         try {
         	model.getHistory().stackAddInstruction(taskToDelete);
-            model.deletePerson(taskToDelete);
+            model.deleteTask(taskToDelete);
             model.updatePinBoard();
             
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

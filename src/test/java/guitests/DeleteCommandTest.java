@@ -6,7 +6,7 @@ import seedu.testplanner.testutil.TestTask;
 import seedu.testplanner.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.dailyplanner.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.dailyplanner.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends DailyPlannerGuiTest {
 
@@ -49,7 +49,7 @@ public class DeleteCommandTest extends DailyPlannerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
     }
 
 }

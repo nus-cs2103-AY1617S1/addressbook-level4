@@ -11,7 +11,7 @@ import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -22,46 +22,46 @@ public interface Model {
 	/** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyDailyPlanner newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyDailyPlanner getAddressBook();
+    /** Returns the DailyPlanner */
+    ReadOnlyDailyPlanner getDailyPlanner();
     
     HistoryManager getHistory();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyTask target) throws UniqueTaskList.PersonNotFoundException;
+    /** Deletes the given task. */
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException;
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as complete  */
-    void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException;
+    void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException;
     
     /** Unmarks the given task as incomplete  */
-    void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws PersonNotFoundException;
+    void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws TaskNotFoundException;
     
     /** Pins the given task. */
-    void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException;
+    void pinTask(ReadOnlyTask taskToPin) throws TaskNotFoundException;
 
     /** Unpins the given task. */
-	void unpinTask(int i) throws PersonNotFoundException;
+	void unpinTask(int i) throws TaskNotFoundException;
     
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
-    /** Returns the list of pinned task as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the list of pinned task as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(Set<String> keywords);
     
-    /** Updates the filter of the filtered person list to filter by the given date*/
-    void updateFilteredPersonListByDate(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given date*/
+    void updateFilteredTaskListByDate(Set<String> keywords);
 
-    /** Updates the filter of the filtered person list to show only completed tasks*/
-	void updateFilteredPersonListByCompletion(Set<String> keywords);
+    /** Updates the filter of the filtered task list to show only completed tasks*/
+	void updateFilteredTaskListByCompletion(Set<String> keywords);
 
     /** Returns the index of the last task that was added to the task list */
     public int getLastTaskAddedIndex();

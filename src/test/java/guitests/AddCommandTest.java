@@ -30,7 +30,7 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 
 		// add duplicate person
 		commandBox.runCommand(td.learnPython.getAddCommand());
-		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 		assertTrue(taskListPanel.isListMatching(currentList));
 
 		// add to empty list

@@ -39,7 +39,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	 */
 	public Task(ReadOnlyTask source) {
 		this(source.getName(), source.getStart(), source.getEnd(), source.isComplete(), source.isPinned(),
-				source.getTags());
+				source.getCats());
 	}
 
 	@Override
@@ -149,14 +149,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
 	@Override
-	public UniqueCategoryList getTags() {
+	public UniqueCategoryList getCats() {
 		return new UniqueCategoryList(tags);
 	}
 
 	/**
 	 * Replaces this task's tags with the tags in the argument tag list.
 	 */
-	public void setTags(UniqueCategoryList replacement) {
+	public void setCategories(UniqueCategoryList replacement) {
 		tags.setTags(replacement);
 	}
 

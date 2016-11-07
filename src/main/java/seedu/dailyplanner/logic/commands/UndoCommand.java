@@ -9,8 +9,8 @@ import seedu.dailyplanner.model.category.Category;
 import seedu.dailyplanner.model.category.UniqueCategoryList;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
-import seedu.dailyplanner.model.task.UniqueTaskList.DuplicatePersonException;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class UndoCommand extends Command {
 
@@ -26,7 +26,7 @@ public class UndoCommand extends Command {
 
 		if (undoInstruction.getReverse().equals("A")) {
 			try {
-				model.addPerson((Task) taskToUndo);
+				model.addTask((Task) taskToUndo);
 			} catch (IllegalValueException e) {
 				e.printStackTrace();
 			}
@@ -34,17 +34,17 @@ public class UndoCommand extends Command {
 
 		if (undoInstruction.getReverse().equals("D")) {
 			try {
-				model.deletePerson(taskToUndo);
-			} catch (PersonNotFoundException e) {
+				model.deleteTask(taskToUndo);
+			} catch (TaskNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
 
 		if (undoInstruction.getReverse().equals("ED")) {
 			try {
-				model.deletePerson(taskToUndo);
+				model.deleteTask(taskToUndo);
 
-			} catch (PersonNotFoundException e) {
+			} catch (TaskNotFoundException e) {
 				e.printStackTrace();
 			}
 
@@ -57,8 +57,8 @@ public class UndoCommand extends Command {
 			taskToUndo = undoInstruction.getTask();
 
 			try {
-				model.addPerson((Task) taskToUndo);
-			} catch (DuplicatePersonException e) {
+				model.addTask((Task) taskToUndo);
+			} catch (DuplicateTaskException e) {
 				e.printStackTrace();
 			}
 		}
@@ -67,7 +67,7 @@ public class UndoCommand extends Command {
 			int indexInPinBoard = model.getPinnedTaskList().indexOf(taskToUndo);
 			try {
 				model.unpinTask(indexInPinBoard);
-			} catch (PersonNotFoundException e) {
+			} catch (TaskNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
@@ -75,20 +75,20 @@ public class UndoCommand extends Command {
 		if (undoInstruction.getReverse().equals("P")) {
 			try {
 				model.pinTask(taskToUndo);
-			} catch (PersonNotFoundException e) {
+			} catch (TaskNotFoundException e) {
 				e.printStackTrace();
 			}
 		}
 		
 		if (undoInstruction.getReverse().equals("UC")) {
-            int indexInTaskList = model.getFilteredPersonList().indexOf(taskToUndo);
+            int indexInTaskList = model.getFilteredTaskList().indexOf(taskToUndo);
             model.uncompleteTask(indexInTaskList);
         }
 		
 		if (undoInstruction.getReverse().equals("C")) {
             try {
                 model.markTaskAsComplete(taskToUndo);
-            } catch (PersonNotFoundException e) {
+            } catch (TaskNotFoundException e) {
                 e.printStackTrace();
             }
         }

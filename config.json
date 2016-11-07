@@ -2,6 +2,6 @@
   "appTitle" : "Daily Planner",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "preferences.json",
-  "addressBookFilePath" : "data/dailyplanner.xml",
-  "addressBookName" : "MyDailyPlanner"
+  "dailyPlannerFilePath" : "data/dailyplanner.xml",
+  "dailyPlannerName" : "MyDailyPlanner"
 }

@@ -5,7 +5,7 @@ import java.util.Set;
 import seedu.dailyplanner.commons.util.StringUtil;
 
 /**
- * Lists all persons in the address book to the user.
+ * Shows the task in the daily planner to the user depending on the keywords passed.
  */
 // @@author A0146749N
 public class ShowCommand extends Command {
@@ -32,16 +32,16 @@ public class ShowCommand extends Command {
 			return new CommandResult(String.format(MESSAGE_SUCCESS, "all"));
 		} else {
 			if (keywords.contains("complete")) {
-				model.updateFilteredPersonListByCompletion(keywords);
+				model.updateFilteredTaskListByCompletion(keywords);
 				model.setLastShowDate("completed");
 			} else if(keywords.contains("not complete")) {
-			    model.updateFilteredPersonListByCompletion(keywords);
+			    model.updateFilteredTaskListByCompletion(keywords);
 			    model.setLastShowDate("not completed");
 			} else {
-				model.updateFilteredPersonListByDate(keywords);
+				model.updateFilteredTaskListByDate(keywords);
 				model.setLastShowDate((String) keywords.toArray()[0]);
 			}
-			return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
+			return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredTaskList().size()));
 		}
 	}
 }

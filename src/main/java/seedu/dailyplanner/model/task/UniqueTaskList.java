@@ -22,8 +22,8 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * Signals that an operation would have violated the 'no duplicates'
 	 * property of the list.
 	 */
-	public static class DuplicatePersonException extends DuplicateDataException {
-		protected DuplicatePersonException() {
+	public static class DuplicateTaskException extends DuplicateDataException {
+		protected DuplicateTaskException() {
 			super("Operation would result in duplicate persons");
 		}
 	}
@@ -32,7 +32,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * Signals that an operation targeting a specified person in the list would
 	 * fail because there is no such matching person in the list.
 	 */
-	public static class PersonNotFoundException extends Exception {
+	public static class TaskNotFoundException extends Exception {
 	}
 
 	private final ObservableList<Task> internalList = FXCollections.observableArrayList();
@@ -61,14 +61,14 @@ public class UniqueTaskList implements Iterable<Task> {
 	/**
 	 * Adds a person to the list.
 	 *
-	 * @throws DuplicatePersonException
+	 * @throws DuplicateTaskException
 	 *             if the person to add is a duplicate of an existing person in
 	 *             the list.
 	 */
-	public void add(Task toAdd) throws DuplicatePersonException {
+	public void add(Task toAdd) throws DuplicateTaskException {
 		assert toAdd != null;
 		if (contains(toAdd)) {
-			throw new DuplicatePersonException();
+			throw new DuplicateTaskException();
 		}
 		internalList.add(toAdd);
 		FXCollections.sort(internalList);
@@ -77,15 +77,15 @@ public class UniqueTaskList implements Iterable<Task> {
 	/**
 	 * Removes the equivalent person from the list.
 	 *
-	 * @throws PersonNotFoundException
+	 * @throws TaskNotFoundException
 	 *             if no such person could be found in the list.
 	 */
-	public boolean remove(ReadOnlyTask toRemove) throws PersonNotFoundException {
+	public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
 		assert toRemove != null;
 		final boolean personFoundAndDeleted = internalList.remove(toRemove);
 
 		if (!personFoundAndDeleted) {
-			throw new PersonNotFoundException();
+			throw new TaskNotFoundException();
 		}
 		FXCollections.sort(internalList);
 		return personFoundAndDeleted;
@@ -99,10 +99,10 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * Marks the task indicated by taskIndex as complete
 	 * @return 
 	 * 
-	 * @throws PersonNotFoundException
+	 * @throws TaskNotFoundException
 	 *             if the task index is invalid.
 	 */
-	public void complete(ReadOnlyTask key) throws PersonNotFoundException {
+	public void complete(ReadOnlyTask key) throws TaskNotFoundException {
 
 		final int completedTaskIndex = internalList.indexOf(key);
 		final Task completedTask = internalList.get(completedTaskIndex);
@@ -115,7 +115,7 @@ public class UniqueTaskList implements Iterable<Task> {
 	 * 
 	 * @return
 	 */
-	public void pin(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+	public void pin(ReadOnlyTask taskToPin) throws TaskNotFoundException {
 		final int pinnedTaskIndex = internalList.indexOf(taskToPin);
 		final Task pinnedTask = internalList.get(pinnedTaskIndex);
 		pinnedTask.pin();

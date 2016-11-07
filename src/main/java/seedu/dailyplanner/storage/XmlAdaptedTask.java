@@ -55,7 +55,7 @@ public class XmlAdaptedTask {
 		isComplete = source.isComplete();
 		isPinned = source.isPinned();
 		tagged = new ArrayList<>();
-		for (Category category : source.getTags()) {
+		for (Category category : source.getCats()) {
 			tagged.add(new XmlAdaptedCategory(category));
 		}
 	}

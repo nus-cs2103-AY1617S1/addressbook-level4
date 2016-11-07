@@ -76,7 +76,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new DailyPlanner(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new DailyPlanner(model.getDailyPlanner()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -118,10 +118,10 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredPersonList());
+        assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedAddressBook, model.getDailyPlanner());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
@@ -146,9 +146,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1));
-        model.addPerson(helper.generatePerson(2));
-        model.addPerson(helper.generatePerson(3));
+        model.addTask(helper.generatePerson(1));
+        model.addTask(helper.generatePerson(2));
+        model.addTask(helper.generatePerson(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new DailyPlanner(), Collections.emptyList());
     }
@@ -186,13 +186,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         DailyPlanner expectedAB = new DailyPlanner();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
         System.out.println(helper.generateAddCommand(toBeAdded));
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -202,17 +202,17 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         DailyPlanner expectedAB = new DailyPlanner();
-        expectedAB.addPerson(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
 
     }
 
@@ -222,7 +222,7 @@ public class LogicManagerTest {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         DailyPlanner expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
         helper.addToModel(model, 2);
@@ -260,10 +260,10 @@ public class LogicManagerTest {
         // set AB state to 2 persons
         model.resetData(new DailyPlanner());
         for (Task p : personList) {
-            model.addPerson(p);
+            model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getDailyPlanner(), personList);
     }
 
     @Test
@@ -286,11 +286,11 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
 
 
@@ -311,13 +311,13 @@ public class LogicManagerTest {
         List<Task> threePersons = helper.generatePersonList(3);
 
         DailyPlanner expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getTaskList());
     }
 
 
@@ -341,7 +341,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -396,7 +396,7 @@ public class LogicManagerTest {
             cmd.append(" s/").append(p.getStart().toString());
             cmd.append(" e/").append(p.getEnd().toString());
 
-            UniqueCategoryList tags = p.getTags();
+            UniqueCategoryList tags = p.getCats();
             for(Category t: tags){
                 cmd.append(" c/").append(t.tagName);
             }
@@ -435,7 +435,7 @@ public class LogicManagerTest {
          */
         void addToAddressBook(DailyPlanner dailyPlanner, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                dailyPlanner.addPerson(p);
+                dailyPlanner.addTask(p);
             }
         }
 
@@ -452,7 +452,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Task> personsToAdd) throws Exception{
             for(Task p: personsToAdd){
-                model.addPerson(p);
+                model.addTask(p);
             }
         }
 

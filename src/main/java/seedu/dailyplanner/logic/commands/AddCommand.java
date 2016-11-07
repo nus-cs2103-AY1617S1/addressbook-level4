@@ -14,7 +14,7 @@ import seedu.dailyplanner.model.task.*;
 import seedu.dailyplanner.history.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the daily planner.
  */
 public class AddCommand extends Command {
 
@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             + COMMAND_WORD + " CS2103 Assignment s/today 10pm e/11pm c/urgent c/important";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the daily planner";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the daily planner";
     public static final String MESSAGE_WARNING_CLASH = "Warning! Current timeslot clashes with the following task: %1$s";
     private List<ReadOnlyTask> taskList;
     private final Task toAdd;
@@ -39,12 +39,12 @@ public class AddCommand extends Command {
      *             if any of the raw values are invalid
      */
 
-    public AddCommand(String taskName, DateTime start, DateTime end, Set<String> tags) throws IllegalValueException {
-        final Set<Category> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Category(tagName));
+    public AddCommand(String taskName, DateTime start, DateTime end, Set<String> cats) throws IllegalValueException {
+        final Set<Category> catSet = new HashSet<>();
+        for (String catName : cats) {
+            catSet.add(new Category(catName));
         }
-        this.toAdd = new Task(taskName, start, end, false, false, new UniqueCategoryList(tagSet));
+        this.toAdd = new Task(taskName, start, end, false, false, new UniqueCategoryList(catSet));
 
     }
 
@@ -52,9 +52,9 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            taskList = model.getAddressBook().getPersonList();
+            taskList = model.getDailyPlanner().getTaskList();
             model.getHistory().stackDeleteInstruction(toAdd);
-            model.addPerson(toAdd);
+            model.addTask(toAdd);
             model.updatePinBoard();
 
             if (isClash(toAdd))
@@ -62,8 +62,8 @@ public class AddCommand extends Command {
                         String.format(MESSAGE_WARNING_CLASH, taskList.get(getIndexOfClashingTask(toAdd))));
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniqueTaskList.DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }

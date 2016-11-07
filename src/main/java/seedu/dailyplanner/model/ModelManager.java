@@ -15,27 +15,27 @@ import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.Task;
 import seedu.dailyplanner.model.task.UniqueTaskList;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the address book data. All changes to any
+ * Represents the in-memory model of the daily planner data. All changes to any
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
 	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
 	private final DailyPlanner dailyPlanner;
-	private final FilteredList<Task> filteredPersons;
+	private final FilteredList<Task> filteredTasks;
 	private final FilteredList<Task> pinnedTasks;
 	private final HistoryManager history;
 	private IntegerProperty lastTaskAddedIndex;
 	private StringProperty lastShowDate;
 
 	/**
-	 * Initializes a ModelManager with the given AddressBook AddressBook and its
+	 * Initializes a ModelManager with the given DailyPlanner DailyPlanner and its
 	 * variables should not be null
 	 */
 	public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
@@ -43,10 +43,10 @@ public class ModelManager extends ComponentManager implements Model {
 		assert src != null;
 		assert userPrefs != null;
 
-		logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+		logger.fine("Initializing with daily planner: " + src + " and user prefs " + userPrefs);
 
 		dailyPlanner = new DailyPlanner(src);
-		filteredPersons = new FilteredList<>(dailyPlanner.getPersons());
+		filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
 		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
 		history = new HistoryManager();
 		lastTaskAddedIndex = new SimpleIntegerProperty(0);
@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	public ModelManager(ReadOnlyDailyPlanner initialData, UserPrefs userPrefs) {
 		dailyPlanner = new DailyPlanner(initialData);
-		filteredPersons = new FilteredList<>(dailyPlanner.getPersons());
+		filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
 		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
 		history = new HistoryManager();
 		lastTaskAddedIndex = new SimpleIntegerProperty(0);
@@ -69,7 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void resetData(ReadOnlyDailyPlanner newData) {
 		dailyPlanner.resetData(newData);
-		indicateAddressBookChanged();
+		indicateDailyPlannerChanged();
 	}
 
 	@Override
@@ -78,59 +78,59 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	@Override
-	public ReadOnlyDailyPlanner getAddressBook() {
+	public ReadOnlyDailyPlanner getDailyPlanner() {
 		return dailyPlanner;
 	}
 
 	/** Raises an event to indicate the model has changed */
-	private void indicateAddressBookChanged() {
+	private void indicateDailyPlannerChanged() {
 		raise(new DailyPlannerChangedEvent(dailyPlanner));
 	}
 
 	@Override
-	public synchronized void deletePerson(ReadOnlyTask target) throws PersonNotFoundException {
-		dailyPlanner.removePerson(target);
-		indicateAddressBookChanged();
+	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+		dailyPlanner.removeTask(target);
+		indicateDailyPlannerChanged();
 	}
 
 	@Override
-	public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-		dailyPlanner.addPerson(person);
-		setLastTaskAddedIndex(dailyPlanner.indexOf(person));
+	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+		dailyPlanner.addTask(task);
+		setLastTaskAddedIndex(dailyPlanner.indexOf(task));
 		updateFilteredListToShowAll();
-		indicateAddressBookChanged();
+		indicateDailyPlannerChanged();
 		setLastShowDate(StringUtil.EMPTY_STRING);
 	}
 
-	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws PersonNotFoundException {
+	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException {
 		dailyPlanner.markTaskAsComplete(taskToComplete);
 		setLastTaskAddedIndex(dailyPlanner.indexOf((Task) taskToComplete));
-		indicateAddressBookChanged();
+		indicateDailyPlannerChanged();
 	}
 	
-	public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws PersonNotFoundException {
+	public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws TaskNotFoundException {
         int targetIndex = dailyPlanner.indexOf((Task) taskToIncomplete);
 	    uncompleteTask(targetIndex);
         setLastTaskAddedIndex(targetIndex);
-        indicateAddressBookChanged();
+        indicateDailyPlannerChanged();
     }
 
 	@Override
-	public void pinTask(ReadOnlyTask taskToPin) throws PersonNotFoundException {
+	public void pinTask(ReadOnlyTask taskToPin) throws TaskNotFoundException {
 		dailyPlanner.pinTask(taskToPin);
-		indicateAddressBookChanged();
+		indicateDailyPlannerChanged();
 	}
 
 	@Override
-	public void unpinTask(int targetIndex) throws PersonNotFoundException {
+	public void unpinTask(int targetIndex) throws TaskNotFoundException {
 		dailyPlanner.unpinTask(targetIndex);
-		indicateAddressBookChanged();
+		indicateDailyPlannerChanged();
 	}
 	
     @Override
     public void uncompleteTask(int targetIndex) {
         dailyPlanner.uncompleteTask(targetIndex);
-        indicateAddressBookChanged();
+        indicateDailyPlannerChanged();
     }
 	@Override
 	public void updatePinBoard() {
@@ -138,12 +138,12 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 
-	// =========== Filtered Person List Accessors
+	// =========== Filtered Task List Accessors
 	// ===============================================================
 
 	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList() {
-		return new UnmodifiableObservableList<>(filteredPersons);
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 
 	@Override
@@ -153,34 +153,34 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredListToShowAll() {
-		filteredPersons.setPredicate(null);
+		filteredTasks.setPredicate(null);
 	}
 
 	@Override
-	public void updateFilteredPersonList(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+	public void updateFilteredTaskList(Set<String> keywords) {
+		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
 	}
 
-	private void updateFilteredPersonList(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
-	}
-
-	@Override
-	public void updateFilteredPersonListByDate(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
-	}
-
-	private void updateFilteredPersonListByDate(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
+	private void updateFilteredTaskList(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
 	}
 
 	@Override
-	public void updateFilteredPersonListByCompletion(Set<String> keywords) {
-		updateFilteredPersonList(new PredicateExpression(new CompletionQualifier(keywords)));
+	public void updateFilteredTaskListByDate(Set<String> keywords) {
+		updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
 	}
 
-	private void updateFilteredPersonListByCompletion(Expression expression) {
-		filteredPersons.setPredicate(expression::satisfies);
+	private void updateFilteredTaskListByDate(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
+	}
+
+	@Override
+	public void updateFilteredTaskListByCompletion(Set<String> keywords) {
+		updateFilteredTaskList(new PredicateExpression(new CompletionQualifier(keywords)));
+	}
+
+	private void updateFilteredTaskListByCompletion(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
 	}
 
 	@Override
@@ -220,7 +220,7 @@ public class ModelManager extends ComponentManager implements Model {
 	// ==================================================
 
 	interface Expression {
-		boolean satisfies(ReadOnlyTask person);
+		boolean satisfies(ReadOnlyTask task);
 
 		String toString();
 	}
@@ -234,8 +234,8 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean satisfies(ReadOnlyTask person) {
-			return qualifier.run(person);
+		public boolean satisfies(ReadOnlyTask task) {
+			return qualifier.run(task);
 		}
 
 		@Override
@@ -245,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 
 	interface Qualifier {
-		boolean run(ReadOnlyTask person);
+		boolean run(ReadOnlyTask task);
 
 		String toString();
 	}
@@ -258,8 +258,8 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(ReadOnlyTask person) {
-			return completionKeywords.contains(person.getCompletion().toLowerCase());
+		public boolean run(ReadOnlyTask task) {
+			return completionKeywords.contains(task.getCompletion().toLowerCase());
 		}
 
 		@Override
@@ -295,8 +295,8 @@ public class ModelManager extends ComponentManager implements Model {
 		}
 
 		@Override
-		public boolean run(ReadOnlyTask person) {
-			return nameKeyWords.stream().filter(keyword -> StringUtil.containsIgnoreCase(person.getName(), keyword))
+		public boolean run(ReadOnlyTask task) {
+			return nameKeyWords.stream().filter(keyword -> StringUtil.containsIgnoreCase(task.getName(), keyword))
 					.findAny().isPresent();
 		}
 

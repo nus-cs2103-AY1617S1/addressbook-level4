@@ -3,7 +3,7 @@ package seedu.dailyplanner.logic.commands;
 import seedu.dailyplanner.model.DailyPlanner;
 
 /**
- * Clears the address book.
+ * Clears the daily planner.
  */
 public class ClearCommand extends Command {
 
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(DailyPlanner.getEmptyAddressBook());
+        model.resetData(DailyPlanner.getEmptyDailyPlanner());
         model.resetPinBoard();
         model.setLastTaskAddedIndex(0);
         return new CommandResult(MESSAGE_SUCCESS);

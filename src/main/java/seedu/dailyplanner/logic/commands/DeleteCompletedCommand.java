@@ -10,19 +10,18 @@ import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.history.HistoryManager;
 import seedu.dailyplanner.logic.parser.nattyParser;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address
- * book.
+ * Deletes a task identified using it's last displayed index from the daily planner.
  */
 public class DeleteCompletedCommand extends Command {
 
 	public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD
-			+ ": Deletes the task identified by the index number used in the last person listing.\n"
+			+ ": Deletes the task identified by the index number used in the last task listing.\n"
 			+ "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD + " 1";
 
-	public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Task: %1$s";
+	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
 	public DeleteCompletedCommand() {
 	}
@@ -31,8 +30,8 @@ public class DeleteCompletedCommand extends Command {
 	public CommandResult execute() {
 
 		final Set<String> keywordSet = new HashSet<>(Arrays.asList(new String[] { "complete" }));
-		model.updateFilteredPersonListByCompletion(keywordSet);
-		UnmodifiableObservableList<ReadOnlyTask> completedList = model.getFilteredPersonList();
+		model.updateFilteredTaskListByCompletion(keywordSet);
+		UnmodifiableObservableList<ReadOnlyTask> completedList = model.getFilteredTaskList();
 		
 		int size = completedList.size();
 		for (int i = 0; i < size; i++) {
@@ -40,17 +39,17 @@ public class DeleteCompletedCommand extends Command {
 
 			try {
 				model.getHistory().stackAddInstruction(taskToDelete);
-				model.deletePerson(taskToDelete);
+				model.deleteTask(taskToDelete);
 				model.updatePinBoard();
 
-			} catch (PersonNotFoundException pnfe) {
+			} catch (TaskNotFoundException pnfe) {
 				assert false : "The target task cannot be missing";
 			}
 		}
 		
 		model.updateFilteredListToShowAll();
 		model.setLastShowDate(StringUtil.EMPTY_STRING);
-		return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, "all completed"));
+		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, "all completed"));
 	}
 
 }

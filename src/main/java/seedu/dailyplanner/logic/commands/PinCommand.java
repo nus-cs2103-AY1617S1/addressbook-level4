@@ -5,12 +5,11 @@ import seedu.dailyplanner.commons.core.Messages;
 import seedu.dailyplanner.commons.core.UnmodifiableObservableList;
 import seedu.dailyplanner.commons.events.ui.JumpToListRequestEvent;
 import seedu.dailyplanner.model.task.ReadOnlyTask;
-import seedu.dailyplanner.model.task.UniqueTaskList.DuplicatePersonException;
-import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.dailyplanner.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Selects a person identified using it's last displayed index from the address
- * book.
+ * Selects a task identified using it's last displayed index from the daily planner
  */
 public class PinCommand extends Command {
 
@@ -32,7 +31,7 @@ public class PinCommand extends Command {
 	@Override
 	public CommandResult execute() {
 
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
 		if (lastShownList.size() < targetIndex) {
 			indicateAttemptToExecuteIncorrectCommand();
@@ -50,7 +49,7 @@ public class PinCommand extends Command {
 			model.getHistory().stackUnpinInstruction(taskToPin);
 			model.pinTask(taskToPin);
 			model.updatePinBoard();
-		} catch (PersonNotFoundException pnfe) {
+		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
 		return new CommandResult(String.format(MESSAGE_PINNED_TASK_SUCCESS, taskToPin));

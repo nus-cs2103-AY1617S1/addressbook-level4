@@ -20,8 +20,8 @@ public class UniqueCategoryList implements Iterable<Category> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    public static class DuplicateTagException extends DuplicateDataException {
-        protected DuplicateTagException() {
+    public static class DuplicateCategoryException extends DuplicateDataException {
+        protected DuplicateCategoryException() {
             super("Operation would result in duplicate tags");
         }
     }
@@ -36,11 +36,11 @@ public class UniqueCategoryList implements Iterable<Category> {
     /**
      * Varargs/array constructor, enforces no nulls or duplicates.
      */
-    public UniqueCategoryList(Category... tags) throws DuplicateTagException {
+    public UniqueCategoryList(Category... tags) throws DuplicateCategoryException {
         assert !CollectionUtil.isAnyNull((Object[]) tags);
         final List<Category> initialTags = Arrays.asList(tags);
         if (!CollectionUtil.elementsAreUnique(initialTags)) {
-            throw new DuplicateTagException();
+            throw new DuplicateCategoryException();
         }
         internalList.addAll(initialTags);
     }
@@ -48,10 +48,10 @@ public class UniqueCategoryList implements Iterable<Category> {
     /**
      * java collections constructor, enforces no null or duplicate elements.
      */
-    public UniqueCategoryList(Collection<Category> categories) throws DuplicateTagException {
+    public UniqueCategoryList(Collection<Category> categories) throws DuplicateCategoryException {
         CollectionUtil.assertNoNullElements(categories);
         if (!CollectionUtil.elementsAreUnique(categories)) {
-            throw new DuplicateTagException();
+            throw new DuplicateCategoryException();
         }
         internalList.addAll(categories);
     }
@@ -109,12 +109,12 @@ public class UniqueCategoryList implements Iterable<Category> {
     /**
      * Adds a Tag to the list.
      *
-     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     * @throws DuplicateCategoryException if the Tag to add is a duplicate of an existing Tag in the list.
      */
-    public void add(Category toAdd) throws DuplicateTagException {
+    public void add(Category toAdd) throws DuplicateCategoryException {
         assert toAdd != null;
         if (contains(toAdd)) {
-            throw new DuplicateTagException();
+            throw new DuplicateCategoryException();
         }
         internalList.add(toAdd);
     }

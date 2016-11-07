@@ -9,22 +9,22 @@ import seedu.dailyplanner.model.task.ReadOnlyTask;
 import seedu.dailyplanner.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of an daily planner
  */
 public interface ReadOnlyDailyPlanner {
 
-    UniqueCategoryList getUniqueTagList();
+    UniqueCategoryList getUniqueCatList();
 
-    UniqueTaskList getUniquePersonList();
-
-    /**
-     * Returns an unmodifiable view of persons list
-     */
-    List<ReadOnlyTask> getPersonList();
+    UniqueTaskList getUniqueTaskList();
 
     /**
-     * Returns an unmodifiable view of tags list
+     * Returns an unmodifiable view of tasks list
      */
-    List<Category> getTagList();
+    List<ReadOnlyTask> getTaskList();
+
+    /**
+     * Returns an unmodifiable view of categories list
+     */
+    List<Category> getCategoryList();
 
 }

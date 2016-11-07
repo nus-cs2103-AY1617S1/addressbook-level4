@@ -19,13 +19,13 @@ public class DailyPlannerBuilder {
         this.dailyPlanner = dailyPlanner;
     }
 
-    public DailyPlannerBuilder withPerson(Task person) throws UniqueTaskList.DuplicatePersonException {
-        dailyPlanner.addPerson(person);
+    public DailyPlannerBuilder withPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
+        dailyPlanner.addTask(person);
         return this;
     }
 
     public DailyPlannerBuilder withTag(String tagName) throws IllegalValueException {
-        dailyPlanner.addTag(new Category(tagName));
+        dailyPlanner.addCategory(new Category(tagName));
         return this;
     }
 

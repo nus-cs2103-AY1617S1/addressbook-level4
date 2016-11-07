@@ -31,7 +31,7 @@ public class Parser {
 	 */
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
 	// or
@@ -40,17 +40,6 @@ public class Parser {
 	// separated
 	// by
 	// whitespace
-
-	private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward
-	// slashes are
-	// reserved for
-	// delimiter prefixes
-	Pattern.compile(
-			"(?<name>[^/]+)" + " (?<isPhonePrivate>p?)d/(?<date>[^/]+)" + " (?<isEmailPrivate>p?)st/(?<starttime>[^/]+)"
-					+ " (?<isAddressPrivate>p?)et/(?<endtime>[^/]+)" + "(?<tagArguments>(?: c/[^/]+)*)"); // variable
-	// number
-	// of
-	// tags
 
 	public Parser() {
 	}
@@ -170,7 +159,7 @@ public class Parser {
 		String taskName = null;
 		String start = null, end = null;
 		DateTime formattedStart = null, formattedEnd = null;
-		Set<String> tags = new HashSet<String>();
+		Set<String> categories = new HashSet<String>();
 		
 		String trimmedArgs = arguments.trim();
 		
@@ -240,25 +229,25 @@ public class Parser {
 				formattedEnd = new DateTime(endDate, new Time(""));
 			}
 		}
-		if (mapArgs.containsKey("tags")) {
-			// if field is empty, delete tags
-			if (mapArgs.get("tags").equals("")) {
-				tags = new HashSet<String>();
+		if (mapArgs.containsKey("cats")) {
+			// if field is empty, delete categories
+			if (mapArgs.get("cats").equals("")) {
+				categories = new HashSet<String>();
 			} else {
-				String[] tagArray = mapArgs.get("tags").split(" ");
-				tags = new HashSet<String>(Arrays.asList(tagArray));
+				String[] catArray = mapArgs.get("cats").split(" ");
+				categories = new HashSet<String>(Arrays.asList(catArray));
 			}
 		}
 
 		try {
-			return new EditCommand(index, taskName, formattedStart, formattedEnd, tags);
+			return new EditCommand(index, taskName, formattedStart, formattedEnd, categories);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
 	}
 
 	/**
-	 * Parses arguments in the context of the add person command.
+	 * Parses arguments in the context of the add task command.
 	 *
 	 * @param args
 	 *            full command args string
@@ -271,7 +260,7 @@ public class Parser {
 		String start = "", end = "";
 		DateTime formattedStart = new DateTime(new Date(""), new Time(""));
 		DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
-		Set<String> tags = new HashSet<String>();
+		Set<String> cats = new HashSet<String>();
 
 		String trimmedArgs = args.trim();
 
@@ -330,12 +319,12 @@ public class Parser {
 				formattedEnd = new DateTime(endDate, new Time(""));
 			}
 		}
-		if (mapArgs.containsKey("tags")) {
-			String[] tagArray = mapArgs.get("tags").split(" ");
-			tags = new HashSet<String>(Arrays.asList(tagArray));
+		if (mapArgs.containsKey("cats")) {
+			String[] catArray = mapArgs.get("cats").split(" ");
+			cats = new HashSet<String>(Arrays.asList(catArray));
 		}
 		try {
-			return new AddCommand(taskName, formattedStart, formattedEnd, tags);
+			return new AddCommand(taskName, formattedStart, formattedEnd, cats);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
@@ -424,7 +413,7 @@ public class Parser {
 					j++;
 				}
 				i = j;
-				mapArgs.put("tags", arg);
+				mapArgs.put("cats", arg);
 
 			}
 		}
@@ -452,21 +441,21 @@ public class Parser {
 	}
 
 	/**
-	 * Extracts the new person's tags from the add command's tag arguments
-	 * string. Merges duplicate tag strings.
+	 * Extracts the new task's categories from the add command's category arguments
+	 * string. Merges duplicate category strings.
 	 */
-	private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-		// no tags
-		if (tagArguments.isEmpty()) {
+	private static Set<String> getCategoriesFromArgs(String catArguments) throws IllegalValueException {
+		// no cats
+		if (catArguments.isEmpty()) {
 			return Collections.emptySet();
 		}
 		// replace first delimiter prefix, then split
-		final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-		return new HashSet<>(tagStrings);
+		final Collection<String> catStrings = Arrays.asList(catArguments.replaceFirst(" t/", "").split(" t/"));
+		return new HashSet<>(catStrings);
 	}
 
 	/**
-	 * Parses arguments in the context of the delete person command.
+	 * Parses arguments in the context of the delete task command.
 	 *
 	 * @param args
 	 *            full command args string
@@ -514,7 +503,7 @@ public class Parser {
 	}
 
 	/**
-	 * Parses arguments in the context of the select person command.
+	 * Parses arguments in the context of the select task command.
 	 *
 	 * @param args
 	 *            full command args string
@@ -536,7 +525,7 @@ public class Parser {
 	 * otherwise.
 	 */
 	private Optional<Integer> parseIndex(String command) {
-		final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+		final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
 		if (!matcher.matches()) {
 			return Optional.empty();
 		}
@@ -550,7 +539,7 @@ public class Parser {
 	}
 
 	/**
-	 * Parses arguments in the context of the find person command.
+	 * Parses arguments in the context of the find task command.
 	 *
 	 * @param args
 	 *            full command args string
