@@ -207,7 +207,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
   }
     
 
-    //@@author
 
     //@@author A0138848M
     /**
