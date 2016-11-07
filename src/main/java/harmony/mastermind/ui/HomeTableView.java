@@ -5,6 +5,7 @@ import org.ocpsoft.prettytime.PrettyTime;
 import com.google.common.eventbus.Subscribe;
 
 import harmony.mastermind.commons.events.ui.HighlightLastActionedRowRequestEvent;
+import harmony.mastermind.commons.util.AppUtil;
 import harmony.mastermind.commons.util.FxViewUtil;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.model.task.ReadOnlyTask;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 
 //@@author A0138862W
 public class HomeTableView extends DefaultTableView {
-    
+    private static final String RECUR_ICON = "/images/recur_white.png";
     private static final String FXML = "HomeTableView.fxml";
     
     private static final PrettyTime prettyTime = new PrettyTime();
@@ -172,7 +173,7 @@ public class HomeTableView extends DefaultTableView {
     protected void initRecur() {
         recurColumn.setSortable(false);
         recurColumn.prefWidthProperty().bind(homeTableView.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
-        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
+        recurColumn.setGraphic(new ImageView(AppUtil.getImage(RECUR_ICON)));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
         recurColumn.setCellFactory(col -> renderRecurCell());
     }
