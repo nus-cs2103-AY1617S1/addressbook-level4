@@ -39,6 +39,7 @@ Role: Tutor <br>
 * Other major contributions:
 	* Change the UI design (colors, sizing)
 	* Bug fixing
+
 -----
 
 #### [Antonia Devina](https://github.com/antoniadevina)
