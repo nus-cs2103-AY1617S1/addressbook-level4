@@ -77,7 +77,7 @@ If you wish to know all of the commands and their formats, you may type in the c
    
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-    > <img src="UserGuideImages/Help_0.JPG" width="400">
+   > <img src="UserGuideImages/Help_0.JPG" width="400">
 
 <br>
 
@@ -92,6 +92,7 @@ If you wish to know the specific formats of each individual command or require a
    help add <br>
    Help  list <br> 
    Help  find <br>   
+   
     > <img src="UserGuideImages/Help_1.JPG" width="400">
     
 This command will show you the command format of the specific command you have entered in the result display panel. For example, if i type “help add,” the result display panel will show the specific format of the add command. 
