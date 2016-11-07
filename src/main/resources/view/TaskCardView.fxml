@@ -73,7 +73,7 @@
          <children>
             <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
                <children>
-                  <ImageView fx:id="dateImage" fitHeight="2420.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
+                  <ImageView fx:id="dateImage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="dateImage">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
