@@ -53,8 +53,6 @@ public class TaskListPanelHandle extends GuiHandle {
      *            A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) {
-        System.out.println("TASKS: " + tasks.length);
-        System.out.println("TASK LIST PANEL: " + this.getNumberOfTasks());
         if (tasks.length > 0) {
             Arrays.sort(tasks);
         }
@@ -83,8 +81,6 @@ public class TaskListPanelHandle extends GuiHandle {
         
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            System.out.println(tasksInList.get(startPosition + i).getName());
-            System.out.println(tasks[i].getName());
             if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)) {
                 return false;
             }
@@ -106,10 +102,6 @@ public class TaskListPanelHandle extends GuiHandle {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException(
                     "List size mismatched\n" + "Expected " + (getListView().getItems().size() - 1) + " tasks");
-        }
-        
-        for (int i = 0; i < tasks.length; i++) {
-            System.out.println("TASK " + i + ": " + tasks[i]);
         }
         
         assertTrue(this.containsInOrder(startPosition, tasks));
