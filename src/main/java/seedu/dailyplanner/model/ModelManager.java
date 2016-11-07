@@ -190,6 +190,9 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void setLastTaskAddedIndex(int index) {
+	    if(index == lastTaskAddedIndex.get()) {
+	       lastTaskAddedIndex.set(-1);
+	    }
 		lastTaskAddedIndex.set(index);
 	}
 

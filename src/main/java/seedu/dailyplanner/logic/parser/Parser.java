@@ -174,9 +174,9 @@ public class Parser {
 		
 		String trimmedArgs = arguments.trim();
 		
-		if(!(ArgumentFormatUtil.isValidEditArgumentFormat(arguments))){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-		}
+		//if(!(ArgumentFormatUtil.isValidEditArgumentFormat(arguments))){
+			//return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		//}
 
 		HashMap<String, String> mapArgs = parseEdit(trimmedArgs);
 
