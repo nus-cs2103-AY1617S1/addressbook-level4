@@ -15,6 +15,7 @@ public class DisplayAliasListEvent extends BaseEvent {
 	public DisplayAliasListEvent (ObservableList<ReadOnlyAlias> aliasList) {
 		this.list = aliasList;
 	}
+	
 	@Override
 	public String toString() {
 		return list.toString();

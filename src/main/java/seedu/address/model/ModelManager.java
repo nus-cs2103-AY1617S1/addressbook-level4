@@ -357,6 +357,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyAlias> getFilteredAliasList() {
         return new UnmodifiableObservableList<>(filteredAliases);
     }
+    //@@author
     
     //========== Inner classes/interfaces used for filtering ==================================================
 
