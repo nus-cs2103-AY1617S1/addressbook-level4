@@ -76,15 +76,24 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
 	private String calculateDueStatus(DateTime end) {
-		if (end.getTime().toString().equals("")) {
+	
+		// if there is no end date, return empty string
+		if (end.getDate().equals("")) {
 			return "";
-
 		}
+		
 		DateTime nowAsDateTime = DateUtil.nowAsDateTime();
-		// if end is strictly before the current date and time
-		if (DateUtil.checkDatePrecedence(end, nowAsDateTime)) {
+		
+		// if end date is strictly before current date
+		if (end.getDate().compareTo(nowAsDateTime.getDate()) < 0 ) {
 			return "OVERDUE";
 		}
+		
+		// if end date is today or later but there is no end time
+		if (end.getTime().toString().equals("")) {
+			return "";
+		}
+		
 		// if end date is same as current date
 		else if (end.getDate().equals(nowAsDateTime.getDate())) {
 			// if end time is before or equal to current time
