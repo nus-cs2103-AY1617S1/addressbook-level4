@@ -23,7 +23,7 @@
 <!-- @@author A0153467Y -->
 ## Introduction
 
-Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forget your schedule? MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to afraid of forgetting your tasks anymore! You can easily use MESS by typing in one line of command. MESS can be used offline and even in your office computer. It helps you manage and organise your tasks and so as your time. 
+Nowadays, everyone has so many tasks to do. Have you ever missed your deadlines or forgotten your schedule? If so, MESS is here to help you! MESS is a to-do list application which reminds you of your tasks or events by showing your list of tasks on the application. No need to be afraid of forgetting your tasks anymore! You can easily use MESS through your keyboard by typing only simple and short commands. MESS can be used offline and even on your office computer. It helps you manage and organise both your tasks and your time.
 
 Want to use MESS immediately? Let's get started!
 <!-- @@author -->
@@ -69,15 +69,16 @@ Want to use MESS immediately? Let's get started!
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG recurs NUMBER_OF_WEEKLY_RECURRING_TASK]`
+Format: `add TASK_NAME [starts START_DATETIME ends CLOSE_DATETIME tag TAG]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
+
+> Use ISO date-time format if you wish to type exact date. e.g. 2016/9/1 represents 1st September 2016
 
 * `TASK_NAME` need not be unique.
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Multiple tags are available by typing `tag TAG tag TAG`.
-* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 Examples:
 * `add proposal ends tomorrow` <br> Adds a proposal task with a deadline 24 hours from now
@@ -85,7 +86,7 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial tag cs2103` <br> Adds a floating task named tutorial with a tag CS2013
 * `add quiz tag cs2102 tag easy` <br> Adds a floating task named tutorial with a tag CS2012 and easy
-* `add test starts today recurs 1` <br> Adds a task start today and recur for one more week.
+* `add test starts 9/1 2pm ends 9/1 3pm ` <br> Adds a task starts on 1 September 2pm and ends on 1 September 3pm
 
 
 #### Aliasing a command: `alias`
@@ -265,7 +266,6 @@ In this example, you can see shopping is a floating task without a start time an
 **Q**: What can I do if I forget those commands?<br>
 
 **A**: You can use the help command or click help tab on the top which will give you a list of command summary. Even if you type the wrong command format, MESS will show you the correct command hints.
-
 <!-- @@author -->  	
 
 ## Command Summary
