@@ -79,7 +79,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "taskbook.jar"
+        archiveName = "Dowat.jar"
 
         manifest {
             attributes "Main-Class": "seedu.task.MainApp"
