@@ -277,21 +277,22 @@ public class LogicManagerTest {
 		assertTrue(helpShown);
 	}
 	
-	@Test
-	public void execute_done_InvalidArgsFormat() throws Exception {
-		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
-		for(int i=1 ; i <= DoneCommand.COMMAND_WORD.length(); i++ ){
-			assertIncorrectIndexFormatBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i), expectedMessage);
-		}
-	}
+//	@Test
+//	public void execute_done_InvalidArgsFormat() throws Exception {
+//		String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+//		for(int i=1 ; i <= DoneCommand.COMMAND_WORD.length(); i++ ){
+//			assertIncorrectIndexFormatBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i), expectedMessage);
+//		}
+//	}
+//	
+//	@Test
+//	public void execute_doneIndexNotFound() throws Exception {
+//		for(int i=0; i <= DoneCommand.COMMAND_WORD.length(); i++){
+//			assertIndexNotFoundBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i));
+//		}
+//	}
 	
-	@Test
-	public void execute_doneIndexNotFound() throws Exception {
-		for(int i=0; i <= DoneCommand.COMMAND_WORD.length(); i++){
-			assertIndexNotFoundBehaviorForCommand(DoneCommand.COMMAND_WORD.substring(0, i));
-		}
-	}
-	
+	//@author A0143095H 
 	@Test 
 	public void execute_doneCorrectly() throws Exception {
 		TestDataHelper helper = new TestDataHelper();
@@ -300,6 +301,7 @@ public class LogicManagerTest {
 		Task t2 = helper.generateTask(2);
 		
 		List<Task> list = helper.generateTaskList(3);
+		List<Task> emptyList = helper.generateTaskList(0);
 		ListOfTask expected = helper.generateListOfTask(list);
 		expected.doneTask(list.get(1), true);
 		expected.doneTask(list.get(1), true);
@@ -307,10 +309,51 @@ public class LogicManagerTest {
 		
 		
 		helper.addToModel(model, list);
-		assertCommandBehavior("done", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS),expected, expected.getTaskList());
-		assertTrue(list.get(1).getDone());
+		assertThreePartCommandBehavior("done 3","done 2","done 1", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS),
+				expected, emptyList);
+		//assertTrue(list.get(1).getDone());
 		
 	}
+	
+	//@author A0143095H 
+	@Test
+	public void execute_doneAllCorrectly() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		List<Task> list = helper.generateTaskList(3);
+		List<Task> emptyList = helper.generateTaskList(0);
+		ListOfTask expected = helper.generateListOfTask(list);
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		
+		helper.addToModel(model, list);
+		assertCommandBehavior("done all", String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS),
+				expected, emptyList);
+			
+	}
+	
+	
+	//@author A0143095H 
+	@Test
+	public void execute_undoneCorrectly() throws Exception {
+		TestDataHelper helper = new TestDataHelper();
+		List<Task> list = helper.generateTaskList(3);
+		ListOfTask expected = helper.generateListOfTask(list);
+		
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		expected.doneTask(list.get(1), true);
+		
+		expected.undoneTask(list.get(1), false);
+		expected.undoneTask(list.get(1), false);
+		expected.undoneTask(list.get(1), false);
+		
+		helper.addToModel(model, list);
+		assertThreePartCommandBehavior("undone 3","undone 2","undone 1", String.format(UnDoneCommand.MESSAGE_UNDONE_TASK_SUCCESS),
+				expected, list);
+		
+	}
+	
 	
 
 	@Test
@@ -338,7 +381,8 @@ public class LogicManagerTest {
 		expected.removeTask(list.get(1));
 		helper.addToModel(model, list);
 
-		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), expected, expected.getTaskList());
+		assertCommandBehavior("clear", String.format(ClearCommand.MESSAGE_SUCCESS), 
+				expected, expected.getTaskList());
 	}
 
 	@Test
