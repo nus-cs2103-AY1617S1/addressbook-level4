@@ -3,7 +3,7 @@
 
 # The Practical Task Manager
 ### By Team Practical People (CS2103AUG2016-T16-C2)
-![Image of UI](https://github.com/AnniyaB/main/blob/master/docs/images/Ui.png)
+![Image of UI](https://github.com/CS2103AUG2016-T16-C2/main/blob/v0.5/docs/images/Ui.png)
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
