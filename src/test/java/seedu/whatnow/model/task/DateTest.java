@@ -2,14 +2,14 @@
 package seedu.whatnow.model.task;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.text.ParseException;
 
 import org.junit.Test;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
-
-import static org.junit.Assert.assertFalse;
 
 public class DateTest {
 
@@ -102,16 +102,13 @@ public class DateTest {
         assertFalse(TaskDate.getIsValidDate("44/20/2018"));
     }
 
-    @Test
-    public void isValidDate_PastDateFormat_returnTrue() throws ParseException, IllegalValueException{
-        boolean checkPastDate = false;
+   @Test
+    public void isValidDate_PastDateFormat_returnTrue() throws ParseException {
         try {
-            TaskDate.getIsValidDate("14/10/2015");
+            new TaskDate("14/10/2015", null, null);
+        } catch (IllegalValueException e){
+            assertEquals(e.getMessage(), TaskDate.EXPIRED_TASK_DATE);
         }
-        catch(IllegalValueException e){
-            checkPastDate = true;
-        }
-        assertTrue(checkPastDate);
     }
 
     @Test
@@ -120,13 +117,14 @@ public class DateTest {
         assertFalse(TaskDate.getIsValidDate("31/02/2020"));
         assertFalse(TaskDate.getIsValidDate("10/16/2020"));
     }
+    
     @Test
     public void isValidDate_dateRange_returnTrue() throws ParseException {
         assertTrue(TaskDate.getIsValidDateRange(null, null));
         assertTrue(TaskDate.getIsValidDateRange("12/12/2017", "23/11/2018"));
         assertTrue(TaskDate.getIsValidDateRange("12/12/2016", "12/12/2016"));
     }
-
+    
     @Test
     public void isValidDate_invalidDateRange_returnFalse() throws ParseException {
         assertFalse(TaskDate.getIsValidDateRange("12/12/2016", "23/11/2015"));
