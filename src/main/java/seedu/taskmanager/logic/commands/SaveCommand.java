@@ -78,7 +78,7 @@ public class SaveCommand extends Command {
         } catch (DataConversionException e) {
             return new CommandResult(MESSAGE_CONFIG_FILE_NOT_FOUND);
         } catch (IOException e) {
-            return new CommandResult(e.getMessage());
+            return new CommandResult(MESSAGE_INVALID_FILE_PATH);
         }
     }
 }
