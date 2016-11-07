@@ -41,9 +41,9 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
     /**
      * Activities and Tags are copied into this addressbook
      */
-    public LifeKeeper(UniqueActivityList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
-        nextReminders.initialize(persons.getInternalList());
+    public LifeKeeper(UniqueActivityList activities, UniqueTagList tags) {
+        resetData(activities.getInternalList(), tags.getInternalList());
+        nextReminders.initialize(activities.getInternalList());
     }
 
     public static ReadOnlyLifeKeeper getEmptyAddressBook() {
@@ -60,8 +60,8 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
         return tags.getInternalList();
     }
 
-    public void setActivities(List<Activity> persons) {
-        this.activities.getInternalList().setAll(persons);
+    public void setActivities(List<Activity> activities) {
+        this.activities.getInternalList().setAll(activities);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -107,8 +107,8 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Activity activity) {
-        final UniqueTagList personTags = activity.getTags();
-        tags.mergeFrom(personTags);
+        final UniqueTagList activityTags = activity.getTags();
+        tags.mergeFrom(activityTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -118,7 +118,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
 
         // Rebuild the list of activity tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : activityTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
         activity.setTags(new UniqueTagList(commonTagReferences));
@@ -165,7 +165,7 @@ public class LifeKeeper implements ReadOnlyLifeKeeper {
 
     @Override
     public String toString() {
-        return activities.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return activities.getInternalList().size() + " activities, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 

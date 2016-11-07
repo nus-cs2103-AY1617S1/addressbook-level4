@@ -38,10 +38,10 @@ public class Parser {
                     + "(?<reminder>(?: r/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
-    private static final Pattern PERSON_EDIT_ARGS_FORMAT =
+    private static final Pattern ACTIVITY_EDIT_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>[0-9]+)" + "(?<parameters>.+)");
     
-    private static final Pattern PERSON_EDIT_PARAMETERS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern ACTIVITY_EDIT_PARAMETERS_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<task>(?: n/[^/]+)?)"
                     + "(?<duedate>(?: d/[^/]+)?)"
                     + "(?<priority>(?: p/[^/]+)?)"
@@ -208,7 +208,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args){
-        final Matcher matcherEdit = PERSON_EDIT_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcherEdit = ACTIVITY_EDIT_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if(!matcherEdit.matches()){
             return new IncorrectCommand(
@@ -224,7 +224,7 @@ public class Parser {
         }
         
         String params = " ".concat(matcherEdit.group("parameters").trim());
-        final Matcher matcherParams = PERSON_EDIT_PARAMETERS_ARGS_FORMAT.matcher(params);
+        final Matcher matcherParams = ACTIVITY_EDIT_PARAMETERS_ARGS_FORMAT.matcher(params);
         
         if(!matcherParams.matches()) {
             return new IncorrectCommand(

@@ -22,7 +22,7 @@ import seedu.lifekeeper.ui.UiPartLoader;
 //@@author A0125284H
 public class OverdueTaskListPanel extends ListPanel {
 	/**
-	 * Panel containing the list of persons.
+	 * Panel containing the list of activities.
 	 */
 	private final Logger logger = LogsCenter.getLogger(OverdueTaskListPanel.class);
 	private static final String FXML = "OverdueListPanel.fxml";
@@ -40,15 +40,15 @@ public class OverdueTaskListPanel extends ListPanel {
     /**
      * 
      * @param primaryStage
-     * @param personListPlaceholder
+     * @param activityListPlaceholder
      * @param taskList - the function calling should make sure that an ActivityList consisting of only tasks are passed.
      * @return
      */
 	//@@author A0125284H
-	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+	public static OverdueTaskListPanel load(Stage primaryStage, AnchorPane activityListPlaceholder,
 		                            	ObservableList<ReadOnlyActivity> taskList) {
 		OverdueTaskListPanel overdueActivitiesListPanel = 
-				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new OverdueTaskListPanel());
+				UiPartLoader.loadUiPart(primaryStage, activityListPlaceholder, new OverdueTaskListPanel());
 		overdueActivitiesListPanel.configure(taskList);
 		return overdueActivitiesListPanel;
 	}
@@ -56,13 +56,13 @@ public class OverdueTaskListPanel extends ListPanel {
 	/**
 	 * To configure listView in activityListView to accept overdue Tasks
 	 * 
-	 * @preconditions: personList only contains (overdue) Tasks.
+	 * @preconditions: activityList only contains (overdue) Tasks.
 	 * 
 	 */
 	
 	//@@author A0125284H
-    protected void setConnections(ObservableList<ReadOnlyActivity> personList) {
-        activityListView.setItems(personList);
+    protected void setConnections(ObservableList<ReadOnlyActivity> activityList) {
+        activityListView.setItems(activityList);
         activityListView.setCellFactory(listView -> new DashboardListViewCell());
     }
 	

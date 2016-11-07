@@ -258,16 +258,16 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Activity> personList = helper.generateActivityList(2);
+        List<Activity> activityList = helper.generateActivityList(2);
 
         // set AB state to 2 persons
         model.resetData(new LifeKeeper());
-        for(int i = personList.size()-1; i >= 0; i--){
-            Activity  p = personList.get(i);
+        for(int i = activityList.size()-1; i >= 0; i--){
+            Activity  p = activityList.get(i);
         	model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getLifekeeper(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getLifekeeper(), activityList);
     }
 
     @Test
@@ -290,7 +290,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeActivities);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getActivityList());
         assertEquals(1, targetedJumpIndex);

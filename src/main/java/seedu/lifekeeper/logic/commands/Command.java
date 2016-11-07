@@ -23,10 +23,10 @@ public abstract class Command {
     public static final String MESSAGE_INVALID_EVENT = "Event must contain a start time";
     
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of activities.
      *
      * @param displaySize used to generate summary
-     * @return summary message for persons displayed
+     * @return summary message for activities displayed
      */
     public static String getMessageForTaskListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);

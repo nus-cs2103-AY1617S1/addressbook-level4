@@ -90,7 +90,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new activity
+        //confirm the list now contains all previous activities plus the new activity
         TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isListMatching(expectedList));
     }

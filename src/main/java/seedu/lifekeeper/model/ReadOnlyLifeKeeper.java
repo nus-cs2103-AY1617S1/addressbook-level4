@@ -18,7 +18,7 @@ public interface ReadOnlyLifeKeeper {
     UniqueActivityList getUniqueActivityList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of activities list
      */
     List<ReadOnlyActivity> getActivityList();
 

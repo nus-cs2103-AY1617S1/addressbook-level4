@@ -7,7 +7,7 @@ import seedu.lifekeeper.commons.util.CollectionUtil;
 import java.util.*;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of activities that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -21,7 +21,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
-            super("Operation would result in duplicate persons");
+            super("Operation would result in duplicate activities");
         }
     }
 
@@ -90,11 +90,11 @@ public class UniqueActivityList implements Iterable<Activity> {
      */
     public boolean remove(ReadOnlyActivity toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        final boolean activityFoundAndDeleted = internalList.remove(toRemove);
+        if (!activityFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
-        return personFoundAndDeleted;
+        return activityFoundAndDeleted;
     }
     
     //@@author A0125680H

@@ -1,7 +1,7 @@
 package seedu.lifekeeper.logic.commands;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all activities in the address book to the user.
  */
 //@@author A0131813R
 public class ListCommand extends Command {

@@ -29,10 +29,10 @@ public class ActivityListPanel extends ListPanel {
         });
     }
 
-	public static ActivityListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+	public static ActivityListPanel load(Stage primaryStage, AnchorPane activityListPlaceholder,
 		                            	ObservableList<ReadOnlyActivity> activityList) {
 		ActivityListPanel activityListPanel = 
-				UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new ActivityListPanel());
+				UiPartLoader.loadUiPart(primaryStage, activityListPlaceholder, new ActivityListPanel());
 		activityListPanel.configure(activityList);
 		return activityListPanel;
 	}

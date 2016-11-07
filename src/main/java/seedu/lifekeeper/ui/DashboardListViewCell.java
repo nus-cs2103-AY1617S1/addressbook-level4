@@ -15,14 +15,14 @@ public class DashboardListViewCell extends ActivityListViewCell {
 	}
 	
     @Override
-    protected void updateItem(ReadOnlyActivity person, boolean empty) {
-        super.updateItem(person, empty);
+    protected void updateItem(ReadOnlyActivity activity, boolean empty) {
+        super.updateItem(activity, empty);
 
-        if (empty || person == null) {
+        if (empty || activity == null) {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(DashboardCard.load(person).getLayout());
+            setGraphic(DashboardCard.load(activity).getLayout());
         }
     }
 	
