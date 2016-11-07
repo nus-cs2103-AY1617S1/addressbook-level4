@@ -81,17 +81,17 @@ Role: Integration / Git Expert <br>
 #### [Yeo Kai Yan @kaiyanyeo](http://github.com/kaiyanyeo)
 <img src="images/KaiYan_Pic.jpg" width="150" height="150"><br>
 Role: Code Quality / Eclipse Expert <br>
-* Components in charge of: [Storage](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#storage-component)
+* Components in charge of: [Storage](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Code Quality, Eclipse
 * Features implemented:
-	* [Delete by multiple indexes (extension)](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/UserGuide.md#when-you-want-to-delete-a-deadline-task-or-event)
-	* [Save to a specified location (end-to-end)](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/UserGuide.md#when-you-want-to-specify-a-custom-save-location-for-your-data)
-* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0143641M.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0143641M.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0143641M.md)]
+	* [Delete by multiple indexes (extension)](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-want-to-delete-a-deadline-task-or-event)
+	* [Save to a specified location (end-to-end)](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/UserGuide.md#when-you-want-to-specify-a-custom-save-location-for-your-data)
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/main/A0143641M.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/test/A0143641M.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/docs/A0143641M.md)]
 * Other major contributions:
 	* Maintaining consistent format of documentation in Developer Guide and User Guide
 	* UI restructuring and changes from AddressBook
 	* Documentation of
-		* [Non-Functional Requirements (extension)](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-c--non-functional-requirements)
-		* [Glossary](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d--glossary)
+		* [Non-Functional Requirements (extension)](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#appendix-c--non-functional-requirements)
+		* [Glossary](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#appendix-d--glossary)
 
 -----
