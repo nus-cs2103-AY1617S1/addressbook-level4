@@ -40,11 +40,11 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                         && other.getName().equals(this.getName()) // state checks here onwards
                         && other.getDate().equals(this.getDate()) && other.isDone() == this.isDone()
-                        && other.isRecurring() ? other.getRecurring().equals(this.getRecurring())
+                        && (other.isRecurring() ? other.getRecurring().equals(this.getRecurring())
                                 : other.isRecurring() == this.isRecurring())
-                        && other.getPriorityLevel().equals(this.getPriorityLevel());
+                        && other.getPriorityLevel().equals(this.getPriorityLevel()));
     }
-
+    
     /**
      * Formats the task as text, showing all details.
      */
