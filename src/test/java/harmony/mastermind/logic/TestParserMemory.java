@@ -23,6 +23,7 @@ public class TestParserMemory {
         test_isUselessCommand();
     }
     
+    //@@author A0143378Y
     private void test_set() { 
         ParserMemoryMain.setCommand("test1");
         assertEquals("Test set command", ParserMemoryMain.getCommand(), "test1");
