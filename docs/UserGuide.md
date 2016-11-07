@@ -90,7 +90,7 @@ Format: `help`
 
 > Help is also shown if you enter a valid command word but with an invalid format.
 
-
+<!-- @@author A0138967J -->
 ## Adding a task: `add`
 This function enables you to add tasks to Do-Do Bird.<br>
 Below are the possible formats to follow in order to add a task.<br>
@@ -123,7 +123,6 @@ Result: <br>
 <img src="images/ADD_Result.png" width="600"><br>
 >Figure 1
 
-<!-- @@author A0142421X -->
 ## Searching tasks: `search`
 Do-Do Bird’s search function helps you to filter out tasks using different search specifiers. <br>
 
@@ -140,7 +139,6 @@ Formats | Function
 `search from DATE [TIME] to DATE [TIME]` | displays a list of tasks that start and end on the specified date and times
 `search tag TAG` | displays a list of tasks that are tagged under the specified tag
 
-<!-- @@author A0093896H -->
 Examples:
 * **`search`**` Party fun NIgHt OUTzz`
 * **`search`**` before 25/10/17 09:30`
@@ -162,7 +160,7 @@ Typing the below command will result in the task shown in the below GUI <br>
 Result: <br>
 <img src="images/SEARCH_Result.png" width="600"><br>
 
-<!-- @@author A0121643R -->
+<!-- @@author A0093896H -->
 ## Marking tasks as done : `mark`
 This function allows you to mark a task as completed.<br>
 
@@ -236,8 +234,6 @@ Result: <br>
 <img src="images/DELETE_Result.png" width="600"><br>
 
 
-<!-- @@author A0142421X -->
-
 ## Tagging a task : `tag`
 Tags the task with the specified tag.<br>
 
@@ -265,7 +261,7 @@ Examples:
 * **`untag`**` 2 Tutorial`<br>
 Untags the task with `ID #2` from `Tutorial` tag
 
-<!-- @@author A0138967J -->
+<!-- @@author A0121643R -->
 ## Storing : `store`
 Change the storage location for the data file.<br>
 
@@ -301,7 +297,7 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Do-Do Bird folder.
-<!-- @@author A0121643R -->
+
 ## Command Summary
 
 Command | Format | Example

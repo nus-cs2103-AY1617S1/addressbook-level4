@@ -381,11 +381,13 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
+<!-- @@author A0093896H -->
 Google Keep : Strength and Weaknesses
 > Google Keep is an easy to use note taking application. It allows users to create different kinds of notes for different purposes. It also has some sort of a checklist which mimics the basic function of a to-do application. The user can also set reminders for a list but not for a specific task.
 
 > A noticeable point about Google Keep is that there is no other way than a list to view the to-dos. Probably this is because Google has other forms of to-dos tracking application and Keep is just meant to be a lightweight option for users who do not need that much functionality.
 
+<!-- @@author A0138967J -->
 Wunderlist : Strength and Weaknesses
 
 > Wunderlist is a web and mobile application that allows user to keep track of their tasks. It has a very nice UI where user can change the background image of the application. Wunderlist also allows users to categorise their tasks into different groups which helps with organisation. Furthermore the application will hide all completed tasks by default from the users so the users will only see those that remain to be done.
@@ -397,6 +399,7 @@ Todoist : Strength and Weaknesses
 
 > One flaw with Todoist is that the projects, while doing a great job of categorising tasks, do not possess subproject hierarchy and thus would make complex projects hard to split downwards in an orderly fashion.
 
+<!-- @@author A0121643R -->
 Priority Matrix : Strength and Weaknesses
 
 > Priority Matrix is a powerful software application that helps individuals be more effective at managing their priorities. It is supported on a number of platforms, including Microsoft Windows, Mac OS X, Android, and iOS. A unique feature of Priority Matrix is that it separates its UI into 4 quadrants (Critical and Immediate, Critical but not Immediate, Not Critical but Immediate, and Uncategorised) which organize tasks based on importance and urgency so that users can have better time management.
@@ -405,6 +408,7 @@ Priority Matrix : Strength and Weaknesses
 
 > One improvement for Priority Matrix is that it could make its UI more aesthetically pleasing.
 
+<!-- @@author A0142421X -->
 Any.Do : Strength and Weaknesses
 
 >Any.Do is a cross platform task managment application that categorises the tasks in terms of when they need to be done. The tasks can also be further categorised into custom categories that can also be shared with friends and family. The application has a very simple and intuitive UI with words of encouragement when tasks are cleared.
