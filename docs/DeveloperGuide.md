@@ -54,7 +54,7 @@ The main code is very long and using an IDE to help you in the process of writin
 
 Being familiar with JavaFX will enable you to edit the user interface smoothly since we use the JavaFX framework quite intensively throughout the project.
 
-In essence, having all of the skills mentioned above will definitely help you to understand the code and hence allow you to add on to the existing code easily and efficiently. As such, we strongly recommend that you familiarise yourself with aforementioned skills. 
+In essence, having all of the skills mentioned above will definitely help you to understand the code and hence allow you to add on to the existing code easily and efficiently. As such, we strongly recommend that you familiarize yourself with aforementioned skills. 
 
 ## **Setting up**
 
@@ -100,7 +100,9 @@ In essence, having all of the skills mentioned above will definitely help you to
 
 ## **Design**
 
-> <img src="DeveloperGuideImages/Design_01.png" width="600">
+### **Architecture**
+
+> <img src="DeveloperGuideImages/DesignArchitecture.png" width="600">
 
 The architectural design shows how the various components work in tandem with each other. `Main` only has one class MainApp and it is responsible for:
 
@@ -113,13 +115,40 @@ The rest of the app consists of 4 main components other than `Main`. They are :
  2. `Logic` : Parses the input and executes the command. Logic updates the Model and Storage according to the commands given by the user.
  3. `Model` : Holds the data during runtime. Works with UI to display the results of the commands to the user.
  4. `Storage`: Reads and writes data to the hard disk. Ensures that the data is stored properly even after Unburden has been closed.
-
-
+ 
 Each component has a interface which all its classes implements and is named after the component itself.
+
+Each of the four components
+* Defines its API in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Model` component defines it's API in the `Model.java`
+interface and exposes its functionality using the `ModelManager.java` class.<br> 
+ 
+
+### **Event-driven nature of the design**
+
+><img src="DeveloperGuideImages/SequenceDiagram2.png" width="600">
+
+In figure 2, the sequence diagram below shows how the components interact when the user enters the command 'Done 1'.
+
+Note how the `Model` simply raises a `ListOfTaskChangedEvent` when the data in _Unburden_ is changed,
+instead of using `Storage` to save the updates to the hard disk. 
+
+
+><img src="DeveloperGuideImages/SequenceDiagram1.png" width="600">
+
+In Figure 3, the diagram shows how the `Eventcenter` reacts to the event. This results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
+Note how the event is being propagated through the `Eventscenter` to the `Storage` and `UI` without being coupled to the `Model`. This reduces coupling and reduces regression when editing files. Hence, it is highly recommended that you follow this nature of the design when editing the project.
+
+
+**The sections that below will go into more detail of each component.**
+
 
 ###**UI component**
 
-> <img src="DeveloperGuideImages/UI_01.png" width="600">
+><img src="DeveloperGuideImages/UI.png" width="600">
 
 
 The `UI` component focuses on interacting with the user by displaying the necessary information to the user when requested. It is also responsible for the outlook of the application. The `UI` component consists of the abstract `UiPart` class which is the base class for the `UI` parts and each &quot;UI part&quot; is represented by a distinct part of the `UI` such as the panels or status bars.
@@ -166,7 +195,7 @@ The `UI` component
 
 ###**Logic component**
 
-> <img src="DeveloperGuideImages/Logic_01.png" width="600">
+> <img src="DeveloperGuideImages/Logic.png" width="600">
 
 The `Logic` component consists of the Parser class which is responsible to taking in the inputs from the `UI` component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. `LogicManager` will then execute the command.
 
@@ -193,7 +222,7 @@ The `Logic` component
 
 ###**Model component**
 
-> <img src="DeveloperGuideImages/Model_01.png" width="600">
+> <img src="DeveloperGuideImages/Model.png" width="600">
 
 The `Model` component is mainly responsible for executing the outputs from the `Logic` component. It is also responsible for storing all the in-app data such as the user&#39;s preferences and data which is needed when executing commands.
 
@@ -205,7 +234,7 @@ The API of `Model` consists of the following classes:
  2. `ModelManager` 
  3. `ListOfTask` 
  4. `UserPref` 
- 5. `ReadOnlyListOfTask` 
+ 5. `ReadOnlyListOfTask`
 
 The API of the `Model` component is in the `Model` class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The `ModelManager` class, which represents the in-memory model of the task manager data, inherit from the `Model` interface.
 
@@ -218,18 +247,34 @@ The `Model` component
  
 ###**Storage component**
 
-> <img src="DeveloperGuideImages/Storage_01.png" width="600">
+> <img src="DeveloperGuideImages/Storage.png" width="600">
 
 The `Storage` component primarily focuses on storing data. Any data related to the application will be saved within `Storage` and can be accessed later when requested. `Storage` works closely with `Model` to read and write data from the app as and when the user requests to add or show existing data.
 
-####**API**
+####**Main API Classes**
 
-These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user.
+The API of `Storage` consists of the following classes:
+
+ 1. `JSonUserPrefsStorage` 
+ 2. `Storage` 
+ 3. `StorageManager` 
+ 4. `TaskListStorage`
+ 5. `UserPrefsStorage`
+ 6. `XmlAdaptedTask`
+ 7. `XmlAdaptedTag`
+ 8. `XmlFileStorage`
+ 9. `XmlSerializableTaskList`
+ 10. `XmlTaskListStorage`
+
+These classes are responsible for storing the data from the user and also works with the Model component to execute the commands given by the user. 
 
 The `Storage` component
 
  - Saves the data entered in by the user and also read it back to `Model` when requested <br>
  - Saves user preferences and read it back when needed <br>
+ - Saves the `Userpref` objects json format and the data in _Unburden_ in xml format <br> 
+
+
 
 
 ## **Implementation**
@@ -264,7 +309,7 @@ In Eclipse:
 
 Using Gradle:
 
-- See [md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md) for how to run tests using Gradle.
+- See [Gradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -279,14 +324,14 @@ We have two types of tests:
 
 
 
-##Headless GUI Testing : 
+**Headless GUI Testing** 
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
 Look up the UsingGradle.md file to learn how to run tests in headless mode.
 
 ###**Troubleshooting tests**
 
-Problem: Tests fail because NullPointException when AssertionError is expected
+Problem: Tests fail because of NullPointException when an AssertionError is expected
 
 - Reason: Assertions are not enabled for JUnit tests. This can happen if you are not using a recent Eclipse version (i.e. _Neon_r later)
 - Solution: Enable assertions in JUnit tests as described.
