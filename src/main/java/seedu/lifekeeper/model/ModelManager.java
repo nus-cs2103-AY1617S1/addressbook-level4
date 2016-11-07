@@ -5,7 +5,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.lifekeeper.commons.core.ComponentManager;
 import seedu.lifekeeper.commons.core.LogsCenter;
 import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.model.SaveEvent;
 import seedu.lifekeeper.commons.util.StringUtil;
 import seedu.lifekeeper.model.activity.Activity;
@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(lifeKeeper));
+        raise(new LifekeeperChangedEvent(lifeKeeper));
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredActivities);
     }
     
-  //@@author A0125284H A0131813R
+  //@@author A0125284H
   	@Override
   	public UnmodifiableObservableList<ReadOnlyActivity> getFilteredOverdueTaskList() {
   		
@@ -269,10 +269,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-
-
-
-
 
 }

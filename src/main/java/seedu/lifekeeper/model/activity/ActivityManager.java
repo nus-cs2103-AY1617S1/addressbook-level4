@@ -180,11 +180,11 @@ public class ActivityManager {
         if (newParams.getReminder().toString().equals(NULL_ENTRY) && type.equals(COMMAND_TYPE_EDIT)) {
             newReminder = new Reminder(oldTask.getReminder().getCalendarValue());
             newReminder.recurring = oldTask.getReminder().recurring;
-            newReminder.RecurringMessage = oldTask.getReminder().RecurringMessage;
+            newReminder.recurringMessage = oldTask.getReminder().recurringMessage;
         } else {
             newReminder = new Reminder(newParams.getReminder().getCalendarValue());
             newReminder.recurring = newParams.getReminder().recurring;
-            newReminder.RecurringMessage = newParams.getReminder().RecurringMessage;
+            newReminder.recurringMessage = newParams.getReminder().recurringMessage;
         }
 
         return newReminder;

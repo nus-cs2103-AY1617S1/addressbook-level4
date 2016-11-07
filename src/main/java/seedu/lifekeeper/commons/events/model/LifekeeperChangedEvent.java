@@ -4,11 +4,11 @@ import seedu.lifekeeper.commons.events.BaseEvent;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
 
 /** Indicates the AddressBook in the model has changed*/
-public class AddressBookChangedEvent extends BaseEvent {
+public class LifekeeperChangedEvent extends BaseEvent {
 
     public final ReadOnlyLifeKeeper data;
 
-    public AddressBookChangedEvent(ReadOnlyLifeKeeper data){
+    public LifekeeperChangedEvent(ReadOnlyLifeKeeper data){
         this.data = data;
     }
 

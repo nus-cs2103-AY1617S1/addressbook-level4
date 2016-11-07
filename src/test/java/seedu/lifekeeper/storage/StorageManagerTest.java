@@ -6,7 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.lifekeeper.commons.events.model.AddressBookChangedEvent;
+import seedu.lifekeeper.commons.events.model.LifekeeperChangedEvent;
 import seedu.lifekeeper.commons.events.storage.DataSavingExceptionEvent;
 import seedu.lifekeeper.model.LifeKeeper;
 import seedu.lifekeeper.model.ReadOnlyLifeKeeper;
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new LifeKeeper()));
+        storage.handleAddressBookChangedEvent(new LifekeeperChangedEvent(new LifeKeeper()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
