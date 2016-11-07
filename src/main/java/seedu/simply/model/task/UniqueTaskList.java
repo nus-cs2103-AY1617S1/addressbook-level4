@@ -57,14 +57,14 @@ public class UniqueTaskList implements Iterable<Task> {
 
     //@@author A0139430L
     public boolean contains(ReadOnlyTask toCheck) {
-        if(toCheck.getTaskCategory()==3){
+        if (toCheck.getTaskCategory()==3) {
             return findUncompletedDuplicate(toCheck);
         }
         else 
         return internalList.contains(toCheck);
     }
     private boolean findUncompletedDuplicate(ReadOnlyTask toCheck) {
-        for(int i =0; i<internalList.size(); i++){
+        for (int i =0; i<internalList.size(); i++) {
             Task temp = internalList.get(i);
             if(temp.getName().toString().compareTo(toCheck.getName().toString())==0){
                 return !temp.getIsCompleted();
@@ -189,7 +189,7 @@ public class UniqueTaskList implements Iterable<Task> {
             String[] beforeAndAfter = args.replaceAll(" ","").split(">");              
             toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1]);
         }
-        else{
+        else {
             toEdit.setTags(new UniqueTagList(new Tag(args)));;
         }
 
@@ -198,13 +198,13 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     private Task editEnd(String args, int editIndex, Task toEdit) throws IllegalValueException {
         End newEnd = new End(args);
-        if(this.isNotValidTime(toEdit.getStart().toString(), newEnd.toString())){
+        if (this.isNotValidTime(toEdit.getStart().toString(), newEnd.toString())) {
             throw new IllegalValueException(AddCommand.END_TIME_BEFORE_START_TIME_MESSAGE);
         }
-        if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
+        if (args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3) { //not todo default end time 2359
             toEdit.setEnd(new End("2359"));
         }
-        else if(toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
+        else if (toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
             toEdit.setDate(new Date(this.getCurrentDate()));
             toEdit.setStart(new Start("no start"));
             toEdit.setEnd(newEnd);
@@ -218,18 +218,18 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     private Task editStart(String args, int editIndex, Task toEdit) throws IllegalValueException {
         Start newStart = new Start(args);
-        if(this.isNotValidTime(newStart.toString(), toEdit.getEnd().toString())){
+        if (this.isNotValidTime(newStart.toString(), toEdit.getEnd().toString())) {
             throw new IllegalValueException(AddCommand.START_TIME_BEFORE_END_TIME_MESSAGE);
         }
-        else if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
+        else if (args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1) { //event to deadline
             toEdit.setStart(newStart);
             toEdit.setTaskCategory(2);
         }
-        else if(toEdit.getTaskCategory()==2){   //deadline to event
+        else if (toEdit.getTaskCategory()==2) {   //deadline to event
             toEdit.setStart(newStart);
             toEdit.setTaskCategory(1);
         }
-        else if(toEdit.getTaskCategory()==3){  //todo to Event              
+        else if (toEdit.getTaskCategory()==3) {  //todo to Event              
             toEdit.setDate(new Date(this.getCurrentDate()));
             toEdit.setStart(newStart);
             toEdit.setEnd(new End("2359"));
@@ -242,20 +242,20 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
     private boolean isNotValidTime(String start, String end) {
-        if(start.compareTo("no start")==0 || end.compareTo("no end")==0)
+        if (start.compareTo("no start")==0 || end.compareTo("no end")==0)
             return false;
-        if(start.compareTo(end) >= 0)
+        if (start.compareTo(end) >= 0)
             return true;
         return false;
     }
     private Task editDate(String args, int editIndex, Task toEdit) throws IllegalValueException {
-        if(args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo
+        if (args.compareTo("no date") == 0 & toEdit.getTaskCategory()!=3){ // change to Todo
             toEdit.setDate(new Date("no date"));
             toEdit.setStart(new Start("no start"));
             toEdit.setEnd(new End("no end"));
             toEdit.setTaskCategory(3);
         }           
-        else if(toEdit.getTaskCategory()==3){//todo to deadline
+        else if (toEdit.getTaskCategory()==3){//todo to deadline
             toEdit.setDate(new Date(args));
             toEdit.setEnd(new End("2359"));
             toEdit.setTaskCategory(2);  
