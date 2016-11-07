@@ -174,13 +174,13 @@ public class MainWindow extends UiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    //@@author A0093960X
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
 
+    //@@author
     public void show() {
         primaryStage.show();
     }

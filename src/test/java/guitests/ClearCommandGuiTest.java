@@ -82,12 +82,20 @@ public class ClearCommandGuiTest extends DearJimGuiTest {
 
     }
 
+    /**
+     * Runs the clear command and asserts that the displayed list is empty, and
+     * the message is a successful undone list clear.
+     */
     private void assertUndoneListClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
         assertResultMessage("Task Manager undone list has been cleared!");
     }
 
+    /**
+     * Runs the clear command and asserts that the displayed list is empty, and
+     * the message is a successful done list clear.
+     */
     private void assertDoneListClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);

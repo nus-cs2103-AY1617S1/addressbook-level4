@@ -11,7 +11,7 @@ import seedu.address.logic.commands.UndoableCommand;
  * Stores the history of undoable and redoable commands.
  */
 public class UndoableCommandHistoryManager implements UndoableCommandHistory {
-    
+
     private static final Logger logger = LogsCenter.getLogger(UndoableCommandHistoryManager.class);
 
     private static UndoableCommandHistoryManager theUndoableCommandHistory;
@@ -57,7 +57,7 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory {
     public UndoableCommand undoStep() {
         assert redoableCommands != null && undoableCommands != null;
         logger.info("Executing the undoStep method to undo the previous undoable command.");
-        
+
         UndoableCommand undoneCmd = undoableCommands.pop();
         return redoableCommands.push(undoneCmd);
     }
@@ -72,7 +72,8 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory {
     }
 
     /**
-     * Resets the redoable command history, erasing all redoable command history.
+     * Resets the redoable command history, erasing all redoable command
+     * history.
      */
     private void resetRedo() {
         redoableCommands = new Stack<UndoableCommand>();

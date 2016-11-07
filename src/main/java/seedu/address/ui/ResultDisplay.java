@@ -49,13 +49,13 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.textProperty().bind(displayed);
         resultDisplayArea.setPrefHeight(PREF_HEIGHT);
 
-        //@@author A0093960X
+        // @@author A0093960X
         resultDisplayArea.textProperty().addListener(e -> {
             int newHeight = computeNewHeight();
             setNewHeight(newHeight);
         });
 
-        //@@author
+        // @@author
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -63,9 +63,10 @@ public class ResultDisplay extends UiPart {
 
     }
 
-    //@@author A0093960X
+    // @@author A0093960X
     /**
      * Sets the height of the result display to the specified newHeight
+     * 
      * @param newHeight The new height to set the result display area to
      */
     private void setNewHeight(int newHeight) {
@@ -82,11 +83,22 @@ public class ResultDisplay extends UiPart {
      * @return The size of the new height
      */
     private int computeNewHeight() {
-        return PREF_HEIGHT + getNumberOfNewLines() * HEIGHT_PER_EXTRA_NEWLINE;
+        return PREF_HEIGHT + computeExtraHeightFromNewLines();
+    }
+
+    /**
+     * Computes the extra height of the display area due to the newline
+     * characters in the text area.
+     * 
+     * @return The size of the extra height
+     */
+    private int computeExtraHeightFromNewLines() {
+        return getNumberOfNewLines() * HEIGHT_PER_EXTRA_NEWLINE;
     }
 
     /**
      * Returns the number of newlines characters in the result display text.
+     * 
      * @return The number of newline characters
      */
     private int getNumberOfNewLines() {
@@ -94,7 +106,7 @@ public class ResultDisplay extends UiPart {
         return StringUtils.countMatches(displayedText, NEWLINE_STRING);
     }
 
-    //@@author
+    // @@author
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;

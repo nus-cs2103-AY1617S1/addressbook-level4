@@ -144,7 +144,8 @@ public class CommandBox extends UiPart {
      * @return A boolean representing if the String is a newline character
      */
     private boolean isKeyPressedEnter(String keyInputAsString) {
-        return keyInputAsString.equals(CARRIAGE_RETURN) || keyInputAsString.equals(NEW_LINE);
+        return keyInputAsString.equals(CARRIAGE_RETURN) 
+                || keyInputAsString.equals(NEW_LINE);
     }
 
     /**
@@ -167,8 +168,8 @@ public class CommandBox extends UiPart {
      * as key pressed event is triggered before the command box text is updated.
      * key is either a backspace, space, letter or digit key.
      * 
-     * @param keyAsString the key that was pressed as string
-     * @return the full user input taking into account the key pressed
+     * @param keyAsString The key that was pressed as string
+     * @return The full user input taking into account the key pressed
      */
     private String getUserInputAfterKeyPressed(String keyAsString) {
         handleKeyPressWithTextSelectionIfPresent();
@@ -258,9 +259,10 @@ public class CommandBox extends UiPart {
      * @return The boolean representing the above
      */
     private boolean desiredInputHistoryUnavailable(KeyCode keyCode) {
-        assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+        assert (keyCode == KeyCode.UP) || (keyCode == KeyCode.DOWN);
 
-        return isAtEarliestHistoryButWantPrevInput(keyCode) || isAtLatestHistoryButWantNextInput(keyCode);
+        return isAtEarliestHistoryButWantPrevInput(keyCode) 
+                || isAtLatestHistoryButWantNextInput(keyCode);
     }
 
     /**
@@ -278,8 +280,8 @@ public class CommandBox extends UiPart {
      * Returns whether the user is already at the earliest input history state
      * but wants to access a previous input.
      * 
-     * @param keyCode the KeyCode pressed
-     * @return boolean representing the above
+     * @param keyCode The KeyCode pressed
+     * @return The boolean representing the above
      */
     private boolean isAtEarliestHistoryButWantPrevInput(KeyCode keyCode) {
         return inputHistory.isEarliestInput() && isAttemptingToGetPrevInput(keyCode);
@@ -325,8 +327,8 @@ public class CommandBox extends UiPart {
      * Returns whether the user wants to get the previous input from input
      * history.
      * 
-     * @param keyCode the key the user pressed to trigger the event
-     * @return boolean representing the above
+     * @param keyCode The key the user pressed to trigger the event
+     * @return The boolean representing the above
      */
     private boolean isAttemptingToGetPrevInput(KeyCode keyCode) {
         return keyCode == KeyCode.UP;
@@ -335,8 +337,8 @@ public class CommandBox extends UiPart {
     /**
      * Returns whether the user wants to get the next input from input history.
      * 
-     * @param keyCode the key the user pressed to trigger the event
-     * @return boolean representing the above
+     * @param keyCode The key the user pressed to trigger the event
+     * @return The boolean representing the above
      */
     private boolean isAttemptingToGetNextInput(KeyCode keyCode) {
         return keyCode == KeyCode.DOWN;
@@ -344,12 +346,7 @@ public class CommandBox extends UiPart {
 
     @FXML
     private void handleCommandInputEntered() {
-        // Take a copy of the command text
-        previousCommandTest = commandTextField.getText();
-
-        // first push back all 'next' commands into 'prev' command
-        // immediately add it to the history of command inputs
-        inputHistory.updateInputHistory(previousCommandTest);
+        updateInputHistory();
 
         /*
          * We assume the command is correct. If it is incorrect, the command box
@@ -359,6 +356,14 @@ public class CommandBox extends UiPart {
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
         clearCommandBoxAndDisplayResult();
+    }
+
+    /**
+     * Updates the input history with the current text in the command box.
+     */
+    private void updateInputHistory() {
+        previousCommandTest = commandTextField.getText();
+        inputHistory.updateInputHistory(previousCommandTest);
     }
 
     /**

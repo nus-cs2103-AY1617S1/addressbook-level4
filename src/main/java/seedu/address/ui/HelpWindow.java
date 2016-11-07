@@ -51,7 +51,7 @@ public class HelpWindow extends UiPart {
     
     /**
      * Sets up the key press event handler for the help window scene.
-     * @param scene
+     * @param scene The Help window Scene
      */
     private void setupKeyPressEventHandler(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -61,6 +61,10 @@ public class HelpWindow extends UiPart {
         });
     }
 
+    /**
+     * Initializes the help window properties.
+     * @return The Scene associated with the initialized help window
+     */
     private Scene initializeHelpWindowProperties() {
         Scene scene = new Scene(mainPane);
         // Null passed as the parent stage to make it non-modal.

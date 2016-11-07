@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-//@@author A0093960X
 public class TaskCompareTest {
 
     // Tests that involve name and priority

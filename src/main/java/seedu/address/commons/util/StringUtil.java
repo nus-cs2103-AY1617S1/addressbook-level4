@@ -16,8 +16,8 @@ public class StringUtil {
      * String at the specified position in the originalString String. <br>
      * If the position is less than 0, the stringToAdd will be added to the
      * front of originalString. <br>
-     * If the position is greater than the length of the originalString, the stringToAdd
-     * will be added to the back of the originalString. <br>
+     * If the position is greater than the length of the originalString, the
+     * stringToAdd will be added to the back of the originalString. <br>
      * Asserts that the originalString and stringToAdd are not null.
      * 
      * @param originalString The String to add to
@@ -33,12 +33,10 @@ public class StringUtil {
         boolean isPositionBelowMinimum = (position < 0);
         boolean isPositionAboveMaximum = (position > originalStringLen);
 
-        
         if (isPositionBelowMinimum) {
             position = 0;
-        }
-        else if (isPositionAboveMaximum) {
-            position = originalString.length();
+        } else if (isPositionAboveMaximum) {
+            position = originalStringLen;
         }
 
         String stringBeforeCaret = originalString.substring(0, position);

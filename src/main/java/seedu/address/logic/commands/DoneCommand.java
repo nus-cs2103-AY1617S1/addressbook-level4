@@ -222,54 +222,58 @@ public class DoneCommand extends UndoableCommand {
         isViewingDoneList = model.isCurrentListDoneList();
     }
     
-
-    //@@author A0093960X
+    // @@author A0093960X
     @Override
     public CommandResult undo() {
         doneTasksUndoFail = new ArrayList<Task>();
-        
+
         attemptToDeleteDoneTasksFromDoneList();
-        
+
         attemptToDeleteReaddedRecurTasksFromUndoneList();
-        
+
         readdAllDoneTasksToUndoneList();
-        
+
         return generateAppropriateCommandResult();
     }
 
     /**
-     * Generates the appropriate command result based on whether the undo was successful in undoing all the done tasks.
-     * @return The appropriate CommandResult depending on whether the undo was successful
+     * Generates the appropriate command result based on whether the undo was
+     * successful in undoing all the done tasks.
+     * 
+     * @return The appropriate CommandResult depending on whether the undo was
+     *         successful
      */
     private CommandResult generateAppropriateCommandResult() {
         if (isSuccessfulInUndoingAllDoneTasks()) {
             return new CommandResult(MESSAGE_DONE_UNDO_SUCCESS);
-        }
-        else {
+        } else {
             return new CommandResult(String.format(MESSAGE_DONE_UNDO_SOME_FAILURE, doneTasksUndoFail));
         }
     }
 
     /**
-     * Attempt to delete all readded recurring tasks as a result of this done command from the current undone list.
+     * Attempt to delete all readded recurring tasks as a result of this done
+     * command from the current undone list.
      */
     private void attemptToDeleteReaddedRecurTasksFromUndoneList() {
-        for (Task readdedRecurTask : readdedRecurringTasks) { 
+        for (Task readdedRecurTask : readdedRecurringTasks) {
             attemptToDeleteReaddedRecurTaskFromUndoneList(readdedRecurTask);
         }
     }
 
     /**
-     * Attempt to delete all done tasks as a result of this done command from the current done list.
+     * Attempt to delete all done tasks as a result of this done command from
+     * the current done list.
      */
     private void attemptToDeleteDoneTasksFromDoneList() {
-        for (Task doneTask : targetTasks){
+        for (Task doneTask : targetTasks) {
             attemptToDeleteDoneTaskFromDoneList(doneTask);
         }
     }
 
     /**
-     * Readds all the done tasks as a result of this done command back to the current undone list.
+     * Readds all the done tasks as a result of this done command back to the
+     * current undone list.
      */
     private void readdAllDoneTasksToUndoneList() {
         model.addTasks(targetTasks);
@@ -279,13 +283,15 @@ public class DoneCommand extends UndoableCommand {
     /**
      * Attempts to delete a readded recurring task from the current undone list.
      * 
-     * @param readdedRecurTask The recurring task that was readded to the current undone list as part of this done command
+     * @param readdedRecurTask The recurring task that was readded to the
+     *                         current undone list as part of this done command
      */
     private void attemptToDeleteReaddedRecurTaskFromUndoneList(Task readdedRecurTask) {
         try {
             model.deleteUndoneTask(readdedRecurTask);
         } catch (TaskNotFoundException e) {
-            logger.info("Cannot find task: " + readdedRecurTask + "; adding to list of done task failures to inform user.");
+            logger.info("Cannot find task: " + readdedRecurTask
+                    + "; adding to list of done task failures to inform user.");
             doneTasksUndoFail.add(readdedRecurTask);
         }
     }
@@ -293,17 +299,19 @@ public class DoneCommand extends UndoableCommand {
     /**
      * Attempts to delete a done task from the current done list.
      * 
-     * @param doneTask The done task that was added to the current done list as part of this done command
+     * @param doneTask The done task that was added to the current done list as
+     *                 part of this done command
      */
     private void attemptToDeleteDoneTaskFromDoneList(Task doneTask) {
         try {
             model.deleteDoneTask(doneTask);
         } catch (TaskNotFoundException e) {
-            logger.info("Cannot find task: " + doneTask + "; adding to list of done task failures to inform user.");
+            logger.info("Cannot find task: " + doneTask
+                    + "; adding to list of done task failures to inform user.");
             doneTasksUndoFail.add(doneTask);
         }
     }
-    
+
     /**
      * Return whether the undo command was successful in undoing all done tasks.
      * 

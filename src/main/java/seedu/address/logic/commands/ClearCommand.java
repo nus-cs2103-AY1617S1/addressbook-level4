@@ -13,11 +13,10 @@ import seedu.address.model.item.Task;
 public class ClearCommand extends UndoableCommand {
 
     private final Logger logger = LogsCenter.getLogger(ClearCommand.class);
-    
+
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
-            + "Clears the current view of the task manager.\n\t"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
+            + "Clears the current view of the task manager.\n\t" + "Example: " + COMMAND_WORD;
 
     public static final String TOOL_TIP = "clear";
     public static final String MESSAGE_SUCCESS_UNDONE_LIST = "Task Manager undone list has been cleared!";
@@ -51,7 +50,7 @@ public class ClearCommand extends UndoableCommand {
         }
 
     }
-    
+
     @Override
     public CommandResult undo() {
         assert model != null && clearedTasks != null;
@@ -66,12 +65,18 @@ public class ClearCommand extends UndoableCommand {
 
     }
 
+    /**
+     * Sets the undone list back to the original list before clearing.
+     */
     private void revertUndoneListBeforeClear() {
         logger.info("Undoing the clear command by reverting the undone list "
                 + "back to the old list before it was cleared");
         model.setTaskManagerUndoneList(clearedTasks);
     }
 
+    /**
+     * Sets the done list back to the original list before clearing.
+     */
     private void revertDoneListBeforeClear() {
         logger.info("Undoing the clear command by reverting the done list "
                 + "back to the old list before it was cleared");
@@ -88,16 +93,18 @@ public class ClearCommand extends UndoableCommand {
     }
 
     /**
-     * Saves the current undone list, and then clears the undone list to an empty list.
+     * Saves the current undone list, and then clears the undone list to an
+     * empty list.
      */
     private void saveAndClearUndoneList() {
         logger.info("Attempting to save and clear the undone list.");
         clearedTasks = model.getTaskManagerUndoneList();
         model.clearTaskManagerUndoneList();
     }
-    
+
     /**
-     * Saves the current done list, and then clears the done list to an empty list.
+     * Saves the current done list, and then clears the done list to an empty
+     * list.
      */
     private void saveAndClearDoneList() {
         logger.info("Attempting to save and clear the done list.");

@@ -47,7 +47,7 @@ public class HelpWindowTest extends DearJimGuiTest {
     }
 
     /**
-     * Helper method to assert that the help window is open, and close the window after asserting it is.
+     * Helper method to assert that the help window is open, and close the window after checking that it is.
      * @param helpWindowHandle The handle for the help window
      */
     private void assertHelpWindowOpenAndCloseIt(HelpWindowHandle helpWindowHandle) {
@@ -56,7 +56,7 @@ public class HelpWindowTest extends DearJimGuiTest {
     }
     
     /**
-     * Helper method to assert that the help window is open
+     * Helper method to assert that the help window is open.
      * @param helpWindowHandle The handle for the help window
      */
     private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
@@ -64,7 +64,7 @@ public class HelpWindowTest extends DearJimGuiTest {
     }
     
     /**
-     * Helper method to assert that the help window is closed
+     * Helper method to assert that the help window is closed.
      * @param helpWindowHandle The handle for the help window
      */
     private void assertHelpWindowClosed(HelpWindowHandle helpWindowHandle) {
