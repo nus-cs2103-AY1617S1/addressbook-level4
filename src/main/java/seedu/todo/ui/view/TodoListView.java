@@ -1,6 +1,5 @@
 package seedu.todo.ui.view;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -98,7 +97,10 @@ public class TodoListView extends UiPart {
      */
     public void scrollAndSelect(ImmutableTask task) {
         todoListView.getSelectionModel().clearSelection();
-        todoListView.getSelectionModel().select(task);
+        if (task!=null) {
+            todoListView.getSelectionModel().select(task);
+        }
+        
     }
 
 
