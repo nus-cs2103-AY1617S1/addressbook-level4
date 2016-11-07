@@ -8,10 +8,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.todo.MainApp;
 
+// @@author A0139812A
 /**
  * A utility class to load UiParts from FXML files.
- * 
- * @@author A0139812A
+ * Modified from original codebase to support two-step
+ * loading and rendering (see {@link UiManager}).
  */
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/ui/";

@@ -19,9 +19,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
+// @@author A0139812A
 /**
  * The main entry point to the application.
- * @@author A0139812A
  */
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);

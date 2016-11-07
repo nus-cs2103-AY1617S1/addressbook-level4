@@ -22,11 +22,10 @@ import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.Header;
 import seedu.todo.ui.views.View;
 
+// @@author A0139812A
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
- * 
- * @@author A0139812A
  */
 public class MainWindow extends Component {
 

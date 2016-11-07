@@ -10,6 +10,17 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.controllers.*;
 
 // @@author A0139812A
+/**
+ * InputHandler is the bridge between the UI, or more 
+ * specifically the Console, and the Controllers. 
+ * 
+ * It will match the correct Controller to handle the command
+ * based on the command words.
+ * 
+ * It will also maintain a command history (similar to that of a
+ * terminal console) where the user can interact with using
+ * up and down arrow keys.
+ */
 public class InputHandler {
     
     private static InputHandler instance;
