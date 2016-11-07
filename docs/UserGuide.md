@@ -90,7 +90,7 @@ Lists all upcoming and uncompleted tasks.<br>
 
 Example:
 
-Command: `view`<br>
+* `view`<br>
   <img src="images/UIview.png" width="900">
  
  
@@ -103,7 +103,7 @@ Lists all events for the specified date, uncompleted deadlines up to the specifi
 
 Example:<br>
 
-Command: `view 7 Nov`<br>
+* `view 7 Nov`<br>
   <img src="images/UIviewDate.png" width="900">
 
 
@@ -114,7 +114,7 @@ Shortcut key: `Ctrl + Shift + D`<br><br>
 Lists all completed tasks, deadlines and events. Tasks that are done or over will be shown shown in grey.
 
 Example:
-Command: `view done`<br>
+* `view done`<br>
   <img src="images/UIviewDone.png" width="900">
   
 <br>
@@ -144,17 +144,17 @@ Adds a new task to the todo or deadline or event list in TasKitty.<br>
 <img src="images/AddCallout.png" width="900"><br>
 <!-- @@author A0130853L -->
 Example(Todo):<br>
-Command: `add buy new tie #work`<br>
+* `add buy new tie #work`<br>
   Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
 <br>
 Example(Deadline):<br>
-Command: `add submit proposal 17 Nov 2pm #work`<br>
+* `add submit proposal 17 Nov 2pm #work`<br>
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
 Example(event):<br>
-Command: `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
+* `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
   
@@ -184,13 +184,13 @@ Format depends on the type of task being edited. When only 1 `<time>` is provide
 <!-- @@author A0130853L -->
 Example:
 
-Command: `edit d2 16 Nov`<br>
+* `edit d2 16 Nov`<br>
   Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `16 Nov`.<br>
   <img src="images/UIedit.png" width="900">
 
 <img src="images/EditCallout2.png" width="900"><br>
-Command: `view`<br>
-         `edit t1 buy blue tie`<br>
+* `view`<br>
+  `edit t1 buy blue tie`<br>
   Edits the 1st task under the todo tasks section. Changes the `<name>` to `buy blue tie`.<br>
   <img src="images/UIeditTodo.png" width="900">
 <br>
@@ -202,9 +202,9 @@ Deletes one or more todo, deadline or event task already inside TasKitty using t
 
 Examples:
 
-Command: `view`<br>
-         `delete d1`<br>
-Deletes the 1st task under the deadlines section as shown by the `view` command.<br>
+* `view`<br>
+  `delete d1`<br>
+  Deletes the 1st task under the deadlines section as shown by the `view` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBefore.png" width="900"><br>
@@ -212,9 +212,9 @@ Deletes the 1st task under the deadlines section as shown by the `view` command.
   After:<br>
   <img src="images/UIdeleteAfter.png" width="900"><br>
   
-Command: `view 7 Nov`<br>
-         `delete e1`<br>
-Deletes the 1st task under the events section for `7 Nov` as shown by the `view DATE` command.<br>
+* `view 7 Nov`<br>
+  `delete e1`<br>
+  Deletes the 1st task under the events section for `7 Nov` as shown by the `view DATE` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBeforeDate.png" width="900"><br>
@@ -224,9 +224,9 @@ Deletes the 1st task under the events section for `7 Nov` as shown by the `view 
   
 <!-- @@author A0139052L -->
 
-Command: `view`<br>
-         `delete t1 d1 e1`<br>
-Deletes the 1st task under the each section as shown by the `view` command.<br>
+* `view`<br>
+  `delete t1 d1 e1`<br>
+  Deletes the 1st task under the each section as shown by the `view` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteMultipleBefore.png" width="900"><br>
@@ -244,9 +244,9 @@ Marks one or more task in the task list as done using index of the task. Tasks t
 <img src="images/DoneCallout.png" width="900"><br>
 Example:
 
-Command: `view all`<br>
-         `done d1`<br>
-Marks the 1st task today under the deadlines section shown by the `view all` command as completed.<br>
+* `view all`<br>
+  `done d1`<br>
+  Marks the 1st task today under the deadlines section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneBefore.png" width="900"><br>
@@ -256,9 +256,9 @@ Marks the 1st task today under the deadlines section shown by the `view all` com
   
 <!-- @@author A0139052L --> 
 
-Command: `view all`<br>
-         `done t1 t2 t3`<br>
-Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
+* `view all`<br>
+  `done t1 t2 t3`<br>
+  Marks the 1st 3 tasks under the todo section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneMultipleBefore.png" width="900"><br>
