@@ -307,7 +307,7 @@ Use case resumes at step 1
 
 1b. User adds a task with invalid parameters
 
-> 1b1. System shows an message that informs the user which parameters are invalid <br>
+> 1b1. System shows a message that informs the user which parameters are invalid <br>
 Use case resumes at step 1
 
 #### Use case: UC02 - Delete task
