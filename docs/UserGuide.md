@@ -64,7 +64,7 @@ The events and tasks will be both sync to your calendar. You are not able to do 
 
 <!-- @@author A0121608N -->
 #### Traversing between Windows
-The four main windows in you can traverse are:
+The four main windows in which you can traverse are:
 
   * Command Box
   * Result Display Panel
