@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (IsHelpAvailable(Config.USERGUIDE_URL)) {
+        if (isHelpAvailable(Config.USERGUIDE_URL)) {
             EventsCenter.getInstance().post(new ShowHelpRequestEvent());
             return new CommandResult(SHOWING_HELP_MESSAGE);
         } else {

@@ -133,11 +133,11 @@ public class Parser {
             																+ "(?<addCommandArguments>.+)?");
     
     private static final Pattern ADD_DEADLINE_COMMAND_ARGS_FORMAT = Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s+" 
-                                                                            + "(n/)?(?<name>[^/]+)\\s+"
+                                                                            + "(n/)?(?<name>[^/#]+)\\s+"
 																			+ "(?<addCommandArguments>.+)");
     
     private static final Pattern ADD_EVENT_COMMAND_ARGS_FORMAT = Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s+" 
-                                                                            + "(n/)?(?<name>[^/]+)\\s+"
+                                                                            + "(n/)?(?<name>[^/#]+)\\s+"
 																			+ "(?<addCommandArguments>.+)");
     
     public Parser() {}
