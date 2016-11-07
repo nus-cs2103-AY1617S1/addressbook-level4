@@ -38,7 +38,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Tutor
 
 #### [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
-<img src="images/Sam-Yong-Tutor.PNG" width="150"> <br>
+<img src="images/Sam-Yong-Tutor.png" width="150"> <br>
 
 # Contributors
 
