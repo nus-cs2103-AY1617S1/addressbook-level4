@@ -120,6 +120,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 <!-- @@author A0139211R -->
+
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
