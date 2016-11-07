@@ -54,7 +54,7 @@ public class UnmarkCommand extends Command {
             newTask.setCompletion(new Completion(false));
             model.updateTask(taskToMark, newTask);
             
-            model.updateFilteredListToShowAllNotCompleted();
+            model.refreshCurrentFilteredTaskList();
             model.updateTodayListToShowAll();
             model.updateWeekListToShowAll();
             

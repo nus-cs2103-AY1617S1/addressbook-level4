@@ -98,7 +98,8 @@ public class UpdateCommand extends Command {
                     newOnDate, newByDate, newPriority, newRecurrence, taskToUpdate.getTags());
             
             model.updateTask(taskToUpdate, newTask);
-            model.updateFilteredListToShowAllNotCompleted();
+            
+            model.refreshCurrentFilteredTaskList();
             model.updateTodayListToShowAll(); 
             model.updateWeekListToShowAll();
             return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, targetIndex, newTask));

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.commands.UnmarkCommand;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Completion;
 import seedu.todo.model.task.Task;
 
@@ -29,7 +30,7 @@ public class UnmarkLogicTest extends CommandLogicTest {
         assertCommandBehavior("unmark 1",
                 String.format(UnmarkCommand.MESSAGE_SUCCESS, 1, toBeMarked),
                 expectedTDL,
-                expectedTDL.getTaskList());
+                (new DoDoBird().getTaskList()));
 
     }
     
