@@ -11,12 +11,20 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
+    public HeaderHandle getHeader() {
+        return new HeaderHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
     public ConsoleHandle getConsole() {
         return new ConsoleHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
     public AliasViewHandle getAliasView() {
         return new AliasViewHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+    
+    public ConfigViewHandle getConfigView() {
+        return new ConfigViewHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
     public HelpViewHandle getHelpView() {
