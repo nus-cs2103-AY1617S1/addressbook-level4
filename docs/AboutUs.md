@@ -1,52 +1,36 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team in the [CS 2103 Class](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/).
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Nishant Budhdev](https://github.com/nishantbudhdev) <br>
+<img src="images/Nishant Budhdev.jpg" width="150"><br>
+**Role**: Project Mentor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Murray Chen](https://github.com/mchen14) <br>
+<img src="images/MurrayChenPhoto.JPG" width="150"><br>
+Role: Team Lead, Developer <br>
+Responsibilities: Code Quality
+
+-----
+
+#### [Zihua Huang](https://github.com/JamesHuangUC)
+<img src="images/ZihuaHuang.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Integration, Git Expert, Scheduling and Tracking
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Yaquan Wang](https://github.com/A0116137M) 
+<img src="images/yaquan.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
-
------
-
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
-
------
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
+Responsibilities: Documentation, Testing, Deliverables and Deadlines
  
  -----
 
 # Contributors
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)

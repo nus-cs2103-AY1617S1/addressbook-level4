@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <description>wake up</description>
+        <deadline>06-Nov-2016 08:00 AM</deadline>
+        <address>home </address>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <description>group project meeting</description>
+        <deadline>06-Nov-2016 10:00 AM</deadline>
+        <address>SOC </address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>buy egg</description>
+        <deadline>06-Nov-2016 03:00 PM</deadline>
+        <address>FairPrice </address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>clean the kitchen</description>
+        <deadline>07-Nov-2016 02:17 AM</deadline>
+        <address>home </address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>enroll classes</description>
+        <deadline>09-Nov-2016 09:00 AM</deadline>
+        <address>school </address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>egg</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>complete</status>
+    </tasks>
+    <tasks>
+        <description>no egg</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+        <status>incomplete</status>
+    </tasks>
+    <tasks>
+        <description>play ball</description>
+        <deadline>13-Nov-2016 02:00 PM</deadline>
+        <address>ABC </address>
+        <status>incomplete</status>
+    </tasks>
+</taskmanager>

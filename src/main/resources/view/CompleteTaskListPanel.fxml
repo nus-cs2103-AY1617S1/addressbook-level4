@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jym.manager.ui.CompleteTaskListPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <stylesheets>
+        <URL value="@BlueTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+    <children>
+        <Label text="Completed tasks and events" style="-fx-font: NORMAL 10 Times New Roman; -fx-text-fill: white"/>
+    
+        <ListView fx:id="completeTaskListView" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>

@@ -5,11 +5,19 @@
 * [Implementation](#implementation)
 * [Testing](#testing)
 * [Dev Ops](#dev-ops)
+<<<<<<< HEAD
+* [Appendix A: User Stories](#appendix-a-user-stories)
+* [Appendix B: Use Cases](#appendix-b-use-cases)
+* [Appendix C: Non Functional Requirements](#appendix-c-non-functional-requirements)
+* [Appendix D: Glossary](#appendix-d-glossary)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
+=======
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
+>>>>>>> nus-cs2103-AY1617S1/master
 
 
 ## Setting up
@@ -56,13 +64,15 @@
 
 ## Design
 
+<!--- @@author a0153617e -->
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/jym/manager/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -89,16 +99,16 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 ##### Events-Driven nature of the design 
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -110,15 +120,15 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/jym/manager/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/jym/manager/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -130,27 +140,27 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/jym/manager/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/jym/manager/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Task Manager data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -158,15 +168,15 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/jym/manager/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `jym.manager.commons` package.
 
 ## Implementation
 
@@ -215,13 +225,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `jym.manager.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `jym.manager.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `jym.manager.logic.LogicManagerTest`
   
 #### Headless GUI Testing
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -260,7 +270,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, JYM depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -271,30 +281,34 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
+<!--- @@author A0153440R -->
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
+`* * *` | user | add a new task or event with a given deadline or date and priority | remember what tasks I have to do in the future. 
+`* * *` | user | add a floating task with no given deadline or date | work on long term tasks that have no given deadline.
+`* * *` | user | mark a task or event as completed | refer to which tasks I have finished or not finished
+`* * *` | user | find a task or event by name | locate details of tasks/events without having to go through the entire list
+`* * *` | user | list upcoming tasks in sorted order | determine which tasks I should do next
+`* * *` | user | edit tasks | update tasks if things change.
+`* * *` | user | undo recent commands | revert tasks/events created by mistake.
+`* * *` | user | specify the location to place the data storage | do things with it, like sync it to my Dropbox.
+`* *` | user | add tasks through plain English | type more naturally than having to write in commands and flags.
 
-{More to be added}
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `JYM` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Mark Task completed.
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to view list of active tasks
+2. System shows list of tasks
+3. User requests to mark a task as completed from the list.
+4. System marks task as completed <br>
 Use case ends.
 
 **Extensions**
@@ -305,17 +319,47 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. JYM shows an error message <br>
   Use case resumes at step 2
 
+#### Use case: Update Task
+
+**MSS**
+
+1. User requests to view list of active tasks
+2. System shows list of tasks
+3. User requests to update a task with given description and/or deadline
+4. System updates task.
+Use case ends.
+
+**Extensions**
+
+2a. List is empty
+
+> Use case ends
+
+3a. Given index invalid
+
+> 3a1. JYM shows error message <br>
+  Use case resumes at step 2
+  
+3b. Invalid deadline supplied by user
+
+> 3b1. JYM returns error message <br>
+  Use case resumes at step 2
+  
 {More to be added}
 
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
-3. Should come with automated unit tests and open source code.
-4. Should favor DOS style commands over Unix-style commands.
+1. Program should load within 5 seconds
+2. Storage file should be limited to 100MB default (can be changed by user)
+3. Should work on any mainstream OS
+4. Should hold up to 1000 tasks/events on the active task list at any time
+5. Comes with automated unit tests.
+6. Commands should be intuitive and easy to use.
+7. Interface is simple and easy to understand for beginners (i.e. people seeing it for the first time are not confused by what box does what).
+
 
 {More to be added}
 
@@ -325,11 +369,50 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+##### Task
 
-> A contact detail that is not meant to be shared with others
+> An activity that needs to be completed by a certain date or time. Contains
+a description, deadline, and priority.
+
+##### Event
+
+> An activity that happens within a set boundary of time, with a start and end time on a given date.
+Contains a description, event date and time, priority, and location.
+
+##### Floating Task
+
+> A task with no set deadline. 
+
+##### Active Task List
+
+> List of tasks that have yet to be marked complete and whose deadlines have not passed yet.
+
+
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+##### Google Calendar Quickadd
 
+> Satisfies many stories, but cannot add multiple events simultaneously, and does not hold support for both tasks and events. <br>
+> Everything is an event, and although one can create them in a certain way to make them act like tasks, it can be tedious and not optimal to do so.
+
+<!--- @@author a0153617e -->
+
+##### iStudiez Pro
+
+> Satisfies many stories, in particular having a nice GUI and being able to view the task list in many formats. However, there is no shortcut to add tasks, and you cannot type everything in one line without tabbing over to a separate text box.
+
+<!--- @@author A0116137M -->
+
+
+##### S Planner (Samsung Phone Calendar, Android 4.2.2)
+
+> Is only a smartphone app. Harder to type in tasks and events on the phone. <br>
+> Syncs with Google Calendar. <br>
+
+##### GO Note Widget (to-do list add-on for GO Launcher)
+
+> Clean and simple interface (clutter-free) <br>
+> Can mark tasks with colored labels <br>
+> No option to state the start or end time of a task <br>
+> Smartphone app.
