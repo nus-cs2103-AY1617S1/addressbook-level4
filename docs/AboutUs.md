@@ -84,6 +84,7 @@ Responsibilities: Logic
    * Include Status into Task to keep track of task and format the display task card (https://github.com/CS2103AUG2016-T15-C1/main/commit/4a16a164159a7a3787b8ffc394750dea35a709cd)
    * Convert parser to add Task (https://github.com/CS2103AUG2016-T15-C1/main/commit/f8b7c4acadc05022e57952445c3e1b4d806c8eca)
    * Auto focus to task after changes were made
+   * To allow the edit of time only for Start Date and Due Date
    * Set up Travis and Coveralls 
    
 -----
