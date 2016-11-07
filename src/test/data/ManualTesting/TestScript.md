@@ -6,7 +6,7 @@
   * Config.json
   * Preferences.json
   * [F10-C3][Tary].jar
-  * folder named 'data'
+  * folder named 'data' with only 1 file, 'sampleData.xml'
 3. Launch [F10-C3][Tary].jar 
 
 
