@@ -121,7 +121,7 @@ Examples:
 * `add Homework from today 8.03pm to 8.15pm t/CS1231`
 	<img src="images/ug_add_fromto_date_before.PNG" width="600">
 	<img src="images/ug_add_fromto_date_after.PNG" width="600">
-* `add Homework from 26 oct 10am to 11am daily`
+* `add Homework from 26 oct 10am to 11am daily repeat 3`
 	<img src="images/ug_add_fromto_date_recurring_before.PNG" width="600">
 	<img src="images/ug_add_fromto_date_recurring_after.PNG" width="600">
 
