@@ -1,9 +1,8 @@
 package seedu.address.logic.commands;
 
+//@@author A0144202Y
 /**
  * This class allows the program to group up and sort tasks/events by their tags
- * 
- * @@author A0144202Y
  */
 
 public class ListtagCommand extends Command{

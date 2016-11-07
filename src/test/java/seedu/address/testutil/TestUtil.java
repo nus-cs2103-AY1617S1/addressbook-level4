@@ -303,9 +303,9 @@ public class TestUtil {
      * @param index The index of the person to be replaced.
      * @return
      */
-    public static TestTask[] replacePersonFromList(TestTask[] task, TestTask person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestTask[] replacePersonFromList(TestTask[] tasks, TestTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
