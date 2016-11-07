@@ -1,7 +1,7 @@
 # Test Script (Manual Testing)
 
 ## Loading the sample data
-blah de blah<br>
+path /src/test/data/ManualTesting/SampleData.xml<br>
 
 ## Open help window
 
