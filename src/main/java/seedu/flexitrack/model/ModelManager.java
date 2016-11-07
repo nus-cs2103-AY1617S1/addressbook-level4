@@ -5,12 +5,14 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
+import seedu.flexitrack.MainApp;
 import seedu.flexitrack.commons.core.ComponentManager;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.events.model.FlexiTrackChangedEvent;
 import seedu.flexitrack.commons.events.ui.StoragePathChangeEvent;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.logic.commands.ListCommand;
 import seedu.flexitrack.model.task.DateTimeInfo;
@@ -19,6 +21,7 @@ import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.IllegalEditException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.flexitrack.ui.UiManager;
 
 /**
  * Represents the in-memory model of the tasktracker data. All changes to any
@@ -29,7 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final FlexiTrack flexiTracker;
     private final FilteredList<Task> filteredTasks;
-
+    
     /**
      * Initializes a ModelManager with the given FlexiTracker FlexiTracker and
      * its variables should not be null
@@ -84,6 +87,23 @@ public class ModelManager extends ComponentManager implements Model {
         flexiTracker.addTask(task);
         updateFilteredListToShowAll();
         indicateFlexiTrackerChanged();
+        jumpToATask(task);
+    }
+
+    //@@ author A0127686R
+    /**
+     * Move the Panel list to the task that was just changed 
+     * 
+     * @param task  To be Shown in the Panel List 
+     */
+    private void jumpToATask(Task task) {
+        assert task != null;
+        int index = flexiTracker.findIndexOfTask(task);
+        if (index == -1) {
+            logger.warning("----------------[ModelManager][" + " TASK CANT BE FOUND " + "]");
+        }
+        JumpToListRequestEvent jump = new JumpToListRequestEvent(index);
+        raise(jump);
     }
 
   //@@author A0138455Y
@@ -91,6 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Task markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         Task markedTask = flexiTracker.markTask(targetIndex);
         indicateFlexiTrackerChanged();
+        jumpToATask(markedTask);
         return markedTask;
     }
 
@@ -98,6 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Task unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         Task unMarkedTask = flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
+        jumpToATask(unMarkedTask);
         return unMarkedTask;
     }
     
@@ -124,6 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws IllegalEditException, IllegalValueException {
         Task editedTask = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
+        jumpToATask(editedTask);
         return editedTask;
     }
 
@@ -313,7 +336,7 @@ public class ModelManager extends ComponentManager implements Model {
             try {
                 dateTimeInfo = new DateTimeInfo (dateInfo);
             } catch (IllegalValueException e) {
-                //ADD LOG
+                logger.warning("----------------[ModelManager][" + " THIS ERROR SHOULD NOT OCCUR. METHOD USING A VALID INPUT " + "]");
             }
             return dateTimeInfo.isOnTheDate(task);
         }

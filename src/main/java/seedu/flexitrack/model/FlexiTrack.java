@@ -329,5 +329,17 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         }
         return (countNumberOfZero == (5 - keyword)) ? true : false;
     }
-    
+
+    //@@ A0127686R
+    /** 
+     * Find the index of a task given
+     * 
+     * @param task  The task of interest 
+     * @return      The index of the task in int 
+     */
+    public int findIndexOfTask(Task task) {
+        return this.task.findIndexOfTask(task);
+
+    }
+
 }

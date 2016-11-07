@@ -13,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.flexitrack.commons.core.LogsCenter;
-import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 
 /**

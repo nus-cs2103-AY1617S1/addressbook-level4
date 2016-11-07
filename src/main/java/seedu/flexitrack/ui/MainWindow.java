@@ -166,7 +166,7 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
-
+    
     /**
      * Closes the application.
      */
