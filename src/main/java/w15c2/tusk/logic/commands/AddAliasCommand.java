@@ -1,15 +1,13 @@
 package w15c2.tusk.logic.commands;
 
 import w15c2.tusk.commons.collections.UniqueItemCollection;
-import w15c2.tusk.commons.core.EventsCenter;
-import w15c2.tusk.commons.events.ui.HideHelpRequestEvent;
 import w15c2.tusk.commons.exceptions.IllegalValueException;
 import w15c2.tusk.logic.parser.ParserSelector;
 import w15c2.tusk.model.Alias;
 
 //@@author A0143107U
 /**
- * Adds a task to TaskManager.
+ * Adds an alias to Model.
  */
 public class AddAliasCommand extends Command {
 
@@ -29,9 +27,12 @@ public class AddAliasCommand extends Command {
     private final Alias toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * AddAlias has two parameters, shortcut and sentence
+     * This AddAliasCommand constructor takes in a shortcut and a sentence and adds an Alias.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @param shortcut					Shortcut of the alias to be added.
+     * @param sentence					Sentence of the alias to be added.
+     * @throws IllegalValueException 	If shortcut or sentence is invalid.
      */
     public AddAliasCommand(String shortcut, String sentence)
             throws IllegalValueException {
@@ -56,6 +57,11 @@ public class AddAliasCommand extends Command {
     }
     
 
+    /**
+     * Adds the prepared alias to the Model.
+     * 
+     * @return CommandResult Result of the execution of the add alias command.
+     */
     @Override
     public CommandResult execute() {
         assert model != null;

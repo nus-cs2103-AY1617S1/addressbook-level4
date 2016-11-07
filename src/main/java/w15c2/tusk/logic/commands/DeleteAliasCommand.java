@@ -28,6 +28,11 @@ public class DeleteAliasCommand extends Command {
 
     public final String shortcut;
 
+    /**
+     * This DeleteAliasCommand constructor takes in a shortcut and deletes the Alias with the shortcut.
+     * 
+     * @param shortcut 	Shortcut of the alias to be deleted
+     */
     public DeleteAliasCommand(String shortcut) 
             throws IllegalValueException {
     	if(shortcut == null || shortcut.isEmpty()){
@@ -36,9 +41,10 @@ public class DeleteAliasCommand extends Command {
         this.shortcut = shortcut;
     }
 
-    /*
-     * Deletes the alias based on its shortcut and 
-     * returns CommandResult to indicate whether it is successful
+    /**
+     * Deletes the Alias from the Model.
+     * 
+     * @return CommandResult Result of the execution of the delete alias command.
      */
     @Override
     public CommandResult execute() {

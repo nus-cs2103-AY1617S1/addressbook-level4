@@ -15,7 +15,10 @@ public class ReplaceAlias {
         this.model = model;
     }
     
-    /** Returns the sentence of an alias shortcut */ 
+    /** 
+     * Uses the shortcut of an alias to find its respective sentence
+     * @return the sentence of an alias shortcut 
+     */ 
     public String getAliasCommandText(String commandText)
     {
         String s = commandText;
