@@ -21,38 +21,38 @@ This app will not work with earlier versions of Java 8.
 5. Some example commands you can try:
    * **`list`** : lists all tasks to be done
    * **`add`**` add Visit Dentist d/18-11-2016 a/Mount Elizabeth` : 
-     adds a task named `Visit Dentist` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+     adds a task named `Visit Dentist` to the Task List.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
 ## Features
 
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
+**Command Format**
+* Words in `UPPER_CASE` are the parameters.
+* Items in `SQUARE_BRACKETS` are optional.
+* Items with `...` after them can have multiple instances.
+* The order of parameters is fixed.
 
 #### Viewing help : `help`
 Format: `help`
 
-> Help is also shown if you enter an incorrect command e.g. `abcd`
-<!-- @@author A0130677A --> 
+> Help is also shown if you enter an incorrect command e.g. `abcd`<br>
+<!-- @@author A0130677A -->
+
 #### Adding a person: `add`
-Adds a task to the task list in a flexible format (in any order). All parameters except name are optional.<br>
-This command supports 3 types of tasks: floating tasks, event tasks and deadline tasks.<br>
-Format: `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]` 
+**Format:** `add NAME [a/LOCATION s/START_DATE d/DEADLINE_OR_END_DATE p/PRIORITY t/TAGS]`<br>
+* Adds a task to the task list in a flexible format (in any order).
+* All parameters except name are optional.
+* This command supports 3 types of tasks: floating tasks, event tasks and deadline tasks. 
+* Persons can have any number of tags (including 0)
 
-> Persons can have any number of tags (including 0)
-
-Examples: 
+**Examples:**
 * Floating task: `add Visit Dentist`
 * Event task: `add hackathon a/NUS s/tomorrow d/sunday p/3 t/preparation`
 * Deadline task: `add submit tutorial d/monday p/5`
 
-Field Type Constraints:<br>
+**Field Type Constraints**<br>
 
 **Task duedate or startdate** is formatted like the following: Wed Nov 02 15:39:55 UTC 2016 
 * Accepted formal dates: 1978-01-28, 1984/04/02, 1/02/1980, 2/28/79 
@@ -64,8 +64,8 @@ Field Type Constraints:<br>
 
 
 #### Listing all tasks : `list`
-Shows a list of all tasks done or not done in the task list.<br>
 Format: `list [done]`
+Shows a list of all tasks done or not done in the task list.<br>
 * `list` shows all tasks not done
 * `list done` shows all tasks done
 
