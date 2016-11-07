@@ -513,11 +513,7 @@ public class CommandParser {
      * @param index the index string to be checked and added to list
      */
     private void addSingleIndexToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, String index) {
-        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);               
-        if (categoryAndIndex == null) {
-            listOfIndexes.add(null);
-            return;
-        }               
+        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(index);
         listOfIndexes.add(categoryAndIndex);
     }
 
@@ -549,7 +545,10 @@ public class CommandParser {
      * @param categoryIndex the category index for these range of indexes
      */
     private void addRangeOfIndexesToList(ArrayList<Pair<Integer, Integer>> listOfIndexes, int firstIndex,
-            int secondIndex, int categoryIndex) {        
+            int secondIndex, int categoryIndex) {
+        
+        // if the first index is larger than second index, add a null value into the list
+        // to indicate an invalid index given
         if (firstIndex >= secondIndex) {
             listOfIndexes.add(null);
             return;
@@ -558,6 +557,9 @@ public class CommandParser {
         Pair<Integer, Integer> categoryAndIndex;
         String logMessage = Task.CATEGORIES[categoryIndex] + firstIndex + INDEX_RANGE_SYMBOL + secondIndex;
         logger.info("Adding indexes from " + logMessage + " to list");
+        
+        // add each index of the given category from the first index to the second 
+        // index into the list
         for (int currentIndex = firstIndex; currentIndex <= secondIndex; currentIndex++) {
             categoryAndIndex = new Pair<Integer, Integer>(categoryIndex, currentIndex);
             listOfIndexes.add(categoryAndIndex);
@@ -597,9 +599,6 @@ public class CommandParser {
 
     /**
      * Formats arguments before being passed to command
-     * @param splitArgs
-     * @param arguments
-     * @return formatted argument
      */
     private String formatArguments(String[] splitArgs) {
         String formattedArgument = EMPTY_STRING;
