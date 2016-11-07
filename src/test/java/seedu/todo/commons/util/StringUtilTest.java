@@ -41,6 +41,20 @@ public class StringUtilTest {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
                    containsString("java.io.FileNotFoundException: file not found"));
     }
+    
+    //@@author A0142421X
+    @Test
+    public void testContainsIgnoreCase_true() {
+    	// Test with random upper case letters
+    	assertTrue(StringUtil.containsIgnoreCase("AbCd", "abcd"));
+    }
+    
+    @Test
+    public void testContainsIgnoreCase_false() {
+    	// Need to be exact match
+    	assertFalse(StringUtil.containsIgnoreCase("Abcd", "ab"));
+    }
+    //@@author
 /*
     @Test
     public void getDetails_nullGiven_assertionError(){
