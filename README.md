@@ -3,7 +3,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/75555abe52d247ab9976f50920015710)](https://www.codacy.com/app/xuchen727/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-F09-C4/main&amp;utm_campaign=Badge_Grade)
   
 
-# Dowat (A Task Manager App)
+# [Dowat](https://github.com/CS2103AUG2016-F09-C4/main/releases/tag/v0.5final) (A Task Manager App)
 
 <img src="docs/images/MockUI.PNG" width="600"><br>
 
