@@ -297,7 +297,7 @@ Priority | As a ... | I want to ...           | So that I can...
 `* *`    | user     | view all events   | view only my events
 `* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
 `* *`    | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
-`* *`    | seasoned user     | have multiple keywords/shortcuts for a command | be able to enter command quickly
+`* *`    | seasoned user     | have multiple keywords/shortcuts for a command | be able to enter a command quickly
 `* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
 `* *`    | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
 `* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer on my to-do list
