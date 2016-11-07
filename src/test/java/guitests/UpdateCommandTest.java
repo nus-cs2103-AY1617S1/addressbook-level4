@@ -4,7 +4,6 @@ import org.junit.Test;
 import seedu.whatnow.testutil.TestTask;
 import seedu.whatnow.testutil.TestUtil;
 import seedu.whatnow.commons.core.Messages;
-import seedu.whatnow.logic.commands.AddCommand;
 import seedu.whatnow.logic.commands.UpdateCommand;
 
 import static org.junit.Assert.assertTrue;

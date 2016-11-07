@@ -22,7 +22,6 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.whatnow.model.task.*;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.whatnow.storage.StorageManager;
 import org.junit.After;
 import org.junit.Before;
@@ -31,7 +30,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;

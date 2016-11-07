@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
-import seedu.whatnow.model.ModelManager;
 
 /**
  * This class checks if the user input date and time are of a valid one by
