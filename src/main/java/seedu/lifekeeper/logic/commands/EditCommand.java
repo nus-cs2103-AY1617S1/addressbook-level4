@@ -1,5 +1,6 @@
 package seedu.lifekeeper.logic.commands;
 
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -72,6 +73,9 @@ public class EditCommand extends Command {
                     new Reminder(reminder),
                     new UniqueTagList(tagSet)
             );
+            if (duedate.length() > 0)
+                if (((Task) newParams).getDueDate().value.before(Calendar.getInstance())) 
+                    throw new IllegalValueException(DueDate.MESSAGE_DUEDATE_INVALID);
         } else if (newParamsType.equalsIgnoreCase("event")) {
             this.newParams = new Event(
                     new Name(name),
@@ -80,11 +84,16 @@ public class EditCommand extends Command {
                     new Reminder(reminder),
                     new UniqueTagList(tagSet)
             );
+            if(((Event)newParams).getStartTime().value.before(Calendar.getInstance())){
+                throw new IllegalValueException(StartTime.MESSAGE_STARTTIME_INVALID);
+            }
         } else {
             assert false : "Invalid method output: identifyActivityType";
             throw new IllegalValueException(MESSAGE_INVALID_ACTIVITY_TYPE);
         }
-        
+        if(reminder.length()>0)
+            if(this.newParams.getReminder().value.before(Calendar.getInstance()))
+                    throw new IllegalValueException(Reminder.MESSAGE_REMINDER_INVALID);
     }
 
     @Override
