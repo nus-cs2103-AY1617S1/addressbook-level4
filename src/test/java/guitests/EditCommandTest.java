@@ -20,7 +20,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private static final String DEFAULT_STATUS = "default";
     
     @Test
-    public void edit() {
+    public void edit_changeList() {
         
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
@@ -38,14 +38,20 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //edit from todo to event
         taskToEdit = td.addEvent;
         targetIndex = currentList.size('t');
-        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, false, DEFAULT_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, false, DEFAULT_STATUS);   
+    }
+    
+    @Test
+    public void edit() {
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         //editing date of deadline using date only
-        commandBox.runCommand("edit d1 24/12/2016");
-        taskToEdit = td.editedDeadline;
+        commandBox.runCommand("edit d1 " + td.editedDeadline.getDateString());
+        TestTask taskToEdit = td.editedDeadline;
         assertEditSuccess(taskToEdit, 1, 'd', currentList, true, DEFAULT_STATUS);
         
-        commandBox.runCommand("edit e1 12/12/2016 to 17/12/2016");
+        System.out.println("edit ed " + td.editedEvent.getDateString());
+        commandBox.runCommand("edit e1 " + td.editedEvent.getDateString());
         taskToEdit = td.editedEvent;
         assertEditSuccess(taskToEdit, 1, 'e', currentList, true, DEFAULT_STATUS);
         
@@ -60,6 +66,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
                 Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         
         //edit into duplicate task
+        int targetIndex = currentList.size('e');
         commandBox.runCommand(td.editedDeadline.getEditCommand(targetIndex - 1, 'e'));
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(currentList.isListMatching(taskListPanel));

@@ -13,7 +13,7 @@ public class FindCommandTest extends TaskManagerGuiTest {
     @Test
     public void find_nonEmptyList() {
         //find no results
-        assertFindResult("find task", new TestTask[0], new TestTask[0], new TestTask[0]);
+        assertFindResult("find nothing", new TestTask[0], new TestTask[0], new TestTask[0]);
         
         //find by tag
         TestTask[] expectedTagTodoHits = { td.todo };
@@ -21,12 +21,12 @@ public class FindCommandTest extends TaskManagerGuiTest {
         assertFindResult("find #random", expectedTagTodoHits, new TestTask[0], expectedTagEventHits);
         
         //find by keyword
-        TestTask[] expectedEventHits = { td.comingEvent, td.todayEvent };
+        TestTask[] expectedEventHits = { td.todayEvent, td.comingEvent };
         assertFindResult("find event", new TestTask[0], new TestTask[0], expectedEventHits);
 
         //find after deleting one result
         commandBox.runCommand("delete e1");
-        TestTask[] expectedEventHitsAfterDelete = { td.todayEvent };
+        TestTask[] expectedEventHitsAfterDelete = { td.comingEvent };
         assertFindResult("find event", new TestTask[0], new TestTask[0], expectedEventHitsAfterDelete);
     }
 

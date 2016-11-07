@@ -29,6 +29,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -119,11 +120,11 @@ public class TestUtil {
      * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
      * 
      * @param daysToAdd is the number of days to add to today. Can be negative.
+     * @param minutesToAdd is the number of minutes to add, increase the date overflows
      */
-    public static String getDateFromToday(int daysToAdd) {
-        LocalDate today = LocalDate.now();
-        today.plusDays(daysToAdd);
-        return today.format(TaskDate.DATE_FORMATTER_STORAGE);
+    public static String getDateFromToday(int daysToAdd, int minutesToAdd) {
+        LocalDateTime date = LocalDateTime.now().plusDays(daysToAdd).plusMinutes(minutesToAdd);
+        return date.format(TaskDate.DATE_FORMATTER_STORAGE);
     }
     
     /**
@@ -131,7 +132,7 @@ public class TestUtil {
      * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
      */
     public static String getDateToday() {
-        return getDateFromToday(0);
+        return getDateFromToday(0, 0);
     }
     
     /**
@@ -141,9 +142,8 @@ public class TestUtil {
      * @param minutesToAdd is the number of minutes to the current time. Can be negative.
      */
     public static String getTimeFromNow(int minutesToAdd) {
-        LocalTime now = LocalTime.now();
-        now.plusMinutes(minutesToAdd);
-        return now.format(TaskTime.TIME_FORMATTER_STORAGE);
+        LocalTime time = LocalTime.now().plusMinutes(minutesToAdd);
+        return time.format(TaskTime.TIME_FORMATTER_STORAGE);
     }
     
     /**
@@ -152,7 +152,7 @@ public class TestUtil {
      */
     public static String getTimeNow() {
         return getTimeFromNow(0);
-    } 
+    }
 
     //@@author
     public static List<Task> generateSampleTaskData() {

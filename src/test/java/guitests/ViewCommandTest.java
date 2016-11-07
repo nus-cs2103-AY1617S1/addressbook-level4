@@ -6,9 +6,11 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.Command;
 import seedu.taskitty.logic.commands.ViewCommand;
 import seedu.taskitty.testutil.TestTask;
+import seedu.taskitty.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 //@@author A0130853L
 /**
  * This command test tests 4 types of command functionalities under the view command: view, view all, view done, and view date.
@@ -24,14 +26,14 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	
     	TestTask[] expectedTodos = {td.todo};
     	TestTask[] expectedDeadlines = {td.deadline};
-    	TestTask[] expectedEvents = {td.comingEvent, td.todayEvent};
+    	TestTask[] expectedEvents = {td.todayEvent, td.comingEvent};
         assertViewAllResult("view all", expectedTodos, expectedDeadlines, expectedEvents); // shows original list
 
         //add a todo task and then view all
         commandBox.runCommand(td.addTodo.getAddCommand());
         TestTask[] expectedTodosAfterAddCommand = {td.addTodo, td.todo};
     	TestTask[] expectedDeadlinesAfterAddCommand = {td.deadline};
-    	TestTask[] expectedEventsAfterAddCommand = {td.comingEvent, td.todayEvent};
+    	TestTask[] expectedEventsAfterAddCommand = {td.todayEvent, td.comingEvent};
         assertViewAllWithAcceleratorResult(expectedTodosAfterAddCommand, 
         		expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
     }
@@ -60,7 +62,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         // mark two events as done and then view done to confirm done list is in opposite date-sorted order (i.e. latest first)
         commandBox.runCommand("view all");
     	commandBox.runCommand("done e1 e2");
-    	TestTask[] expectedEventsAfterDoneCommand = {td.todayEvent, td.comingEvent};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.comingEvent, td.todayEvent};
     	assertViewDoneWithAcceleratorResult(new TestTask[0], new TestTask[0], expectedEventsAfterDoneCommand);
     }
     
@@ -84,19 +86,14 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	
     	// view today 
     	TestTask[] expectedTodos = {td.todo};
-        assertViewDoneOrDateResult("view today", expectedTodos, new TestTask[0], new TestTask[0]); 
-        
-        // view xmas which natty will translate into a date
-        TestTask[] expectedTodosSpecialDate = {td.todo};
-    	TestTask[] expectedEventsSpecialDate = {td.todayEvent};
-    	assertViewDoneOrDateResult("view xmas", expectedTodosSpecialDate, new TestTask[0], expectedEventsSpecialDate);
+    	TestTask[] expectedEvents = {td.todayEvent};
+        assertViewDoneOrDateResult("view today", expectedTodos, new TestTask[0], expectedEvents); 
         
     	// view actual date with 3 different formats
     	TestTask[] expectedTodosDate = {td.todo};
     	TestTask[] expectedDeadlinesDate = {td.deadline};
-    	assertViewDoneOrDateResult("view 1 Jan 2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
-    	assertViewDoneOrDateResult("view 1-Jan-2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
-    	assertViewDoneOrDateResult("view 1-1-2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
+    	assertViewDoneOrDateResult("view 31 dec", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
+    	assertViewDoneOrDateResult("view 31-12", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
 
     	// add an event that spans over a few days and then view a date that 
     	//is in between the start and end date of that event
@@ -104,7 +101,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	commandBox.runCommand(multiDayEvent.getAddCommand());
     	TestTask[] expectedTodosAfterAddCommand = {td.todo};
     	TestTask[] expectedEventsAfterDoneCommand = {td.addEvent};
-    	assertViewDoneOrDateResult("view 14 dec", expectedTodosAfterAddCommand, 
+    	assertViewDoneOrDateResult("view tomorrow", expectedTodosAfterAddCommand, 
     			new TestTask[0], expectedEventsAfterDoneCommand);
         
     }
@@ -132,14 +129,14 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	commandBox.runCommand(overEvent.getAddCommand());
     	TestTask[] expectedTodosAfterAddCommand = {td.todo};
     	TestTask[] expectedDeadlinesAfterAddCommand = {td.deadline};
-    	TestTask[] expectedEventsAfterAddCommand = {td.comingEvent, td.todayEvent};
+    	TestTask[] expectedEventsAfterAddCommand = {td.todayEvent, td.comingEvent};
     	assertViewDoneOrDateResult("view", expectedTodosAfterAddCommand, 
     			expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
         
     	// mark a task as done, then run `view`
     	commandBox.runCommand("done t1");
     	TestTask[] expectedDeadlinesAfterDoneCommand = {td.deadline};
-    	TestTask[] expectedEventsAfterDoneCommand = {td.comingEvent, td.todayEvent};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.todayEvent, td.comingEvent};
     	assertViewWithAcceleratorResult(new TestTask[0], 
     			expectedDeadlinesAfterDoneCommand, expectedEventsAfterDoneCommand);
     }

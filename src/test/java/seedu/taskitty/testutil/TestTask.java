@@ -95,6 +95,33 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 		return period.isEvent();
 	}
 	
+	public String getDateString() {
+	    final StringBuilder builder = new StringBuilder();
+        if (period.getStartDate() != null) {
+            builder.append(period.getStartDate())
+                    .append(" to ")
+                    .append(period.getEndDate());
+        } else if (period.getEndDate() != null) {
+            builder.append(period.getEndDate());
+        }
+        return builder.toString();
+	}
+	
+	public String getDateTimeString() {
+	    final StringBuilder builder = new StringBuilder();
+        if (period.getStartDate() != null) {
+            builder.append(period.getStartDate() + " ")
+                    .append(period.getStartTime())
+                    .append(" to ")
+                    .append(period.getEndDate() + " ")
+                    .append(period.getEndTime());
+        } else if (period.getEndDate() != null) {
+            builder.append(period.getEndDate() + " ")
+                .append(period.getEndTime());
+        }
+        return builder.toString();
+	}
+	
 	//@@author A0130853L
 	public void markAsDone() {
 		isDone = true;
