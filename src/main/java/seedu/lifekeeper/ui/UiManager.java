@@ -50,9 +50,8 @@ public class UiManager extends ComponentManager implements Ui {
     
     private static final long DELAY = 60 * 1000; // one minute
     
-    private RefreshTask refreshTask = new RefreshTask();
-    private ReminderTask reminderTask = new ReminderTask();
     private Timer refreshTimer = new Timer("Refresh");
+    private Timer overdueTimer = new Timer("Overdue");
     private Timer reminderTimer = new Timer("Reminder");
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
@@ -213,28 +212,59 @@ public class UiManager extends ComponentManager implements Ui {
      * Methods to invoke refreshing every minute
      */
     private void initRefresh() {
+        initActivityRefresh();
+        initOverdueRefresh();
+        initReminderRefresh();
+    }
+    
+    private void initActivityRefresh() {
         refreshTimer.cancel();
-        reminderTimer.cancel();
         refreshTimer = new Timer("Refresh");
-        reminderTimer = new Timer("Reminder");
+        
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
-        Date executionDate = cal.getTime();
-        cal.add(Calendar.SECOND, 1);
-        refreshTimer.scheduleAtFixedRate(refreshTask, executionDate, DELAY);
-        reminderTimer.scheduleAtFixedRate(reminderTask, cal.getTime(), DELAY);
+        
+        refreshTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                mainWindow.refreshActivityListPanel();
+            }
+        }, cal.getTime(), DELAY);
     }
     
-    private class RefreshTask extends TimerTask {
-        public void run() {
-            mainWindow.refresh();
-        }
+    private void initOverdueRefresh() {
+        overdueTimer.cancel();
+        overdueTimer = new Timer("Overdue");
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.SECOND, 1);
+        
+        overdueTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                mainWindow.refreshOverdueListPanel();
+            }
+        }, cal.getTime(), DELAY);
     }
-
-    private class ReminderTask extends TimerTask {
-        public void run() {
-            showReminderDialog(UpcomingReminders.popNextReminders());
-        }
+    
+    private void initReminderRefresh() {
+        reminderTimer.cancel();
+        reminderTimer = new Timer("Reminder");
+        
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        cal.add(Calendar.SECOND, 2);
+        
+        reminderTimer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                Platform.runLater(new Runnable() {
+                    public void run() {
+                        showReminderDialog(UpcomingReminders.popNextReminders());
+                    }
+                });
+            }
+        }, cal.getTime(), DELAY);
     }
 }

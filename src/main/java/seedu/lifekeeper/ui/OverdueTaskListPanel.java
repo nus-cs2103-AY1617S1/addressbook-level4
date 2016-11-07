@@ -2,6 +2,7 @@ package seedu.lifekeeper.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -9,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.lifekeeper.commons.core.LogsCenter;
+import seedu.lifekeeper.logic.Logic;
 import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.task.ReadOnlyTask;
 import seedu.lifekeeper.ui.ListPanel;
@@ -73,4 +75,12 @@ public class OverdueTaskListPanel extends ListPanel {
 	public void setPlaceholder(AnchorPane pane) {
 		this.placeHolderPane = pane;
 	}
+	
+	public void refresh(Logic logic) {
+	    Platform.runLater(new Runnable() {
+            public void run() {
+                activityListView.setItems(logic.getFilteredOverdueTaskList());
+            }
+        });
+    }
 }

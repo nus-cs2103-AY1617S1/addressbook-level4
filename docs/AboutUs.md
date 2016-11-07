@@ -41,13 +41,15 @@ We are team T13-C2 for the module CS2103 based in the [School of Computing, Nati
 #### Kevin Ong [@Kevin-Ong](https://github.com/Kevin-Ong)
 <img src="images/KevinOng.jpg" width="150"><br>
 * Components in charge of: [Logic](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#logic-component)
-* Aspects/tools in charge of: UI
+* Aspects/tools in charge of: JavaFX
 * Features Implemented:
   * [Edit Parameters](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#editing-an-activity--edit)
+  * [Open and Save](https://github.com/CS2103AUG2016-T13-C2/main/blob/master/docs/UserGuide.md#opening-a-data-file--open)
 * Code Written: [[functional code] (A0125680H.md)][[test code] (A0125680H.md)][[docs] (A0125680H.md)]
 * Other major contributions:
-  * Specifying save location
   * Implemented floating activities
+  * Auto refreshing of the UI
+  * Reminder pop-up
 
 -----
 
