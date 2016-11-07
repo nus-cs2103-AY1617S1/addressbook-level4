@@ -1,8 +1,7 @@
 # Test Script
-
+<!-- @@author A0131813R -->
 * [Description](#description)
 * [Testing Commands](#testing-commands)
-* [Command Summary](#command-summary)
 
 ## Description
 
@@ -293,5 +292,47 @@ Method 2
 
 > This is an invalid command, the returned result is `The task index provided is invalid`.
 
-### 
+### Undo Command: 
+
+#### Testing Command: `add go to Utown r/today 2200`, <kbd>ENTER</kbd>, `undo`
+
+> The newly added activity will be deleted, and the condition of the lifekeeper reverts back.
+
+#### Testing Command: `add go to Utown r/today 2200`, <kbd>ENTER</kbd>, `edit 1 n/go to SOC`, <kbd>ENTER</kbd>, `undo`, `undo`
+
+> After the first undo, the name of the entry reverts back to `go to Utown`, and after the second undo, it reverts back to the original list.
+
+#### Testing Command: `delete 1`, <kbd>ENTER</kbd>, `undo`
+
+> The first entry that was deleted is added back again.
+
+#### Testing Command: `list`, <kbd>ENTER</kbd>, `undo`
+
+> Result Bar shows `There is no more commands to undo`, `list`, `find` and `findtag` cannot be undone.
+
+### Save Command
+
+#### Testing Command: `save src/test/data/LifeKeeperData.xml
+
+> A new Lifekeeperdata.xml will be created in the folder data
+
+### Open Command
+
+#### Testing Command: `open src/test/data/ManualTesting/SampleData.xml
+
+> The SampleDate.xml will be loaded
+
+### Clear Command
+
+#### Testing Command: `clear`
+
+> Erases everything in the LifeKeeper
+
+### Exit Command
+
+#### Testing Command: `exit`
+
+> Leaves the Lifekeeper
+
+
 
