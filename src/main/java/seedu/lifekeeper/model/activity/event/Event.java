@@ -2,7 +2,6 @@ package seedu.lifekeeper.model.activity.event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
 
 import seedu.lifekeeper.model.activity.Activity;
@@ -79,6 +78,9 @@ public class Event extends Activity implements ReadOnlyEvent{
         return isOver();
     }
 
+    /**
+     * @return String indicating the status of the event, either its ongoing or its over.
+     */
     @Override
     public String toStringCompletionStatus() {
         if(this.isOver()) {
@@ -89,12 +91,14 @@ public class Event extends Activity implements ReadOnlyEvent{
             return "";
         }
     }
-    
+    /**
+     * @return String that displays visually clear date format for user to read
+     */
     @Override
     public String displayTiming() {
         String message = "";
         SimpleDateFormat sdf;
-        
+
         if (this.getStartTime().recurring) {
             checkrecurring();
             message = message.concat("Every ");
@@ -103,33 +107,45 @@ public class Event extends Activity implements ReadOnlyEvent{
             message = message.concat("From ");
             sdf = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
         }
-        
+
         if (isStartAndEndOnSameDate()) {
             SimpleDateFormat timeOnly = new SimpleDateFormat("h:mm aa");
-            message = message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to " + timeOnly.format(endTime.getCalendarValue().getTime()));
+            message = message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to "
+                    + timeOnly.format(endTime.getCalendarValue().getTime()));
         } else {
-            message =  message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to " + sdf.format(endTime.getCalendarValue().getTime()));
+            message = message.concat(sdf.format(startTime.getCalendarValue().getTime()) + " to "
+                    + sdf.format(endTime.getCalendarValue().getTime()));
         }
         return message;
     }
-    
+    /**
+     * Check if the recurring event is over, so that the Start and end time will be updated to the next instance when the event should occur
+     */
     private void checkrecurring() {
-        if(this.getEndTime().value.before(Calendar.getInstance())){
-        if(this.getStartTime().RecurringMessage.contains("sun")||this.getStartTime().RecurringMessage.contains("mon")||this.getStartTime().RecurringMessage.contains("tue")||this.getStartTime().RecurringMessage.contains("wed")||this.getStartTime().RecurringMessage.contains("thu")||this.getStartTime().RecurringMessage.contains("fri")||this.getStartTime().RecurringMessage.contains("sat")){
-            this.getStartTime().value.add(Calendar.DAY_OF_WEEK, 7);
-            this.getEndTime().value.add(Calendar.DAY_OF_WEEK, 7);
+        if (this.getEndTime().value.before(Calendar.getInstance())) {
+            if (this.getStartTime().RecurringMessage.contains("sun")
+                    || this.getStartTime().RecurringMessage.contains("mon")
+                    || this.getStartTime().RecurringMessage.contains("tue")
+                    || this.getStartTime().RecurringMessage.contains("wed")
+                    || this.getStartTime().RecurringMessage.contains("thu")
+                    || this.getStartTime().RecurringMessage.contains("fri")
+                    || this.getStartTime().RecurringMessage.contains("sat")) {
+                this.getStartTime().value.add(Calendar.DAY_OF_WEEK, 7);
+                this.getEndTime().value.add(Calendar.DAY_OF_WEEK, 7);
+            } else {
+                this.getEndTime().value.add(Calendar.DAY_OF_MONTH, 1);
+                this.getStartTime().value.add(Calendar.DAY_OF_MONTH, 1);
+            }
         }
-        else{
-            this.getEndTime().value.add(Calendar.DAY_OF_MONTH, 1);
-            this.getStartTime().value.add(Calendar.DAY_OF_MONTH, 1);}}
-        
+
     }
 
     private boolean isStartAndEndOnSameDate() {
         return startTime.getCalendarValue().get(Calendar.YEAR) == endTime.getCalendarValue().get(Calendar.YEAR)
-                && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue().get(Calendar.DAY_OF_YEAR);
+                && startTime.getCalendarValue().get(Calendar.DAY_OF_YEAR) == endTime.getCalendarValue()
+                        .get(Calendar.DAY_OF_YEAR);
     }
-    
+
     @Override
     public boolean equals(Object other) {
         if (this == null || other == null) {
