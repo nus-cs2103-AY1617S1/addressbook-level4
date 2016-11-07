@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -110,6 +112,46 @@ public class TestUtil {
             //not possible
         }
     }
+    
+    /**
+     * Returns a String representing today's date plus daysToAdd
+     * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
+     * 
+     * @param daysToAdd is the number of days to add to today. Can be negative.
+     */
+    public static String getDateFromToday(int daysToAdd) {
+        LocalDate today = LocalDate.now();
+        today.plusDays(daysToAdd);
+        return today.format(TaskDate.DATE_FORMATTER_STORAGE);
+    }
+    
+    /**
+     * Returns a String representing today's date
+     * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
+     */
+    public static String getDateToday() {
+        return getDateFromToday(0);
+    }
+    
+    /**
+     * Returns a String representing the current time
+     * String format is the format for Storage from TaskTime, TIME_FORMATTER_STORAGE
+     * 
+     * @param minutesToAdd is the number of minutes to the current time. Can be negative.
+     */
+    public static String getTimeFromNow(int minutesToAdd) {
+        LocalTime now = LocalTime.now();
+        now.plusMinutes(minutesToAdd);
+        return now.format(TaskTime.TIME_FORMATTER_STORAGE);
+    }
+    
+    /**
+     * Returns a String representing the current time
+     * String format is the format for Storage from TaskTime, TIME_FORMATTER_STORAGE
+     */
+    public static String getTimeNow() {
+        return getTimeFromNow(0);
+    } 
 
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
