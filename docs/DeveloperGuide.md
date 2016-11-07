@@ -1,6 +1,6 @@
 # Developer Guide
 
-
+<!--- A0139772U -->
 ##Table of Contents:
 
 * [Introduction](#introduction)
@@ -206,6 +206,7 @@ Figure 8:  Sequence Diagram of interaction within the Logic component for execut
 
 </p>
 
+<!--- A0141021H -->
 ### Model component
 
 <p align="center">
@@ -365,6 +366,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | find all my free time | assign a task during my free time
 `*` | user | pin tasks | easily find them later
 
+<!--- A0139128A --->
 ## Appendix B : Use Cases
 
 System: WhatNow
@@ -621,7 +623,7 @@ Use case ends.<br>
 
   >Use case ends.<br> 
 
-
+<!--- A0126240W --->    
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) that has Java 8 or higher installed.

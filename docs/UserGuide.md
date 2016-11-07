@@ -1,4 +1,4 @@
-//@@author A0139772U
+<!--- //@@author A0139772U --->
 # User Guide
 
 
@@ -9,7 +9,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
-//@@author A0141021H
+<!--- @@author A0141021H --->
 ## Introduction
 Are you feeling stressed or overwhelmed with the number of things you have to do? Are you drowning in the pool of to-dos and confused about where to start? WhatNow is here to throw you a lifebuoy and to help you manage all your tasks. It allows you to manage your tasks by entering simple commands without the use of a mouse. You can even find free slots amidst your busy schedule by keying in a special command: freetime.
 
@@ -71,7 +71,7 @@ Figure 2: The storage location is changed
 
 </p>
 
-//@@author A0139128A
+<!--- @@author A0139128A --->
 ### Adding a task: `add`
 Adds everyday tasks, deadlines and events to WhatNow. Any task without date or time is considered a Todo task, otherwise it is considered a Schedule task. 
 
@@ -169,7 +169,7 @@ Figure 6: An event task with period and priority added under Schedule tasks
 > You can add a recurring task for a deadline, one-day event or multiple-day event as shown above.
 
 
-//@@author A0139772U
+<!--- @@author A0139772U --->
 ###Marking a task as completed: done
 Marks a task in WhatNow as completed.
 
@@ -252,7 +252,7 @@ Figure 12: Display with all tasks listed
 </p>
 
 
-//@@author A0141021H
+<!--- @@author A0141021H --->
 ###Marking a task as incomplete: undone
 Marks a task in WhatNow as incomplete.
 
@@ -316,8 +316,7 @@ Figure 17: Display after delete
 </p>
 
 
-
-//@@author A0126240W
+<!--- @@author A0126240W --->
 ### Updating a task: `update`
 Updates a task from the list displayed.
 
@@ -447,7 +446,7 @@ Figure 25: Display result after the find command is executed
 
 </p>
 
-//@@author A0141021H
+<!--- @@author A0141021H --->
 ### Find Freetime: `freetime`
 You can now search for your freetime on a particular date without manually finding for your freetime.
 
