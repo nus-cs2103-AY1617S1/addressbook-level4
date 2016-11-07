@@ -23,7 +23,6 @@ public class TestMemoryFind {
         StorageMemory.checkForFileExists(testMem);
         
         testSearchExact(testMem);
-        testRecursiveSearchTerms(testMem);
         testFindDate(testMem);
     }
     
@@ -31,14 +30,6 @@ public class TestMemoryFind {
     private void testSearchExact(Memory testMem) { 
         testSearchExact_EmptyMem();
         testSearchExact_NonEmptyMem(testMem);
-    }
-    
-    //@@author A0143378Y
-    private void testRecursiveSearchTerms(Memory testMem) { 
-        testRecursiveSearchTerms_ZeroTerm(testMem);
-        testRecursiveSearchTerms_Space(testMem);
-        testRecursiveSearchTerms_OneTerm(testMem);
-        testRecursiveSearchTerms_MoreThanOneTerm(testMem);
     }
     
     //@@author A0143378Y
@@ -65,45 +56,6 @@ public class TestMemoryFind {
         
         ArrayList<GenericMemory> testCase2 = FindCommand.searchExact("I am hungry", testMem);
         assertEquals("If mem is not empty, test if item can be found", testCase2.size(), 1);
-    }
-    
-    //@@author A0143378Y
-    private void testRecursiveSearchTerms_ZeroTerm(Memory testMem) {
-        ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(testMem.getList());
-        String[] keywords = {};
-        result = FindCommand.recursiveSearchTerms(keywords, 0, result);
-        assertEquals("search without criteria", result.size(), 17);
-    }
-    
-    //@@author A0143378Y
-    private void testRecursiveSearchTerms_Space(Memory testMem){
-        ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(testMem.getList());
-        String[] keywords = {" "};
-        result = FindCommand.recursiveSearchTerms(keywords, 0, result);
-        
-        //One item without any space out of 5
-        assertEquals("search a space", result.size(), 13);
-    }
-    
-    //@@author A0143378Y
-    private void testRecursiveSearchTerms_OneTerm(Memory testMem){
-        ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(testMem.getList());
-        String[] keywords = {"hungry"};
-        result = FindCommand.recursiveSearchTerms(keywords, 0, result);
-        assertEquals("search for single term", result.size(), 2);
-    }
-    
-    //@@author A0143378Y
-    private void testRecursiveSearchTerms_MoreThanOneTerm(Memory testMem){
-        ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(testMem.getList());
-        String[] keywords = {"hungry", "very", "chicken"};
-        result = FindCommand.recursiveSearchTerms(keywords, 0, result);
-        assertEquals("search for more than 1 term successful", result.size(), 1);
-        
-        ArrayList<GenericMemory> result2 = new ArrayList<GenericMemory>(testMem.getList());
-        String[] keywords2 = {"hungry", "very", "chicken", "still"};
-        result2 = FindCommand.recursiveSearchTerms(keywords2, 0, result2);
-        assertEquals("search for more than 1 term unsuccessful", result2.size(), 0);
     }
     
     //@@author A0143378Y
