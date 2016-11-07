@@ -158,7 +158,7 @@ public class LogicManagerTest {
 	/**
 	 * Similar to the above
 	 * created to facilitate checking for commands that require "List all" and previous command
-	 * E.g. undoing the DoneCommand
+	 * E.g. undoing the UnDoneCommand requires "list all" to see all tasks first 
 	 */
 	private void assertThreePartCommandBehavior(String firstInputCommand, String secondInputCommand, String thirdInputCommand, 
 			String expectedMessage, ReadOnlyListOfTask expectedAddressBook, List<? extends ReadOnlyTask> expectedShownList) throws Exception {
