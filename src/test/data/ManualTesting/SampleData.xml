@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<toDoList>
+    <tasks>
+        <name>visit grandma</name>
+        <date>20.11.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>read book</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>2</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>chinese new year festival</name>
+        <date>08.02.2016-08 to 08.02.2016-14</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>visit old school</name>
+        <date>19.02.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>2</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>women day speech</name>
+        <date>08.03.2016-19 to 08.03.2016-21</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>watch movie with Amy</name>
+        <date>18.03.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>watch an old movie</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>april fool day prank</name>
+        <date>01.04.2016-08 to 01.04.2016-14</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>tomb sweeping</name>
+        <date>04.04.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>shopping with Bob</name>
+        <date>17.04.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>earth day cca event</name>
+        <date>22.04.2016-20 to 23.04.2016-00</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>yoga lesson</name>
+        <date>09.11.2016-20 to 09.11.2016-21</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>2</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>mother day surprise</name>
+        <date>08.05.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>discuss project</name>
+        <date>08.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>26.05.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>learn korea</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>father day surprise</name>
+        <date>19.06.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>karoke with friends</name>
+        <date>28.06.2016-20</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>camp</name>
+        <date>09.07.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>barbecue with family</name>
+        <date>13.07.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>family dinner</name>
+        <date>11.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>2</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>running</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>watch concert</name>
+        <date>11.08.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>interview with company officer</name>
+        <date>24.08.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>teacher day celebration</name>
+        <date>10.09.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>dentist appointment</name>
+        <date>20.09.2016-10 to 20.09.2016-12</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>morning running</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>settle down holiday travel plan</name>
+        <date>11.10.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>korean idol birthday</name>
+        <date>15.10.2016</date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>ceceila birthday</name>
+        <date>03.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>anna birthday</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>my birthday</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>project due</name>
+        <date>18.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>assignment due</name>
+        <date>20.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>16.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tags>
+        <tagName> cs2010 lab</tagName>
+    </tags>
+    <tasks>
+        <name>do homework</name>
+        <date>18.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>assignment due</name>
+        <date>20.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>final exam</name>
+        <date>30.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>travel</name>
+        <date>08.12.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>buy souvenir</name>
+        <date>11.12.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>back to school</name>
+        <date>31.12.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>meeting with project mates</name>
+        <date>30.10.2016-00</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>read a good book</name>
+        <date></date>
+        <isDone>true</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>watch TV show</name>
+        <date>28.10.2016-22</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>go to lecture</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>visit pet house</name>
+        <date>08.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>swimming course</name>
+        <date>11.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>meeting</name>
+        <date>28.10.2016-16</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>meeting</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>meeting</name>
+        <date>29.10.2016-16 to 29.10.2016-18</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>3</priorityLevel>
+        <tagged>customer</tagged>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+        <tagged>urgent</tagged>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>06.11.2016 to 07.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tags>
+        <tagName> cs2105 assignment</tagName>
+    </tags>
+    <tags>
+        <tagName> hard</tagName>
+    </tags>
+    <tasks>
+        <name>demo</name>
+        <date>03.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>04.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>04.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>project meeting</name>
+        <date>04.11.2016-16</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tags>
+        <tagName> atSocCom1</tagName>
+    </tags>
+    <tags>
+        <tagName> urgent</tagName>
+    </tags>
+    <tasks>
+        <name>cs2103 lecture</name>
+        <date>11.11.2016 to 11.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>weekly</frequency>
+        <priorityLevel>1</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>do homework</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>task</name>
+        <date></date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>task</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>task</name>
+        <date>01.01.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>task</name>
+        <date>06.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>daily</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>starbucks meeting</name>
+        <date>02.12.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>monthly</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>meeting</name>
+        <date>02.12.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>true</isRecurring>
+        <frequency>monthly</frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tasks>
+        <name>visit old school</name>
+        <date>07.11.2016</date>
+        <isDone>false</isDone>
+        <isRecurring>false</isRecurring>
+        <frequency></frequency>
+        <priorityLevel>0</priorityLevel>
+    </tasks>
+    <tags>
+        <tagName>customer</tagName>
+    </tags>
+    <tags>
+        <tagName>urgent</tagName>
+    </tags>
+</toDoList>
