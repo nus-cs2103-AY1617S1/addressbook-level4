@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
@@ -25,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final SortedList<Task> sortedTasks;
     private final UserPrefs userPrefs;
 
     /**
@@ -39,7 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task list: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(taskManager.getTasks(), this::totalOrderSorting);
+        filteredTasks = new FilteredList<>(sortedTasks);
         this.userPrefs = userPrefs;
     }
 
@@ -49,7 +52,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(taskManager.getTasks(), this::totalOrderSorting);
+        filteredTasks = new FilteredList<>(sortedTasks);
         this.userPrefs = userPrefs;
     }
 
@@ -124,6 +128,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     //@@author
+    
+    // ========== Methods for aliasing ==========================================================================
+    
+    //@@author A0144939R
+
+    public HashMap<String, Commands> getAliasMap() {
+        return userPrefs.getAliasMap();
+    }
+    
+    public void setMapping(Commands command, String alias) {
+        userPrefs.setMapping(command, alias);
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -179,6 +196,14 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    //@@author A0141052Y
+    // ========== Methods for sorting ==========================================================================
+    
+    private int totalOrderSorting(Task task, Task otherTask) {
+        return task.compareTo(otherTask);
+    }
+    //@@author
 
     // ========== Inner classes/interfaces used for filtering ==================================================
 
@@ -297,15 +322,4 @@ public class ModelManager extends ComponentManager implements Model {
             return (task.getComplete() == this.isCompleted);
         }
     }
-
-    //@@author A0144939R
-
-    public HashMap<String, Commands> getAliasMap() {
-        return userPrefs.getAliasMap();
-    }
-    
-    public void setMapping(Commands command, String alias) {
-        userPrefs.setMapping(command, alias);
-    }
-    
 }

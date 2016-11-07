@@ -21,6 +21,10 @@ public class PinCommandTest extends TaskManagerGuiTest {
         currentList = td.getTypicalTasks();
     }
 
+    /**
+     * Pin tests -- Task ID is guaranteed due to preservation of 
+     * total ordering within pinned tasks.
+     */
     @Test
     public void pinTask() {
         int targetIndex = 1;
@@ -35,14 +39,14 @@ public class PinCommandTest extends TaskManagerGuiTest {
         // pin another task
         targetIndex = 3;
         commandBox.runCommand("pin " + targetIndex);
-        ReadOnlyTask otherTask = taskListPanel.getTask(targetIndex - 1);
+        ReadOnlyTask otherTask = taskListPanel.getTask(1);
         assertTrue(otherTask.getImportance());
         assertResultMessage(String.format(MESSAGE_PIN_TASK_SUCCESS, otherTask));
 
         // pin the last task
         targetIndex = currentList.length;
         commandBox.runCommand("pin " + targetIndex);
-        newTask = taskListPanel.getTask(targetIndex - 1);
+        newTask = taskListPanel.getTask(2);
         assertTrue(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_PIN_TASK_SUCCESS, newTask));
     }
