@@ -1,57 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <persons>
-        <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <name>cs2103 project</name>
+        <startDate>07/11/2016</startDate>
+        <startTime></startTime>
+        <endDate>07/11/2016</endDate>
+        <endTime>03.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
-        <address isPrivate="false">81th street</address>
+        <name>cs3230 programming assignment</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>03.00PM</startTime>
+        <endDate>08/11/2016</endDate>
+        <endTime>10.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
-        <address isPrivate="false">wall street</address>
+        <name>watch movie</name>
+        <startDate>13/11/2016</startDate>
+        <startTime>10.00AM</startTime>
+        <endDate>13/11/2016</endDate>
+        <endTime>12.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
-        <address isPrivate="false">10th street</address>
+        <name>soccer with friends</name>
+        <startDate>14/11/2016</startDate>
+        <startTime>03.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
-        <address isPrivate="false">michegan ave</address>
+        <name>buy mother's day gift</name>
+        <startDate>19/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
-        <address isPrivate="false">little tokyo</address>
+        <name>ma1101r homework</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>08/11/2016</endDate>
+        <endTime>11.59PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <name>prove p=np</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>07/11/2017</endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
-        <address isPrivate="false">little india</address>
+        <name>learn python</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
     <persons>
-        <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">chicago ave</address>
+        <name>visit japan</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
     </persons>
 </addressbook>
+
