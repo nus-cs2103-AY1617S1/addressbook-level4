@@ -72,7 +72,7 @@ public class TestMemoryFind {
         ArrayList<GenericMemory> result = new ArrayList<GenericMemory>(testMem.getList());
         String[] keywords = {};
         result = FindCommand.recursiveSearchTerms(keywords, 0, result);
-        assertEquals("search without criteria", result.size(), 5);
+        assertEquals("search without criteria", result.size(), 17);
     }
     
     //@@author A0143378Y
@@ -82,7 +82,7 @@ public class TestMemoryFind {
         result = FindCommand.recursiveSearchTerms(keywords, 0, result);
         
         //One item without any space out of 5
-        assertEquals("search a space", result.size(), 4);
+        assertEquals("search a space", result.size(), 13);
     }
     
     //@@author A0143378Y
