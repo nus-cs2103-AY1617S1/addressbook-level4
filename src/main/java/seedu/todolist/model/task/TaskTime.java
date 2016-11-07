@@ -93,6 +93,25 @@ public class TaskTime implements Comparable<TaskTime> {
                 && this.time.equals(((TaskTime) other).time)); // state check
     }
     
+    /**
+     * Returns true if both TaskTimes are equal.
+     * Use this method when both TaskTimes could be null
+     */
+    public static boolean isEquals(TaskTime time, TaskTime other) {
+        if (time == null && other == null) {
+            //both are null, they are equal
+            return true;
+        }
+        
+        if (time != null) {
+            return time.equals(other);
+        } else {
+            // if date is null, other cannot be null.
+            // thus, they are not equal
+            return false;
+        }
+    }
+    
     @Override 
     public int compareTo(TaskTime time) {
         if (time == null) return -1;

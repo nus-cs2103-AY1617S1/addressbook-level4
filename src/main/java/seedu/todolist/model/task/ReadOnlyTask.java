@@ -18,7 +18,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())); // state checks here onwards
+                && other.getName().equals(this.getName())) // state checks here onwards
+                && other.getInterval().equals(this.getInterval());
     }
 
     /**
@@ -29,7 +30,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
         builder.append(getNameAsText() + " ")
                 .append(getIntervalAsText() + " ")
                 .append(getLocationAsText() + " ")
-                .append(getRemarksAsText() + " ");
+                .append(getRemarksAsText())
+                .append(getStatusAsText());
         return builder.toString();
     }
     
@@ -46,7 +48,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getIntervalAsText() {
         Interval interval = getInterval();
         if (!interval.isFloat()) {
-            return "from" + getInterval().toString();
+            return "from " + getInterval().toString();
         }
         return "";
     }
@@ -57,7 +59,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getLocationAsText() {
         Location location = getLocation();
         if (location.location != null) {
-            return "at" + getLocation().toString();
+            return "at " + getLocation().toString();
         }
         return "";
     }
@@ -68,8 +70,13 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask> {
     default String getRemarksAsText() {
         Remarks remarks = getRemarks();
         if (remarks.remarks != null) {
-            return "remarks" + getRemarks().toString();
+            return "remarks " + getRemarks().toString();
         }
         return "";
     } 
+    
+    default String getStatusAsText() {
+        Status status = getStatus();
+        return "to " + status.getType().toString() + " tab";
+    }
 }

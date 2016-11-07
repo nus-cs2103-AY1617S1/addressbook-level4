@@ -21,12 +21,12 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             eventWithoutParameter = new TaskBuilder().withName("Event without parameter")
-                    .withInterval(getTodayDate(), "11:00pm", getTodayDate(), "11:30pm")
+                    .withInterval(getTodayDate(), "11:58pm", getTodayDate(), "11:59pm")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(Status.Type.Incomplete).build();
             eventWithLocation = new TaskBuilder().withName("Event with location")
-                    .withInterval(getTodayDate(), "20:00", getTodayDate(), "23:59")
+                    .withInterval(getTodayDate(), "23:58", getTodayDate(), "23:59")
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(Status.Type.Incomplete).build();

@@ -64,4 +64,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public void setCurrentTab(String tab) {
         model.setCurrentTab(tab);
     }
+    
+    @Override
+    public String getCurrentTab() {
+        return model.getCurrentTab();
+    }
 }
