@@ -127,7 +127,7 @@ public class ToolTip {
         return message;
     }
 
-    public String getDecription() {
+    public String getDescription() {
         return description;
     }
     

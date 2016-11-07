@@ -9,12 +9,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.taskitty.commons.core.EventsCenter;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.taskitty.commons.events.ui.ShowToolTipEvent;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.Logic;
-import seedu.taskitty.logic.ToolTip;
 import seedu.taskitty.logic.commands.*;
 
 import java.util.logging.Logger;
@@ -67,17 +68,8 @@ public class CommandBox extends UiPart {
      * and give appropriate feedback using the ToolTip class.
      */
     private void setTooltipListener() {
-        ToolTip tooltip = ToolTip.getInstance();
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            tooltip.createToolTip(newValue);
-            resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
-            
-            isInputValid = tooltip.isUserInputValid();
-            if (isInputValid) {
-                setStyleToIndicateCorrectCommand();
-            } else {
-                setStyleToIndicateIncorrectCommand();
-            }
+            EventsCenter.getInstance().post(new ShowToolTipEvent(newValue));
         });
     }
     
@@ -113,10 +105,30 @@ public class CommandBox extends UiPart {
         setStyleToIndicateCorrectCommand();
         emptyCommandText(command);
         if (isInputValid) {
-            setCatImage("/images/cat_happy.png");
+            setCatImage(ResultDisplay.IMAGE_CAT_HAPPY);
         }
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+
+    @Subscribe
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
+        restoreCommandText();
+        setStyleToIndicateIncorrectCommand();
+    }
+    
+    //@@author A0139930B
+    @Subscribe
+    private void handleShowToolTip(ShowToolTipEvent event) {
+        resultDisplay.postMessage(event.getToolTipMessage(), event.getToolTipDescription());
+        
+        isInputValid = event.isUserInputValid();
+        if (isInputValid) {
+            setStyleToIndicateCorrectCommand();
+        } else {
+            setStyleToIndicateIncorrectCommand();
+        }
     }
     
     /**
@@ -132,15 +144,8 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
-        setCatImage("/images/cat_normal.png");
+        setCatImage(ResultDisplay.IMAGE_CAT_NORMAL);
         isInputValid = true;
-    }
-
-    @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + previousCommandText));
-        restoreCommandText();
-        setStyleToIndicateIncorrectCommand();
     }
 
     /**
@@ -156,7 +161,7 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateIncorrectCommand() {
         if (!commandTextField.getStyleClass().contains("error")) {
             commandTextField.getStyleClass().add("error"); 
-            setCatImage("/images/cat_sad.png");
+            setCatImage(ResultDisplay.IMAGE_CAT_SAD);
             isInputValid = false;
         }
     }

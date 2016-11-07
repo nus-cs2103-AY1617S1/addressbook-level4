@@ -18,6 +18,10 @@ public class ResultDisplay extends UiPart {
     private static boolean hasOverdue;
     
     //@@author
+    public static final String IMAGE_CAT_NORMAL = "/images/cat_normal.png";
+    public static final String IMAGE_CAT_HAPPY = "/images/cat_happy.png";
+    public static final String IMAGE_CAT_SAD = "/images/cat_sad.png";
+    
     private static final String FXML = "ResultDisplay.fxml";
 
     private AnchorPane placeHolder;
