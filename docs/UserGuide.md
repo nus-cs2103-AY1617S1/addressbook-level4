@@ -43,8 +43,7 @@ To get started, proceed to the Quick Start section below.
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
 
->   Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.  
+   <img src="images/QuickStartCallout.png" width="900">
    
 <!-- @@author A0130853L -->
 
@@ -54,8 +53,8 @@ To get started, proceed to the Quick Start section below.
    <img src="images/Ui.png" width="900">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-> While typing commands, tooltips will appear to aid you. <br>
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.<br> 
+<img src="images/QuickStartCallout2.png" width="900"> <br>
 5. Some example commands you can try:
    * **`add`**` read book` : adds a new task named `read book`. 
    * **`add`**` business proposal 17 nov 2pm` : adds a new task that has the deadline `02:00pm, 17 nov`.
@@ -68,15 +67,10 @@ To get started, proceed to the Quick Start section below.
 <br>
 ## Features
 
-> Items in `<angle brackets>` are the parameters.<br>
-> Items in `[square brackets]` are optional.<br>
-> Items with `...` after them can have multiple instances.<br><br>
-> `<datetime>` parameters can accept different formats. `2 Jan 2015 3pm`, `15:00 2/1/2015`, `2-1-2015, 3:00pm` are acceptable formats to represent 2 Jan 2015, 3pm.<br>
-> `<datetime>` parameters can also accept relative date formats such as `tomorrow 4pm` and `next friday 2359`.<br><br>
-> The order of parameters is fixed.<br>
+<img src="images/FeaturesCallout.png" width="900">
 
 <br>
-#### View help : `help`
+####help : `help`
 Format: `help`<br>
 Shortcut key: `F1`
 
@@ -87,13 +81,12 @@ A pop-up window displaying the command summary will be shown. Help is also shown
 
 <br>
 #### View upcoming tasks: `view`
-Lists all upcoming and uncompleted tasks.<br>
 Format: `view`<br>
-Shortcut Key: `Ctrl + Shift + T`
+Shortcut Key: `Ctrl + Shift + T`<br><br>
+Lists all upcoming and uncompleted tasks.<br>
 
-All uncompleted todo tasks, upcoming events and deadlines will be displayed.
-> Note that overdue tasks will be displayed in red.<br>
-> Also note that after each command, the current type of tasks being displayed will be shown on the bottom left corner of the task manager on the status bar.
+
+<img src="images/ViewCallout.png" width="900">
 
 Example:
 
@@ -103,13 +96,12 @@ Example:
  
 <br>
 #### View all tasks for a specified date: `view <date>`
+Format: `view <date>`<br>
 Lists all events for the specified date, uncompleted deadlines up to the specified date, and all todo tasks.<br>
-Format: `view <date>`
 
-All todo tasks, events for the specified date and deadlines up to the specified date will be displayed.<br>
-If `view today` is entered, today's tasks, events and uncompleted deadlines up to today will be displayed.
+<img src="images/ViewDateCallout.png" width="900">
 
-Example:
+Example:<br>
 
 * `view 7 Nov`<br>
   <img src="images/UIviewDate.png" width="900">
@@ -117,26 +109,22 @@ Example:
 
 <br>
 #### View all completed tasks: `view done`
-Lists all completed tasks, deadlines and events.<br>
 Format: `view done`<br>
-Shortcut key: `Ctrl + Shift + D`
-
-All completed todo tasks, deadlines and events will be shown shown in grey.
+Shortcut key: `Ctrl + Shift + D`<br><br>
+Lists all completed tasks, deadlines and events. Tasks that are done or over will be shown shown in grey.
 
 Example:
-
 * `view done`<br>
   <img src="images/UIviewDone.png" width="900">
   
 <br>
 
 #### View all tasks: `view all`
-Lists all todo tasks, deadlines and events ever added.<br>
 Format: `view all`<br>
-Shortcut key: `Ctrl + Shift + L`
+Shortcut key: `Ctrl + Shift + L`<br><r>
 
-All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
-> Note that events that are over will be automatically marked and displayed as completed.
+Lists all todo tasks, deadlines and events that have been added to TasKitty, including events that have passed and done tasks.
+Note that events that are over will be automatically marked and displayed as completed.
 
 Example:
 
@@ -147,28 +135,25 @@ Example:
 
 <!-- @@author A0139930B -->
 #### Create a new task: `add`
-Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
 
-> Tasks are split into 3 categories: `todo`, `deadline`, `event`.<br>
-> `todo`: Tasks that have no specific date/time to be completed by.<br>
-> `deadline`: Tasks that have a specific date/time they must be completed by.<br>
-> `event`: Tasks that have specific start and end date/time.<br>
+Format (Todo): `add <name> [#tag]...`<br>
+Format (Deadline): `add <name> [end datetime] [#tag]...`<br>
+Format (Event): `add <name> [start datetime] to [end datetime] [#tag]...`<br><br>
 
-* Todo format: `add <name> [#tag]...`<br>
-* Deadline format: `add <name> [end datetime] [#tag]...`<br>
-* Event format: `add <name> [start datetime] to [end datetime] [#tag]...`
-
+Adds a new task to the todo or deadline or event list in TasKitty.<br>
+<img src="images/AddCallout.png" width="900"><br>
 <!-- @@author A0130853L -->
-Examples:
-
+Example (Todo):<br>
 * `add buy new tie #work`<br>
   Adds a `todo` task with `<name>` as `buy new tie`, `<#tag>` as `work`.<br>
   <img src="images/UItodo.png" width="900">
-
+<br>
+Example (Deadline):<br>
 * `add submit proposal 17 Nov 2pm #work`<br>
   Adds a `deadline` task with `<name>` as `submit proposal`, `<end datetime>` as `02:00pm, 17 Nov 2016`, `<#tag>` as `work`.<br>
   <img src="images/UIdeadline.png" width="900">
 
+Example (Event):<br>
 * `add walk dog 7 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with `<name>` as `walk dog`, `<start datetime>` as `05:00pm, 7 Nov 2016`, `<end datetime>` as `06:00pm, 7 Nov 2016`.<br>
   <img src="images/UIevent.png" width="900">
@@ -176,11 +161,9 @@ Examples:
 
 <!-- @@author A0139930B -->
 <br>
-#### Find tasks: `find`
-Finds tasks based on keywords.<br>
-Format: `find <keyword> [more keywords]...`
-
-Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`<br>
+#### Find task: `find`
+Format: `find <keyword>...`
+Finds tasks based on keywords. Tasks that partly or completely match the keywords entered will be displayed. You can find tags using `#`.<br>
 
 Example: 
 * `find prop`<br>
@@ -192,25 +175,20 @@ Example:
 <br>
 <!-- @@author A0135793W -->
 #### Edit task details: `edit`
+* Format: `edit <index> [name] [datetime] `<br><br>
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
-
-* Format: `edit <index> [name] [datetime] `
-
-`<index>` is the index of the task shown in the most recent listing, including the prefix, `t` todo, `d` deadline or `e` event. eg. `t2` `d1` `e4`<br>
-If no or an invalid category was listed, the app will default to todo format `t`. eg. `1` and `+1` becomes `t1` <br>
-
 Format depends on the type of task being edited. When only 1 `<time>` is provided, it is treated as `<end time>` for both deadline and event.<br>
 
-> Note that you can enter the [`view`](#view-upcoming-tasks-view) command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
+<img src="images/EditCallout1.png" width="900"><br>
 
 <!-- @@author A0130853L -->
 Example:
 
-* `view`<br>
-  `edit d2 16 Nov`<br>
+* `edit d2 16 Nov`<br>
   Edits the 2nd task under the deadline tasks section. Changes the `<date>` to `16 Nov`.<br>
   <img src="images/UIedit.png" width="900">
 
+<img src="images/EditCallout2.png" width="900"><br>
 * `view`<br>
   `edit t1 buy blue tie`<br>
   Edits the 1st task under the todo tasks section. Changes the `<name>` to `buy blue tie`.<br>
@@ -218,11 +196,9 @@ Example:
 <br>
 
 #### Delete task: `delete`
-Deletes one or more todo, deadline or event task already inside the task manager using the index of the task.<br>
-
-* Format: `delete <index> [more indexes]...`<br>
-
-> You can enter tasks in a range by typing the category and first number index of the task followed by a `-` and then the final number index. eg. `t1-3` counts as todo tasks t1, t2 and t3 together.<br>
+* Format: `delete <index>...`<br><br>
+Deletes one or more todo, deadline or event task already inside TasKitty using the index of the task.<br>
+<img src="images/DeleteCallout.png" width="900"><br>
 
 Examples:
 
@@ -263,13 +239,9 @@ Examples:
 <br>
 
 #### Mark task as done: `done`
-Marks one or more task in the task list as done.<br>
-
-* Format: `done <index> [more indexes]...`
-
-> Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
-> Note that tasks that are marked as done will be sorted in reversed order based on their `<start datetime>`.<br>
-
+* Format: `done <index>...`<br><br>
+Marks one or more task in the task list as done using index of the task. Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br>
+<img src="images/DoneCallout.png" width="900"><br>
 Example:
 
 * `view all`<br>
@@ -341,12 +313,7 @@ Example:
 
 <br>
 
-> Note that for undo and redo, you are only able to undo/redo commands that changes the task manager. eg. add, delete
-Commands that do not affect the task manager cannot be undone/redone. eg. view, help <br>
-
->If you have undone actions and you enter a new valid command that is undoable, previous undone actions that were not redone will be lost.<br>
-
->Note that undoing/redoing does not change the view status back to the one before undoing/redoing, it will stay at the current status until you enter a different command that changes the view status.
+<img src="images/UndoCallout.png" width="900"><br>
 
 <br>
 <!-- @@author A0135793W -->
@@ -408,10 +375,10 @@ View upcoming | `view`
 View all | `view all`
 View date | `view <date>`
 View done | `view done`
-Find | `find <keyword> [more keywords]...`
+Find | `find <keyword>...`
 Edit | `edit <index> <name> <datetime>`
-Delete | `delete <index> [more indexes]...`
-Done | `done <index> [more indexes]...`
+Delete | `delete <index>...`
+Done | `done <index>...`
 Path | `path <filepath>.xml`
 Undo | `undo`
 Redo | `redo`
