@@ -115,10 +115,7 @@ public class EmptyListView extends UiPart {
      * Sets the content of empty list based on {@link TaskViewFilter}
      */
     private void setEmptyListContent(TaskViewFilter filter) {
-        if (filter == TaskViewFilter.DEFAULT) {
-            setEmptyListContent(EMPTY_MESSAGE_DEFAULT, EMOJI_DEFAULT);
-
-        } else if (filter == TaskViewFilter.COMPLETED) {
+        if (filter == TaskViewFilter.COMPLETED) {
             setEmptyListContent(EMPTY_MESSAGE_COMPLETED, EMOJI_COMPLETED);
 
         } else if (filter == TaskViewFilter.INCOMPLETE) {
@@ -132,6 +129,9 @@ public class EmptyListView extends UiPart {
 
         } else if (filter == TaskViewFilter.TODAY) {
             setEmptyListContent(EMPTY_MESSAGE_TODAY, EMOJI_TODAY);
+
+        } else {
+            setEmptyListContent(EMPTY_MESSAGE_DEFAULT, EMOJI_DEFAULT);
         }
     }
 
