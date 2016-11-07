@@ -271,7 +271,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `* * *`  | user    | to view all my undone tasks          | -             |
 | `* * *`  | user    | to mark tasks as done                | can keep track of my progress |
 | `* * *`  | user    | to search for tasks I have entered   | - |
-| `* * *`  | user    | to block off time slots for events   | will not accidentally plan clashing events |
 | `* * *`  | user    | to undo my pervious command          | can recover from mistakes in previous command |
 | `* * *`  | user    | to view a list of all commands       | can see all commands if I forget them |
 | `* * *`  | user    | to change storage location           | can store tasks in a portable device |
@@ -283,6 +282,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 | `*`      | user    | to be reminded of the tasks I need to complete | - |
 | `*`      | user    | my commands to be auto-completed     | - |
 | `*`      | user    | to view my tasks on a calendar       | can have a good overview of my workflow |
+| `*`      | user    | to block off time slots for events   | will not accidentally plan clashing events |
 
 //@@author A0138848M
 ## Appendix B : Use Cases
