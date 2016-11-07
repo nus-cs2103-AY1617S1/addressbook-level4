@@ -360,30 +360,6 @@ public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
 }
 ```
-###### \java\seedu\whatnow\commons\events\ui\JumpToListRequestEvent.java
-``` java
-package seedu.whatnow.commons.events.ui;
-
-import seedu.whatnow.commons.events.BaseEvent;
-
-/**
- * Indicates a request to jump to the list of tasks
- */
-public class JumpToListRequestEvent extends BaseEvent {
-
-    public final int targetIndex;
-
-    public JumpToListRequestEvent(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
-    @Override
-    public String toString() {
-        return this.getClass().getSimpleName();
-    }
-
-}
-```
 ###### \java\seedu\whatnow\commons\events\ui\TaskPanelSelectionChangedEvent.java
 ``` java
 package seedu.whatnow.commons.events.ui;
@@ -498,13 +474,24 @@ public class CollectionUtil {
     public static boolean elementsAreUnique(Collection<?> items) {
         final Set<Object> testSet = new HashSet<>();
         for (Object item : items) {
-            final boolean itemAlreadyExists = !testSet.add(item); // see Set
-                                                                  // documentation
+            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
             if (itemAlreadyExists) {
                 return false;
             }
         }
         return true;
+    }
+    
+    /**
+     * Get only the unique elements in a collection
+     */
+    public static Set<?> getUniqueElements(Collection<?> items) {
+        Set<Object> uniqueSet = new HashSet<>();
+        for (Object item : items) {
+            uniqueSet.add(item);
+        }
+        
+        return uniqueSet;
     }
 }
 ```
@@ -548,33 +535,6 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
-}
-```
-###### \java\seedu\whatnow\commons\util\UrlUtil.java
-``` java
-package seedu.whatnow.commons.util;
-
-import java.net.URL;
-
-/**
- * A utility class for URL
- */
-public class UrlUtil {
-
-    /**
-     * Returns true if both URLs have the same base URL
-     */
-    public static boolean compareBaseUrls(URL url1, URL url2) {
-
-        if (url1 == null || url2 == null) {
-            return false;
-        }
-        return url1.getHost().toLowerCase().replaceFirst("www.", "")
-                .equals(url2.getHost().replaceFirst("www.", "").toLowerCase())
-                && url1.getPath().replaceAll("/", "").toLowerCase()
-                        .equals(url2.getPath().replaceAll("/", "").toLowerCase());
-    }
-
 }
 ```
 ###### \java\seedu\whatnow\commons\util\XmlUtil.java
@@ -672,11 +632,7 @@ public class ClearCommand extends Command {
 
     public static Stack<WhatNow> reqStack;
 
-    /**
-     * Executes the ClearCommand to delete all task data on WhatNow
-     */
-    public ClearCommand() {
-    }
+
 
 ```
 ###### \java\seedu\whatnow\logic\commands\Command.java
@@ -724,7 +680,6 @@ public abstract class Command {
     public void setData(Model model) {
         this.model = model;
     }
-
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
@@ -777,42 +732,6 @@ public class IncorrectCommand extends Command {
     }
 
 }
-```
-###### \java\seedu\whatnow\logic\parser\Parser.java
-``` java
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-
-```
-###### \java\seedu\whatnow\logic\parser\Parser.java
-``` java
-    /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args
-     *            full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
-
 ```
 ###### \java\seedu\whatnow\MainApp.java
 ``` java
@@ -1021,6 +940,7 @@ public class MainApp extends Application {
 ``` java
     /** Raises an event to indicate the model has changed */
     private void indicateWhatNowChanged() {
+        updateFilteredScheduleListToShowAllOverdue();
         raise(new WhatNowChangedEvent(whatNow));
     }
 
@@ -1053,11 +973,12 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         assert name != null;
-        name = name.trim();
+        String nameWithoutTrailingBlank;
+        nameWithoutTrailingBlank = name.trim();
         if (!isValidTagName(name)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = name;
+        this.tagName = nameWithoutTrailingBlank;
     }
 
     /**
@@ -1109,6 +1030,8 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
+    
+    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
      * Signals that an operation would have violated the 'no duplicates'
@@ -1119,8 +1042,6 @@ public class UniqueTagList implements Iterable<Tag> {
             super("Operation would result in duplicate tags");
         }
     }
-
-    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TagList.
@@ -1335,14 +1256,8 @@ import java.util.stream.Collectors;
  */
 public class WhatNow implements ReadOnlyWhatNow {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
-    private UniqueTaskList backUpTasks;
-    private UniqueTagList backUpTags;
-    {
-        tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
-    }
+    private final UniqueTaskList tasks = new UniqueTaskList();
+    private final UniqueTagList tags = new UniqueTagList();
 
     public WhatNow() {
     }
@@ -1501,7 +1416,8 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+    
+    
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -1553,9 +1469,7 @@ public class WhatNow implements ReadOnlyWhatNow {
 ###### \java\seedu\whatnow\storage\XmlAdaptedTag.java
 ``` java
 import javax.xml.bind.annotation.XmlValue;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
-import seedu.whatnow.commons.util.CollectionUtil;
 import seedu.whatnow.model.tag.Tag;
 
 /**
@@ -1592,80 +1506,6 @@ public class XmlAdaptedTag {
      */
     public Tag toModelType() throws IllegalValueException {
         return new Tag(tagName);
-    }
-
-}
-```
-###### \java\seedu\whatnow\ui\BrowserPanel.java
-``` java
-import javafx.event.Event;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
-import seedu.whatnow.commons.core.LogsCenter;
-import seedu.whatnow.commons.util.FxViewUtil;
-import seedu.whatnow.model.task.ReadOnlyTask;
-
-import java.util.logging.Logger;
-
-/**
- * The Browser Panel of the App.
- */
-public class BrowserPanel extends UiPart {
-
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
-    private WebView browser;
-
-    /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way
-     * to create a BrowserPanel.
-     */
-    private BrowserPanel() {
-
-    }
-
-    @Override
-    public void setNode(Node node) {
-        // not applicable
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return null; // not applicable
-    }
-
-    /**
-     * Factory method for creating a Browser Panel. This method should be called
-     * after the FX runtime is initialized and in FX application thread.
-     * 
-     * @param placeholder
-     *            The AnchorPane where the BrowserPanel must be inserted
-     */
-    public static BrowserPanel load(AnchorPane placeholder) {
-        logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering
-                                                     // events for typing inside
-                                                     // the loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
-        return browserPanel;
-    }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
-    }
-
-    public void loadPage(String url) {
-        browser.getEngine().load(url);
-    }
-
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
     }
 
 }
@@ -1741,7 +1581,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;

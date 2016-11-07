@@ -74,16 +74,30 @@ public class IllegalValueException extends Exception {
 ```
 ###### \java\seedu\whatnow\model\task\TaskTime.java
 ``` java
-    public boolean isValidNumDate(String reqDate, String format) {
+    private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
+    private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern DAYS_IN_FULL = Pattern
+            .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$",
+            Pattern.CASE_INSENSITIVE);
+
+```
+###### \java\seedu\whatnow\model\task\TaskTime.java
+``` java
+    private boolean isValidNumDate(String reqDate) {
         /** First check: whether if this date is of a valid format */
+        if (TaskDate.isDay(reqDate)) {
+            reqDate = TaskDate.formatDayToDate(reqDate);
+        }
         Date inputDate = null;
         try {
-            DateFormat df = new SimpleDateFormat(format);
+            DateFormat df = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
             df.setLenient(false);
 
             inputDate = df.parse(reqDate);
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            logger.warning("TaskTime.java:\n" + ex.getMessage());
             return false;
         }
         Calendar input = new GregorianCalendar();
@@ -113,13 +127,25 @@ public class IllegalValueException extends Exception {
 ```
 ###### \java\seedu\whatnow\model\task\TaskTime.java
 ``` java
-    public boolean isValidDateRange(String beforeDate, String afterDate) {
+    private boolean isValidDateRange(String beforeDate, String afterDate) {
         if (beforeDate == null && afterDate == null) {
             return true;
         }
+        boolean convertedFromDay = false;
+        if (TaskDate.isDay(beforeDate) && TaskDate.isDay(afterDate)) {
+            beforeDate = TaskDate.formatDayToDate(beforeDate);
+            afterDate = TaskDate.formatDayToDate(afterDate);
+            convertedFromDay = true;
+        } else if (TaskDate.isDay(beforeDate)) {
+            beforeDate = TaskDate.formatDayToDate(beforeDate);
+            convertedFromDay = true;
+        } else if (TaskDate.isDay(afterDate)) {
+            afterDate = TaskDate.formatDayToDate(afterDate);
+            convertedFromDay = true;
+        }
         boolean validDateRange = false;
         boolean sameDate = false;
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
         Date beginDate = null;
         Date finishDate = null;
         try {
@@ -127,6 +153,14 @@ public class IllegalValueException extends Exception {
             finishDate = sdf.parse(afterDate);
             if (beginDate.before(finishDate)) {
                 validDateRange = true;
+            } else {
+                if (convertedFromDay) {
+                    afterDate = TaskDate.isBeforeEarlierThanAfter(finishDate);
+                    finishDate = sdf.parse(afterDate);
+                    if (beginDate.before(finishDate)) {
+                        validDateRange = true;
+                    }
+                }
             }
             if (beginDate.equals(finishDate)) {
                 sameDate = true;
