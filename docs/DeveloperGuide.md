@@ -88,7 +88,7 @@ command `delete 3`.
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 [//]: # "@@author A0152958R"
-<img src="images\storage.png" width="800">
+<img src="images/storage.png" width="800">
 [//]: # "@@author"
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
