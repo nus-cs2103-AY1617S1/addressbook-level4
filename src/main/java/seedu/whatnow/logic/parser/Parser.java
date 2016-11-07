@@ -494,15 +494,20 @@ public class Parser {
                     numOfTime++;
                     if (numOfTime == ONE) {
                         time = argComponents[i];
-                        if (startDate != null & endDate != null) {
+                        if (startDate != null && endDate != null) {
                             endTime = time;
                             time = null;
                             startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
-                        startTime = time;             
-                        time = null;
-                        endTime = argComponents[i];
+                        if (time == null) {
+                            startTime = endTime;
+                            endTime = argComponents[i];
+                        } else {
+                            startTime = time;             
+                            time = null;
+                            endTime = argComponents[i];
+                        }
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -536,7 +541,6 @@ public class Parser {
                             date = null;
                             endDate = tempDate;
                         }
-
                         hasTime = false;
                     } else if (getSubDate(argComponents[i]) != null) {
                         tempDate = getSubDate(argComponents[i]);
@@ -609,9 +613,14 @@ public class Parser {
                             startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
-                        startTime = time;
-                        time = null;
-                        endTime = argComponents[i];
+                        if (time == null) {
+                            startTime = endTime;
+                            endTime = argComponents[i];
+                        } else {
+                            startTime = time;
+                            time = null;
+                            endTime = argComponents[i];
+                        }
                     } 
                 } else {
                     validArgument = false;

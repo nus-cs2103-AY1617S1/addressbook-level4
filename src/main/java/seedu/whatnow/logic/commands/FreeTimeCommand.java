@@ -33,7 +33,8 @@ public class FreeTimeCommand extends Command {
 
         ArrayList<Period> freePeriods = model.getFreeTime(date.trim()).getList();
         if (freePeriods.size() == 0) {
-            return new CommandResult(MESSAGE_NO_FREE_TIME_FOUND + date.trim() + "\n");
+            String dateWithoutTrail = date.trim();
+            return new CommandResult(MESSAGE_NO_FREE_TIME_FOUND + dateWithoutTrail);
         }
         return new CommandResult(MESSAGE_SUCCESS + date.trim() + "\n" + freePeriods.toString());
     }

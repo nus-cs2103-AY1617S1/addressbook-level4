@@ -45,7 +45,7 @@ public class TaskTime {
     //@@author A0139128A-reused
     private static final Pattern TODAY = Pattern.compile("((?:today|tdy))", Pattern.CASE_INSENSITIVE);
     private static final Pattern TOMORROW = Pattern.compile("((?:tomorrow|tmr))", Pattern.CASE_INSENSITIVE);
-    
+
     private static final Pattern DAYS_IN_FULL = Pattern
             .compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$", Pattern.CASE_INSENSITIVE);
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$",
@@ -59,6 +59,7 @@ public class TaskTime {
                 throw new IllegalValueException(INVALID_DATE_MESSAGE);
             }
             if (TODAY.matcher(date).find()) {
+                System.out.println("Entered today.matcher(date)");
                 this.date = TaskDate.assignTodayDate();
             } else if (TOMORROW.matcher(date).find()) {
                 this.date = TaskDate.assignTmrDate();
@@ -76,6 +77,7 @@ public class TaskTime {
             }
         }
         if (!isValidTime(time)) {
+            System.out.println("Entered isValidTime");
             throw new IllegalValueException(INVALID_TIME_MESSAGE);
         }
         if (!isValidTimeRange(startTime, endTime)) {
@@ -142,6 +144,7 @@ public class TaskTime {
      */
     private boolean isValidTimeSeq(String reqTime) {
         /** First checks if it is indeed valid */
+        System.out.println("Entered isValidTimeSeq");
         boolean currEarlierThanInput = false;
         Date inputTime = null;
         Date todayTime = null;
@@ -164,8 +167,10 @@ public class TaskTime {
          * inputTime, put tomorrow's date instead
          */
         if (startDate == null && endDate == null && date == null) {
+            System.out.println("Entered assignToadyOrTmr");
             return assignTodayOrTmr(currEarlierThanInput, reqTime);
         } else if (date != null) { /** Implies that only 1 date exists */
+            System.out.println("Entered else if date != null");
             if (date.equalsIgnoreCase(TODAY_ARG)) {
                 if (currEarlierThanInput) {
                     DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
@@ -183,12 +188,18 @@ public class TaskTime {
                 date = dateFormat.format(cal.getTime());
                 time = reqTime;
                 return true;
+            } else {
+                if(currEarlierThanInput) {
+                    time = reqTime;
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } else {
             time = reqTime;
             return true;
         }
-        return false;
     }
 
     /**
