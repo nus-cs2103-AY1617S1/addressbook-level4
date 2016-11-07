@@ -51,7 +51,7 @@ public class XmlAliasManagerStorage implements AliasManagerStorage {
     }
 
     /**
-     * Similar to {@link #saveAliasManager(ReadOnlyTaskManager)}
+     * Similar to {@link #saveAliasManager(ReadOnlyAliasManager)}
      * @param filePath location of the data. Cannot be null
      */
     public void saveAliasManager(ReadOnlyAliasManager alias, String filePath) throws IOException {

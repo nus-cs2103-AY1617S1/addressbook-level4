@@ -44,7 +44,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return new TaskManager();
     }
 
-//// list overwrite operations
+    //========== Task List Overwrite Operations ========================================
 
     public ObservableList<Task> getFilteredTasks() {
         return tasks.getInternalList();
@@ -67,8 +67,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// task-level operations
-
+    //========== Task-Level Operations ===============================================
+    
     /**
      * Adds a task to the address book.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -129,13 +129,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     //@@author
     
-//// tag-level operations
+    //========== Tag-Level Operations ================================================
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //========== Util Methods ========================================================
 
     @Override
     public String toString() {

@@ -9,7 +9,7 @@ import java.util.Optional;
 
 //@@author A0143756Y-reused
 /**
- * Represents a storage for {@link seedu.address.model.TaskManager}.
+ * Represents a storage for {@link seedu.address.model.AliasManager}.
  */
 public interface AliasManagerStorage {
 
@@ -19,7 +19,7 @@ public interface AliasManagerStorage {
     String getAliasManagerFilePath();
 
     /**
-     * Returns TaskManager data as a {@link ReadOnlyTaskManager}.
+     * Returns AliasManager data as a {@link ReadOnlyAliasManager}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
@@ -27,19 +27,19 @@ public interface AliasManagerStorage {
     Optional<ReadOnlyAliasManager> readAliasManager() throws DataConversionException, IOException;
 
     /**
-     * @see #getTaskManagerFilePath()
+     * @see #getAliasManagerFilePath()
      */
     Optional<ReadOnlyAliasManager> readAliasManager(String filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTaskManager} to the storage.
-     * @param addressBook cannot be null.
+     * Saves the given {@link ReadOnlyAliasManager} to the storage.
+     * @param aliasManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveAliasManager(ReadOnlyAliasManager alias) throws IOException;
 
     /**
-     * @see #saveTaskManager(ReadOnlyTaskManager)
+     * @see #saveAliasManager(ReadOnlyAliasManager)
      */
     void saveAliasManager(ReadOnlyAliasManager alias, String filePath) throws IOException;
 

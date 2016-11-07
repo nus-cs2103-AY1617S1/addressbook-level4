@@ -158,11 +158,13 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
+    //@@author A0143756Y-reused
     /** Raise an event to indicate that the aliasManager in model has changed */
     private void indicateAliasManagerChanged() {
     	raise(new AliasManagerChangedEvent(aliasManager));
     }
-
+    //@@author
+    
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> targets) throws TaskNotFoundException {
         for(ReadOnlyTask target : targets) {
@@ -239,28 +241,28 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName) 
     		throws InvalidPathException, SecurityException, IllegalArgumentException {	
-    	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
     	
-    	if (java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
-    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
-    	} 
+    	//Throws InvalidPathException
+    	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  
     	
-    	if (!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
-    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
-    	}        	        	        	
+    	//Throws SecurityException, IllegalArgumentException
+    	setStorageCheckUserSpecifiedStorageFolderExists(newStorageFolderFilePath, userSpecifiedStorageFolder); 
     	
-    	Path newStorageFileFilePath = newStorageFolderFilePath.resolve(userSpecifiedStorageFileName +".xml");  //Throws InvalidPathException
+    	//Throws SecurityException, IllegalArgumentException
+    	setStorageCheckUserSpecifiedStorageFolderisDirectory(newStorageFolderFilePath, userSpecifiedStorageFolder); 
     	
-    	Path oldStorageFileFilePath = Paths.get(getTaskManagerStorageFilePath());  //Throws InvalidPathException
+    	//Throws InvalidPathException
+    	Path newStorageFileFilePath = newStorageFolderFilePath.resolve(userSpecifiedStorageFileName +".xml");  
     	
-    	if (newStorageFileFilePath.equals(oldStorageFileFilePath)){
-    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
-    	} 
+    	//Throws InvalidPathException
+    	Path oldStorageFileFilePath = Paths.get(getTaskManagerStorageFilePath());  
     	
-    	if (java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
-    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
-    				+ ".xml", userSpecifiedStorageFolder));
-    	} 
+    	//Throws IllegalArgumentException
+    	setStorageCheckDataStorageLocationPreviouslySet(newStorageFileFilePath, oldStorageFileFilePath); 
+    	
+    	//Throws SecurityException, IllegalArgumentException
+    	setStorageCheckFileWithIdenticalNameExistsinUserSpecifiedStorageFolder(newStorageFileFilePath, 
+    			userSpecifiedStorageFileName, userSpecifiedStorageFolder); 
     	
     	return new Pair<Path, Path>(newStorageFileFilePath, oldStorageFileFilePath);
     }
@@ -271,14 +273,55 @@ public class ModelManager extends ComponentManager implements Model {
     	assert oldStorageFile!= null;
     	assert !newStorageFile.equals(oldStorageFile);
     	
+    	setStorageCopyDataFromOldStorageFileToNewStorageFile(oldStorageFile, newStorageFile); //Throws IOException
+    	
+    	setStorageUpdateTaskManagerFilePathInConfig(newStorageFile); //Throws IOException
+    	
+    	setStorageSerialiseConfigToConfigJsonFile(); // Throws IOException
+    }
+    
+    private void setStorageCheckUserSpecifiedStorageFolderExists(Path newStorageFolderFilePath, String userSpecifiedStorageFolder) 
+    		throws SecurityException, IllegalArgumentException {
+    	if(java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
+    	} 
+    }
+    
+    private void setStorageCheckUserSpecifiedStorageFolderisDirectory(Path newStorageFolderFilePath, String userSpecifiedStorageFolder) 
+    		throws SecurityException, IllegalArgumentException {
+    	if(!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
+    	}      
+    }
+    
+    private void setStorageCheckDataStorageLocationPreviouslySet(Path newStorageFileFilePath, Path oldStorageFileFilePath) {
+    	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
+    	} 
+    }
+    
+    private void setStorageCheckFileWithIdenticalNameExistsinUserSpecifiedStorageFolder(Path newStorageFileFilePath, 
+    		String userSpecifiedStorageFileName, String userSpecifiedStorageFolder) throws SecurityException, IllegalArgumentException {
+    	if(java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
+    		throw new IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
+    				+ ".xml", userSpecifiedStorageFolder));
+    	} 
+    }
+    
+    private void setStorageCopyDataFromOldStorageFileToNewStorageFile(File oldStorageFile, File newStorageFile) throws IOException {
     	Files.copy(oldStorageFile, newStorageFile);  //Throws IOException
-    	
-    	//Updates taskManagerFilePath attribute in Config instance, config
+    }
+    
+	//Updates taskManagerFilePath attribute in Config instance, config
+    private void setStorageUpdateTaskManagerFilePathInConfig(File newStorageFile) throws IOException {
     	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());  //Throws IOException
-    	
-    	//Serializes Config instance, config to JSON file indicated by config.configFilePath, overwrites existing JSON file
+    }
+    
+    //Serializes Config instance, config to JSON file indicated by config.configFilePath, overwrites existing JSON file
+    private void setStorageSerialiseConfigToConfigJsonFile() throws IOException {
     	ConfigUtil.saveConfig(config, config.getConfigFilePath());  //Throws IOException
     }
+    
     //@@author 
     
     //=========== Filtered Task List Accessors ===============================================================
@@ -357,7 +400,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
     
-    //========== Inner classes/interfaces used for filtering ==================================================
+    //========== Inner Classes/Interfaces used for Filtering ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);

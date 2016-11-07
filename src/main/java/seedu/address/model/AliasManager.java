@@ -20,13 +20,7 @@ public class AliasManager implements ReadOnlyAliasManager{
     {
     	aliases = new UniqueAliasList();
     }
-    
-//	private final HashMap<String, String> aliases;
-//
-//    {
-//        aliases = new HashMap<String, String>();
-//    }
-
+   
     public AliasManager() {}
 
     /**
@@ -47,7 +41,7 @@ public class AliasManager implements ReadOnlyAliasManager{
         return new AliasManager();
     }
     
-    //list overwrite operations
+    //========== Alias List Overwrite Operations ======================================
 
     public ObservableList<Alias> getFilteredAliases() {
         return aliases.getInternalList();
@@ -65,8 +59,8 @@ public class AliasManager implements ReadOnlyAliasManager{
         resetData(newData.getAliasList());
     }
 
-//// task-level operations
-
+    //========== Alias-Level Operations ===============================================
+    
     /**
      * Adds an alias to the alias manager.
      *
@@ -87,36 +81,12 @@ public class AliasManager implements ReadOnlyAliasManager{
     	}		
     }
     
-    public boolean editAlias(int key, Alias aliasToEdit) throws UniqueAliasList.AliasNotFoundException {
-    	if (aliases.set(key, aliasToEdit)){
-    		sortAliases();
-    		return true;
-    	}
-    	
-    	else{
-    		throw new UniqueAliasList.AliasNotFoundException();
-    	}
-    }
-    
     private void sortAliases() {
     	Collections.sort(aliases.getInternalList());
     }
+
+    //========== Util Methods =========================================================
     
-//    public void addAlias(String key, String value) {
-//        aliases.put(key, value);
-//    }
-//
-//    public String removeAlias(String key) {
-//        return aliases.remove(key);
-//    }
-//    
-//    public String editAlias(String key, String value) {
-//        //syncTagsWithMasterList(p);
-//    	return aliases.replace(key, value);
-//    }
-
-//// util methods
-
     @Override
     public String toString() {
     	StringBuilder stringBuilder = new StringBuilder();
@@ -130,16 +100,6 @@ public class AliasManager implements ReadOnlyAliasManager{
     	return stringBuilder.toString();
     }
     
-//    @Override
-//    public String toString() {
-//    	String string = "";
-//    	Set<String> keySet = aliases.keySet();
-//    	String[] keyArray = keySet.toArray(new String[0]);
-//    	for(int i = 0; i < keyArray.length; i++) {
-//    		string += ("key: " + keyArray[i] + " value: " + aliases.get(keyArray[i]) + "\n");
-//    	}
-//    	return string;
-//    }
 
     @Override
     public List<ReadOnlyAlias> getAliasList() {
@@ -150,14 +110,6 @@ public class AliasManager implements ReadOnlyAliasManager{
     public UniqueAliasList getUniqueAliasList() {
         return this.aliases;
     }
-
-//    public HashMap<String,String> getAlias() {
-//    	return aliases;
-//    }
-//    
-//    public String getValueOf(String key) {
-//        return aliases.get(key);
-//    }
 
     @Override
     public boolean equals(Object other) {

@@ -16,8 +16,8 @@ public class AddAliasCommand extends Command {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD 
     		+ ": Sets alias for a phrase.\n"
-    		+ "Parameters: 'ALIAS' = 'ORIGINAL_PHRASE'\n"
-    		+ "Example: " + COMMAND_WORD + " 'add-dl' = 'add deadline'\n";
+    		+ "Parameters: ALIAS = ORIGINAL_PHRASE\n"
+    		+ "Example: " + COMMAND_WORD + " add-dl = add deadline\n";
     
     public static final String MESSAGE_SUCCESS = "Alias '%s' set for phrase '%s'.\n";
     

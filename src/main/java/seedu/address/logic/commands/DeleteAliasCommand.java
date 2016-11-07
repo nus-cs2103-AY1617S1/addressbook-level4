@@ -9,7 +9,7 @@ import seedu.address.commons.events.ui.DisplayAliasListEvent;
 import seedu.address.model.alias.ReadOnlyAlias;
 import seedu.address.model.alias.UniqueAliasList.AliasNotFoundException;
 
-//@@author A0143756Y-reused
+//@@author A0143756Y
 /**
  * Deletes an alias identified using its displayed index from the last alias listing .
  */

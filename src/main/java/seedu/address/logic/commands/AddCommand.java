@@ -22,15 +22,18 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/deadline/someday task.\n"
-            + "Event parameters: 'NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS]...\n"
-            + "Event example: " + COMMAND_WORD
-            + " 'Dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
-            + "Deadline parameters: 'NAME' by TIME [DATE] [#TAGS]...\n"
-            + "Deadline example: " + COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an event/ deadline/ task to be done someday (someday) to the task manager.\n"
+            + "Event Same Day Parameters: 'TASK_NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS] ...\n"
+            + "Event Same Day Example: " + COMMAND_WORD
+            + " 'dinner with wife' from 19:00 to 21:00 on 25-12-16\n"
+            + "Event Different Days Parameters: 'TASK_NAME' from TIME [DATE] to TIME [DATE] [on DATE] [#TAGS]...\n"
+            + "Event Different Days Example: " + COMMAND_WORD
+            + " 'business conference' from 19:00 20-12-16 to 21:00 25-12-16\n"
+            + "Deadline Parameters: 'TASK_NAME' by TIME [DATE] [#TAGS]\n"
+            + "Deadline Example: " + COMMAND_WORD
             + " 'lab report' by 16:00 03-03-15\n"
-            + "Task to be done someday parameters: 'NAME' [#TAGS]...\n"
-            + "Task to be done someday example: " + COMMAND_WORD
+            + "Someday Parameters: 'TASK_NAME' [#TAGS]...\n"
+            + "Someday Example: " + COMMAND_WORD
             + " 'water the plants'";
     
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";

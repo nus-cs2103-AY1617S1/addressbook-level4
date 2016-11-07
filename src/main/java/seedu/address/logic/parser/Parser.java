@@ -652,6 +652,16 @@ public class Parser {
 	}
 	
 	//@@author A0143756Y
+	/**
+	 * Parses arguments in the context of the set storage command.
+	 * Supports setting of date storage location to user-specified folder, and renaming of 
+	 * data storage file with user-specifed file name.
+	 *
+	 * @param arguments
+	 *            full set storage command arguments string
+	 *            
+	 * @return the prepared SetStorageCommand with user-specified folder file path and file name
+	 */
 	private Command prepareSetStorage(String arguments){
 		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
 		
