@@ -102,3 +102,24 @@ Click on `Today` label on Today panel| GUI should display all tasks that should 
 Command | Expected Results |
 ------- | :--------------
 Click on `Next 7 Days` label on Next 7 Days panel| GUI should display all tasks that should be done in the next 7 days.
+
+## Store Command
+Command | Expected Results |
+------- | :--------------
+store `..filepath`| GUI should update with new store location at the status bar. <br> A new `..filepath/dodobird.xml` will be created
+
+
+## Reset Command
+Command | Expected Results |
+------- | :--------------
+reset | GUI should update with new default location `.data/dodobird.xml` at the status bar.
+
+## Help Command
+Command | Expected Results |
+------- | :--------------
+help | Help window should appear
+
+
+## Troubleshooting
+* Unable to open jar file on Mac:
+    * This is most probably due to permission issue on your OS. Move the jar file to a directory where you have root or admin permission.
