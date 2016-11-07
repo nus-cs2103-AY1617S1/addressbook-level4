@@ -1,5 +1,7 @@
 package seedu.tasklist.model;
 
+import java.util.List;
+
 import com.google.common.eventbus.Subscribe;
 
 import seedu.tasklist.commons.core.EventsCenter;
@@ -29,9 +31,7 @@ public class TaskCounter {
 	 */
 	public TaskCounter(ReadOnlyTaskList src){
 		reinitializeValues();
-		for(ReadOnlyTask task: src.getTaskList()){
-    		incrementCounters(task);
-    	}
+		setCountersToList(src.getTaskList());
 		EventsCenter.getInstance().registerHandler(this);
 		EventsCenter.getInstance().post(new TaskCountersChangedEvent(this));
 	}
@@ -44,12 +44,15 @@ public class TaskCounter {
     @Subscribe
     private void modelChangedEvent(TaskListChangedEvent tlce) {
     	reinitializeValues();
-    	for(ReadOnlyTask task: tlce.data.getTaskList()){
-    		incrementCounters(task);
-    	}
+    	setCountersToList(tlce.data.getTaskList());
     	EventsCenter.getInstance().post(new TaskCountersChangedEvent(this));
     }
     
+    private void setCountersToList(List<ReadOnlyTask> taskList){
+    	for(ReadOnlyTask task: taskList){
+    		incrementCounters(task);
+    	}
+    }
     
 	/**
 	 * Increments counters based on given task
