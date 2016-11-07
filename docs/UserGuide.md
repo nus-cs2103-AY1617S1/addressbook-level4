@@ -34,7 +34,7 @@
 7. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
-##### Refer to [Ivory Task components](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d-glossary) for the component names used in this document. 
+##### Refer to [Ivory Task components](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/docs/DeveloperGuide.md#appendix-d-glossary) for the component names used in this document.
 
 [comment]: # (@@author A0140060A)
 
