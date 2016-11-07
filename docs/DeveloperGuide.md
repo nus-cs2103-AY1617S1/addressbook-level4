@@ -191,7 +191,7 @@ of loggers and handlers (for output of log messages)
   eg: Fatal error during initializing,  
   eg: Unsync Calendar during execution. 
 
--WARNING:
+- WARNING:
   - Critical use case happen, but can recover and continue execution:
     eg:Can't find stage Test App, Therefore, aborting focusin  
 
