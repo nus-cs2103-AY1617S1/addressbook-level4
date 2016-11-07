@@ -21,7 +21,7 @@ import harmony.mastermind.storage.StorageManager;
 
 /**
  * @@author A0139194X
- * Relocates save location
+ * Relocates save location to another file path
  */
 public class RelocateCommand extends Command {
 

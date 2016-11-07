@@ -4,7 +4,7 @@ import harmony.mastermind.model.TaskManager;
 
 //@@author A0139194X
 /**
- * Clears the task manager.
+ * Clears the task manager by reseting the data and clearing both undo and redo history
  */
 public class ClearCommand extends Command  {
 

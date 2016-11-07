@@ -1,6 +1,9 @@
 package harmony.mastermind.logic;
 
-//@@author A0139194X
+/**
+ * @@author A0139194X
+ * Class to store entries into the Help Popup table.
+ */
 public class HelpPopupEntry {
     private String commandWord;
     private String format;
