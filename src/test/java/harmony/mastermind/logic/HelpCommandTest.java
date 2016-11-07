@@ -11,7 +11,8 @@ import harmony.mastermind.logic.commands.HelpCommand;
 //@@author A0139194X
 public class HelpCommandTest {
     
-    private final int NUM_ENTRIES = 17;
+    //Number of commands is 18
+    private final int NUM_ENTRIES = 18;
     
     @Test
     public void initInfo_success() {

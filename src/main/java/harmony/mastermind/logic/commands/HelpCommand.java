@@ -60,6 +60,7 @@ public class HelpCommand extends Command {
         commandList.add(RedoCommand.COMMAND_WORD);
         commandList.add(ListCommand.COMMAND_WORD);
         commandList.add(FindCommand.COMMAND_WORD);
+        commandList.add(FindTagCommand.COMMAND_WORD);
         commandList.add(UpcomingCommand.COMMAND_WORD);
         commandList.add(RelocateCommand.COMMAND_WORD);
         commandList.add(ImportCommand.COMMAND_WORD);
@@ -81,6 +82,7 @@ public class HelpCommand extends Command {
         formatList.add(RedoCommand.COMMAND_WORD);
         formatList.add(ListCommand.COMMAND_FORMAT);
         formatList.add(FindCommand.COMMAND_FORMAT);
+        formatList.add(FindTagCommand.COMMAND_FORMAT);
         formatList.add(UpcomingCommand.COMMAND_FORMAT);
         formatList.add(RelocateCommand.COMMAND_FORMAT);
         formatList.add(ImportCommand.COMMAND_FORMAT);
@@ -102,6 +104,7 @@ public class HelpCommand extends Command {
         descriptionList.add(RedoCommand.COMMAND_DESCRIPTION);
         descriptionList.add(ListCommand.COMMAND_DESCRIPTION);
         descriptionList.add(FindCommand.COMMAND_DESCRIPTION);
+        descriptionList.add(FindTagCommand.COMMAND_DESCRIPTION);
         descriptionList.add(UpcomingCommand.COMMAND_DESCRIPTION);
         descriptionList.add(RelocateCommand.COMMAND_DESCRIPTION);
         descriptionList.add(ImportCommand.COMMAND_DESCRIPTION);

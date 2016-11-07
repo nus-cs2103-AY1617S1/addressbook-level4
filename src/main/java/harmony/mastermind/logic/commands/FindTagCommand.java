@@ -20,6 +20,10 @@ public class FindTagCommand extends Command {
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n\t"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t"
             + "Example: " + COMMAND_WORD + " meal finals";
+    
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " <keywords>...";
+    public static final String COMMAND_DESCRIPTION = "Finds all tasks whose tags contain any of the specified keywords " 
+            + "(case-sensitive)";
 
     private final Set<Tag> keywords;
 
