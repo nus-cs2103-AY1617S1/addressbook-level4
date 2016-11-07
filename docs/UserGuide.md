@@ -13,17 +13,17 @@
 4. Click `Run As` > `Java Application` and choose the `Main` class. The GUI should 	appear within split second.
 5. Type the command into the command box and press <kbd>Enter</kbd> to execute the 	command. <br>
 	List of commands:
-	 	* **`help`** : opens instruction
-	 	* **`add`** : adds a task
-	 	* **`show`** : shows all tasks
-	 	* **`find`** : searches for a task
-	 	* **`edit`** : edits a task
-	 	* **`delete`** : deletes a task
-	 	* **`complete`** : marks a task as completed
-	  	* **`pin`** : pin tasks
-	 	* **`unpin`** : removes tasks from the pinned list
-	 	* **`undo`** : marks a task as completed	 
-	 	* **`clear`** : deletes every task on the list
+	 	**`help`** : opens instruction<br>
+	 	**`add`** : adds a task<br>
+	 	**`show`** : shows all tasks<br>
+	 	**`find`** : searches for a task<br>
+	 	**`edit`** : edits a task<br>
+	 	**`delete`** : deletes a task<br>
+	 	**`complete`** : marks a task as completed<br>
+	  	**`pin`** : pin tasks<br>
+	 	**`unpin`** : removes tasks from the pinned list<br>
+	 	**`undo`** : marks a task as completed<br>
+	 	**`clear`** : deletes every task on the list<br>
 
 7.  Refer to the [Commands](#commands) section below for details of each command.<br>
 
@@ -47,21 +47,20 @@ help
 Adds a task to the planner <br><br>
 Format:<br> 
 ```
-1. add TASKNAME s/STARTDATE(optional)
-2. add TASKNAME s/STARTDATE(optional) STARTTIME(optional) e/ENDDATE (optional) ENDTIME (optional)
-3. add TASKNAME d/STARTDATE(optional) e/ENDDATE(optional) 
+1. add [TASKNAME] s/[START](optional) e/[END](optional) c/[CATEGORY]...(optional)
+
 ```
 
 Examples:<br>
 
-1. `add gym s/today` <br>
+1. `add travel` <br>
 > Task with no specified timing is added to today's schedule<br>
  
 2. `add meeting s/tomorrow 2pm e/4pm` <br>
 > Fixed task is added from 2pm to 4pm the next day<br>
 
-3. `add math homework e/11/11/2016 6pm` <br>
-> Task with a deadline is added, no date is specified so today's date is assumed<br>
+3. `add math homework e/7 nov 6pm` <br>
+> Task with a deadline is added<br>
 
 
 ### Viewing a schedule : `show`
@@ -71,15 +70,15 @@ Shows tasks based on query(date or completion)
 Format: 
 
 ```
-show STARTDATE(optional)
+show [DATE]/[COMPLETION](optional)
 ```
 
 Examples:<br>
-1. `show today`
+1. `show`
 >Shows schedule for today<br>
 
-2. `show next wednesday`
->Shows schedule for next wednesday <br>
+2. `show today`
+>Shows schedule for today <br>
 
 3. `show complete`
 >Shows completed tasks <br>
@@ -87,14 +86,17 @@ Examples:<br>
 4. `show not complete`
 >Shows uncompleted tasks <br>
 
+5. `show next wednesday`
+>Shows schedule for next wednesday <br>
+
 
 <br>
 
-The show function will generate the user's schedule when queried. Starting from the current time, it will consider all tasks in hand for the day and assign them to timeslots. 
+The show function will sort the users's schedule and display it.
 
-Urgent tasks will be scheduled first(tasks with nearing deadlines). Fixed tasks will be scheduled only during their specified timeslot and floating tasks will be inserted to remaining empty timeslots throughout the day. Daily Planner will even account for breaks in between certain hours of consecutive tasks(say, every 3 hours). 
+Tasks are sorted by their urgency(how close it is to its deadline).
 
-The user can then use this recommended schedule to worryless-ly go about their day. 
+The user can then use this recommended schedule to follow the order of the tasks and worryless-ly go about their day. 
 
 
 ### Searching for a task: `find`
@@ -117,27 +119,25 @@ find cs lecture
 > * The order of the keywords does not matter. e.g. `math assignment` will match `assignment math`
 > * Only the name is searched.
 > * Task matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+    e.g. `math` will match `math lecture`
 
 ### Editing a task: `edit`
 
 Edits a particular task's details<br>
 Format:
 ```
-edit INDEX 
-NEWTASKNAME(optional) NEWDATE(optional) NEWSTARTTIME(optional) to NEWENDTIME(optional)
+edit [INDEX] [NEWTASKNAME](optional) [NEWSTART](optional) [NEWEND](optional) [NEWCATEGORY](optional)
 ```
 Examples:<br>
 `edit 2 tomorrow`<br>
-  `s/wednesday 4pm e/6pm`<br>
-(only changes date and time)<br>
+`s/wednesday 4pm e/6pm` (only changes date and time)<br>
   
  
 ### Deleting a task : `delete`
 
 Description: Deletes a task from the planner. <br>
 
-Format: `delete INDEX` 
+Format: `delete [INDEX]` 
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown on the list that is currently being viewed<br>
@@ -151,7 +151,7 @@ Examples: <br>
 
 Description: Marks a task as completed from the planner. <br>
 
-Format: `complete INDEX` 
+Format: `complete [INDEX]` 
 
 > Marks the task at the specified `INDEX` as completed. 
   The index refers to the index number shown on the list that is currently being viewed<br>
@@ -165,7 +165,7 @@ Examples: <br>
 
 Description: Pins task on the list on the left. <br>
 
-Format: `pin INDEX` 
+Format: `pin [INDEX]` 
 
 > Pins the task at the specified `INDEX`. 
   The index refers to the index number shown on the list that is currently being viewed<br>
@@ -199,13 +199,13 @@ Description: Undo the latest command. <br>
 
 Format: `undo` 
 
->Undo the last command. 
-  If the last command was `add`, the task added will be removed if `undo` is invoked<br>
+>Undo the last command. If the last command was `add`, the task added will be removed if `undo` is invoked<br>
   
 
 Examples:<br>
-```undo```
->Undo previous command <br>
+`undo`
+
+Undo previous command <br>
 
 
 ### Delete every task: `clear`
