@@ -189,9 +189,17 @@ Example:
 unpin the pinned and first task on the list. 
 <!-- @@author -->
 
-#### Listing all tasks : `list`
+#### Listing : `list (all/pinned/pending/completed/overdue)`
 Shows a list of tasks and events in the todo list.<br>
-Format: `list`
+Format: `list (all/pinned/pending/completed/overdue)`
+
+> * Choose one of the words in the round bracket
+
+`list all`: List out all the task in the list
+`list pinned`: List only pinned task
+`list pending`: List tasks which are still pending
+`list completed`: List tasks which are marked as completed
+`list overdue`: List tasks which are already due
 
 #### Finding all tasks and events containing keyword in their name: `find`
 Finds tasks which have names containing any of the given keywords including substring.<br>
@@ -277,8 +285,9 @@ Alias | `alias add a`
 Delete |`delete INDEX`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
-List | `list`
+List | `list (all/pinned/pending/completed/overdue)`
 Find | `find KEYWORD`
+Find tag | `find-tag TAG [MORE_TAG]`
 Update | `update INDEX [name NAME starts START_DATE_TIME ends CLOSE_DATE_TIME tag TAG remove-tag TAG]`
 Undo | `undo`
 Pin | `pin INDEX`
