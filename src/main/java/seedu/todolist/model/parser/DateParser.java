@@ -43,11 +43,10 @@ public class DateParser {
      */
     private static LocalDate parseDateWithSlash(String date) throws DateTimeException {
         String[] dateComponents = date.split("/");
-        
-        int day, month, year;
-        day = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_DAY]);
-        month = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_MONTH]);  
-        year = getYearValue(dateComponents);
+
+        int day = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_DAY]);
+        int month = Integer.parseInt(dateComponents[DATE_COMPONENT_INDEX_MONTH]);  
+        int year = getYearValue(dateComponents);
               
         return LocalDate.of(year, month, day);
     }

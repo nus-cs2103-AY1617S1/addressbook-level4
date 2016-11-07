@@ -237,15 +237,16 @@ public class CommandParser {
      * @return a string array that contains date and time
      */
     private String[] parseDatetime(String datetime) {
+    	String editedDatetime = datetime;
         System.out.println("FIRST: " + datetime);
         if (isSlashFormat(datetime)) {
-            datetime = reverseDayAndMonth(datetime);
-            System.out.println(datetime);
+        	editedDatetime = reverseDayAndMonth(datetime);
+            System.out.println(editedDatetime);
         }
         
         ArrayList<String> intervalComponents = new ArrayList<String>();
         Parser nattyParser = new Parser();
-        DateGroup group = nattyParser.parse(datetime).get(NATTY_INDEX_FIRST);
+        DateGroup group = nattyParser.parse(editedDatetime).get(NATTY_INDEX_FIRST);
         Calendar currentDateTime = Calendar.getInstance(); //Get current datetime to compare with natty datetime
         for (Date date : group.getDates()) {
             intervalComponents.add(parseDate(date));
