@@ -109,14 +109,15 @@ The sections below give more details of each component.
 
 [//]: # (@@author)
 
+[//]: # (@@author A0138431L)
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/savvytasker/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`, `UpcomingPanel`,  `DailyPanel`,  `FloatingPanel`,
+`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -128,6 +129,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
+
+The cursor will be focus to the `CommandBox` by default as the `CommandBox` carries out numerous keyboard shortcuts to make the app more user-friendly. 
+
+[//]: # (@@author)
 
 [//]: # (@@author A0139916U)
 

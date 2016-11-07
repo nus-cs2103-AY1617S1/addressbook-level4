@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox prefHeight="359.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.savvytasker.ui.FloatingPanel">
     <stylesheets>
@@ -13,11 +12,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label alignment="CENTER" prefWidth="256.0" text="Floating Task" textFill="#5d322e">
-         <font>
-            <Font name="Roboto Condensed Bold" size="17.0" />
-         </font>
-      </Label>
+      <TextField fx:id="header" alignment="CENTER" maxHeight="16.0" prefWidth="257.0" styleClass="floating-panel" text="Floating Task" />
       <ListView fx:id="taskListView" styleClass="vbox" stylesheets="@DarkTheme.css" />
     </children>
 </VBox>
