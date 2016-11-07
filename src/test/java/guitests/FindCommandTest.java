@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void findCommand_nonEmptyList() {
         List<Task> emptyResults = new ArrayList<>();
         List<Task> currentTaskList = TestUtil.getInitialTasks().getInternalList();
         
@@ -33,14 +33,14 @@ public class FindCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void findCommand_emptyList(){
         List<Task> emptyResults = new ArrayList<>();
         commandBox.runCommand("clear");
         assertFindResult("find Jean", emptyResults); //no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
+    public void findCommand_invalidCommand() {
         commandBox.runCommand("findgeorge");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }

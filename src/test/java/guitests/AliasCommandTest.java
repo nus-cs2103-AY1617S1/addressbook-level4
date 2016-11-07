@@ -16,13 +16,13 @@ import w15c2.tusk.testutil.AliasTesterUtil;
 public class AliasCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void openAliasWindow() {
+    public void aliasCommand_openAliasWindow() {
         commandBox.runCommand("list alias");
         assertAliasWindowOpen(mainGui.getAliasWindow());
     }
     
     @Test
-    public void addOneAlias() {
+    public void aliasCommand_addOneAlias() {
         Alias aliasToAdd = new Alias("am", "add meeting");
         commandBox.runCommand(AliasTesterUtil.getAddAliasCommandFromAlias(aliasToAdd));
         commandBox.runCommand("list alias");

@@ -8,7 +8,7 @@ import org.junit.Test;
 public class CommandBoxTest extends TaskManagerGuiTest {
 
     @Test
-    public void commandBox_commandFails_blankAdd() {
+    public void commandBox_blankAdd_commandFails() {
         commandBox.runCommand("invalid");
         assertEquals(commandBox.getCommandInput(), "invalid");
     }
