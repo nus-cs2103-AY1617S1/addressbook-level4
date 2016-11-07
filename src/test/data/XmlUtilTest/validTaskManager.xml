@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <description>task</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <taskType>w15c2.tusk.model.task.FloatingTask</taskType>
+    </tasks>
+    <tasks>
+        <description>task</description>
+        <pin>false</pin>
+        <complete>false</complete>
+        <endDate>2016-11-08T00:00:16.490+08:00</endDate>
+        <taskType>w15c2.tusk.model.task.DeadlineTask</taskType>
+    </tasks>
+</taskmanager>
