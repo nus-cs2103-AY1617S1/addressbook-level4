@@ -226,7 +226,7 @@ Format: `list <filter>`
 > * mark (m)
 > * unmark (um) 
 > * block (b)
-> Unmarked floating tasks will be listed in all the filter except in block and mark filters.
+Unmarked floating tasks will be listed in all the filter except in block and mark filters.
 
 Examples: 
 * `list next month` <br>
@@ -307,7 +307,6 @@ Next week 720am | Feb 08 2016 07:20
 next month 8am | Mar 01 2016 08:00 
 
 #### World-wide event  
-If today is 1st of February a relative timing input is also possible with FlexiTrack
 
 User Input | Timing information read by FlexiTrack
 ---------- | :---------------
