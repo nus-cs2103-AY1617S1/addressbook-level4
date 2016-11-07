@@ -1,5 +1,5 @@
 # A0140060Aunused
-###### \java\seedu\taskmanager\logic\parser\Parser.java
+###### /java/seedu/taskmanager/logic/parser/Parser.java
 ``` java
     //Used in earlier version, functionality replaced by ArgumentTokenizer
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/#]+))");
