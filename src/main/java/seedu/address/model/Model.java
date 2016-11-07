@@ -16,23 +16,23 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskManager newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyTaskManager getAddressBook();
+    /** Returns the TaskManager */
+    ReadOnlyTaskManager getTaskManager();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException;
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(Set<String> keywords);
 
     /** Updates the filter of the filtered task list to show tasks with clashing deadlines
      * @throws DuplicateTaskException */
@@ -43,7 +43,7 @@ public interface Model {
 	/** Updates the filter of the filtered task list to show tasks relevant to the specific keyword.*/
 	void updateFilteredListToShowUncompleteAndKeywordTasks(String keyword) throws DuplicateTaskException;
 
-	void updateFilteredPersonGroup(String keywords);
+	void updateFilteredTaskGroup(String keywords);
 	
 	/** Saves the task manager's current state*/
 	public void currentState(String message);

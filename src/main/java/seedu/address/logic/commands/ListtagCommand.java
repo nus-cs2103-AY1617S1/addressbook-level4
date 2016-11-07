@@ -23,8 +23,8 @@ public class ListtagCommand extends Command{
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredPersonGroup(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        model.updateFilteredTaskGroup(keywords);
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredTaskList().size()));
     }
 
 }

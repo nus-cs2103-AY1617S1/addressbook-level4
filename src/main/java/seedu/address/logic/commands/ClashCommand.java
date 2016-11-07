@@ -19,7 +19,7 @@ public class ClashCommand extends Command {
 		catch (DuplicateTaskException dte){
 			
 		}
-        return new CommandResult(String.format(MESSAGE_CLASHING_TASKS_LIST_OVERVIEW, model.getFilteredPersonList().size()));
+        return new CommandResult(String.format(MESSAGE_CLASHING_TASKS_LIST_OVERVIEW, model.getFilteredTaskList().size()));
     }
 	
 	
