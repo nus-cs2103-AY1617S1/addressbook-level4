@@ -2,6 +2,8 @@
 package seedu.savvytasker.ui;
 
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Stack;
 import java.util.logging.Logger;
 
@@ -11,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -19,7 +23,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.savvytasker.commons.events.ui.ShowCheatsheetEvent;
+import seedu.savvytasker.commons.events.ui.WeekSelectionChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.CommandResult;
@@ -32,6 +39,32 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
+	private Date date = new Date();
+	private static int DAYS_OF_WEEK = 7;	
+
+    private final String UNDO_COMMAND = "undo";
+    private final String REDO_COMMAND = "redo";
+    private final String HELP_COMMAND = "help";
+    private final String EXIT_COMMAND = "exit";
+    private final String LIST_COMMAND = "list";
+    private final String LIST_ARCHIVED_COMMAND = "list archived";
+    private final String LIST_PRIORITY_COMMAND = "list priorityLevel";
+    private final String LIST_ALIAS_COMMAND = "list alias";
+    private final String CLEAR_COMMAND = "clear";
+    private final String STORAGE_COMMAND = "storage .";
+    
+	KeyCombination saveKey = new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN);
+	KeyCombination undoKey = new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN);
+	KeyCombination redoKey = new KeyCodeCombination(KeyCode.Y, KeyCombination.META_DOWN);
+	KeyCombination helpKey = new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN);
+	KeyCombination exitKey = new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN);
+	KeyCombination listKey = new KeyCodeCombination(KeyCode.L, KeyCombination.META_DOWN);
+	KeyCombination listArchivedKey = new KeyCodeCombination(KeyCode.A, KeyCombination.META_DOWN);
+	KeyCombination listPriorityKey = new KeyCodeCombination(KeyCode.P, KeyCombination.META_DOWN);
+	KeyCombination listAliasKey = new KeyCodeCombination(KeyCode.I, KeyCombination.META_DOWN);
+	KeyCombination clearKey = new KeyCodeCombination(KeyCode.D, KeyCombination.META_DOWN);
+	KeyCombination leftKey = new KeyCodeCombination(KeyCode.LEFT, KeyCombination.META_DOWN);
+	KeyCombination rightKey = new KeyCodeCombination(KeyCode.RIGHT, KeyCombination.META_DOWN);
     
     // stack to store commands history
  	private static Stack<String> COMMAND_HISTORY_STACK = new Stack<String>();
@@ -139,15 +172,6 @@ public class CommandBox extends UiPart {
 		
 		String userInput = commandTextField.getText().trim();
 		
-		KeyCombination saveKey = new KeyCodeCombination(KeyCode.S, KeyCombination.META_DOWN);
-		KeyCombination undoKey = new KeyCodeCombination(KeyCode.Z, KeyCombination.META_DOWN);
-		KeyCombination redoKey = new KeyCodeCombination(KeyCode.Y, KeyCombination.META_DOWN);
-		KeyCombination helpKey = new KeyCodeCombination(KeyCode.H, KeyCombination.META_DOWN);
-		KeyCombination exitKey = new KeyCodeCombination(KeyCode.Q, KeyCombination.META_DOWN);
-		KeyCombination listKey = new KeyCodeCombination(KeyCode.L, KeyCombination.META_DOWN);
-		KeyCombination listArchivedKey = new KeyCodeCombination(KeyCode.A, KeyCombination.META_DOWN);
-		KeyCombination clearKey = new KeyCodeCombination(KeyCode.D, KeyCombination.META_DOWN);
-		
 		try {
 
 			KeyCode keyCode = keyEvent.getCode();
@@ -158,10 +182,9 @@ public class CommandBox extends UiPart {
 		        
 			}else if (keyCode == KeyCode.ESCAPE) {
 				
-				//close help dialog 
-				//processEsc();
+				showCheatsheet();
 				
-			}else if (keyCode == KeyCode.UP) {
+			} else if (keyCode == KeyCode.UP) {
 
 				processUp(userInput);
 				
@@ -169,33 +192,49 @@ public class CommandBox extends UiPart {
 				
 				processDown(userInput);
 				
+			} else if (leftKey.match(keyEvent)) {
+
+				processDate(-1);
+				
+			} else if (rightKey.match(keyEvent)) {
+				
+				processDate(1);
+				
 			} else if (undoKey.match(keyEvent)) {
 					
-				executeCommand("undo");
+				executeCommand(UNDO_COMMAND);
 					
 			} else if (redoKey.match(keyEvent)) {
 				
-				executeCommand("redo");
+				executeCommand(REDO_COMMAND);
 				
 			} else if (helpKey.match(keyEvent)) {
 				
-				executeCommand("help");
+				executeCommand(HELP_COMMAND);
 				
 			} else if (exitKey.match(keyEvent)) {
 				
-				executeCommand("exit");
+				executeCommand(EXIT_COMMAND);
 				
 			} else if (listKey.match(keyEvent)) {
 				
-				executeCommand("list");
+				executeCommand(LIST_COMMAND);
 				
 			} else if (listArchivedKey.match(keyEvent)) {
 				
-				executeCommand("list t/Archived");
+				executeCommand(LIST_ARCHIVED_COMMAND);
+				
+			} else if (listPriorityKey.match(keyEvent)) {
+				
+				executeCommand(LIST_PRIORITY_COMMAND);
+				
+			} else if (listAliasKey.match(keyEvent)) {
+				
+				executeCommand(LIST_ALIAS_COMMAND);
 				
 			} else if (clearKey.match(keyEvent)) {
 				
-				executeCommand("clear");
+				executeCommand(CLEAR_COMMAND);
 				
 			}
 			
@@ -229,21 +268,8 @@ public class CommandBox extends UiPart {
 		DirectoryChooser directoryChooser = new DirectoryChooser();
 		File selectedFile = directoryChooser.showDialog(primaryStage);
 		String filepath = selectedFile.getAbsolutePath();
-		executeCommand("save " + filepath);
+		executeCommand(STORAGE_COMMAND + filepath + "/savvytasker.xml");
 	    
-	}
-	
-	/**
-	 * Process the event that occurs after the user presses the [ESC] button.
-	 * 
-	 * @param userInput the command keyed in by the user.
-	 
-	public void processEsc() {
-			
-		if (userInput.equals("") && isHelpViewVisible()) {
-			
-			hideHelpView();
-		
 	}
 	
 	/**
@@ -297,6 +323,27 @@ public class CommandBox extends UiPart {
 	}
 	
 	/**
+	 * Process the event that occurs after the user presses the left or right button.
+	 * 
+	 * @param numbers of week to be added to the current selected week to be displayed in the daily task list view
+	 */
+	public void processDate(int numberOfWeek) {
+		
+		date  = addWeek(numberOfWeek, date);
+		indicateWeekSelectionChanged();
+	}
+	
+	/** Raises an event to indicate the week to be displayed has changed */
+	private void indicateWeekSelectionChanged() {
+		raise(new WeekSelectionChangedEvent());
+	}
+	
+	/** Raises an event to indicate the week to be displayed has changed */
+	private void showCheatsheet() {
+		raise(new ShowCheatsheetEvent());
+	}
+	
+	/**
 	 * Execute commands
 	 * 
 	 * @param command to be executed
@@ -306,5 +353,23 @@ public class CommandBox extends UiPart {
 		resultDisplay.postMessage(commandResult.feedbackToUser);
 		logger.info("Result: " + commandResult.feedbackToUser);
 	}
+	
+	private Date addWeek(int numberOfWeek, Date date) {
+		
+        //convert date object to calendar object and add 1 days
+        Calendar calendarExpectedDate = Calendar.getInstance();
+        calendarExpectedDate.setTime(date);
+        
+        calendarExpectedDate.add(Calendar.DATE, (numberOfWeek*DAYS_OF_WEEK));
+			
+        //convert calendar object back to date object
+        date = calendarExpectedDate.getTime();
+			
+        return date;
+    }
+	
+	public Date getDate() {
+		return date;
+	} 
 }
 

@@ -83,9 +83,6 @@ public interface Model {
     int getAliasSymbolCount();
 
     //@@author A0138431L
-    /** Returns the filtered task list of overdue task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
-     * as of current date */
-	UnmodifiableObservableList<ReadOnlyTask> getFilteredOverdueTasks();
 
     /** Returns the filtered task list of floating task as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
 	UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTasks();
@@ -97,9 +94,6 @@ public interface Model {
     /** Returns the filtered task list of upcoming task as an {@code UnmodifiableObservableList<ReadOnlyTask>} 
      * as of expected date */
 	UnmodifiableObservableList<ReadOnlyTask> getFilteredUpcomingTasks(Date date);
-	
-	/** Updates the filter of the filtered task list to show all overdue tasks */
-    void updateFilteredListToShowOverdue();
 
     /** Updates the filter of the filtered task list to show all floating tasks */
     void updateFilteredListToShowFloating();
@@ -109,5 +103,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all upcoming tasks after the selected week*/
     void updateFilteredListToShowUpcoming();
+	
     //@@author
 }

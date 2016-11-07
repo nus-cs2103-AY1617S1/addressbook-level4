@@ -12,6 +12,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -22,6 +24,8 @@ import seedu.savvytasker.commons.core.GuiSettings;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.events.ui.ExitAppRequestEvent;
+import seedu.savvytasker.commons.events.ui.ShowCheatsheetEvent;
+import seedu.savvytasker.commons.events.ui.WeekSelectionChangedEvent;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.model.UserPrefs;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -31,11 +35,10 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  * a sorting and filtered list that display the result of the user command 
  * on the left and a week's view of the task
  * 
- * The week's view contains 4 lists, namely the floating list, overdue list, 
+ * The week's view contains 4 lists, namely the floating list, 
  * days of the week list and upcoming list
  *  
  * Floating list contains task without start and end dateTime
- * Overdue list contains task with end date before current date
  * Days of the week list contains task that falls on the respective day of the selected week
  * Upcoming list contains task with start date after the last day of selected week
  * 
@@ -44,14 +47,18 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-	private static final String ICON = "/images/address_book_32.png";
+	private static final String ICON = "/images/savvytasker-icon.png";
+	private static final Image image = new Image(MainWindow.class.getResourceAsStream(ICON));
+	private static final String CHEATSHEET = "/images/cheatsheet.png";
+	private static final Image imageOverlay = new Image(MainWindow.class.getResourceAsStream(CHEATSHEET));
 	private static final String FXML = "MainWindow.fxml";
 	public static final int MIN_HEIGHT = 700;
 	public static final int MIN_WIDTH = 1150;
 
 	private Logic logic;
-	Date date = new Date();
-	private static int DAYS_OF_WEEK = 7;	
+	Date firstDayOfSelectedWeek = new Date();
+	private static int DAYS_OF_WEEK = 7;
+	private boolean isShown = false;
 
 	// Independent Ui parts residing in this Ui container
 	//private BrowserPanel browserPanel;
@@ -64,8 +71,6 @@ public class MainWindow extends UiPart {
 	private UserPrefs userPrefs;
 	@FXML
 	private FloatingPanel floatingPanel;
-	@FXML
-	private OverduePanel overduePanel;
 	@FXML
 	private DailyPanel dailyPanel;
 	@FXML
@@ -84,7 +89,10 @@ public class MainWindow extends UiPart {
 	private AnchorPane commandBoxPlaceholder;
 
 	@FXML
-	private MenuItem helpMenuItem;
+	private ImageView imageIcon;
+	
+	@FXML
+	private ImageView cheatsheet;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -101,12 +109,8 @@ public class MainWindow extends UiPart {
     @FXML
     private VBox listPanel;
 
-
 	@FXML 
 	private AnchorPane floatingPanelPlaceholder;
-
-	@FXML 
-	private AnchorPane overduePanelPlaceholder;
 
 	@FXML 
 	private AnchorPane day1PanelPlaceholder;
@@ -122,7 +126,7 @@ public class MainWindow extends UiPart {
 	private AnchorPane day6PanelPlaceholder;
 	@FXML 
 	private AnchorPane day7PanelPlaceholder;
-
+	
 	@FXML 
 	private AnchorPane upcomingPanelPlaceholder;
 
@@ -168,25 +172,25 @@ public class MainWindow extends UiPart {
 	}
 
 	void fillInnerParts() {
-		//browserPanel = BrowserPanel.load(browserPlaceholder);
+		imageIcon.setImage(image);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         aliasSymbolListPanel = AliasSymbolListPanel.load(primaryStage, getAliasSymbolPlaceholder(), logic.getAliasSymbolList());
         setDefaultView();
-
 		resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
 		statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getSavvyTaskerFilePath());
 		commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
 		commandBox.getCommandTextField().requestFocus();
 		floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredFloatingTasks());
-		overduePanel = OverduePanel.load(primaryStage, getOverduePanelPlaceholder(), logic.getFilteredOverdueTasks());
 		loadDailyPanel();
-		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(date));
+		upcomingPanel = UpcomingPanel.load(primaryStage, getUpcomingPanelPlaceholder(), logic.getFilteredUpcomingTasks(firstDayOfSelectedWeek));
+		cheatsheet.setImage(imageOverlay);
 	}
 
 	private void loadDailyPanel() {
+		firstDayOfSelectedWeek = commandBox.getDate();
         for (int i = 0; i < DAYS_OF_WEEK; i++) {
             Date onDate = new Date();
-            onDate.setTime(date.getTime());
+            onDate.setTime(firstDayOfSelectedWeek.getTime());
             onDate = addDay(i, onDate);
             dailyPanel = DailyPanel.load(primaryStage, getDailyPanelPlaceholder(i),
                     logic.getFilteredDailyTasks(i, onDate), i, onDate);
@@ -221,6 +225,10 @@ public class MainWindow extends UiPart {
         return listPanel;
     }
 
+    private VBox getRootLayout() {
+        return rootLayout;
+    }
+    
 	private AnchorPane getCommandBoxPlaceholder() {
 		return commandBoxPlaceholder;
 	}
@@ -243,10 +251,6 @@ public class MainWindow extends UiPart {
 
 	private AnchorPane getFloatingPanelPlaceholder() {
 		return floatingPanelPlaceholder;
-	}
-
-	private AnchorPane getOverduePanelPlaceholder() {
-		return overduePanelPlaceholder;
 	}
 
 	private AnchorPane getDailyPanelPlaceholder(int index) {
@@ -276,14 +280,12 @@ public class MainWindow extends UiPart {
 		case 5: 
 
 			return day6PanelPlaceholder;
-
+		
 		case 6: 
+		default:
 
 			return day7PanelPlaceholder;
 
-		default:
-
-			return day1PanelPlaceholder;
 		}
 
     }
@@ -370,18 +372,36 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-
 	public void loadPersonPage(ReadOnlyTask task) {
+        //feature removed
 		//browserPanel.loadPersonPage(task);
 	}
 
 	public void releaseResources() {
-        //browserPanel.freeResources();
+        //feature removed
+		//browserPanel.freeResources();
     }
 
     @Subscribe
     public void handleSavvyTaskerChangedEvent(SavvyTaskerChangedEvent stce) {
         loadDailyPanel();
+    }
+    
+    @Subscribe
+    public void handleWeekSelectionChangedEvent(WeekSelectionChangedEvent stce) {
+        loadDailyPanel();
+    }
+    
+    @Subscribe
+    public void handleCheatsheetDisplayToggledEvent(ShowCheatsheetEvent stce) {
+    	
+    	if(isShown == false) {
+    		cheatsheet.setVisible(true);
+    		isShown = true;
+    	} else {
+    		cheatsheet.setVisible(false);
+    		isShown = false;
+    	}
     }
 		
 }

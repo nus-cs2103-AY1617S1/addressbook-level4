@@ -155,13 +155,13 @@ Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/
 
 #### Change storage location : `storage`
 Changes the storage location of Savvy Tasker.<br>
-Format: `storage PATH`
+Format: `storage NEW_FILEPATH`
 
 > Parameters | Description  
 > -------- | :-------- 
 > PATH | `Mandatory` Specifies the path where Savvy Tasker's task list is saved at.
 > <br>
-> If the new storage location specified by `PATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
+> If the new storage location specified by `NEW_FILEPATH` is not accessible by Savvy Tasker, no change will be made to the existing path.
 
 [//]: # (@@author A0097627N)
 
@@ -258,6 +258,17 @@ Add task named "pjm" to task list
 
 [//]: # (@@author A0139915W)
 
+[//]: # (@@author A0138431L)
+#### Command stack history
+[UP]: Return last user input command in command box
+[DOWN]: Return (if any) next user input command in command box
+> Note that [DOWN] is only allowed after at least an [UP] is being entered
+
+
+#### Week Selection
+[Ctrl-LEFT]: Display previous week’s daily task list
+[Ctrl-RIGHT]: Display next week’s daily task list
+
 ## Command Summary
 
 Command | Format  
@@ -272,8 +283,28 @@ Command | Format
 [Help](#viewing-help--help) | `help`
 [Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`<br>Example: `modify 2 t/Wednesday Weekly Milestone s/wed d/Project Meeting and Finalization`
 [Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`<br>Example: `mark 1 2 3`
-[Storage](#change-storage-location--storage) | `storage PATH`<br>Example: `storage data/savvytasker.xml`
+[Storage](#change-storage-location--storage) | `storage NEW_FILEPATH`<br>Example: `storage data/savvytasker.xml`
 [Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`<br>Example: `unmark 1 2 3`
 [Undo](#undo-the-most-recent-operation--undo) | `undo`
 [Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
 [Unalias](#unalias-a-keyword--unalias) | `unalias s/SHORT_KEYWORD`<br>Example: `unalias s/mss`
+
+## Keyboard Shortcuts
+
+Key Codes | Function | Command Box Input 
+-------- | :-------- 
+[ESC] | Toggle to show/hide a list of keyboard shortcuts | -
+[Ctrl-D](#clearing-all-entries--clear) | Clear all entries | `clear`
+[Ctrl-Q](#exiting-the-program--exit) | Exit | `exit`
+[Ctrl-L](#listing-all-tasks-list) | List all unmarked task by date, earliest task first | `list`
+[Ctrl-A](#listing-all-tasks-list) | List archived tasks | `list archived`
+[Ctrl-P](#listing-all-tasks-list) | List all unmarked task by priority level, high priority first | `list priorityLevel`
+[Ctrl-I](#listing-all-tasks-list) | List all alias keys | `list alias`
+[Ctrl-H](#viewing-help--help) | `help`
+[Ctrl-S](#change-storage-location--storage) | popup a directory chooser dialog box to choose new filepath |`storage NEW_FILEPATH`
+[Ctrl-Z](#undo-the-most-recent-operation--undo) | `undo`
+[Ctrl-Y](#redo-the-most-recent-undo-operation--redo) | `redo`
+[UP](#command-stack-history) | Return last user input command in command box | -
+[DOWN](#command-stack-history) | Return (if any) next user input command in command box | -
+[Ctrl-LEFT](#week-selection) | Display previous week’s daily task list | -
+[Ctrl-RIGHT](#week-selection) | Display next week’s daily task list | -
