@@ -36,13 +36,10 @@ public class TodoListView extends UiPart {
     
     /*Variables*/
     private final Logger logger = LogsCenter.getLogger(TodoListView.class);
-    private VBox panel;
     
     /*Layout Declarations*/
+    private VBox panel;
     @FXML private ListView<ImmutableTask> todoListView;
-    @FXML private VBox emptyListView;
-    @FXML private ImageView emptyListImage;
-    @FXML private Label emptyListLabel;
 
     //@@author A0135805H-reused
     /**
@@ -57,14 +54,14 @@ public class TodoListView extends UiPart {
      *
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #todoListView} should be placed
-     * @param viewProperty the view that the user is at.
+     * @param todoList the list of tasks to be displayed
      * @return an instance of this class
      */
     public static TodoListView load(Stage primaryStage, AnchorPane placeHolder,
-            ObservableList<ImmutableTask> todoList, ObjectProperty<TaskViewFilter> viewProperty) {
+            ObservableList<ImmutableTask> todoList) {
         
         TodoListView todoListView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
-        todoListView.configure(todoList, viewProperty);
+        todoListView.configure(todoList);
         return todoListView;
     }
 
@@ -74,41 +71,8 @@ public class TodoListView extends UiPart {
      *
      * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
-    private void configure(ObservableList<ImmutableTask> todoList, ObjectProperty<TaskViewFilter> viewProperty) {
+    private void configure(ObservableList<ImmutableTask> todoList) {
         setTodoListConnections(todoList);
-        setEmptyListConnections(todoList, viewProperty);
-    }
-
-    /* Empty List View Methods */
-    /**
-     * Configures the {@link }
-     * @param todoList
-     */
-    private void setEmptyListConnections(ObservableList<ImmutableTask> todoList,
-                                         ObjectProperty<TaskViewFilter> viewProperty) {
-
-        ListChangeListener<ImmutableTask> visibilityUpdate
-                = c -> setEmptyListViewVisibility(todoList.isEmpty());
-
-        ChangeListener<TaskViewFilter>  viewUpdate
-                = (observable, oldValue, newValue) -> setEmptyListContent(newValue);
-
-        todoList.addListener(visibilityUpdate);
-        visibilityUpdate.onChanged(null);
-
-        viewProperty.addListener(viewUpdate);
-        viewUpdate.changed(null, null, viewProperty.get());
-    }
-
-    /**
-     * Displays the {@link #emptyListView} if {@code isVisible} is true, hides otherwise.
-     */
-    private void setEmptyListViewVisibility(boolean isVisible) {
-        FxViewUtil.setCollapsed(emptyListView, !isVisible);
-    }
-
-    private void setEmptyListContent(TaskViewFilter viewFilter) {
-        emptyListLabel.setText(viewFilter.emptyListMessage);
     }
 
     /* To-do List Ui Methods */
