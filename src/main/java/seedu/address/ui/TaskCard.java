@@ -107,11 +107,11 @@ public class TaskCard extends UiPart {
 	private void setEventTaskDateTime() {
 		if (task.getStartDate().get().toLocalDate().equals(task.getEndDate().get().toLocalDate())) {
 		    setStartDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
-		    setConnector(" – ");
+		    setConnector(" - ");
 		    setEndDateTime(TaskDateTimeFormatter.formatToShowTimeOnly(task.getEndDate().get().toLocalTime()));
 		} else {
 		    setStartDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
-		    setConnector(" – ");
+		    setConnector(" - ");
 		    setEndDateTime(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
 		}
 	}
