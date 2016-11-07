@@ -6,8 +6,6 @@
 
 <img src="docs/images/Ui.png" width="900"><br>
 
-{Application will look similar to the above. Will be updated in the future}
-
 * This is a desktop Task/Event Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
 * A sample Java application was given to us. Below are some of the comments on the sample application:
