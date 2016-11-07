@@ -89,7 +89,7 @@ public class ListPanelHandle extends GuiHandle {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             System.out.println("TASK LENGTH: " + tasks.length);
         	throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
+                    "Expected " + (getListView().getItems().size()) + " tasks");
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         

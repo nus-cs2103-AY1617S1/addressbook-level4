@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Predicate;
 
@@ -65,4 +66,13 @@ public class ReadOnlyTaskFilter {
 	public static Predicate<ReadOnlyTask> isEventTask() {
 		return p -> p.getTaskType().value.equals(TaskType.Type.EVENT);
 	}
+	
+	//@@author A0139339W
+	public static Predicate<ReadOnlyTask> isThisDate(LocalDate date) {
+		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) &&
+				p.getStartDate().get().toLocalDate().equals(date)) ||
+				(!p.getTaskType().value.equals(TaskType.Type.SOMEDAY) &&
+				p.getEndDate().get().toLocalDate().equals(date));
+	}
+	//@@author
 }

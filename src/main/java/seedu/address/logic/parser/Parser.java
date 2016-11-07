@@ -402,18 +402,92 @@ public class Parser {
         return new FindCommand(keyphraseSet);
     }
 
-	//@@author A0141019U
-	// Only supports task type and status type options.
-	private Command prepareList(String arguments) {
-		if (arguments.equals("")) {
+	//@@author A0139339W
+    /**
+     * Parse the arguments into taskType, status and date
+     */
+    private Command prepareList(String arguments) {
+		if (arguments.trim().equals("")) {
 			return new ListCommand();
 		}
-
+		
 		String[] args = arguments.split(" ");
+		if(!isValidListArguments(args)) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+					ListCommand.MESSAGE_USAGE));
+		}
 
+		String taskType;
+		String status;
+		String dateString;
+		LocalDateTime date;
+
+		try {
+			taskType = getTaskTypeForPrepareList(args);
+			status = getStatusForPrepareList(args);
+			dateString = getDateForPrepareList(args);
+			date = convertOptionalToLocalDateTime(
+					Optional.ofNullable(dateString)).orElse(null);
+		} catch(IllegalArgumentException iae) {
+			return new IncorrectCommand(iae.getMessage());
+		} catch (ParseException pe) {
+			return new IncorrectCommand(pe.getMessage());
+		}
+		
+		return new ListCommand(taskType, status, date);
+	}
+    /**
+     * To check if the list argument is valid
+     * @return true if valid, false otherwise
+     */
+    private boolean isValidListArguments(String[] args) {
+    	for(int i = 0; i < args.length; i++) {
+    		if(!DateParser.containsDate(args[i] + " 00:00")) {
+    			switch(args[i].trim()) {
+    			case "event":
+    			case "ev":
+    			case "deadline":
+    			case "dl":
+    			case "someday":
+    			case "sd":
+    			case "done":
+    			case "pending":
+    			case "overdue":
+    			case "all":
+    				break;
+    			default:
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
+    }
+	/**
+	 * Get the string for the dates for prepareList
+	 * @throws IllegalArgumentException when multiple dates declared
+	 */
+	private String getDateForPrepareList(String[] args) throws IllegalArgumentException {
+		int numDates = 0;
+		String date = null;
+		for(int i = 0; i < args.length; i++) {
+			if(DateParser.containsDate(args[i] + " 00:00")) {
+				date = args[i] + " 00:00";
+				numDates++;
+			}
+		}
+		if(numDates > 1) {
+			throw new IllegalArgumentException("More than one date entered");
+		}
+		return date;
+	}
+	/**
+	 * Get the string for the task type for prepareList
+	 * @throws IllegalArgumentException when multiple task type declared
+	 */
+	private String getTaskTypeForPrepareList(String[] args) throws IllegalArgumentException {
+		int numTaskType = 0;
 		String taskType = null;
-		String status = null;
-		for (int i = 0; i < args.length; i++) {
+		for(int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
 			case "ev":
@@ -422,18 +496,32 @@ public class Parser {
 			case "someday":
 			case "sd":
 				taskType = args[i];
-				break;
+				numTaskType++;
+			}
+		}
+		if(numTaskType > 1)
+			throw new IllegalArgumentException("More than one task type entered");
+		return taskType;
+	}
+	/**
+	 * Get the string for the status of the task for prepareList
+	 * @throws IllegalArgumentException when multiple status declared
+	 */
+	private String getStatusForPrepareList(String[] args) throws IllegalArgumentException {
+		int numStatus = 0;
+		String status = null;
+		for(int i = 0; i < args.length; i++) {
+			switch (args[i].trim()) {
 			case "done":
 			case "pending":
 			case "overdue":
 				status = args[i];
-				break;
-			default:
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+				numStatus++;
 			}
 		}
-
-		return new ListCommand(taskType, status);
+		if(numStatus > 1)
+			throw new IllegalArgumentException("More than one status entered");
+		return status;
 	}
 	
 	//@@author A0141019U
@@ -537,8 +625,8 @@ public class Parser {
 		
 		return new SetStorageCommand(folderFilePath, fileName);
 	}
-	//@@author
 
+	//@@author A0139339W
 	private Optional<LocalDateTime> convertOptionalToLocalDateTime(Optional<String> dateTimeString) 
 		throws ParseException {
 		Optional<LocalDateTime> dateTime = Optional.empty();
@@ -556,13 +644,9 @@ public class Parser {
 		}
 		return false;
 	}
-
-	//@@author A0139339W
+	
 	/**
-	 * parse the argument based on first occurrence of keyword "not" indices
-	 * before not are for tasks to be marked done indices after not are for
-	 * tasks to be marked not done missing keyword "not" means all indices are
-	 * for tasks to be marked done
+	 * parse the arguments into indices for ChangeStatusCommand
 	 */
 	private Command prepareChangeStatus(String arguments, String newStatus) {
 		int[] doneIndices;
