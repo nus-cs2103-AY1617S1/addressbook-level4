@@ -172,19 +172,19 @@ public class UpdateCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_updateDescription() {
-		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 description workshop");
+		UpdateTaskCommand command = (UpdateTaskCommand) parser.prepareCommand("1 desc workshop");
 		String expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"workshop");
 		String actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
-		command = (UpdateTaskCommand) parser.prepareCommand("1 description homework by oct 1");
+		command = (UpdateTaskCommand) parser.prepareCommand("1 desc homework by oct 1");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"homework by oct 1");
 		actualTask = command.getTaskDetails(false);
 		assertEquals(actualTask, expectedTask);
 		
-		command = (UpdateTaskCommand) parser.prepareCommand("1 description homework from oct 1 to oct 2");
+		command = (UpdateTaskCommand) parser.prepareCommand("1 desc homework from oct 1 to oct 2");
 		expectedTask = String.format(UpdateTaskCommand.TASK_DETAILS_UPDATE_DESCRIPTION, 
 				"homework from oct 1 to oct 2");
 		actualTask = command.getTaskDetails(false);

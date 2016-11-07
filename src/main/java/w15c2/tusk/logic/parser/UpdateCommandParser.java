@@ -30,9 +30,9 @@ public class UpdateCommandParser extends CommandParser {
     private static final Pattern UPDATE_COMMAND_FORMAT = Pattern.compile("(?<targetIndex>\\S+) (?<updateType>\\S+) (?<arguments>.+)");
     private Matcher matcher;
     
-    public static final String MESSAGE_INVALID_UPDATE_TYPE = "Update type must be either task, description or date\n Examples: \n"
+    public static final String MESSAGE_INVALID_UPDATE_TYPE = "Update type must be either task, desc or date\n Examples: \n"
     		+ "1) update INDEX task Meeting with colleagues by 20 Oct \n"
-    		+ "2) update INDEX description \n"
+    		+ "2) update INDEX desc Hello world \n"
     		+ "3) update INDEX date 20 Oct to 31 Oct";
     
     /**
@@ -81,7 +81,7 @@ public class UpdateCommandParser extends CommandParser {
 			case "task": 
 				taskCommand = createTaskUpdateTaskCommand(index, arguments);
 				break;
-			case "description":
+			case "desc":
 				taskCommand = createDescriptionUpdateTaskCommand(index, arguments);
 				break;
 			case "date":
@@ -168,7 +168,7 @@ public class UpdateCommandParser extends CommandParser {
         
         // Check if the updateType that user gave is valid
         String updateType = matcher.group("updateType");
-        if(!updateType.equals("task") && !updateType.equals("description") && !updateType.equals("date")) {
+        if(!updateType.equals("task") && !updateType.equals("desc") && !updateType.equals("date")) {
         	throw new IllegalValueException(MESSAGE_INVALID_UPDATE_TYPE);
         }
 	}
