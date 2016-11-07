@@ -425,7 +425,7 @@ Figure 4: Hints for delete command
 
 ### Instant `add` and `edit` task preview
 DearJim features an instant `add` and `edit` command task preview, allowing you to preview the task details as your type your input!<br>
-Now you can be sure of how your input will be interpreted as a task to be added or edited!
+Now you can be sure of how your input will be interpreted!
 
 Examples:
 
