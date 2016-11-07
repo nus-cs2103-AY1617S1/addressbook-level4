@@ -1,0 +1,531 @@
+{
+  "tasks" : [ {
+    "name" : "Target bleeding-edge applications",
+    "dueDate" : "2016-11-14T17:16:00",
+    "isCompleted" : true,
+    "tagList" : [ "goodtime", "gymtime" ]
+  }, {
+    "name" : "Harness intuitive convergence",
+    "dueDate" : "2016-11-21T05:17:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Transform b2b relationships",
+    "dueDate" : "2016-11-13T13:26:00",
+    "isCompleted" : true,
+    "tagList" : [ "gymtime", "summertime" ]
+  }, {
+    "name" : "Engage integrated content",
+    "dueDate" : "2016-11-14T06:09:00",
+    "isCompleted" : true,
+    "tagList" : [ "summertime", "monochrome", "meditation" ]
+  }, {
+    "name" : "Expedite bleeding-edge systems",
+    "dueDate" : "2016-11-16T02:15:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Morph turn-key technologies",
+    "dueDate" : "2016-11-05T15:14:00",
+    "isCompleted" : true,
+    "tagList" : [ ]
+  }, {
+    "name" : "Disintermediate 24/7 deliverables",
+    "dueDate" : "2016-11-04T21:07:00",
+    "isCompleted" : true,
+    "tagList" : [ ]
+  }, {
+    "name" : "Transition revolutionary technologies",
+    "dueDate" : "2016-11-15T15:28:00",
+    "isCompleted" : true,
+    "tagList" : [ "homesweethome" ]
+  }, {
+    "name" : "Harness innovative e-markets",
+    "dueDate" : "2016-11-06T22:02:00",
+    "isCompleted" : false,
+    "tagList" : [ "comedy" ]
+  }, {
+    "name" : "Exploit web-enabled methodologies",
+    "dueDate" : "2016-11-07T05:57:00",
+    "isCompleted" : true,
+    "tagList" : [ "gymtime", "meditation" ]
+  }, {
+    "name" : "Utilize extensible supply-chains",
+    "dueDate" : "2016-11-13T02:50:00",
+    "isCompleted" : false,
+    "tagList" : [ "games" ]
+  }, {
+    "name" : "Scale 24/7 vortals",
+    "dueDate" : "2016-11-08T20:47:00",
+    "isCompleted" : true,
+    "tagList" : [ "summertime", "comedy", "games" ]
+  }, {
+    "name" : "Monetize out-of-the-box synergies",
+    "dueDate" : "2016-11-18T12:29:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Redefine out-of-the-box mindshare",
+    "dueDate" : "2016-11-06T13:31:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Enhance efficient e-services",
+    "dueDate" : "2016-11-21T02:28:00",
+    "isCompleted" : false,
+    "tagList" : [ "summertime", "games" ]
+  }, {
+    "name" : "Deliver bricks-and-clicks markets",
+    "dueDate" : "2016-11-08T16:00:00",
+    "isCompleted" : true,
+    "tagList" : [ "games", "summertime" ]
+  }, {
+    "name" : "Enhance revolutionary infrastructures",
+    "dueDate" : "2016-11-13T20:33:00",
+    "isCompleted" : false,
+    "tagList" : [ "meditation", "games" ]
+  }, {
+    "name" : "Morph magnetic schemas",
+    "dueDate" : "2016-11-21T07:44:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Seize cutting-edge deliverables",
+    "dueDate" : "2016-11-19T21:27:00",
+    "isCompleted" : false,
+    "tagList" : [ "comedy" ]
+  }, {
+    "name" : "Re-intermediate best-of-breed e-markets",
+    "dueDate" : "2016-11-12T15:36:00",
+    "isCompleted" : true,
+    "tagList" : [ "games", "comedy", "summertime" ]
+  }, {
+    "name" : "Incubate front-end eyeballs",
+    "dueDate" : "2016-11-08T10:00:00",
+    "isCompleted" : true,
+    "tagList" : [ "goodtime" ]
+  }, {
+    "name" : "Whiteboard real-time solutions",
+    "dueDate" : "2016-11-05T15:59:00",
+    "isCompleted" : false,
+    "tagList" : [ "summertime", "meditation", "comedy" ]
+  }, {
+    "name" : "E-enable 24/7 platforms",
+    "dueDate" : "2016-11-21T01:17:00",
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome", "goodtime" ]
+  }, {
+    "name" : "Incentivize innovative schemas",
+    "dueDate" : "2016-11-08T04:27:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Engage customized bandwidth",
+    "dueDate" : null,
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome" ]
+  }, {
+    "name" : "Evolve user-centric portals",
+    "dueDate" : "2016-11-21T08:19:00",
+    "isCompleted" : false,
+    "tagList" : [ "summertime" ]
+  }, {
+    "name" : "Implement intuitive infrastructures",
+    "dueDate" : "2016-11-08T23:25:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Matrix dynamic synergies",
+    "dueDate" : "2016-11-12T05:05:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Iterate leading-edge solutions",
+    "dueDate" : "2016-11-18T22:51:00",
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome", "gymtime" ]
+  }, {
+    "name" : "Engage virtual relationships",
+    "dueDate" : "2016-11-19T20:24:00",
+    "isCompleted" : true,
+    "tagList" : [ "monochrome", "gymtime", "summertime" ]
+  }, {
+    "name" : "Enable compelling experiences",
+    "dueDate" : "2016-11-09T20:26:00",
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome", "goodtime" ]
+  }, {
+    "name" : "E-enable distributed partnerships",
+    "dueDate" : null,
+    "isCompleted" : true,
+    "tagList" : [ "homesweethome" ]
+  }, {
+    "name" : "Deploy best-of-breed web-readiness",
+    "dueDate" : "2016-11-10T23:24:00",
+    "isCompleted" : true,
+    "tagList" : [ "monochrome", "goodtime" ]
+  }, {
+    "name" : "Re-intermediate 24/365 bandwidth",
+    "dueDate" : "2016-11-10T10:41:00",
+    "isCompleted" : false,
+    "tagList" : [ "goodtime", "meditation", "summertime" ]
+  }, {
+    "name" : "Enhance proactive e-services",
+    "dueDate" : "2016-11-20T06:52:00",
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome", "comedy" ]
+  }, {
+    "name" : "Productize strategic info-mediaries",
+    "dueDate" : "2016-11-21T05:45:00",
+    "isCompleted" : false,
+    "tagList" : [ "goodtime", "summertime" ]
+  }, {
+    "name" : "Architect sticky e-tailers",
+    "dueDate" : "2016-11-07T15:29:00",
+    "isCompleted" : false,
+    "tagList" : [ "summertime" ]
+  }, {
+    "name" : "Transition magnetic applications",
+    "dueDate" : "2016-11-14T03:36:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Expedite front-end deliverables",
+    "dueDate" : "2016-11-14T16:20:00",
+    "isCompleted" : true,
+    "tagList" : [ "meditation", "gymtime", "games" ]
+  }, {
+    "name" : "Utilize efficient roi",
+    "dueDate" : "2016-11-13T12:55:00",
+    "isCompleted" : true,
+    "tagList" : [ "monochrome", "games" ]
+  }, {
+    "name" : "Benchmark user-centric models",
+    "dueDate" : "2016-11-13T21:14:00",
+    "isCompleted" : false,
+    "tagList" : [ "monochrome", "goodtime" ]
+  }, {
+    "name" : "Evolve ubiquitous paradigms",
+    "dueDate" : "2016-11-13T10:34:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Re-intermediate scalable platforms",
+    "dueDate" : "2016-11-18T19:31:00",
+    "isCompleted" : false,
+    "tagList" : [ "comedy" ]
+  }, {
+    "name" : "Evolve next-generation paradigms",
+    "dueDate" : "2016-11-12T15:32:00",
+    "isCompleted" : false,
+    "tagList" : [ "comedy", "meditation" ]
+  }, {
+    "name" : "Utilize extensible content",
+    "dueDate" : "2016-11-08T21:11:00",
+    "isCompleted" : true,
+    "tagList" : [ "goodtime" ]
+  }, {
+    "name" : "Productize best-of-breed solutions",
+    "dueDate" : null,
+    "isCompleted" : true,
+    "tagList" : [ ]
+  }, {
+    "name" : "Facilitate innovative users",
+    "dueDate" : "2016-11-10T18:15:00",
+    "isCompleted" : true,
+    "tagList" : [ ]
+  }, {
+    "name" : "Whiteboard customized eyeballs",
+    "dueDate" : "2016-11-14T04:33:00",
+    "isCompleted" : false,
+    "tagList" : [ "meditation" ]
+  }, {
+    "name" : "Iterate b2c platforms",
+    "dueDate" : "2016-11-20T13:21:00",
+    "isCompleted" : false,
+    "tagList" : [ "monochrome" ]
+  }, {
+    "name" : "Re-intermediate integrated technologies",
+    "dueDate" : "2016-11-21T16:37:00",
+    "isCompleted" : false,
+    "tagList" : [ "monochrome", "comedy", "games" ]
+  }, {
+    "name" : "Implement 24/7 systems",
+    "dueDate" : "2016-11-17T07:45:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Syndicate granular metrics",
+    "dueDate" : "2016-11-14T18:57:00",
+    "isCompleted" : true,
+    "tagList" : [ ]
+  }, {
+    "name" : "Synergize front-end web-readiness",
+    "dueDate" : null,
+    "isCompleted" : false,
+    "tagList" : [ "homesweethome", "comedy" ]
+  }, {
+    "name" : "Envisioneer back-end architectures",
+    "dueDate" : "2016-11-20T06:41:00",
+    "isCompleted" : false,
+    "tagList" : [ ]
+  }, {
+    "name" : "Enhance dynamic eyeballs",
+    "dueDate" : null,
+    "isCompleted" : false,
+    "tagList" : [ "comedy" ]
+  } ],
+  "events" : [ {
+    "name" : "Kill Jessica Pugh",
+    "startDate" : "2016-11-20T22:06:00",
+    "endDate" : "2016-11-21T00:06:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Talk to Eric Duncan",
+    "startDate" : "2016-11-15T01:38:00",
+    "endDate" : "2016-11-15T03:38:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Rebecca Carr",
+    "startDate" : "2016-11-15T00:58:00",
+    "endDate" : "2016-11-15T02:58:00",
+    "tagList" : [ "games" ]
+  }, {
+    "name" : "Meet Ryan Rose",
+    "startDate" : "2016-11-05T14:39:00",
+    "endDate" : "2016-11-05T16:39:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Angela Lane",
+    "startDate" : "2016-11-14T12:00:00",
+    "endDate" : "2016-11-14T14:00:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Lunch with Jessica Ortiz",
+    "startDate" : "2016-11-16T03:21:00",
+    "endDate" : "2016-11-16T05:21:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meeting with Kevin Woodward",
+    "startDate" : "2016-11-09T12:56:00",
+    "endDate" : "2016-11-09T14:56:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Melissa Hoffman MD",
+    "startDate" : "2016-11-05T22:30:00",
+    "endDate" : "2016-11-06T00:30:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Talk to Amy Romero",
+    "startDate" : "2016-11-05T19:20:00",
+    "endDate" : "2016-11-05T21:20:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Austin Combs",
+    "startDate" : "2016-11-05T07:50:00",
+    "endDate" : "2016-11-05T09:50:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meeting with Edward Brown",
+    "startDate" : "2016-11-14T02:44:00",
+    "endDate" : "2016-11-14T04:44:00",
+    "tagList" : [ "comedy", "homesweethome" ]
+  }, {
+    "name" : "Talk to Justin Johnson",
+    "startDate" : "2016-11-06T14:30:00",
+    "endDate" : "2016-11-06T16:30:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Lunch with Kathleen Taylor",
+    "startDate" : "2016-11-07T08:47:00",
+    "endDate" : "2016-11-07T10:47:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meeting with Charlotte Mcdaniel",
+    "startDate" : "2016-11-13T18:19:00",
+    "endDate" : "2016-11-13T20:19:00",
+    "tagList" : [ "summertime" ]
+  }, {
+    "name" : "Lunch with Kevin Carpenter",
+    "startDate" : "2016-11-19T22:46:00",
+    "endDate" : "2016-11-20T00:46:00",
+    "tagList" : [ "homesweethome" ]
+  }, {
+    "name" : "Lunch with Emma Hunt",
+    "startDate" : "2016-11-11T01:24:00",
+    "endDate" : "2016-11-11T03:24:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Talk to James Anderson",
+    "startDate" : "2016-11-10T21:30:00",
+    "endDate" : "2016-11-10T23:30:00",
+    "tagList" : [ "summertime", "monochrome", "homesweethome" ]
+  }, {
+    "name" : "Talk to Kristy Solomon",
+    "startDate" : "2016-11-07T05:03:00",
+    "endDate" : "2016-11-07T07:03:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meeting with Justin Moore",
+    "startDate" : "2016-11-20T08:10:00",
+    "endDate" : "2016-11-20T10:10:00",
+    "tagList" : [ "homesweethome", "goodtime" ]
+  }, {
+    "name" : "Call Mark Ellis DVM",
+    "startDate" : "2016-11-21T08:28:00",
+    "endDate" : "2016-11-21T10:28:00",
+    "tagList" : [ "homesweethome", "comedy", "monochrome" ]
+  }, {
+    "name" : "Call Haley Robinson",
+    "startDate" : "2016-11-16T19:46:00",
+    "endDate" : "2016-11-16T21:46:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Kill Jacob Dunlap",
+    "startDate" : "2016-11-16T12:04:00",
+    "endDate" : "2016-11-16T14:04:00",
+    "tagList" : [ "meditation", "summertime" ]
+  }, {
+    "name" : "Talk to Laura Howell",
+    "startDate" : "2016-11-17T13:16:00",
+    "endDate" : "2016-11-17T15:16:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meet James Ellis",
+    "startDate" : "2016-11-16T10:29:00",
+    "endDate" : "2016-11-16T12:29:00",
+    "tagList" : [ "comedy", "summertime" ]
+  }, {
+    "name" : "Kill Mariah Ramirez",
+    "startDate" : "2016-11-20T01:26:00",
+    "endDate" : "2016-11-20T03:26:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Talk to David Andersen",
+    "startDate" : "2016-11-20T13:14:00",
+    "endDate" : "2016-11-20T15:14:00",
+    "tagList" : [ "gymtime", "homesweethome" ]
+  }, {
+    "name" : "Meeting with Ryan Lawrence",
+    "startDate" : "2016-11-07T08:00:00",
+    "endDate" : "2016-11-07T10:00:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meeting with Jason English",
+    "startDate" : "2016-11-12T11:29:00",
+    "endDate" : "2016-11-12T13:29:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Kill Mathew Mcpherson",
+    "startDate" : "2016-11-10T18:42:00",
+    "endDate" : "2016-11-10T20:42:00",
+    "tagList" : [ "monochrome", "comedy", "goodtime" ]
+  }, {
+    "name" : "Meet Jennifer Jenkins",
+    "startDate" : "2016-11-07T19:19:00",
+    "endDate" : "2016-11-07T21:19:00",
+    "tagList" : [ "homesweethome", "gymtime" ]
+  }, {
+    "name" : "Dinner with Brian Stafford",
+    "startDate" : "2016-11-18T15:29:00",
+    "endDate" : "2016-11-18T17:29:00",
+    "tagList" : [ "meditation", "goodtime" ]
+  }, {
+    "name" : "Talk to Chad Stevenson",
+    "startDate" : "2016-11-05T23:02:00",
+    "endDate" : "2016-11-06T01:02:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Kill Amy Frazier",
+    "startDate" : "2016-11-10T05:12:00",
+    "endDate" : "2016-11-10T07:12:00",
+    "tagList" : [ "comedy", "summertime" ]
+  }, {
+    "name" : "Dinner with Sandra Mosley",
+    "startDate" : "2016-11-11T13:22:00",
+    "endDate" : "2016-11-11T15:22:00",
+    "tagList" : [ "monochrome" ]
+  }, {
+    "name" : "Lunch with Gina Taylor",
+    "startDate" : "2016-11-12T07:18:00",
+    "endDate" : "2016-11-12T09:18:00",
+    "tagList" : [ "homesweethome", "monochrome" ]
+  }, {
+    "name" : "Talk to Elizabeth Reed",
+    "startDate" : "2016-11-06T12:32:00",
+    "endDate" : "2016-11-06T14:32:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Kill James White",
+    "startDate" : "2016-11-09T12:34:00",
+    "endDate" : "2016-11-09T14:34:00",
+    "tagList" : [ "monochrome", "homesweethome" ]
+  }, {
+    "name" : "Lunch with Jennifer Mcdonald",
+    "startDate" : "2016-11-13T04:35:00",
+    "endDate" : "2016-11-13T06:35:00",
+    "tagList" : [ "comedy" ]
+  }, {
+    "name" : "Call Rhonda Mclaughlin",
+    "startDate" : "2016-11-18T10:13:00",
+    "endDate" : "2016-11-18T12:13:00",
+    "tagList" : [ "meditation", "games", "goodtime" ]
+  }, {
+    "name" : "Meeting with Chase Mcclain",
+    "startDate" : "2016-11-05T20:34:00",
+    "endDate" : "2016-11-05T22:34:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Meet Brian Phillips",
+    "startDate" : "2016-11-15T15:00:00",
+    "endDate" : "2016-11-15T17:00:00",
+    "tagList" : [ "meditation" ]
+  }, {
+    "name" : "Kill Carrie Jefferson",
+    "startDate" : "2016-11-20T05:40:00",
+    "endDate" : "2016-11-20T07:40:00",
+    "tagList" : [ "games", "monochrome" ]
+  }, {
+    "name" : "Call Christopher Torres",
+    "startDate" : "2016-11-06T09:25:00",
+    "endDate" : "2016-11-06T11:25:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Lunch with Rodney Davis",
+    "startDate" : "2016-11-16T00:23:00",
+    "endDate" : "2016-11-16T02:23:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Call Jennifer Hickman",
+    "startDate" : "2016-11-12T17:43:00",
+    "endDate" : "2016-11-12T19:43:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Nicholas Snyder",
+    "startDate" : "2016-11-12T12:16:00",
+    "endDate" : "2016-11-12T14:16:00",
+    "tagList" : [ "comedy", "gymtime" ]
+  }, {
+    "name" : "Lunch with Rachel James",
+    "startDate" : "2016-11-18T00:58:00",
+    "endDate" : "2016-11-18T02:58:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Lunch with Todd Lynn",
+    "startDate" : "2016-11-05T12:15:00",
+    "endDate" : "2016-11-05T14:15:00",
+    "tagList" : [ ]
+  }, {
+    "name" : "Dinner with Richard Dalton",
+    "startDate" : "2016-11-15T02:10:00",
+    "endDate" : "2016-11-15T04:10:00",
+    "tagList" : [ "goodtime", "games" ]
+  }, {
+    "name" : "Kill David Andrade",
+    "startDate" : "2016-11-20T14:30:00",
+    "endDate" : "2016-11-20T16:30:00",
+    "tagList" : [ ]
+  } ],
+  "aliases" : { },
+  "tagList" : [ "goodtime", "comedy", "meditation", "homesweethome", "games", "monochrome", "gymtime", "summertime" ]
+}
