@@ -73,7 +73,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(800.0, 800.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(1000.0, 725.0, (int) x, (int) y));
         return userPrefs;
     }
 
