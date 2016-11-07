@@ -1,30 +1,37 @@
 # Test Script
-There are three vertical task lists based on their respective task type: Todo/Event/Deadline.<br>
+There are three vertical task lists based on their respective task type: `Todo`/`Event`/`Deadline`.<br>
 Following testing command will test each of those data type and the result will be shown in the respective task list. <br>
-Add, Delete, Edit, Done, Undone, Clear, Clear_done commands are undoable commands. Undo command tests will be followed by each of undoable command test.
+`Add`, `Delete`, `Edit`, `Done`, `Undone`, `Clear`, `Clear_done` commands are undoable commands. Undo command tests will be followed by each of undoable command test.
+
+## Preparing test environment
+1. Copy the Tdoo_v0.5.jar to a directory of your choice.
+2. Under the directory where Tdoo_v0.5.jar is at, create a folder called "data".
+3. Copy the following xml files in this directory to the newly created folder "data". *(DO NOT CHANGE THE FILE NAME!)*
+  * DeadlineList.xml
+  * EventList.xml
+  * TodoList.xml
+4. Now you may run Tdoo_v0.5.jar app.
+
 
 ## Viewing help : `help`
 Show features and respective commands of the app.<br>
-> Command: `help`
-> Expected Outcome: A webpage with the User Guide is showned.
+> Command: `help`  
+> Expected Outcome: A webpage with the User Guide is showed.
 
 
 ## Adding tasks
-Adds a task to the task-list.
 
 #### Adding a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Command: `add (Give command arguments)`<br>
+> Command: `add TASK_NAME p/PRIORITY`<br>
 > Expected Outcome: A Todo task (Give a task description) is added to (index)th entry of the Todo List. The list will be scrolled to the location of the Todo task added. <br>
-
-(add more commands if needed...)
 
 > Undo Command: `undo`<br>
 > Expected Outcome: A Todo task (Give a task description) is deleted from the (index)th entry of the Todo List.
 
 #### Adding an Event:
 Events will be rearranged in the Event-List based on their starting time.<br>
-> Command: `add (Give command arguments)`<br>
+> Command: `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
 > Expected Result: An Event task (Give a task description) is added to (index)th entry of the Event List. The list will be scrolled to the location of the Event task added. <br>
 
 > Undo Command: `undo`<br>
@@ -32,7 +39,7 @@ Events will be rearranged in the Event-List based on their starting time.<br>
 
 #### Adding a Deadline:
 Deadlines will be rearranged in the Deadline-List based on their ending time.<br>
-> Command: `add (Give command arguments)`<br>
+> Command: `add TASK_NAME on/DATE at/END_TIME`<br>
 > Expected Result: A Deadline task (Give a task description) is added to (index)th entry of the Deadline List. The list will be scrolled to the location of the Deadline task added. <br>
 
 > Undo Command: `undo`<br>
@@ -42,14 +49,14 @@ Deadlines will be rearranged in the Deadline-List based on their ending time.<br
 Delete a task with given type and index number.<br>
 
 #### Deleting a Todo:
-> Command: `delete todo (Give command arguments)`<br>
+> Command: `delete todo INDEX`<br>
 > Expected Outcome: A Todo task (Give a task description) is deleted from the (index)th entry of the Todo List. <br>
 
 > Undo Command: `undo`<br>
 > Expected Outcome: A Todo task (Give a task description) is added back to the (index)th entry of the Todo List.
 
 #### Deleting an Event:
-> Command: `delete event (Give command arguments)`<br>
+> Command: `delete event INDEX`<br>
 > Expected Result: An Event task (Give a task description) is deleted from the (index)th entry of the Event List. <br>
 
 > Undo Command: `undo`<br>
@@ -57,7 +64,7 @@ Delete a task with given type and index number.<br>
 
 #### Deleting a Deadline:
 Deadlines will be rearranged in the Deadline-List based on their ending time.<br>
-> Command: `delete deadline (Give command arguments)`<br>
+> Command: `delete deadline INDEX`<br>
 > Expected Result: A Deadline task (Give a task description) is deleted from the (index)th entry of the Deadline List. <br>
 
 > Undo Command: `undo`<br>
@@ -71,7 +78,7 @@ You can change the data type of a task by editing it with a different command fo
 
 #### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Command: `edit (Give command arguments)`<br>
+> Command: `edit TASK_TYPE INDEX name/TASK_NAME p/PRIORITY`<br>
 > Expected Outcome: A Todo task (Give a task description) at the (index)th entry of the Todo List is edited by the given parameters. The list will be scrolled to the location of the Todo task edited. <br>
 
 (add more commands if needed...)
@@ -82,7 +89,7 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 
 #### Editing an Event:
 Events will be rearranged in the Event-List based on their starting time.<br>
-> Command: `edit (Give command arguments)`<br>
+> Command: `edit TASK_TYPE INDEX name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
 > Expected Result: An Event task (Give a task description) at the (index)th entry of the Event List is edited by the given parameters. The list will be scrolled to the location of the Event task edited. <br>
 
 > Undo Command: `undo`<br>
@@ -90,7 +97,7 @@ Events will be rearranged in the Event-List based on their starting time.<br>
 
 #### Editing a Deadline:
 Deadlines will be rearranged in the Deadline-List based on their ending time.<br>
-> Command: `edit (Give command arguments)`<br>
+> Command: `edit TASK_TYPE INDEX name/TASK_NAME on/DATE at/END_TIME`<br>
 > Expected Result: A Deadline task (Give a task description) at the (index)th entry of the Deadline List is edited by the given parameters. The list will be scrolled to the location of the Deadline task edited. <br>
 
 > Undo Command: `undo`<br>
@@ -101,7 +108,7 @@ Deadlines will be rearranged in the Deadline-List based on their ending time.<br
 Mark a Todo-task with given index number as done.<br>
 
 #### Marking a Todo 'done':
-> Command: `done todo (Give command arguments)`<br>
+> Command: `done todo INDEX`<br>
 > Expected Outcome: A Todo task (Give a task description) at the (index)th entry of the Todo List is marked 'Completed' and changes color from white to green. The list will be scrolled to the location of the Todo task marked.
 
 (add more commands if needed...)
@@ -110,14 +117,14 @@ Mark a Todo-task with given index number as done.<br>
 > Expected Outcome: A Todo task (Give a task description) is Marked back as 'Not Completed'.
 
 #### Marking an Event 'done':
-> Command: `done event (Give command arguments)`<br>
+> Command: `done event INDEX`<br>
 > Expected Result: An Event task (Give a task description) at the (index)th entry of the Event List is marked 'Completed' and changes color from white to green. The list will be scrolled to the location of the Event task marked.
 
 > Undo Command: `undo`<br>
 > Expected Outcome: An Event task (Give a task description) is Marked back as 'Not Completed'.
 
 #### Marking a Deadline 'done':
-> Command: `done deadline (Give command arguments)`<br>
+> Command: `done deadline INDEX`<br>
 > Expected Result: A Deadline task (Give a task description) at the (index)th entry of the Deadline List is marked 'Completed' and changes color from white to green. The list will be scrolled to the location of the Deadline task marked.
 
 > Undo Command: `undo`<br>
@@ -127,8 +134,8 @@ Mark a Todo-task with given index number as done.<br>
 ## Unmarking 'done' tasks
 Mark a Todo-task with given index number as undone.<br>
 
-#### Marking a Todo 'done':
-> Command: `undone todo (Give command arguments)`<br>
+#### Marking a Todo 'Not Completed':
+> Command: `undone todo INDEX`<br>
 > Expected Outcome: A Todo task (Give a task description) at the (index)th entry of the Todo List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Todo task marked.
 
 (add more commands if needed...)
@@ -136,15 +143,15 @@ Mark a Todo-task with given index number as undone.<br>
 > Undo Command: `undo`<br>
 > Expected Outcome: A Todo task (Give a task description) is Marked back as 'Completed'.
 
-#### Marking an Event 'done':
-> Command: `undone event (Give command arguments)`<br>
+#### Marking an Event 'Not Completed':
+> Command: `undone event INDEX`<br>
 > Expected Result: An Event task (Give a task description) at the (index)th entry of the Event List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Event task marked.
 
 > Undo Command: `undo`<br>
 > Expected Outcome: An Event task (Give a task description) is Marked back as 'Completed'.
 
-#### Marking a Deadline 'done':
-> Command: `undone deadline (Give command arguments)`<br>
+#### Marking a Deadline 'Not Completed':
+> Command: `undone deadline INDEX`<br>
 > Expected Result: A Deadline task (Give a task description) at the (index)th entry of the Deadline List is marked 'Not Completed' and changes color from green to white. The list will be scrolled to the location of the Deadline task marked.
 
 > Undo Command: `undo`<br>
@@ -258,7 +265,7 @@ List command can be done after task lists are filtered by the find command. It w
 Change the storage directory of the app. If the given directory does not exist, the app will create a new directory with given name.<br>
 The Storage directory is OS sensitive. The testings below are set to change storage to desktop. <br>
 > Command(Windows): `storage c:\Users\(username)\Desktop` <br>
-> Command(Os X): `storage (DIRECTORY)` <br>
+> Command(Os X): `storage /Volumes/(volume name)/Users/(username)/Desktop/newdata` <br>
 > Command(Linux): `storage /home/(username)/Desktop` <br>
 > Expected Result: On ui, there is no difference except the 'Storage Location' in the status footer is changed to the new storage directory. All the data from the previous storage is moved to the Desktop.
 
@@ -266,4 +273,3 @@ The Storage directory is OS sensitive. The testings below are set to change stor
 Exits the program.<br>
 > Command: `exit` <br>
 > Expected Result: Excited
-
