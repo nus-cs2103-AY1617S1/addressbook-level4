@@ -309,7 +309,6 @@ Format: `list alias`
 
 Examples:
 * `list alias`
-* `list aliases` <br>
 
 <br>
 #### Changing the storage location : `setstorage`
