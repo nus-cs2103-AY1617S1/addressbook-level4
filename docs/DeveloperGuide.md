@@ -347,6 +347,7 @@ The SD for editing an event is similar to editing a task.
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
 <img src="images/SDMarkTask.png" width="700"><br>
+<img src="images/SDMarkTaskDetailed.png" width="700"><br>
   
 **Extensions**<br>
 3a. The given index is invalid
@@ -369,7 +370,8 @@ The Use case can be elaborated by the SD as below in addition to the SD mentione
 
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
-<img src="images/SDforDeleteTask.png" width="700"><br>
+<img src="images/SDDeleteTask.png" width="700"><br>
+<img src="images/SDDeleteTaskDetailed.png" width="700"><br>
 
 The SD for delete event is similiar to delete task. 
   
@@ -509,7 +511,8 @@ Since it does not need to retrieve or modidfy data in the model.
   
 The Use case can be elaborated by the SD as below in addition to the SD mentioned in the [Design](#design):  
 
-<img src="images/SDClearTasks.png" width="700"><br>
+<img src="images/SDClearTask.png" width="700"><br>
+<img src="images/SDClearTaskDetailed.png" width="700"><br>
 
 The SD for clear past events is similiar to clear completed tasks.
   
