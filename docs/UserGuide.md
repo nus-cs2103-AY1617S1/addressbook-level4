@@ -377,13 +377,17 @@ Simply type the command format as shown below. <br>
 #### Format: ` savedir <DIRECTORY LOCATION>\<NAME OF FILE>.xml `
   
    Examples : <br>
-   savedir C:\Users\gauri9117\Documents\NUSY2SEM1\Unburden.xml
+   savedir C:\Users\gauri9117\Documents\NUSY2SEM1\Unburden.xml <br>
    savedir C:\Users\garyGoh\Documents\NUSY2SEM1\Unburden.xml
+
+<br>
 
 All changes made to the directory will be displayed at the bottom of the application as shown below. 
 
-   > <img src="UserGuideImages/savedir.JPG" width="500">
+   > <img src="UserGuideImages/saveDir.JPG" width="500">
 
+<br>
+<br>
 
 ## Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
