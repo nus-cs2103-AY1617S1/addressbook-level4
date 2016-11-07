@@ -96,12 +96,18 @@ public class TypicalTestTasks {
     }
     //@@author
     
+    public TestTask[] getDefaultTasks() {
+    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, 
+    			eventTomorrow, deadlineIn7Days, eventIn7Days, deadlineIn30Days, 
+    			eventIn30Days, someday2};
+    }
+    
     public TestTask[] getUnsortedTypicalTasks() {
     	return new TestTask[]{someday1, someday2, someday3,
 				   deadline1, deadline2, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, 
                    event1, event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days};
     }
-    
+    //@@author A0142184L
     public TestTask[] getTodayTasks() {
         return new TestTask[] {eventToday, deadlineToday};
     }
@@ -123,13 +129,13 @@ public class TypicalTestTasks {
     }
     
     public TestTask[] getDeadlineTasks() {
-        return new TestTask[] {deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, deadline1, deadlineToday};
+        return new TestTask[] {deadline2, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, deadline1, deadlineToday};
     }
     
     public TestTask[] getEventTasks() {
         return new TestTask[] {event2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, event1};
     }
-    
+    //@@author
     public TestTask[] getDoneTasks() {
         return new TestTask[] {deadline1, event1, deadlineToday, someday3, someday1};
     }
@@ -146,8 +152,8 @@ public class TypicalTestTasks {
     	return new TestTask[] {deadline2, event2};
     }
     
-    public TestTask[] getDoneAndDeadlineTasks() {
-        return new TestTask[] {deadline1, deadlineToday};
+    public TestTask[] getDoneDeadlineTodayTasks() {
+        return new TestTask[] {deadlineToday};
     }
     
     public TaskManager getTypicalTaskManager(){

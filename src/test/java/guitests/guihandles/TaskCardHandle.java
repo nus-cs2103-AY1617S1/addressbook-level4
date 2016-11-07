@@ -10,7 +10,7 @@ import seedu.address.model.task.TaskType;
 /**
  * Provides a handle to a task card in the list panel.
  */
-//@@author A0142184L
+//@@author A0142184L-reused
 public class TaskCardHandle extends GuiHandle {
     private static final String TASK_NAME_FIELD_ID = "#taskName";
     private static final String TASK_TYPE_FIELD_ID = "#taskType";
