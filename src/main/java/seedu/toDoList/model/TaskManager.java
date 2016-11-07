@@ -137,8 +137,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Edits the given task and returns the index of the task.
      */
-	public int editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
-        return tasks.edit(p, type, details);
+	public void editTask(ReadOnlyTask p, String type, String details) throws IllegalValueException {
+        tasks.edit(p, type, details);
 	}
 	//@@author
 

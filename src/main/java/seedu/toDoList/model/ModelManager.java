@@ -105,10 +105,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0138717X
 	@Override
 	public void editTask(ReadOnlyTask task, String type, String details) throws IllegalValueException {
-		int index = taskManager.editTask(task, type, details);
+		taskManager.editTask(task, type, details);
 		updateFilteredListToShowAll();
         indicateTaskManagerChanged();
-        raise(new JumpToListRequestEvent(index));
 	}
 
     //@@author A0142325R
