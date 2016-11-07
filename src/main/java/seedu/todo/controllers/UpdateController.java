@@ -234,8 +234,7 @@ public class UpdateController extends Controller {
         // TODO: Not enough sleep
         // We really need proper ActiveRecord validation and rollback, sigh...
 
-        if (name == null && dateFrom == null && dateTo == null
-                && (naturalFrom == null || !naturalFrom.equals(STRING_NULL))) {
+        if (!validateNameDateChange(name, dateFrom, dateTo, naturalFrom)) {
             return false;
         }
 
@@ -256,6 +255,20 @@ public class UpdateController extends Controller {
             }
         }
         return true;
+    }
+    
+    /**
+     * Checks that there is at least one update param specified.
+     * 
+     * @param name
+     * @param dateFrom
+     * @param dateTo
+     * @param naturalFrom
+     * @return
+     */
+    private boolean validateNameDateChange(String name, LocalDateTime dateFrom, LocalDateTime dateTo, String naturalFrom) {
+        return !(name == null && dateFrom == null && dateTo == null
+                && !STRING_NULL.equals(naturalFrom));
     }
 
     /**
