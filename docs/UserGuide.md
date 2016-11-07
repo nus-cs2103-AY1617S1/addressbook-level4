@@ -253,7 +253,7 @@ Examples:
 
 Limitation: This feature Only allow user to change storage path within the FlexiTrack folder.
 
-> [path] can only contains alphanumeric, forward slash '/' and underscore '_'.
+> [path] can only contains alphanumeric or following special character '\', '/', '-', ':', '.', '_'.
 //@@author
 
 //@@author A0127855W
