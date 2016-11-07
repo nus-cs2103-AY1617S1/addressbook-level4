@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.lifekeeper.logic.commands.Command;
 import seedu.lifekeeper.testutil.*;
+import seedu.lifekeeper.logic.commands.UndoCommand;
 
 import static org.junit.Assert.assertTrue;
 
@@ -71,7 +72,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
 	private void assertUndoEditResult(String command, TestActivity activityAfterUndo, TestActivity activityBeforeUndo, TestActivity[] currentList) {
         commandBox.runCommand(command);
         commandBox.runCommand("undo"); 
-        assertResultMessage(String.format("Undo: Editting task from: %1$s\nto: %2$s",
+        assertResultMessage(String.format(UndoCommand.MESSAGE_UNDO_EDIT_SUCCESS,
                 activityAfterUndo.getAsText(),activityBeforeUndo.getAsText()));
         assertTrue(activityListPanel.isListMatching(currentList));
   
@@ -81,7 +82,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
     private void assertUndoAddResult(TestActivity activity,TestActivity... currentList){
         commandBox.runCommand(activity.getAddCommand());
         commandBox.runCommand("undo");
-        assertResultMessage(String.format("Undo: Adding of new task: %1$s",activity.getAsText()));
+        assertResultMessage(String.format(UndoCommand.MESSAGE_UNDO_ADD_SUCCESS,activity.getAsText()));
         assertTrue(activityListPanel.isListMatching(currentList));
         
     }
@@ -91,7 +92,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         commandBox.runCommand("delete " + index);
         commandBox.runCommand("undo");
-        assertResultMessage(String.format("Undo: Deleting task: %1$s",activityToDelete.getAsText()));
+        assertResultMessage(String.format(UndoCommand.MESSAGE_UNDO_DELETE_SUCCESS,activityToDelete.getAsText()));
         assertTrue(activityListPanel.isListMatching(currentList));
     }
     
@@ -100,14 +101,14 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         commandBox.runCommand("done " + index);
         commandBox.runCommand("undo");
-        assertResultMessage(String.format("Undo: Marked task as Completed: %1$s",activityToDone.getAsText()));
+        assertResultMessage(String.format(UndoCommand.MESSAGE_UNDO_DONE_SUCCESS,activityToDone.getAsText()));
         assertTrue(activityListPanel.isListMatching(currentList));
         
     }
     
     private void assertUndoNoPreviousCommand() {
         commandBox.runCommand("undo"); 
-        assertResultMessage("There is no more commands to undo");
+        assertResultMessage(UndoCommand.MESSAGE_END_OF_UNDO);
 	}
     
 }
