@@ -35,7 +35,7 @@ Examples:
 
 Adds a task to GetShitDone
 
-Format: `add [task] NAME [(by|on|at|before|time) DEADLINE] `
+Format: `add [task] NAME [(by|on|at|before|time) DEADLINE]`
 
 > * Tasks can have a deadline, or can do without one as well.
 >   * Tasks added without specifying a deadline will be displayed under "No Deadline".
@@ -71,11 +71,13 @@ Examples:
  * `add event Orientation Camp from Monday 8am to Friday 9pm`
  * `add event CS2103 Workshop from Sat 10am to 4pm`
 
+<!--@@author A0139812A -->
+
 #### Listing all tasks and events : `list`
 
 Shows a list of all tasks and events in GetShitDone. Able to filter by type of task (task/event), or based on status of task/event.
 
-Format: `list [TYPE]`
+Format: `list [PARAMS]...`
 
 > Valid parameters: 
 > * Item type: `events` / `event`/ `tasks` / `task`
@@ -107,6 +109,8 @@ Examples:
 * `list from monday to friday`  
  Lists all tasks due within the coming Monday to Friday, and events which start after the coming Monday and end before Friday
 
+<!--@@author A0093907W -->
+
 #### Finding all tasks/events containing any keyword in their name & tag: `find`
 
 Finds tasks whose name contains any of the given keywords.  
@@ -120,6 +124,9 @@ Examples:
 
 * `find assignment`  
 Returns tasks and events which contain words starting with `assignment`.
+
+* `find assignment cs`  
+Returns tasks and events which contain words starting with `assignment` or `cs`.
 
 #### Editing a task : `update`
 
@@ -156,13 +163,26 @@ Examples:
   `destroy 1`  
   Deletes the 1<sup>st</sup> task/event in the results of the `find` command.
 
-<!--@@author A0139922Y -->
+<!--@@author A0139812A -->
 
 #### Clearing the Database : `clear`
 
 Clear tasks/events by specific instruction from GetShitDone.
 
-Format: `clear [event/task] ([(by|on|at) DATE] | [from STARTDATE to ENDDATE])`
+Format: `clear [PARAMS]...`
+
+> Valid parameters: 
+> * Item type: `events` / `event`/ `tasks` / `task`
+> * Task status: `complete` / `completed` / `incomplete` / `incompleted` 
+> * Event status: `over` / `past` / `future` 
+> * Task deadline: `(by|on|at|before) DATE`
+> * Event date: `from STARTDATE to ENDDATE`
+> * Tag: `tag TAGNAME`
+> 
+> The command accepts any combination of the above, with the exception of:
+> * Task status cannot be defined for events
+> * Event status cannot be defined for tasks
+> In the event of such ambiguity, the command will display an error for the user to rectify it.
 
 Examples: 
 
@@ -171,6 +191,8 @@ Examples:
 
 * `clear event to yesterday`  
   Clear all events up to yesterday [inclusive].
+
+<!--@@author A0139922Y -->
 
 #### Tagging an item : `tag`
 
@@ -340,7 +362,8 @@ The application data are saved in the hard disk automatically after any command 
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME [s/START_DATE [e/END_DATE]] [d/DEADLINE] [t/TAG]...`
+Add Task | `add [task] NAME [(by|on|at|before|time) DEADLINE] `
+Add Event | `add event NAME from STARTDATETIME to ENDDATETIME`
 Complete | `complete INDEX`
 Uncomplete | `uncomplete INDEX`
 Help | `help`
@@ -349,15 +372,16 @@ Help | `help`
 
 Command | Format  
 -------- | :-------- 
-List | `list [TYPE]`
+List | `list [PARAMS]...`
 Find | `find KEYWORD [MORE_KEYWORDS]...`
 
 **Editing** 
 
 Command | Format  
 -------- | :-------- 
-Update | `update INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE]`
+Update | `update INDEX [name NAME] [( (by|on|at|before) DATE] | from STARTDATE to ENDDATE )]`
 Delete | `destroy INDEX`
+Clear | `clear [PARAMS]...`
 Add Tag | `tag INDEX TAG_NAME`
 Untag | `untag INDEX TAG_NAME`
 Undo | `undo [COUNT]`
