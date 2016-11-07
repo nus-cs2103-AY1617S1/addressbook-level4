@@ -254,7 +254,6 @@ public class TaskTime {
         Date inputBeforeTime = null;
         Date inputAfterTime = null;
         Date todayTime = null;
-        System.out.println("Entered isValidNumTime : before time is : " +  beforeTime + " afterTime is : " + afterTime);
         try {
             String currentTime = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT).format(new Date());
             DateFormat tf = new SimpleDateFormat(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT);
