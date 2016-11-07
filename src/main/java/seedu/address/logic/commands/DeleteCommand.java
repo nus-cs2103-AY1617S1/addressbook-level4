@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted Event: %1$s";
     public static final String MESSAGE_DELETE_NOT_FOUND = "Item to delete is not found";
-    public static final String MESSAGE_DELETE_INVALID_INDEX = "The item index provided is invalid";
+    public static final String MESSAGE_DELETE_INVALID_INDEX = "The index provided is invalid";
     // one or more keywords separated by whitespace
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
