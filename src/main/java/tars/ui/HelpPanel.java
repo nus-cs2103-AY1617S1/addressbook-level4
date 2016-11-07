@@ -13,6 +13,7 @@ import javafx.stage.Stage;
  * UI Controller for a help page
  */
 public class HelpPanel extends UiPart {
+    
     private static final String FXML = "HelpPanel.fxml";
     private static final String USERGUIDE_URL = "/html/UserGuide.md.html";
 

@@ -9,20 +9,20 @@ import javafx.stage.Stage;
 import tars.commons.util.FxViewUtil;
 
 /**
- * A ui for the results display that is displayed above the command box of the application.
+ * A UI for the results display that is displayed above the command box of the application.
  */
 public class ResultDisplay extends UiPart {
-    private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
+
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String RESULT_DISPLAY_STYLE_SHEET = "result-display";
-    private TextArea resultDisplayArea;
-    private final StringProperty displayed = new SimpleStringProperty("");
-
     private static final String FXML = "ResultDisplay.fxml";
+    private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
 
     private AnchorPane placeHolder;
-
+    private TextArea resultDisplayArea;
     private AnchorPane mainPane;
+    
+    private final StringProperty displayed = new SimpleStringProperty("");
 
     public static ResultDisplay load(Stage primaryStage,
             AnchorPane placeHolder) {

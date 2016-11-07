@@ -22,7 +22,6 @@ public class UiColor {
     public static final String TASK_CARD_DEFAULT_BORDER =
             "-fx-border-color: lightgrey";
 
-
     public enum CircleColor {
         HIGH(Color.RED), MEDIUM(Color.ORANGE), LOW(Color.GREEN), DONE(
                 Color.LIGHTGREY), NONE(Color.TRANSPARENT);

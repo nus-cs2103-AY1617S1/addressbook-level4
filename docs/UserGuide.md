@@ -302,7 +302,7 @@ There is no need to save manually.
 [comment]: # (@@author A0139924W)
 ## Supported Date Formats
 #### formal dates
-Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may preceed the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
+Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may precede the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
 
 Examples:
 * `28-01-2016`

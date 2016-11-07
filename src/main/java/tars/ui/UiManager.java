@@ -138,7 +138,8 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getEventsHandler().handleHelp(mainWindow.getHelpPanel(),
+        mainWindow.getEventsHandler();
+        MainWindowEventsHandler.handleHelp(mainWindow.getHelpPanel(),
                 event.getHelpRequestEventArgs());
     }
     // @@author

@@ -52,14 +52,12 @@ public class RsvCommand extends UndoableCommand {
     public static final String MESSAGE_REDO_ADD = "Added %1$s";
 
     private static final String MESSAGE_CONFLICT_FOR = "\nConflicts for ";
+    private static final int INDEX_OF_ENDDATE = 1;
+    private static final int INDEX_OF_STARTDATE = 0;
 
     private RsvTask toReserve = null;
     private String rangeIndexString = "";
     private String conflictingTaskList = "";
-
-    private static final int INDEX_OF_ENDDATE = 1;
-    private static final int INDEX_OF_STARTDATE = 0;
-
     private ArrayList<RsvTask> rsvTasksToDelete;
 
     /**

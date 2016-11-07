@@ -12,10 +12,10 @@ import tars.model.task.Name;
  */
 public class RsvTask {
 
+    private static String RSV_TASK_STRING = "%1$s DateTime: %2$s";
+    
     protected Name name;
     protected ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
-
-    private static String RSV_TASK_STRING = "%1$s DateTime: %2$s";
 
     public RsvTask() {
 

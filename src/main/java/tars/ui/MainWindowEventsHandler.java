@@ -25,26 +25,28 @@ import tars.logic.commands.RsvCommand;
  * Handles all events that require main window.
  */
 public class MainWindowEventsHandler {
+    
+    protected static Stage primaryStage;
 
     private static String LOG_MESSAGE_COMMAND_DETECTED = "%s command detected.";
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
-    private VBox rootLayout;
-    private TabPane tabPane;
-    protected Stage primaryStage;
-
+    private static VBox rootLayout;
+    private static TabPane tabPane;
+    
+    private static final Logger logger = LogsCenter.getLogger(MainWindow.class);
+    
     public MainWindowEventsHandler(Stage primaryStage, VBox rootLayout,
             TabPane tabPane) {
-        this.rootLayout = rootLayout;
-        this.primaryStage = primaryStage;
-        this.tabPane = tabPane;
+        MainWindowEventsHandler.rootLayout = rootLayout;
+        MainWindowEventsHandler.primaryStage = primaryStage;
+        MainWindowEventsHandler.tabPane = tabPane;
         EventsCenter.getInstance().registerHandler(this);
     }
 
-    public void addMouseEventHandler() {
+    public static void addMouseEventHandler() {
         rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -61,7 +63,7 @@ public class MainWindowEventsHandler {
         });
     }
 
-    public void addTabPaneHandler() {
+    public static void addTabPaneHandler() {
         rootLayout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -102,7 +104,7 @@ public class MainWindowEventsHandler {
         }
     }
 
-    private void cycleTabPaneRight() {
+    private static void cycleTabPaneRight() {
         if (tabPane.getSelectionModel()
                 .isSelected((MainWindow.HELP_PANEL_TAB_PANE_INDEX))) {
             tabPane.getSelectionModel().selectFirst();
@@ -111,7 +113,7 @@ public class MainWindowEventsHandler {
         }
     }
 
-    private void cycleTabPaneLeft() {
+    private static void cycleTabPaneLeft() {
         if (tabPane.getSelectionModel()
                 .isSelected((MainWindow.OVERVIEW_PANEL_TAB_PANE_INDEX))) {
             tabPane.getSelectionModel().selectLast();
@@ -121,7 +123,7 @@ public class MainWindowEventsHandler {
     }
 
     // @@author A0140022H
-    public void handleHelp(HelpPanel helpPanel, String args) {
+    public static void handleHelp(HelpPanel helpPanel, String args) {
         helpPanel.loadUserGuide(args);
         tabPane.getSelectionModel()
                 .select(MainWindow.HELP_PANEL_TAB_PANE_INDEX);

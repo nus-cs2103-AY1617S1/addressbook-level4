@@ -20,9 +20,10 @@ import tars.commons.util.FxViewUtil;
 import tars.commons.util.StringUtil;
 
 /**
- * A ui for the status bar that is displayed at the footer of the application.
+ * A UI for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart {
+    
     private static final double BOUNDARY_PARAMETERS_ZERO = 0.0;
     private static final String SYNC_STATUS_NO_UPDATE =
             "Not updated yet in this session";
@@ -31,13 +32,13 @@ public class StatusBarFooter extends UiPart {
             "Setting last updated status to %s";
     private static final String LOG_MESSAGE_STORAGE_LOCATION_CHANGED =
             "Storage Location Changed: %s";
-    private static String STORAGE_DIRECTORY_INFO = "Storage Directory: %s";
-
+    private static final String STORAGE_DIRECTORY_INFO = "Storage Directory: %s";
     private static final Logger logger =
             LogsCenter.getLogger(StatusBarFooter.class);
+    private static final String FXML = "StatusBarFooter.fxml";
+    
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
-
     private GridPane mainPane;
 
     @FXML
@@ -47,11 +48,8 @@ public class StatusBarFooter extends UiPart {
     private AnchorPane syncStatusBarPane;
 
     private AnchorPane placeHolder;
-
     private Label saveLocationLabel;
     private Label syncStatusLabel;
-
-    private static final String FXML = "StatusBarFooter.fxml";
 
     public static StatusBarFooter load(Stage stage, AnchorPane placeHolder,
             String saveLocation) {

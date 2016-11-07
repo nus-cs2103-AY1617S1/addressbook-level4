@@ -18,18 +18,18 @@ import tars.model.task.DateTime;
  */
 public class DateTimeUtil {
 
-    private static final String DATETIME_DAY = "day";
-    private static final String DATETIME_WEEK = "week";
-    private static final String DATETIME_MONTH = "month";
-    private static final String DATETIME_YEAR = "year";
     public static final int DATETIME_FIRST_HOUR_OF_DAY = 0;
     public static final int DATETIME_FIRST_MINUTE_OF_DAY = 0;
     public static final int DATETIME_FIRST_SECOND_OF_DAY = 0;
     public static final int DATETIME_LAST_HOUR_OF_DAY = 23;
     public static final int DATETIME_LAST_MINUTE_OF_DAY = 59;
     public static final int DATETIME_LAST_SECOND_OF_DAY = 59;
-    private static final int DATETIME_INCREMENT = 1;
 
+    private static final String DATETIME_DAY = "day";
+    private static final String DATETIME_WEEK = "week";
+    private static final String DATETIME_MONTH = "month";
+    private static final String DATETIME_YEAR = "year";
+    private static final int DATETIME_INCREMENT = 1;
     private static final DateTimeFormatter formatter =
             DateTimeFormatter.ofPattern("d/M/uuuu HHmm");
     private static final DateTimeFormatter stringFormatter =
@@ -38,6 +38,7 @@ public class DateTimeUtil {
             DateTimeFormatter.ofPattern("dd/MM/uuuu");
     private static final DateTimeFormatter stringFormatterWithoutDate =
             DateTimeFormatter.ofPattern("HHmm");
+
     public static String MESSAGE_FREE_TIME_SLOT =
             StringUtil.STRING_NEWLINE + "%1$s. %2$shrs to %3$shrs (%4$s)";
     private static String MESSAGE_DURATION = "%1$s hr %2$s min";

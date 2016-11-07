@@ -35,13 +35,13 @@ public class ConfirmCommand extends UndoableCommand {
 
     public static final String MESSAGE_CONFIRM_SUCCESS =
             "Task Confirmation Success! New task added: %1$s";
-    private String conflictingTaskList = "";
 
     private final int taskIndex;
     private final int dateTimeIndex;
     private final String priority;
     private final Set<Tag> tagSet = new HashSet<>();
 
+    private String conflictingTaskList = StringUtil.EMPTY_STRING;
     private Task toConfirm;
     private RsvTask rsvTask;
 

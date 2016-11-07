@@ -29,6 +29,13 @@ import tars.ui.formatter.Formatter;
  * UI Controller for this week panel
  */
 public class ThisWeekPanel extends UiPart {
+    
+    private static List<ReadOnlyTask> list;
+    private static List<ReadOnlyTask> upcomingTasks =
+            new ArrayList<ReadOnlyTask>();
+    private static List<ReadOnlyTask> overduedTasks =
+            new ArrayList<ReadOnlyTask>();
+    
     private static final String LOG_MESSAGE_UPDATE_THIS_WEEK_PANEL =
             "Update this week panel";
     private static final Logger logger =
@@ -38,12 +45,7 @@ public class ThisWeekPanel extends UiPart {
     private static final String STATUS_UNDONE = "Undone";
     private static final String TASK_LIST_ELLIPSIS = "\n...\n";
     private static final DateFormat df = new SimpleDateFormat("E, MMM dd");
-
-    private static List<ReadOnlyTask> list;
-    private static List<ReadOnlyTask> upcomingTasks =
-            new ArrayList<ReadOnlyTask>();
-    private static List<ReadOnlyTask> overduedTasks =
-            new ArrayList<ReadOnlyTask>();
+    private static final int MIN_SIZE = 5;
 
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -58,8 +60,6 @@ public class ThisWeekPanel extends UiPart {
     private Label overduedTasksList;
     @FXML
     private Label upcomingTasksList;
-
-    private static final int MIN_SIZE = 5;
 
     public static ThisWeekPanel load(Stage primaryStage,
             AnchorPane thisWeekPanelPlaceHolder, List<ReadOnlyTask> taskList) {
@@ -146,7 +146,6 @@ public class ThisWeekPanel extends UiPart {
 
     /**
      * Set text for tasksLists to display top five tasks
-     * 
      */
     private void setThisWeekPanelTaskList(int count,
             List<ReadOnlyTask> tasksList, Label taskListLabel) {

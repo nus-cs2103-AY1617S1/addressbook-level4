@@ -38,23 +38,21 @@ public class EditCommand extends UndoableCommand {
             + " 1 /n Lunch with John /dt 10/09/2016 1200 to 10/09/2016 1300 /p l /ta lunch /tr dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
-
     public static final String MESSAGE_UNDO = "Edited to %1$s to %1$s";
     public static final String MESSAGE_REDO = "Edited to %1$s to %1$s";
     
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
-    private static final int DATETIME_INDEX_OF_STARTDATE = 0;
-
-    public final int targetIndex;
-    private ReadOnlyTask toBeReplacedTask;
-    private Task editedTask;
-    private ArgumentTokenizer argsTokenizer;
-
+    private static final int DATETIME_INDEX_OF_STARTDATE = 0;  
     private static final Prefix NAME_PREFIX = new Prefix("/n");
     private static final Prefix DATETIME_PREFIX = new Prefix("/dt");
     private static final Prefix PRIORITY_PREFIX = new Prefix("/p");
     private static final Prefix ADD_TAG_PREFIX = new Prefix("/ta");
     private static final Prefix REMOVE_TAG_PREFIX = new Prefix("/tr");
+
+    public final int targetIndex;
+    private ReadOnlyTask toBeReplacedTask;
+    private Task editedTask;
+    private ArgumentTokenizer argsTokenizer;
 
     /**
      * Convenience constructor using raw values.

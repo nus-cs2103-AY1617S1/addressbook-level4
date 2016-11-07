@@ -29,16 +29,17 @@ import java.util.Stack;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
-
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private static final String FXML = "CommandBox.fxml";
-
+    
     private static String LOG_MESSAGE_RESULT = "Result: %s";
     private static String LOG_MESSAGE_INVALID_COMMAND = "Invalid Command: %s";
+    
     private static final String COMMAND_TEXT_FIELD_ERROR = "error";
+    private static final String FXML = "CommandBox.fxml";
 
     private final Stack<String> prevCmdTextHistStack = new Stack<String>();
     private final Stack<String> nextCmdTextHistStack = new Stack<String>();
+
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
