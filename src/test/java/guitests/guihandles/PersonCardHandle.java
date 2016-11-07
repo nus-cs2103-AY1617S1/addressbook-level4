@@ -44,7 +44,7 @@ public class PersonCardHandle extends GuiHandle {
     public boolean isSamePerson(ReadOnlyTask person){
         
         
-        return getFullName().equals(person.getName().fullName);
+        return getFullName().equals(person.getName());
                 //&& (natty.parseDate(getPhone()).equals(natty.parseDate(person.getPhone().value)) || natty.parseDate(getPhone()).equals(natty.parseDate("today")))
                 //&& natty.parseTime(getEmail()).equals(natty.parseTime(person.getEmail().value)) && natty.parseTime(getAddress()).equals(natty.parseTime(person.getAddress().value));
     }

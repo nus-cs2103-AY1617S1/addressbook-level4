@@ -18,38 +18,48 @@ public class TaskBuilder {
 		np = new nattyParser();
 	}
 
-	public TaskBuilder withName(String name) throws IllegalValueException {
+	public TaskBuilder withName(String name) {
 		this.task.setName(name);
 		return this;
 	}
 
-	public TaskBuilder withStartDateAndTime(String st) throws IllegalValueException {
+	public TaskBuilder withStartDateAndTime(String st) {
 		String convertedSt = np.parse(st);
 		String[] dateTimeArray = convertedSt.split(" ");
 		this.task.setStart(new DateTime(new Date(dateTimeArray[0]), new Time(dateTimeArray[1])));
 		return this;
 	}
 
-	public TaskBuilder withStartDate(String st) throws IllegalValueException {
-		String convertedSt = np.parse(st);
+	public TaskBuilder withStartDate(String st) {
+		String convertedSt = np.parseDate(st);
 		this.task.setStart(new DateTime(new Date(convertedSt), new Time("")));
 		return this;
 	}
+	
+	public TaskBuilder withoutStart() {
+		this.task.setStart(new DateTime(new Date(""), new Time("")));
+		return this;
+	}
 
-	public TaskBuilder withEndDateAndTime(String et) throws IllegalValueException {
+	public TaskBuilder withEndDateAndTime(String et) {
 		String convertedEt = np.parse(et);
 		String[] dateTimeArray = convertedEt.split(" ");
 		this.task.setEnd(new DateTime(new Date(dateTimeArray[0]), new Time(dateTimeArray[1])));
 		return this;
 	}
 	
-	public TaskBuilder withEndDate(String et) throws IllegalValueException {
-		String convertedEt = np.parse(et);
+	public TaskBuilder withEndDate(String et) {
+		String convertedEt = np.parseDate(et);
 		this.task.setStart(new DateTime(new Date(convertedEt), new Time("")));
 		return this;
 	}
 	
-	public TaskBuilder withCompletion(boolean completion) throws IllegalValueException {
+	public TaskBuilder withoutEnd() {
+		this.task.setEnd(new DateTime(new Date(""), new Time("")));
+		return this;
+	}
+	
+	public TaskBuilder withCompletion(boolean completion) {
 		this.task.setCompletion(completion);
 		return this;
 	}
