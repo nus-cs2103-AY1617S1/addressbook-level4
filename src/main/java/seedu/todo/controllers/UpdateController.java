@@ -251,11 +251,7 @@ public class UpdateController extends Controller {
             LocalDateTime newDateFrom = (dateFrom == null) ? event.getStartDate() : dateFrom;
             LocalDateTime newDateTo = (dateTo == null) ? event.getEndDate() : dateTo;
 
-            if (newDateFrom == null || newDateTo == null) {
-                return false;
-            }
-
-            if (newDateTo.isBefore(newDateFrom)) {
+            if (newDateFrom == null || newDateTo == null || newDateTo.isBefore(newDateFrom)) {
                 return false;
             }
         }
