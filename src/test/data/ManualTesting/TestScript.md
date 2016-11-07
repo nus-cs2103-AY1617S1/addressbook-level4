@@ -125,3 +125,11 @@ Command | Expected behavior
 `redo 2` | Error message explaining that there is only 1 command that can be redone
 `undo 100` | Error message explaining that there is only (a large number) of commands that can be undone
 `redo` | "Take a break from life" should be re-added
+
+### Destroy by index
+
+Command | Expected behavior
+------- | -----------------
+`destroy 2` | Task at index 2 ("Submit CS2103 project") should be destroyed
+`destroy 10` | Disambiguate: Invalid index provided
+`destroy alamak` | Disambiguate: Index has to be a number
