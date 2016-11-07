@@ -125,7 +125,7 @@ public class EditCommand extends Command {
             Optional<CommandResult> invalidResult = setDeadlineEndTimeToExistingEndTimeIfEndTimeNotEdited();
             if (isInvalidResult(invalidResult)) {
                 return invalidResult;
-            };
+            }
             createNewEditedDeadline();
             markAsOverdueIfTaskToEditIsOverdue();
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
