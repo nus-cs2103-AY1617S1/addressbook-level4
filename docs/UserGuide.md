@@ -49,6 +49,7 @@ Examples:
 * `add Homework d/ProgrammingEx1`
 
 <a id="add_task" class="anchor" aria-hidden="true">
+
 #### Adding an Event
 Adds a task which has a start time and end time. <br><br>
 User has to specify TITLE, DESCRIPTION, START_DATE and DUE_DATE.
@@ -80,18 +81,44 @@ Examples:
 * `add Homework d/ProgrammingEx1 i/2 dd/10-01-2012`
 * `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
 
+### List tasks : `list`
+Shows a list of upcoming task in the task management tool.<br>
+Format: `list`<br>
+Examples: <br>
+* `list`<br>
 
-<a id="customized-command" class="anchor" href="#customized-command" aria-hidden="true">
-### Customize commands : `customize`
-Customize command with specific format. <br>
-Format: `customize [COMMAND f/NEW_FORMAT]`.<br>
-User can use customize to see help and current custom commands(if any).<br> 
-If user specify COMMAND, NEW_FORMAT is required.<br>
+<!-- @@author A0139932X -->
+<a id="find_substring" class="anchor" aria-hidden="true">
+### Find an event: `find`<br>
+Find an event on the list task according to the Substring based on the TITLE<br>
+Format: `find KEYWORD`<br>
+
+Example:
+* `find work`.
+RETURNS any Title that contains 'work'
+<!-- @@author -->
+
+<!-- @@author A0153751H -->
+<a id="edit_task" class="anchor" aria-hidden="true">
+### Edit a task: `edit`
+Edit details to an existing task <br>
+One other parameter must be use other than the TASKID <br>
+Format: `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAGS]`
+
 Examples: 
-* `customize`
-* `customize add f/a`
-* `customize list f/ls`
+* `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
 
+### Deleting a task : `delete`<br>
+Deletes the specified task from the task management tool. Irreversible.<br>
+Format: `delete TASKID`<br>
+
+> Deletes the task at the specified `TASKID`. 
+ 
+Examples: 
+* `delete 1`<br>
+<!-- @@author -->
+
+<!-- @@author A0153411W -->
 <a id="undo-command" class="anchor" href="#undo-command" aria-hidden="true">
 ### Undo the last executed command: `undo`
 Restore the task manager to the state before command was executed. <br>
@@ -108,31 +135,31 @@ Format: `redo`<br>
 Example:
 * `redo`
 
+<a id="customized-command" class="anchor" href="#customized-command" aria-hidden="true">
+### Customize commands : `customize`
+Customize command with specific format. <br>
+Format: `customize [COMMAND f/NEW_FORMAT]`.<br>
+User can use customize to see help and current custom commands(if any).<br> 
+If user specify COMMAND, NEW_FORMAT is required.<br>
+Examples: 
+* `customize`
+* `customize add f/a`
+* `customize list f/ls`
+
 <a id="history-command" class="anchor" href="#history-command" aria-hidden="true">
 ### Customize commands : `history`<br>
 Shows last executed commands. Maximum number of executed commands to show is 10.<br>
 Format: `history`.<br>
 Example: <br>
 * `history`
+<!-- @@author --> 
 
-<!-- @@author -->
+<!-- @@author A0148083A -->
+### Complete a task: `done`<br>
+Set Task as completed<br>
+Format: `done TASKID`<br>
 
-### List tasks : `list`
-Shows a list of upcoming task in the task management tool.<br>
-Format: `list`<br>
-Examples: <br>
-* `list`<br>
-  
-
-<!-- @@author A0153751H -->
-### Deleting a task : `delete`<br>
-Deletes the specified task from the task management tool. Irreversible.<br>
-Format: `delete TASKID`<br>
-
-> Deletes the task at the specified `TASKID`. 
- 
-Examples: 
-* `delete 1`<br>
+Example: `done 1`
 <!-- @@author -->
 
 <!-- @@author A0139932X -->
@@ -143,44 +170,15 @@ Format: `save folderpath`<br>
 
 Example:
 * `save C:\Users\<username>\Desktop\CS2103 Tutorial`.<br>
-
-
-<a id="find_substring" class="anchor" aria-hidden="true">
-### Find an event: `find`<br>
-Find an event on the list task according to the Substring based on the TITLE<br>
-Format: `find KEYWORD`<br>
-
-Example:
-* `find work`.
-RETURNS any Title that contains 'work'
-
 <!-- @@author -->
 
-<!-- @@author A0148083A -->
-### Complete a task: `done`<br>
-Set Task as completed<br>
-Format: `done TASKID`<br>
-
-Example: `done 1`
-<!-- @@author -->
 <!-- @@author A0153751H -->
-<a id="edit_task" class="anchor" aria-hidden="true">
-### Edit a task: `edit`
-Edit details to an existing task <br>
-One other parameter must be use other than the TASKID <br>
-Format: `edit TASKID [t/TASK_NAME] [d/DESCRIPTION] [sd/START_DATE] [dd/DUE_DATE] [c/COLOR] [ts/TAGS]`
-
-Examples: 
-* `edit 1 t/Homework d/Physics sd/11-11-2011 dd/12-12-2012 c/red ts/school`
-
 <a id="color_coding" class="anchor" aria-hidden="true">
 #### Coloring a task
 Color can be added or edited with the add or edit commands and the c/ parameter. <br>
 The available colors are "red", "blue", "green", and "none". None represents no color/white.<br>
 Examples: <br>
 * `edit 1 c/red`
-
-
 
 ## FAQ
 
