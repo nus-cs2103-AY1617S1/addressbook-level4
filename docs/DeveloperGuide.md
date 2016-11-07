@@ -44,6 +44,22 @@
 
 ## Design
 
+//@@author A0127855W
+
+### Undo/Redo Implementation
+
+Each undoable command has an execute() method and an executeUndo() method.
+
+2 static Command stacks are maintained. One in the UndoCommand class (doneCommandStack) and the other in the RedoCommand class (undoneCommandStack). From application startup, whenever an undoable command is entered, the created command object is first populated with the data of whatever the command changes, before the execute() method is called. The changes are then applied and the entire command object is pushed into the doneCommandStack.
+
+Subsequently, when the UndoCommand is entered, the last command entered is popped out of the doneCommandStack and the executeUndo() method is called. The command is then pushed into the undoneCommandStack.
+
+When the RedoCommand is entered, the last command undone is popped out of the undoneCommand Stack and the execute() method is called, effectively reexecuting the undone command. The command is then pushed into the doneCommandStack to ensure that the we can undo and redo the same command over and over. 
+
+This method of implemeting the undo/redo functionality was chosen due to its simplicity of implementation, as well as the relatively light memory usage, especially when compared to the 'save entire state' method of implementation.
+
+//@@author
+
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
