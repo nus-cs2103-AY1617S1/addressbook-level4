@@ -13,7 +13,7 @@ public class UndoCommand extends Command {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": \t undoes previous command.";
     public static final String MESSAGE_UNDO_TASK_SUCCESS = "Undo successful";
-    public static final String MESSAGE_UNDO_INVALID_STATE = "Undo is not successful because there is no previous command";
+    public static final String MESSAGE_UNDO_INVALID_STATE = "Undo is not successful because there is no previous undoable command";
     
     public UndoCommand() {}
 
