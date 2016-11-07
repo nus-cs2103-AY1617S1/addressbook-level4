@@ -185,11 +185,11 @@ If you have entered an entry wrongly or if the date of your event has changed, U
 		
 Upon entering your command, you will be able to view the updated task in the task list panel. For example, the initial task 2 is as shown below. 
 
-   > <img src="UserGuideImages/Edit_1.JPG" width="500"> <br>
+   > <img src="UserGuideImages/Edit1.JPG" width="500"> <br>
    
 To edit the task, you can enter ` Edit 2 Cs2103 UserGuide d/12-11-2016 s/1800 e/1900` Upon entering, the task will be automatically updated to show you the updated task as shown below. 
 
-   > <img src="UserGuideImages/Edit_2.JPG" width="500"> <br>
+   > <img src="UserGuideImages/Edit2.JPG" width="500"> <br>
 
 <br>
 <br>
