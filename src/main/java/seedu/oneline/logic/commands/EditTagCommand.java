@@ -73,7 +73,9 @@ public class EditTagCommand extends EditCommand {
             String newName = fields.get(TagField.NAME);
             Tag newTag = null;
             try {
-                newTag = Tag.getTag(newName);
+                newTag = newName.isEmpty() ?
+                            Tag.getDefault() :
+                            Tag.getTag(newName);
             } catch (IllegalValueException e) {
                 assert false;
             }
