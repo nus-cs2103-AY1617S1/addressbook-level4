@@ -54,18 +54,17 @@
 
 ### Undo commands
 
-- Undo last command: `undo` or <kbd>Ctrl</kbd> + <kbd>Z</kbd>
+- Undo last command: `undo` or <kbd>Ctrl</kbd> + <kbd>Z</kbd><br>
 > The last 'delete 1 2 3' command is undone, and all 3 deleted tasks are added back.
 
 ### Redo commands
 
-- Redo the last undone command: `redo` or <kbd>Ctrl</kbd> + <kbd>Y</kbd>
+- Redo the last undone command: `redo` or <kbd>Ctrl</kbd> + <kbd>Y</kbd><br>
 > The last undone `delete 1 2 3` command is redone, so all 3 tasks are deleted again.
 
 ### Modify tasks
 
-- Modify a task: `modify 1 t/Buy working supplies s/11-10-16 3pm e/11-10-16 4pm l/Popular Bookstore d/Pens p/Low`
-
+- Modify a task: `modify 1 t/Buy working supplies s/11-10-16 3pm e/11-10-16 4pm l/Popular Bookstore d/Pens p/Low`<br>
 > Changes the task listed at index 1 (Christmas shopping) to Buy working supplies, with new start date Nov 10 3pm and end date Nov 10 4pm, and priority level changed to 'Low'.
 > Also adds a new location: Popular Bookstore, and new description: Pens.
 
