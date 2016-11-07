@@ -20,32 +20,38 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private static final String DEFAULT_STATUS = "default";
     
     @Test
-    public void edit() {
+    public void edit_changeList() {
         
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         //Tests for edits that remove or add parameters - change between categories
         //edit from deadline to todo
-        TestTask taskToEdit = td.todo;
+        TestTask taskToEdit = td.addTodo;
         int targetIndex = currentList.size('d');
         assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, DEFAULT_STATUS);
 
         //edit from event to deadline
-        taskToEdit = td.deadline;
+        taskToEdit = td.addDeadline;
         targetIndex = currentList.size('e');
         assertEditSuccess(taskToEdit, targetIndex, 'e', currentList, false, DEFAULT_STATUS);
         
         //edit from todo to event
-        taskToEdit = td.event;
+        taskToEdit = td.addEvent;
         targetIndex = currentList.size('t');
-        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, false, DEFAULT_STATUS);
+        assertEditSuccess(taskToEdit, targetIndex, 't', currentList, false, DEFAULT_STATUS);   
+    }
+    
+    @Test
+    public void edit() {
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         //editing date of deadline using date only
-        commandBox.runCommand("edit d1 24/12/2016");
-        taskToEdit = td.editedDeadline;
+        commandBox.runCommand("edit d1 " + td.editedDeadline.getDateString());
+        TestTask taskToEdit = td.editedDeadline;
         assertEditSuccess(taskToEdit, 1, 'd', currentList, true, DEFAULT_STATUS);
         
-        commandBox.runCommand("edit e1 12/12/2016 to 17/12/2016");
+        System.out.println("edit ed " + td.editedEvent.getDateString());
+        commandBox.runCommand("edit e1 " + td.editedEvent.getDateString());
         taskToEdit = td.editedEvent;
         assertEditSuccess(taskToEdit, 1, 'e', currentList, true, DEFAULT_STATUS);
         
@@ -60,6 +66,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
                 Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         
         //edit into duplicate task
+        int targetIndex = currentList.size('e');
         commandBox.runCommand(td.editedDeadline.getEditCommand(targetIndex - 1, 'e'));
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(currentList.isListMatching(taskListPanel));
@@ -78,7 +85,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         targetIndex = currentList.size('t') + 1;
-        commandBox.runCommand(td.todo.getEditCommand(targetIndex, 't'));
+        commandBox.runCommand(td.addTodo.getEditCommand(targetIndex, 't'));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         assertTrue(currentList.isListMatching(taskListPanel));
 
@@ -92,7 +99,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("done d1");
         commandBox.runViewAllCommand();
         int targetIndex = currentList.size('d');
-        TestTask taskToEdit = td.deadline;
+        TestTask taskToEdit = td.addDeadline;
         assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, DONE_STATUS);
     }
     
@@ -100,7 +107,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     public void edit_overdueDeadlineTask() {
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         //edit an overdue deadline
-        TestTask taskToEdit = td.overdueDeadline;
+        TestTask taskToEdit = td.overDeadline;
         int targetIndex = currentList.size('d');
         assertEditSuccess(taskToEdit, targetIndex, 'd', currentList, false, OVERDUE_STATUS);
     }
@@ -124,7 +131,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     public void edit_markedAsDoneEvent() {
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         //edit an event that was manually marked as done by user previously.
-        TestTask taskToEdit = td.event;
+        TestTask taskToEdit = td.addEvent;
         commandBox.runViewAllCommand();
         commandBox.runCommand("done e2");
         int targetIndex = currentList.size('e');

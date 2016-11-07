@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -110,7 +112,48 @@ public class TestUtil {
             //not possible
         }
     }
+    
+    //@@author A0139930B
+    /**
+     * Returns a String representing today's date plus daysToAdd
+     * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
+     * 
+     * @param daysToAdd is the number of days to add to today. Can be negative.
+     * @param minutesToAdd is the number of minutes to add, increase the date overflows
+     */
+    public static String getDateFromToday(int daysToAdd, int minutesToAdd) {
+        LocalDateTime date = LocalDateTime.now().plusDays(daysToAdd).plusMinutes(minutesToAdd);
+        return date.format(TaskDate.DATE_FORMATTER_STORAGE);
+    }
+    
+    /**
+     * Returns a String representing today's date
+     * String format is the format for Storage from TaskDate, DATE_FORMATTER_STORAGE
+     */
+    public static String getDateToday() {
+        return getDateFromToday(0, 0);
+    }
+    
+    /**
+     * Returns a String representing the current time
+     * String format is the format for Storage from TaskTime, TIME_FORMATTER_STORAGE
+     * 
+     * @param minutesToAdd is the number of minutes to the current time. Can be negative.
+     */
+    public static String getTimeFromNow(int minutesToAdd) {
+        LocalTime time = LocalTime.now().plusMinutes(minutesToAdd);
+        return time.format(TaskTime.TIME_FORMATTER_STORAGE);
+    }
+    
+    /**
+     * Returns a String representing the current time
+     * String format is the format for Storage from TaskTime, TIME_FORMATTER_STORAGE
+     */
+    public static String getTimeNow() {
+        return getTimeFromNow(0);
+    }
 
+    //@@author
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
@@ -341,7 +384,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(TaskCardHandle card, ReadOnlyTask person) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask person) {
         return card.isSameTask(person);
     }
 

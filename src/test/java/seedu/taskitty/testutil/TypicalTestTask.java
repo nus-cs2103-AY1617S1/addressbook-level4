@@ -10,42 +10,52 @@ import seedu.taskitty.model.task.*;
 public class TypicalTestTask {
 
     //@@author A0139930B
-    public static TestTask read, spring, shop, dinner, todo, deadline, overdueDeadline, event, overEvent, 
+    public TestTask todo, deadline, comingEvent, todayEvent, addTodo, addDeadline, overDeadline, addEvent, overEvent, 
                            editedDeadline, editedEvent;
     
     public TypicalTestTask() {
         try {
-            read = new TaskBuilder().withName("read clean code").withTags("important").build();
-            spring = new TaskBuilder().withName("spring cleaning")
-                    .withDeadline("31/12/2016", "15:00")
+            todo = new TaskBuilder().withName("todo").withTags("random").build();
+            deadline = new TaskBuilder().withName("upcoming deadline")
+                    .withDeadline(TestUtil.getDateFromToday(2, 60), TestUtil.getTimeFromNow(60))
                     .build();
-            shop = new TaskBuilder().withName("shop for xmas")
-                    .withEvent("12/12/2016", "10:00", "12/12/2016", "19:00")
+            comingEvent = new TaskBuilder().withName("upcoming event")
+                    .withEvent(TestUtil.getDateFromToday(2, 100), TestUtil.getTimeFromNow(100),
+                            TestUtil.getDateFromToday(2, 220), TestUtil.getTimeFromNow(220))
                     .build();
-            dinner = new TaskBuilder().withName("xmas dinner")
-                    .withEvent("25/12/2016", "18:30", "26/12/2016", "02:00")
-                    .withTags("important").build();
+            todayEvent = new TaskBuilder().withName("today event")
+                    .withEvent(TestUtil.getDateToday(), TestUtil.getTimeNow(),
+                            TestUtil.getDateToday(), "23:59")
+                    .withTags("random").build();
             
             //manually added
-            todo = new TaskBuilder().withName("todo").withTags("generic").build();
-            deadline = new TaskBuilder().withName("deadline")
-                    .withDeadline("23/12/2016", "08:00")
-                    .withTags("generic").build();
-            editedDeadline = new TaskBuilder().withName("deadline")
-                    .withDeadline("24/12/2016", "08:00")
-                    .withTags("generic").build();
-            overdueDeadline = new TaskBuilder().withName("deadline")
-                    .withDeadline("23/10/2016", "08:00")
-                    .withTags("generic").build();
-            event = new TaskBuilder().withName("event")
-                    .withEvent("13/12/2016", "13:00", "15/12/2016", "10:00")
-                    .withTags("generic").build();
-            editedEvent = new TaskBuilder().withName("shop for xmas")
-                    .withEvent("12/12/2016", "10:00", "17/12/2016", "19:00")
+            addTodo = new TaskBuilder().withName("added todo").withTags("added").build();
+            addDeadline = new TaskBuilder().withName("added deadline")
+                    .withDeadline(TestUtil.getDateFromToday(2, -60), TestUtil.getTimeFromNow(-60))
+                    .withTags("added").build();
+            addEvent = new TaskBuilder().withName("added event")
+                    .withEvent(TestUtil.getDateFromToday(1, 0), TestUtil.getTimeFromNow(120),
+                            TestUtil.getDateFromToday(3, 120), TestUtil.getTimeFromNow(120))
+                    .withTags("added").build();
+            
+            overDeadline = new TaskBuilder().withName("over deadline")
+                    .withDeadline(TestUtil.getDateFromToday(-1, 60), TestUtil.getTimeFromNow(60))
+                    .withTags("added").build();
+            overEvent = new TaskBuilder().withName("over Event")
+                    .withEvent(TestUtil.getDateFromToday(-2, -60), TestUtil.getTimeFromNow(-60),
+                            TestUtil.getDateFromToday(-2, 0), TestUtil.getTimeNow())
+                    .withTags("random").build();
+            
+            editedDeadline = new TaskBuilder().withName("upcoming deadline")
+                    .withDeadline(TestUtil.getDateFromToday(3, 60), TestUtil.getTimeFromNow(60))
                     .build();
-            overEvent = new TaskBuilder().withName("overEvent")
-                    .withEvent("02/01/2016", "12:00", "03/01/2016", "12:00")
-                    .withTags("generic").build();
+            /*editedDeadline = new TaskBuilder().withName("upcoming deadline")
+                    .withDeadline(TestUtil.getDateFromToday(3, -60), TestUtil.getTimeFromNow(-60))
+                    .withTags("added").build();*/
+            editedEvent = new TaskBuilder().withName("today event")
+                    .withEvent(TestUtil.getDateFromToday(1, 0), TestUtil.getTimeNow(),
+                            TestUtil.getDateFromToday(1, 0), "23:59")
+                    .withTags("random").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -55,18 +65,19 @@ public class TypicalTestTask {
 
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
+        TypicalTestTask td = new TypicalTestTask();
         try {
-            ab.addTask(new Task(read));
-            ab.addTask(new Task(spring));
-            ab.addTask(new Task(shop));
-            ab.addTask(new Task(dinner));
+            ab.addTask(new Task(td.todo));
+            ab.addTask(new Task(td.deadline));
+            ab.addTask(new Task(td.comingEvent));
+            ab.addTask(new Task(td.todayEvent));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{read, spring, shop, dinner};
+        return new TestTask[]{todo, deadline, comingEvent, todayEvent};
     }
     
     //@@author

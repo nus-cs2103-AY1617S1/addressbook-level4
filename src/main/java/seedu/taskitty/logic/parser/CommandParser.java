@@ -41,6 +41,9 @@ public class CommandParser {
     
     public static final int DAY_COMPONENT_INDEX = 0;
     public static final int MONTH_COMPONENT_INDEX = 1;
+    
+    //the time must match approx to the second.
+    private static final String TIME_APPROX = "HH:mm:ss";
 
     /**
      * Used for initial separation of command word and args.
@@ -419,20 +422,29 @@ public class CommandParser {
      * @param date retrieved using Natty
      */
     private String extractLocalTime(Date date) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT_STRING);
-        String currentTime = timeFormat.format(new Date());
-        String inputTime = timeFormat.format(date);
-
-        if (currentTime.equals(inputTime)) {
+        if (isTimeApproxEqualToNow(date)) {
             // Natty parses the current time if string does not include time.
             // We want to ignore input when current time equal input time
             return null;
         }
-        return inputTime;
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TaskTime.TIME_FORMAT_STRING);
+        return timeFormat.format(date);
 
     }
+    
+    /**
+     * Checks if the date given is approximately equal to the date now.
+     * The date can be different by maximum of the time in milliseconds of TIME_APPROX_DELAY.
+     */
+    private boolean isTimeApproxEqualToNow(Date date) {
+        assert date != null;
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_APPROX);
+        String currentTime = timeFormat.format(new Date());
+        String inputTime = timeFormat.format(date);
+        
+        return currentTime.equals(inputTime);
+    }
 
-    // @@author A0139930B
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.

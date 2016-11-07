@@ -13,21 +13,21 @@ public class FindCommandTest extends TaskManagerGuiTest {
     @Test
     public void find_nonEmptyList() {
         //find no results
-        assertFindResult("find task", new TestTask[0], new TestTask[0], new TestTask[0]);
+        assertFindResult("find nothing", new TestTask[0], new TestTask[0], new TestTask[0]);
         
         //find by tag
-        TestTask[] expectedTagTodoHits = { td.read };
-        TestTask[] expectedTagEventHits = { td.dinner };
-        assertFindResult("find #important", expectedTagTodoHits, new TestTask[0], expectedTagEventHits);
+        TestTask[] expectedTagTodoHits = { td.todo };
+        TestTask[] expectedTagEventHits = { td.todayEvent };
+        assertFindResult("find #random", expectedTagTodoHits, new TestTask[0], expectedTagEventHits);
         
         //find by keyword
-        TestTask[] expectedEventHits = { td.shop, td.dinner };
-        assertFindResult("find xmas", new TestTask[0], new TestTask[0], expectedEventHits);
+        TestTask[] expectedEventHits = { td.todayEvent, td.comingEvent };
+        assertFindResult("find event", new TestTask[0], new TestTask[0], expectedEventHits);
 
         //find after deleting one result
         commandBox.runCommand("delete e1");
-        TestTask[] expectedEventHitsAfterDelete = { td.dinner };
-        assertFindResult("find xmas", new TestTask[0], new TestTask[0], expectedEventHitsAfterDelete);
+        TestTask[] expectedEventHitsAfterDelete = { td.comingEvent };
+        assertFindResult("find event", new TestTask[0], new TestTask[0], expectedEventHitsAfterDelete);
     }
 
     //@@author
