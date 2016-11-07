@@ -59,7 +59,7 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -73,15 +73,19 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+command `add shopping` which refers to adding a floating task named shopping.
 
 <img src="images\SDforAddTask.png" width="800">
+
+This _Sequence Diagram_ below shows how components interact similarly as above with a different command `delete 1` which refers to delete the first task on the to-do list.
+
+<img src="images\SDforDeleteTask.png" width="800">
 
 >Note how the `Model` simply raises a `TaskManager ChangedEvent` when the to-do list data are changed,
 instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. The sequence diagram below is the one showing the event handling of add command. <br>
 <img src="images\SDforAddTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -104,6 +108,8 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 that are in the `src/main/resources/view` folder.<br>
 For example, the layout of the [`MainWindow`](../src/main/java/seedu/task/ui/MainWindow.java) is specified in
 [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+
+<img src="images/UiPanelImage.png" width="800"><br>
 
 The `UI` component,
 * Executes user commands using the `Logic` component.
@@ -237,8 +243,10 @@ Here are the steps to create a new release.
 A project often depends on third-party libraries. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
+PrettyTime is another library which is used for time formatting.
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
 
 <!-- @@author A0153467Y-->
 ## Appendix A : User Stories
@@ -258,14 +266,19 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task from to-do list| find details of tasks without having to go through the entire list
 `* * *` | user | update a task | change the specifications of a specific task
 `* * *` | user | see the entire to-do list | know the number of task/ event that I have
-`* * *` | user | specify the file location of the task list | store the list in a more convenient location (such as Dropbox)
+`* * *` | user | specify the file location of the task list | store the list in a more convenient location
 `* *` | user | mark a task as completed | distinguish between completed and pending tasks
 `* *` |user | be able to mark certain tasks as important | easily distinguish tasks that require attention/action to be taken
 `* *` | user | alias commands to symbols
 `* *` | user | do a live search for commands
- 
+`*` | user | unmark a completed task| change my mind if that task is actullay not completed
+`*` | user | unpin a pinned task| change my mind if that task is not important anymore
+
 ## Appendix B : Use Cases
- 
+
+The activity diagram below shows the simple flow of getting command from user<br>
+<img src="images/ActivityDiagram.jpg" width="600"><br>
+
 (For all use cases below, the **System** is the `MESS` and the **Actor** is the `user`, unless specified otherwise)
  
 #### Use case: Add task
@@ -285,7 +298,7 @@ Use case ends.
 1b. The task name already exists on the list.
 > MESS shows a message to inform user that task already exists
 Use case ends.
-
+<!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Alias command
  
@@ -308,24 +321,10 @@ Use case ends.
 1c. The command already has an alias
 > MESS maps the given symbol to the command, as a command can have multiple aliases
 Use case ends.
-<!- @@author --> 
- 
-#### Use case: Delete task by task name
- 
-**MSS**
- 
-1. User request to delete task by task name
-2.  MESS deletes the task <br>
-Use case ends.
- 
-**Extensions**
- 
-1a. The list is empty
->Use case ends
- 
-1b. No task match with task name
-> Use case ends
- 
+
+<!-- @@author --> 
+
+<!-- @@author A0153467Y --> 
 #### Use case: Delete task by index
  
 **MSS**
@@ -353,8 +352,8 @@ Use case ends.
 
 1. User requests to list tasks
 2. MESS shows a list of tasks
-3. User requests to update a specific task in the list
-4. MESS deletes the person <br>
+3. User requests to update a specific task by index in the list
+4. MESS updates the task <br>
 Use case ends.
  
 **Extensions**
@@ -368,7 +367,101 @@ Use case ends.
 >MESS shows an error message <br>
    User case ends.
 
- #### Use case: Undo previous action
+#### Use case: Pin task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to pin a specific task by index in the list
+4. MESS pins the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.   
+
+#### Use case: Unpin task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to unpin a pinned task by index in the list
+4. MESS unpins the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+> MESS shows an error message <br>
+   User case ends.
+   
+3b. The task is not pinned before
+ 
+> MESS shows an error message <br>
+  User case ends.   
+   
+#### Use case: Complete task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a specific task as completed by index in the list
+4. MESS marks the task <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.   
+   
+#### Use case: Uncomplete task
+ 
+**MSS**
+
+1. User requests to list tasks
+2. MESS shows a list of tasks
+3. User requests to mark a completed task as not completed by index in the list
+4. MESS marks the task back to not completed <br>
+Use case ends.
+ 
+**Extensions**
+ 
+1a. The list is empty
+ 
+> User case ends
+ 
+3a. The given index is invalid
+ 
+>MESS shows an error message <br>
+   User case ends.  
+
+3b. The task is not marked as completed before
+ 
+>MESS shows an error message <br>
+   User case ends. 
+   
+#### Use case: Undo previous action
 
 **MSS**
 
@@ -416,7 +509,7 @@ Use case ends.
 
 > Nothing will be returned. <br>
 Use case ends.
-
+<!-- @@author -->
 <!-- @@author A0144939R -->
 #### Use case: Change storage location
 
@@ -437,22 +530,27 @@ Use case ends.
 Use case ends.
 
 <!-- @@author -->
+<!-- @@author A0153467Y -->
 ## Appendix C : Non Functional Requirements
  
 1. Should work on any mainstream OS as long as it has Java `1.8.0_60` or higher installed
-2. Should be able to process user’s request and show result in 2 seconds.
-3. Should be user-friendly for both beginners and advanced users.
-4. Should be able to hold up to 1000 tasks.
+2. Should be able to process user’s request and show result in 3 seconds
+3. Should be user-friendly for both beginners and advanced users
+4. Should be able to hold up to 1000 tasks
 5. Should be able to work offline
-6. Should only input by keyboard
+6. Should only input by keyboard for command line
 7. Should be able to change the storage location of data file
-8. Should come with automated unit tests and open source code.
+8. Should come with automated unit tests and open source code
 
 ## Appendix D : Glossary
  
 ##### Mainstream OS
  
 > Windows, Linux, Unix, OS-X
+
+##### Floating Tasks
+
+> A task that does not have open time and close time
 
 <!-- @@author-->
 ## Appendix E : Product Survey
@@ -526,4 +624,5 @@ Use case ends.
 
 #### Summary
 
-In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, priority for tasks and the tag for tasks are some important features.
+In summary, there are a few strengths that the existing products have. They all have simple interfaces so that users can look at their to-do lists in a clear way. Many of them have notifications and priority which can be set for each task which is good for user to find urgent task. Categorize tasks is another key point for most of the products. This can let users to find out the relevant tasks easily. One of the existed product is quite similar to our application which are using one-line command to control the application. However, the interface of this software need to be improved. Therefore, interface, having priority for tasks and tags for tasks are some important features.
+<!-- @@author -->
