@@ -6,463 +6,386 @@
 ## Load SampleData.xml
 ------
 > **Instructions:**
- - 1. Create a folder called `data` at the same directory as `happyjimtaskmaster.jar` executable.
- - 2. Copy and paste `SampleData.xml` into that folder.
+ - 1. Create a folder called `data` at the same directory as `sTask.jar` executable.
+ - 2. Copy and paste `SampleData.xml` into that folder and rename it as 'data.xml'.
  - 3. Run `sTask.jar`.
 
 ------
-## 0. Help Command
+## 1. Help Command
 ------
-### 0.1 Open help window
+### 1.1 Open help window
 > **Command:** `help` <br>
 > **Result:**
  - Result display panel posts message: <br>
     `Opened help window.`
- - Help window pops up and shows user guide.
+ - Help window pops up and shows a summary of commands.
 
 ------
-## 1. Add Command
+## 2. Add Command
 ------
-### 1.1 Add a To Do task (floating task)
+### 2.1 Add a To Do task (floating task)
 > **Command:** `add Claim coffee d/Starbucks` <br>
 > **Result:** <br>
  - ResultDisplay panel posts message: <br>
     `New task added: Claim coffee Description: Starbucks'
- - To Do panel (left panel) scrolls to and selects newly added task card.
+ - To Do panel (left panel) selects newly added task card.
  - Default: To Do task has a white border 
 
-### 1.2 Add a Deadline task
+### 2.2 Add a Deadline task
 > **Command:** `add Finish project proposal date/next friday 5pm t/important`<br>
 > **Result:**<br>
  - ResultDisplay panel posts message:<br>
     `New task added: Finish project proposal Date: 18-Nov-2016 Time: 17:00 Tags: [important]'
- - Events / Deadlines panel (right panel) scrolls to and selects newly added task card
- - Default: Deadline task has a white border
- - Overdue: Deadline task has a red border 
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Deadline task has a white border (unless it is overdue at the point of adding, where it will have a red border)
 
-### 1.3 Add an Event
-> **Command:** `add Meeting with client d/Prepare documents date/28-10-2016 10am to 28-10-2016 12pm `<br>
+### 2.3 Add a overdue Deadline task
+> **Command:** `add Present EE2020 project date/7 Nov 2016 3.15pm`<br>
+> **Result:**<br>
+ - ResultDisplay panel posts message:<br>
+    `New task added: Present EE2020 project Date: 7-Nov-2016 Time: 15:15'
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Overdue deadline task has a red border.
+
+### 2.4 Add an Event
+> **Command:** `add Meeting with client d/Prepare documents date/28-11-2016 10am to 28-11-2016 12pm `<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `New task added: Meeting with client Description: Prepare documents Date: 28-Oct-2016 Time: 10:00`
- - TaskList panel navigates to and displays newly added task card.
- - Default: Event has a white border
+    `New task added: Meeting with client Description: Prepare documents Date: 28-Nov-2016 Time: 10:00 to 12:00`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Event has a white border (unless it is expired at the point of adding, where it will have a pink border)
+
+### 2.5 Add an expired Event
+> **Command:** `add Lunch with Jim date/28-Oct-2016 12pm to 1pm `<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `New task added: Lunch with Jim Description: Prepare documents Date: 28-Oct-2016 Time: 12:00 to 13:00`
+ - Events / Deadlines panel (right panel) selects newly added task card
  - Expired: Event has a pink border 
 
-------
-## 2. Block Command
-------
-### 2.1 Block a time slot
-> **Command:** `block from tomorrow 4pm to 6pm t/meeting`<br>
+### 2.6 Add an Event that spans across dates
+> **Command:** `add Attend Halloween event d/At Sentosa date/28-Sep-2016 10am to 30-Sep-2016 10pm`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `Timeslot blocked: BLOCKED SLOT Tags: [meeting]
-	\nRecurring: NONE`
- - TaskList panel navigates to and displays newly added task card.
- - Note: brown background for a blocked slot.
- 
-### 2.2 Verifies blocked slot
-> **Command:** `add afternoon tea from tomorrow 5.30pm to 6.30pm`<br>
+    `New task added: Attend Halloween event Description: At Sentosa Date: 28-Sep-2016 to 30-Sep-2016 Time: 10:00 to 22:00`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Expired: Event has a pink border 
+
+### 2.7 Add with invalid delimiter
+> **Command:** `add Valid Task Name e/Wrong parameter for description date/tmr`<br>
 > **Result:**<br>
- - Result display panel posts warning message:<br>
-    `This timeslot is already blocked or overlapped with existing tasks.`
- - Text remains in the command box.
- - Command box background turns orange to show warning.
- 
+ - Result display panel posts error:<br>
+    `Invalid Command Format!`
+    `add: Adds a task to the task book.`
+    `Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...`
+    `Example: add Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/important`
+ - Command input box turns red to prompt user that there is an error.
+
+### 2.8 Add without task name
+> **Command:** `add d/No name put in`<br>
+> **Result:**<br>
+ - Result display panel posts error:<br>
+    `Invalid Command Format!`
+    `add: Adds a task to the task book.`
+    `Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...`
+    `Example: add Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/important`
+ - Command input box turns red to prompt user that there is an error.
+
+### 2.9 Add a task with name that contains '/'
+> **Command:** `add hello/world d/Invalid name`<br>
+> **Result:**<br>
+ - Result display panel posts error:<br>
+    `Invalid Command Format!`
+    `add: Adds a task to the task book.`
+    `Parameters: TASKNAME d/TASK_DESCRIPTION date/DD-MM-YYYY [24HR] [to 24HR] [t/TAG]...`
+    `Example: add Wash Clothes d/Wash with detergent date/27-9-2016 2359 t/important`
+ - Command input box turns red to prompt user that there is an error.
+
+### 2.10 Add a deadline with date that delimits by '.'
+> **Command:** `add hello world d/Wrong date format date/11.11.2011`<br>
+> **Result:**<br>
+ - Result display panel posts error:<br>
+    `Date should be in DD-MM-YYYY format and cannot contain '.' character`
+ - Command input box turns red to prompt user that there is an error.
+
+### 2.11 Add a event with end date earlier than the start date
+> **Command:** `add Hello World date/today to yesterday`<br>
+> **Result:**<br>
+ - Result display panel posts error:<br>
+    `Date should have its start time before its end time.`
+ - Command input box turns red to prompt user that there is an error.
+
+### 2.12 Add a to do task with non-alphanumeric tags
+> **Command:** `add Hello World t/!!!`<br>
+> **Result:**<br>
+ - Result display panel posts error:<br>
+    `Tags names should be alphanumeric`
+ - Command input box turns red to prompt user that there is an error.
+
 ------
-## 3. Delete Command
+## 3. List Command
 ------
-### 3.1 Delete task
-> **Command:** `delete (index)`<br>
- - index: the second last index in the list, which is an instance of `tennis training`.<br>
+### 3.1 List all uncompleted to do, events and deadlines
+> **Command:** `list all`<br>
+> **Result:**<br>
+ - ResultDisplay panel posts message:<br>
+    `Listed all tasks`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 35
+ - Deselects any currently selected task, which are indicated by a green border.
+ - Note: Expired events are labelled in pink, overdue deadlines are labelled in red.
+ - All other uncompleted tasks are labelled in white.
  
+### 3.2 List all completed to do, events and deadlines
+> **Command:** `list done`<br>
+> **Result:**<br>
+ - ResultDisplay panel posts message:<br>
+    `Listed completed tasks.`
+ - Number of tasks displayed on To Do: 3
+ - Number of tasks displayed on Events / Deadlines: 4
+ - Deselects any currently selected task, which are indicated by a green border.
+ - Note: Completed tasks are labelled in blue.
+ 
+### 3.3 List all overdue and expired deadlines
+> **Command:** `list od`<br>
+> **Result:**<br>
+ - ResultDisplay panel posts message:<br>
+    `Listed overdue and expired tasks.`
+ - Number of tasks displayed on To Do: 0
+ - Number of tasks displayed on Events / Deadlines: 23
+ - Deselects any currently selected task, which are indicated by a green border.
+ - Note: Expired events are labelled in pink, overdue deadlines are labelled in red.
+ - Note: Number of overdue and expired tasks might change according to time. (Data as of 7 Nov 2016, 1.55pm)
+ 
+### 3.4 List with invalid arguments
+> **Command:** `list crazy`<br>
+> **Result:**<br>
+ - ResultDisplay panel posts message:<br>
+    `Invalid Command Format!`
+    `list: Lists the tasks in the address book.`
+    `Parameters: list all/od/done`
+    `Example: list done`
+ - Command input box turns red to prompt user that there is an error.
+
+------
+## 4. Edit Command
+------
+### 4.1 Edit name of task
+> **Before:** `buy micro usb cable`<br>
+> **Command:** `edit A1 buy mini usb cable`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `Deleted Task: tennis training Tags: 
-	\nRecurring: WEEKLY repeat 3 times
-	\nFrom: [Formatted date of three weeks later] 07.00PM To: [Formatted date of three weeks later] 07.30PM`
- - TaskList panel removes all occurrences of the task. 
- - Agenda panel removes all occurrences of the task.
- 
-------
-## 4. Complete Command
-------
-### 4.1 Archive non-recurring task
-> **Command:** `done (index)`<br>
- - index: the fourth last index in the list, which is `business report`.<br>
- 
+    `Edited Task: buy mini usb cable Description: spare`
+ - To Do panel (left panel) selects newly added task card.
+ - Default: To Do task has a white border 
+
+### 4.2 Edit description of task
+> **Before:** `Starbucks`<br>
+> **Command:** `edit A5 d/Coffee Bean`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `Completed Task: business report Tags: [assignment]
-	\nRecurring: NONE
-	\nBy: [Formatted date of tomorrow] 06.00PM`
- - TaskList panel hides the newly archived task card. 
- - Agenda panel updates if it is a time slot task, the background change from blue to green to indicate type change.
- - Note: green background indicates archived task.
- 
-### 4.2 Archive recurring task
-> **Command:** `done (index)`<br>
- - index: the second last index in the list, which is `jogging`.<br>
- 
+    `Edited Task: Claim coffee Description: Coffee Bean`
+ - To Do panel (left panel) selects newly added task card.
+ - Default: To Do task has a white border 
+
+ ### 4.3 Edit to remove description of task
+> **Before:** `hong yu`<br>
+> **Command:** `edit A2 d/`<br>
 > **Result:**<br>
  - Result display panel posts message:<br>
-    `Completed Task: jogging Tags: 
-	\nRecurring: DAILY always
-	\nFrom: [Formatted date of today] 09.00PM To: [Formatted date of today] 10.00PM`
- - TaskList panel hides the newly archived task card, appends the next at the end of list. 
- - Agenda panel updates, the background change from blue to green to indicate type change.
- - Note: green background indicates archived task.
+    `Edited Task: buy new bag`
+ - To Do panel (left panel) selects newly added task card.
+ - Default: To Do task has a white border 
+
+ ### 4.4 Edit date of event
+> **Before:** `03-Nov-2016 09:00 to 10:00`<br>
+> **Command:** `edit B7 date/20-Dec-2016 9am to 10am`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Edited Task: breakfast with 2103 team Date: 20-Dec-2016 Time: 09:00 to 10:00 Tags: [BestTeam]`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Event has a white border (unless it is expired at the point of adding, where it will have a pink border)
+
+ ### 4.5 Edit date of deadline
+> **Before:** `02-Nov-2016 17:00`<br>
+> **Command:** `edit B3 date/30-Dec-2016 5pm`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Edited Task: Edited Task: cook rice Description: dinner Date: 30-Dec-2016 Time: 17:00`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Deadline task has a white border (unless it is overdue at the point of adding, where it will have a red border)
+
+### 4.6 Edit from event to deadline
+> **Before:** `03-Nov-2016 00:00 to 23:59`<br>
+> **Command:** `edit B4 date/3-Nov-2016 2pm`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Edited Task: Edited Task: bring windows laptop Date: 03-Nov-2016 Time: 14:00`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Deadline task has a white border (unless it is overdue at the point of adding, where it will have a red border)
+
+### 4.7 Edit from to do task to deadline
+> **Before:** ``<br>
+> **Command:** `edit A2 date/xmas`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Edited Task: Edited Task: buy new bag Date: 25-Dec-2016 Time: 23:59`
+ - Events / Deadlines panel (right panel) selects newly added task card
+ - Default: Deadline task has a white border (unless it is overdue at the point of adding, where it will have a red border)
+
+### 4.8 Edit from deadline to to do task
+> **Before:** `26-Nov-2016 13:00`<br>
+> **Command:** `edit B31 date/`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Edited Task: Edited Task: cs2103T finals Tags: [exam]`
+ - To Do panel (left panel) selects newly added task card.
+ - Default: To Do task has a white border 
 
 ------
 ## 5. Find Command
 ------
-### 5.1 Find by name
-> **Command:** `find cs2103t`<br>
+### 5.1 Find by tags
+> **Command:** `find cs210`<br>
 > **Result:**
- - Result display panel posts message:<br>
-    `3 tasks listed!`
- - TaskList panel lists all tasks whose name contains cs2103t.
- - There should be 3 tasks in total.
- - Note: Archived tasks are also displayed.
- 
-### 5.2 Find by tags
-> **Command:** `find t/reading t/western`<br>
-> **Result:**<br>
  - Result display panel posts message:<br>
     `5 tasks listed!`
- - TaskList panel lists all tasks whose tags contains the given ones.
- - There should be 5 tasks in total. 
- - Note: Archived tasks are also displayed.
+ - To Do panel (left panel) lists all tasks that has any field that contains cs210.
+ - Events / Deadlines panel (right panel) lists all tasks that has any field that contains cs210.
+ - Number of tasks displayed on To Do: 1
+ - Number of tasks displayed on Events / Deadlines: 4
  
-### 5.2 Find by deadline
-> **Command:** `find by tomorrow 23.59`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of listed tasks] tasks listed!`
- - TaskList panel lists all deadline tasks due before given time. 
- - There should be at least 4 tasks, actual number depends on the day the test is perfromed.
- - Note: Archived tasks are also displayed.
- 
-### 5.3 Find by time slot
-> **Command:** `find from 10 nov to 10 dec`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `23 tasks listed!`
- - TaskList panel lists all non-floating tasks start after given start time and due before given end time. 
- - There should be at least 23 tasks, actual number depends on the day the test is perfromed.
- - Note: Archived tasks are also displayed.
- 
-### 5.4 Find by task type
-#### 5.4.1 Find archived tasks
-> **Command:** `find -C`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `12 tasks listed!`
- - TaskList panel lists all archived tasks.
- - Note: If the test is performed followed by given order, there should be exactly 12 tasks.
- 
-#### 5.4.2 Find floating tasks
-> **Command:** `find -F`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `10 tasks listed!`
- - TaskList panel lists all floating tasks.
- - Note: If the test is performed followed by given order, there should be exactly 10 tasks.
- 
-### 5.5 Find by multiple attributes
-> **Command:** `find read t/western`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `1 tasks listed!`
- - TaskList panel lists all tasks with given attributes.
- - Note: If the test is performed followed by given order, there should be exactly 1 task.
-
-------
-## 6. Edit Command
-------
-### 6.1 Edit name of task
-> **Before:** `find a song`<br>
-> **Command:** `edit 1 read Harry Potter`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: read Harry Potter Tags: [reading]
-	\nRecurring: NONE`
- - Note: TaskList panel updates and shows nothing, because current filter is still `find a song`.
- - To see the edited one, type eg. `find harry`.
- 
- 
-### 6.2 Edit time of task
-#### 6.2.1 Edit a floating task to a deadline
-> **Command:** `edit 1 by next monday 11pm`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: read Harry Potter Tags: [reading]
-	\nRecurring: NONE
-	\nBy: [Formatted date of next monday] 11.00PM`
- - TaskList panel navigates to newly edited task card with task date changed.
- - Task card background changes from yellow to red to indicate type change.
- - Note: Similarly: 
- - 1. convert the original floating task to a time slot, 
- - 2. or convert the deadline to a time slot, and vice versa,
- - are also supported.
- 
-#### 6.2.2 Edit the time slot for a recurring task with recurring period specified
-> **Before:** `find civ`<br>
-> **Command:** `edit 7 from 9 nov 10pm to 10.30pm`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: read civ encyclopedia Tags: 
-	\nRecurring: DAILY repeat 9 times
-	\nFrom: Wed, Nov 9 10.00PM To: Wed, Nov 9 10.30PM`
- - TaskList panel navigates to newly edited task card with task date changed.
- - Agenda panel displays the newly edited task in new position.
- - Note: Only the selected instance of the recurring task will be affected.
- 
-#### 6.2.3 Edit the time slot for a recurring task without recurring period specified
-> **Before:** `find jogging`<br>
-> **Command:** `edit 2 from tomorrow 9.30pm to 10pm`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: jogging Tags: 
-	\nRecurring: DAILY always
-	\nFrom: [Formatted date of tomorrow] 09.30PM To: [Formatted date of tomorrow] 10.00PM`
- - TaskList panel navigates to newly edited task card with task date changed.
- - Agenda panel displays the newly edited task in new position.
- - Note: All instances of the recurring task will be affected.
- 
-### 6.3 Edit recurring type of task
-> **Command:** `edit 2 none`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: jogging Tags: 
-	\nRecurring: NONE
-	\nFrom: [Formatted date of tomorrow] 09.30PM To: [Formatted date of tomorrow] 10.00PM`
- - TaskList panel navigates to newly edited task card with task recurring type changed. 
- - Agenda panel updates that no instances of the old daily task displayed.
- - The archived instance will not be affected.
- 
-### 6.4 Edit tags of task
-> **Before:** `find cs2103t` <br>
-> **Command:** `edit 2 t/urgent t/assignment`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: cs2103t demo Tags: [assignment][urgent]
-	\nRecurring: NONE
-	\nFrom: Wed, Nov 9 09.00AM To: Wed, Nov 9 10.00AM`
- - TaskList panel navigates to newly edited task card with task tag changed.
-
- 
-### 6.5 Edit multiple attributes
-> **Before:** `find blocked`<br>
-> **Command:** `edit 2 urgent meeting from tomorrow 5.30pm to 6.30pm`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Edit Task: urgent meeting Tags: [meeting]
-	\nRecurring: NONE
-	\nFrom: Tue, Nov 8 05.30PM To: Tue, Nov 8 06.30PM` 
- - Agenda panel updates to display the new slot.
- - Background changes from brown to blue to indicate type change.
- - TaskList panel will only show one other blocked slot, because current filter is still `find blocked`.
- - To see the edited copy, type eg. `find urgent meeting`.
-
-------
-## 7. List Command
-------
-### 7.1 List all active tasks
-> **Command:** `list`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Listed all tasks`
- - TaskList panel lists all tasks that are not archived.
-
-------
-## 8. View Command
-------
-### 8.1 View agenda of the day
-> **Command:** `view 15 nov`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Agenda Updated to Week specified by: [Formatted date of 15 nov depends on system language]`
- - TaskList panel lists all deadline tasks that due before and by 15 nov.
- - Agenda updates to the week of 15 nov.
- 
-------
-## 9. Undo/Redo Command
-------
-### 9.1 Undo/Redo commands that modifies data
-> **Command:** <br>
-1. `add play CS from 2am to 3am`<br>
-2. `u`<br>
-3. `r`<br>
-> **Result:**<br>
-> 1.
- - Result display panel posts message:<br>
-    `New non-floating task added: play CS Tags: 
-	\nRecurring: NONE`
- - TaskList panel navigates to and displays the newly added task.
- - Agenda panel displays the newly added task.
- 
-> 2.
- - Result display panel posts message:<br>
-    `Undo successfully`
- - TaskList panel removes the newly added task.
- - Agenda panel removes the newly added task.
- 
-> 3.
- - Result display panel posts message:<br>
-    `New non-floating task added: play CS Tags: 
-	\nRecurring: NONE`
- - TaskList panel navigates to and displays the newly added task.
- - Agenda panel displays the newly added task.
-
-### 9.2 Undo/Redo commands that mutates list/agenda view
-#### 9.2.1 Undo/Redo commands that mutates list view
-> **Command:** <br>
-1. `find -C`<br>
-2. `u`<br>
-3. `r`<br>
-> **Result:**<br>
-> 1.
- - Result display panel posts message:<br>
-    `12 tasks listed!`
- - TaskList panel displays all archived tasks.
- 
-> 2.
- - Result display panel posts message:<br>
-    `Undo successfully`
- - TaskList panel resets to previous display.
- 
-> 3.
- - Result display panel posts message:<br>
-    `12 tasks listed!`
- - TaskList panel displays all archived tasks.
-
-#### 9.2.2 Undo/Redo commands that mutates agenda view
-> **Command:** <br>
-1. `view 15 nov`<br>
-2. `u`<br>
-3. `r`<br>
-> **Result:**<br>
-> 1.
- - Result display panel posts message:<br>
-    `Agenda Updated to Week specified by: [Formatted date of 15 nov depends on system language]`
- - TaskList panel lists all deadline tasks that due on 15 nov.
- - Agenda updates to the week of 15 nov.
- 
-> 2.
- - Result display panel posts message:<br>
-    `Undo successfully.`
- - TaskList panel resets to previous display.
- - Agenda panel resets to previous display.
- 
-> 3.
- - Result display panel posts message:<br>
-    `Agenda Updated to Week specified by: [Formatted date of 15 nov depends on system language]`
- - TaskList panel lists all deadline tasks that due on 15 nov.
- - Agenda updates to the week of 15 nov.
- 
-###9.3 Undo reaches maximum times
-> **Command:** <br>
-1. Enter `u` 3 times.<br>
-2. Enter `u`<br>
-> **Result:**
- - Result display panel posts warning message:<br>
-    `No command to undo.`
- - Text stays, command box background turns orange to show warning.
- - Note: Same case for Redo.
- 
-------
-## 10. Select Command
-------
-### 10.1 Select a task
-> **Command:** `select (index)`<br>
- - index: Any number within range of tasklist.<br>
- 
-> **Result:**<br>
- - Result display panel posts message, which is the detailed information of the task.
- - TaskList panel navigates to and focuses the task card.
- - Note: If key in invalid index number, result display will post `The task index provided is invalid`.
-
-------
-## 11. Change Directory Command
-------
-### 11.1 Changes the default directory of the app
-> **Command:** `cd filepath`<br>
- - filepath: use `newfile.xml` as example.<br>
- 
+### 5.2 Find by year
+> **Command:** `find 2016`<br>
 > **Result:**
  - Result display panel posts message:<br>
-    `Alert: This operation is irreversible.
-	\nFile path successfully changed to : newfile.xml`
- - Status Foot Bar updates to show the new location.
- - Open the folder and the exported file should be there.
- - Reboot the app, it will load the file under the new path.
- - Note: If key in invalid path, result display will post `Wrong file type/Invalid file path detected.`.
- 
-------
-## 12. Navigation Bar Utilities
-------
-### 12.1 Click Today
-> **Action:** click `Today`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of tasks] tasks listed!`
- - TaskList panel lists all deadlines due today.
- - Agenda panel shows all tasks of this week.
- 
-### 12.2 Click Tasks
-> **Action:** click `Tasks`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Listed all tasks`
- - TaskList panel lists all active tasks.
-
-### 12.3 Click Deadlines
-> **Action:** click `Deadlines`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of tasks] tasks listed!`
- - TaskList panel lists all deadlines due before and by today.
- 
-### 12.4 Click Floating
-> **Action:** click `Floating`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of tasks] tasks listed!`
- - TaskList panel lists all floating tasks.
- 
-### 12.5 Click Incoming Deadlines
-> **Action:** click `Incoming Deadlines`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of tasks] tasks listed!`
- - TaskList panel lists all deadlines due before and by next week today.
- 
-### 12.6 Click Completed
-> **Action:** click `Completed`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `[number of tasks] tasks listed!`
- - TaskList panel lists all archived tasks.
- 
-------
-## 13. Clear Command
-------
-### 13.1 Delete all data
-> **Command:** `clear`<br>
-> **Result:**<br>
- - Result display panel posts message:<br>
-    `Task list has been cleared!`
- - TaskList panel removes all tasks.
- - Agenda panel removes all tasks.
+    `39 tasks listed!`
+ - To Do panel (left panel) lists all tasks that has any field that contains 2016.
+ - Events / Deadlines panel (right panel) lists all tasks that has any field that contains 2016.
+ - Number of tasks displayed on To Do: 0
+ - Number of tasks displayed on Events / Deadlines: 39
 
 ------
-## 14. Exit Command
+## 6. View Command
 ------
-### 14.1 Exit the app
+### 6.1 View all the tasks on specified date
+> **Command:** `view 7 Nov 2016`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Viewing tasks for 07-Nov-2016`
+ - Events / Deadlines panel (right panel) lists all tasks that falls on 7-Nov-2016.
+ - Number of tasks displayed on Events / Deadlines: 3 
+ - Note: To Do panel (left panel) does not change.
+
+### 6.2 View all the tasks on specified date
+> **Command:** `view valentines day`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Viewing tasks for 14-Feb-2017`
+ - Events / Deadlines panel (right panel) lists all tasks that falls on 14-Feb-2017.
+ - Number of tasks displayed on Events / Deadlines: 0
+ - Note: To Do panel (left panel) does not change.
+
+------
+## 7. Delete Command
+------
+### 7.1 Delete event
+> **Command:** `list all`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 35
+> **Command:** `delete B6`<br>
+ - Result display panel posts message:<br>
+    `Deleted Task: demo event expired Date: 03-Nov-2016 Time: 11:05 to 11:11 Tags: [CS2103T]`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 34
+ 
+### 7.2 Delete completed task
+> **Command:** `list done`
+ - Number of tasks displayed on To Do: 3
+ - Number of tasks displayed on Events / Deadlines: 4
+> **Command:** `delete A2`<br>
+ - Result display panel posts message:<br>
+    `Deleted Task: buy grips for tennis racket`
+ - Number of tasks displayed on To Do: 2
+ - Number of tasks displayed on Events / Deadlines: 4
+
+------
+## 8. Undo Command
+------
+### 8.1 Undo last command
+> **Command:** `undo`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Action 'delete' has been reverted`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 34
+
+------
+## 9. Redo Command
+------
+### 9.2 Redo last undo command
+> **Command:** `redo`<br>
+> **Result:**<br>
+ - Result display panel posts message:<br>
+    `Undo action 'delete' has been reverted`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 34
+ - Note: Number of tasks will not change as the task that was deleted was a completed task.
+
+------
+## 10. Done Command
+------
+### 10.1 Complete to do task
+> **Command:** `list all`
+ - Number of tasks displayed on To Do: 16
+ - Number of tasks displayed on Events / Deadlines: 34
+> **Command:** `done A1`<br>
+ - Result display panel posts message:<br>
+    `Completed Task: buy mini usb cable Description: spare`
+ - Number of tasks displayed on To Do: 15
+ - Number of tasks displayed on Events / Deadlines: 34 
+
+### 10.2 Complete event
+> **Command:** `done B2`<br>
+ - Result display panel posts message:<br>
+    `Completed Task: Lunch with Jin Date: 28-Oct-2016 Time: 12:00 to 13:00`
+ - Number of tasks displayed on To Do: 15
+ - Number of tasks displayed on Events / Deadlines: 33
+
+------
+## 11. Select Command
+------
+### 10.1 Select a to do task
+> **Command:** `select A15`<br>
+ - Result display panel posts message:<br>
+    `Selected Task: A15`
+ - Number of tasks displayed on To Do: 15
+ - Number of tasks displayed on Events / Deadlines: 33
+ - To Do panel (left panel) scrolls to selected task card.
+ 
+### 10.2 Select a Events / Deadlines task
+> **Command:** `select B15`<br>
+ - Result display panel posts message:<br>
+    `Selected Task: B15`
+ - Number of tasks displayed on To Do: 15
+ - Number of tasks displayed on Events / Deadlines: 33
+ - Events / Deadlines panel (right panel) scrolls to selected task card.
+
+------
+## 12. Save Command
+------
+### 12.1 Save to a different folder
+> **Command:** `save jim`<br>
+ - Result display panel posts message:<br>
+    `New file location saved.`
+ - Bottom right hand corner indicates updated save folder location to "jim/task.xml".
+
+------
+## 13. Exit Command
+------
+### 13.1 Exits sTask
 > **Command:** `exit`<br>
-> **Result:**<br>
- - HappyJimTaskMaster closes and quits.
+ - Application exits.
 
 ------
 ## End
