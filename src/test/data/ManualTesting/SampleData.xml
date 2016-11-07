@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <tasks>
+        <name>Cook lunch</name>
+        <dueDate>none</dueDate>
+        <address>none</address>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Cook dinner</name>
+        <dueDate>none</dueDate>
+        <address>none</address>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>CS1001 Tutorial 4</name>
+        <dueDate>08/11/2016 19:00</dueDate>
+        <address>NUS</address>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Buy birthday cake</name>
+        <dueDate>09/11/2016 19:00</dueDate>
+        <address>Nex</address>
+        <priority>3</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Finish poster</name>
+        <dueDate>10/11/2016 12:00</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Clear out drawers</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Wash the dishes</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>4</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Buy eggs</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Giant</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Vacuum floor</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Write angry blog post</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Cook lunch for friends</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Cook friends for lunch</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Replace old cabinet</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>4</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Change lightbulb</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Call mum</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Finish updating resume</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Print letter</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>1</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Submit insurance forms</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Tidy work desk</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Do a few sets on google code jam</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Buy new charging cable</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Nex</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Borrow Tennis shoes from Shane</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Watch GEM1917 webcast</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Prepare for interview</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Buy EE2020 textbook</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Replace faulty access card</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Sign up to donate blood</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Tan Tock Seng</address>
+        <priority>4</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Maroon 5 Concert</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Marina Bay Sands</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Practice Beethoven's 9th</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Email supervisor</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>CS2103 Tutorial 5</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>20 page monthly report</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Pick up dad from the station</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>One north mrt</address>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Dentist appointment</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Mount Elizabeth</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>EE2021 finals</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>CS1020 PE</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>3</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Return library books</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NUS</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Learn how to tie shoes</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Fix parser bug</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Write conference speech</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>4</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Wash Dog</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Wash car</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Sell watch at pawn shop</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>AMK Hub</address>
+        <priority>2</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Marinate Turkey</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Volunteer at charity sales stand</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>NTU</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Finish writing cover letter</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Mail postcards</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>4</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Buy christmas presents</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Rearrange closet</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>3</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Wash windows</name>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+</addressbook>
