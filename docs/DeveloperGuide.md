@@ -79,7 +79,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 [//]: # "@@author A0152958R"
-<img src="images\build.png" width="800">
+<img src="images/build.png" width="800">
 [//]: # "@@author"
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
@@ -87,7 +87,9 @@ command `delete 3`.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+[//]: # "@@author A0152958R"
 <img src="images\storage.png" width="800">
+[//]: # "@@author"
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -116,7 +118,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
-### Logic component
+### Logic component 
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
