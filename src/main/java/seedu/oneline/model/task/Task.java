@@ -133,7 +133,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 newDeadline = new TaskTime(entry.getValue());
                 break;
             case TAG:
-                newTag = Tag.getTag(entry.getValue());
+                newTag = entry.getValue().isEmpty() ? 
+                            Tag.getDefault() :
+                            Tag.getTag(entry.getValue());
                 break;
             case IS_DONE:
                 newCompleted = Boolean.parseBoolean(entry.getValue());
@@ -191,6 +193,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
           return;
       } else if (haveStartTime && haveEndTime && !haveDeadline) {
           // event task
+          if (t.getStartTime().compareTo(t.getEndTime()) == 1) {
+              throw new IllegalValueException("Start time should not be after the end time.");
+          }
           return;
       } else if (!haveDeadline) {
           // there is a start/end time, but no end/start time

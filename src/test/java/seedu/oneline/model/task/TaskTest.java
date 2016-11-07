@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.testutil.TaskBuilder;
 import seedu.oneline.testutil.TestDataHelper;
 
