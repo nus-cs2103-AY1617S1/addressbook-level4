@@ -22,7 +22,7 @@ import seedu.address.model.task.Time;
 public class TitleCard extends UiPart{
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "TitleListCard.fxml";
-
+    
     protected static final String COLOR_RED = "label_red";
     protected static final String COLOR_GREY = "label_grey";
     protected static final String COLOR_BLACK = "label_black";
@@ -71,7 +71,7 @@ public class TitleCard extends UiPart{
         setTime();
         setTag();
     }
-
+    
     private void setTextStyle() {
         if(task.getCompleted()){
             setColor(COLOR_GREY);
@@ -80,7 +80,7 @@ public class TitleCard extends UiPart{
                 Time currentTime;
                 currentTime = new Time(new SimpleDateFormat("dd-MMM-yyyy").format(Calendar.getInstance().getTime()));
                 int result = task.getTime().get().compareTo(currentTime);
-
+                
                 if(result < 0){
                     setColor(COLOR_RED);
                 }
@@ -91,12 +91,12 @@ public class TitleCard extends UiPart{
             setColor(COLOR_BLACK);
         }
     }
-
+    
     private void setColor(String s){
         name.getStyleClass().add(s);
         id.getStyleClass().add(s);
     }
-
+    
     public void setTime(){
         switch(task.getTaskType()) {
         case EVENT:
@@ -119,13 +119,40 @@ public class TitleCard extends UiPart{
             assert false: "Task must have TaskType";
         }
     }
-
+    
     public void setTag(){
         if(!task.getTags().isEmpty()){
             tag.setText(task.tagsString());
             tag.setMaxHeight(Label.USE_COMPUTED_SIZE);
         }
     }
+
+    //@@author A0121261Y-unused
+    /*public void setDateTimeText(){
+        if (task.getTime().isPresent()) {
+            time.setText(task.getTime().get().getStartDateString());
+           if (task.getTime().get().getUntimedStatus()) {
+               startTime.setText(BLANK);
+               endTime.setText(BLANK);
+           } else if (task.getTime().get().getEndDate().isPresent()) {
+               startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
+                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+               endTime.setText("Ends at: " + task.getTime().get().getEndDate().get().toLocalTime()
+                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+           } else {
+               startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
+                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+               endTime.setText(BLANK);
+           }
+       } else {
+           time.setText(BLANK);
+           startTime.setText(BLANK);
+           endTime.setText(BLANK);
+       }
+
+    }*/
+    //@@author
+
 
     @FXML
     private void setDesign() {
@@ -151,7 +178,7 @@ public class TitleCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
-
+    
     //@@author A0135812L
     private void setEventHandlerForMarkChangedEvent(){
         completeStatus.selectedProperty().addListener((observable, oldValue, newValue) -> {
