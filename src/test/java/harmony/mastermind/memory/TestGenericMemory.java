@@ -68,19 +68,74 @@ public class TestGenericMemory {
         testMethod.initEnd();
         assertFalse("start time and date", testMethod.getEnd() == null);
         
+        testSetType(testMethod);        
+        testSetName(testMethod);
+        testSetDescription(testMethod);
+        testTime(testMethod);
+        testDate(testMethod);
+        testNewState(testMethod);
+        testToString();
+    }
+    
+    private void testSetType(GenericMemory testMethod) { 
         testMethod.setType("cat");
         assertEquals("type", testMethod.getType(), "cat");
-        
+    }
+    
+    private void testSetName(GenericMemory testMethod) { 
         testMethod.setName("Animals");
         assertEquals("Name", testMethod.getName(),"Animals");
-        
+    }
+    
+    private void testSetDescription(GenericMemory testMethod) { 
         testMethod.setDescription("An organism");
         assertEquals("Description", testMethod.getDescription(), "An organism");
-        
-        testMethod.setStartTime(03,  14);
+    }
+    
+    private void testTime(GenericMemory testMethod) { 
+        //2 parameters
+        testMethod.setStartTime(03, 14);
         testMethod.setEndTime(07, 11);
         
+        //3 parameters
+        testMethod.setStartTime(03, 14, 19);
+        testMethod.setEndTime(07, 11, 20);
+    }
+    
+    private void testDate(GenericMemory testMethod) {
         testMethod.setStartDate(2014, 03, 27);
         testMethod.setEndDate(2015, 02, 05);
+    }
+    
+    private void testNewState(GenericMemory testMethod) { 
+        testMethod.setState(0);
+        assertEquals("State", testMethod.getState(), 0);
+    }
+    
+    private void testToString() { 
+        //Task
+        GenericMemory testTask = new GenericMemory("task", "name2", "description2");
+        String taskResult = "Type: task" + "\n" + "Name: name2" + "\n" + "Description : description2";
+        assertEquals("Task to String", testTask.toString(), taskResult);
+        
+        //Task description
+        String descriptionResult = "description2" + "\n" + "Description : description2";
+        assertEquals("Description", testTask.descriptionToString(testTask.getDescription()), descriptionResult);
+        
+        //Deadline
+        GenericMemory testDeadline = new GenericMemory("deadline", "name1", "description1", end);
+        String deadlineResult = "Type: deadline" + "\n" + "Name: name1" + "\n" + "Description : description1";
+        assertEquals("Deadline to String", testDeadline.toString(), deadlineResult);
+        
+        //Deadline date
+        String deadlineEndDateResult = testDeadline.deadlineDateToString(testDeadline.getEnd().toString());
+        assertEquals("Deadline End Date", testDeadline.deadlineDateToString(testDeadline.getEnd().toString()), testDeadline.deadlineDateToString(testDeadline.getEnd().toString()));
+        
+        //Event
+        GenericMemory testEvent = new GenericMemory("event", "name", "description", start, end, 0);
+        String eventResult = "Type: event" + "\n" + "Name: name" + "\n" + "Description : description";
+        assertEquals("Event to String", testEvent.toString(), eventResult);
+        
+        
     }
 }

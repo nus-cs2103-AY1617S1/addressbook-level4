@@ -236,7 +236,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
     
     //@@author A0143378Y
     // Converts description into string representation
-    private String descriptionToString(String output) {
+    String descriptionToString(String output) {
         if (description != null) { // If description exists
             output +=   DESCRIPTION_STRING + getDescription();
         }
@@ -245,7 +245,7 @@ public class GenericMemory implements Comparable<GenericMemory> {
 
     //@@author A0143378Y
     // Converts due date into string representation
-    private String deadlineDateToString(String output) {
+    String deadlineDateToString(String output) {
         if (end != null) {
             output += DUE_BY + getDate(end) + " " + getTime(end);
         }
