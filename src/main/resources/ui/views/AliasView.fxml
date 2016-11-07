@@ -31,6 +31,16 @@
       </VBox.margin>
     </Text>
 
+    <HBox>
+      <children>
+    	<Text styleClass="font-500" wrappingWidth="100.0" VBox.vgrow="ALWAYS" text="Alias" />
+	    <Text styleClass="font-500" VBox.vgrow="ALWAYS" text="Maps To..." />
+      </children>
+      <VBox.margin>
+        <Insets bottom="10.0" />
+      </VBox.margin>
+    </HBox>
+    
     <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
       <content>
         <VBox styleClass="alias-pane" fx:id="aliasesPlaceholder" VBox.vgrow="ALWAYS">
