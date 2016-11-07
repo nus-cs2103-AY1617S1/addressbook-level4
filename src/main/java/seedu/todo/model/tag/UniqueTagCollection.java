@@ -161,7 +161,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
         }
     }
 
-    //@@author A0135805H-reuse
+    //@@author A0135805H-reused
     /* Other Override Methods */
     @Override
     public Iterator<Tag> iterator() {

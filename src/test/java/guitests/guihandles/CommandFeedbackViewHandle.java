@@ -39,7 +39,7 @@ public class CommandFeedbackViewHandle extends GuiHandle {
         return getFeedbackLabel().getText();
     }
 
-    //@@author A0135805-unused
+    //@@author A0135805H-unused
     //Lack of time to implement this inside GUI tests.
     /**
      * Returns true if this feedback view has error style applied.
