@@ -23,7 +23,7 @@ public class AddCommandTest extends ToDoListGuiTest {
 
         //add one overdue task
         taskToAdd = td.overdueDeadline;
-        assertAddSuccess(taskToAdd, currentList);       
+        assertAddSuccess(taskToAdd, currentList);
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -53,7 +53,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName, taskToAdd.getStatus().getType());
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

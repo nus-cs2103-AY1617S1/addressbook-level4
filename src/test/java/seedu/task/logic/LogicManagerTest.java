@@ -121,7 +121,7 @@ public class LogicManagerTest {
         assertEquals(expectedToDoList, latestSavedToDoList);
     }
     
-	// @@author A0158963M
+	//@@author A0158963M
 	private void assertsetStorageCommandBehavior(String inputCommand, String expectedMessage, String expectfilePath)
 			throws Exception {
 
@@ -139,8 +139,8 @@ public class LogicManagerTest {
 		String setstorageCommand = "setstorage NewData";
 		assertsetStorageCommandBehavior(setstorageCommand, SetstorageCommand.MESSAGE_SUCCESS, "NewData/todolist.xml");
 	}
-	// @@
-    
+	
+	//@@author
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
