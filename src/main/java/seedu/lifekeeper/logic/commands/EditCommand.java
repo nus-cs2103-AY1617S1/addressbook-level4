@@ -1,6 +1,5 @@
 package seedu.lifekeeper.logic.commands;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +8,6 @@ import seedu.lifekeeper.commons.core.UnmodifiableObservableList;
 import seedu.lifekeeper.commons.exceptions.IllegalValueException;
 import seedu.lifekeeper.model.activity.Activity;
 import seedu.lifekeeper.model.activity.Name;
-import seedu.lifekeeper.model.activity.ReadOnlyActivity;
 import seedu.lifekeeper.model.activity.Reminder;
 import seedu.lifekeeper.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.lifekeeper.model.activity.UniqueActivityList.TaskNotFoundException;
