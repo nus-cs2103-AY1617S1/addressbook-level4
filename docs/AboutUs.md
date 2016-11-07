@@ -78,7 +78,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
     
 -----
 
-#### <a id="yunxuan"></a> Zhang Yunxuan [@yunz](https://github.com/yunxz)
+#### <a id="yunxuan"></a> Zhang Yunxuan [@yunxz](https://github.com/yunxz)
 <img src="images/ZhangYunxuan.jpg" width="150"><br>
 * Components in charge of : [Model](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Aspects/tools in charge of: Testing, Code Quality Control
