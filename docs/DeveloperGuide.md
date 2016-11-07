@@ -1,5 +1,6 @@
 # Developer Guide
 
+<!-- @@author A0139655U -->
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -22,6 +23,7 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
+<!-- @@author -->
 
 ## Introduction
 *DearJim* is a revolutionary task manager designed to help you organise your tasks that is simple and easy to use. *DearJim* is a Java desktop application that has a GUI, and the main mode of input in *DearJim* is through keyboard commands.
@@ -149,7 +151,8 @@ The `UI` component,
 1. `Logic` uses the `CommandParser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
+4. The command execution can update the `History` if command executed is an `UndoableCommand`.
+5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `UI`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -504,9 +507,7 @@ _Use case ends._
 > 1a1. TaskManager parses the `redo` command, ignoring the arguments that follow <br>
 _Use case resumes at step 3_
 
-3a. There is no previous command to `redo`
-> 3a1. TaskManager indicates that there is nothing to undo.<br>
-_Use case ends._
+
 
 <!-- @@author A0139498J -->
 

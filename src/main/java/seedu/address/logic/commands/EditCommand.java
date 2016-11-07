@@ -69,11 +69,6 @@ public class EditCommand extends UndoableCommand {
         assignPriorityIfPresent(priorityString);
         assignResetFieldIfPresent(resetFieldString);
 
-        if (recurrenceRate != null && recurrenceRate.getTimePeriod() != TimePeriod.DAY && 
-                recurrenceRate.getTimePeriod().toString().toLowerCase().contains("day") && 
-                startDate == null && endDate == null) {
-            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.getTimePeriod().toString());
-        }
     }
 	
     private void initializeForEdit() {

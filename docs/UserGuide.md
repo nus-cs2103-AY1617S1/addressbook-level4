@@ -1,5 +1,6 @@
 # User Guide
 
+<!-- @@author A0139655U -->
 * [Quick Start](#quick-start)
 * [Features](#features)
    * [Help](#viewing-help-help)
@@ -17,6 +18,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 <br>
+<!-- @@author -->
 
 ## Quick Start
 
@@ -28,7 +30,7 @@
 3. Copy the file to the folder you want to use as the home folder for DearJim.
 4. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
 <p align="center">
-<img src="images/guiDearJim.PNG" width="650">
+<img src="images/dearJimGUI.PNG" width="550">
 </p>
 
 <p align="center">
@@ -68,7 +70,7 @@ Format: `help`<br>
 > While the help window is selected, you may close it by simply pressing any key on your keyboard!
 
 <p align="center">
- <img src="images/helpCmd.PNG" width="650">
+ <img src="images/helpCmd.PNG" width="600">
 </p>
 
 <p align="center">
@@ -91,7 +93,7 @@ Example:
 |`help my mum to buy cooking ingredients`| `help`| Execute `help` command|
 |`add help my mum to buy cooking ingredients`| `add`| `add` a task with name `help my mum to buy cooking ingredients`|
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 **_Adding a task_**
 
@@ -103,6 +105,8 @@ Example:
 * `help my mum to buy cooking ingredients`
 
 <br/>
+
+<!-- @@author A0139552B -->
 
 **_Specifying task priority_**
 
@@ -127,6 +131,7 @@ Examples:
 * `Buy washing powder -high`
 
 <br/>
+<!-- @@author -->
 
 
 **_Adding a task with deadline_**
@@ -163,6 +168,8 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 |24Hr| `20.50`, `20:50`| 8.50pm|
 |AM/PM| `8.50pm`, `8:50pm`, `0850pm`| 8.50pm|
 |Preset|`midnight`<br> `noon`|12am<br>12pm|
+> DearJim does not support the following 24hr format: `2050`, as this input can be misinterpreted as the value of year.
+
 <br>
 
 Examples:
@@ -224,6 +231,7 @@ Examples:
 
 <br/>
 
+<!-- @@author A0139552B -->
 
 ### Editing a task: `edit`
 Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim.  <br>
@@ -259,6 +267,7 @@ Examples:
 > Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
 <br/>
+<!-- @@author A0139498J -->
 
 
 ### Deleting a task: `delete`
@@ -317,7 +326,7 @@ Format: `redo`
 
 <br/>
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 
 ### Listing tasks: `list`
 **_Listing all undone tasks_**
@@ -347,6 +356,10 @@ Format: `list done`
 > `add` and `edit` commands do not work in done list view. As such, you are not able to directly add tasks into the done list, or edit the details of done tasks.
 <br/>
 
+<!-- @@author A0139552B -->
+
+<br>
+
 ### Finding a task: `find`
 Forgot about the details of a task that you have added earlier? You can find an existing task by its name.<br>
 Format: `find NAME`
@@ -361,6 +374,7 @@ Examples:
 
 <br/>
 
+<!-- @@author A0139498J -->
 
 ### Changing storage location: `store`
 Need to look at your task on the move? Simply store the data at another location and bring it along with you.<br>
@@ -394,7 +408,7 @@ Examples:
 <img src="images/addTooltip.PNG" width="550">
 </p>
 <p align="center">
-Figure 4: Hints for add command
+Figure 3: Hints for add command
 </p>
 <br>
 
@@ -404,8 +418,10 @@ Figure 4: Hints for add command
 </p>
 
 <p align="center">
-Figure 5: Hints for delete command
+Figure 4: Hints for delete command
 </p>
+
+<br>
 
 ### Instant `add` and `edit` task preview
 DearJim features an instant `add` and `edit` command task preview, allowing you to preview the task details as your type your input!<br>
@@ -419,22 +435,18 @@ Examples:
 <img src="images/addInstantParse.PNG" width="550">
 </p>
 
+<p align="center">
+Figure 5: Instant preview for add command
+</p>
+<br>
 * Typing `edit 1 by 10pm -low -reset repeat` generates an instant `edit` preview
 
 <p align="center">
 <img src="images/editInstantParser.PNG" width="550">
 </p>
 
-
-
-### Saving the data
-* Entering the inputs for `add` command generates the details of what has been typed into each field
 <p align="center">
-<img src="images/instantParser.PNG" width="550">
-</p>
-
-<p align="center">
-Figure 6: Instant parsing for add command
+Figure 6: Instant preview for edit command
 </p>
 <br>
 
@@ -443,7 +455,7 @@ Data in DearJim is automatically saved on the hard disk after any command that c
 There is no need to save manually.<br>
 You will never have to worry about forgetting to save your data while using DearJim! Hurray!
 
-<!-- @@author -->
+<!-- @@author A0139498J -->
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
