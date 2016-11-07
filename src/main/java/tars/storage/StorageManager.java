@@ -27,15 +27,15 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger =
             LogsCenter.getLogger(StorageManager.class);
-    private XmlTarsStorage tarsStorage;
-    private JsonUserPrefStorage userPrefStorage;
-
     private static String LOG_MESSAGE_READING_DATA_FROM_FILE =
             "Attempting to read data from file: %s";
     private static String LOG_MESSAGE_READING_DATA_FROM_CHANGED_FILEPATH =
             "Attempting to read data from changed file path: %s";
     private static final String LOG_MESSAGE_LOCAL_DATA_CHANGED =
             "Local data changed, saving to file";
+    
+    private XmlTarsStorage tarsStorage;
+    private JsonUserPrefStorage userPrefStorage;
 
     public StorageManager(String tarsFilePath, String userPrefsFilePath) {
         super();

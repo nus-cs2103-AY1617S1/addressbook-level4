@@ -13,14 +13,12 @@ import tars.commons.exceptions.IllegalValueException;
  */
 public class DateTime implements Comparable<DateTime> {
 
-    private static final int COMPARE_TO_EQUALS = 0;
-
-    private static final int COMPARE_TO_SMALLER = -1;
-
-    private static final int COMPARE_TO_GREATER = 1;
-
     public static final String MESSAGE_DATETIME_CONSTRAINTS =
             "Task datetime should be spaces or alphanumeric characters";
+
+    private static final int COMPARE_TO_EQUALS = 0;
+    private static final int COMPARE_TO_SMALLER = -1;
+    private static final int COMPARE_TO_GREATER = 1;
 
     private static final DateTimeFormatter formatter = DateTimeFormatter
             .ofPattern("d/M/uuuu HHmm").withResolverStyle(ResolverStyle.STRICT);
@@ -29,14 +27,13 @@ public class DateTime implements Comparable<DateTime> {
 
     private static final String DATETIME_STRING_TO = " to ";
     private static final String DATETIME_STRING_EMPTY = "";
-
     private static final int DATETIME_SIZE_EMPTY = 0;
-
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
 
     public String startDateString;
     public String endDateString;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
 
     /**
      * Default constructor

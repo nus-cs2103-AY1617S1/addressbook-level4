@@ -1,6 +1,5 @@
 package tars.model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
@@ -20,6 +19,10 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
+import tars.model.qualifiers.DateQualifier;
+import tars.model.qualifiers.FlagSearchQualifier;
+import tars.model.qualifiers.Qualifier;
+import tars.model.qualifiers.QuickSearchQualifier;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
@@ -40,20 +43,20 @@ public class ModelManager extends ComponentManager implements Model {
 
     private static final Logger logger =
             LogsCenter.getLogger(ModelManager.class);
+    private static final String LIST_ARG_DATETIME = "/dt";
+    private static final String LIST_ARG_PRIORITY = "/p";
+    private static final String LIST_KEYWORD_DESCENDING = "dsc";
+
+    private static String MESSAGE_INITIALIZING_TARS =
+            "Initializing with tars %1$s and user prefs %2$s";
+    private static String CONFLICTING_TASK = "\nTask %1$s: %2$s";
+    private static String CONFLICTING_RSV_TASK = "\nRsvTask %1$s: %2$s";
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<RsvTask> filteredRsvTasks;
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
-
-    private static final String LIST_ARG_DATETIME = "/dt";
-    private static final String LIST_ARG_PRIORITY = "/p";
-    private static final String LIST_KEYWORD_DESCENDING = "dsc";
-    private static String MESSAGE_INITIALIZING_TARS =
-            "Initializing with tars %1$s and user prefs %2$s";
-    private static String CONFLICTING_TASK = "\nTask %1$s: %2$s";
-    private static String CONFLICTING_RSV_TASK = "\nRsvTask %1$s: %2$s";
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables should not be null
@@ -205,13 +208,23 @@ public class ModelManager extends ComponentManager implements Model {
             DateTime dateTimeToCheck) {
         StringBuilder conflictingTasksStringBuilder =
                 new StringBuilder(StringUtil.EMPTY_STRING);
-        int taskCount = 1;
-        int rsvCount = 1;
 
         if (dateTimeToCheck.getEndDate() == null) {
             return StringUtil.EMPTY_STRING;
         }
 
+        appendConflictingTasks(conflictingTasksStringBuilder, dateTimeToCheck);
+        appendConflictingRsvTasks(conflictingTasksStringBuilder,
+                dateTimeToCheck);
+
+        return conflictingTasksStringBuilder.toString();
+    }
+
+    private void appendConflictingTasks(
+            StringBuilder conflictingTasksStringBuilder,
+            DateTime dateTimeToCheck) {
+
+        int taskCount = 1;
         for (ReadOnlyTask t : tars.getTaskList()) {
 
             if (t.getStatus().status == Status.UNDONE && DateTimeUtil
@@ -221,6 +234,13 @@ public class ModelManager extends ComponentManager implements Model {
                 taskCount++;
             }
         }
+    }
+
+    private void appendConflictingRsvTasks(
+            StringBuilder conflictingTasksStringBuilder,
+            DateTime dateTimeToCheck) {
+
+        int rsvCount = 1;
 
         for (RsvTask rt : tars.getRsvTaskList()) {
             if (rt.getDateTimeList().stream()
@@ -235,7 +255,6 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
 
-        return conflictingTasksStringBuilder.toString();
     }
 
     /**
@@ -246,6 +265,16 @@ public class ModelManager extends ComponentManager implements Model {
             DateTime dateToCheck) {
         ArrayList<DateTime> listOfDateTime = new ArrayList<DateTime>();
 
+        addTimeSlotsFromTasks(listOfDateTime, dateToCheck);
+        addTimeSlotsFromRsvTasks(listOfDateTime, dateToCheck);
+
+        Collections.sort(listOfDateTime);
+
+        return listOfDateTime;
+    }
+
+    private void addTimeSlotsFromTasks(ArrayList<DateTime> listOfDateTime,
+            DateTime dateToCheck) {
         for (ReadOnlyTask t : tars.getTaskList()) {
             if (t.getStatus().status == Status.UNDONE
                     && t.getDateTime().getStartDate() != null
@@ -254,7 +283,11 @@ public class ModelManager extends ComponentManager implements Model {
                 listOfDateTime.add(t.getDateTime());
             }
         }
+    }
 
+    private void addTimeSlotsFromRsvTasks(ArrayList<DateTime> listOfDateTime,
+            DateTime dateToCheck) {
+        
         for (RsvTask rt : tars.getRsvTaskList()) {
             for (DateTime dt : rt.getDateTimeList()) {
                 if (dt.getStartDate() != null && DateTimeUtil
@@ -263,10 +296,6 @@ public class ModelManager extends ComponentManager implements Model {
                 }
             }
         }
-
-        Collections.sort(listOfDateTime);
-
-        return listOfDateTime;
     }
 
 
@@ -277,7 +306,7 @@ public class ModelManager extends ComponentManager implements Model {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }
-    
+
     // @@author
 
     // =========== Filtered Task List Accessors ===========
@@ -336,10 +365,10 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+
     // @@author
 
-    // ========== Inner classes/interfaces used for filtering ==========
+    // ========== Inner class/interface used for filtering ==========
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
@@ -365,166 +394,5 @@ public class ModelManager extends ComponentManager implements Model {
 
         }
     }
-
-
-    interface Qualifier {
-        boolean run(ReadOnlyTask task);
-
-        String toString();
-    }
-
-    // @@author A0124333U
-    private class QuickSearchQualifier implements Qualifier {
-        private static final String LABEL_TAGS = "Tags: ";
-        private static final String LABEL_STATUS = "Status: ";
-        private static final String LABEL_PRIORITY = "Priority: ";
-        private static final String LABEL_DATETIME = "DateTime: ";
-        private final ArrayList<String> quickSearchKeywords;
-
-        QuickSearchQualifier(ArrayList<String> quickSearchKeywords) {
-            this.quickSearchKeywords = quickSearchKeywords;
-        }
-
-        private String removeLabels(String taskAsString) {
-            String editedString = taskAsString
-                    .replace(StringUtil.STRING_SQUARE_BRACKET_OPEN,
-                            StringUtil.EMPTY_STRING)
-                    .replace(StringUtil.STRING_SQUARE_BRACKET_CLOSE,
-                            StringUtil.STRING_WHITESPACE)
-                    .replace(LABEL_DATETIME, StringUtil.EMPTY_STRING)
-                    .replace(LABEL_PRIORITY, StringUtil.EMPTY_STRING)
-                    .replace(LABEL_STATUS, StringUtil.EMPTY_STRING)
-                    .replace(LABEL_TAGS, StringUtil.EMPTY_STRING);
-            return editedString;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            String taskAsString = removeLabels(task.getAsText());
-            return quickSearchKeywords.stream()
-                    .filter(keyword -> StringUtil
-                            .containsIgnoreCase(taskAsString, keyword))
-                    .count() == quickSearchKeywords.size();
-        }
-
-    }
-
-    private class FlagSearchQualifier implements Qualifier {
-        private TaskQuery taskQuery;
-
-        FlagSearchQualifier(TaskQuery taskQuery) {
-            this.taskQuery = taskQuery;
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-
-            return isNameFound(task) && isDateTimeFound(task)
-                    && isPriorityFound(task) && isStatusFound(task)
-                    && isTagFound(task);
-        }
-
-        private Boolean isNameFound(ReadOnlyTask task) {
-            if (taskQuery.getNameKeywordsAsList().get(StringUtil.START_INDEX)
-                    .isEmpty()) {
-                return true;
-            } else {
-                return taskQuery.getNameKeywordsAsList().stream()
-                        .filter(keyword -> StringUtil.containsIgnoreCase(
-                                task.getName().taskName, keyword))
-                        .count() == taskQuery.getNameKeywordsAsList().size();
-            }
-        }
-
-        private Boolean isDateTimeFound(ReadOnlyTask task) {
-            if (taskQuery.getDateTimeQueryRange() == null) {
-                return true;
-            } else {
-                return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(),
-                        taskQuery.getDateTimeQueryRange());
-            }
-        }
-
-        private Boolean isPriorityFound(ReadOnlyTask task) {
-            if (taskQuery.getPriorityKeywordsAsList()
-                    .get(StringUtil.START_INDEX).isEmpty()) {
-                return true;
-            } else {
-                return taskQuery.getPriorityKeywordsAsList().stream()
-                        .filter(keyword -> StringUtil.containsIgnoreCase(
-                                task.priorityString(), keyword))
-                        .count() == taskQuery.getPriorityKeywordsAsList()
-                                .size();
-            }
-        }
-
-        private Boolean isStatusFound(ReadOnlyTask task) {
-            if (taskQuery.getStatusQuery().isEmpty()) {
-                return true;
-            } else {
-                return taskQuery.getStatusQuery() == task.getStatus()
-                        .toString();
-            }
-        }
-
-        private Boolean isTagFound(ReadOnlyTask task) {
-            if (taskQuery.getTagKeywordsAsList().get(StringUtil.START_INDEX)
-                    .isEmpty()) {
-                return true;
-            } else {
-                String stringOfTags = task.tagsString()
-                        .replace(StringUtil.STRING_COMMA.trim(),
-                                StringUtil.EMPTY_STRING)
-                        .replace(StringUtil.STRING_SQUARE_BRACKET_OPEN,
-                                StringUtil.EMPTY_STRING)
-                        .replace(StringUtil.STRING_SQUARE_BRACKET_CLOSE,
-                                StringUtil.EMPTY_STRING);
-                return taskQuery.getTagKeywordsAsList().stream()
-                        .filter(keyword -> StringUtil
-                                .containsIgnoreCase(stringOfTags, keyword))
-                        .count() == taskQuery.getTagKeywordsAsList().size();
-            }
-        }
-
-    }
-
-    // @@author A0140022H
-    private class DateQualifier implements Qualifier {
-        private final LocalDateTime startDateTime;
-        private final LocalDateTime endDateTime;
-        private final DateTime dateTimeQuery;
-
-        DateQualifier(DateTime dateTime) {
-            if (dateTime.getStartDate() != null) {
-                startDateTime =
-                        DateTimeUtil.setLocalTime(dateTime.getStartDate(),
-                                DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
-                                DateTimeUtil.DATETIME_FIRST_MINUTE_OF_DAY,
-                                DateTimeUtil.DATETIME_FIRST_SECOND_OF_DAY);
-                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
-                        DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
-                        DateTimeUtil.DATETIME_LAST_SECOND_OF_DAY);
-            } else {
-                startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
-                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY,
-                        DateTimeUtil.DATETIME_FIRST_HOUR_OF_DAY);
-                endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(),
-                        DateTimeUtil.DATETIME_LAST_HOUR_OF_DAY,
-                        DateTimeUtil.DATETIME_LAST_MINUTE_OF_DAY,
-                        DateTimeUtil.DATETIME_LAST_SECOND_OF_DAY);
-            }
-
-            dateTimeQuery = new DateTime();
-            dateTimeQuery.setStartDateTime(startDateTime);
-            dateTimeQuery.setEndDateTime(endDateTime);
-        }
-
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(),
-                    dateTimeQuery);
-        }
-    }
+    
 }

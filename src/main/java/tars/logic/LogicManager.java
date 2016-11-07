@@ -21,10 +21,9 @@ import tars.storage.Storage;
  */
 public class LogicManager extends ComponentManager implements Logic {
 
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private static final String LOG_USER_COMMAND =
             "----------------[USER COMMAND][%1$s]";
-
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final Parser parser;
 
@@ -60,6 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public List<ReadOnlyTask> getTaskList() {
         return model.getTars().getTaskList();
     }
+
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();

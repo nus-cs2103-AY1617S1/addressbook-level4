@@ -14,10 +14,6 @@ import tars.commons.exceptions.InvalidRangeException;
 public class StringUtil {
 
     public static final String REGEX_WHITESPACE = "\\s+";
-    private static final String REGEX_UNSIGNED_INTEGER = "^0*[1-9]\\d*$";
-    private static final String INVALID_INDEX_ENTERED = "Invalid index entered";
-    private static final String UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING =
-            "Unexpected error in geting index from String.";
     public static final String STRING_NEWLINE = "\n";
     public static final String STRING_COLON = ": ";
     public static final String STRING_COMMA = ", ";
@@ -27,15 +23,18 @@ public class StringUtil {
     public static final String STRING_SQUARE_BRACKET_CLOSE = "]";
     public static final String EMPTY_STRING = "";
     public static final String STRING_WHITESPACE = " ";
-    private static final int EMPTY_STREAM_LIST = 0;
     public static final int EMPTY_STRING_LENGTH = 0;
     public static final int START_INDEX = 0;
     public static final int LAST_INDEX = 1;
     public static final int INVALID_POSITION = -1;
-
     /** Offset required to convert between 1-indexing and 0-indexing. */
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
+    private static final String REGEX_UNSIGNED_INTEGER = "^0*[1-9]\\d*$";
+    private static final String INVALID_INDEX_ENTERED = "Invalid index entered";
+    private static final String UNEXPECTED_ERROR_IN_GETING_INDEX_FROM_STRING =
+            "Unexpected error in geting index from String.";
+    private static final int EMPTY_STREAM_LIST = 0;
     private static final String RANGE_SEPARATOR = "..";
 
     public static boolean containsIgnoreCase(String source, String query) {
