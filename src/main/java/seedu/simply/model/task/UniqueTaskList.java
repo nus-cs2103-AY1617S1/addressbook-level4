@@ -197,7 +197,8 @@ public class UniqueTaskList implements Iterable<Task> {
         return toEdit;
     }
     private Task editEnd(String args, int editIndex, Task toEdit) throws IllegalValueException {
-        if(this.isNotValidTime(toEdit.getStart().toString(), args)){
+        End newEnd = new End(args);
+        if(this.isNotValidTime(toEdit.getStart().toString(), newEnd.toString())){
             throw new IllegalValueException(AddCommand.END_TIME_BEFORE_START_TIME_MESSAGE);
         }
         if(args.compareTo("no end") == 0 & toEdit.getTaskCategory()!=3){ //not todo default end time 2359
@@ -206,35 +207,36 @@ public class UniqueTaskList implements Iterable<Task> {
         else if(toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
             toEdit.setDate(new Date(this.getCurrentDate()));
             toEdit.setStart(new Start("no start"));
-            toEdit.setEnd(new End(args));
+            toEdit.setEnd(newEnd);
             toEdit.setTaskCategory(2);
         }
         else
-            toEdit.setEnd(new End(args));
+            toEdit.setEnd(newEnd);
         internalList.set(editIndex, toEdit);
         FXCollections.sort(internalList);
         return toEdit;
     }
     private Task editStart(String args, int editIndex, Task toEdit) throws IllegalValueException {
-        if(this.isNotValidTime(args, toEdit.getEnd().toString())){
+        Start newStart = new Start(args);
+        if(this.isNotValidTime(newStart.toString(), toEdit.getEnd().toString())){
             throw new IllegalValueException(AddCommand.START_TIME_BEFORE_END_TIME_MESSAGE);
         }
         else if(args.compareTo("no start") == 0 & toEdit.getTaskCategory()==1){ //event to deadline
-            toEdit.setStart(new Start(args));
+            toEdit.setStart(newStart);
             toEdit.setTaskCategory(2);
         }
         else if(toEdit.getTaskCategory()==2){   //deadline to event
-            toEdit.setStart(new Start(args));
+            toEdit.setStart(newStart);
             toEdit.setTaskCategory(1);
         }
         else if(toEdit.getTaskCategory()==3){  //todo to Event              
             toEdit.setDate(new Date(this.getCurrentDate()));
-            toEdit.setStart(new Start(args));
+            toEdit.setStart(newStart);
             toEdit.setEnd(new End("2359"));
             toEdit.setTaskCategory(1);
         }
         else
-            toEdit.setStart(new Start(args));
+            toEdit.setStart(newStart);
         internalList.set(editIndex, toEdit);
         FXCollections.sort(internalList);
         return toEdit;
