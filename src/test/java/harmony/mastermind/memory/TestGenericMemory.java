@@ -143,6 +143,18 @@ public class TestGenericMemory {
         String taskDeadline = "Type: Task" + "\n" + "Name: name2" + "\n" + "Description : description2"
                                 + "\n" + "Status: Incomplete" + "\n" + "Status: Incomplete";
         assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline);
+        
+        //Set state to Completed
+        testTask.setState(1);
+        String taskDeadline2 = "Type: Task" + "\n" + "Name: name2" + "\n" + "Description : description2"
+                                + "\n" + "Status: Completed" + "\n" + "Status: Completed";
+        assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline2);
+        
+        //Set state to overdue
+        testTask.setState(2);
+        String taskDeadline3 = "Type: Task" + "\n" + "Name: name2" + "\n" + "Description : description2"
+                                + "\n" + "Status: Overdue" + "\n" + "Status: Overdue";
+        assertEquals("Deadline", testTask.taskDeadlineStateToString(testTask.toString()), taskDeadline3);
     }
     
     //@@author A0143378Y
@@ -198,9 +210,17 @@ public class TestGenericMemory {
         
         //test getDate
         assertEquals("Event date", testEvent.getDate(start), "27/4/14 Sun");
+        //test getDate null 
+        Calendar invalidDate = new GregorianCalendar();
+        invalidDate = null;
+        assertEquals("Invalid event Date", testEvent.getDate(invalidDate), null);
         
         //test getTime
         assertEquals("Event end time", testEvent.getTime(end), "07:11 AM");
+        //test getTime null
+        Calendar invalidTime = new GregorianCalendar();
+        invalidTime = null;
+        assertEquals("Invalid event time", testEvent.getTime(invalidTime), null);
     }
     
     //@@author A0143378Y
