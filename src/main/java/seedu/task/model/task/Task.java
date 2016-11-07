@@ -16,7 +16,6 @@ import seedu.task.model.tag.UniqueTagList;
 //@@author A0153751H    
 public class Task implements ReadOnlyTask {
 
-
 	private Title title;
 	private Description description;
 	private StartDate startDate;
@@ -146,5 +145,5 @@ public class Task implements ReadOnlyTask {
 	}
 }
 //@@author
-
-
+//@@author
+//@@author

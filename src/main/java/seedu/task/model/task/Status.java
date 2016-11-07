@@ -1,5 +1,8 @@
 package seedu.task.model.task;
 //@@author A0153411W
+/**
+ * Represets status of task 
+ */
 public class Status {
 
     public String status;

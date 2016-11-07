@@ -7,6 +7,9 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
 //@@author A0153411W
+/**
+ * Represents title of a task
+ */
 public class Title {
 
     public static final String MESSAGE_TITLE_CONSTRAINTS = "Task titles should be spaces or alphanumeric characters";

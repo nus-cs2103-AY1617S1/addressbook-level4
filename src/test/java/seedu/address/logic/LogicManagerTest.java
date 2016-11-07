@@ -733,7 +733,9 @@ public class LogicManagerTest {
 		// @@author
 
 		
-		/** Generates the add correct command based on the task given */
+		/** 
+		 * Generates the add correct command based on the task given 
+		 * */
 		String generateAddCommand(Task t) {
 			StringBuffer cmd = new StringBuffer();
 
@@ -754,7 +756,9 @@ public class LogicManagerTest {
 		}
 		
 		// @@author A0153411W
-		/** Generates the correct edit command based on the task given */
+		/** 
+		 * Generates the correct edit command based on the task given 
+		 * */
 		String generateEditCommand(Task t, int index) {
 			StringBuffer cmd = new StringBuffer();
 
@@ -775,6 +779,10 @@ public class LogicManagerTest {
 			return cmd.toString();
 		}
 		
+		/**
+		 * Generates the add correct command based 
+		 * on the task given with custom word command
+		 */
 		String generateAddCommand(String customWord, Task t) {
 			StringBuffer cmd = new StringBuffer();
 

@@ -52,11 +52,11 @@ public class ArgumentTokenizer {
 		public String getDescription(){
 			return this.description;
 		}
-
+		//@@author A0153411W
 		public void SetIsOptional(boolean isOptional) {
 			this.isOptional = isOptional;
 		}
-
+		//@@author
 		String getPrefix() {
 			return this.prefix;
 		}

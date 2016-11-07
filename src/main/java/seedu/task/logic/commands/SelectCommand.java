@@ -42,9 +42,6 @@ public class SelectCommand extends Command {
     }
 
     //@@author A0153411W
-	/**
-	 * Select Command is not reversible.
-	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;

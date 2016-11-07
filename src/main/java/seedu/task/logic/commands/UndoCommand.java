@@ -3,6 +3,9 @@ package seedu.task.logic.commands;
 import java.util.EmptyStackException;
 
 //@@author A0153411W
+/**
+ * Undo last executed reversible command
+ */
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";

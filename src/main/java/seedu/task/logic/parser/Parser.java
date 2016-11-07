@@ -258,6 +258,9 @@ public class Parser {
 	}
 
 	// @@author A0153411W
+    /**
+     * Prepare customize command to be executed
+     */
 	private Command prepareCustomize(String args) throws ParseException {
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(formatCustomCommandPrefix);
 		argsTokenizer.tokenize(args);
