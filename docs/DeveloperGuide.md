@@ -302,7 +302,7 @@ Use case ends.
 
 1a. User adds a task with same parameters
 
-> 1a1. System shows an message that informs the user that a similar task already exist in the list.  <br>
+> 1a1. System shows a message that informs the user that a similar task already exist in the list.  <br>
 Use case resumes at step 1
 
 1b. User adds a task with invalid parameters
