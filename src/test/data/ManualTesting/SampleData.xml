@@ -362,9 +362,9 @@
     <tasks>
         <name>play football</name>
         <startDate>10 Nov 2016</startDate>
-        <startTime>8:00PM</startTime>
+        <startTime>6:00PM</startTime>
         <endDate>10 Nov 2016</endDate>
-        <endTime>10:00PM</endTime>
+        <endTime>7:00PM</endTime>
         <location>playground</location>
         <remarks>bring ball</remarks>
         <status>incomplete</status>
@@ -372,17 +372,17 @@
     <tasks>
         <name>cooking dinner myself</name>
         <startDate>10 Nov 2016</startDate>
-        <startTime>6:00PM</startTime>
+        <startTime>8:00PM</startTime>
         <endDate>10 Nov 2016</endDate>
-        <endTime>6:30PM</endTime>
+        <endTime>9:30PM</endTime>
         <location>home</location>
         <status>incomplete</status>
     </tasks>
     <tasks>
         <name>football competition</name>
-        <startDate>10 Nov 2016</startDate>
+        <startDate>11 Nov 2016</startDate>
         <startTime>12:00PM</startTime>
-        <endDate>10 Nov 2016</endDate>
+        <endDate>11 Nov 2016</endDate>
         <endTime>2:00PM</endTime>
         <location>playground</location>
         <remarks>invite friends</remarks>

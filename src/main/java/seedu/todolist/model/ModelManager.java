@@ -324,7 +324,7 @@ public class ModelManager extends ComponentManager implements Model {
         	LocalDate currentWeekEnd = currentDate.plusDays(6-currentDayOfWeek);
         	
         	int currentDayOfMonth = currentDate.getDayOfMonth();
-        	LocalDate currentMonthStart = currentDate.minusDays(currentDayOfMonth+1);
+        	LocalDate currentMonthStart = currentDate.minusDays(currentDayOfMonth-1);
         	LocalDate currentMonthEnd = currentDate.plusDays(currentDate.lengthOfMonth()-currentDayOfMonth);
         	
         	LocalDate taskEndDate = task.getInterval().getEndDate().getDate();
