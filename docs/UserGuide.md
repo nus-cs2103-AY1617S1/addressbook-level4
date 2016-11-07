@@ -10,7 +10,7 @@
   * [Uncomplete](#unmarking-a-completed-task-as-not-completed-uncomplete)
   * [Pin](#pin-a-task-as-important-pin)
   * [Unpin](#unpin-a-pinned-task-unpin)
-  * [List](#listing-all-tasks--list)
+  * [List](#listing--list-allpinnedpendingcompletedoverdue)
   * [Find](#finding-all-tasks-and-events-containing-keyword-in-their-name--find)
   * [Search Box](#activate-real-time-search-searchbox)
   * [Undo](#undo-action--undo)
