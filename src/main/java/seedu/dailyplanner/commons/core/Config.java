@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Daily Planner";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/dailyplanner.xml";
-    private String addressBookName = "MyDailyPlanner";
+    private String dailyPlannerFilePath = "data/dailyplanner.xml";
+    private String dailyPlannerName = "MyDailyPlanner";
 
 
     public Config() {
@@ -45,20 +45,20 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
-        return addressBookFilePath;
+    public String getDailyPlannerFilePath() {
+        return dailyPlannerFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setDailyPlannerFilePath(String dailyPlannerFilePath) {
+        this.dailyPlannerFilePath = dailyPlannerFilePath;
     }
 
-    public String getAddressBookName() {
-        return addressBookName;
+    public String getDailyPlannerName() {
+        return dailyPlannerName;
     }
 
-    public void setAddressBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setDailyPlannerName(String dailyPlannerName) {
+        this.dailyPlannerName = dailyPlannerName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(dailyPlannerFilePath, o.dailyPlannerFilePath)
+                && Objects.equals(dailyPlannerName, o.dailyPlannerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, dailyPlannerFilePath, dailyPlannerName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + dailyPlannerFilePath);
+        sb.append("\nDailyPlanner name : " + dailyPlannerName);
         return sb.toString();
     }
 

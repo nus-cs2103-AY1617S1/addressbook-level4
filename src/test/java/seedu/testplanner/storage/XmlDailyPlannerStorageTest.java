@@ -82,7 +82,7 @@ public class XmlDailyPlannerStorageTest {
         //Save and read without specifying file path
         original.addPerson(new Task(TypicalTestTask.GoSkydiving));
         xmlDailyPlannerStorage.saveAddressBook(original); //file path not specified
-        readBack = xmlDailyPlannerStorage.readAddressBook().get(); //file path not specified
+        readBack = xmlDailyPlannerStorage.readDailyPlanner().get(); //file path not specified
         assertEquals(original, new DailyPlanner(readBack));
 
     }

@@ -29,7 +29,7 @@ public class XmlDailyPlannerStorage implements DailyPlannerStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readDailyPlanner()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -62,7 +62,7 @@ public class XmlDailyPlannerStorage implements DailyPlannerStorage {
     }
 
     @Override
-    public Optional<ReadOnlyDailyPlanner> readAddressBook() throws DataConversionException, IOException {
+    public Optional<ReadOnlyDailyPlanner> readDailyPlanner() throws DataConversionException, IOException {
         return readAddressBook(filePath);
     }
 
