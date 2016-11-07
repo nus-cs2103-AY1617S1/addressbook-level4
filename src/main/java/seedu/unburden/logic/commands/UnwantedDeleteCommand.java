@@ -19,14 +19,14 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class UnwantedDeleteCommand extends Command {
 
-	public static final String COMMAND_WORD = "delete";
+	public static final String COMMAND_WORD = "multipledelete";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Deletes the task identified by the index or a range of indexes\n"
 			+ "(must be positive integer)used in the last task listing.\n"
-			+ "Format1: delete index1-index2\n"
+			+ "Format1: multipledelete index1-index2\n"
 			+ "Example: " + COMMAND_WORD + " 1-3\n"
-			+ "Format2: delete index1 index2 index3 index4 index5\n"
+			+ "Format2: multipledelete index1 index2 index3 index4 index5\n"
 			+ "Example: " + COMMAND_WORD + " 1 2 3";
 
 	public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task:\n%1$s";

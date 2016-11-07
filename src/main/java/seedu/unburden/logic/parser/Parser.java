@@ -172,6 +172,9 @@ public class Parser {
 		case UnDoneCommand.COMMAND_WORD:
 			return prepareUnDone(arguments);
 
+		case UnwantedDeleteCommand.COMMAND_WORD:
+		    return prepareUnwantedDelete(arguments);
+		
 		default:
 			if (AddCommand.COMMAND_WORD.substring(0, 1).contains(commandWord.toLowerCase())) {
 				return prepareAdd(arguments);
@@ -390,7 +393,7 @@ public class Parser {
 		final Matcher matcherPhase = INDEX_PHASE_FORMAT.matcher(args.trim());  
 
 		if(!matcherList.matches()&&!matcherPhase.matches()){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));		
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));		
 		}
 
 		if(matcherPhase.matches()){
@@ -401,12 +404,12 @@ public class Parser {
 			Optional<Integer> index_list = parseIndex(SeperateIndexes_phase[0]);
 
 			if (!index_list.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
 			}			
 			
 			Optional<Integer> index_list2 = parseIndex(SeperateIndexes_phase[1]);
 			if (!index_list2.isPresent()) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
 			}
 
 			sortList.add(Integer.parseInt(SeperateIndexes_phase[0]));
@@ -429,7 +432,7 @@ public class Parser {
 			for(int i=0; i<(SeperateIndexes_list.length); i++){
 				Optional<Integer> index_list = parseIndex(SeperateIndexes_list[i]);
 				if (!index_list.isPresent()) {
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));
 				}
 				indexesInt_list.add(Integer.parseInt(SeperateIndexes_list[i]));
 			}	
@@ -439,7 +442,7 @@ public class Parser {
 		}
 
 		else
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));	
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE));	
 
 	}
 	

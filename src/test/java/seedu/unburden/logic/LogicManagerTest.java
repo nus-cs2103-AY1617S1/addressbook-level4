@@ -985,19 +985,19 @@ public class LogicManagerTest {
 		 */
 		@Test
 		public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-			assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE);
+			assertIncorrectIndexFormatBehaviorForCommand("multipledelete", expectedMessage);
 		}
 		
 		@Test
 		public void execute_deleteInvalidArgsFormat_errorMessageShownZero() throws Exception {
-			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-			assertIncorrectIndexFormatBehaviorForCommand("delete 0", expectedMessage);
+			String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnwantedDeleteCommand.MESSAGE_USAGE);
+			assertIncorrectIndexFormatBehaviorForCommand("multipledelete 0", expectedMessage);
 		}
 
 		@Test
 		public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-			assertIndexNotFoundBehaviorForCommand("delete");
+			assertIndexNotFoundBehaviorForCommand("multipledelete");
 		}	
 
 		@Test
@@ -1011,7 +1011,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 
-			assertCommandBehavior("delete 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 2", String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB, expectedAB.getTaskList());
 		}
 		
@@ -1026,7 +1026,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 
-			assertCommandBehavior("delete 2 2 2 2 2 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 2 2 2 2 2 2", String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB, expectedAB.getTaskList());
 		}
 		
@@ -1041,7 +1041,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 
-			assertCommandBehavior("delete 2-2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 2-2", String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB, expectedAB.getTaskList());
 		}
 		
@@ -1058,7 +1058,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 1 2 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 1 2 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 		
@@ -1075,7 +1075,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 01 02 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 01 02 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 		
@@ -1092,7 +1092,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 1 2 1",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 1 2 1",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 		
@@ -1109,7 +1109,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 2 1 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 2 1 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 		
@@ -1126,7 +1126,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 02 01 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 02 01 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 		
@@ -1144,7 +1144,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 1-2 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 1-2 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 
@@ -1161,7 +1161,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 2-1 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 2-1 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 
@@ -1178,7 +1178,7 @@ public class LogicManagerTest {
 			deletedTasks.add(threeTasks.get(1));
 			helper.addToModel(model, threeTasks);
 			
-			assertCommandBehavior("delete 02-01 ",String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
+			assertCommandBehavior("multipledelete 02-01 ",String.format(UnwantedDeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, StringUtil.getTaskDetails(deletedTasks)),
 					expectedAB,expectedAB.getTaskList());
 		}
 				
