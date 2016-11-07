@@ -24,7 +24,7 @@ import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
 public class EditCommandParser {
     
     // @@author A0147944U
-    public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL =
+    private static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL =
             Pattern.compile("(?<targetIndex>[0-9]+)" + " (?<item>[^,]+)" + ", (?<content>.+)");
     
     // @@author A0152958R

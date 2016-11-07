@@ -1,19 +1,10 @@
 package seedu.task.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.RollBackCommand;
-import seedu.task.model.ReadOnlyTaskManager;
-import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 
 // @@author A0147335E
 /**
@@ -42,8 +33,6 @@ public class UndoCommand extends Command {
     public static final int COMMAND_FIELD = 2;
 
     public static final int FIRST_INDEX_OF_LIST= 0;
-
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
     public final int numOfTimes;
 
@@ -329,6 +318,7 @@ public class UndoCommand extends Command {
         default:
             break;
         }
+        // @@author A0147335E
         try {
             int currentIndex = getUndoList().get(undoIndex).getCurrentIndex() + 1;
             Command command = new EditCommand(index, currentIndex, toEditItemParsed, toEdit, tagStringSet);

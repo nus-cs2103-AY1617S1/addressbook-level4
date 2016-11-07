@@ -11,7 +11,7 @@ import seedu.task.logic.commands.IncorrectCommand;
 // @@author A0147944U
 public class DirectoryCommandParser {
 
-    public static final Pattern DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<directory>[^<>|]+)");
+    private static final Pattern DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<directory>[^<>|]+)");
 
     /**
      * Parses arguments in the context of the directory command.

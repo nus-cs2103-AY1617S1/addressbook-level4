@@ -68,6 +68,7 @@ public class DoneCommand extends Command {
             return new CommandResult(MESSAGE_ALREADY_DONE);
         } else {
             // @@author A0147944U
+            // Attempt to repeat the recurring task if done status successfully changed
             model.repeatRecurringTask(new Task(currentTask));
             // @@author
         }

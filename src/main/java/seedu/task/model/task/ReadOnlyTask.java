@@ -53,7 +53,7 @@ public interface ReadOnlyTask {
             builder.append(" \nDeadline: ").append(getDeadline());
         }
         if (!getRecurring().toString().equals("false")) {       
-            builder.append(" \nRecurring: ").append(getDeadline());
+            builder.append(" \nRecurring: ").append(getRecurring());
         }
         if (!getTags().toSet().isEmpty()) {       
             builder.append(" \nTags: ");

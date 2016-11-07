@@ -6,7 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class Recurring {
 
     public static final String MESSAGE_RECURRING_CONSTRAINTS = "Recurring parameter should be daily, weekly, fortnightly monthly, yearly, true or false";
-    public static final String RECURRING_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String RECURRING_VALIDATION_REGEX = "([a-zA-Z]+\\.?)";
 
     public String recurringState;
 
