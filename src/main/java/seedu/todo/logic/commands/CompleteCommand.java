@@ -14,8 +14,6 @@ import java.util.List;
 
 //@@author A0092382A
 public class CompleteCommand extends BaseCommand {
-    private static final String VERB_COMPLETE = "marked complete";
-    private static final String VERB_INCOMPLETE = "marked incomplete";
 
     private Argument<Integer> index = new IntArgument("index");
 
@@ -50,8 +48,7 @@ public class CompleteCommand extends BaseCommand {
         if (index.hasBoundValue()) {
             ImmutableTask task = this.model.update(index.getValue(), t -> t.setCompleted(!t.isCompleted()));
             eventBus.post(new HighlightTaskEvent(task));
-            String feedback = task.isCompleted() ? CompleteCommand.VERB_COMPLETE : CompleteCommand.VERB_INCOMPLETE;
-            return taskSuccessfulResult(task.getTitle(), feedback);
+            return new CommandResult();
         } else {
             this.model.updateAll(t -> t.setCompleted(true));
             return new CommandResult("All tasks marked as completed");

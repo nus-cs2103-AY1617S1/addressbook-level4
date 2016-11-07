@@ -35,7 +35,7 @@ public class ShowCommand extends BaseCommand {
         ImmutableTask task = this.model.getObservableList().get(index.getValue() - INDEX_OFFSET);
         eventBus.post(new ExpandCollapseTaskEvent(task)); 
         eventBus.post(new HighlightTaskEvent(task));
-        return new CommandResult("Command executed");
+        return new CommandResult();
     }
 
 }

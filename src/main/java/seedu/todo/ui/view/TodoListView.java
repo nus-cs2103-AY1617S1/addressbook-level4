@@ -99,7 +99,10 @@ public class TodoListView extends UiPart {
      */
     public void scrollAndSelect(ImmutableTask task) {
         todoListView.getSelectionModel().clearSelection();
-        todoListView.getSelectionModel().select(task);
+        if (task!=null) {
+            todoListView.getSelectionModel().select(task);
+        }
+        
     }
 
 

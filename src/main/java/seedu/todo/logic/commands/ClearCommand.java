@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
 
@@ -28,6 +29,9 @@ public class ClearCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
+        //clear all selections
+        eventBus.post(new HighlightTaskEvent(null));
+        
         model.deleteAll();
         return new CommandResult("Tasks deleted");
         

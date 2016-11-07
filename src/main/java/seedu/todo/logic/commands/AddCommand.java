@@ -16,7 +16,6 @@ import java.util.List;
 
 //@@author A0135817B
 public class AddCommand extends BaseCommand {
-    private static final String VERB = "added";
     
     private Argument<String> title = new StringArgument("title").required();
     
@@ -72,7 +71,7 @@ public class AddCommand extends BaseCommand {
 
         eventBus.post(new HighlightTaskEvent(addedTask));
         eventBus.post(new ExpandCollapseTaskEvent(addedTask));
-        return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
+        return new CommandResult();
     }
 
     //@@author A0135803H

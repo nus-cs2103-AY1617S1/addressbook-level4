@@ -11,7 +11,6 @@ import java.util.List;
 
 //@@author A0092382A
 public class ViewCommand extends BaseCommand {
-    private static final String FEEDBACK_FORMAT = "Displaying %s view";
     
     private Argument<String> view = new StringArgument("view").required();
     
@@ -61,8 +60,7 @@ public class ViewCommand extends BaseCommand {
         //dismisses find if present
         model.find(null);
         model.view(viewSpecified);
-        String feedback = String.format(ViewCommand.FEEDBACK_FORMAT, viewSpecified);
-        return new CommandResult(feedback);
+        return new CommandResult();
     }
 
 }

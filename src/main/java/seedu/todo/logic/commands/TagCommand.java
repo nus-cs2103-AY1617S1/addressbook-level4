@@ -177,6 +177,9 @@ public class TagCommand extends BaseCommand {
             int displayedIndex = index.getValue();
             eventBus.post(new HighlightTaskEvent(model.getTask(displayedIndex)));
             eventBus.post(new ExpandCollapseTaskEvent(model.getTask(displayedIndex)));
+        } else {
+            //clear all current selections
+            eventBus.post(new HighlightTaskEvent(null));
         }
     }
 
@@ -464,6 +467,7 @@ public class TagCommand extends BaseCommand {
     /**
      * Returns the first object that cause the {@code predicate} to be true. Otherwise, return null.
      */
+    @SuppressWarnings("unchecked")
     private static <T> T chooseFirst(Predicate<T> predicate, T... objects) {
         Optional<T> optionalObject = Arrays.stream(objects).filter(predicate).findFirst();
         return optionalObject.isPresent() ? optionalObject.get() : null;
@@ -472,6 +476,7 @@ public class TagCommand extends BaseCommand {
     /**
      * Returns the first object that is available. Otherwise, return null.
      */
+    @SuppressWarnings("unchecked")
     private static <T> T chooseFirstAvailable(T... objects) {
         return chooseFirst(t -> t != null, objects);
     }

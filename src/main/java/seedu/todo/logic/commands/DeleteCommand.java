@@ -1,6 +1,8 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
+
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -33,6 +35,9 @@ public class DeleteCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
+        //clear selections
+        eventBus.post(new HighlightTaskEvent(null));
+        
         ImmutableTask deletedTask = this.model.delete(index.getValue());
         return taskSuccessfulResult(deletedTask.getTitle(), DeleteCommand.VERB);
     }
