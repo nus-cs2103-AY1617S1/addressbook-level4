@@ -138,6 +138,14 @@ A `Task` is defined as one of the following:
 * deadline task: a `task` whose `deadline` is valid, and whose `startTime` and `endTime` are set to their default values
 * event task: a `task` whose `startTime` and `endTime` are valid, and whose `deadline` is set to its default value
 
+//@@author A0140156R
+#### Model State
+**API** : [`Model.java`](../src/main/java/seedu/oneline/model/Model.java)
+
+A model state consists of a `ReadOnlyTaskBook`, as well as the predicate of the current filtered task list. Every time a mutating command (as specified by the `canUndo()` API) is called, the state of the model is stored in a ModelState as a stack.
+ 
+Model then exposes indirect access to these states through the `undo()` and `redo()` API.
+
 //@@author A0121657H  
 ### Storage component  
 <img src="images/StorageClassDiagram.png" width="800"><br>

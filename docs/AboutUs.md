@@ -41,6 +41,8 @@ Features implemented:
 Code written: [[functional code](../collated/main/A0140156R.md)][[test code](../collated/test/A0140156R.md)][[docs](../collated/docs/A0140156R.md)]<br>
 Other major contributions:
 - Final refactoring from AddressBook to OneLine
+- Refactored test cases 
+- Revamped parser
 
 ### [Ka-Shing](https://github.com/ongks)
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" /><br>
