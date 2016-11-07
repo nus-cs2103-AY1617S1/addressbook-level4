@@ -45,6 +45,7 @@ Role: Developer <br>
 * Features implemented:
    * [Help](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#viewing-help--help)
 * Code written: [[functional code](../collated/main/A0135784W.md)][[docs](../collated/docs/A0135784W.md)]
+  * Translate userguide into CS2101 format
 
 -----
 
