@@ -168,7 +168,7 @@ Examples:
 * `find CS2103 AND Software Project`<br>
   Returns todos having names `CS2103` and at least one of `Software` or `Project`
 <!-- @@author -->
-
+<!-- @@author A0138717X-->
 ####Edit a todo: `edit`
 Edit an existing field of an todo.<br>
 Format:<br> 
