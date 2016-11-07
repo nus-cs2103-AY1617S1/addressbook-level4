@@ -104,7 +104,7 @@ In essence, having all of the skills mentioned above will definitely help you to
 
 > <img src="DeveloperGuideImages/DesignArchitecture.png" width="600">
 
-The architectural design shows how the various components work in tandem with each other. `Main` only has one class MainApp and it is responsible for:
+The architectural design in figure 1 shows how the various components work in tandem with each other. `Main` only has one class MainApp and it is responsible for:
 
  1. Starting up _Unburden_: Initializes all components in order and ensures that the app starts to run
  2. Exiting _Unburden_: Shuts down all components in order and clears the memory
@@ -130,7 +130,7 @@ interface and exposes its functionality using the `ModelManager.java` class.<br>
 
 ><img src="DeveloperGuideImages/SequenceDiagram2.png" width="600">
 
-In figure 2, the sequence diagram below shows how the components interact when the user enters the command 'Done 1'.
+In figure 2, the diagram below shows how the components interact when the user enters the command 'Done 1'.
 
 Note how the `Model` simply raises a `ListOfTaskChangedEvent` when the data in _Unburden_ is changed,
 instead of using `Storage` to save the updates to the hard disk. 
@@ -142,8 +142,8 @@ In Figure 3, the diagram shows how the `Eventcenter` reacts to the event. This r
 
 Note how the event is being propagated through the `Eventscenter` to the `Storage` and `UI` without being coupled to the `Model`. This reduces coupling and reduces regression when editing files. Hence, it is highly recommended that you follow this nature of the design when editing the project.
 
-
 **The sections that below will go into more detail of each component.**
+
 
 
 ###**UI component**
@@ -177,9 +177,6 @@ These classes work together to form the interface which the user interacts with 
 
 
 
-
-
-
 The UI also consists of a `MainWindow` class which is made up of these &quot;UI parts&quot; such as `CommandBox`, `ResultDisplay`, `TaskListPanel`, `StatusBarFooter`, `BrowserPanel`.
 
 All of these classes, including the MainWindow class inherit from the abstract UiPart class.
@@ -196,6 +193,8 @@ The `UI` component
 ###**Logic component**
 
 > <img src="DeveloperGuideImages/Logic.png" width="600">
+
+According to Figure 5, the diagram shows the how each component of the `Logic` communicates with each other. Notice how each command class extends the extract class `Command`.
 
 The `Logic` component consists of the Parser class which is responsible to taking in the inputs from the `UI` component, deciphering it, and then creating a Command class that can handle the user&#39;s input correctly. `LogicManager` will then execute the command.
 
@@ -220,9 +219,13 @@ The `Logic` component
 - `LogicManager`  takes the command and executes it by calling `Model`
 - `TaskResult` is created and returned to the `UI` to be displayed to the user
 
+The sequence diagram above shows the interactions between the `Logic` component for the calling the execute() on "delete 1".
+
 ###**Model component**
 
 > <img src="DeveloperGuideImages/Model.png" width="600">
+
+You can see how the different components of the model interact with each other in figure 6.
 
 The `Model` component is mainly responsible for executing the outputs from the `Logic` component. It is also responsible for storing all the in-app data such as the user&#39;s preferences and data which is needed when executing commands.
 
@@ -248,6 +251,8 @@ The `Model` component
 ###**Storage component**
 
 > <img src="DeveloperGuideImages/Storage.png" width="600">
+
+According to figure 8, the diagram shows how the the each component interacts with one another.
 
 The `Storage` component primarily focuses on storing data. Any data related to the application will be saved within `Storage` and can be accessed later when requested. `Storage` works closely with `Model` to read and write data from the app as and when the user requests to add or show existing data.
 
@@ -313,7 +318,7 @@ Using Gradle:
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the guitests package.
+1. **GUI Tests** - These are _System Tests_ that test _Unburden_ by simulating user actions on the GUI. These are in the guitests package.
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
 	1. _Unit tests_ targeting the lowest level methods/classes. <br>
 	2. g. address.commons.UrlUtilTest <br>
