@@ -27,8 +27,13 @@ Responsibilities: Logic
    [test code](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/test/A0153411W.md)
    [docs](https://github.com/CS2103AUG2016-T15-C1/main/tree/master/collated/docs/A0153411W.md)
 * Contribution
-  * Set up Travis and Coveralls 
-  * [Did the initial refactoring from AddressBook to ToDoList](https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5) 
+  * [Did the initial refactoring from AddressBook to Task Manager](https://github.com/CS2103AUG2016-T15-C1/main/commit/b304c004e97db51e95d14c6ca26801886a6c3be5)
+  * Convert the initial attributes of Person in AddressBook into Task in TaskManager (Title, Interval, TimeInterval) 
+  * Apply singleton pattern to [Congfig class](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/src/main/java/seedu/task/commons/core/Config.java)
+  * Apply Test Case Design Heuristics for [ArgumentTokenizer class](https://github.com/CS2103AUG2016-T15-C1/main/blob/master/src/test/java/seedu/address/logic/parser/ArgumentTokenizerTest.java)
+  * Adjust and project graphs in Developer Guide
+  * Set up Travis and Coveralls
+  * Keep track of deadlines and make group appointments
   
 -----
 
