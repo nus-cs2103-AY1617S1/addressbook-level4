@@ -22,16 +22,16 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     @Test
     public void viewAll_nonEmptyList() {
     	
-    	TestTask[] expectedTodos = {td.read};
-    	TestTask[] expectedDeadlines = {td.spring};
-    	TestTask[] expectedEvents = {td.shop, td.dinner};
+    	TestTask[] expectedTodos = {td.todo};
+    	TestTask[] expectedDeadlines = {td.deadline};
+    	TestTask[] expectedEvents = {td.comingEvent, td.todayEvent};
         assertViewAllResult("view all", expectedTodos, expectedDeadlines, expectedEvents); // shows original list
 
         //add a todo task and then view all
-        commandBox.runCommand(td.todo.getAddCommand());
-        TestTask[] expectedTodosAfterAddCommand = {td.read, td.todo};
-    	TestTask[] expectedDeadlinesAfterAddCommand = {td.spring};
-    	TestTask[] expectedEventsAfterAddCommand = {td.shop, td.dinner};
+        commandBox.runCommand(td.addTodo.getAddCommand());
+        TestTask[] expectedTodosAfterAddCommand = {td.addTodo, td.todo};
+    	TestTask[] expectedDeadlinesAfterAddCommand = {td.deadline};
+    	TestTask[] expectedEventsAfterAddCommand = {td.comingEvent, td.todayEvent};
         assertViewAllWithAcceleratorResult(expectedTodosAfterAddCommand, 
         		expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
     }
@@ -60,7 +60,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         // mark two events as done and then view done to confirm done list is in opposite date-sorted order (i.e. latest first)
         commandBox.runCommand("view all");
     	commandBox.runCommand("done e1 e2");
-    	TestTask[] expectedEventsAfterDoneCommand = {td.dinner, td.shop};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.todayEvent, td.comingEvent};
     	assertViewDoneWithAcceleratorResult(new TestTask[0], new TestTask[0], expectedEventsAfterDoneCommand);
     }
     
@@ -83,27 +83,27 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     public void viewDate_nonEmptyList() {
     	
     	// view today 
-    	TestTask[] expectedTodos = {td.read};
+    	TestTask[] expectedTodos = {td.todo};
         assertViewDoneOrDateResult("view today", expectedTodos, new TestTask[0], new TestTask[0]); 
         
         // view xmas which natty will translate into a date
-        TestTask[] expectedTodosSpecialDate = {td.read};
-    	TestTask[] expectedEventsSpecialDate = {td.dinner};
+        TestTask[] expectedTodosSpecialDate = {td.todo};
+    	TestTask[] expectedEventsSpecialDate = {td.todayEvent};
     	assertViewDoneOrDateResult("view xmas", expectedTodosSpecialDate, new TestTask[0], expectedEventsSpecialDate);
         
     	// view actual date with 3 different formats
-    	TestTask[] expectedTodosDate = {td.read};
-    	TestTask[] expectedDeadlinesDate = {td.spring};
+    	TestTask[] expectedTodosDate = {td.todo};
+    	TestTask[] expectedDeadlinesDate = {td.deadline};
     	assertViewDoneOrDateResult("view 1 Jan 2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
     	assertViewDoneOrDateResult("view 1-Jan-2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
     	assertViewDoneOrDateResult("view 1-1-2017", expectedTodosDate, expectedDeadlinesDate, new TestTask[0]);
 
     	// add an event that spans over a few days and then view a date that 
     	//is in between the start and end date of that event
-    	TestTask multiDayEvent = td.event;
+    	TestTask multiDayEvent = td.addEvent;
     	commandBox.runCommand(multiDayEvent.getAddCommand());
-    	TestTask[] expectedTodosAfterAddCommand = {td.read};
-    	TestTask[] expectedEventsAfterDoneCommand = {td.event};
+    	TestTask[] expectedTodosAfterAddCommand = {td.todo};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.addEvent};
     	assertViewDoneOrDateResult("view 14 dec", expectedTodosAfterAddCommand, 
     			new TestTask[0], expectedEventsAfterDoneCommand);
         
@@ -130,16 +130,16 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	// add an event that is already over, then run `view`
     	TestTask overEvent = td.overEvent;
     	commandBox.runCommand(overEvent.getAddCommand());
-    	TestTask[] expectedTodosAfterAddCommand = {td.read};
-    	TestTask[] expectedDeadlinesAfterAddCommand = {td.spring};
-    	TestTask[] expectedEventsAfterAddCommand = {td.shop, td.dinner};
+    	TestTask[] expectedTodosAfterAddCommand = {td.todo};
+    	TestTask[] expectedDeadlinesAfterAddCommand = {td.deadline};
+    	TestTask[] expectedEventsAfterAddCommand = {td.comingEvent, td.todayEvent};
     	assertViewDoneOrDateResult("view", expectedTodosAfterAddCommand, 
     			expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
         
     	// mark a task as done, then run `view`
     	commandBox.runCommand("done t1");
-    	TestTask[] expectedDeadlinesAfterDoneCommand = {td.spring};
-    	TestTask[] expectedEventsAfterDoneCommand = {td.shop, td.dinner};
+    	TestTask[] expectedDeadlinesAfterDoneCommand = {td.deadline};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.comingEvent, td.todayEvent};
     	assertViewWithAcceleratorResult(new TestTask[0], 
     			expectedDeadlinesAfterDoneCommand, expectedEventsAfterDoneCommand);
     }

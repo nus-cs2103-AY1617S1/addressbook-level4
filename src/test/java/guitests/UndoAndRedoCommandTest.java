@@ -32,8 +32,8 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
         // store the current list into undo stack before running the command
         currentList = new TestTaskList(td.getTypicalTasks());
         undoTestTaskListStack.push(currentList.copy());        
-        currentList.addTaskToList(td.todo);
-        String commandText = td.todo.getAddCommand();
+        currentList.addTaskToList(td.addTodo);
+        String commandText = td.addTodo.getAddCommand();
         commandBox.runCommand(commandText);
         undoCommandTextStack.push(commandText);
         
@@ -61,9 +61,9 @@ public class UndoAndRedoCommandTest extends TaskManagerGuiTest {
                
         undoTestTaskListStack.push(currentList.copy());        
         targetIndex = currentList.size('d');
-        commandText = td.event.getEditCommand(targetIndex, 'd');        
+        commandText = td.addEvent.getEditCommand(targetIndex, 'd');        
         commandBox.runCommand(commandText);
-        currentList.editTaskFromList(targetIndex - 1, 'd', td.event);
+        currentList.editTaskFromList(targetIndex - 1, 'd', td.addEvent);
         undoCommandTextStack.push(commandText);        
         
         // clear redo stack when new undoable command has been given and check that there is no redo available
