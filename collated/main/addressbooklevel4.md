@@ -1,5 +1,5 @@
 # addressbooklevel4
-###### /seedu/gtd/logic/commands/AddCommand.java
+###### /java/seedu/gtd/logic/commands/AddCommand.java
 ``` java
     @Override
     public CommandResult execute() {
@@ -15,7 +15,7 @@
 
 }
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
 	
     /**
@@ -37,12 +37,12 @@
     
     
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>\\S+)" 
-                    + " (?<newDetails>\\S+(?:\\s+\\S+)*)");
+                    + " (?<newDetail>.*)");
 
     public Parser() {}
 
@@ -92,13 +92,8 @@
         case HelpCommand.COMMAND_WORD:
         	return prepareHelp(arguments);
         	
-
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand();
-
-        case SetFilePathCommand.COMMAND_WORD:
-        	return prepareSetFilePath(arguments);
-
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -113,7 +108,7 @@
      */
     
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -124,14 +119,13 @@
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();
         }
-        
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.split(" "));
         return new HashSet<>(tagStrings);
     }
     
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
     /**
      * Parses arguments in the context of the delete task command.
@@ -151,7 +145,7 @@
     }
     
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
 
     /**
@@ -187,10 +181,7 @@
         return Optional.of(Integer.parseInt(index));
 
     }
-    
-```
-###### /seedu/gtd/logic/parser/Parser.java
-``` java
+
     /**
      * Parses arguments in the context of the find task command.
      *
@@ -199,7 +190,7 @@
      */
     
 ```
-###### /seedu/gtd/logic/parser/Parser.java
+###### /java/seedu/gtd/logic/parser/Parser.java
 ``` java
     
 private Command prepareList(String args) {
@@ -216,8 +207,23 @@ private Command prepareList(String args) {
      * @param args full command args string
      * @return the prepared command
      */
+    private Command prepareHelp(String args) {
+    	//if no argument
+    	if (args.equals("")) {
+    		args="help";
+    	}
+    	
+    	final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        return new HelpCommand(commandWord);
+    }
+}
 ```
-###### /seedu/gtd/MainApp.java
+###### /java/seedu/gtd/MainApp.java
 ``` java
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
@@ -377,7 +383,7 @@ public class MainApp extends Application {
     }
 }
 ```
-###### /seedu/gtd/model/AddressBook.java
+###### /java/seedu/gtd/model/AddressBook.java
 ``` java
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -406,25 +412,7 @@ public class MainApp extends Application {
     public static ReadOnlyAddressBook getEmptyAddressBook() {
         return new AddressBook();
     }
-    
-```
-###### /seedu/gtd/model/AddressBook.java
-``` java
-        //Reused config saving
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
-        try {
-            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
-            changedConfig = configOptional.orElse(new Config());
-        } catch (DataConversionException e) {
-            changedConfig = new Config();
-        }
 
-        changedConfig.setAddressBookFilePath(newFilePath);
-        System.out.println("Saved to " + newFilePath);
-        
-```
-###### /seedu/gtd/model/AddressBook.java
-``` java
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
@@ -463,7 +451,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/AddressBook.java
+###### /java/seedu/gtd/model/AddressBook.java
 ``` java
     /**
      * Ensures that every tag in this task:
@@ -550,7 +538,7 @@ public class MainApp extends Application {
     }
 }
 ```
-###### /seedu/gtd/model/ModelManager.java
+###### /java/seedu/gtd/model/ModelManager.java
 ``` java
 	
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -625,7 +613,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/ModelManager.java
+###### /java/seedu/gtd/model/ModelManager.java
 ``` java
     
     @Override
@@ -637,7 +625,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/ModelManager.java
+###### /java/seedu/gtd/model/ModelManager.java
 ``` java
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -647,7 +635,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/ModelManager.java
+###### /java/seedu/gtd/model/ModelManager.java
 ``` java
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
@@ -700,7 +688,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/task/UniqueTaskList.java
+###### /java/seedu/gtd/model/task/UniqueTaskList.java
 ``` java
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -746,7 +734,7 @@ public class MainApp extends Application {
     }
     
 ```
-###### /seedu/gtd/model/task/UniqueTaskList.java
+###### /java/seedu/gtd/model/task/UniqueTaskList.java
 ``` java
     /**
      * Removes the equivalent task from the list.
@@ -783,299 +771,5 @@ public class MainApp extends Application {
     public int hashCode() {
         return internalList.hashCode();
     }
-}
-```
-###### /seedu/gtd/ui/BrowserPanel.java
-``` java
-    /**
-     * Frees resources allocated to the browser.
-     */
-    public void freeResources() {
-        browser = null;
-    }
-
-}
-```
-###### /seedu/gtd/ui/MainWindow.java
-``` java
-    private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 768;
-    public static final int MIN_WIDTH = 1024;
-
-    private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
-    private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
-    private Config config;
-    private UserPrefs userPrefs;
-
-    // Handles to elements of this Ui container
-    private VBox rootLayout;
-    private Scene scene;
-
-    private String addressBookName;
-
-    @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private AnchorPane taskListPanelPlaceholder;
-
-    @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
-
-
-    public MainWindow() {
-        super();
-    }
-
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
-        return mainWindow;
-    }
-
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
-
-        //Set dependencies
-        this.logic = logic;
-        this.addressBookName = addressBookName;
-        this.config = config;
-        this.userPrefs = prefs;
-
-        //Configure the UI
-        setTitle(appTitle);
-        setIcon(ICON);
-        setWindowMinSize();
-        setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-
-        setAccelerators();
-    }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
-    void fillInnerParts() {
-        browserPanel = BrowserPanel.load(getBrowserPlaceholder());
-        browserPanel.loadPage("https://calendar.google.com");
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-    }
-
-	private AnchorPane getBrowserPlaceholder() {
-		return browserPlaceholder;
-    }
-    
-	private AnchorPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
-    }
-
-    public void hide() {
-        primaryStage.hide();
-    }
-
-    private void setTitle(String appTitle) {
-        primaryStage.setTitle(appTitle);
-    }
-
-    /**
-     * Sets the default size based on user preferences.
-     */
-    protected void setWindowDefaultSize(UserPrefs prefs) {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
-    }
-
-    private void setWindowMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
-    }
-
-    /**
-     * Returns the current size and the position of the main Window.
-     */
-    public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-    }
-
-    @FXML
-    public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
-    }
-
-    public void show() {
-        primaryStage.show();
-    }
-
-    /**
-     * Closes the application.
-     */
-    @FXML
-    private void handleExit() {
-        raise(new ExitAppRequestEvent());
-    }
-
-```
-###### /seedu/gtd/ui/MainWindow.java
-``` java
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
-    }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
-}
-```
-###### /seedu/gtd/ui/UiManager.java
-``` java
-    private Logic logic;
-    private Config config;
-    private UserPrefs prefs;
-    private MainWindow mainWindow;
-
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
-        super();
-        this.logic = logic;
-        this.config = config;
-        this.prefs = prefs;
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        logger.info("Starting UI...");
-        primaryStage.setTitle(config.getAppTitle());
-
-        //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
-
-        try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
-
-        } catch (Throwable e) {
-            logger.severe(StringUtil.getDetails(e));
-            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
-        }
-    }
-
-    @Override
-    public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
-        mainWindow.hide();
-        mainWindow.releaseResources();
-    }
-
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
-    }
-
-    private Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(imagePath));
-    }
-
-    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
-    }
-
-    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
-                                               String contentText) {
-        final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.initOwner(owner);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-
-        alert.showAndWait();
-    }
-
-    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
-        Platform.exit();
-        System.exit(1);
-    }
-
-    //==================== Event Handling Code =================================================================
-
-    @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
-    }
-
-    @Subscribe
-    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadTaskPage(event.getNewSelection());
-    }
-
 }
 ```

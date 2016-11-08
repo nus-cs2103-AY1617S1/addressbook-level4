@@ -1,5 +1,5 @@
 # addressbooklevel4
-###### /seedu/gtd/logic/LogicManagerTest.java
+###### /java/seedu/gtd/logic/LogicManagerTest.java
 ``` java
 
     /**
@@ -101,7 +101,7 @@
     }
     
 ```
-###### /seedu/gtd/logic/LogicManagerTest.java
+###### /java/seedu/gtd/logic/LogicManagerTest.java
 ``` java
     @Test
     public void execute_exit() throws Exception {
@@ -140,7 +140,7 @@
     }
     
 ```
-###### /seedu/gtd/logic/LogicManagerTest.java
+###### /java/seedu/gtd/logic/LogicManagerTest.java
 ``` java
     
     @Test
@@ -161,7 +161,7 @@
     }
     
 ```
-###### /seedu/gtd/logic/LogicManagerTest.java
+###### /java/seedu/gtd/logic/LogicManagerTest.java
 ``` java
     
     @Test
@@ -220,7 +220,7 @@
     }
     
 ```
-###### /seedu/gtd/testutil/TestUtil.java
+###### /java/seedu/gtd/testutil/TestUtil.java
 ``` java
 	
     public static String LS = System.lineSeparator();
@@ -504,7 +504,7 @@
     }
     
 ```
-###### /seedu/gtd/testutil/TestUtil.java
+###### /java/seedu/gtd/testutil/TestUtil.java
 ``` java
     
     private static <T> List<T> asList(T[] objs) {

@@ -10,13 +10,13 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Storage and Testing](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-   * Basic undo and multiple undo
-   * Edit task
-   * Find searches for exact keywords first
-   * Natural language processing for dates using Natty API
+   * [Basic undo and multiple undo](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [Edit task](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Find searches for exact keywords first](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Natural language processing for dates using Natty API](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
 * Code written: [[functional code](A0146130W.md)][[test code](A0146130W.md)][[docs](A0146130W.md)]
 * Other major contributions:
-  * Did the initial refactoring from Person model to Task model
+  * Did the initial refactoring from Person model to Task model [[#133](https://github.com/se-edu/addressbook-level4/pull/152) ]
   * Set up Coveralls and Collate
   * Change browser to search task location on google maps
   
@@ -29,11 +29,9 @@ Role: Developer <br>
 * Features implemented:	
 	* [Reordered UI](https://github.com/CS2103AUG2016-F10-C3/main/tree/master/src/main/resources/view)
 	* [UML Design](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/DeveloperGuide.md)
-	* [Implemented SetPath command]()
 * Other major contributions:
 	* [Designed Screenshots](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/images/Ui.jpg)
 	* [Designed icon](https://github.com/CS2103AUG2016-F10-C3/main/tree/master/src/main/resources/tary.png)
-	* [Complete developer guide](https://github.com/CS2103AUG2016-F10-C3/main/blob/master/docs/DeveloperGuide.md)
 
 -----
 
@@ -55,15 +53,6 @@ Role: Developer <br>
   * Complete user guide
  
 ------
-
-#### [Nyan Lin Cho](http://github.com/NachosNLC) 
-<img src="images/Nachos.jpg" width="150"><br>
-
-* Components in charge of: [Model](https://github.com/se-edu/addressbook-level4/blob/master/docs/DeveloperGuide.md#model-component)
-* Features implemented:
-   * [Extended Help Command]()
-   
- -----
 
 # Acknowledgements
 
