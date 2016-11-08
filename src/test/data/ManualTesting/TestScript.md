@@ -1,3 +1,31 @@
+# Test Script
+
+## Basic Command Summary
+
+Command | Format | Usage Example
+-------- | :------- | :--------
+Add | `add TASKNAME d/<DEADLINE> p/<PRIORITY>` | add CS2103 Project d/231217 p/4
+Edit | `edit INDEX <TASKNAME> d/<DEADLINE> p/<PRIORITY>` | edit CS2103 Project d/071116 p/5
+Delete | `delete INDEX` | delete 2
+List | `list`
+Listall | `listall`
+Listtag | `listtag KEYWORD` | listtag important
+Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report
+Complete | `complete INDEX` | complete 1
+Help | `help`
+Undo | `undo`
+Revert | `rev`
+Update | `update`
+Save | `save ./data/FILE_NAME.xml` | save ./data/jimsList.xml
+Load | `Load ./data/FILE_NAME.xml` | load ./data/jimsList.xml
+Scroll | `Scroll POINT` | scroll top
+Clear | `clear`
+Repeat | `repeat INDEX SCHEDULE` | repeat 3 weekly
+Exit | `exit`
+
+<div style="page-break-after: always;"></div>
+
+## Test Sequence
 - click on the icon and access the application
 --the application will be opend 
 
