@@ -26,8 +26,8 @@ public class DateUtil {
         int keyDate = SubStringOfStringAsInt(0,2,keyword);
         int keyMonth = SubStringOfStringAsInt(3,5,keyword);
         int keyYear = SubStringOfStringAsInt(6,keyword);
-        Date taskStart = task.getStart().m_date;
-        Date taskEnd = task.getEnd().m_date;
+        Date taskStart = task.getStart().getDate();
+        Date taskEnd = task.getEnd().getDate();
         if (startDateTimeAndEndDateTimeIsEmpty(taskStart, taskEnd)) {
             return false;
         } else if (dateTimeIsEmpty(taskStart)) {
