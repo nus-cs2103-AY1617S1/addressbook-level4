@@ -80,6 +80,9 @@ Daily planner will indicate which day's schedule you are currently looking at at
 > Task should be added with an 'overdue' label, since the task was supposed to end yesterday
 - `add task7 e/[2HOURS FROM NOW]`
 > Task is added with a deadline coming up soon; task will hold a 'due soon' label to remind the user.
+- `add task8 s/today 3pm e/today 6pm`
+- `add task9 s/today 4pm e/today 5pm`
+> Task is added, but warning is shown at top display, since task9 clases within the timeslot of task8.
 
 ### Undo
 - `add task8 s/two days ago`
