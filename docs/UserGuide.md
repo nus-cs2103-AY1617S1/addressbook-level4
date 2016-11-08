@@ -182,4 +182,6 @@ List | `list [done]`
 Help | `help`
 Select | `select INDEX`
 SetPath | `setPath NEW_FILE_PATH` NEW_FILE_PATH: e.g. `data/newfile.xml`  
+Undo | `undo`
 Exit | `exit`
+
