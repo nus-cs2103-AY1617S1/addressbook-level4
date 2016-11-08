@@ -12,7 +12,6 @@ public class UnpinCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void unpin() {
 
-		TestTask[] currentList = td.getTypicalTasks();
 		TestTask taskToUnpin = td.CS2103_Project;
 		
 		commandBox.runCommand("pin 1");
@@ -24,7 +23,7 @@ public class UnpinCommandTest extends DailyPlannerGuiTest {
 
 		commandBox.runCommand(command);
 
-		// confirm there is now no tasks in the pinned list
-		assertEquals(pinnedListPanel.getNumberOfPeople(), 0);
+		// confirm there is only 1 task remaining in the pinned list
+		assertEquals(pinnedListPanel.getNumberOfPeople(), 1);
 	}
 }
