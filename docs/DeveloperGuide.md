@@ -256,8 +256,6 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-<!--- @@author A0146130W --->
-
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -277,7 +275,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | view all tasks entered | have a quick summary of what tasks I have
 `* * *` | user | clear all tasks | reset the task list
 
-<!--- @@author addressbook-level4 --->
 
 ## Appendix B : Use Cases
 
@@ -320,8 +317,6 @@ Use case ends.
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
-
-<!--- @@author A0146130W --->
 
 ## Appendix E : Product Survey
 
