@@ -12,7 +12,10 @@ public class Date implements Comparable<Date> {
     private final int m_month;
     private final int m_year;
    
-    /** Guaranteed that value is either an empty string or in the format: DD/MM/YYYY */
+    /**
+     * Guaranteed that value is either an empty string or in the format:
+     * DD/MM/YYYY
+     */
     public Date(String value) {
 	assert value != null;
 	m_value = value;
@@ -20,7 +23,9 @@ public class Date implements Comparable<Date> {
 	    m_day = Integer.parseInt(value.substring(0, 2));
 	    m_month = Integer.parseInt(value.substring(3, 5));
 	    m_year = Integer.parseInt(value.substring(6));
-	} else {
+	} 
+	// default values when date not present
+	else {
 	    m_day = 0;
 	    m_month = 0;
 	    m_year = 3000;
@@ -37,7 +42,7 @@ public class Date implements Comparable<Date> {
 	return other == this // short circuit if same object
 		|| (other instanceof Date // instanceof handles nulls
 			&& m_value.equals(((Date) other).m_value)); // state
-	// check
+								   // check
     }
 
     @Override
