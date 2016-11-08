@@ -286,7 +286,7 @@ public class Parser {
 	    formattedStart = DateUtil.getEmptyDateTime();
 	}
 	// if start time is given
-	if (startString.contains("am") || startString.contains("pm")) {
+	if (StringUtil.stringContainsAmOrPm(startString)) {
 	    String start = natty.parse(startString);
 	    formattedStart = DateUtil.getDateTimeFromString(start);
 	} else {
@@ -305,7 +305,7 @@ public class Parser {
 	    formattedEnd = DateUtil.getEmptyDateTime();
 	}
 	// if end time is given
-	if (endString.contains("am") || endString.contains("pm")) {
+	if (StringUtil.stringContainsAmOrPm(endString)) {
 	    // if end date is given
 	    if (hasEndDate(endString)) {
 		String end = natty.parse(endString);
@@ -354,7 +354,7 @@ public class Parser {
 	    String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
 	    // loop through rest of arguments, add them to hashmap if valid
 
-	    argumentArrayToHashMap(mapArgs, splitArgs);
+	    StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
 	}
 
 	return mapArgs;
@@ -380,46 +380,14 @@ public class Parser {
 	    mapArgs.put("taskName", taskName);
 	    if (arguments.contains("/")) {
 		String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-		argumentArrayToHashMap(mapArgs, splitArgs);
+		StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
 	    }
 	} else if (arguments.contains("/")) {
 	    String[] splitArgs = arguments.split(" ");
-	    argumentArrayToHashMap(mapArgs, splitArgs);
+	    StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
 	}
 
 	return mapArgs;
-    }
-
-    /*
-     * Loops through arguments, adds them to hashmap if valid
-     */
-
-    private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
-	for (int i = 0; i < splitArgs.length; i++) {
-	    if (splitArgs[i].substring(0, 2).equals("s/")) {
-		extractArgument(mapArgs, splitArgs, i, "start");
-	    }
-
-	    if (splitArgs[i].substring(0, 2).equals("e/")) {
-		extractArgument(mapArgs, splitArgs, i, "end");
-	    }
-
-	    if (splitArgs[i].substring(0, 2).equals("c/")) {
-		extractArgument(mapArgs, splitArgs, i, "cats");
-
-	    }
-	}
-    }
-
-    private void extractArgument(HashMap<String, String> mapArgs, String[] splitArgs, int i, String type) {
-	int j = i + 1;
-	String arg = splitArgs[i].substring(2);
-	while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-	    arg += " " + splitArgs[j];
-	    j++;
-	}
-	i = j;
-	mapArgs.put(type, arg);
     }
 
     // @@author A0146749N

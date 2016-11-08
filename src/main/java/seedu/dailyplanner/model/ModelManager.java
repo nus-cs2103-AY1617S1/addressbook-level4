@@ -115,7 +115,8 @@ public class ModelManager extends ComponentManager implements Model {
         setLastTaskAddedIndex(targetIndex);
         indicateDailyPlannerChanged();
     }
-
+	
+	// @@author A0146749N
 	@Override
 	public void pinTask(ReadOnlyTask taskToPin) throws TaskNotFoundException {
 		dailyPlanner.pinTask(taskToPin);
