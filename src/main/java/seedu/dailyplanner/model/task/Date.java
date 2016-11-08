@@ -49,6 +49,18 @@ public class Date implements Comparable<Date> {
     public int hashCode() {
 	return m_value.hashCode();
     }
+    
+    public int getDay() {
+	return m_day;
+    }
+    
+    public int getMonth() {
+	return m_month;
+    }
+    
+    public int getYear() {
+	return m_year;
+    }
 
     @Override
     public int compareTo(Date o) {

@@ -41,16 +41,16 @@ public class DateUtil {
     private static boolean isKeyBetweenStartAndEnd(int keyDate, int keyMonth, int keyYear, Date taskStart,
             Date taskEnd) {
         Calendar start = Calendar.getInstance();
-        start.set(taskStart.m_year + 1900, taskStart.m_month, taskStart.m_day);
+        start.set(taskStart.getYear() + 1900, taskStart.getMonth(), taskStart.getDay());
         Calendar searchKey = Calendar.getInstance();
         searchKey.set(keyYear + 1900, keyMonth, keyDate);
         Calendar end = Calendar.getInstance();
-        end.set(taskEnd.m_year + 1900, taskEnd.m_month, taskEnd.m_day);
+        end.set(taskEnd.getYear() + 1900, taskEnd.getMonth(), taskEnd.getYear());
         return (start.compareTo(searchKey) <= 0 && end.compareTo(searchKey) >= 0);
     }
 
     private static boolean dateTimeIsEmpty(Date taskStart) {
-        return taskStart.m_value.equals("");
+        return taskStart.toString().equals("");
     }
 
     private static boolean startDateTimeAndEndDateTimeIsEmpty(Date taskStart, Date taskEnd) {

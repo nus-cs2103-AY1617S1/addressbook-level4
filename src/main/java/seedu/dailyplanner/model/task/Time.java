@@ -49,6 +49,18 @@ public class Time implements Comparable<Time> {
     public int hashCode() {
 	return m_value.hashCode();
     }
+    
+    public int getHour() {
+	return m_hour;
+    }
+    
+    public int getMinute() {
+	return m_minute;
+    }
+    
+    public String getMeridiem() {
+	return m_meridiem;
+    }
 
     @Override
     public int compareTo(Time o) {
