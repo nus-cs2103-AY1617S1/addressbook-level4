@@ -71,7 +71,7 @@ Exit | `exit`
 - undo
 > * the completed state of the task is undone 
 
-- unpdate 
+- update 
 > * the list will be updated and will reflect TPTM's color coded task warning system (TPTM is automatically updated every minute without any user prompt)
 
 - repeat 49 off
