@@ -20,7 +20,7 @@ Marks the task as done.
 
 Deletes and undo delete.
 
-1. clear (nope)
+1. clear
 
 Confirmation prompt for undoable clear.
 
