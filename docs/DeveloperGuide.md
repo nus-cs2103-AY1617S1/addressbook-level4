@@ -124,7 +124,7 @@ Figure 3 shows how the `EventsCenter` reacts to the event (`add floating task`).
 > Note how the event passes through the `EventsCenter` to the `Storage` and `UI`. This process is done without `Model` being coupled to other components. Thus, this Event-Driven approach helps us to reduce direct coupling between components.
 
 ###Additional details of each component.
-<!-- @@author--> 
+<!-- @@author A0138420N --> 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -180,8 +180,8 @@ The `Model` component,
 **API** : [`Storage.java`](../src/main/java/seedu/ggist/storage/Storage.java)
 
 The `Storage` component,
-*saves `UserPref` objects in json format and reads it back.
-*saves the GGist data in xml format and reads it back.
+* saves `UserPref` objects in json format and reads it back.
+* saves the GGist data in xml format and reads it back.
 
 ### Common classes
 
@@ -355,13 +355,12 @@ Use case ends.
 
 1. Should work on any mainstream OS as long as it has Java 1.8.0_60 or higher installed.
 2. Should be able to hold up to 1000 tasks.
-3. Should launch within 3 seconds
-4. Should be user friendly
-5. Should respond command within 1 second
-6. Should be able to work offline
-7. Should have enough capacity to store all the information and tasks
-10. Should look pleasant and easy on the eyes
-11. Should be stable and reliable with as few breakdowns as possible
+3. Should launch within 3 seconds 
+4. Should respond command within 1 second
+5. Should be able to work offline
+6. Should have enough capacity to store all the information and tasks
+7. Should look pleasant and easy on the eyes
+8. Should be stable and reliable with as few breakdowns as possible
 
 ## Appendix D : Glossary
 
@@ -391,7 +390,7 @@ Use case ends.
 
 * Unable to colour code for events
 * Unable to strike off completed task
-* Able to set recurring task, but unable to set using one “one-shot” approach
+* Cannot set recurring tasks using the one line entry
 * Does not carry forwards uncompleted task 
 
 #### Errands

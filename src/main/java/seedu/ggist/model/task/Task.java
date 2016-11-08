@@ -26,8 +26,6 @@ public class Task implements ReadOnlyTask{
     protected boolean isOverdue;
     protected Date start;
     protected Date end;
-    protected boolean hasNoStartDate;
-    protected boolean hasNoEndDate;
     
     public static enum TaskType {
         FLOATING("task"), DEADLINE("deadline"), EVENT("event"); 
@@ -113,9 +111,9 @@ public class Task implements ReadOnlyTask{
             return new DateTimeParser(time.value + " " + date.value).getDateTime();
         }        
     }  
+    
     /**
      * check if end time is before the current time. set task overdue if true
-     * checks if the end is before the start
      * @throws IllegalValueException
      */
     public void checkTimeOverdue() throws IllegalValueException {
@@ -128,9 +126,13 @@ public class Task implements ReadOnlyTask{
         }
     }
     
+    /**
+     * check if end time is before start time
+     * @throws IllegalValueException
+     */
     public static void checkTimeClash(Date start, Date end) throws IllegalValueException {
         if(end.before(start)) {
-            throw new IllegalValueException("End cannot be earlier than start!");
+            throw new IllegalValueException(Messages.MESSAGE_END_EARLIER_THAN_START);
         }
     }
     
@@ -195,14 +197,7 @@ public class Task implements ReadOnlyTask{
         isOverdue = false;
     }
     
-    public void setHasNoStartDate(boolean hasNoStartDate) {
-        this.hasNoStartDate  = hasNoStartDate;
-    }
-    
-    public void setHasNoEndDate(boolean hasNoEndDate) {
-        this.hasNoEndDate = hasNoEndDate;
-    }
-    
+   
     @Override
     public boolean isDone() {
         return isDone;
@@ -256,17 +251,7 @@ public class Task implements ReadOnlyTask{
     public Date getEndDateTime() {
         return end;
     }
-    
-    @Override
-    public boolean hasNoStartDate() {
-        return hasNoStartDate;
-    }
-    
-    @Override
-    public boolean hasNoEndDate() {
-        return hasNoEndDate;
-    }
-    
+
     @Override
     public String toString() {
         return getAsText();

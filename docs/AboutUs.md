@@ -8,21 +8,23 @@ We are a team based in the [School of Computing, National University of Singapor
 <img src="images/bernard.jpeg" width="150"><br>
 
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#logic-component)
-* Aspects/tools in charge of: Team Leader, Integration, Code Quality
+* Aspects/tools in charge of: Integration of PrettyTime NLP, Code Quality
 * Features implemented:
    * Parse in flexible inputs
    * Overdue tasks
-   * [Add tasks](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
-   * [List task](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
-   * [Save GGist data](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--save)
-   * [Search keywords](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#searching-tasks-by-keywords-search)
+   * [`add` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#adding-a-task-add)
+   * [`list` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#listing-all-tasks--list)
+   * [`save` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#saving-the-data-to-a-specified-location--save)
    * [Priority feature](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#quick-start)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138411N.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0138411N.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0138411N.md)]
 * Other major contributions:
+  * Team Lead
   * Did the initial refactoring from AddressBook to GGist[[#1](https://github.com/CS2103AUG2016-W13-C2/main/pull/1)][[#3](https://github.com/CS2103AUG2016-W13-C2/main/pull/3)][[#6](https://github.com/CS2103AUG2016-W13-C2/main/pull/6)]
   * Contributed to UI developements [[#122](https://github.com/CS2103AUG2016-W13-C2/main/pull/122)] [[#126](https://github.com/CS2103AUG2016-W13-C2/main/pull/126)][[#145](https://github.com/CS2103AUG2016-W13-C2/main/pull/145)]
   * Contributed to Testing developments [[#89](https://github.com/CS2103AUG2016-W13-C2/main/pull/89)][[#90](https://github.com/CS2103AUG2016-W13-C2/main/pull/90)][[#121](https://github.com/CS2103AUG2016-W13-C2/main/pull/121)][[#141](https://github.com/CS2103AUG2016-W13-C2/main/pull/141)][[#158](https://github.com/CS2103AUG2016-W13-C2/main/pull/158)][[#169](https://github.com/CS2103AUG2016-W13-C2/main/pull/169)][[#171](https://github.com/CS2103AUG2016-W13-C2/main/pull/171)]
   * Set up Travis and Coveralls [[#88](https://github.com/CS2103AUG2016-W13-C2/main/pull/88)]
+  * [Creation of Test Script for manual testing](https://github.com/CS2103AUG2016-W13-C2/main/commit/e7c040abe65c534b9043831c82cdf562dc68ed29)
+  * Update developer's guide class diagrams[[#176](https://github.com/CS2103AUG2016-W13-C2/main/pull/176)]
   
   
 -----
@@ -33,8 +35,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [UI](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
 * Features implemented:
-   * [Edit](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
-   * [Done](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete--done) 
+   * [`edit` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit)
+   * [`done` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete--done) 
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0144727B.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0144727B.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0144727B.md)] 
 * Other major contributions:
   * Aided in the initial refactoring from AddressBook test cases to GGist test cases
@@ -50,8 +52,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Storage](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Code Quality, Command Developer, User and Developer Guide Developer
 * Features implemented:
-   * [Undo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#undo-undo)
-   * [Redo](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#redo-redo) 
+   * [`undo` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#undo-undo)
+   * [`redo` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#redo-redo) 
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0138420N.md)][[test code]][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0138420N.md)] 
 * Other major contributions:
   * Aided in the initial refactoring from AddressBook test cases to GGist test cases
@@ -71,8 +73,8 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Testing] (https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#testing)
 * Aspects/tools in charge of: Program Testing, Command Developer
 * Features implemented:
-   * [ContinueCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-completed-task-as-undone--continue)
-   * [EditCommand](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
+   * [`continue` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#marking-a-completed-task-as-undone--continue)
+   * [`edit` command](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/UserGuide.md#editing-a-task--edit) 
    * [TypicalTaskTesting](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/docs/DeveloperGuide.md#troubleshooting-tests)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/main/A0147994J.md)][[test code](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/test/A0147994J.md)][[docs](https://github.com/CS2103AUG2016-W13-C2/main/blob/master/collated/docs/A0147994J.md)] 
 * Other major contributions:
