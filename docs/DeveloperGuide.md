@@ -286,8 +286,6 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | advanced user | pin my tasks on a new list | remind myself which are the tasks that require my constant attention
 `*` | advanced user | use natural language| specify my dates and time without using a fixed format
 
-{More to be added}
-
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `DailyPlanner` and the **Actor** is the `user`, unless specified otherwise)
@@ -302,17 +300,17 @@ Use case ends.
 
 **Extensions**
 
-1a. Required information for task missing
+1a. Name of task missing
 
->1a1. Task Manager shows an error message<br>
+>1a1. Daily Planner shows an error message<br>
     Use case resumes back to step 1
     
 1b.  Time slot for task is already filled
->1b1. Task manager warns user that time slot clashes <br>
+>1b1. Daily Planner warns user that time slot clashes <br>
 	Use case resumes
 	
 1c. Format is invalid
-> 3b1. Task Manager shows an error message <br>
+> 3b1. Daily Planner shows an error message <br>
 	Use case resumes
 
 
@@ -321,9 +319,9 @@ Use case ends.
 **MSS**
 
 1. User requests to view tasks for specific time period or completed list
-2. Task Manager displays all tasks during time period or the completed tasks
+2. Daily Planner displays all tasks during time period or the completed tasks
 3. User requests to delete a specific task in the list or the clear the completed task list
-4. Task Manager deletes the task(s)
+4. Daily Planner deletes the task(s)
 Use case ends
 
 **Extensions**
@@ -341,9 +339,9 @@ Use case ends
 **MSS**
 
 1. User requests to view tasks for specific time period
-2. Task Manager displays all tasks during time period
+2. Daily Planner displays all tasks during time period
 3. User requests to mark a specific task in the list as completed
-4. Task Manager mark the task as completed
+4. Daily Planner mark the task as completed
 Use case ends
 
 **Extensions**
