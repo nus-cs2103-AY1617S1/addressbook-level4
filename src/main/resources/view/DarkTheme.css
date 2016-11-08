@@ -21,7 +21,7 @@
     -fx-text-fill: white;
     -fx-opacity: 1.0;
 }
-
+/* @@author A0140124B */
 .fordate-label {
 	-fx-font-family: Verdana;
   -fx-font-size: 15px;
@@ -29,7 +29,7 @@
   -fx-highlight-text-fill: #000000;
   -fx-text-fill: #00ff00;
 	
-}
+}/* @@author */
 
 .text-field {
     -fx-font-family: Consolas;

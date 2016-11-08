@@ -24,7 +24,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
-
+    // @@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD
 	    + ": Edits the task identified by the index number shown in current list.\n"
 	    + "Format: edit [INDEX] (must be a positive integer)[TASKNAME] s/[STARTDATE] [STARTTIME] e/[ENDDATE] [ENDTIME]\n"
@@ -32,7 +32,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the daily planner";
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    // @@author A0139102U
+    
     public final int targetIndex;
     private final Optional<String> taskName;
     private final Optional<DateTime> start;

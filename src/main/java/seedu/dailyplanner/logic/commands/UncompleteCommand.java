@@ -15,7 +15,7 @@ public class UncompleteCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "uncomplete";
-
+    //@@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unmarks a completed task identified by the index number used in the last task listing as incomplete.\n"
             + "Format: uncomplete [INDEX] (must be a positive integer)\n"

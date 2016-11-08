@@ -50,11 +50,11 @@ public class DailyPlanner implements ReadOnlyDailyPlanner {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
-    
+  //@@author A0146749N
     public ObservableList<Task> getPinnedTasks() {
    	return tasks.getInternalPinnedList();
        }
-
+  //@@author
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -116,7 +116,7 @@ public class DailyPlanner implements ReadOnlyDailyPlanner {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
+  //@@author A0146749N
     public void markTaskAsComplete(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         tasks.complete(key);
     }
@@ -146,6 +146,7 @@ public class DailyPlanner implements ReadOnlyDailyPlanner {
     public void updatePinBoard() {
         tasks.updatePinBoard();
     }
+  //@@author
 //// category-level operations
 
     public void addCategory(Category t) throws UniqueCategoryList.DuplicateCategoryException {

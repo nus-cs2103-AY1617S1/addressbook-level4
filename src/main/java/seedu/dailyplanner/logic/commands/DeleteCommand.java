@@ -12,7 +12,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
+    //@@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number shown in current list\n"
             + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-  //@@author A0139102U
+
     @Override
     public CommandResult execute() {
 

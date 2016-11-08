@@ -38,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given DailyPlanner DailyPlanner and
      * its variables should not be null
      */
-    // @@author A0140124B
+    //@@author A0140124B
     public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
 	super();
 	assert src != null;
@@ -67,7 +67,7 @@ public class ModelManager extends ComponentManager implements Model {
 	lastShowDate = new SimpleStringProperty();
     }
 
-    // @@author
+    //@@author
     @Override
     public void resetData(ReadOnlyDailyPlanner newData) {
 	dailyPlanner.resetData(newData);
@@ -103,7 +103,7 @@ public class ModelManager extends ComponentManager implements Model {
 	indicateDailyPlannerChanged();
 	setLastShowDate(StringUtil.EMPTY_STRING);
     }
-
+    //@@author A0139102U
     public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException {
 	dailyPlanner.markTaskAsComplete(taskToComplete);
 	setLastTaskAddedIndex(dailyPlanner.indexOf((Task) taskToComplete));
@@ -141,7 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
 	dailyPlanner.updatePinBoard();
     }
 
-    // @author
+    //@@author
     // =========== Filtered Task List Accessors
     // ===============================================================
 
@@ -168,7 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
 	filteredTasks.setPredicate(expression::satisfies);
     }
-
+ //@@author A0146749N
     @Override
     public void updateFilteredTaskListByDate(Set<String> keywords) {
 	updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
@@ -183,7 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
     public int getLastTaskAddedIndex() {
 	return lastTaskAddedIndex.get();
     }
-
+    
     @Override
     public void setLastTaskAddedIndex(int index) {
 	if (index == lastTaskAddedIndex.get()) {
@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     public StringProperty getLastShowDateProperty() {
 	return lastShowDate;
     }
-
+  //@@author 
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
@@ -245,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	String toString();
     }
-    
+    //@@author A0146749N
     private class CompletionQualifier implements Qualifier {
 	private Set<String> completionKeywords;
 

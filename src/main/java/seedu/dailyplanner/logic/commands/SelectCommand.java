@@ -14,14 +14,14 @@ public class SelectCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "select";
-
+  //@@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
-
+  
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }

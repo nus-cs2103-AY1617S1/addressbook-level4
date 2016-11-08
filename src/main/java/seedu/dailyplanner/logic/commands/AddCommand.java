@@ -19,7 +19,7 @@ import seedu.dailyplanner.history.*;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+  //@@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the daily planner. "
             + "Format: add [TASKNAME] s/[STARTDATE] [STARTTIME] e/[ENDDATE] [ENDTIME] c/CATEGORY...\n" + "Example: "
             + COMMAND_WORD + " CS2103 Assignment s/today 10pm e/11pm c/urgent c/important";
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-    //@@author A0139102U
+    
     public AddCommand(String taskName, DateTime start, DateTime end, Set<String> cats) throws IllegalValueException {
         final Set<Category> catSet = new HashSet<>();
         for (String catName : cats) {
@@ -47,7 +47,7 @@ public class AddCommand extends Command {
         this.toAdd = new Task(taskName, start, end, false, false, new UniqueCategoryList(catSet));
 
     }
-
+  //@@author A0140124B
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -68,12 +68,12 @@ public class AddCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
-    }
+    }//@@author
 
     private boolean isClash(int indexOfClashingTask) {
         return indexOfClashingTask > -1;
     }
-    //@@author A0139102U
+  //@@author A0139102U
     /**
      * Returns the index of the task clashing with argument, returns -1 if no
      * clash

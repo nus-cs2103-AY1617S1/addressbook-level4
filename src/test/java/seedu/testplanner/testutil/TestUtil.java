@@ -1,5 +1,5 @@
 package seedu.testplanner.testutil;
-//@@author A0146749N
+
 import com.google.common.io.Files;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
@@ -60,7 +60,7 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
+  //@@author A0146749N
     public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {

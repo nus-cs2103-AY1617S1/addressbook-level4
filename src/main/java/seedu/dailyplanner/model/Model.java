@@ -18,7 +18,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public interface Model {
     
-	//@@author A0139102U
+	
 	/** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyDailyPlanner newData);
 
@@ -32,7 +32,7 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-
+  //@@author A0139102U
     /** Marks the given task as complete  */
     void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException;
     
@@ -62,13 +62,13 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show only completed tasks*/
 	void updateFilteredTaskListByCompletion(Set<String> keywords);
-
+	
     /** Returns the index of the last task that was added to the task list */
     public int getLastTaskAddedIndex();
     
     /** Sets the stored index of the last task added */
     public void setLastTaskAddedIndex(int index);
-    
+  
     /** Returns the last task added index as the property itself */
     public IntegerProperty getLastTaskAddedIndexProperty();
     
@@ -80,7 +80,7 @@ public interface Model {
     
     /** Returns the StringProperty holding the last shown date command */
     public StringProperty getLastShowDateProperty();
-
+ 
     /** Resets the pinboard to an empty pinboard */
 	public void resetPinBoard();
 	

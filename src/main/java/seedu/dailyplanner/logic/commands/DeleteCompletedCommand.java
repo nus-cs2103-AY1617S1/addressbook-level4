@@ -16,7 +16,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
  * Deletes a task identified using it's last displayed index from the daily planner.
  */
 public class DeleteCompletedCommand extends Command {
-
+	//@@author A0139102U
 public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + ": Deletes all completed tasks.\n"
         + "Format: [INDEX] (must be a positive integer)\n" + "Example: " + DeleteCommand.COMMAND_WORD
         + " completed";

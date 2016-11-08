@@ -13,7 +13,7 @@ public class CompleteCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "complete";
-
+  //@@author A0139102U
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number shown in current list\n"
             + "Format: complete [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";

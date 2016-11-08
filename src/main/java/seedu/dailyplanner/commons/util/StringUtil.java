@@ -17,7 +17,7 @@ import seedu.dailyplanner.model.task.Time;
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    
+    //@@author A0139102U
     public static final String EMPTY_STRING = "";
     
 	public static boolean containsIgnoreCase(String source, String query) {
@@ -48,7 +48,7 @@ public class StringUtil {
 		return s != null && s.matches("^0*[1-9]\\d*$");
 	}
 	
-	 // @@author A0140124B
+	 
     public static boolean stringContainsAmOrPm(String startString) {
         return startString.contains("am") || startString.contains("pm");
     }
@@ -56,7 +56,7 @@ public class StringUtil {
     /*
      * Loops through arguments, adds them to hashmap if valid
      */
-
+ // @@author A0140124B
     public static void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
    	for (int i = 0; i < splitArgs.length; i++) {
    	    if (splitArgs[i].substring(0, 2).equals("s/")) {

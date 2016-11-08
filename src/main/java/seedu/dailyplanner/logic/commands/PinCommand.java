@@ -16,7 +16,7 @@ public class PinCommand extends Command {
 	public final int targetIndex;
 
 	public static final String COMMAND_WORD = "pin";
-
+	//@@author A0139102U
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Pins the task identified by the index number used in the last task listing on the pin board.\n"
 			+ "Format: pin [INDEX] (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";

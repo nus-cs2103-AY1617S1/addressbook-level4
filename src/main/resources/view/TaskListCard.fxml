@@ -36,7 +36,7 @@
                                  <Label fx:id="name" prefHeight="25.0" prefWidth="200" styleClass="cell_big_label" text="\$first" wrapText="true" />
                             </children>
                         </HBox>
-                  <HBox>
+                  <HBox><!-- @@author A0140124B -->
                      <children>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                      </children>
@@ -83,7 +83,7 @@
                      </VBox.margin>
                   </HBox>
                </children>
-               <padding>
+               <padding><!-- @@author A0140124B -->
                   <Insets left="55.0" />
                </padding>
             </VBox>
