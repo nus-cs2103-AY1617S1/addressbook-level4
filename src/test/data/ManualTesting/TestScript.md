@@ -28,63 +28,63 @@ Exit | `exit`
 
 ## Test Sequence
 - click on the icon and access the application
-> * the application will be opend 
+> * starts up the application  
 
 - load ./data/ManualTesing/SampleData.xml
-> *  the application will be closed
+> * loads 'SampleData.xml' and closes the application
 
-- restarts the application
+- restart the application
 
 - listtag lesson
-> * all tasks that contain lesson in [] will be shown
+> * all tasks that contain 'lesson' as a tag will be shown
 
 - find ger
-> *  all tasks what has name ger regardless spacing or case will be shown
+> *  all tasks that has the name 'ger' regardless of spacing, wording or case will be shown
 
 - delete 3
-> * the third task will be deleted 
+> * deletes the third task on the list 
 
 - undo
-> *  the third task deleted just now will be back to the list
+> * the previously deleted task will now be back on the list.
 
 - rev
-> *  undo the undo, the third task will be deleted
+> * undoes the 'undo' command previously given, the third task will be once again deleted
 
 - edit 1 n/CS2111 s/010716 p/5
-> *  edit the first task with new name, startline and priority
+> * edits the first task on the current list with a new name, startline and priority
 
 - complete 3
-> *  the third task will be marked as completed, and all startline and deadline will be set as blank
+> * the third task will be marked as completed, and all startline and deadline will be set as blank
 
 - list
-> *  only incompete tasks will be shown
+> * all incompete tasks will be shown
 
 - listall
-> *  show all the tasks regardless it is completed or not
+> * shows all tasks regardless of it being completed or not
 
 - repeat 1 weekly
-> *  a new tag [weekly] will be added to the first task
+> * a new tag [weekly] will be added to the first task and the task will also continuously repeat on the same day of the week till the user stops it.
 
 - complete 49
-> *  the repeated (weekly) task is completed, the deadline will be set to the next deadline and the color of the task now is changed to black
+> * the task for that week is completed, the task due for the next week will still be seen on list.
 
 - undo
-> *  repeated task can be undo and the deadline is changed back 
+> * the completed state of the task is undone 
 
 - unpdate 
-> *  the list will be updated, color coding will be reflected. The task manager is updated automatically every minute
+> * the list will be updated and will reflect TPTM's color coded task warning system (TPTM is automatically updated every minute without any user prompt)
 
 - repeat 49 off
-> *  the tag [weekly] is deleted
+> *  the tag [weekly] is deleted and the task will no longer repeat weekly
 
 - help
-> *  user guide will pop out
+> * user guide will appear on a pop up.
 
 - save ./src/test/data/ManualTesting/SampleData2.xml 
-> *  save all the changed to SampleData2.xml 
+> * saves all the changes made to SampleData.xml to SampleData2.xml  
 
 - clear
-> *  a confirmation window will pop out, and click confirm
+> * a confirmation window will pop out, click confirm to clear TPTM and remove all data from SampleData.xml.
 
 - exit
-> *  exit the application
+> * exits the application
