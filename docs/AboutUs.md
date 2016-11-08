@@ -12,6 +12,7 @@ We are a group of students in the [School of Computing, National University of S
   * [Add task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#adding-a-task--add)
   * [Mark task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#marking-task-as-done--done)
   * [Delete task] (https://github.com/CS2103AUG2016-T15-C3/main/blob/master/docs/UserGuide.md#deleting-a-task--delete) 
+* Code written: [[Functional](https://github.com/CS2103AUG2016-T15-C3/main/blob/master/collated/main/A0138601M.md)] [[Test](https://github.com/CS2103AUG2016-T15-C3/main/blob/master/collated/test/A0138601M.md)] [[docs](https://github.com/CS2103AUG2016-T15-C3/main/blob/master/collated/docs/A0138601M.md)]
 * Other major contributions:
   * Set up Travis, Coveralls and Codacy
   * Did the initial refactoring from AddressBook to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2)]
