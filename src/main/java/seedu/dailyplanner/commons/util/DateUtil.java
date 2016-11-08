@@ -10,11 +10,12 @@ import seedu.dailyplanner.model.task.Time;
 
 //@@author A0146749N
 public class DateUtil {
-    
+
     private static final String STRING_REPRESENTING_NOW = "now";
 
     /**
      * Checks if given task has both start time and end time
+     * 
      * @return true if task has both, false otherwise
      */
     public static boolean hasStartandEndTime(ReadOnlyTask storedTask) {
@@ -25,7 +26,7 @@ public class DateUtil {
 	}
 	return false;
     }
-    
+
     /**
      * Checks if date given by keyword falls within a task's start and end dates
      * Guaranteed that keyword is of the format DD/MM/YYYY
@@ -80,13 +81,21 @@ public class DateUtil {
 	return getDateTimeFromString(dateTimeAsString);
     }
 
-    private static DateTime getDateTimeFromString(String dateTimeAsString) {
+    /**
+     * Converts given string into DateTime object. Guaranteed that String is in
+     * DD/MM/YYYY HH.MMam or HH.MMpm format
+     */
+
+    public static DateTime getDateTimeFromString(String dateTimeAsString) {
 	String[] dateTimeArray = dateTimeAsString.split(" ");
 	Date nowDate = new Date(dateTimeArray[0]);
 	Time nowTime = new Time(dateTimeArray[1]);
 	return new DateTime(nowDate, nowTime);
     }
 
+    /**
+     * Converts time from 12HR to 24HR format
+     */
     public static int convertTo24HrFormat(Time firstTime) {
 	if (firstTime.m_meridiem.equals("AM") && firstTime.m_hour == 12) {
 	    return 0;
@@ -126,6 +135,17 @@ public class DateUtil {
 	String dayAndMonth = date.substring(0, 6);
 	String yy = date.substring(6);
 	return dayAndMonth + "20" + yy;
+    }
+
+    /** Returns the date today as a Date object */
+    public static Date todayAsDate() {
+	nattyParser natty = new nattyParser();
+	return new Date(natty.parseDate("today"));
+    }
+    
+    /** Returns an empty DateTime object */
+    public static DateTime getEmptyDateTime() {
+	return new DateTime(new Date(""), new Time(""));
     }
 
 }

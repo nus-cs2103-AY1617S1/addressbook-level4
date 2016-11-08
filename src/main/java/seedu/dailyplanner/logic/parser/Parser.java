@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import seedu.dailyplanner.commons.exceptions.IllegalValueException;
 import seedu.dailyplanner.commons.util.ArgumentFormatUtil;
+import seedu.dailyplanner.commons.util.DateUtil;
 import seedu.dailyplanner.commons.util.StringUtil;
 import seedu.dailyplanner.logic.commands.*;
 import seedu.dailyplanner.model.task.Date;
@@ -178,12 +179,17 @@ public class Parser {
     }
 
     // @@author A0139102U
-
+    /**
+     * Parses arguments in the context of the edit task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
     private Command prepareEdit(String arguments) {
 
 	int index = 0;
 	String taskName = null;
-	String start = null, end = null;
 	DateTime formattedStart = null, formattedEnd = null;
 	Set<String> categories = new HashSet<String>();
 
@@ -195,7 +201,7 @@ public class Parser {
 
 	HashMap<String, String> mapArgs = parseEdit(trimmedArgs);
 
-	// If arguments are in hashmap, pass them to addCommand, if not pass
+	// If arguments are in hashmap, pass them to editCommand, if not pass
 	// them as empty string
 	// Change date to "dd/mm/yy/", time to "hh:mm"
 
@@ -208,61 +214,13 @@ public class Parser {
 	    taskName = mapArgs.get("taskName");
 	}
 	if (mapArgs.containsKey("start")) {
-	    String startString = mapArgs.get("start");
-	    // if field is empty, delete start
-	    if (startString.equals("")) {
-		formattedStart = new DateTime(new Date(""), new Time(""));
-	    }
-	    // if start time is given
-	    else if (startString.contains("am") || startString.contains("pm")) {
-		start = natty.parse(startString);
-		Date startDate = new Date(start.split(" ")[0]);
-		Time startTime = new Time(start.split(" ")[1]);
-		formattedStart = new DateTime(startDate, startTime);
-	    } else {
-		start = natty.parseDate(startString);
-		Date startDate = new Date(start);
-		formattedStart = new DateTime(startDate, new Time(""));
-	    }
+	    formattedStart = extractStart(mapArgs, natty);
 	}
 	if (mapArgs.containsKey("end")) {
-	    String endString = mapArgs.get("end");
-	    // if field is empty, delete end
-	    if (endString.equals("")) {
-		formattedEnd = new DateTime(new Date(""), new Time(""));
-	    }
-	    // if end time is given
-	    else if (endString.contains("am") || endString.contains("pm")) {
-		// if end date is given
-		if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
-		    end = natty.parse(endString);
-		    Date endDate = new Date(end.split(" ")[0]);
-		    Time endTime = new Time(end.split(" ")[1]);
-		    formattedEnd = new DateTime(endDate, endTime);
-		} else {
-		    Date endDate;
-		    if (!mapArgs.containsKey("start")) {
-			endDate = new Date(natty.parseDate("today"));
-		    } else {
-			endDate = new Date(start.split(" ")[0]);
-		    }
-		    Time endTime = new Time(natty.parseTime(endString));
-		    formattedEnd = new DateTime(endDate, endTime);
-		}
-	    } else {
-		end = natty.parseDate(endString);
-		Date endDate = new Date(end);
-		formattedEnd = new DateTime(endDate, new Time(""));
-	    }
+	    formattedEnd = extractEnd(formattedStart, mapArgs, natty);
 	}
 	if (mapArgs.containsKey("cats")) {
-	    // if field is empty, delete categories
-	    if (mapArgs.get("cats").equals("")) {
-		categories = new HashSet<String>();
-	    } else {
-		String[] catArray = mapArgs.get("cats").split(" ");
-		categories = new HashSet<String>(Arrays.asList(catArray));
-	    }
+	    categories = extractCategories(mapArgs);
 	}
 
 	try {
@@ -283,9 +241,8 @@ public class Parser {
     // @@author A0140124B
     private Command prepareAdd(String args) {
 	String taskName = "";
-	String start = "", end = "";
-	DateTime formattedStart = new DateTime(new Date(""), new Time(""));
-	DateTime formattedEnd = new DateTime(new Date(""), new Time(""));
+	DateTime formattedStart = DateUtil.getEmptyDateTime();
+	DateTime formattedEnd = DateUtil.getEmptyDateTime();
 	Set<String> cats = new HashSet<String>();
 
 	String trimmedArgs = args.trim();
@@ -295,59 +252,19 @@ public class Parser {
 	}
 
 	HashMap<String, String> mapArgs = parseAdd(trimmedArgs);
-
-	// If arguments are in hashmap, pass them to addCommand, if not pass
-	// them as empty string
-
-	// Change date to "dd/mm/yy/", time to "hh:mm"
 	nattyParser natty = new nattyParser();
 
 	if (mapArgs.containsKey("taskName")) {
 	    taskName = mapArgs.get("taskName");
 	}
 	if (mapArgs.containsKey("start")) {
-	    String startString = mapArgs.get("start");
-	    // if start time is given
-	    if (startString.contains("am") || startString.contains("pm")) {
-		start = natty.parse(startString);
-		Date startDate = new Date(start.split(" ")[0]);
-		Time startTime = new Time(start.split(" ")[1]);
-		formattedStart = new DateTime(startDate, startTime);
-	    } else {
-		start = natty.parseDate(startString);
-		Date startDate = new Date(start);
-		formattedStart = new DateTime(startDate, new Time(""));
-	    }
+	    formattedStart = extractStart(mapArgs, natty);
 	}
 	if (mapArgs.containsKey("end")) {
-	    String endString = mapArgs.get("end");
-	    // if end time is given
-	    if (endString.contains("am") || endString.contains("pm")) {
-		// if end date is given
-		if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
-		    end = natty.parse(endString);
-		    Date endDate = new Date(end.split(" ")[0]);
-		    Time endTime = new Time(end.split(" ")[1]);
-		    formattedEnd = new DateTime(endDate, endTime);
-		} else {
-		    Date endDate;
-		    if (!mapArgs.containsKey("start")) {
-			endDate = new Date(natty.parseDate("today"));
-		    } else {
-			endDate = new Date(start.split(" ")[0]);
-		    }
-		    Time endTime = new Time(natty.parseTime(endString));
-		    formattedEnd = new DateTime(endDate, endTime);
-		}
-	    } else {
-		end = natty.parseDate(endString);
-		Date endDate = new Date(end);
-		formattedEnd = new DateTime(endDate, new Time(""));
-	    }
+	    formattedEnd = extractEnd(formattedStart, mapArgs, natty);
 	}
 	if (mapArgs.containsKey("cats")) {
-	    String[] catArray = mapArgs.get("cats").split(" ");
-	    cats = new HashSet<String>(Arrays.asList(catArray));
+	    cats = extractCategories(mapArgs);
 	}
 	try {
 	    return new AddCommand(taskName, formattedStart, formattedEnd, cats);
@@ -355,6 +272,73 @@ public class Parser {
 	    return new IncorrectCommand(ive.getMessage());
 	}
 
+    }
+
+    private boolean hasEndDate(String endString) {
+	return endString.length() >= 7 && !Character.isDigit(endString.charAt(0));
+    }
+
+    private DateTime extractStart(HashMap<String, String> mapArgs, nattyParser natty) {
+	DateTime formattedStart;
+	String startString = mapArgs.get("start");
+	// if field is empty, return empty DateTime
+	if (startString.equals("")) {
+	    formattedStart = DateUtil.getEmptyDateTime();
+	}
+	// if start time is given
+	if (startString.contains("am") || startString.contains("pm")) {
+	    String start = natty.parse(startString);
+	    formattedStart = DateUtil.getDateTimeFromString(start);
+	} else {
+	    String start = natty.parseDate(startString);
+	    Date startDate = new Date(start);
+	    formattedStart = new DateTime(startDate, new Time(""));
+	}
+	return formattedStart;
+    }
+
+    private DateTime extractEnd(DateTime formattedStart, HashMap<String, String> mapArgs, nattyParser natty) {
+	DateTime formattedEnd;
+	String endString = mapArgs.get("end");
+	// if field is empty, return empty DateTime
+	if (endString.equals("")) {
+	    formattedEnd = DateUtil.getEmptyDateTime();
+	}
+	// if end time is given
+	if (endString.contains("am") || endString.contains("pm")) {
+	    // if end date is given
+	    if (hasEndDate(endString)) {
+		String end = natty.parse(endString);
+		formattedEnd = DateUtil.getDateTimeFromString(end);
+	    } else {
+		Date endDate;
+		// if no start date, infer end date as today
+		if (!mapArgs.containsKey("start")) {
+		    endDate = DateUtil.todayAsDate();
+		}
+		// if start date present, infer end date as start date
+		else {
+		    endDate = formattedStart.getDate();
+		}
+		Time endTime = new Time(natty.parseTime(endString));
+		formattedEnd = new DateTime(endDate, endTime);
+	    }
+	} else {
+	    String end = natty.parseDate(endString);
+	    Date endDate = new Date(end);
+	    formattedEnd = new DateTime(endDate, new Time(""));
+	}
+	return formattedEnd;
+    }
+
+    private Set<String> extractCategories(HashMap<String, String> mapArgs) {
+	Set<String> cats;
+	if (mapArgs.get("cats").equals("")) {
+	    cats = new HashSet<String>();
+	}
+	String[] catArray = mapArgs.get("cats").split(" ");
+	cats = new HashSet<String>(Arrays.asList(catArray));
+	return cats;
     }
 
     /**
@@ -413,37 +397,29 @@ public class Parser {
     private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
 	for (int i = 0; i < splitArgs.length; i++) {
 	    if (splitArgs[i].substring(0, 2).equals("s/")) {
-		int j = i + 1;
-		String arg = splitArgs[i].substring(2);
-		while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-		    arg += " " + splitArgs[j];
-		    j++;
-		}
-		mapArgs.put("start", arg);
+		extractArgument(mapArgs, splitArgs, i, "start");
 	    }
 
 	    if (splitArgs[i].substring(0, 2).equals("e/")) {
-		int j = i + 1;
-		String arg = splitArgs[i].substring(2);
-		while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-		    arg += " " + splitArgs[j];
-		    j++;
-		}
-		mapArgs.put("end", arg);
+		extractArgument(mapArgs, splitArgs, i, "end");
 	    }
 
 	    if (splitArgs[i].substring(0, 2).equals("c/")) {
-		int j = i + 1;
-		String arg = splitArgs[i].substring(2);
-		while (j < splitArgs.length) {
-		    arg += " " + splitArgs[j].substring(2);
-		    j++;
-		}
-		i = j;
-		mapArgs.put("cats", arg);
+		extractArgument(mapArgs, splitArgs, i, "cats");
 
 	    }
 	}
+    }
+
+    private void extractArgument(HashMap<String, String> mapArgs, String[] splitArgs, int i, String type) {
+	int j = i + 1;
+	String arg = splitArgs[i].substring(2);
+	while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+	    arg += " " + splitArgs[j];
+	    j++;
+	}
+	i = j;
+	mapArgs.put(type, arg);
     }
 
     // @@author A0146749N
