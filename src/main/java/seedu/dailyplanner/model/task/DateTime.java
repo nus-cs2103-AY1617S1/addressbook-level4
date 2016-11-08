@@ -23,7 +23,7 @@ public class DateTime implements Comparable<DateTime> {
 	if (m_date.toString().equals("")) {
 	    return "";
 	}
-	// if date is present, but time is not
+	// if date is present, but time is not present
 	else if (m_time.toString().equals("")) {
 	    return m_date.toString();
 	} else {

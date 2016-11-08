@@ -42,17 +42,14 @@ public class UndoCommandTest extends DailyPlannerGuiTest {
 
 	@Test
 	public void undo_pin() {
-		TestTask taskToPin = td.MA1101R_Homework;
 		commandBox.runCommand("pin 3");
 		commandBox.runCommand("undo");
-		int expectedPinBoardLength = 0;
+		int expectedPinBoardLength = 1;
 		assertUndoPinSuccess(expectedPinBoardLength);
 	}
 
 	@Test
 	public void undo_unpin() {
-		commandBox.runCommand("pin 5");
-		TestTask taskToUnpin = td.BuyGroceries;
 		commandBox.runCommand("unpin 1");
 		commandBox.runCommand("undo");
 		int expectedPinBoardLength = 1;

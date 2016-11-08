@@ -16,19 +16,18 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void add() {
 
-
-		// add one person
+		// add one task
 		TestTask[] currentList = td.getTypicalTasks();
 		TestTask taskToAdd = td.learnSpanish;
 		assertAddSuccess(taskToAdd, currentList);
 		currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-		// add another person
+		// add another task
 		taskToAdd = td.GoSkydiving;
 		assertAddSuccess(taskToAdd, currentList);
 		currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-		// add duplicate person
+		// add duplicate task
 		commandBox.runCommand(td.learnPython.getAddCommand());
 		assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
 		assertTrue(taskListPanel.isListMatching(currentList));
@@ -41,7 +40,7 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 		commandBox.runCommand("adds Johnny");
 		assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 	}
-	//@@author A0146749N
+	//@@author
 	private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
 		commandBox.runCommand(taskToAdd.getAddCommand());
 

@@ -25,294 +25,287 @@ import java.util.logging.Logger;
  * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-	private final DailyPlanner dailyPlanner;
-	private final FilteredList<Task> filteredTasks;
-	private final FilteredList<Task> pinnedTasks;
-	private final HistoryManager history;
-	private IntegerProperty lastTaskAddedIndex;
-	private StringProperty lastShowDate;
+    private final DailyPlanner dailyPlanner;
+    private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> pinnedTasks;
+    private final HistoryManager history;
+    private IntegerProperty lastTaskAddedIndex;
+    private StringProperty lastShowDate;
 
-	/**
-	 * Initializes a ModelManager with the given DailyPlanner DailyPlanner and its
-	 * variables should not be null
-	 */
-	//@@author A0140124B
-	public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
-		super();
-		assert src != null;
-		assert userPrefs != null;
+    /**
+     * Initializes a ModelManager with the given DailyPlanner DailyPlanner and
+     * its variables should not be null
+     */
+    // @@author A0140124B
+    public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
+	super();
+	assert src != null;
+	assert userPrefs != null;
 
-		logger.fine("Initializing with daily planner: " + src + " and user prefs " + userPrefs);
+	logger.fine("Initializing with daily planner: " + src + " and user prefs " + userPrefs);
 
-		dailyPlanner = new DailyPlanner(src);
-		filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
-		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
-		history = new HistoryManager();
-		lastTaskAddedIndex = new SimpleIntegerProperty(0);
-		lastShowDate = new SimpleStringProperty();
-	}
-
-	public ModelManager() {
-		this(new DailyPlanner(), new UserPrefs());
-	}
-
-	public ModelManager(ReadOnlyDailyPlanner initialData, UserPrefs userPrefs) {
-		dailyPlanner = new DailyPlanner(initialData);
-		filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
-		pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
-		history = new HistoryManager();
-		lastTaskAddedIndex = new SimpleIntegerProperty(0);
-		lastShowDate = new SimpleStringProperty();
-	}
-	//@@author
-	@Override
-	public void resetData(ReadOnlyDailyPlanner newData) {
-		dailyPlanner.resetData(newData);
-		indicateDailyPlannerChanged();
-	}
-
-	@Override
-	public void resetPinBoard() {
-		dailyPlanner.resetPinBoard();
-	}
-
-	@Override
-	public ReadOnlyDailyPlanner getDailyPlanner() {
-		return dailyPlanner;
-	}
-
-	/** Raises an event to indicate the model has changed */
-	private void indicateDailyPlannerChanged() {
-		raise(new DailyPlannerChangedEvent(dailyPlanner));
-	}
-
-	@Override
-	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-		dailyPlanner.removeTask(target);
-		indicateDailyPlannerChanged();
-	}
-
-	@Override
-	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-		dailyPlanner.addTask(task);
-		setLastTaskAddedIndex(dailyPlanner.indexOf(task));
-		updateFilteredListToShowAll();
-		indicateDailyPlannerChanged();
-		setLastShowDate(StringUtil.EMPTY_STRING);
-	}
-
-	public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException {
-		dailyPlanner.markTaskAsComplete(taskToComplete);
-		setLastTaskAddedIndex(dailyPlanner.indexOf((Task) taskToComplete));
-		indicateDailyPlannerChanged();
-	}
-	
-	public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws TaskNotFoundException {
-        int targetIndex = dailyPlanner.indexOf((Task) taskToIncomplete);
-	    uncompleteTask(targetIndex);
-        setLastTaskAddedIndex(targetIndex);
-        indicateDailyPlannerChanged();
+	dailyPlanner = new DailyPlanner(src);
+	filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
+	pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
+	history = new HistoryManager();
+	lastTaskAddedIndex = new SimpleIntegerProperty(0);
+	lastShowDate = new SimpleStringProperty();
     }
-	
-	// @@author A0146749N
-	@Override
-	public void pinTask(ReadOnlyTask taskToPin) throws TaskNotFoundException {
-		dailyPlanner.pinTask(taskToPin);
-		indicateDailyPlannerChanged();
-	}
 
-	@Override
-	public void unpinTask(int targetIndex) throws TaskNotFoundException {
-		dailyPlanner.unpinTask(targetIndex);
-		indicateDailyPlannerChanged();
-	}
-	
+    public ModelManager() {
+	this(new DailyPlanner(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyDailyPlanner initialData, UserPrefs userPrefs) {
+	dailyPlanner = new DailyPlanner(initialData);
+	filteredTasks = new FilteredList<>(dailyPlanner.getTasks());
+	pinnedTasks = new FilteredList<>(dailyPlanner.getPinnedTasks());
+	history = new HistoryManager();
+	lastTaskAddedIndex = new SimpleIntegerProperty(0);
+	lastShowDate = new SimpleStringProperty();
+    }
+
+    // @@author
+    @Override
+    public void resetData(ReadOnlyDailyPlanner newData) {
+	dailyPlanner.resetData(newData);
+	indicateDailyPlannerChanged();
+    }
+
+    @Override
+    public void resetPinBoard() {
+	dailyPlanner.resetPinBoard();
+    }
+
+    @Override
+    public ReadOnlyDailyPlanner getDailyPlanner() {
+	return dailyPlanner;
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateDailyPlannerChanged() {
+	raise(new DailyPlannerChangedEvent(dailyPlanner));
+    }
+
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+	dailyPlanner.removeTask(target);
+	indicateDailyPlannerChanged();
+    }
+
+    @Override
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+	dailyPlanner.addTask(task);
+	setLastTaskAddedIndex(dailyPlanner.indexOf(task));
+	updateFilteredListToShowAll();
+	indicateDailyPlannerChanged();
+	setLastShowDate(StringUtil.EMPTY_STRING);
+    }
+
+    public synchronized void markTaskAsComplete(ReadOnlyTask taskToComplete) throws TaskNotFoundException {
+	dailyPlanner.markTaskAsComplete(taskToComplete);
+	setLastTaskAddedIndex(dailyPlanner.indexOf((Task) taskToComplete));
+	indicateDailyPlannerChanged();
+    }
+
+    public synchronized void markTaskAsIncomplete(ReadOnlyTask taskToIncomplete) throws TaskNotFoundException {
+	int targetIndex = dailyPlanner.indexOf((Task) taskToIncomplete);
+	uncompleteTask(targetIndex);
+	setLastTaskAddedIndex(targetIndex);
+	indicateDailyPlannerChanged();
+    }
+
+    // @@author A0146749N
+    @Override
+    public void pinTask(ReadOnlyTask taskToPin) throws TaskNotFoundException {
+	dailyPlanner.pinTask(taskToPin);
+	indicateDailyPlannerChanged();
+    }
+
+    @Override
+    public void unpinTask(int targetIndex) throws TaskNotFoundException {
+	dailyPlanner.unpinTask(targetIndex);
+	indicateDailyPlannerChanged();
+    }
+
     @Override
     public void uncompleteTask(int targetIndex) {
-        dailyPlanner.uncompleteTask(targetIndex);
-        indicateDailyPlannerChanged();
+	dailyPlanner.uncompleteTask(targetIndex);
+	indicateDailyPlannerChanged();
     }
-	@Override
-	public void updatePinBoard() {
-		dailyPlanner.updatePinBoard();
+
+    @Override
+    public void updatePinBoard() {
+	dailyPlanner.updatePinBoard();
+    }
+
+    // @author
+    // =========== Filtered Task List Accessors
+    // ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+	return new UnmodifiableObservableList<>(filteredTasks);
+    }
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList() {
+	return new UnmodifiableObservableList<>(pinnedTasks);
+    }
+
+    @Override
+    public void updateFilteredListToShowAll() {
+	filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredTaskList(Set<String> keywords) {
+	updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredTaskList(Expression expression) {
+	filteredTasks.setPredicate(expression::satisfies);
+    }
+
+    @Override
+    public void updateFilteredTaskListByDate(Set<String> keywords) {
+	updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
+    }
+
+    @Override
+    public void updateFilteredTaskListByCompletion(Set<String> keywords) {
+	updateFilteredTaskList(new PredicateExpression(new CompletionQualifier(keywords)));
+    }
+
+    @Override
+    public int getLastTaskAddedIndex() {
+	return lastTaskAddedIndex.get();
+    }
+
+    @Override
+    public void setLastTaskAddedIndex(int index) {
+	if (index == lastTaskAddedIndex.get()) {
+	    lastTaskAddedIndex.set(-1);
 	}
+	lastTaskAddedIndex.set(index);
+    }
 
+    @Override
+    public IntegerProperty getLastTaskAddedIndexProperty() {
+	return lastTaskAddedIndex;
+    }
 
-	// =========== Filtered Task List Accessors
-	// ===============================================================
+    @Override
+    public String getLastShowDate() {
+	return lastShowDate.get();
+    }
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-		return new UnmodifiableObservableList<>(filteredTasks);
-	}
+    @Override
+    public void setLastShowDate(String showInput) {
+	lastShowDate.set(showInput);
+    }
 
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getPinnedTaskList() {
-		return new UnmodifiableObservableList<>(pinnedTasks);
-	}
+    @Override
+    public StringProperty getLastShowDateProperty() {
+	return lastShowDate;
+    }
 
-	@Override
-	public void updateFilteredListToShowAll() {
-		filteredTasks.setPredicate(null);
-	}
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
-	@Override
-	public void updateFilteredTaskList(Set<String> keywords) {
-		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-	}
+    interface Expression {
+	boolean satisfies(ReadOnlyTask task);
 
-	private void updateFilteredTaskList(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
+	String toString();
+    }
 
-	@Override
-	public void updateFilteredTaskListByDate(Set<String> keywords) {
-		updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
-	}
+    private class PredicateExpression implements Expression {
 
-	private void updateFilteredTaskListByDate(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
+	private final Qualifier qualifier;
 
-	@Override
-	public void updateFilteredTaskListByCompletion(Set<String> keywords) {
-		updateFilteredTaskList(new PredicateExpression(new CompletionQualifier(keywords)));
-	}
-
-	private void updateFilteredTaskListByCompletion(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
-
-	@Override
-	public int getLastTaskAddedIndex() {
-		return lastTaskAddedIndex.get();
-	}
-
-	@Override
-	public void setLastTaskAddedIndex(int index) {
-	    if(index == lastTaskAddedIndex.get()) {
-	       lastTaskAddedIndex.set(-1);
-	    }
-		lastTaskAddedIndex.set(index);
-	}
-
-	@Override
-	public IntegerProperty getLastTaskAddedIndexProperty() {
-		return lastTaskAddedIndex;
-	}
-
-	@Override
-	public String getLastShowDate() {
-		return lastShowDate.get();
-	}
-
-	@Override
-	public void setLastShowDate(String showInput) {
-		lastShowDate.set(showInput);
-	}
-
-	@Override
-	public StringProperty getLastShowDateProperty() {
-		return lastShowDate;
-	}
-
-	// ========== Inner classes/interfaces used for filtering
-	// ==================================================
-
-	interface Expression {
-		boolean satisfies(ReadOnlyTask task);
-
-		String toString();
-	}
-
-	private class PredicateExpression implements Expression {
-
-		private final Qualifier qualifier;
-
-		PredicateExpression(Qualifier qualifier) {
-			this.qualifier = qualifier;
-		}
-
-		@Override
-		public boolean satisfies(ReadOnlyTask task) {
-			return qualifier.run(task);
-		}
-
-		@Override
-		public String toString() {
-			return qualifier.toString();
-		}
-	}
-
-	interface Qualifier {
-		boolean run(ReadOnlyTask task);
-
-		String toString();
-	}
-
-	private class CompletionQualifier implements Qualifier {
-		private Set<String> completionKeywords;
-
-		CompletionQualifier(Set<String> completionKeyword) {
-			this.completionKeywords = completionKeyword;
-		}
-
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return completionKeywords.contains(task.getCompletion().toLowerCase());
-		}
-
-		@Override
-		public String toString() {
-			return "completion=" + String.join(", ", completionKeywords);
-		}
-	}
-
-	private class DateQualifier implements Qualifier {
-		private Set<String> dateKeyWords;
-
-		DateQualifier(Set<String> dateKeyWords) {
-			this.dateKeyWords = dateKeyWords;
-		}
-
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return dateKeyWords.stream().filter(keyword -> DateUtil.withinDateRange(task, keyword)).findAny()
-					.isPresent();
-		}
-
-		@Override
-		public String toString() {
-			return "date=" + String.join(", ", dateKeyWords);
-		}
-	}
-
-	private class NameQualifier implements Qualifier {
-		private Set<String> nameKeyWords;
-
-		NameQualifier(Set<String> nameKeyWords) {
-			this.nameKeyWords = nameKeyWords;
-		}
-
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return nameKeyWords.stream().filter(keyword -> StringUtil.containsIgnoreCase(task.getName(), keyword))
-					.findAny().isPresent();
-		}
-
-		@Override
-		public String toString() {
-			return "name=" + String.join(", ", nameKeyWords);
-		}
+	PredicateExpression(Qualifier qualifier) {
+	    this.qualifier = qualifier;
 	}
 
 	@Override
-	public HistoryManager getHistory() {
-
-		return history;
+	public boolean satisfies(ReadOnlyTask task) {
+	    return qualifier.run(task);
 	}
 
+	@Override
+	public String toString() {
+	    return qualifier.toString();
+	}
+    }
+
+    interface Qualifier {
+	boolean run(ReadOnlyTask task);
+
+	String toString();
+    }
+    
+    private class CompletionQualifier implements Qualifier {
+	private Set<String> completionKeywords;
+
+	CompletionQualifier(Set<String> completionKeyword) {
+	    this.completionKeywords = completionKeyword;
+	}
+
+	@Override
+	public boolean run(ReadOnlyTask task) {
+	    return completionKeywords.contains(task.getCompletion().toLowerCase());
+	}
+
+	@Override
+	public String toString() {
+	    return "completion=" + String.join(", ", completionKeywords);
+	}
+    }
+
+    private class DateQualifier implements Qualifier {
+	private Set<String> dateKeyWords;
+
+	DateQualifier(Set<String> dateKeyWords) {
+	    this.dateKeyWords = dateKeyWords;
+	}
+
+	@Override
+	public boolean run(ReadOnlyTask task) {
+	    return dateKeyWords.stream().filter(keyword -> DateUtil.withinDateRange(task, keyword)).findAny()
+		    .isPresent();
+	}
+
+	@Override
+	public String toString() {
+	    return "date=" + String.join(", ", dateKeyWords);
+	}
+    }
+
+    private class NameQualifier implements Qualifier {
+	private Set<String> nameKeyWords;
+
+	NameQualifier(Set<String> nameKeyWords) {
+	    this.nameKeyWords = nameKeyWords;
+	}
+
+	@Override
+	public boolean run(ReadOnlyTask task) {
+	    return nameKeyWords.stream().filter(keyword -> StringUtil.containsIgnoreCase(task.getName(), keyword))
+		    .findAny().isPresent();
+	}
+
+	@Override
+	public String toString() {
+	    return "name=" + String.join(", ", nameKeyWords);
+	}
+    }
+
+    @Override
+    public HistoryManager getHistory() {
+
+	return history;
+    }
 
 }

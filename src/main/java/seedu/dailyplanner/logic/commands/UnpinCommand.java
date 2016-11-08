@@ -31,14 +31,14 @@ public class UnpinCommand extends Command {
     @Override
     public CommandResult execute() {
 
-	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getPinnedTaskList();
+	UnmodifiableObservableList<ReadOnlyTask> pinnedList = model.getPinnedTaskList();
 
-	if (lastShownList.size() < targetIndex) {
+	if (pinnedList.size() < targetIndex) {
 	    indicateAttemptToExecuteIncorrectCommand();
 	    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 	}
 
-	ReadOnlyTask taskToUnpin = lastShownList.get(targetIndex - 1);
+	ReadOnlyTask taskToUnpin = pinnedList.get(targetIndex - 1);
 
 	try {
 	    model.getHistory().stackPinInstruction(taskToUnpin);

@@ -18,7 +18,6 @@ public class CompleteCommandTest extends DailyPlannerGuiTest {
 	@Test
 	public void complete() {
 		
-		TestTask[] currentList = td.getTypicalTasks();
 		TestTask taskToComplete = td.CS2103_Project;
 		assertCompleteSuccess("complete 1", taskToComplete);
 	}

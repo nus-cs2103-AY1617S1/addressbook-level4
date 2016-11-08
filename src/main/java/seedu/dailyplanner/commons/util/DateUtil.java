@@ -34,7 +34,7 @@ public class DateUtil {
     public static boolean withinDateRange(ReadOnlyTask task, String keyword) {
 	int keyDate = SubStringOfStringAsInt(0, 2, keyword);
 	int keyMonth = SubStringOfStringAsInt(3, 5, keyword);
-	int keyYear = SubStringOfStringAsInt(6, keyword);
+	int keyYear = subStringOfStringAsInt(6, keyword);
 	Date taskStart = task.getStart().getDate();
 	Date taskEnd = task.getEnd().getDate();
 	if (startDateTimeAndEndDateTimeIsEmpty(taskStart, taskEnd)) {
@@ -47,6 +47,7 @@ public class DateUtil {
 	return isKeyBetweenStartAndEnd(keyDate, keyMonth, keyYear, taskStart, taskEnd);
     }
 
+    /** Helper method for withinDateRang method */
     private static boolean isKeyBetweenStartAndEnd(int keyDate, int keyMonth, int keyYear, Date taskStart,
 	    Date taskEnd) {
 	Calendar start = Calendar.getInstance();
@@ -70,7 +71,7 @@ public class DateUtil {
 	return Integer.parseInt(keyword.substring(start, end));
     }
 
-    private static int SubStringOfStringAsInt(int start, String keyword) {
+    private static int subStringOfStringAsInt(int start, String keyword) {
 	return Integer.parseInt(keyword.substring(start));
     }
 
@@ -85,7 +86,6 @@ public class DateUtil {
      * Converts given string into DateTime object. Guaranteed that String is in
      * DD/MM/YYYY HH.MMam or HH.MMpm format
      */
-
     public static DateTime getDateTimeFromString(String dateTimeAsString) {
 	String[] dateTimeArray = dateTimeAsString.split(" ");
 	Date nowDate = new Date(dateTimeArray[0]);
@@ -108,26 +108,17 @@ public class DateUtil {
 
     /**
      * Checks if string is in dd/mm/yyyy format
-     * 
-     * @return
      */
     public static boolean isValidDayMonthAnd4DigitYearFormat(String date) {
-	if (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{4})"))
-	    return true;
-	else
-	    return false;
+	return (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{4})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{4})"));
     }
 
     /**
      * Checks if string is in dd/mm/yy format
-     * 
-     * @return
      */
     public static boolean isValidDayMonthAnd2DigitYearFormat(String date) {
-	if (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{2})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{2})"))
-	    return true;
-	else
-	    return false;
+	return (date.matches("([0-9]{2})/([0-9]{2})/([0-9]{2})") || date.matches("([0-9]{1})/([0-9]{2})/([0-9]{2})"));
+
     }
 
     /** Converts string from dd/mm/yy to dd/mm/20yy format */
@@ -142,7 +133,7 @@ public class DateUtil {
 	nattyParser natty = new nattyParser();
 	return new Date(natty.parseDate("today"));
     }
-    
+
     /** Returns an empty DateTime object */
     public static DateTime getEmptyDateTime() {
 	return new DateTime(new Date(""), new Time(""));
