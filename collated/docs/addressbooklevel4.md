@@ -1,53 +1,6 @@
-# Developer Guide 
-
-* [Setting Up](#setting-up)
-* [Design](#design)
-* [Implementation](#implementation)
-* [Testing](#testing)
-* [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
-
-
-## Setting up
-
-#### Prerequisites
-
-1. **JDK `1.8.0_60`**  or later<br>
-
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
-    
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-
-
-#### Importing the project into Eclipse
-
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
-
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-
-## Design
-
-### Architecture
-<!--- @@author A0139072H --->
-<img src="images/TaryArchitecture.png" width="600"><br>
-<!--- @@author addressbook-level4 --->
+# addressbooklevel4
+###### /DeveloperGuide.md
+``` md
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -73,24 +26,24 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<!--- @@author A0139072H --->
-<img src="images/TaskLogicClassDiagram.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
-<!--- @@author A0139072H --->
-<img src="images\SDforDeleteTask.png" width="800">
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the GTD data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<!--- @@author A0139072H --->
-<img src="images\SDforDeleteTaskEventHandling.png" width="800">
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -99,9 +52,9 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 The sections below give more details of each component.
 
 ### UI component
-<!--- @@author A0139072H --->
-<img src="images/TaskUiClassDiagram.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -120,9 +73,9 @@ The `UI` component,
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
-<!--- @@author A0139072H --->
-<img src="images/TaskLogicClassDiagram.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
@@ -132,13 +85,13 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
- <!--- @@author A0139072H --->
-<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 ### Model component
-<!--- @@author A0139072H --->
-<img src="images/TaskModelClassDiagram.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
@@ -149,9 +102,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 ### Storage component
-<!--- @@author A0139072H --->
-<img src="images/TaskStorageClassDiagram.png" width="800"><br>
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
@@ -256,28 +209,9 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
-<!--- @@author A0146130W --->
-
-## Appendix A : User Stories
-
-Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
-
-Priority | As a ... | I want to ... | So that I can...
--------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the application
-`* * *` | user | add a task with a deadline | be reminded of tasks that I have to complete soon and prioritise them 
-`* * ` | user | add a task with a priority rank | view a prioritised list of tasks and know which task to start with
-`* * ` | user | add a task with a location | immediately know the location and context without having to refer to other sources
-`* * *` | user | add a task with tag(s) | search or filter tasks by these tags
-`* * ` | user | select a task to access widgets like Google Calendar and Google Maps | immediately connect with these frequently used applications, without having to take more steps such as opening a browser and visiting the link, and typing in the search bar
-`* * *` | user | delete a task | remove clutter from the task list
-`* * *` | user | find a task by title | find tasks easily
-`* * *` | user | find a task by tags | categorise and find tasks easily
-`* * *` | user | edit information about a task | update the task (such as adding a deadline or location) when more information is available or when changes arise
-`* * *` | user | view all tasks entered | have a quick summary of what tasks I have
-`* * *` | user | clear all tasks | reset the task list
-
-<!--- @@author addressbook-level4 --->
+```
+###### /DeveloperGuide.md
+``` md
 
 ## Appendix B : Use Cases
 
@@ -321,28 +255,4 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-<!--- @@author A0146130W --->
-
-## Appendix E : Product Survey
-
-Reminders for Mac: Simple, clean white interface that is close to a text editor. Mouse use for interaction only required for tags, adding and deleting.
-Features:
-a) tags can be added to items on the list like date due and priority
-b) schedule tab can arrange the reminders by due date
-c) iCloud sync allows use on laptop and phone
-d) periodic tasks can be set such that a reminder alert is displayed every time it is due.
-
-Drawbacks:
-a) Need to refer to calendar to set due dates. 
-
-Asana: Collaborative GTD, a team can set up project tasks and subgroups that divide people into smaller groups based on tasks (Marketing, Engineering, etc).
-a) Can setup individual tasks on personal dashboard, so it also works well for individual use.
-b) Can hold conversations with team members.
-c) Can set up team tasks.
-d) Can divide members into smaller groups for better organisation.
-
-Taskwarrior: feature-rich software that allows the user to manage his todo list from the command line.
-Uses a natural and expressive syntax
-Allows user to perform CRUD functions and prioritising of tasks in a fast manner
-Support for creating deadlines, searching of tasks
-However, it does not support Jimâ€™s need for â€œblockingâ€� and â€œunblockingâ€� timeslots
+```
