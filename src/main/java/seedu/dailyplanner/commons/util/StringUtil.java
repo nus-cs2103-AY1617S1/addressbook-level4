@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import seedu.dailyplanner.logic.parser.nattyParser;
@@ -46,7 +47,50 @@ public class StringUtil {
 	public static boolean isUnsignedInteger(String s) {
 		return s != null && s.matches("^0*[1-9]\\d*$");
 	}
+	
+	 // @@author A0140124B
+    public static boolean stringContainsAmOrPm(String startString) {
+        return startString.contains("am") || startString.contains("pm");
+    }
+    
+    /*
+     * Loops through arguments, adds them to hashmap if valid
+     */
 
-	 
+    public static void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
+        for (int i = 0; i < splitArgs.length; i++) {
+            if (splitArgs[i].substring(0, 2).equals("s/")) {
+                int j = i + 1;
+                String arg = splitArgs[i].substring(2);
+                while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+                    arg += " " + splitArgs[j];
+                    j++;
+                }
+                mapArgs.put("start", arg);
+            }
+
+            if (splitArgs[i].substring(0, 2).equals("e/")) {
+                int j = i + 1;
+                String arg = splitArgs[i].substring(2);
+                while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+                    arg += " " + splitArgs[j];
+                    j++;
+                }
+                mapArgs.put("end", arg);
+            }
+
+            if (splitArgs[i].substring(0, 2).equals("c/")) {
+                int j = i + 1;
+                String arg = splitArgs[i].substring(2);
+                while (j < splitArgs.length) {
+                    arg += " " + splitArgs[j].substring(2);
+                    j++;
+                }
+                i = j;
+                mapArgs.put("cats", arg);
+
+            }
+        }
+    }
 	 
 }

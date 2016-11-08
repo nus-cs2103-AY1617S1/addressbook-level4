@@ -189,7 +189,7 @@ public class Parser {
 				formattedStart = new DateTime(new Date(""), new Time(""));
 			}
 			// if start time is given
-			else if (startString.contains("am") || startString.contains("pm")) {
+			else if (StringUtil.stringContainsAmOrPm(startString)) {
 				start = natty.parse(startString);
 				Date startDate = new Date(start.split(" ")[0]);
 				Time startTime = new Time(start.split(" ")[1]);
@@ -207,7 +207,7 @@ public class Parser {
 				formattedEnd = new DateTime(new Date(""), new Time(""));
 			}
 			// if end time is given
-			else if (endString.contains("am") || endString.contains("pm")) {
+			else if (StringUtil.stringContainsAmOrPm(endString)) {
 				// if end date is given
 				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
 					end = natty.parse(endString);
@@ -283,7 +283,7 @@ public class Parser {
 		if (mapArgs.containsKey("start")) {
 			String startString = mapArgs.get("start");
 			// if start time is given
-			if (startString.contains("am") || startString.contains("pm")) {
+			if (StringUtil.stringContainsAmOrPm(startString)) {
 				start = natty.parse(startString);
 				Date startDate = new Date(start.split(" ")[0]);
 				Time startTime = new Time(start.split(" ")[1]);
@@ -297,7 +297,7 @@ public class Parser {
 		if (mapArgs.containsKey("end")) {
 			String endString = mapArgs.get("end");
 			// if end time is given
-			if (endString.contains("am") || endString.contains("pm")) {
+			if (StringUtil.stringContainsAmOrPm(endString)) {
 				// if end date is given
 				if (endString.length() >= 7 && !Character.isDigit(endString.charAt(0))) {
 					end = natty.parse(endString);
@@ -340,29 +340,25 @@ public class Parser {
 	 * isRecurring
 	 */
 
-	private HashMap<String, String> parseAdd(String arguments) {
-		HashMap<String, String> mapArgs = new HashMap<String, String>();
-		String taskName = getTaskNameFromArguments(arguments);
-		mapArgs.put("taskName", taskName);
-		if (arguments.contains("/")) {
-			String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-			// loop through rest of arguments, add them to hashmap if valid
+    private HashMap<String, String> parseAdd(String arguments) {
+        HashMap<String, String> mapArgs = new HashMap<String, String>();
+        String taskName = getTaskNameFromArguments(arguments);
+        mapArgs.put("taskName", taskName);
+        if (arguments.contains("/")) {
+            String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
+            // loop through rest of arguments, add them to hashmap if valid
+            StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
+        }
 
-			argumentArrayToHashMap(mapArgs, splitArgs);
-		}
-
-		return mapArgs;
-	}
+        return mapArgs;
+    }
 
 	private HashMap<String, String> parseEdit(String arguments) {
 
 		HashMap<String, String> mapArgs = new HashMap<String, String>();
 
 		// Extract index
-		String[] splitArgs1 = arguments.split(" ", 2);
-		int indexStringLength = splitArgs1[0].length();
-		String index = arguments.substring(0, indexStringLength);
-		mapArgs.put("index", index);
+		int indexStringLength = extractIndexFromArgs(arguments, mapArgs);
 
 		arguments = arguments.substring(indexStringLength + 1);
 		if (hasTaskName(arguments)) {
@@ -370,55 +366,25 @@ public class Parser {
 			mapArgs.put("taskName", taskName);
 			if (arguments.contains("/")) {
 				String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-				argumentArrayToHashMap(mapArgs, splitArgs);
+				StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
 			}
 		} else if (arguments.contains("/")) {
 			String[] splitArgs = arguments.split(" ");
-			argumentArrayToHashMap(mapArgs, splitArgs);
+			StringUtil.argumentArrayToHashMap(mapArgs, splitArgs);
 		}
 
 		return mapArgs;
 	}
 
-	/*
-	 * Loops through arguments, adds them to hashmap if valid
-	 */
+    private int extractIndexFromArgs(String arguments, HashMap<String, String> mapArgs) {
+        String[] splitArgs1 = arguments.split(" ", 2);
+		int indexStringLength = splitArgs1[0].length();
+		String index = arguments.substring(0, indexStringLength);
+		mapArgs.put("index", index);
+        return indexStringLength;
+    }
 
-	private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
-		for (int i = 0; i < splitArgs.length; i++) {
-			if (splitArgs[i].substring(0, 2).equals("s/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-					arg += " " + splitArgs[j];
-					j++;
-				}
-				mapArgs.put("start", arg);
-			}
-
-			if (splitArgs[i].substring(0, 2).equals("e/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-					arg += " " + splitArgs[j];
-					j++;
-				}
-				mapArgs.put("end", arg);
-			}
-
-			if (splitArgs[i].substring(0, 2).equals("c/")) {
-				int j = i + 1;
-				String arg = splitArgs[i].substring(2);
-				while (j < splitArgs.length) {
-					arg += " " + splitArgs[j].substring(2);
-					j++;
-				}
-				i = j;
-				mapArgs.put("cats", arg);
-
-			}
-		}
-	}
+	
 
 	// @@author A0146749N
 	private boolean hasTaskName(String arguments) {
