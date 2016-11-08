@@ -56,10 +56,12 @@ public class AddCommand extends Command {
             model.getHistory().stackDeleteInstruction(toAdd);
             model.addTask(toAdd);
             model.updatePinBoard();
+            
+            int indexOfClashingTask = getIndexOfClashingTask(toAdd);
 
-            if (isClash(toAdd))
+            if (isClash(indexOfClashingTask))
                 return new CommandResult(
-                        String.format(MESSAGE_WARNING_CLASH, taskList.get(getIndexOfClashingTask(toAdd))));
+                        String.format(MESSAGE_WARNING_CLASH, taskList.get(indexOfClashingTask)));
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
@@ -68,8 +70,8 @@ public class AddCommand extends Command {
 
     }
 
-    private boolean isClash(Task toAdd) {
-        return getIndexOfClashingTask(toAdd) > -1;
+    private boolean isClash(int indexOfClashingTask) {
+        return indexOfClashingTask > -1;
     }
     //@@author A0139102U
     /**
