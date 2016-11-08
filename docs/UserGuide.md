@@ -151,7 +151,7 @@ Format: `add EVENT_NAME /from START_DATETIME [/to END_DATETIME] [/desc DESCRIPTI
 > If `END_DATETIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
-* `add CS2103 Exam @ MPSH3 /from 30 December 4pm` <br>
+* `add CS2103 Exam @ MPSH3 /from 30 December 4pm /to 30 Dec 6pm` <br>
   Adds an event "CS2103 Exam @ MPSH3" with duration from "16:00 30 December 2016" to "18:00 30 December 2016" 
 * `add Doctor Strange /desc @ The Cathay /from friday 7pm /to friday 9pm` <br>
 <img src="images/addevent.gif" width="700">
