@@ -3,7 +3,6 @@ package seedu.dailyplanner.logic.commands;
 import java.util.Set;
 
 /**
-<<<<<<< HEAD
  * Finds and lists all tasks in daily planner whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */

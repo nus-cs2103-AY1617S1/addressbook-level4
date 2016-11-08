@@ -17,7 +17,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList;
 import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the daily
+ * Edits a task identified using it's last displayed index from the daily
  * planner. Adds the task back with new updated information
  */
 	
@@ -37,7 +37,6 @@ public static final String MESSAGE_USAGE = COMMAND_WORD
 	private final Optional<String> taskName;
 	private final Optional<DateTime> start;
 	private final Optional<DateTime> end;
-	private final Optional<Set<String>> categories;
 	private Optional<UniqueCategoryList> categoriesSet;
 
 	public EditCommand(int targetIndex, String taskName, DateTime start, DateTime end, Set<String> cats)
@@ -46,7 +45,6 @@ public static final String MESSAGE_USAGE = COMMAND_WORD
 		this.taskName = Optional.ofNullable(taskName);
 		this.start = Optional.ofNullable(start);
 		this.end = Optional.ofNullable(end);
-		this.categories = Optional.ofNullable(cats);
 		this.categoriesSet = Optional.empty();
 
 		if (cats.size() != 0) {

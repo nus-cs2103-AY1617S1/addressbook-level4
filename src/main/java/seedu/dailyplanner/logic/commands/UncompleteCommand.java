@@ -21,11 +21,12 @@ public class UncompleteCommand extends Command {
             + "Format: uncomplete [INDEX] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_UNCOMPLETED_TASK_SUCCESS = "Uncompleted Task: %1$s";
 
     public UncompleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
+    
   //@@author A0146749N
     @Override
     public CommandResult execute() {
@@ -46,7 +47,7 @@ public class UncompleteCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToUncomplete));
+        return new CommandResult(String.format(MESSAGE_UNCOMPLETED_TASK_SUCCESS, taskToUncomplete));
     }
 
 }

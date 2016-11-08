@@ -513,9 +513,9 @@ public class Parser {
 	// if command is a show by completion status command
 	if (keyword.contains("complete")) {
 	    if (keyword.contains(ShowCommand.KEYWORD_SHOW_NOT_COMPLETED)) {
-		keywords[0] = "not completed";
+		keywords[0] = "not complete";
 	    } else {
-		keywords[0] = "completed";
+		keywords[0] = "complete";
 	    }
 	}
 	// command is a show by date command
