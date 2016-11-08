@@ -60,13 +60,13 @@ public class LogicManagerTest {
 	}
 
 	@Subscribe
-	// @@author A0132157
+	// @@author A0139920A
 	private void handleLocalModelChangedEvent(EventListChangedEvent abce) {
 		latestSavedEventList = new TaskList(abce.data);
 	}
 
 	@Subscribe
-	// @@author A0132157
+	// @@author A0139920A
 	private void handleLocalModelChangedEvent(DeadlineListChangedEvent abce) {
 		latestSavedDeadlineList = new TaskList(abce.data);
 	}
@@ -330,7 +330,7 @@ public class LogicManagerTest {
 	}
 
 	@Test
-	// @@author A0132157 reused
+	// @@author A0139920A reused
 	public void execute_list_showsAllTodoTasks() throws Exception {
 		// prepare expectations
 		TestDataHelper helper = new TestDataHelper();
@@ -348,7 +348,7 @@ public class LogicManagerTest {
 	}
 
 	@Test
-	// @@author A0132157 reused
+	// @@author A0139920A reused
 	public void execute_list_showsAllEventTasks() throws Exception {
 		// prepare expectations
 		TestDataHelper helper = new TestDataHelper();
@@ -366,7 +366,7 @@ public class LogicManagerTest {
 	}
 
 	@Test
-	// @@author A0132157 reused
+	// @@author A0139920A reused
 	public void execute_list_showsAllDeadlineTasks() throws Exception {
 		// prepare expectations
 		TestDataHelper helper = new TestDataHelper();
