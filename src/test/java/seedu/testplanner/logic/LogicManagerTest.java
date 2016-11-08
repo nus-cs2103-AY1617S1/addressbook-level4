@@ -365,7 +365,7 @@ public class LogicManagerTest {
             
             return meetAdamTask;
         }
-        //@@author
+        
 
         /**
          * Generates a valid person using the given seed.
@@ -403,7 +403,7 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
-
+      //@@author
         /**
          * Generates an AddressBook with auto-generated persons.
          */

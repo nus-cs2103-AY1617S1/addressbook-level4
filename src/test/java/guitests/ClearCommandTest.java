@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0146749N
 public class ClearCommandTest extends DailyPlannerGuiTest {
 
     @Test

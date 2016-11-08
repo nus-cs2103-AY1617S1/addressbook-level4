@@ -12,7 +12,7 @@ import seedu.dailyplanner.model.category.UniqueCategoryList;
  * not null, field values are validated.
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
-
+	//@@author A0140124B
 	private String taskName;
 	private DateTime start;
 	private DateTime end;

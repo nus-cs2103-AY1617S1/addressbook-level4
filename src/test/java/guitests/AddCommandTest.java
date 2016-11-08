@@ -41,7 +41,7 @@ public class AddCommandTest extends DailyPlannerGuiTest {
 		commandBox.runCommand("adds Johnny");
 		assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
 	}
-
+	//@@author A0146749N
 	private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
 		commandBox.runCommand(taskToAdd.getAddCommand());
 

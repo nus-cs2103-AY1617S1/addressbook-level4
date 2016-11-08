@@ -50,7 +50,7 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-
+    //@@author A0139102U
     private void configure(){
            Scene scene = new Scene(mainPane);
            //Null passed as the parent stage to make it non-modal.

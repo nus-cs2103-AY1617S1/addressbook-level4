@@ -25,7 +25,7 @@ public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + ": Delet
 
 	public DeleteCompletedCommand() {
 	}
-
+	//@@author A0139102U
 	@Override
 	public CommandResult execute() {
 

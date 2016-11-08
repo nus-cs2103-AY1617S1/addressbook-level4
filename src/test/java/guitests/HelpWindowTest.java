@@ -4,7 +4,7 @@ import guitests.guihandles.HelpWindowHandle;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139102U
 public class HelpWindowTest extends DailyPlannerGuiTest {
 
     @Test

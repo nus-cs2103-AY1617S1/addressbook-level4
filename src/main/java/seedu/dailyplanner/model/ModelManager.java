@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 * Initializes a ModelManager with the given DailyPlanner DailyPlanner and its
 	 * variables should not be null
 	 */
+	//@@author A0140124B
 	public ModelManager(DailyPlanner src, UserPrefs userPrefs) {
 		super();
 		assert src != null;
@@ -65,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
 		lastTaskAddedIndex = new SimpleIntegerProperty(0);
 		lastShowDate = new SimpleStringProperty();
 	}
-
+	//@@author
 	@Override
 	public void resetData(ReadOnlyDailyPlanner newData) {
 		dailyPlanner.resetData(newData);

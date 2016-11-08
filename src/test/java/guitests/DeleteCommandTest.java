@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.dailyplanner.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 public class DeleteCommandTest extends DailyPlannerGuiTest {
-
+	//@@author A0140124B
     @Test
     public void delete() {
 

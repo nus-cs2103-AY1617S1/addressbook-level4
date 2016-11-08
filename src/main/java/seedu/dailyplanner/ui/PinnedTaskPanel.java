@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
+//@@author A0140124B
 public class PinnedTaskPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PinnedTaskPanel.class);
     private static final String FXML = "PinnedTaskPanel.fxml";

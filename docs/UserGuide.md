@@ -22,7 +22,7 @@
 	 	**`complete`** : marks a task as completed<br>
 	  	**`pin`** : pin tasks<br>
 	 	**`unpin`** : removes tasks from the pinned list<br>
-	 	**`undo`** : marks a task as completed<br>
+	 	**`undo`** : reverts the task list back to the previous state<br>
 	 	**`clear`** : deletes every task on the list<br>
 
 7.  Refer to the [Commands](#commands) section below for details of each command.<br>

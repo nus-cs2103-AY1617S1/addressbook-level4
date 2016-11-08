@@ -6,7 +6,7 @@ import seedu.dailyplanner.commons.core.Messages;
 import seedu.testplanner.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0139102U
 public class FindCommandTest extends DailyPlannerGuiTest {
 
     @Test

@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
-
+//@@author A0140124B
 /**
  * Provides a handle for the panel containing the person list.
  */

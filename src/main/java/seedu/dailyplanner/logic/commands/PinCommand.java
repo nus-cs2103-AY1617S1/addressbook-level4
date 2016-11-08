@@ -23,7 +23,7 @@ public class PinCommand extends Command {
 
 	public static final String MESSAGE_PINNED_TASK_SUCCESS = "Pinned Task: %1$s";
 	public static final String MESSAGE_DUPLICATE_PINNED_TASK = "Task is already pinned.";
-
+	//@@author A0146749N
 	public PinCommand(int targetIndex) {
 		this.targetIndex = targetIndex;
 	}

@@ -10,7 +10,7 @@ import com.joestelmach.natty.*;
 import seedu.dailyplanner.commons.util.DateUtil;
 
 public class nattyParser {
-
+	//@@author A0140124B
 	private com.joestelmach.natty.Parser nattyParserPackage;
 
 	public nattyParser() {

@@ -11,7 +11,7 @@ import seedu.dailyplanner.commons.core.LogsCenter;
 import seedu.testplanner.TestApp;
 
 import java.util.logging.Logger;
-
+//@@author A0140124B
 /**
  * Base class for all GUI Handles used in testing.
  */

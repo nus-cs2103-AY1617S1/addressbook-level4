@@ -20,7 +20,7 @@ import seedu.dailyplanner.model.task.UniqueTaskList.TaskNotFoundException;
  * Deletes a task identified using it's last displayed index from the daily
  * planner. Adds the task back with new updated information
  */
-// @@author A0139102U
+	
 public class EditCommand extends Command {
 
 	public static final String COMMAND_WORD = "edit";
@@ -32,7 +32,7 @@ public static final String MESSAGE_USAGE = COMMAND_WORD
 
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the daily planner";
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-
+	// @@author A0139102U
 	public final int targetIndex;
 	private final Optional<String> taskName;
 	private final Optional<DateTime> start;
@@ -58,7 +58,7 @@ public static final String MESSAGE_USAGE = COMMAND_WORD
 			this.categoriesSet = Optional.of(new UniqueCategoryList(catSet));
 		}
 	}
-
+	//@@author A0146749N
 	@Override
 	public CommandResult execute() {
 

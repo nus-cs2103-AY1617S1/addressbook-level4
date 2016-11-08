@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.testplanner.testutil.TestTask;
-
+//@@author A0146749N
 public class PinCommandTest extends DailyPlannerGuiTest {
 
 	@Test

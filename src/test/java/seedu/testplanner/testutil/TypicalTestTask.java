@@ -8,7 +8,7 @@ import seedu.dailyplanner.model.task.*;
  *
  */
 public class TypicalTestTask {
-
+	//@@author A0146749N
 	public static TestTask CS2103_Lecture, CS2103_Project, MA1101R_Homework, SoccerWithFriends, BuyGroceries,
 			WatchMovie, learnPython, learnSpanish, GoSkydiving;
 
@@ -42,7 +42,7 @@ public class TypicalTestTask {
 			assert false : "not possible";
 		}
 	}
-
+	//@@author A0139102U
 	public static void loadAddressBookWithSampleData(DailyPlanner dp) {
 
 		try {

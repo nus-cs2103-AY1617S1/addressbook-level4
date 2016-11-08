@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import seedu.testplanner.testutil.TestTask;
 import seedu.testplanner.testutil.TestUtil;
-
+//@@author A0139102U
 public class DeleteCompletedCommand extends DailyPlannerGuiTest {
 
 	@Test

@@ -29,7 +29,7 @@ public class ResultDisplay extends UiPart {
         statusBar.configure();
         return statusBar;
     }
-
+  //@@author A0140124B
     public void configure() {
         resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
