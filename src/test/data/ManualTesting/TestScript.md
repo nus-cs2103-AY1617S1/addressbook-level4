@@ -77,11 +77,11 @@
 | Command | Format |
 | ------- | ------ |
 | help | `help` |
-| add | `add <name> [.due <date>] [#<cat>] [#<cat>] ...` <br /> `add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> .every <period> ...` |
-| edit | `edit <index> [.due <date>]`<br />`edit #<oldCat> [#<newCat>] [.c <colour>]` |
-| list | `list` <br /> `list today` <br /> `list week` <br /> `list float`<br />`list #<cat>`<br />`list done` |
+| add | `add <name> [.due <date>] ...` <br /> `add <name> [.from <date><time> .to <date><time>] ...` <br /> `add <name> [#<category>]` |
+| edit | `edit <index> [<new name>] [.due <date>] ...` <br /> `edit #<oldCat> [#<newCat>] [<colour>]` |
 | done | `done <index>` |
-| find | `find <keyword>` |
+| list | `list` <br /> `list today` <br /> `list week` <br /> `list float`<br />`list #<cat>`<br />`list done` |
+| find | `find <keyword> [<keywords> ...]` |
 | delete | `del <index>` <br /> `del #<cat>`|
-| storage | `loc <path>` |
+| storage | `loc <path>` <br /> `loc`|
 | exit | `exit` |
