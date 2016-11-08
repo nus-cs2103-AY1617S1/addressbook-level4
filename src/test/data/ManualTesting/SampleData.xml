@@ -1,21 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <tasks>
-        <name>Cook lunch</name>
-        <dueDate>none</dueDate>
-        <address>none</address>
-        <priority>1</priority>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
-        <name>Cook dinner</name>
-        <dueDate>none</dueDate>
-        <address>none</address>
-        <priority>1</priority>
-        <isDone>false</isDone>
-    </tasks>
-    <tasks>
         <name>CS1001 Tutorial 4</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:00</dueDate>
         <address>NUS</address>
         <priority>2</priority>
@@ -23,6 +10,7 @@
     </tasks>
     <tasks>
         <name>Buy birthday cake</name>
+		<startDate>nil</startDate>
         <dueDate>09/11/2016 19:00</dueDate>
         <address>Nex</address>
         <priority>3</priority>
@@ -30,6 +18,7 @@
     </tasks>
     <tasks>
         <name>Finish poster</name>
+		<startDate>nil</startDate>
         <dueDate>10/11/2016 12:00</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -37,6 +26,7 @@
     </tasks>
     <tasks>
         <name>Clear out drawers</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -44,6 +34,7 @@
     </tasks>
     <tasks>
         <name>Wash the dishes</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>4</priority>
@@ -51,6 +42,7 @@
     </tasks>
     <tasks>
         <name>Buy eggs</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>Giant</address>
         <priority>5</priority>
@@ -58,6 +50,7 @@
     </tasks>
     <tasks>
         <name>Vacuum floor</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -65,6 +58,7 @@
     </tasks>
     <tasks>
         <name>Write angry blog post</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>2</priority>
@@ -72,6 +66,7 @@
     </tasks>
     <tasks>
         <name>Cook lunch for friends</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -79,6 +74,7 @@
     </tasks>
     <tasks>
         <name>Cook friends for lunch</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -86,6 +82,7 @@
     </tasks>
     <tasks>
         <name>Replace old cabinet</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>4</priority>
@@ -93,6 +90,7 @@
     </tasks>
     <tasks>
         <name>Change lightbulb</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -100,6 +98,7 @@
     </tasks>
     <tasks>
         <name>Call mum</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -107,6 +106,7 @@
     </tasks>
     <tasks>
         <name>Finish updating resume</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -114,6 +114,7 @@
     </tasks>
     <tasks>
         <name>Print letter</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>1</priority>
@@ -121,6 +122,7 @@
     </tasks>
     <tasks>
         <name>Submit insurance forms</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -128,6 +130,7 @@
     </tasks>
     <tasks>
         <name>Tidy work desk</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -135,6 +138,7 @@
     </tasks>
     <tasks>
         <name>Do a few sets on google code jam</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -142,6 +146,7 @@
     </tasks>
     <tasks>
         <name>Buy new charging cable</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>Nex</address>
         <priority>5</priority>
@@ -149,6 +154,7 @@
     </tasks>
     <tasks>
         <name>Borrow Tennis shoes from Shane</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>2</priority>
@@ -156,6 +162,7 @@
     </tasks>
     <tasks>
         <name>Watch GEM1917 webcast</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -163,6 +170,7 @@
     </tasks>
     <tasks>
         <name>Prepare for interview</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -170,6 +178,7 @@
     </tasks>
     <tasks>
         <name>Buy EE2020 textbook</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -177,6 +186,7 @@
     </tasks>
     <tasks>
         <name>Replace faulty access card</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -184,6 +194,7 @@
     </tasks>
     <tasks>
         <name>Sign up to donate blood</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>Tan Tock Seng</address>
         <priority>4</priority>
@@ -191,6 +202,7 @@
     </tasks>
     <tasks>
         <name>Maroon 5 Concert</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>Marina Bay Sands</address>
         <priority>5</priority>
@@ -198,6 +210,7 @@
     </tasks>
     <tasks>
         <name>Practice Beethoven's 9th</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -205,6 +218,7 @@
     </tasks>
     <tasks>
         <name>Email supervisor</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -212,6 +226,7 @@
     </tasks>
     <tasks>
         <name>CS2103 Tutorial 5</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -219,6 +234,7 @@
     </tasks>
     <tasks>
         <name>20 page monthly report</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -226,6 +242,7 @@
     </tasks>
     <tasks>
         <name>Pick up dad from the station</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>One north mrt</address>
         <priority>2</priority>
@@ -233,6 +250,7 @@
     </tasks>
     <tasks>
         <name>Dentist appointment</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>Mount Elizabeth</address>
         <priority>5</priority>
@@ -240,6 +258,7 @@
     </tasks>
     <tasks>
         <name>EE2021 finals</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -247,6 +266,7 @@
     </tasks>
     <tasks>
         <name>CS1020 PE</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>3</priority>
@@ -254,6 +274,7 @@
     </tasks>
     <tasks>
         <name>Return library books</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NUS</address>
         <priority>5</priority>
@@ -261,6 +282,7 @@
     </tasks>
     <tasks>
         <name>Learn how to tie shoes</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -268,6 +290,7 @@
     </tasks>
     <tasks>
         <name>Fix parser bug</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -275,6 +298,7 @@
     </tasks>
     <tasks>
         <name>Write conference speech</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>4</priority>
@@ -282,6 +306,7 @@
     </tasks>
     <tasks>
         <name>Wash Dog</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -289,6 +314,7 @@
     </tasks>
     <tasks>
         <name>Wash car</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -296,6 +322,7 @@
     </tasks>
     <tasks>
         <name>Sell watch at pawn shop</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>AMK Hub</address>
         <priority>2</priority>
@@ -303,6 +330,7 @@
     </tasks>
     <tasks>
         <name>Marinate Turkey</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -310,6 +338,7 @@
     </tasks>
     <tasks>
         <name>Volunteer at charity sales stand</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>NTU</address>
         <priority>5</priority>
@@ -317,6 +346,7 @@
     </tasks>
     <tasks>
         <name>Finish writing cover letter</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -324,6 +354,7 @@
     </tasks>
     <tasks>
         <name>Mail postcards</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>4</priority>
@@ -331,6 +362,7 @@
     </tasks>
     <tasks>
         <name>Buy christmas presents</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>5</priority>
@@ -338,6 +370,7 @@
     </tasks>
     <tasks>
         <name>Rearrange closet</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
         <priority>3</priority>
@@ -345,8 +378,33 @@
     </tasks>
     <tasks>
         <name>Wash windows</name>
+		<startDate>nil</startDate>
         <dueDate>08/11/2016 19:52</dueDate>
         <address>none</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+	    <tasks>
+        <name>Drown sorrows</name>
+		<startDate>08/11/2016 23:59</startDate>
+        <dueDate>09/11/2016 23:52</dueDate>
+        <address>Clarke Quay</address>
+        <priority>5</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Think of family</name>
+		<startDate>nil</startDate>
+        <dueDate>08/11/2016 19:52</dueDate>
+        <address>Ridge View Residential College</address>
+        <priority>3</priority>
+        <isDone>false</isDone>
+    </tasks>
+    <tasks>
+        <name>Late Submission</name>
+		<startDate>nil</startDate>
+        <dueDate>08/11/2016 00:10</dueDate>
+        <address>School Of Computing</address>
         <priority>5</priority>
         <isDone>false</isDone>
     </tasks>
