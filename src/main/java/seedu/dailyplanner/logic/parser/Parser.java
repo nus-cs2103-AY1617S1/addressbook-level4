@@ -511,11 +511,11 @@ public class Parser {
 	String[] keywords = new String[1];
 
 	// if command is a show by completion status command
-	if (keyword.contains(ShowCommand.KEYWORD_SHOW_BY_COMPLETION)) {
+	if (keyword.contains("complete")) {
 	    if (keyword.contains(ShowCommand.KEYWORD_SHOW_NOT_COMPLETED)) {
-		keywords[0] = "not complete";
+		keywords[0] = "not completed";
 	    } else {
-		keywords[0] = "complete";
+		keywords[0] = "completed";
 	    }
 	}
 	// command is a show by date command
