@@ -23,6 +23,7 @@ public class DateUtil {
 	}
 	
 	public static boolean withinDateRange(ReadOnlyTask task, String keyword) {
+	    System.out.println(keyword);
         int keyDate = SubStringOfStringAsInt(0,2,keyword);
         int keyMonth = SubStringOfStringAsInt(3,5,keyword);
         int keyYear = SubStringOfStringAsInt(6,keyword);
@@ -45,7 +46,8 @@ public class DateUtil {
         Calendar searchKey = Calendar.getInstance();
         searchKey.set(keyYear + 1900, keyMonth, keyDate);
         Calendar end = Calendar.getInstance();
-        end.set(taskEnd.getYear() + 1900, taskEnd.getMonth(), taskEnd.getYear());
+        end.set(taskEnd.getYear() + 1900, taskEnd.getMonth(), taskEnd.getDay());
+        System.out.println(keyDate + " " + keyMonth + " " + keyYear + " " + taskStart.toString() + " " + taskEnd.toString());
         return (start.compareTo(searchKey) <= 0 && end.compareTo(searchKey) >= 0);
     }
 
