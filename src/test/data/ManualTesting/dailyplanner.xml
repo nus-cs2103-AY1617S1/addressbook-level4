@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <persons>
+        <name>movie night</name>
+        <startDate>04/11/2016</startDate>
+        <startTime>09.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>meet client</name>
+        <startDate>06/11/2016</startDate>
+        <startTime></startTime>
+        <endDate>06/11/2016</endDate>
+        <endTime>05.00PM</endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>buy groceries</name>
+        <startDate>06/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>go shopping</name>
+        <startDate>07/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>soccer game</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>03.00AM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>st lecture</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>10.00AM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>meet mum</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>01.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>cs lecture</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>02.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>buy clothes</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>06.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>go gym</name>
+        <startDate>08/11/2016</startDate>
+        <startTime>08.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>fasting</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate>09/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>mob manning</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate>15/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>cook lunch</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>do laundry</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>meeting</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+        <tagged>client</tagged>
+    </persons>
+    <persons>
+        <name>networking assignment</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>revise chem</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>revise math</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>sample task</name>
+        <startDate>08/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>st consultation</name>
+        <startDate>09/11/2016</startDate>
+        <startTime>03.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>floorball game</name>
+        <startDate>09/11/2016</startDate>
+        <startTime>10.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>MA lecture</name>
+        <startDate>10/11/2016</startDate>
+        <startTime>02.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>another task</name>
+        <startDate>10/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>play fifa</name>
+        <startDate>10/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>cs2103 demo</name>
+        <startDate>11/11/2016</startDate>
+        <startTime>11.00AM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>true</isPinned>
+    </persons>
+    <persons>
+        <name>revise cs</name>
+        <startDate>11/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>study math</name>
+        <startDate>11/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+        <tagged>school</tagged>
+    </persons>
+    <persons>
+        <name>study stats</name>
+        <startDate>12/11/2016</startDate>
+        <startTime>07.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>party</name>
+        <startDate>12/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>plan modules</name>
+        <startDate>12/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+        <tagged>school</tagged>
+    </persons>
+    <persons>
+        <name>read 2103 handouts</name>
+        <startDate>12/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+        <tagged>exams</tagged>
+        <tagged>school</tagged>
+    </persons>
+    <persons>
+        <name>conquer earth</name>
+        <startDate>13/11/2016</startDate>
+        <startTime>02.00PM</startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>go to church</name>
+        <startDate>13/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>reading week</name>
+        <startDate>14/11/2016</startDate>
+        <startTime></startTime>
+        <endDate>18/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>give up and cry</name>
+        <startDate>14/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>study for finals</name>
+        <startDate>14/11/2016</startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>cs2105 assgn</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>02/11/2016</endDate>
+        <endTime>06.00PM</endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>math homework</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>03/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>pay bill</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>03/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>submit v0.5</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>07/11/2016</endDate>
+        <endTime>11.59PM</endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>documentation</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>07/11/2016</endDate>
+        <endTime></endTime>
+        <isComplete>true</isComplete>
+        <isPinned>false</isPinned>
+        <tagged>homework</tagged>
+        <tagged>cs2103</tagged>
+    </persons>
+    <persons>
+        <name>math homework</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>08/11/2016</endDate>
+        <endTime>06.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>cs problem set</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>09/11/2016</endDate>
+        <endTime>06.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>email prof</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>10/11/2016</endDate>
+        <endTime>05.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>stats assignment</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>10/11/2016</endDate>
+        <endTime>11.59PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>true</isPinned>
+        <tagged>homework</tagged>
+    </persons>
+    <persons>
+        <name>finish GES1028 work</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>11/11/2016</endDate>
+        <endTime>08.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>study networking</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate>13/11/2016</endDate>
+        <endTime>03.00PM</endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>Prove P=NP</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>true</isPinned>
+    </persons>
+    <persons>
+        <name>skydive one day</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <persons>
+        <name>time travel</name>
+        <startDate></startDate>
+        <startTime></startTime>
+        <endDate></endDate>
+        <endTime></endTime>
+        <isComplete>false</isComplete>
+        <isPinned>false</isPinned>
+    </persons>
+    <categories>
+        <tagName>homework</tagName>
+    </categories>
+    <categories>
+        <tagName>cs2103</tagName>
+    </categories>
+    <categories>
+        <tagName>client</tagName>
+    </categories>
+    <categories>
+        <tagName>school</tagName>
+    </categories>
+    <categories>
+        <tagName>exams</tagName>
+    </categories>
+</addressbook>
