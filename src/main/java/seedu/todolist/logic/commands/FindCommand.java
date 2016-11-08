@@ -42,7 +42,7 @@ public class FindCommand extends Command {
     	
     	assert model != null;
         model.updateFilteredTaskList(keywords, findType);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredAllTaskList().size()));
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredIncompleteTaskList().size(), 
+        		model.getFilteredCompleteTaskList().size(), model.getFilteredOverdueTaskList().size()));
     }
-
 }

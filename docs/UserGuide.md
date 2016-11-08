@@ -46,7 +46,6 @@ Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`
 > This parameter is used to indicate the starting and ending datetime of a task.<br>
 > Format: **`from`**` [datetime] `**`to`**` [datetime]`<br>
 
-> > The date for **`from`** can be omitted if it is on the same ending date. <br>
 <!-- @@author A0146682X -->
 > > A few variations in [datetime] format are accepted: <br>
 > > - Both 24-Hour and AM/PM formats are accepted: <br>
@@ -60,10 +59,6 @@ Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2]...`
 > > - Month can be in abbreviations, or number separated by slash from day and year: <br>
 > > E.g. 19:30 12 oct 2016 <br>
 > > E.g. 19:30 12/10/2016 <br>
-
-> > - Year can be omitted and assumed to be the current year: <br> 
-> > E.g. 19:30 12/10 <br> 
-> > E.g. 7:30 pm 12/10 <br> 
 
 <!-- @@author A0138601M -->
 > Examples:
@@ -215,7 +210,7 @@ Format: **`setstorage`**` [filepath]`
 
 Examples: 
 * **`setstorage`**` user/documents/todolist`.<br>
-     
+<!--@@author -->     
 ### Clearing all entries : `clear`
 Clears all entries from Task!t.<br>
 Format: `clear`  
@@ -233,7 +228,7 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Task!t.
-       
+<!--@@author A0138601M-->
 ## Command Summary
 
 Command | Format  

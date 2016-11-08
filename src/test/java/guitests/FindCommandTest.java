@@ -133,6 +133,9 @@ public class FindCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(Status.Type.Incomplete, expectedList.getIncompleteList()));
         assertTrue(taskListPanel.isListMatching(Status.Type.Complete, expectedList.getCompleteList()));
         assertTrue(taskListPanel.isListMatching(Status.Type.Overdue, expectedList.getOverdueList()));
-        assertResultMessage(expectedList.getNumberOfTask() + " tasks listed!");
+        assertResultMessage(String.format(Messages.MESSAGE_INCOMPLETE_TASKS_LISTED_OVERVIEW, expectedList.getIncompleteList().length)
+        		+ String.format(Messages.MESSAGE_COMPLETED_TASKS_LISTED_OVERVIEW, expectedList.getCompleteList().length) 
+        		+ String.format(Messages.MESSAGE_OVERDUE_TASKS_LISTED_OVERVIEW, expectedList.getOverdueList().length));
+
     }
 }
