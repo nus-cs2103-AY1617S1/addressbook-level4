@@ -399,29 +399,6 @@ Use case ends.
 > 3c1. Task!t shows a 'task already marked' message.<br>
 > Use case resumes at step 3
 
-<!-- ###Use case: Remove the done mark of task
-
-**MSS**
-
-1. User requests to **view** tasks for a particular date
-2. Task!t displays a list of tasks for that date sorted by time
-3. User request to remove the done mark of the specific task in the list based on task’s index
-4. Task!t removes the done mark of  the specific task <br>
-Use case ends.
-
-**Extensions**
-
-2a. The list is empty
-> Use case ends
-
-3a. The given index is invalid
-> 3a1. Task!t shows a 'invalid index' message <br>
-> Use case resumes at step 2
-
-3b. The task is not marked as done
-> 3b1. Task!t shows a 'the task is not marked as done' message <br>
-> Use case resumes at step 2 -->
-
 #### Use case: Delete task
 
 **MSS**
