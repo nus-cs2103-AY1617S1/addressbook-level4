@@ -49,18 +49,6 @@ public class HelpCommand extends Command {
 
         case ExitCommand.COMMAND_WORD:
         	return new CommandResult(ExitCommand.MESSAGE_USAGE);
-                
-        case EditCommand.COMMAND_WORD:
-        	return new CommandResult(EditCommand.MESSAGE_USAGE);
-                
-        case DoneCommand.COMMAND_WORD:
-        	return new CommandResult(DoneCommand.MESSAGE_USAGE);
-                
-        case UndoCommand.COMMAND_WORD:
-        	return new CommandResult(UndoCommand.MESSAGE_USAGE);
-                
-        case SetFilePathCommand.COMMAND_WORD:
-        	return new CommandResult(SetFilePathCommand.MESSAGE_USAGE);
         	
         case HelpCommand.COMMAND_WORD:
         	EventsCenter.getInstance().post(new ShowHelpRequestEvent());
