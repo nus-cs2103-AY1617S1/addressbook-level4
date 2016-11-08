@@ -16,7 +16,7 @@ We are a group of students in the [School of Computing, National University of S
   * Set up Travis, Coveralls and Codacy
   * Did the initial refactoring from AddressBook to Task!t [[#1](https://github.com/CS2103AUG2016-T15-C3/main/pull/2)]
   * Sort task list displayed by date and time [[#74](https://github.com/CS2103AUG2016-T15-C3/main/pull/75)]
-  * UI [[#58](https://github.com/CS2103AUG2016-T15-C3/main/issues/58)]
+  * UI and split into 3 tabs[[#58](https://github.com/CS2103AUG2016-T15-C3/main/issues/58)] [[#133](https://github.com/CS2103AUG2016-T15-C3/main/pull/133)]
   * Set up Natty [[#107](https://github.com/CS2103AUG2016-T15-C3/main/pull/107)]
 
 -----
