@@ -5,7 +5,7 @@
 ## Load SampleData.xml
 > **Instructions:**
  - 1. Create a folder called `data` at the same directory as `sTask.jar` executable.
- - 2. Copy and paste `SampleData.xml` into that folder and rename it as 'data.xml'.
+ - 2. Copy and paste `SampleData.xml` into that folder and rename it as 'task.xml'.
  - 3. Run `sTask.jar`.
 
 ------
