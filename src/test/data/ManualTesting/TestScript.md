@@ -164,7 +164,7 @@
 > **Result:**<br>
 - Result display panel posts message:<br>
 `This task has been edited: do housework Deadline: 04.04.2016 done`
-- TaskList panel updates and shows the the last shown list with the updated field.
+- TaskList panel shows the newly edited task card with task name changed.
 
 ### 6.2 Edit time of task
 > **Command:** `edit watch an old movie d/next monday 11pm`<br>
@@ -365,7 +365,7 @@ The result is the same as `1`
 - Result display panel posts message:<br>
 `Storage location changed.`
 - Status Foot Bar updates to show the `toDoList.xml`
-- Open the data folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
+- Open the data folder and `toDoList.xml` should be there. `newFile.xml` should not be there.(It should be in the same status as 11.2)
 - Reboot the app, it will load the file under the path `data/toDoList.xml`
 
 ### 12.4 Changes the default storage location back to SampleData.xml
