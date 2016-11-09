@@ -172,23 +172,20 @@
 - Result display panel posts message:<br>
 `This task has been edited: watch an old movie Deadline: 14.11.2016-23`
 - TaskList panel shows the newly edited task card with task date changed.
-- Note: Similarly:
-- 1. convert the original floating task to a time slot,
-- 2. or convert the deadline to a time slot, and vice versa,
-- are also supported.
+- Note: Similarly, convert the event time to a deadline is supported.
 
 ### 6.3 Edit recurring frequency of task
-> **Command:** `edit learn korea r/daily`<br>
+> **Command:** `edit watch an old movie r/weekly`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: learn korea recurring daily`
+`This task has been edited: watch an old movie Deadline: 14.11.2016-23 recurring weekly`
 - TaskList panel shows the newly edited task card with recurring frequency changed.
 
 #### 6.4 Edit the priority level of task
 > **Command:** `edit watch an old movie p/2`<br>
 > **Result:**<br>
 - Result display panel posts message:<br>
-`This task has been edited: watch an old movie Deadline: 14.11.2016-23 Priority Level: 2`
+`This task has been edited: watch an old movie Deadline: 14.11.2016-23 recurring weekly Priority Level: 2`
 - TaskList panel shows the newly edited task card with priority level changed.
 
 <!--@@author A0146123R-->
@@ -292,23 +289,24 @@ The result is the same as `1`
 ## 10. Filter Command
 ------
 ### 10.1 Filter in filter panel
-> **Command:** 
+> **Command:** <br>
 1. `s`<br>
-2. `22.04.2016`
-> **Result:**
+2. `22.04.2016`<br>
+> **Result:**<br>
 > 1.
 - Result display panel post message:<br>
 `Enter start date:`
 - The start date text field in filter panel is focused
+
 > 2.
 - Result display panel posts message:<br>
 `Filter the todoList`
 - TaskList panel shows one event `earth day cca event` whose start day is on 22.04.2016
-- Enter `d`, `s`, `e`, `r`, `t` and `p` to jump to deadline, start date, end date, recurring, tag and priority text fields respectively,
+- Enter `d`, `s`, `e`, `r`, `t` and `p` in command box to jump to deadline, start date, end date, recurring, tag and priority text fields/choice box respectively. Press enter in those text fields/choice box to jump back to command box.
 
 ### 10.2 Filter by deadline and recurring
 > **Command:** `filter d/Nov 11 2016 r/weekly`<br>
-> **Result:**
+> **Result:**<br>
 - Result display panel posts message:<br>
 `2 events and tasks listed!`
 - TaskList panel lists all events and tasks whose deadline is on 11.11.2016 and recurring frequency is weekly
@@ -316,7 +314,7 @@ The result is the same as `1`
 
 ### 10.3 Filter by start date and end date
 > **Command:** `filter s/08.3.2016 e/08.3.2016`<br>
-> **Result:**
+> **Result:**<br>
 - Result display panel posts message:<br>
 `1 events and tasks listed!`
 - TaskList panel lists all events whose start date and end date are on 08.03.2016
@@ -331,8 +329,7 @@ The result is the same as `1`
 - Result display panel posts message:<br>
 `Storage location changed: data/newFile.xml`
 - Status Foot Bar updates to show the new location.
-- Open the data folder and the `sampleData.xml` and `newFile.xml` should be there.
-- Reboot the app, it will load the file under the new path.
+- Open the data folder and the `SampleData.xml` and `newFile.xml` should be there.
 - Note: If key in invalid path, result display will post `The file path provided is invalid. It must end with the file type extension, .xml`.
 
 ### 11.2 Changes the default storage location of the app and deletes the previous storage file
@@ -341,7 +338,7 @@ The result is the same as `1`
 - Result display panel posts message:<br>
 `Storage location changed: data/toDoList.xml`
 - Status Foot Bar updates to show the new location.
-- Open the folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
+- Open the data folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
 
 ------
 ## 12. Undo/Redo change Directory Command
@@ -351,30 +348,30 @@ The result is the same as `1`
 > **Result:**
 - Result display panel posts message:<br>
 `Storage location changed back.`
-- Status Foot Bar updates to show `newFile.xml`
-- Open the folder and the `toDoList.xml` and `newFile.xml` should be there.
+- Status Foot Bar updates to show `data/newFile.xml`
+- Open the data folder and the `toDoList.xml` and `newFile.xml` should be there.
 
 ### 12.2 Undo changes the default storage location of the app and deletes the new storage file
 > **Command:** `undochange clear`<br>
 > **Result:**
 - Result display panel posts message:<br>
 `Storage location changed back.`
-- Status Foot Bar updates to show the `sampleData.xml`
-- Open the folder and `sampleData.xml` should be there and `newFile.xml` should not be there.
+- Status Foot Bar updates to show the `data/SampleData.xml`
+- Open the data folder and `SampleData.xml` should be there and `newFile.xml` should not be there.
 
 ### 12.3 Redo change the default storage location of the app
-> **Command:** 1. `redochange` 2. `redochange` (enter twice)
-> **Result:**
+> **Command:** 1. `redochange` 2. `redochange` (enter twice)<br>
+> **Result:**<br>
 - Result display panel posts message:<br>
 `Storage location changed.`
 - Status Foot Bar updates to show the `toDoList.xml`
-- Open the folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
-- Reboot the app, it will load the file under the new path.
+- Open the data folder and `toDoList.xml` should be there. `newFile.xml` should not be there.
+- Reboot the app, it will load the file under the path `data/toDoList.xml`
 
 ### 12.4 Changes the default storage location back to SampleData.xml
 > **Command:** `change data/SampleData.xml clear`<br>
-> **Result:**
--Result display panell posts message:<br>
+> **Result:**<br>
+- Result display panell posts message:<br>
 `Storage location changed: data/SampleData.xml`
 
 ------
