@@ -347,13 +347,15 @@ For easy reference, the table below lists all commands and their corresponding c
 |Command|Format            |
 |:------|:-----------------|
 |View help|`help`|
-|Add a someday|`add 'TASK_NAME'`|
-|Add a deadline|`add 'TASK_NAME' by TIME DATE`|
-|Add an event|`add 'TASK_NAME' from TIME DATE to TIME DATE`|
+|Add a someday|`add 'TASK_NAME' [#TAGS] ...`|
+|Add a deadline|`add 'TASK_NAME' by TIME DATE [#TAGS] ...`|
+|Add an event|`add 'TASK_NAME' from TIME [DATE] to TIME [DATE] [on DATE]`|
+|Switch between tabs|`tab TASK_PANEL`|
 |List tasks|`list [TASK_TYPE] [done|pending] [DATE]`|
-|Find tasks containing certain keyword(s) in task name|`find KEYWORD, [MORE_KEYWORDS], ...`|
+|Find tasks containing keyword(s) in task name and tags|`find KEYWORD, [MORE_KEYWORDS], ...`|
 |Edit a task|`edit INDEX ['NEW_TASK_NAME'] [from TIME DATE] [to | by TIME DATE]`|
-|Change status of a task|`(done|pending) INDEX [MORE_INDICES] ...`|
+|Mark task(s) as done|`done INDEX [MORE_INDICES] ...`|
+|Mark task(s) as pending|`pending INDEX [MORE_INDICES] ...`|
 |Delete task(s)|`del INDEX [MORE_INDICES...]`|
 |Clear all tasks|`clear` |
 |Undo previous command operation|`undo`|
