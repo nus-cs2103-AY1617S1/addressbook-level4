@@ -52,6 +52,9 @@ Download the latest Amethyst Task Manager Java Archive (JAR) package file `Ameth
 <br>
 Double-click the file to start Amethyst. You should see the Graphical User Interface (GUI) below.
 
+<br>
+<img src="" width=800>
+
 4. **Enter a command.**
 <br>
 Type `help` and press `Enter` to view a list of all commands and their corresponding command formats. Try entering a command according to the command format specified.
@@ -59,7 +62,7 @@ Type `help` and press `Enter` to view a list of all commands and their correspon
 <br>
 ## 2. Guidelines
 <!-- @@author A0141019U -->
-### Conventions
+### 2.1. Conventions
 
 <br>
 Refer to the table below to help you understand the conventions used in this guide. 
@@ -68,21 +71,21 @@ Refer to the table below to help you understand the conventions used in this gui
 
 |Convention|Description|
 |:---------|:----------|
-|`highlight`|Words/phrases that can be entered into the command line are in `highlight`.|
-|UPPER_CASE|Arguments for which you key in input are in UPPER CASE. Each word in a phrase is separated by an underscore.|
-|[ ]|Arguments in square brackets are optional.|
-|(x \| y \| z)|Alternative keywords are grouped in brackets and separated by vertical bars.|
+|`highlight`|Words/phrases that can be entered into the command line are `highlighted`.|
+|UPPER_CASE|Fields for which you key in input are in UPPER CASE. Words specifying a field are separated by underscores (_).|
+|[ ]|Fields in square brackets are optional.|
+|(x \| y \| z)|Compulsory alternative keywords are grouped in brackets and separated by vertical bars.|
 |[x \| y \| z]|Optional alternative keywords are grouped in square brackets and separated by vertical bars.|
-|...|An ellipsis after an argument indicates that you may enter more arguments of the same type.|
+|...|An ellipsis after an a parameter indicates that you may enter more than one input of the same parameter.|
 
 <br>
-You may refer to the following to see how the command format for the `delete-alias | remove-alias` command should be interpreted.
+The diagram below provides a visual understanding of the command format for the `find` command. Section 3.6. will cover the `find` command in more detail, so don't worry if you do not understand it now.
 
 <br>
-<img src="images/command_format_diagram.JPG" width=800>
+<img src="" width=800>
 
 <br>
-### Date and time formats
+### 2.2. Date and time formats
 
 <br>
 For `add (deadline | dl)`, `add (someday |sd)` and `list` commands, which would be mentioned in following segments, you will need to input a date and a time/time period. The table below lists the alternative date and time formats that you could use when entering these commands.
