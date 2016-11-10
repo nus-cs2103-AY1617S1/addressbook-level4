@@ -9,31 +9,36 @@ Amethyst is a command-line task manager targeted at power users who would like t
 ## Table of Contents
 
 1. [Quick Start](#1-quick-start)  
-2. [Guidelines](#2-guidelines)
+2. [Guidelines](#2-guidelines)  
+    2.1. [Conventions]  
+    2.2. [Date and time formats]  
 3. [Features](#3-features)  
-    3.1. [View help](#31-view-help--help)  
-    3.2. [Add a task](#32-add-a-task-add)  
-    3.3. [List tasks](#33-list-tasks-list)  
-    3.4. [Find tasks containing particular keyword(s) in task name](#34-find-tasks-containing-particular-keywords-in-task-name-find)  
-    3.5. [Delete task(s)](#35-delete-tasks-del)  
-    3.6. [Mark task(s) as done](#36-mark-tasks-as-done-done)  
-    3.7. [Edit a task](#37-edit-a-task-edit)  
-    3.8. [Undo last operation](#38-undo-last-operation-undo)   
-    3.9. [Redo](#39-redo-redo)  
-    3.10. [Clear all entries](#310-clear-all-entries-clear)  
-    3.11. [Set data storage location](#311-set-data-storage-location-set-storage)  
-    3.12. [Set an alias for an exisiting command](#312-set-an-alias-for-an-existing-command-add-alias)  
-    3.13. [List aliases](#313-list-aliases-list-alias)  
-    3.14. [Delete alias(es)](#314-delete-aliases-delete-alias--remove-alias)  
-    3.15. [Auto-save] (#315-auto-save)  
-    3.16. [Exit Amethyst](#316-exit-amethyst-exit)   
+    3.1. [View help](#31-view-help--help)    
+    3.2. [Add a task](#32-add-a-task-add)   
+    3.3. [Switch between tabs]   
+    3.4. [Command history]  
+    3.5. [List tasks](#33-list-tasks-list)    
+    3.6. [Find tasks containing particular keyword(s) in task name](#34-find-tasks-containing-particular-keywords-in-task-name-find)    
+    3.7. [Edit a task](#37-edit-a-task-edit)   
+    3.8. [Mark task(s) as done]  
+    3.9. [Mark task(s) as pending]  
+    3.10. [Delete task(s)]  
+    3.11. [Clear all entries](#310-clear-all-entries-clear)       
+    3.12. [Undo last operation](#38-undo-last-operation-undo)     
+    3.13. [Redo](#39-redo-redo)   
+    3.14. [Add alias for an exisiting command](#312-set-an-alias-for-an-existing-command-add-alias)  
+    3.15. [List aliases](#313-list-aliases-list-alias)    
+    3.16. [Delete alias(es)](#314-delete-aliases-delete-alias--remove-alias)   
+    3.17. [Set data storage location](#311-set-data-storage-location-set-storage)     
+    3.18. [Auto-save] (#315-auto-save)    
+    3.19. [Exit Amethyst](#316-exit-amethyst-exit)     
 4. [Command Summary](#4-command-summary)
 
 <!-- @@author A0143756Y -->
 <br>
 ## 1. Quick Start
 
-1. **Install Java 8 Update 60 or higher.** 
+1. **Install Java 8 Update 60 (JDK 1.8.0_60) or higher.** 
 <br>
 Download the latest version via this [link](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
@@ -41,7 +46,7 @@ Download the latest version via this [link](http://www.oracle.com/technetwork/ja
 
 2. **Download Amethyst Task Manager.**
 <br>
-Download the latest Amethyst Task Manager Java Archive (JAR) package file `Amethyst.jar` from the `Releases` tab via this [link](dummy link).
+Download the latest Amethyst Task Manager Java Archive (JAR) package file `Amethyst.jar` from the `Releases` tab via this [link](https://github.com/CS2103AUG2016-T10-C2/main/releases/tag/v0.5).
 
 3. **Launch the program.**
 <br>
