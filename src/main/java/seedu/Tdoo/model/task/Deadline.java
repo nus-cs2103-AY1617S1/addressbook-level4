@@ -74,6 +74,11 @@ public class Deadline extends Task implements ReadOnlyTask, Comparable<Deadline>
 	
 	// @@author A0139923X
     public boolean checkEndDateTime() {
+    	try {
+    		String result = getCountdown();
+    		if(result.contains("ago")) return false;
+    	}
+    	catch (Exception e) {}
         // CHECK END DATE -------------------------------
         String endTaskDate = getStartDate().date;
         int month;

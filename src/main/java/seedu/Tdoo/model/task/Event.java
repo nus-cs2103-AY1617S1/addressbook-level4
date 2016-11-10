@@ -93,6 +93,11 @@ public class Event extends Task implements ReadOnlyTask, Comparable<Event> {
 	
 	// @@author A0139923X
     public boolean checkEndDateTime() {
+    	try {
+    		String result = getCountdown();
+    		if(result.contains("ago")) return false;
+    	}
+    	catch (Exception e) {}
         // CHECK END DATE -------------------------------
         String endTaskDate = getEndDate().endDate;
         int month;
