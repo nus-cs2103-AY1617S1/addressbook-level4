@@ -48,12 +48,14 @@ Daily planner will indicate which day's schedule you are currently looking at at
 - `show`
 > Show all tasks first
 - `edit 1 s/3pm e/5pm`
-> Task at index 1 is edited to start today at 3pm and end today at 5pm. The edited task is also sorted to its new position based on its new start and end time and the position is then scrolled to for the user to view
+> Task at index 1 is edited to start today at 3pm and end today at 5pm. The edited task is also sorted to its new position based on its new start and end time and the position is then scrolled to for the user to view. Fields with no input remain unchanged.
 - `show tomorrow`
 - `edit 1 newtaskname`
 > This time, edit is called on index 1 of the list that user is currently viewing, which was tomorrow's schedule. Now, only the task's name is edited to 'newtaskname'
 - `edit 2 c/fun`
 > Task at index 2 of currently viewed list has its category changed to 'fun'
+- `edit 1 s/`
+> Deletes the start time
 
 ### Complete
 - `complete 3`
