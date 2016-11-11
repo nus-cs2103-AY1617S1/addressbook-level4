@@ -11,15 +11,17 @@ All commands should be entered in command box located  at the bottom, no clickin
 >Opens help window
 
 ### Add
-- `add task`
+- `add task1`
 >Floating task with name `task` added
 - `add task2 s/today` 
 >Task with only a start date added
-- `add task3 s/today 2pm e/6pm`
+- `add task3 s/2pm e/6pm`
 >Fixed task with start and end added
-- `add task4 s/today e/next week`
+- `add task4 s/today e/next friday`
 >Task spanning over multiple days added
-- `add task5 c/homework c/math`
+- `add task5 s/tomorrow 2pm e/4pm`
+>Task with start date, start time and end time, infers end date
+- `add task6 c/homework c/math`
 > Task with multiple categories added
 ```
 For all add actions, observe that daily planner will sort the newly added task to its position in the list, based on urgency of the task. Daily planner will also automatically scroll to view the newly added position of the task.
