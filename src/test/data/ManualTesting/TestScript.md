@@ -74,6 +74,8 @@ Daily planner will indicate which day's schedule you are currently looking at at
 - `edit 5 s/day after tomorrow 6pm`
 - `complete [NEW INDEX OF TASK 5 AFTER SORT]`
 > Any changes made to the original task are also reflected on the pin board
+- `pin [NEW INDEX OF TASK 5 AFTER SORT]`
+> A task that is already pinned cannot be pinned again
 - `unpin 1`
 > Unpins task at index 1 of pin board
 
