@@ -14,9 +14,11 @@ public class SetStorageCommandTest extends TaskListGuiTest {
 		TestTask[] currentList = td.getTypicalTasks();
 		String testCase1 = "docs";
 		String testCase2 = "config";
+		String testCase3 = "default";
 		String testCase4 = null;
 		
 		assertStorageSuccess(testCase2);
+		assertStorageSuccess(testCase3);
 		assertStorageSuccess(testCase1);
 		assertStorageSuccess(testCase4);
 	}
@@ -36,7 +38,7 @@ public class SetStorageCommandTest extends TaskListGuiTest {
 		}
 		else{
 			if(file.equals("default")){
-				filePath = "CS2103AUG2016-T11-C1/main/data/tasklist.xml";
+				filePath = "data/tasklist.xml";
 			}
 			else{
 				filePath = file;
