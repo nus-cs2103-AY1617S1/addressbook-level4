@@ -51,7 +51,7 @@ Are you ready to embrace a new style of organised living? Let's begin!
    * **`exit`** : exits the application
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
-
+<!-- @@author A0144727B --> 
 ## Features
 
 > **Command Format**
@@ -67,7 +67,6 @@ Are you ready to embrace a new style of organised living? Let's begin!
 
 Format: `help`
 
-<!-- @@author A0144727B --> 
 
 #### Adding tasks: `add` 
 
@@ -120,7 +119,7 @@ Examples:
 > * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
 > * The comma after `[STARTTIME]` can be replaced with `to`.<br>
-<!-- @@author A0138411N --> 
+
 
 ##### Tasks with start and end time on different days
 
@@ -162,7 +161,6 @@ Examples:
 <img src="images/ListDateUI.png" width="800">
 
 
-<!--- @@author --->
 <!-- @@author A0138420N --> 
 
 #### Searching tasks by keywords: `search` 
@@ -179,7 +177,7 @@ Examples:
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found. 
  <!-- @@author --> 
-
+<!-- @@author A0144727B --> 
 #### Deleting tasks : `delete`
 
 Deletes the specified task from the viewed listing.<br>
