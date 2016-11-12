@@ -8,11 +8,12 @@ import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
+
+//@@author A0144727B
 /**
  * Marks a task as done identified using it's last displayed index from the
  * task list.
  */
-//@@author A0144727B
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
