@@ -93,7 +93,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-  //@@author A0144727B
+  //@@author A0147994J
     public void continueTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.contains(key)) {
             key.setContinue();
@@ -103,7 +103,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
   //@@author
     
-  //@@author A0147994J
+  //@@author A0144727B
     public void doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.contains(key)) {
             key.setDone();
@@ -111,9 +111,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-   //@@author
-    
-   //@@author A0144727B
+
     public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         if (tasks.contains(key)) {
             tasks.edit(key, field, value);

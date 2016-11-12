@@ -23,6 +23,9 @@ import java.util.logging.Logger;
 import org.controlsfx.control.StatusBar;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 //@@author A0144727B
+/**
+ * The Listing Header. Provides the type of listing in the TaskListPanel (eg all, high, date).
+ */
 public class ListingHeader extends UiPart {
     
     private static final Logger logger = LogsCenter.getLogger(ListingHeader.class);
