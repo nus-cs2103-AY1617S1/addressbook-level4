@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.lang.Class;
+import java.lang.reflect.Field;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -292,25 +294,25 @@ public abstract class DateTime {
             calendar.add(Calendar.YEAR, rate);
             break;
         case MONDAY :
-            DateTime.updateCalendarToComingMondays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, MONDAY, rate);
             break;
         case TUESDAY :
-            DateTime.updateDateToComingTuesdays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, TUESDAY, rate);
             break;
         case WEDNESDAY :
-            DateTime.updateDateToComingWednesdays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, WEDNESDAY, rate);
             break;
         case THURSDAY :
-            DateTime.updateDateToComingThursdays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, THURSDAY, rate);
             break;
         case FRIDAY :
-            DateTime.updateDateToComingFridays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, FRIDAY, rate);
             break;
         case SATURDAY :
-            DateTime.updateDateToComingSaturdays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, SATURDAY, rate);
             break;
         case SUNDAY :
-            DateTime.updateDateToComingSundays(calendar, rate);
+            updateCalendarToComingSpecifiedDay(calendar, SUNDAY, rate);
             break;
         }
         
@@ -324,109 +326,22 @@ public abstract class DateTime {
      * @param calendar  Calendar representation of the date value of Task.
      * @param rate      Amount of Mondays to jump over.
      */
-    private static void updateCalendarToComingMondays(Calendar calendar, int rate) {
+    private static void updateCalendarToComingSpecifiedDay(Calendar calendar, String day, int rate) {
         assert calendar != null;
         updateDateRateMinusOneTimes(calendar, rate);
 
         calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Tuesdays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Tuesdays to jump over.
-     */
-    private static void updateDateToComingTuesdays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
         
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.TUESDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Wednesdays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Wednesdays to jump over.
-     */
-    private static void updateDateToComingWednesdays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
-        
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.WEDNESDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Thursdays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Thursdays to jump over.
-     */
-    private static void updateDateToComingThursdays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
-        
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.THURSDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Fridays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Fridays to jump over.
-     */
-    private static void updateDateToComingFridays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
-        
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.FRIDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Saturdays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Saturdays to jump over.
-     */
-    private static void updateDateToComingSaturdays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
-        
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY) {
-            calendar.add(Calendar.DATE, ONE);
-        }
-    }
-
-    /**
-     * Updates calendar to coming Sundays depending on value of rate.
-     * 
-     * @param calendar  Calendar representation of the date value of Task.
-     * @param rate      Amount of Sundays to jump over.
-     */
-    private static void updateDateToComingSundays(Calendar calendar, int rate) {
-        assert calendar != null;
-        updateDateRateMinusOneTimes(calendar, rate);
-        
-        calendar.add(Calendar.DATE, ONE);
-        while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
-            calendar.add(Calendar.DATE, ONE);
+        try {
+            Class c = Class.forName("java.util.Calendar");
+            Field specifiedDayOfWeek = c.getDeclaredField(day.toUpperCase());
+            Integer valueOfSpecifiedDayOfWeek = (Integer) specifiedDayOfWeek.get(calendar);
+            
+            while (calendar.get(Calendar.DAY_OF_WEEK) != valueOfSpecifiedDayOfWeek) {
+                calendar.add(Calendar.DATE, ONE);
+            }
+        } catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalAccessException e) {
+            System.out.println("Here");
         }
     }
     
