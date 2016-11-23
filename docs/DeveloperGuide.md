@@ -122,7 +122,7 @@ With reference to Figure 3, you can see how the components interact when the use
 > You may also notice that the `Model` simply raises a `TaskManagerChangedEvent` whenever the Task Manager data is changed,
  instead of requesting the `Storage` to save the updates to the hard disk.
 
-<img src="images\DeleteTaskEventHandlingSequenceDiagram.PNG" width="800">
+<img src="images\DeleteTaskEventHandlingSequenceDiagram.jpg" width="800">
 
 > Figure 4: Delete Task Event Handing Sequence Diagram
 
