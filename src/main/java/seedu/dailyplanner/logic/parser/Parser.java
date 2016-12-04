@@ -286,7 +286,7 @@ public class Parser {
 	    formattedStart = DateUtil.getEmptyDateTime();
 	}
 	// if start time is given
-	if (StringUtil.stringContainsAmOrPm(startString)) {
+	else if (StringUtil.stringContainsAmOrPm(startString)) {
 	    String start = natty.parse(startString);
 	    formattedStart = DateUtil.getDateTimeFromString(start);
 	} else {
@@ -305,7 +305,7 @@ public class Parser {
 	    formattedEnd = DateUtil.getEmptyDateTime();
 	}
 	// if end time is given
-	if (StringUtil.stringContainsAmOrPm(endString)) {
+	else if (StringUtil.stringContainsAmOrPm(endString)) {
 	    // if end date is given
 	    if (hasEndDate(endString)) {
 		String end = natty.parse(endString);
