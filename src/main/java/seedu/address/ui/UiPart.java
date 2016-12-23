@@ -7,7 +7,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.
@@ -16,16 +15,10 @@ import seedu.address.commons.util.AppUtil;
 public abstract class UiPart {
 
     /**
-     * The primary stage for the UI Part.
-     */
-    Stage primaryStage;
-
-
-    /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
      * @param event
      */
-    protected void raise(BaseEvent event){
+    protected void raise(BaseEvent event) {
         EventsCenter.getInstance().post(event);
     }
 
@@ -38,21 +31,17 @@ public abstract class UiPart {
     }
 
     /**
+     * Sets the main node of the UiPart.
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node
      */
     public abstract void setNode(Node node);
 
     /**
+     * Returns the path to the fxml file.
      * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     * @return
      */
     public abstract String getFxmlPath();
-
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
 
     /**
      * Creates a modal dialog.
@@ -71,23 +60,6 @@ public abstract class UiPart {
     }
 
     /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
      * Sets the placeholder for UI parts that reside inside another UI part.
      * @param placeholder
      */
@@ -95,7 +67,4 @@ public abstract class UiPart {
         //Do nothing by default.
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 }

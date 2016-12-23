@@ -6,12 +6,19 @@ import javafx.stage.Stage;
 /**
  * A handle to the Command Box in the GUI.
  */
-public class CommandBoxHandle extends GuiHandle{
+public class CommandBoxHandle extends GuiHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         super(guiRobot, primaryStage, stageTitle);
+    }
+
+    /**
+     * Clicks on the TextField.
+     */
+    public void clickOnTextField() {
+        guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
     }
 
     public void enterCommand(String command) {
