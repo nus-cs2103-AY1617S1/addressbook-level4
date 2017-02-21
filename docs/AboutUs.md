@@ -43,7 +43,7 @@ Components in charge of: Logic
 	* Select commands
 	* DateTime support
 
-Code written: [[functional code](A0138993L.md)][[test](A0138993L.md)][[docs](A0138993L.md)]
+Code written: [functional code](A0138993L.md)][test](A0138993L.md)][docs](A0138993L.md)]
 
 * Other major contributions:<br>
 	* Editing Parser for task manager
