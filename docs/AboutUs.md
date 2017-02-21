@@ -24,8 +24,7 @@ Components in charge of: UI
 	* Undo and Redo<br>
 	* List
 
-Code written: [functional code](/collated/main/A0147890U.md) <br>
-[docs](/collated/docs/A0147890U.md)
+Code written: [[functional code](A0147890U.md)][[docs](A0147890U.md)]
 
 * Other major contributions:<br>
 	* Implemented the initial edit task command
