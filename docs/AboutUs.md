@@ -25,7 +25,7 @@ Components in charge of: UI
 	* List
 
 Code written: [functional code](/collated/main/A0147890U.md) <br>
-[docs](A0147890U.md)
+[docs](/collated/docs/A0147890U.md)
 
 * Other major contributions:<br>
 	* Implemented the initial edit task command
