@@ -1,52 +1,44 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are the team in charge of developing JIMI, a command-line based task manager that is designed for fast typers. <br>
+<br> Our team consist of four members, each coming from computer engineering majors that are equipped with basic knowledge in Object Oriented Programming (OOP) as well as strong fundamentals of programming in the Java language. <br>
+<br>[**Clarence Chee**](#clarence) is the team leader and is in charge of overseeing the overall project coordination as well as manages the integration of different components of the software made by the team. <br>
+<br>[**Ze Xuan**](#zexuan) is in charge of managing and assigning tasks to the team members as well as ensures that the project deliverables are completed on time. <br>
+<br>[**Wei Yin**](#weiyin) takes charge of the overall documentation of the project, which includes the User Guide and the Developer Guide, among other things. <br>
+<br>Lastly, [**Yun Xuan**](#yunxuan) looks after the overall code quality of the project and ensures that coding standards are met as well as proper testing of the product. <br>
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Nirandika Wanigasekara](https://github.com/nirandiw)
+<img src="images/NirandikaWanigasekara.JPG" width="150"><br>
+**Role**: Project Mentor
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### <a id="clarence"></a> [Clarence Chee](https://github.com/cheec)
+<img src="images/ClarenceChee.jpg" width="150"><br>
+**Role**: Team Leader, Developer <br>  
+**Responsibilities**: Integration, Logic
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### <a id="zexuan"></a> [Chong Ze Xuan](http://github.com/syltaris) 
+<img src="images/ChongZeXuan.jpg" width="150"><br>
+**Role**: Developer <br> 
+**Responsibilities**: Scheduling and Tracking, Deliverables and Deadlines, Model
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### <a id="weiyin"></a> [Chong Wei Yin](https://github.com/ShadowLoner17) 
+<img src="images/ChongWeiYin.jpg" width="150"><br>
+**Role**: Developer <br>  
+**Responsibilities**: Documentation, UI
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
+#### <a id="yunxuan"></a> [Zhang Yunxuan](https://github.com/yunxz)
+<img src="images/ZhangYunxuan.jpg" width="150"><br>
+**Role**: Developer <br>  
+**Responsibilities**: Testing, Code Quality Control, Storage
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+-----
