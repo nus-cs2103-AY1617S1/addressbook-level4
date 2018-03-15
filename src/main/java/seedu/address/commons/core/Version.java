@@ -1,10 +1,10 @@
 package seedu.address.commons.core;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Represents a version with major, minor and patch number
@@ -71,11 +71,22 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(Version other) {
-        return this.major != other.major ? this.major - other.major :
-               this.minor != other.minor ? this.minor - other.minor :
-               this.patch != other.patch ? this.patch - other.patch :
-               this.isEarlyAccess == other.isEarlyAccess() ? 0 :
-               this.isEarlyAccess ? -1 : 1;
+        if (this.major != other.major) {
+            return this.major - other.major;
+        }
+        if (this.minor != other.minor) {
+            return this.minor - other.minor;
+        }
+        if (this.patch != other.patch) {
+            return this.patch - other.patch;
+        }
+        if (this.isEarlyAccess == other.isEarlyAccess()) {
+            return 0;
+        }
+        if (this.isEarlyAccess) {
+            return -1;
+        }
+        return 1;
     }
 
     @Override

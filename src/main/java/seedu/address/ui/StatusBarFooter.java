@@ -1,98 +1,81 @@
 package seedu.address.ui;
 
-import com.google.common.eventbus.Subscribe;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import org.controlsfx.control.StatusBar;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.util.FxViewUtil;
-
+import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import org.controlsfx.control.StatusBar;
+
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooter extends UiPart {
+public class StatusBarFooter extends UiPart<Region> {
+
+    public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
+    public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
+
+    /**
+     * Used to generate time stamps.
+     *
+     * TODO: change clock to an instance variable.
+     * We leave it as a static variable because manual dependency injection
+     * will require passing down the clock reference all the way from MainApp,
+     * but it should be easier once we have factories/DI frameworks.
+     */
+    private static Clock clock = Clock.systemDefaultZone();
+
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
-    private StatusBar syncStatus;
-    private StatusBar saveLocationStatus;
-
-    private GridPane mainPane;
-
-    @FXML
-    private AnchorPane saveLocStatusBarPane;
-
-    @FXML
-    private AnchorPane syncStatusBarPane;
-
-    private AnchorPane placeHolder;
 
     private static final String FXML = "StatusBarFooter.fxml";
 
-    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String saveLocation) {
-        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage, placeHolder, new StatusBarFooter());
-        statusBarFooter.configure(saveLocation);
-        return statusBarFooter;
-    }
+    @FXML
+    private StatusBar syncStatus;
+    @FXML
+    private StatusBar saveLocationStatus;
 
-    public void configure(String saveLocation) {
-        addMainPane();
-        addSyncStatus();
-        setSyncStatus("Not updated yet in this session");
-        addSaveLocation();
+
+    public StatusBarFooter(String saveLocation) {
+        super(FXML);
+        setSyncStatus(SYNC_STATUS_INITIAL);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
 
-    private void addMainPane() {
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
-        placeHolder.getChildren().add(mainPane);
+    /**
+     * Sets the clock used to determine the current time.
+     */
+    public static void setClock(Clock clock) {
+        StatusBarFooter.clock = clock;
+    }
+
+    /**
+     * Returns the clock currently in use.
+     */
+    public static Clock getClock() {
+        return clock;
     }
 
     private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
-    }
-
-    private void addSaveLocation() {
-        this.saveLocationStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
-        saveLocStatusBarPane.getChildren().add(saveLocationStatus);
+        Platform.runLater(() -> this.saveLocationStatus.setText(location));
     }
 
     private void setSyncStatus(String status) {
-        this.syncStatus.setText(status);
-    }
-
-    private void addSyncStatus() {
-        this.syncStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
-        syncStatusBarPane.getChildren().add(syncStatus);
-    }
-
-    @Override
-    public void setNode(Node node) {
-        mainPane = (GridPane) node;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeHolder = placeholder;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
+        Platform.runLater(() -> this.syncStatus.setText(status));
     }
 
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        String lastUpdated = (new Date()).toString();
+        long now = clock.millis();
+        String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus("Last Updated: " + lastUpdated);
+        setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 }

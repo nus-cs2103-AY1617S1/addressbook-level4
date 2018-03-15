@@ -1,31 +1,70 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import static java.util.Objects.requireNonNull;
+
+import java.io.IOException;
+import java.net.URL;
+
+import javafx.fxml.FXMLLoader;
+import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
- * Base class for UI parts.
- * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * It contains a scene graph with a root node of type {@code T}.
  */
-public abstract class UiPart {
+public abstract class UiPart<T> {
+
+    /** Resource folder where FXML files are stored. */
+    public static final String FXML_FILE_FOLDER = "/view/";
+
+    private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
-     * The primary stage for the UI Part.
+     * Constructs a UiPart with the specified FXML file URL.
+     * The FXML file must not specify the {@code fx:controller} attribute.
      */
-    Stage primaryStage;
+    public UiPart(URL fxmlFileUrl) {
+        loadFxmlFile(fxmlFileUrl, null);
+    }
 
+    /**
+     * Constructs a UiPart using the specified FXML file within {@link #FXML_FILE_FOLDER}.
+     * @see #UiPart(URL)
+     */
+    public UiPart(String fxmlFileName) {
+        this(getFxmlFileUrl(fxmlFileName));
+    }
+
+    /**
+     * Constructs a UiPart with the specified FXML file URL and root object.
+     * The FXML file must not specify the {@code fx:controller} attribute.
+     */
+    public UiPart(URL fxmlFileUrl, T root) {
+        loadFxmlFile(fxmlFileUrl, root);
+    }
+
+    /**
+     * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
+     * @see #UiPart(URL, T)
+     */
+    public UiPart(String fxmlFileName, T root) {
+        this(getFxmlFileUrl(fxmlFileName), root);
+    }
+
+    /**
+     * Returns the root object of the scene graph of this UiPart.
+     */
+    public T getRoot() {
+        return fxmlLoader.getRoot();
+    }
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
      * @param event
      */
-    protected void raise(BaseEvent event){
+    protected void raise(BaseEvent event) {
         EventsCenter.getInstance().post(event);
     }
 
@@ -38,64 +77,30 @@ public abstract class UiPart {
     }
 
     /**
-     * Override this method to receive the main Node generated while loading the view from the .fxml file.
-     * @param node
+     * Loads the object hierarchy from a FXML document.
+     * @param location Location of the FXML document.
+     * @param root Specifies the root of the object hierarchy.
      */
-    public abstract void setNode(Node node);
-
-    /**
-     * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     * @return
-     */
-    public abstract String getFxmlPath();
-
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-
-    /**
-     * Creates a modal dialog.
-     * @param title Title of the dialog.
-     * @param parentStage The owner stage of the dialog.
-     * @param scene The scene that will contain the dialog.
-     * @return the created dialog, not yet made visible.
-     */
-    protected Stage createDialogStage(String title, Stage parentStage, Scene scene) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(parentStage);
-        dialogStage.setScene(scene);
-        return dialogStage;
+    private void loadFxmlFile(URL location, T root) {
+        requireNonNull(location);
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setController(this);
+        fxmlLoader.setRoot(root);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
     }
 
     /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
+     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
      */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
+    private static URL getFxmlFileUrl(String fxmlFileName) {
+        requireNonNull(fxmlFileName);
+        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
+        URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
+        return requireNonNull(fxmlFileUrl);
     }
 
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the placeholder for UI parts that reside inside another UI part.
-     * @param placeholder
-     */
-    public void setPlaceholder(AnchorPane placeholder) {
-        //Do nothing by default.
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 }

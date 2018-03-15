@@ -1,62 +1,64 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import java.util.logging.Logger;
+
+import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart {
+public class HelpWindow extends UiPart<Stage> {
+
+    public static final String USERGUIDE_FILE_PATH = "/docs/UserGuide.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
-    private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
-    private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
 
-    private AnchorPane mainPane;
+    @FXML
+    private WebView browser;
 
-    private Stage dialogStage;
+    /**
+     * Creates a new HelpWindow.
+     *
+     * @param root Stage to use as the root of the HelpWindow.
+     */
+    public HelpWindow(Stage root) {
+        super(FXML, root);
 
-    public static HelpWindow load(Stage primaryStage) {
-        logger.fine("Showing help page about the application.");
-        HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
-        helpWindow.configure();
-        return helpWindow;
+        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+        browser.getEngine().load(userGuideUrl);
     }
 
-    @Override
-    public void setNode(Node node) {
-        mainPane = (AnchorPane) node;
+    /**
+     * Creates a new HelpWindow.
+     */
+    public HelpWindow() {
+        this(new Stage());
     }
 
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    private void configure(){
-        Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
-        dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
-    }
-
+    /**
+     * Shows the help window.
+     * @throws IllegalStateException
+     * <ul>
+     *     <li>
+     *         if this method is called on a thread other than the JavaFX Application Thread.
+     *     </li>
+     *     <li>
+     *         if this method is called during animation or layout processing.
+     *     </li>
+     *     <li>
+     *         if this method is called on the primary stage.
+     *     </li>
+     *     <li>
+     *         if {@code dialogStage} is already showing.
+     *     </li>
+     * </ul>
+     */
     public void show() {
-        dialogStage.showAndWait();
+        logger.fine("Showing help page about the application.");
+        getRoot().show();
     }
 }

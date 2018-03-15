@@ -7,14 +7,14 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class DataSavingExceptionEvent extends BaseEvent {
 
-    public Exception exception;
+    public final Exception exception;
 
     public DataSavingExceptionEvent(Exception exception) {
         this.exception = exception;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return exception.toString();
     }
 

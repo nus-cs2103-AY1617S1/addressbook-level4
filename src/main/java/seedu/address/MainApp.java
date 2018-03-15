@@ -1,6 +1,12 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,24 +20,29 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.util.SampleDataUtil;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+    public static final Version VERSION = new Version(0, 6, 0, true);
+
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
@@ -47,35 +58,42 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
-        userPrefs = initPrefs(config);
+        UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
+        userPrefs = initPrefs(userPrefsStorage);
+        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
 
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
     }
 
-    private String getApplicationParameter(String parameterName){
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
 
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
+                logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElse(new AddressBook());
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
@@ -91,6 +109,11 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
+    /**
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if {@code configFilePath} is null.
+     */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
@@ -108,8 +131,8 @@ public class MainApp extends Application {
             Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
-            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
-                    "Using default config properties");
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
+                    + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -122,10 +145,13 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    protected UserPrefs initPrefs(Config config) {
-        assert config != null;
-
-        String prefsFilePath = config.getUserPrefsFilePath();
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
+     */
+    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+        String prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
@@ -133,8 +159,8 @@ public class MainApp extends Application {
             Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
-            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
-                    "Using default user prefs");
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
+                    + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");

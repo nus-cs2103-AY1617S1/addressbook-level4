@@ -1,0 +1,38 @@
+= About Us
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
+_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+{empty} +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== David Ten
+image::davidTen.jpg[width="150", align="left"]
+{empty}[https://github.com/davidten[github]]
+
+Role: Team Lead + Scheduling and Tracking + CRM Expert
+Responsibilities: LinkedIn Integration
+
+'''
+
+=== Sheikh Umar
+image::sheikh-umar.png[width="150", align="left"]
+{empty}[https://github.com/Sheikh-Umar[github]] [<<johndoe#, portfolio>>]
+
+Role: Documentation + Deliverables and deadlines
+Responsibilities: Smart Duplicate detection + Data Enrichment + UI
+
+'''
+
+=== Woody Lau
+image::WoodyLau.jpg[width="150", align="left"]
+{empty}[http://github.com/WoodyLau[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer + Git Expert + Integration
+Responsibilities: Lead, Contact and Account Objects. Calendar and Meeting Scheduling.
+
+'''

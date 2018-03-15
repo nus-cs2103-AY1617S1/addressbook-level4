@@ -1,17 +1,22 @@
 package seedu.address.commons.core;
 
-import com.google.common.eventbus.EventBus;
-import seedu.address.commons.events.BaseEvent;
-
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.EventBus;
+
+import seedu.address.commons.events.BaseEvent;
 
 /**
  * Manages the event dispatching of the app.
  */
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
-    private final EventBus eventBus;
     private static EventsCenter instance;
+    private final EventBus eventBus;
+
+    private EventsCenter() {
+        eventBus = new EventBus();
+    }
 
     public static EventsCenter getInstance() {
         if (instance == null) {
@@ -24,13 +29,8 @@ public class EventsCenter {
         instance = null;
     }
 
-    private EventsCenter() {
-        eventBus = new EventBus();
-    }
-
-    public EventsCenter registerHandler(Object handler) {
+    public void registerHandler(Object handler) {
         eventBus.register(handler);
-        return this;
     }
 
     /**

@@ -1,12 +1,16 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
+import seedu.address.commons.util.CollectionUtil;
 
 /**
  * A list of tags that enforces no nulls and uniqueness between its elements.
@@ -14,7 +18,6 @@ import java.util.*;
  * Supports minimal set of list operations for the app's features.
  *
  * @see Tag#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -26,55 +29,32 @@ public class UniqueTagList implements Iterable<Tag> {
     public UniqueTagList() {}
 
     /**
-     * Varargs/array constructor, enforces no nulls or duplicates.
-     */
-    public UniqueTagList(Tag... tags) throws DuplicateTagException {
-        assert !CollectionUtil.isAnyNull((Object[]) tags);
-        final List<Tag> initialTags = Arrays.asList(tags);
-        if (!CollectionUtil.elementsAreUnique(initialTags)) {
-            throw new DuplicateTagException();
-        }
-        internalList.addAll(initialTags);
-    }
-
-    /**
-     * java collections constructor, enforces no null or duplicate elements.
-     */
-    public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
-        CollectionUtil.assertNoNullElements(tags);
-        if (!CollectionUtil.elementsAreUnique(tags)) {
-            throw new DuplicateTagException();
-        }
-        internalList.addAll(tags);
-    }
-
-    /**
-     * java set constructor, enforces no nulls.
+     * Creates a UniqueTagList using given tags.
+     * Enforces no nulls.
      */
     public UniqueTagList(Set<Tag> tags) {
-        CollectionUtil.assertNoNullElements(tags);
+        requireAllNonNull(tags);
         internalList.addAll(tags);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
-     * Copy constructor, insulates from changes in source.
-     */
-    public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
-    }
-
-    /**
-     * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
+     * Returns all tags in this list as a Set.
+     * This set is mutable and change-insulated against the internal list.
      */
     public Set<Tag> toSet() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return new HashSet<>(internalList);
     }
 
     /**
      * Replaces the Tags in this list with those in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        this.internalList.setAll(replacement.internalList);
+    public void setTags(Set<Tag> tags) {
+        requireAllNonNull(tags);
+        internalList.setAll(tags);
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -85,13 +65,15 @@ public class UniqueTagList implements Iterable<Tag> {
         from.internalList.stream()
                 .filter(tag -> !alreadyInside.contains(tag))
                 .forEach(internalList::add);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
-        assert toCheck != null;
+        requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -101,36 +83,50 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
-        assert toAdd != null;
+        requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     @Override
     public Iterator<Tag> iterator() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return internalList.iterator();
     }
 
-    public UnmodifiableObservableList<Tag> asObservableList() {
-        return new UnmodifiableObservableList<>(internalList);
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Tag> asObservableList() {
+        assert CollectionUtil.elementsAreUnique(internalList);
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
     public boolean equals(Object other) {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return other == this // short circuit if same object
                 || (other instanceof UniqueTagList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTagList) other).internalList));
+                        && this.internalList.equals(((UniqueTagList) other).internalList));
     }
 
+    /**
+     * Returns true if the element in this list is equal to the elements in {@code other}.
+     * The elements do not have to be in the same order.
+     */
     public boolean equalsOrderInsensitive(UniqueTagList other) {
+        assert CollectionUtil.elementsAreUnique(internalList);
+        assert CollectionUtil.elementsAreUnique(other.internalList);
         return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));
     }
 
     @Override
     public int hashCode() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return internalList.hashCode();
     }
 

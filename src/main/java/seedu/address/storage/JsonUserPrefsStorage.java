@@ -1,11 +1,11 @@
 package seedu.address.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.UserPrefs;
-
-import java.io.IOException;
-import java.util.Optional;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
@@ -14,8 +14,13 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath){
+    public JsonUserPrefsStorage(String filePath) {
         this.filePath = filePath;
+    }
+
+    @Override
+    public String getUserPrefsFilePath() {
+        return filePath;
     }
 
     @Override

@@ -1,39 +1,46 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.stage.Stage;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import seedu.address.ui.CommandBox;
 
 /**
- * A handle to the Command Box in the GUI.
+ * A handle to the {@code CommandBox} in the GUI.
  */
-public class CommandBoxHandle extends GuiHandle{
+public class CommandBoxHandle extends NodeHandle<TextField> {
 
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        super(guiRobot, primaryStage, stageTitle);
+    public CommandBoxHandle(TextField commandBoxNode) {
+        super(commandBoxNode);
     }
 
-    public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
-    }
-
-    public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+    /**
+     * Returns the text in the command box.
+     */
+    public String getInput() {
+        return getRootNode().getText();
     }
 
     /**
      * Enters the given command in the Command Box and presses enter.
+     * @return true if the command succeeded, false otherwise.
      */
-    public void runCommand(String command) {
-        enterCommand(command);
-        pressEnter();
-        guiRobot.sleep(200); //Give time for the command to take effect
+    public boolean run(String command) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.pauseForHuman();
+
+        guiRobot.type(KeyCode.ENTER);
+
+        return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
-        pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
+    /**
+     * Returns the list of style classes present in the command box.
+     */
+    public ObservableList<String> getStyleClass() {
+        return getRootNode().getStyleClass();
     }
 }

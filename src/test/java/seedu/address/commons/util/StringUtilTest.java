@@ -1,15 +1,16 @@
 package seedu.address.commons.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
-import java.io.FileNotFoundException;
-
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.io.FileNotFoundException;
+import java.util.Optional;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class StringUtilTest {
 
@@ -21,31 +22,34 @@ public class StringUtilTest {
     @Test
     public void isUnsignedPositiveInteger() {
 
-        // Equivalence partition: null
-        assertFalse(StringUtil.isUnsignedInteger(null));
-
         // EP: empty strings
-        assertFalse(StringUtil.isUnsignedInteger("")); // Boundary value
-        assertFalse(StringUtil.isUnsignedInteger("  "));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("  "));
 
         // EP: not a number
-        assertFalse(StringUtil.isUnsignedInteger("a"));
-        assertFalse(StringUtil.isUnsignedInteger("aaa"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("a"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("aaa"));
 
         // EP: zero
-        assertFalse(StringUtil.isUnsignedInteger("0"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("0"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("01"));
 
         // EP: signed numbers
-        assertFalse(StringUtil.isUnsignedInteger("-1"));
-        assertFalse(StringUtil.isUnsignedInteger("+1"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("-1"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("+1"));
 
         // EP: numbers with white space
-        assertFalse(StringUtil.isUnsignedInteger(" 10 ")); // Leading/trailing spaces
-        assertFalse(StringUtil.isUnsignedInteger("1 0"));  // Spaces in the middle
+        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0"));  // Spaces in the middle
+
+        // EP: number larger than Integer.MAX_VALUE
+        assertFalse(StringUtil.isNonZeroUnsignedInteger(Long.toString(Integer.MAX_VALUE + 1)));
 
         // EP: valid numbers, should return true
-        assertTrue(StringUtil.isUnsignedInteger("1")); // Boundary value
-        assertTrue(StringUtil.isUnsignedInteger("10"));
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
 
@@ -58,29 +62,32 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_nullWord_exceptionThrown(){
-        assertExceptionThrown("typical sentence", null, "Word parameter cannot be null");
+    public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
+        assertExceptionThrown(NullPointerException.class, "typical sentence", null, Optional.empty());
     }
 
-    private void assertExceptionThrown(String sentence, String word, String errorMessage) {
-        thrown.expect(AssertionError.class);
-        thrown.expectMessage(errorMessage);
+    private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
+            Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
         StringUtil.containsWordIgnoreCase(sentence, word);
     }
 
     @Test
-    public void containsWordIgnoreCase_emptyWord_exceptionThrown(){
-        assertExceptionThrown("typical sentence", "  ", "Word parameter cannot be empty");
+    public void containsWordIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "  ",
+                Optional.of("Word parameter cannot be empty"));
     }
 
     @Test
-    public void containsWordIgnoreCase_multipleWords_exceptionThrown(){
-        assertExceptionThrown("typical sentence", "aaa BBB", "Word parameter should be a single word");
+    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+        assertExceptionThrown(IllegalArgumentException.class, "typical sentence", "aaa BBB",
+                Optional.of("Word parameter should be a single word"));
     }
 
     @Test
-    public void containsWordIgnoreCase_nullSentence_exceptionThrown(){
-        assertExceptionThrown(null, "abc", "Sentence parameter cannot be null");
+    public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionThrown(NullPointerException.class, null, "abc", Optional.empty());
     }
 
     /*
@@ -109,7 +116,7 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_validInputs_correctResult(){
+    public void containsWordIgnoreCase_validInputs_correctResult() {
 
         // Empty sentence
         assertFalse(StringUtil.containsWordIgnoreCase("", "abc")); // Boundary case
@@ -137,14 +144,14 @@ public class StringUtilTest {
      */
 
     @Test
-    public void getDetails_exceptionGiven(){
+    public void getDetails_exceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
                    containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test
-    public void getDetails_nullGiven_assertionError(){
-        thrown.expect(AssertionError.class);
+    public void getDetails_nullGiven_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
 

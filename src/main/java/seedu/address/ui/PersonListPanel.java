@@ -1,70 +1,44 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
+import org.fxmisc.easybind.EasyBind;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<PersonCard> personListView;
 
-    @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
-
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
-    }
-
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(ObservableList<Person> personList) {
+        super(FXML);
         setConnections(personList);
-        addToPlaceholder();
+        registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
+    private void setConnections(ObservableList<Person> personList) {
+        ObservableList<PersonCard> mappedList = EasyBind.map(
+                personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
+        personListView.setItems(mappedList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
@@ -77,24 +51,36 @@ public class PersonListPanel extends UiPart {
                 });
     }
 
-    public void scrollTo(int index) {
+    /**
+     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     */
+    private void scrollTo(int index) {
         Platform.runLater(() -> {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
+    }
+
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
+     */
+    class PersonListViewCell extends ListCell<PersonCard> {
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(PersonCard person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(person.getRoot());
             }
         }
     }

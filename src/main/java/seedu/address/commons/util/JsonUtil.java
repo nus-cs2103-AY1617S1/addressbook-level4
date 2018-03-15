@@ -1,5 +1,13 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -10,14 +18,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Converts a Java object instance to JSON and vice versa
@@ -53,9 +56,7 @@ public class JsonUtil {
      */
     public static <T> Optional<T> readJsonFile(
             String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
-
-        assert filePath != null;
-
+        requireNonNull(filePath);
         File file = new File(filePath);
 
         if (!file.exists()) {
@@ -83,8 +84,8 @@ public class JsonUtil {
      * @throws IOException if there was an error during writing to the file
      */
     public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
-        assert jsonFile != null;
-        assert filePath != null;
+        requireNonNull(filePath);
+        requireNonNull(jsonFile);
 
         serializeObjectToJsonFile(new File(filePath), jsonFile);
     }
@@ -109,7 +110,9 @@ public class JsonUtil {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
     }
 
-
+    /**
+     * Contains methods that retrieve logging level from serialized string.
+     */
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
         protected LevelDeserializer(Class<?> vc) {

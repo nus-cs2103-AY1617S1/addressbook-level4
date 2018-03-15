@@ -1,37 +1,39 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
-import seedu.address.TestApp;
-
 import java.util.Arrays;
+
+import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
 
 /**
  * Provides a handle to the main menu of the app.
  */
-public class MainMenuHandle extends GuiHandle {
-    public MainMenuHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+public class MainMenuHandle extends NodeHandle<Node> {
+    public static final String MENU_BAR_ID = "#menuBar";
+
+    public MainMenuHandle(Node mainMenuNode) {
+        super(mainMenuNode);
     }
 
-    public GuiHandle clickOn(String... menuText) {
-        Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
-        return this;
+    /**
+     * Opens the {@code HelpWindow} using the menu bar in {@code MainWindow}.
+     */
+    public void openHelpWindowUsingMenu() {
+        clickOnMenuItemsSequentially("Help", "F1");
     }
 
-    public HelpWindowHandle openHelpWindowUsingMenu() {
-        clickOn("Help", "F1");
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
-
-    public HelpWindowHandle openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
-        return new HelpWindowHandle(guiRobot, primaryStage);
-    }
-
-    private void useF1Accelerator() {
+    /**
+     * Opens the {@code HelpWindow} by pressing the shortcut key associated
+     * with the menu bar in {@code MainWindow}.
+     */
+    public void openHelpWindowUsingAccelerator() {
         guiRobot.push(KeyCode.F1);
-        guiRobot.sleep(500);
+    }
+
+    /**
+     * Clicks on {@code menuItems} in order.
+     */
+    private void clickOnMenuItemsSequentially(String... menuItems) {
+        Arrays.stream(menuItems).forEach(guiRobot::clickOn);
     }
 }

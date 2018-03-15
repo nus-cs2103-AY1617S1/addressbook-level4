@@ -1,19 +1,20 @@
 package seedu.address.commons.util;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+
+import seedu.address.commons.core.Config;
+import seedu.address.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 
@@ -26,8 +27,8 @@ public class ConfigUtilTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void read_null_assertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
+    public void read_null_throwsNullPointerException() throws DataConversionException {
+        thrown.expect(NullPointerException.class);
         read(null);
     }
 
@@ -75,25 +76,23 @@ public class ConfigUtilTest {
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
         config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setAddressBookFilePath("addressbook.xml");
-        config.setAddressBookName("TypicalAddressBookName");
         return config;
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigUtil().readConfig(configFilePath);
+        return ConfigUtil.readConfig(configFilePath);
     }
 
     @Test
-    public void save_nullConfig_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void save_nullConfig_throwsNullPointerException() throws IOException {
+        thrown.expect(NullPointerException.class);
         save(null, "SomeFile.json");
     }
 
     @Test
-    public void save_nullFile_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void save_nullFile_throwsNullPointerException() throws IOException {
+        thrown.expect(NullPointerException.class);
         save(new Config(), null);
     }
 
@@ -102,24 +101,23 @@ public class ConfigUtilTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        ConfigUtil configUtil = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configUtil.saveConfig(original, configFilePath);
-        Config readBack = configUtil.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        Config readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configUtil.saveConfig(original, configFilePath);
-        readBack = configUtil.readConfig(configFilePath).get();
+        ConfigUtil.saveConfig(original, configFilePath);
+        readBack = ConfigUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigUtil().saveConfig(config, configFilePath);
+        ConfigUtil.saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

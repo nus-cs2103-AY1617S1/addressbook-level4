@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -8,23 +9,21 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Phone {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Phone numbers can only contain numbers, and should be at least 3 digits long";
+    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
-     * Validates given phone number.
+     * Constructs a {@code Phone}.
      *
-     * @throws IllegalValueException if given phone string is invalid.
+     * @param phone A valid phone number.
      */
-    public Phone(String phone) throws IllegalValueException {
-        assert phone != null;
-        String trimmedPhone = phone.trim();
-        if (!isValidPhone(trimmedPhone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
-        }
-        this.value = trimmedPhone;
+    public Phone(String phone) {
+        requireNonNull(phone);
+        checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
+        this.value = phone;
     }
 
     /**

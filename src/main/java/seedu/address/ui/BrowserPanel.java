@@ -1,62 +1,60 @@
 package seedu.address.ui;
 
-import javafx.event.Event;
-import javafx.scene.Node;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
-import seedu.address.commons.util.FxViewUtil;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LogsCenter;
-
+import java.net.URL;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
+import javafx.scene.web.WebView;
+import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart{
+public class BrowserPanel extends UiPart<Region> {
 
-    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    public static final String DEFAULT_PAGE = "default.html";
+    public static final String SEARCH_PAGE_URL =
+            "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
+
+    private static final String FXML = "BrowserPanel.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
+
+    @FXML
     private WebView browser;
 
+    public BrowserPanel() {
+        super(FXML);
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        getRoot().setOnKeyPressed(Event::consume);
+
+        loadDefaultPage();
+        registerAsAnEventHandler(this);
+    }
+
+    private void loadPersonPage(Person person) {
+        loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    }
+
+    public void loadPage(String url) {
+        Platform.runLater(() -> browser.getEngine().load(url));
+    }
+
     /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
+     * Loads a default HTML file with a background that matches the general theme.
      */
-    private BrowserPanel() {
-
-    }
-
-    @Override
-    public void setNode(Node node) {
-        //not applicable
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return null; //not applicable
-    }
-
-    /**
-     * Factory method for creating a Browser Panel.
-     * This method should be called after the FX runtime is initialized and in FX application thread.
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
-     */
-    public static BrowserPanel load(AnchorPane placeholder){
-        logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the
-                                                     // loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
-        return browserPanel;
-    }
-
-    public void loadPersonPage(ReadOnlyPerson person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
-    }
-
-    public void loadPage(String url){
-        browser.getEngine().load(url);
+    private void loadDefaultPage() {
+        URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        loadPage(defaultPage.toExternalForm());
     }
 
     /**
@@ -66,4 +64,9 @@ public class BrowserPanel extends UiPart{
         browser = null;
     }
 
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonPage(event.getNewSelection().person);
+    }
 }

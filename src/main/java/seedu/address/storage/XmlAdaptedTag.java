@@ -1,9 +1,9 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlValue;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-
-import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted version of the Tag.
@@ -11,12 +11,20 @@ import javax.xml.bind.annotation.XmlValue;
 public class XmlAdaptedTag {
 
     @XmlValue
-    public String tagName;
+    private String tagName;
 
     /**
-     * No-arg constructor for JAXB use.
+     * Constructs an XmlAdaptedTag.
+     * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedTag() {}
+
+    /**
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     */
+    public XmlAdaptedTag(String tagName) {
+        this.tagName = tagName;
+    }
 
     /**
      * Converts a given Tag into this class for JAXB use.
@@ -33,7 +41,22 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Tag toModelType() throws IllegalValueException {
+        if (!Tag.isValidTagName(tagName)) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
         return new Tag(tagName);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedTag)) {
+            return false;
+        }
+
+        return tagName.equals(((XmlAdaptedTag) other).tagName);
+    }
 }

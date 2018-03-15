@@ -1,29 +1,33 @@
 package seedu.address.model.person;
 
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
-    
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
-    public static final String ADDRESS_VALIDATION_REGEX = ".+";
+
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
+            "Person addresses can take any values, and it should not be blank";
+
+    /*
+     * The first character of the address must not be a whitespace,
+     * otherwise " " (a blank string) becomes a valid input.
+     */
+    public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;
 
     /**
-     * Validates given address.
+     * Constructs an {@code Address}.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @param address A valid address.
      */
-    public Address(String address) throws IllegalValueException {
-        assert address != null;
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
-        }
+    public Address(String address) {
+        requireNonNull(address);
+        checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
         this.value = address;
     }
 

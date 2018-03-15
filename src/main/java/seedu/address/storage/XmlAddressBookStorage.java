@@ -1,15 +1,18 @@
 package seedu.address.storage;
 
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -20,12 +23,17 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlAddressBookStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getAddressBookFilePath() {
         return filePath;
+    }
+
+    @Override
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(filePath);
     }
 
     /**
@@ -35,7 +43,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
-        assert filePath != null;
+        requireNonNull(filePath);
 
         File addressBookFile = new File(filePath);
 
@@ -44,9 +52,18 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        try {
+            return Optional.of(xmlAddressBook.toModelType());
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + addressBookFile + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
+    }
 
-        return Optional.of(addressBookOptional);
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, filePath);
     }
 
     /**
@@ -54,21 +71,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        assert addressBook != null;
-        assert filePath != null;
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
     }
 
-    @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
-    }
 }

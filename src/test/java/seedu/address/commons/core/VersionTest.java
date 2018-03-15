@@ -1,11 +1,11 @@
 package seedu.address.commons.core;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class VersionTest {
     @Rule
@@ -51,7 +51,8 @@ public class VersionTest {
 
     @Test
     public void versionComparable_validVersion_compareToIsCorrect() {
-        Version one, another;
+        Version one;
+        Version another;
 
         // Tests equality
         one = new Version(0, 0, 0, true);

@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,6 +17,10 @@ public class FileUtil {
         return file.exists() && file.isFile();
     }
 
+    /**
+     * Creates a file if it does not exist along with its missing parent directories.
+     * @throws IOException if the file or directory cannot be created.
+     */
     public static void createIfMissing(File file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);
@@ -80,8 +86,7 @@ public class FileUtil {
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
-        assert pathWithForwardSlash != null;
-        assert pathWithForwardSlash.contains("/");
+        checkArgument(pathWithForwardSlash.contains("/"));
         return pathWithForwardSlash.replace("/", File.separator);
     }
 

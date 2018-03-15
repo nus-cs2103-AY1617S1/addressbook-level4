@@ -1,23 +1,21 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
@@ -25,7 +23,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     private List<XmlAdaptedTag> tags;
 
     /**
-     * Empty constructor required for marshalling
+     * Creates an empty XmlSerializableAddressBook.
+     * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
@@ -41,56 +40,34 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        UniqueTagList lists = new UniqueTagList();
+    /**
+     * Converts this addressbook into the model's {@code AddressBook} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
+     * {@code XmlAdaptedPerson} or {@code XmlAdaptedTag}.
+     */
+    public AddressBook toModelType() throws IllegalValueException {
+        AddressBook addressBook = new AddressBook();
         for (XmlAdaptedTag t : tags) {
-            try {
-                lists.add(t.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
+            addressBook.addTag(t.toModelType());
         }
-        return lists;
-    }
-
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
         for (XmlAdaptedPerson p : persons) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
+            addressBook.addPerson(p.toModelType());
         }
-        return lists;
+        return addressBook;
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return persons.stream().map(p -> {
-            try {
-                return p.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
 
-    @Override
-    public List<Tag> getTagList() {
-        return tags.stream().map(t -> {
-            try {
-                return t.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
+        if (!(other instanceof XmlSerializableAddressBook)) {
+            return false;
+        }
 
+        XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
+        return persons.equals(otherAb.persons) && tags.equals(otherAb.tags);
+    }
 }

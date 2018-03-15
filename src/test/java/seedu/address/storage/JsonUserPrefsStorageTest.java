@@ -1,20 +1,20 @@
 package seedu.address.storage;
 
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.model.UserPrefs;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
@@ -27,8 +27,8 @@ public class JsonUserPrefsStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readUserPrefs_nullFilePath_assertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
+    public void readUserPrefs_nullFilePath_throwsNullPointerException() throws DataConversionException {
+        thrown.expect(NullPointerException.class);
         readUserPrefs(null);
     }
 
@@ -60,8 +60,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
-        UserPrefs expected = new UserPrefs();
-        expected.setGuiSettings(1000, 500, 300, 100);
+        UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
         assertEquals(expected, actual);
     }
@@ -74,28 +73,42 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
-        UserPrefs expected = new UserPrefs();
-        expected.setGuiSettings(1000, 500, 300, 100);
+        UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
 
         assertEquals(expected, actual);
     }
 
+    private UserPrefs getTypicalUserPrefs() {
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setGuiSettings(1000, 500, 300, 100);
+        userPrefs.setAddressBookFilePath("addressbook.xml");
+        userPrefs.setAddressBookName("TypicalAddressBookName");
+        return userPrefs;
+    }
+
     @Test
-    public void savePrefs_nullPrefs_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void savePrefs_nullPrefs_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         saveUserPrefs(null, "SomeFile.json");
     }
 
     @Test
-    public void saveUserPrefs_nullFilePath_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void saveUserPrefs_nullFilePath_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         saveUserPrefs(new UserPrefs(), null);
     }
 
-    private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) throws IOException {
-        new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
-                .saveUserPrefs(userPrefs);
+    /**
+     * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
+     */
+    private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
+        try {
+            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
+                    .saveUserPrefs(userPrefs);
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file", ioe);
+        }
     }
 
     @Test

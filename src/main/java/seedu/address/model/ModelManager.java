@@ -1,18 +1,23 @@
 package seedu.address.model;
 
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.person.Contact;
+import seedu.address.model.person.Lead;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonWrongType;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -25,27 +30,20 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
-        assert src != null;
-        assert userPrefs != null;
+        requireAllNonNull(addressBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.addressBook = new AddressBook(addressBook);
+        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
     }
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
-    }
-
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
     @Override
@@ -65,89 +63,68 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
-        updateFilteredListToShowAll();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updatePerson(Person target, Person editedPerson)
+            throws DuplicatePersonException, PersonNotFoundException {
+        requireAllNonNull(target, editedPerson);
+
+        addressBook.updatePerson(target, editedPerson);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void convertPerson(Lead lead, Contact contact)
+            throws DuplicatePersonException, PersonNotFoundException, PersonWrongType {
+        requireAllNonNull(lead, contact);
+
+        addressBook.updatePerson(lead, contact);
+        indicateAddressBookChanged();
+    }
     //=========== Filtered Person List Accessors =============================================================
 
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * {@code addressBook}
+     */
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public ObservableList<Person> getFilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering =================================================
-
-    interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
         }
 
-        @Override
-        public boolean satisfies(ReadOnlyPerson person) {
-            return qualifier.run(person);
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
         }
 
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyPerson person);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyPerson person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return addressBook.equals(other.addressBook)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

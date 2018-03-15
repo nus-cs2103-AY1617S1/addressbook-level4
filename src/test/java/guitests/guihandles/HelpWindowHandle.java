@@ -1,28 +1,34 @@
 package guitests.guihandles;
 
+import java.net.URL;
+
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
 /**
- * Provides a handle to the help window of the app.
+ * A handle to the {@code HelpWindow} of the application.
  */
-public class HelpWindowHandle extends GuiHandle {
+public class HelpWindowHandle extends StageHandle {
 
-    private static final String HELP_WINDOW_TITLE = "Help";
-    private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
+    public static final String HELP_WINDOW_TITLE = "Help";
 
-    public HelpWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, HELP_WINDOW_TITLE);
-        guiRobot.sleep(1000);
+    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
+
+    public HelpWindowHandle(Stage helpWindowStage) {
+        super(helpWindowStage);
     }
 
-    public boolean isWindowOpen() {
-        return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null;
+    /**
+     * Returns true if a help window is currently present in the application.
+     */
+    public static boolean isWindowPresent() {
+        return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
     }
 
-    public void closeWindow() {
-        super.closeWindow();
-        guiRobot.sleep(500);
+    /**
+     * Returns the {@code URL} of the currently loaded page.
+     */
+    public URL getLoadedUrl() {
+        return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
     }
-
 }
